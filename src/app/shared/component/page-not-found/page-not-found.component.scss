@@ -1,0 +1,24 @@
+.main-container {
+    font-family: Poppins;
+    letter-spacing: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    .error-code {
+        font-size: 36px;
+        font-family: Poppins;
+        height: 54px;
+        font-weight: 600;
+    }
+
+    .error-message {
+        line-height: 21px;
+        font-weight: 400;
+        font-size: 14px;
+        width: 399px;
+        text-align: center;
+    }
+}

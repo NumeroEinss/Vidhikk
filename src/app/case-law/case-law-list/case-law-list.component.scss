@@ -1,0 +1,254 @@
+.root {
+    .filter-bar {
+        background-color: #F6F6F6;
+        width: 100%;
+        position: relative;
+        display: flex;
+        height: 47px;
+        padding: 0px 18px;
+
+        .pretext {
+            display: flex;
+            align-items: center;
+
+            .records {
+                font-size: 14px;
+                font-family: Poppins;
+                color: #8798AD;
+            }
+        }
+
+        .posttext {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        img {
+            margin-right: 30px;
+            cursor: pointer;
+        }
+    }
+
+    .mat-mdc-tab-body {
+        max-width: unset !important;
+    }
+
+    .case-container {
+        font-family: Poppins;
+        padding: 20px 47px;
+        border-bottom: 2px solid #2E5BFF0D;
+
+        .title {
+            height: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 13px;
+        }
+
+        .desc {
+            font-size: 14px;
+            color: #8798AD;
+            margin-bottom: 9px;
+        }
+
+        .sub-desc {
+            display: flex;
+            line-height: normal;
+            margin-bottom: 9px;
+
+            .court {
+                color: #2E5BFF;
+                font-size: 14px;
+                margin-right: 4px;
+                font-weight: 700;
+            }
+
+            .bench {
+                font-size: 14px;
+                font-weight: 700;
+                color: black;
+            }
+
+            .cited {
+                font-size: 14px;
+                font-weight: 700;
+                color: black;
+            }
+        }
+
+        hr {
+            :last-child {
+                display: none;
+            }
+        }
+    }
+
+    .app-resp-container {
+        font-family: Poppins;
+        padding: 20px 47px;
+        // border-bottom: 2px solid #2E5BFF0D;
+
+        .title {
+            flex-grow: 0;
+            margin: 0 231px 24px 0;
+            font-family: Poppins;
+            font-size: 24px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: #000;
+        }
+
+        img {
+            margin-right: 10px;
+        }
+
+        .mat-label {
+            flex-grow: 0;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: var(--solid-black);
+            padding-bottom: 8px;
+        }
+    }
+
+    .judge-wise {
+        font-family: Poppins;
+        padding: 20px 47px;
+        // border-bottom: 2px solid #2E5BFF0D;
+
+        .title {
+            flex-grow: 0;
+            margin: 0 231px 24px 0;
+            font-family: Poppins;
+            font-size: 24px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: #000;
+        }
+
+        img {
+            margin-right: 10px;
+        }
+
+        .mat-label {
+            flex-grow: 0;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: var(--solid-black);
+            padding-bottom: 8px;
+        }
+    }
+
+    .citation-wise {
+        font-family: Poppins;
+        padding: 20px 47px;
+        // border-bottom: 2px solid #2E5BFF0D;
+
+        .title {
+            flex-grow: 0;
+            margin: 0 231px 24px 0;
+            font-family: Poppins;
+            font-size: 24px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: #000;
+        }
+
+        img {
+            margin-right: 10px;
+        }
+
+        .mat-label {
+            flex-grow: 0;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 400;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: var(--solid-black);
+            padding-bottom: 8px;
+        }
+
+
+    }
+
+    mat-form-field {
+        width: 357px;
+    }
+
+    .bare-acts {
+        .acts {
+            height: 59px;
+            width: -webkit-fill-available;
+            flex-grow: 0;
+            padding: 20px 48px;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: var(--solid-black);
+            border-bottom: 0.5px solid #2e5bff0d;
+        }
+
+        .acts:hover {
+            color: #2E5BFF;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out;
+        }
+
+    }
+
+}
+
+.list-container {
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    background-color: #fbfbfb;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #C4C4C4;
+    border-radius: 2px;
+}
+
+.mat-mdc-menu-item {
+    padding: unset !important;
+}
