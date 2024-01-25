@@ -1,0 +1,108 @@
+<!-- Header -->
+<app-header [menuName]="'Case Diary'"></app-header>
+<div class="root">
+     <div class="create-case-diary">
+          <div class="create-case-diary-heading">Create Case Diary</div>
+          <div class="create-case-diary-fields">
+               <div class="d-flex" style="flex-direction: column;">
+                    <mat-label class="mat-label">Registration Date</mat-label>
+                    <mat-form-field appearance="outline">
+                         <input matInput placeholder="Type Registration Date">
+                    </mat-form-field>
+
+                    <mat-label class="mat-label">Court Name</mat-label>
+                    <mat-form-field appearance="outline">
+                         <mat-select placeholder="Select Court" required>
+                              <mat-option *ngFor="let court of courtNameList" [value]="court.value">
+                                   {{ court.viewValue }}
+                              </mat-option>
+                              <mat-option>Select</mat-option>
+                         </mat-select>
+                    </mat-form-field>
+
+                    <mat-label class="mat-label">Case No.</mat-label>
+                    <mat-form-field appearance="outline">
+                         <input matInput placeholder="Type Case Number">
+                    </mat-form-field>
+
+
+                    <mat-label class="mat-label">Case Stage</mat-label>
+                    <mat-form-field appearance="outline">
+                         <mat-select placeholder="Select Stage" required>
+                              <mat-option *ngFor="let stage of stages" [value]="stage.value">
+                                   {{ stage.viewValue }}
+                              </mat-option>
+                              <mat-option>Select</mat-option>
+                         </mat-select>
+                    </mat-form-field>
+
+                    <mat-label class="mat-label">City</mat-label>
+                    <mat-form-field appearance="outline">
+                         <mat-select placeholder="Select City" required>
+                              <mat-option *ngFor="let city of cities" [value]="city.value">
+                                   {{ city.viewValue }}
+                              </mat-option>
+                              <mat-option>Select</mat-option>
+                         </mat-select>
+                    </mat-form-field>
+
+                    <mat-label class="mat-label">Reason for Absent</mat-label>
+                    <mat-form-field appearance="outline">
+                         <input matInput placeholder="Type Reason for Absent">
+                    </mat-form-field>
+               </div>
+               <div class="d-flex" style="flex-direction: column;">
+                    <mat-label class="mat-label">Applicant Name</mat-label>
+                    <mat-form-field appearance="outline">
+                         <input matInput placeholder="Type Applicant Name">
+                    </mat-form-field>
+
+                    <mat-label class="mat-label">Respondent Name</mat-label>
+                    <mat-form-field appearance="outline">
+                         <input matInput placeholder="Type Respondent Name">
+                    </mat-form-field>
+
+                    <mat-label class="mat-label">Next Hearing Date</mat-label>
+                    <mat-form-field appearance="outline">
+                         <input matInput placeholder="Type Next Hearing Date">
+                    </mat-form-field>
+
+                    <mat-label class="mat-label">Application Type</mat-label>
+                    <mat-form-field appearance="outline">
+                         <mat-select placeholder="Select Application type" required>
+                              <mat-option *ngFor="let type of applicationType" [value]="type.value">
+                                   {{ type.viewValue }}
+                              </mat-option>
+                              <mat-option>Select</mat-option>
+                         </mat-select>
+                    </mat-form-field>
+
+                    <mat-label class="mat-label">Application Section</mat-label>
+                    <mat-form-field appearance="outline">
+                         <mat-select placeholder="Select Application Section" required>
+                              <mat-option *ngFor="let section of applicationSection" [value]="section.value">
+                                   {{ section.viewValue }}
+                              </mat-option>
+                              <mat-option>Select</mat-option>
+                         </mat-select>
+                    </mat-form-field>
+
+                    <mat-label class="mat-label">Upload Documents</mat-label>
+                    <input type="file" class="file-upload">
+
+                    <!-- <ngx-mat-file-input formControlName="basicfile" placeholder="Basic Input"></ngx-mat-file-input>
+                    <mat-icon matSuffix>folder</mat-icon> -->
+
+               </div>
+          </div>
+          <div class="lower-div">
+               <button type="button" class="btn btn-primary"
+                    style="width:110px; height: 40px; border-radius: 12px;"><span
+                         matPrefix><mat-icon>done</mat-icon></span>Submit</button>
+
+               <button mat-stroked-button color="primary mx-3"
+                    style="width:100px; height: 40px; border-radius: 12px; "><span style="color:#2E5BFF;"><span
+                              matPrefix><mat-icon>restart_alt</mat-icon></span>reset</span></button>
+          </div>
+     </div>
+</div>

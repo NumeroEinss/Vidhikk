@@ -1,0 +1,60 @@
+<!-- Header -->
+<app-header [menuName]="'Case Diary'"></app-header>
+
+<!-- main content -->
+<div class="root">
+
+     <div class="case-diary-image">
+          <div class="case-diary-repo">Legal Cases Repository</div>
+          <div class="case-diary-l">Create a Case Empowering Your Legal Journey</div>
+          <div class="case-diary-img"><img src="../../../assets/images/object.png" alt="NoImage" /></div>
+          <div><button type="button" class="btn btn-primary" routerLink="/case-diary/create-case-diary"><span
+                         matPrefix><mat-icon>edit</mat-icon></span>Create</button></div>
+     </div>
+     <div class="case-diary-list"></div>
+
+     <!-- <div>
+          <div class="case-diary-list">
+               <div class="item1">
+                    <mat-form-field appearance="outline">
+                         <span matPrefix><img src="../../../assets/images/case-diary.svg" class="ms-3"></span>
+                         <mat-select placeholder="Case Diary" required>
+                              <mat-option *ngFor="let case of caseDiary" [value]="case.value">
+                                   {{ case.viewValue }}
+                              </mat-option>
+                              <mat-option>Select</mat-option>
+                         </mat-select>
+                    </mat-form-field>
+               </div>
+
+               <div class="item2">
+                    <mat-form-field appearance="outline">
+                         <input matInput formControlName="password" placeholder="Search Case Diary" required>
+                         <span matSuffix><mat-icon style="color: #2E5BFF;">search</mat-icon></span>
+                    </mat-form-field>
+               </div>
+
+
+               <div class="item3">
+                    <button mat-stroked-button color="primary" style="border-radius: 12px; "><img
+                              src="../../../assets/images/sub-diary.svg"><span style="color:#2E5BFF;"></span>Create Sub
+                         Diary</button>
+               </div>
+          </div>
+
+          <table>
+               <tr>
+                    <th>REG. DATE</th>
+                    <th>COURT NAME</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+               </tr>
+          </table>
+     </div> -->
+
+</div>

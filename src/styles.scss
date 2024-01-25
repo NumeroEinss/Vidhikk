@@ -19,7 +19,7 @@ body {
 
     // Css for Root Container of every Component
     .root {
-        padding: 10px 0px 0px 0px;
+        // padding: 10px 0px 0px 0px;
         margin-bottom: 50px;
     }
 
@@ -92,6 +92,7 @@ body {
         letter-spacing: normal;
         text-align: left;
         color: #2E5BFF !important;
+        font-weight: 400;
     }
 
     .mat-mdc-tab .mdc-tab__text-label {
@@ -109,7 +110,8 @@ body {
         line-height: normal;
         letter-spacing: normal;
         text-align: left;
-        color: #c4c4c4;
+        color: #00000099;
+        font-weight: 400;
     }
 
     .forgot-password {
@@ -132,6 +134,16 @@ body {
         letter-spacing: normal;
         font-size: 14px;
         background-color: #2E5BFF;
+    }
+
+    .mat-mdc-raised-button:disabled {
+        height: 40px;
+        border-radius: 12px;
+        width: 357px !important;
+        font-family: Poppins;
+        max-width: -webkit-fill-available;
+        letter-spacing: normal;
+        font-size: 14px;
     }
 
     .mat-mdc-outlined-button:not(:disabled) {
@@ -226,7 +238,7 @@ body {
         .modal-content {
             border-radius: 0px;
             border: none;
-            box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 rgba(5, 59, 255, 0.08);
+            box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
             background-color: #ffffff;
         }
     }
@@ -305,14 +317,14 @@ body {
     // mat-select overlay Override Css
     .mat-elevation-z8,
     .mat-mdc-elevation-specific.mat-elevation-z8 {
-        box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 rgba(5, 59, 255, 0.08);
+        box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
         position: relative;
         top: 10%;
     }
 
     // mat-select overlay-root Override Css
     .mat-mdc-select-panel {
-        box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 rgba(5, 59, 255, 0.08);
+        box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
         border-radius: 12px;
     }
 
@@ -362,5 +374,9 @@ body {
 
     .mat-mdc-tab-body-content {
         overflow: hidden !important;
+    }
+
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__leading:hover {
+        border-right: none;
     }
 }

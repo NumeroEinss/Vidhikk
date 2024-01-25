@@ -1,0 +1,174 @@
+<!-- Header Part -->
+<app-header [menuName]="'Profile'"></app-header>
+
+<div class="root">
+     <!-- SideNav of  User Profile -->
+     <div class="profile-container">
+          <div class="profile-sidenav col-lg-3">
+               <li id="basic-nav">
+                    <a (click)="addStyling('basic-nav');addShadow('basic-info')">
+                         Basic Info</a>
+               </li>
+               <li id="organization-nav">
+                    <a (click)="addStyling('organization-nav');addShadow('orgainization-info')">
+                         Organization Info</a>
+               </li>
+               <li id="subscription-nav">
+                    <a (click)="addStyling('subscription-nav');addShadow('subscription')">
+                         Subscriptions Details</a>
+               </li>
+               <li id="password-nav">
+                    <a (click)="addStyling('password-nav');addShadow('password&security')">
+                         Password & Security</a>
+               </li>
+          </div>
+
+          <!-- Main Content of  User Profile -->
+          <div class="main-content col-lg-9">
+
+               <!-- Basic-Info -->
+               <div class="basic-info" id="basic-info">
+                    <div class="basic-info-head">
+                         <h4>Basic Info</h4>
+                         <button mat-stroked-button color="primary"><span style="color:#2E5BFF;">Edit</span></button>
+                    </div>
+                    <div class="description">Core competency lies in law and politics, with extensive experience in
+                         constitutional matters,
+                         litigation, and strategic
+                         policymaking, contributing significantly to legal and political discourse.
+                    </div>
+                    <div class="user-details">
+                         <div><img src="../../../../assets/images/anurag_goyal.jpg" class="user-profile"></div>
+
+                         <div>
+                              <div>
+                                   <div class="user-details-1">Name</div>
+                                   <div class="user-details-2">Anurag Goyal</div>
+                              </div>
+                              <div>
+                                   <div class="user-details-1">Mobile number</div>
+                                   <div class="user-details-2">213-456-7980</div>
+                              </div>
+                              <div>
+                                   <div class="user-details-1">Address</div>
+                                   <div class="user-details-2">Addrerss Here</div>
+                              </div>
+                         </div>
+
+                         <div>
+                              <div>
+                                   <div class="user-details-1">father's Name</div>
+                                   <div class="user-details-2">father's Name Here</div>
+                              </div>
+                              <div>
+                                   <div class="user-details-1">Email</div>
+                                   <div class="user-details-2">Email Here</div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+
+               <!-- Organization-Info -->
+               <div class="basic-info" id="orgainization-info">
+                    <div class="basic-info-head">
+                         <h4>Organization Info</h4>
+                    </div>
+
+                    <div class="user-details">
+                         <div><img src="../../../../assets/images/organization.png" class="user-profile"></div>
+
+                         <div>
+                              <div>
+                                   <div class="user-details-1">Organization Name</div>
+                                   <div class="user-details-2">Anurag Law Firm</div>
+                              </div>
+                              <div>
+                                   <div class="user-details-1">Name of State Bar</div>
+                                   <div class="user-details-2">Name Here</div>
+                              </div>
+                              <div>
+                                   <div class="user-details-1">Name of Practicing Area</div>
+                                   <div class="user-details-2">Name Here</div>
+                              </div>
+                         </div>
+
+                         <div>
+                              <div>
+                                   <div class="user-details-1">Branch Name/Address</div>
+                                   <div class="user-details-2">Indore, Mp</div>
+                              </div>
+                              <div>
+                                   <div class="user-details-1">Licence Number</div>
+                                   <div class="user-details-2">213-456-7980</div>
+                              </div>
+                         </div>
+
+                         <div>
+                              <div>
+                                   <div class="user-details-1">Year of Practise</div>
+                                   <div class="user-details-2">12</div>
+                              </div>
+                              <div>
+                                   <div class="user-details-1">Name of Practicing Court</div>
+                                   <div class="user-details-2">Name Here</div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+
+               <!-- Subscription-Info -->
+               <div class="basic-info" id="subscription" style="height: 150px !important;">
+                    <div class="basic-info-head">
+                         <h4>Subscription</h4>
+                         <button mat-stroked-button color="primary"><span>Edit</span></button>
+                    </div>
+                    <div class="description">To change your password, you'll need to verify the current one first. Then
+                         create a password you're not using elsewhere,
+                         and be sure to change it regularly as well as anytime you suspect it's been compromised.
+                    </div>
+               </div>
+
+               <!-- Password & Security -->
+               <div class="basic-info" id="password&security" style="height: 250px !important; margin-bottom: 20px;">
+                    <div class="basic-info-head">
+                         <h4>Password & Security</h4>
+                    </div>
+                    <div class="description">To change your password, you'll need to verify the current one first. Then
+                         create a password you're not using elsewhere,
+                         and be sure to change it regularly as well as anytime you suspect it's been compromised.
+                    </div>
+                    <div class="user-details">
+                         <div class="user-details-1a">
+                              <div>Current Password</div>
+                              <form>
+                                   <mat-form-field style="outline: none; background-color: white !important; ">
+                                        <input type="text" matInput placeholder="############"
+                                             style="border-style: none;">
+                                        <!-- <mat-error *ngIf="signupForm2.controls['orgainization'].hasError('required')" >Name of Orgainization is
+                                        Required</mat-error>  -->
+                                   </mat-form-field>
+                                   <div style="margin-top:-10px ;"><a>Change Password</a></div>
+                              </form>
+
+                         </div>
+                         <div class="user-details-1a">
+                              <div>Current Password Case Dairy</div>
+                              <form>
+                                   <mat-form-field style="outline: none; background-color: white !important; ">
+                                        <input type="text" matInput placeholder="############"
+                                             style="border-style: none; ">
+                                        <!-- <mat-error *ngIf="signupForm2.controls['orgainization'].hasError('required')" >Name of Orgainization is
+                                                                 Required</mat-error>  -->
+                                   </mat-form-field>
+                                   <div style="margin-top:-10px ;"><a>Change Password</a></div>
+                              </form>
+
+                         </div>
+
+                    </div>
+
+               </div>
+
+          </div>
+     </div>
+</div>

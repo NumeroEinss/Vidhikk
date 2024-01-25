@@ -46,7 +46,7 @@
                 </mat-menu>
             </div>
             <!-- Case Law List -->
-            <div class="case-container" *ngFor="let item of caseList">
+            <div class="case-container" *ngFor="let item of caseList" (click)="viewCase('edadsfalkdlk2jkldas2255E')">
                 <div class="title">
                     {{item.caseTitle}}
                 </div>
@@ -54,9 +54,9 @@
                     {{item.caseDesc}}
                 </div>
                 <div class="sub-desc">
-                    <div class="court">{{item.court}} | </div>
-                    <div class="bench">Bench : {{item.bench|uppercase}} | </div>
-                    <div class="cited">Cited : {{item.cited}}</div>
+                    <div class="court">{{item.court}} </div>|
+                    <div class="bench">&nbsp;Bench : {{item.bench|uppercase}}&nbsp;</div>|
+                    <div class="cited">&nbsp;Cited : {{item.cited}}</div>
                 </div>
                 <div class="acts">
                     Acts : {{item.acts}}
@@ -82,7 +82,7 @@
                         style="width:124px !important;margin-right: 26px;display:flex;"><img
                             src="../../../assets/images/search-white.svg" />Search</button><br>
                     <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/reset.svg">Clear</button>
+                            src="../../../assets/images/reset.svg">Reset</button>
                 </div>
             </div>
         </mat-tab>
@@ -98,10 +98,17 @@
                     <mat-label class="mat-label">Select by Name List</mat-label>
                     <mat-form-field appearance="outline">
                         <mat-select placeholder="Select Judge" required>
-                            <!-- <mat-option *ngFor="let state of states" [value]="state.value">
-                            {{ state.viewValue }}
-                        </mat-option> -->
+                            <a (click)=" $event.stopPropagation();" style="text-decoration: none;">
+                                <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                                    <input #search matInput (keyup)="filterJudge($event)" placeholder="By Judge Name">
+                                    <span matSuffix><img class="me-2"
+                                            src="../../../assets/images/search-blue.svg"></span>
+                                </mat-form-field>
+                            </a>
                             <mat-option>Select</mat-option>
+                            <mat-option *ngFor="let state of filteredJudgeList" [value]="state.value">
+                                {{ state.name }}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -110,7 +117,7 @@
                         style="width:124px !important;margin-right: 26px;display:flex;"><img
                             src="../../../assets/images/search-white.svg" />Search</button><br>
                     <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/reset.svg">Clear</button>
+                            src="../../../assets/images/reset.svg">Reset</button>
                 </div>
             </div>
         </mat-tab>
@@ -167,7 +174,7 @@
                         style="width:124px !important;margin-right: 26px;display:flex;"><img
                             src="../../../assets/images/search-white.svg" />Search</button><br>
                     <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/reset.svg">Clear</button>
+                            src="../../../assets/images/reset.svg">Reset</button>
                 </div>
             </div>
         </mat-tab>
@@ -181,7 +188,7 @@
                     <div class="records">Found {{recordCount}} Cases</div>
                 </div>
                 <div class="posttext col-lg-6">
-                    <img src="../../../assets/images/search.svg">
+                    <img src="../../../assets/images/search-blue.svg">
                 </div>
             </div>
             <div class="bare-acts">
@@ -194,13 +201,61 @@
 
         <!-- Act & Section Wise -->
         <mat-tab label="Act & Section Wises">
-
+            <div class="act-section">
+                <div class="title">
+                    Act & Section Wise
+                </div>
+                <div class="d-flex mat-input-white" style="flex-direction: column;">
+                    <mat-label class="mat-label">Act Title</mat-label>
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Select Act Title" required>
+                            <mat-option>Select</mat-option>
+                            <mat-option *ngFor="let item of actList" value="item.value">{{item.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="d-flex mat-input-white" style="flex-direction: column;">
+                    <mat-label class="mat-label">Act Type</mat-label>
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Select Act Type" required>
+                            <mat-option>Select</mat-option>
+                            <mat-option *ngFor="let item of actTypeList" value="item.value">{{item.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="d-flex">
+                    <button mat-raised-button color="primary"
+                        style="width:124px !important;margin-right: 26px;display:flex;"><img
+                            src="../../../assets/images/search-white.svg" />Search</button><br>
+                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
+                            src="../../../assets/images/reset.svg">Reset</button>
+                </div>
+            </div>
         </mat-tab>
         <!-- Act & Section Wise Ends -->
 
         <!-- Words & Phrase -->
         <mat-tab label="Words & Phrases">
-
+            <div class="judge-wise">
+                <div class="title">
+                    Words & Phrases
+                </div>
+                <div class="d-flex mat-input-white" style="flex-direction: column;">
+                    <mat-label class="mat-label">Words & Phrases</mat-label>
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Select any word or phrases" required>
+                            <mat-option>Select</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="d-flex">
+                    <button mat-raised-button color="primary"
+                        style="width:124px !important;margin-right: 26px;display:flex;"><img
+                            src="../../../assets/images/search-white.svg" />Search</button><br>
+                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
+                            src="../../../assets/images/reset.svg">Reset</button>
+                </div>
+            </div>
         </mat-tab>
         <!--Words & Phrase Ends -->
 
@@ -212,7 +267,14 @@
                     <div class="records">Found {{recordCount}} Cases</div>
                 </div>
                 <div class="posttext col-lg-6">
-                    <img src="../../../assets/images/search.svg">
+                    <img src="../../../assets/images/search-blue.svg">
+                </div>
+            </div>
+            <div class="overruledby">
+                <div class="acts" *ngFor="let case of overruledList" (click)="viewCase('dfasd23Eddf112sdnb2')">
+                    <div class="current-attorney"> {{case.previousAttorney}}</div>
+                    <div class="overruled">Overruled By</div>
+                    <div class="previous-attorney">{{case.currentAttorney}}</div>
                 </div>
             </div>
         </mat-tab>
@@ -220,7 +282,40 @@
 
         <!-- Universal Search -->
         <mat-tab label="Universal Search">
-
+            <div class="citation-wise">
+                <div class="title">
+                    Citation Wise
+                </div>
+                <div class="d-flex mat-input-white" style="flex-direction: column;">
+                    <mat-label class="mat-label">All these words or phrase</mat-label>
+                    <mat-form-field appearance="outline">
+                        <input matInput placeholder="All these words in quotes dying">
+                    </mat-form-field>
+                    <mat-label class="mat-label">Search Within</mat-label>
+                    <mat-form-field appearance="outline">
+                        <input matInput placeholder="50">
+                    </mat-form-field>
+                    <mat-label class="mat-label">Any of these words</mat-label>
+                    <mat-form-field appearance="outline">
+                        <input matInput placeholder="Type All the words you want">
+                    </mat-form-field>
+                    <mat-label class="mat-label">None of these words</mat-label>
+                    <mat-form-field appearance="outline">
+                        <input matInput placeholder="Type All the words you don't want">
+                    </mat-form-field>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button value="1" checked>Judgement</mat-radio-button>
+                        <mat-radio-button value="2">HeadNote</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="d-flex">
+                    <button mat-raised-button color="primary"
+                        style="width:124px !important;margin-right: 26px;display:flex;"><img
+                            src="../../../assets/images/search-white.svg" />Search</button><br>
+                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
+                            src="../../../assets/images/reset.svg">Reset</button>
+                </div>
+            </div>
         </mat-tab>
         <!--Universal Ends -->
 

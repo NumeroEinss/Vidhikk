@@ -1,0 +1,82 @@
+.root {
+  .case-diary-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 105px;
+
+    .case-diary-repo {
+      width: 283px;
+      height: 32.8px;
+      flex-grow: 0;
+      font-family: Poppins;
+      font-size: 24px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: #000;
+    }
+
+    .case-diary-l {
+      width: 358px;
+      height: 18.9px;
+      flex-grow: 0;
+      margin: 17px 0 26.3px;
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: #000;
+    }
+
+    button {
+      width: 122px;
+      height: 45px;
+      flex-grow: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin: 36.2px 118px 0;
+      padding: 12px 24px;
+      border-radius: 12px;
+
+      .mat-icon {
+        padding-top: 8px;
+      }
+    }
+  }
+
+  // list-style
+  .case-diary-list {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+
+    .item1 {
+      // width: 180px;
+    }
+
+    .item2 {
+      .mat-mdc-form-field {
+        width: 700px !important;
+      }
+    }
+    .mat-mdc-outlined-button:not(:disabled) {
+      width: unset !important;
+    }
+
+    // .item3 {
+    //   button {
+    //   }
+    // }
+  }
+}

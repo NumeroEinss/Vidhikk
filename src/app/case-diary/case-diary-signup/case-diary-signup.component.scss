@@ -1,0 +1,62 @@
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 135px);
+
+  .case-diary-signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+    // padding: 20px;
+    width: 500px;
+    height: 500px;
+    flex-grow: 0;
+    border-radius: 12px;
+    box-shadow: 0 0 42px 0 rgba(46, 91, 255, 0.18);
+    background-color: var(--solid-white);
+
+    .upper-div {
+      width: 100%;
+      height: 48px;
+      background-color: #fbfbfb;
+    }
+
+    .login-text {
+      height: 36px;
+      flex-grow: 0;
+      font-family: Poppins;
+      font-size: 24px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: #000;
+      margin-left: -33px;
+    }
+
+    .sub-text {
+      width: 312px;
+      height: 18px;
+      flex-grow: 0;
+      margin-left: -33px;
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: #8798ad;
+    }
+
+    .mat-mdc-form-field {
+      display: grid;
+    }
+  }
+}

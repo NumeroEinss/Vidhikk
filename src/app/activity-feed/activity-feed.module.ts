@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ActivityFeedRoutingModule } from './activity-feed-routing.module';
 import { ActivityFeedComponent } from './activity-feed.component';
 import { SharedModule } from '../shared/shared.module';
+import { MaterialModule } from '../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,12 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     ActivityFeedRoutingModule,
-    SharedModule
+    SharedModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
-export class ActivityFeedModule { }
+export class ActivityFeedModule {
+
+}

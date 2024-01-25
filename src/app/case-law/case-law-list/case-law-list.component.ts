@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-case-law-list',
@@ -91,13 +92,117 @@ export class CaseLawListComponent {
     { name: "The Indian Penal Code, 1860" },
     { name: "The Indian Penal Code, 1860" },
     { name: "The Indian Penal Code, 1860" },
+  ];
+  overruledList = [
+    {
+      previousAttorney: "Karan Singh Vs Bhagwan Singh",
+      currentAttorney: "Shyam Sundar Vs Ram Kumar"
+    },
+    {
+      previousAttorney: "Shubhashis Vs Medical Council",
+      currentAttorney: "Medical Council Vs State of Rajasthan"
+    },
+    {
+      previousAttorney: "Rajiram Vs Ghisaram",
+      currentAttorney: "Shyam Sundar Vs Ram Kumar"
+    },
+    {
+      previousAttorney: "Sub Division Inspector of Post Vs Joseph",
+      currentAttorney: "AIR Vs Santosh Kumar"
+    },
+    {
+      previousAttorney: "Shubhashis Vs Medical Council",
+      currentAttorney: "Medical Council of India Vs State of Rajasthan"
+    },
+    {
+      previousAttorney: "Rajiram Vs Ghisaram",
+      currentAttorney: "Shyam Sundar Vs Ram Kumar"
+    }
+  ];
+  judgeList: any = [
+    {
+      name: 'Anoop Chitkara', value: 'nij'
+    },
+    {
+      name: 'Puneet Gupta', value: 'ocr'
+    },
+    {
+      name: 'Sunil Awasthi', value: 'olr'
+    },
+    {
+      name: 'Satyan Vaida', value: 'pccr'
+    },
+    {
+      name: 'A Ali', value: 'plj'
+    },
+    {
+      name: 'Jyotsana Dua', value: 'gcd'
+    },
+    {
+      name: 'Ajay Goel', value: 'gjh'
+    },
+    {
+      name: 'Anil Choudhary', value: 'ocr'
+    }
+  ];
+  filteredJudgeList: any = [];
+  actList = [
+    {
+      name: 'NIJ', value: 'nij'
+    },
+    {
+      name: 'OCR', value: 'ocr'
+    },
+    {
+      name: 'OLR', value: 'olr'
+    },
+    {
+      name: 'PCCR', value: 'pccr'
+    },
+    {
+      name: 'PLJ', value: 'plj'
+    },
+    {
+      name: 'GCD', value: 'gcd'
+    },
+    {
+      name: 'GJH', value: 'gjh'
+    },
+    {
+      name: 'ESC', value: 'ocr'
+    }
+  ];
+  actTypeList = [
+    {
+      name: '302', value: 'nij'
+    },
+    {
+      name: '379', value: 'ocr'
+    },
+    {
+      name: '504', value: 'olr'
+    },
+    {
+      name: '351', value: 'pccr'
+    },
+    {
+      name: '132020', value: 'plj'
+    },
+    {
+      name: 'S.110', value: 'gcd'
+    },
+    {
+      name: 'S.11(a)', value: 'gjh'
+    },
+    {
+      name: 'S.11(b)', value: 'ocr'
+    }
+  ];
 
-
-  ]
-
-  constructor() {
+  constructor(private _router: Router) {
     this.searchList = this.courtList;
     this.filteredJournalsList = this.journalList;
+    this.filteredJudgeList = this.judgeList;
   }
 
   tabSelectionChange(e: any) { }
@@ -126,5 +231,14 @@ export class CaseLawListComponent {
   filterJournal(e: any) {
     let filter = e.target.value.toLowerCase();
     this.filteredJournalsList = this.journalList.filter((key: any) => key.name.toLowerCase().startsWith(filter));
+  }
+
+  viewCase(caseId: any) {
+    this._router.navigate([`case-law/cases/view/${caseId}`])
+  }
+
+  filterJudge(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.filteredJudgeList = this.judgeList.filter((key: any) => key.name.toLowerCase().startsWith(filter));
   }
 }

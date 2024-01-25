@@ -1,0 +1,118 @@
+@media print {
+    body {
+        display: none !important;
+    }
+
+    // #section-to-print {
+    //     display: block;
+    //     position: absolute;
+    //     left: 0;
+    //     top: 0;
+    // }
+}
+
+.filter-bar {
+    background-color: #F6F6F6;
+    width: 100%;
+    position: relative;
+    display: flex;
+    height: 47px;
+    padding: 0px 18px;
+
+    .pretext {
+        display: flex;
+        align-items: center;
+
+        .records {
+            font-size: 14px;
+            font-family: Poppins;
+            color: #8798AD;
+        }
+    }
+
+    .posttext {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    img {
+        margin-right: 30px;
+        cursor: pointer;
+    }
+}
+
+
+.case-law-detail {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 47px 42px 0px 42px;
+    font-family: Poppins;
+
+    .header {
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #8798ad;
+    }
+
+    .highlighted-text {
+        font-size: 16px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #2E5BFF;
+        width: 100%;
+        margin-top: 68px;
+    }
+
+    .title {
+        font-size: 16px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: black;
+        width: 100%;
+    }
+
+    .description {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .desc-head {
+            width: 590px;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: center;
+            color: #282828;
+        }
+
+        .desc-body {
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: #282828;
+
+            .bold {
+                font-weight: bold;
+            }
+        }
+    }
+}

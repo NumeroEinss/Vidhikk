@@ -13,6 +13,14 @@ const routes: Routes = [
             {
                 path: 'activity-feed',
                 loadChildren: () => import('../activity-feed/activity-feed.module').then(m => m.ActivityFeedModule)
+            },
+            {
+                path: 'user-profile',
+                loadChildren: () => import('../user-profile/user-profile.module').then(m => m.UserProfileModule)
+            },
+            {
+                path: 'case-diary',
+                loadChildren: () => import('../case-diary/case-diary.module').then(m => m.CaseDiaryModule)
             }
         ]
     },

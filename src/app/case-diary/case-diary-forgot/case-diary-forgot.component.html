@@ -1,0 +1,64 @@
+<app-header [menuName]="'Case Diary'"></app-header>
+<div class="root">
+     <div class="case-diary-forgot">
+          <div class="upper-div"></div>
+          <div>
+               <div class="login-text mt-3">Forgot Password</div>
+               <div class="sub-text mt-3 mb-1">Create your password for case diary</div>
+          </div>
+
+          <form class="col mt-3" [formGroup]="caseDiaryForgotForm">
+               <mat-form-field appearance="outline" *ngIf="!isClicked">
+                    <span matPrefix><mat-icon>email</mat-icon></span>
+                    <input type="text" matInput placeholder="Enter email id" formControlName="email" required>
+                    <mat-error *ngIf="caseDiaryForgotForm.controls['email'].hasError('required')">Email is
+                         Required</mat-error>
+                    <mat-error *ngIf="!caseDiaryForgotForm.controls['email'].hasError('required') && 
+                                caseDiaryForgotForm.controls['email'].invalid">Email
+                         invalid</mat-error>
+               </mat-form-field>
+
+               <mat-form-field appearance="outline" *ngIf="isClicked">
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+                         placeholder="Enter New Password" required>
+                    <span matPrefix><mat-icon>lock</mat-icon></span>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                         [attr.aria-pressed]="hide">
+                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="caseDiaryForgotForm.controls['password'].errors?.['required']">Password is
+                         Required !!</mat-error>
+                    <mat-error
+                         *ngIf="!caseDiaryForgotForm.controls['password'].errors?.['required'] && caseDiaryForgotForm.controls['password'].invalid">Enter
+                         atleast 10 characters
+                         !!</mat-error>
+               </mat-form-field>
+
+               <mat-form-field appearance="outline" *ngIf="isClicked">
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword"
+                         placeholder="Confirm New Password" required>
+                    <span matPrefix><mat-icon>lock</mat-icon></span>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                         [attr.aria-pressed]="hide">
+                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="caseDiaryForgotForm.controls['confirmPassword'].errors?.['required']"> Confirm
+                         Password is
+                         Required !!</mat-error>
+                    <mat-error
+                         *ngIf="!caseDiaryForgotForm.controls['confirmPassword'].errors?.['required'] && caseDiaryForgotForm.controls['confirmPassword'].invalid">Enter
+                         atleast 10 characters
+                         !!</mat-error>
+               </mat-form-field>
+
+               <div class="text-center mt-3" *ngIf="!isClicked">
+                    <button mat-raised-button color="primary w-100" (click)="isClicked=!isClicked">Continue</button><br>
+               </div>
+
+               <div class="text-center mt-3" *ngIf="isClicked">
+                    <button mat-raised-button color="primary w-100"
+                         routerLink="/case-diary/case-diary-reset-password">Done</button><br>
+               </div>
+          </form>
+     </div>
+</div>
