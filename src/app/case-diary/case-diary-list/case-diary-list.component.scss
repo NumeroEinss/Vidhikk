@@ -56,27 +56,64 @@
   }
 
   // list-style
-  .case-diary-list {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
 
-    .item1 {
-      // width: 180px;
-    }
+  .main-div {
+    margin: 30px;
 
-    .item2 {
-      .mat-mdc-form-field {
-        width: 700px !important;
+    .case-diary-list {
+      display: flex;
+      justify-content: space-between;
+
+      .item2 {
+        .mat-mdc-form-field {
+          width: 700px !important;
+        }
+      }
+      .mat-mdc-outlined-button:not(:disabled) {
+        width: unset !important;
       }
     }
-    .mat-mdc-outlined-button:not(:disabled) {
-      width: unset !important;
-    }
 
-    // .item3 {
-    //   button {
-    //   }
-    // }
+    table {
+      border-radius: 5px rgb(200, 26, 26);
+      border-collapse: collapse;
+      // width: -wekit-fill-available;
+      width: 1150px;
+      margin-top: 10px;
+
+      th {
+        font-family: Inter;
+        font-size: 12px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: #8798ad;
+      }
+      .mat-icon {
+        width: 20px;
+        height: 20px;
+        margin: 10px 0 0 7px;
+        object-fit: contain;
+      }
+
+      tbody {
+        margin-top: 10px;
+        tr {
+          cursor: pointer;
+          border-color: #f5f5f5;
+          border-style: solid;
+          border-width: 1px;
+          border-radius: 22px;
+          // padding-bottom: 20px;
+          // margin-top: 50px;
+        }
+        // td {
+
+        // }
+      }
+    }
   }
 }

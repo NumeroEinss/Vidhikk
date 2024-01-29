@@ -1,382 +1,410 @@
 /* You can add global styles to this file, and also import other style files */
 
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
-$my-custom-level: mat.define-typography-level($font-family: Poppins,
-        $font-weight: 400,
-        $font-size: 14px,
-        $line-height: 1,
-        $letter-spacing: normal,
-    );
-
+$my-custom-level: mat.define-typography-level(
+  $font-family: Poppins,
+  $font-weight: 400,
+  $font-size: 14px,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
 
 html,
 body {
-    height: 100%;
-    overflow-x: hidden;
-    // font-family: 'Inter', sans-serif;
-    font-family: 'Poppins', sans-serif !important;
+  height: 100%;
+  overflow-x: hidden;
+  // font-family: 'Inter', sans-serif;
+  font-family: "Poppins", sans-serif !important;
 
-    // Css for Root Container of every Component
-    .root {
-        // padding: 10px 0px 0px 0px;
-        margin-bottom: 50px;
+  // Css for Root Container of every Component
+  .root {
+    // padding: 10px 0px 0px 0px;
+    margin-bottom: 50px;
+  }
+
+  .text-align-right {
+    text-align: right;
+  }
+
+  //input field override
+  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+    width: 20px;
+    border-radius: 12px 0 0 12px;
+    border-color: #ebebeb;
+    font-size: 14px;
+  }
+
+  //input field override
+  .mdc-text-field--outlined
+    .mdc-notched-outline
+    .mdc-notched-outline__trailing {
+    border-radius: 0 12px 12px 0;
+    border-color: #ebebeb;
+  }
+
+  .mat-mdc-form-field-icon-prefix {
+    .mat-icon {
+      color: #c4c4c4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 15px;
+    }
+  }
+
+  .mat-mdc-form-field-icon-suffix {
+    .mat-icon {
+      color: #c4c4c4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 32px;
+    }
+  }
+
+  .mat-mdc-text-field-wrapper {
+    background-color: #fbfbfb;
+    border-radius: 12px;
+    height: 40px;
+    // padding-top: 10px !important;
+    // padding-bottom: 10px !important;
+    font-size: 14px;
+
+    .mat-mdc-form-field-infix {
+      padding-top: 0px !important;
+    }
+  }
+  // .mat-mdc-form-field {
+  //   display: flex;
+  //   align-items: center;
+  // }
+
+  .mdc-text-field__input {
+    padding: 8px 10px;
+  }
+
+  .mat-mdc-form-field-flex {
+    display: contents;
+  }
+
+  .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    height: 18px;
+    flex-grow: 0;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #2e5bff !important;
+    font-weight: 400;
+  }
+
+  .mat-mdc-tab .mdc-tab__text-label {
+    color: var(--mat-tab-header-inactive-label-text-color);
+    display: inline-flex;
+    align-items: center;
+    /* width: 69px; */
+    height: 18px;
+    flex-grow: 0;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #00000099;
+    font-weight: 400;
+  }
+
+  .forgot-password {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #8798ad;
+  }
+  .forgot-password:hover {
+    color: #2e5bff;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .mat-mdc-raised-button:not(:disabled) {
+    height: 40px;
+    border-radius: 12px;
+    width: 357px !important;
+    font-family: Poppins;
+    max-width: -webkit-fill-available;
+    letter-spacing: normal;
+    font-size: 14px;
+    background-color: #2e5bff;
+  }
+
+  .mat-mdc-raised-button:disabled {
+    height: 40px;
+    border-radius: 12px;
+    width: 357px !important;
+    font-family: Poppins;
+    max-width: -webkit-fill-available;
+    letter-spacing: normal;
+    font-size: 14px;
+  }
+
+  .mat-mdc-outlined-button:not(:disabled) {
+    border-radius: 12px;
+    height: 40px;
+    border-color: #2e5bff !important;
+    width: 357px !important;
+    font-family: Poppins;
+    max-width: -webkit-fill-available;
+    letter-spacing: normal;
+    font-size: 14px;
+    // background-color: #053bff0d;
+    color: #2e5bff;
+  }
+
+  .resend-otp {
+    font-family: Poppins;
+    text-align: left;
+    color: #2e5bff;
+    margin: 10px;
+  }
+
+  .f-12 {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+  }
+
+  .gray-font {
+    color: #8798ad;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .red-font {
+    color: #ff2e2e;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .mat-mdc-raised-button.mat-primary:not(:disabled) {
+    background: #2e5bff;
+  }
+
+  .material-icons {
+    font-size: 16px;
+  }
+
+  ::placeholder {
+    color: #e1e1e1 !important;
+    font-family: Poppins;
+    font-size: 14px;
+  }
+
+  ::-ms-input-placeholder {
+    /* Edge 12-18 */
+    color: #e1e1e1 !important;
+    font-family: Poppins;
+  }
+
+  .mat-mdc-form-field-error-wrapper {
+    padding: 0 6px;
+  }
+
+  .modal-dialog {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+
+    .modal-header {
+      border-radius: 0px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fbfbfb;
+
+      h1 {
+        font-family: Poppins !important;
+        margin: unset;
+      }
     }
 
-
-
-    .text-align-right {
-        text-align: right;
+    .modal-content {
+      border-radius: 0px;
+      border: none;
+      box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
+      background-color: #ffffff;
     }
+  }
 
-    //input field override
-    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
-        width: 20px;
-        border-radius: 12px 0 0 12px;
-        border-color: #EBEBEB;
-        font-size: 14px;
+  .list-container {
+    label {
+      font-family: Poppins;
+      font-size: 14px;
     }
+  }
 
-    //input field override
-    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
-        border-radius: 0 12px 12px 0;
-        border-color: #EBEBEB;
-    }
+  // mat-menu Override Css
+  .mat-menu {
+    max-width: 267px !important;
+    border-radius: 12px !important;
+    font-family: Poppins !important;
+    padding: 0px 14px !important;
+  }
 
-    .mat-mdc-form-field-icon-prefix {
-        .mat-icon {
-            color: #C4C4C4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-left: 15px;
-        }
-    }
+  // mat-checkbox Override Css
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:checked
+    ~ .mdc-checkbox__background {
+    background-color: #2e5bff;
+    border-color: #2e5bff;
+    border-radius: 5px;
+  }
 
-    .mat-mdc-form-field-icon-suffix {
-        .mat-icon {
-            color: #C4C4C4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 32px;
-        }
+  .mdc-checkbox:hover
+    .mdc-checkbox__native-control:enabled:checked
+    ~ .mdc-checkbox__background {
+    background-color: #2e5bff;
+    border-color: #2e5bff;
+  }
+
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:focus:checked
+    ~ .mdc-checkbox__background {
+    background-color: #2e5bff;
+    border-color: #2e5bff;
+  }
+
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not(
+      [data-indeterminate="true"]
+    )
+    ~ .mdc-checkbox__background {
+    border-radius: 5px;
+  }
+
+  // mat-input Override Css
+  .mdc-text-field--outlined:not(
+      .mdc-text-field--disabled
+    ).mdc-text-field--focused
+    .mdc-notched-outline__leading {
+    border-color: #2e5bff !important;
+    border-width: 0.5px;
+  }
+
+  .mdc-text-field--outlined:not(
+      .mdc-text-field--disabled
+    ).mdc-text-field--focused
+    .mdc-notched-outline__trailing {
+    border-color: #2e5bff !important;
+    border-width: 0.5px;
+  }
+
+  // mat-input with white background and error block disabled
+  .search-input {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
     }
 
     .mat-mdc-text-field-wrapper {
-        background-color: #fbfbfb;
-        border-radius: 12px;
-        height: 40px;
-        padding-top: 10px !important;
-        padding-bottom: 10px !important;
-        font-size: 14px;
-
-        .mat-mdc-form-field-infix {
-            padding-top: 0px !important;
-        }
+      background-color: white;
     }
+  }
 
-    .mat-mdc-form-field-flex {
-        display: contents;
+  // mat-input with white background
+  .mat-input-white {
+    .mat-mdc-text-field-wrapper {
+      background-color: white;
     }
+  }
 
-    .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-        height: 18px;
-        flex-grow: 0;
-        font-family: Poppins;
-        font-size: 12px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: #2E5BFF !important;
-        font-weight: 400;
-    }
+  // mat-input with suffix Override Css
+  .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+    padding-right: 15px;
+  }
 
-    .mat-mdc-tab .mdc-tab__text-label {
-        color: var(--mat-tab-header-inactive-label-text-color);
-        display: inline-flex;
-        align-items: center;
-        /* width: 69px; */
-        height: 18px;
-        flex-grow: 0;
-        font-family: Poppins;
-        font-size: 12px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: #00000099;
-        font-weight: 400;
-    }
+  // mat-select overlay Override Css
+  .mat-elevation-z8,
+  .mat-mdc-elevation-specific.mat-elevation-z8 {
+    box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
+    position: relative;
+    top: 10%;
+  }
 
-    .forgot-password {
-        font-family: Poppins;
-        font-size: 12px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #8798ad;
-    }
+  // mat-select overlay-root Override Css
+  .mat-mdc-select-panel {
+    box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
+    border-radius: 12px;
+  }
 
-    .mat-mdc-raised-button:not(:disabled) {
-        height: 40px;
-        border-radius: 12px;
-        width: 357px !important;
-        font-family: Poppins;
-        max-width: -webkit-fill-available;
-        letter-spacing: normal;
-        font-size: 14px;
-        background-color: #2E5BFF;
-    }
+  // mat-select options Override Css
+  .mat-mdc-option {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+  }
 
-    .mat-mdc-raised-button:disabled {
-        height: 40px;
-        border-radius: 12px;
-        width: 357px !important;
-        font-family: Poppins;
-        max-width: -webkit-fill-available;
-        letter-spacing: normal;
-        font-size: 14px;
-    }
+  // mat-select placeholder Override Css
+  .mat-mdc-select-placeholder {
+    color: #e1e1e1 !important;
+    font-family: Poppins;
+  }
 
-    .mat-mdc-outlined-button:not(:disabled) {
-        border-radius: 12px;
-        height: 40px;
-        border-color: #2e5bff !important;
-        width: 357px !important;
-        font-family: Poppins;
-        max-width: -webkit-fill-available;
-        letter-spacing: normal;
-        font-size: 14px;
-        // background-color: #053bff0d;
-        color: #2E5BFF;
-    }
+  // mat-select Override Css
+  .mat-mdc-select {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+  }
 
-    .resend-otp {
-        font-family: Poppins;
-        text-align: left;
-        color: #2e5bff;
-        margin: 10px;
-    }
+  // mat-button label Overrid Css
+  .mdc-button__label {
+    display: flex !important;
+  }
 
-    .f-12 {
-        font-family: 'Poppins', sans-serif;
-        font-size: 12px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-    }
+  // mat-tab Override Css
+  .mdc-tab {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 
-    .gray-font {
-        color: #8798ad;
-        font-family: 'Poppins', sans-serif;
-    }
+  // mat-tab indicator Override Css
+  .mat-mdc-tab .mdc-tab-indicator__content--underline {
+    border-color: #2e5bff;
+  }
 
-    .red-font {
-        color: #ff2e2e;
-        font-family: 'Poppins', sans-serif;
-    }
+  .mat-mdc-tab.mdc-tab--active:focus .mdc-tab-indicator__content--underline {
+    border-color: #2e5bff;
+  }
 
-    .mat-mdc-raised-button.mat-primary:not(:disabled) {
-        background: #2E5BFF;
-    }
+  .mat-mdc-tab-body-content {
+    overflow: hidden !important;
+  }
 
-    .material-icons {
-        font-size: 16px;
-    }
-
-    ::placeholder {
-        color: #E1E1E1 !important;
-        font-family: Poppins;
-        font-size: 14px;
-    }
-
-    ::-ms-input-placeholder {
-        /* Edge 12-18 */
-        color: #E1E1E1 !important;
-        font-family: Poppins;
-    }
-
-    .mat-mdc-form-field-error-wrapper {
-        padding: 0 6px;
-    }
-
-    .modal-dialog {
-
-        font-family: Poppins;
-        font-size: 14px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: center;
-
-        .modal-header {
-            border-radius: 0px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #fbfbfb;
-
-            h1 {
-                font-family: Poppins !important;
-                margin: unset;
-            }
-        }
-
-        .modal-content {
-            border-radius: 0px;
-            border: none;
-            box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
-            background-color: #ffffff;
-        }
-    }
-
-    .list-container {
-        label {
-            font-family: Poppins;
-            font-size: 14px;
-        }
-    }
-
-
-    // mat-menu Override Css
-    .mat-menu {
-        max-width: 267px !important;
-        border-radius: 12px !important;
-        font-family: Poppins !important;
-        padding: 0px 14px !important;
-    }
-
-    // mat-checkbox Override Css
-    .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
-        background-color: #2E5BFF;
-        border-color: #2E5BFF;
-        border-radius: 5px;
-    }
-
-    .mdc-checkbox:hover .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
-        background-color: #2E5BFF;
-        border-color: #2E5BFF;
-    }
-
-    .mdc-checkbox .mdc-checkbox__native-control:enabled:focus:checked~.mdc-checkbox__background {
-        background-color: #2E5BFF;
-        border-color: #2E5BFF;
-    }
-
-    .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
-        border-radius: 5px;
-    }
-
-    // mat-input Override Css
-    .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading {
-        border-color: #2E5BFF !important;
-        border-width: 1.5px;
-    }
-
-    .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
-        border-color: #2E5BFF !important;
-        border-width: 1.5px;
-    }
-
-    // mat-input with white background and error block disabled
-    .search-input {
-        .mat-mdc-form-field-subscript-wrapper {
-            display: none;
-        }
-
-        .mat-mdc-text-field-wrapper {
-            background-color: white;
-        }
-    }
-
-    // mat-input with white background
-    .mat-input-white {
-        .mat-mdc-text-field-wrapper {
-            background-color: white;
-        }
-    }
-
-    // mat-input with suffix Override Css
-    .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
-        padding-right: 15px;
-    }
-
-    // mat-select overlay Override Css
-    .mat-elevation-z8,
-    .mat-mdc-elevation-specific.mat-elevation-z8 {
-        box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
-        position: relative;
-        top: 10%;
-    }
-
-    // mat-select overlay-root Override Css
-    .mat-mdc-select-panel {
-        box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
-        border-radius: 12px;
-    }
-
-    // mat-select options Override Css
-    .mat-mdc-option {
-        font-family: Poppins;
-        font-weight: 500;
-        font-size: 14px;
-    }
-
-    // mat-select placeholder Override Css
-    .mat-mdc-select-placeholder {
-        color: #E1E1E1 !important;
-        font-family: Poppins;
-    }
-
-    // mat-select Override Css
-    .mat-mdc-select {
-        font-family: Poppins;
-        font-size: 14px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-    }
-
-    // mat-button label Overrid Css
-    .mdc-button__label {
-        display: flex !important;
-    }
-
-    // mat-tab Override Css
-    .mdc-tab {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    // mat-tab indicator Override Css
-    .mat-mdc-tab .mdc-tab-indicator__content--underline {
-        border-color: #2E5BFF;
-    }
-
-    .mat-mdc-tab.mdc-tab--active:focus .mdc-tab-indicator__content--underline {
-        border-color: #2E5BFF;
-    }
-
-    .mat-mdc-tab-body-content {
-        overflow: hidden !important;
-    }
-
-    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__leading:hover {
-        border-right: none;
-    }
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline
+    .mdc-notched-outline__leading:hover {
+    border-right: none;
+  }
 }

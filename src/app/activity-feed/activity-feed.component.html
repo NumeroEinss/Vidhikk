@@ -1,56 +1,82 @@
+<!-- header  -->
 <app-header [menuName]="'Activity feed'"></app-header>
+
+<!-- root section & feed section start-->
 <div class="root">
     <div class="feed-section">
-        <marquee behavior="'smooth'" direction="rtl">comply with any legal advertising regulations in your jurisdiction
+
+        <!--marquee -->
+        <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
+            legal advertising regulations in your jurisdiction
             and ensure that your messages dhere to professional
             and ethical standards</marquee>
+
+        <!--Post-section start -->
         <div class="d-flex flex-row">
             <div class="up-section-1">
-                <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container">
+                <div>
+                    <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container">
+                </div>
                 <div class="section-2">
                     <input type="text" placeholder="Tittle" />
                     <textarea matInput row="5" placeholder="Enter Text Here..."></textarea>
                 </div>
                 <div>
-                    <button type="button"
-                        class="btn btn-primary section-2-btn"><mat-icon>edit_square</mat-icon>Post</button>
+                    <button type="button" class="btn btn-primary section-2-btn"><img
+                            src="../../../../assets/images/create.svg">Post</button>
                 </div>
             </div>
-            <div class="advertisement"><iframe width="300" height="250" src="https://www.youtube.com/embed/
+
+            <!-- carousel  -->
+            <!-- <div class="advertisement"><iframe width="300" height="250" src="https://www.youtube.com/embed/
                     7q0TRgDvT9k?si=xxLExguht48Lh3ja" title="YouTube video player" frameborder="0" allow="accelerometer; autopla
                     y; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
-            </div>
+            </div> -->
         </div>
+        <!-- Post section ends -->
 
+
+        <!--Feedlist section start-->
         <div *ngFor="let item of feedList">
             <div class="down-section-1">
-                <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container1">
-                <div class="down-section-2">
-                    <div class="name">{{item.name}}</div>
-                    <div class="location"><mat-icon class="mat-icon2">location_on</mat-icon>{{item.location}}</div>
+                <div class="d-flex">
+                    <div>
+                        <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container1">
+                    </div>
+                    <div class="down-section-2">
+                        <div class="name">{{item.name}}</div>
+                        <div class="location"><img src="../../../../assets/images/location.svg">{{item.location}}</div>
+                    </div>
                 </div>
                 <div class="post-date">{{item.postDate}}</div>
             </div>
+
             <hr>
+
             <div class="activity-feed">
                 <div class="activity-feed-heading">{{item.heading}}</div>
                 <div class="activity-feed-comment">{{item.comment}}</div>
                 <div class="d-flex mt-1 like-comment">
-                    <div><mat-icon class="mat-icon2">favorite</mat-icon>{{item.likesCount}}</div>
-                    <div class="mx-3"><mat-icon class="mat-icon2">comment</mat-icon> {{item.commentsCount}}</div>
+                    <div class="like-icon"><img src="../../../../assets/images/like.svg">{{item.likesCount}}</div>
+                    <div class="mx-3 like-icon"><img src="../../../../assets/images/comment.svg">{{item.commentsCount}}
+                    </div>
                 </div>
             </div>
+            <!--Feedlist section ends-->
 
 
+            <!-- comment-section start -->
             <div id="comment-section" *ngIf="isCommentBoxOpen || isPost" class="comment-section">
-
                 <div *ngFor="let comment of item.comments">
                     <div class="down-section-1a">
-                        <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container1">
-                        <div class="down-section-2">
-                            <div class="name">{{comment.name}}</div>
-                            <div class="location"><mat-icon class="mat-icon2">location_on</mat-icon>{{comment.location}}
+                        <div class="d-flex">
+                            <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container1">
+                            <div class="down-section-2">
+                                <div class="name">{{comment.name}}</div>
+                                <div class="location"><img
+                                        src="../../../../assets/images/location.svg">{{comment.location}}
+                                </div>
                             </div>
                         </div>
                         <div class="post-date">{{comment.postDate}}</div>
@@ -59,27 +85,30 @@
                     <div class="activity-feed1">
                         <div class="activity-feed-comment">{{comment.comment}}</div>
                         <div class="d-flex mt-1 like-comment">
-                            <div><mat-icon class="mat-icon2">favorite</mat-icon>{{comment.likesCount}}</div>
-                            <div class="mx-3"><mat-icon class="mat-icon2">comment</mat-icon>
+                            <div><img src="../../../../assets/images/like.svg">{{comment.likesCount}}</div>
+                            <div class="mx-3"><img src="../../../../assets/images/comment.svg">
                                 {{comment.commentsCount}}
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
+            <!-- comment-section ends -->
 
 
+            <!-- comment-box section start -->
             <div class="comment-box" *ngIf="isCommentBoxOpen">
-                <div>
-                    <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container2">
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <div>
+                        <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container2">
+                    </div>
+                    <div class="comment-box-textarea">
+                        <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="comment"></textarea>
+                    </div>
                 </div>
-                <div class="comment-box-textarea">
-                    <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="comment"></textarea>
-                </div>
                 <div>
-                    <button type="button" class="btn btn-primary comment-btn"
-                        (click)="addComment()"><mat-icon>edit_square</mat-icon>Post</button>
+                    <button type="button" class="btn btn-primary comment-btn" (click)="addComment()"><img
+                            src="../../../../assets/images/create.svg">Post</button>
                 </div>
             </div>
             <div class="activity-feed-bottom">
@@ -90,9 +119,15 @@
                 <button class="activity-feed-bottom-btn"><img src="../../../../assets/images/share_icon.svg"
                         class="mx-1">Share</button>
             </div>
+            <!-- comment-box section end-->
         </div>
+        <!--Feedlist section ends-->
 
     </div>
+    <!-- root & feed section ends -->
+
+
+
     <button id="modalButton" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"></button>
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
