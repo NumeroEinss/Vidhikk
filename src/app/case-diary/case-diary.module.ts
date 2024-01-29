@@ -11,6 +11,7 @@ import { CaseDiaryForgotComponent } from './case-diary-forgot/case-diary-forgot.
 import { CaseDiaryResetPasswordComponent } from './case-diary-reset-password/case-diary-reset-password.component';
 import { CaseDiaryListComponent } from './case-diary-list/case-diary-list.component';
 import { CreateCaseDiaryComponent } from './create-case-diary/create-case-diary.component';
+import { CreateSubDiaryComponent } from './create-sub-diary/create-sub-diary.component';
 
 
 
@@ -22,7 +23,8 @@ import { CreateCaseDiaryComponent } from './create-case-diary/create-case-diary.
     CaseDiaryForgotComponent,
     CaseDiaryResetPasswordComponent,
     CaseDiaryListComponent,
-    CreateCaseDiaryComponent],
+    CreateCaseDiaryComponent,
+    CreateSubDiaryComponent],
 
   imports: [
     CommonModule,

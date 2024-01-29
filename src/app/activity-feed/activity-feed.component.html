@@ -1,7 +1,13 @@
+<!-- header  -->
 <app-header [menuName]="'Activity feed'"></app-header>
+
+<!-- root section & feed section start-->
 <div class="root">
     <div class="feed-section">
-        <marquee behavior="'smooth'" direction="rtl">comply with any legal advertising regulations in your jurisdiction
+
+        <!--marquee -->
+        <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
+            legal advertising regulations in your jurisdiction
             and ensure that your messages dhere to professional
             and ethical standards</marquee>
         <div class="d-flex w-100">
@@ -14,8 +20,8 @@
                     <textarea matInput row="5" placeholder="Enter Text Here..."></textarea>
                 </div>
                 <div>
-                    <button type="button"
-                        class="btn btn-primary section-2-btn"><mat-icon>edit_square</mat-icon>Post</button>
+                    <button type="button" class="btn btn-primary section-2-btn"><img
+                            src="../../../../assets/images/create.svg">Post</button>
                 </div>
             </div>
             <div class="advertisement">
@@ -45,7 +51,10 @@
                 <img src="../../assets/images/image/lawyer_1.jpg" width="300" alt="">
             </div>
         </div>
+        <!-- Post section ends -->
 
+
+        <!--Feedlist section start-->
         <div *ngFor="let item of feedList">
             <div class="feed">
                 <div class="down-section-1">
@@ -120,9 +129,15 @@
                             class="mx-1">Share</button>
                 </div>
             </div>
+            <!-- comment-box section end-->
         </div>
+        <!--Feedlist section ends-->
 
     </div>
+    <!-- root & feed section ends -->
+
+
+
     <button id="modalButton" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"></button>
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

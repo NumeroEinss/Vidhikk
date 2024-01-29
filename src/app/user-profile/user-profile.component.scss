@@ -133,10 +133,15 @@
           }
 
           .user-details-1a {
-            margin-right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
 
-            .mat-mdc-form-field {
-              margin-left: -10px;
+            a {
+              cursor: pointer;
+              font-family: poppins;
+              font-size: 14px;
+              color: grey;
             }
           }
         }

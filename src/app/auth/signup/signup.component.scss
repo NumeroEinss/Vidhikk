@@ -1,57 +1,57 @@
 .signup-form {
+  font-family: Poppins;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  .welcome-text {
+    // width: 229px;
+    height: 36px;
+    flex-grow: 0;
     font-family: Poppins;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+  }
 
-    .welcome-text {
-        width: 229px;
-        height: 36px;
-        flex-grow: 0;
-        font-family: Poppins;
-        font-size: 24px;
-        font-weight: 600;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: #000;
-    }
+  .sub-text {
+    width: 312px;
+    height: 30px;
+    flex-grow: 0;
+    margin: 12px 0 0;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #8798ad;
+  }
 
-    .sub-text {
-        width: 312px;
-        height: 30px;
-        flex-grow: 0;
-        margin: 12px 0 0;
-        font-family: Poppins;
-        font-size: 10px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: #8798ad;
-    }
-
-    .mat-mdc-form-field {
-        display: grid;
-    }
+  .mat-mdc-form-field {
+    display: grid;
+  }
 }
 
 .image-container {
-    background-color: #1949f517;
+  background-color: #1949f517;
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
-    background-color: #fbfbfb;
-    border-radius: 5px;
+  width: 4px;
+  background-color: #fbfbfb;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #C4C4C4;
-    border-radius: 2px;
+  background-color: #c4c4c4;
+  border-radius: 2px;
 }

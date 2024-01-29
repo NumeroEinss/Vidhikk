@@ -1,0 +1,55 @@
+.root {
+  .create-case-diary {
+    margin: 20px 0 0 30px;
+
+    .create-case-diary-heading {
+      flex-grow: 0;
+      margin: 0 180px 23px 0;
+      font-family: Poppins;
+      font-size: 24px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: #000;
+    }
+
+    .create-case-diary-fields {
+      display: flex;
+      gap: 40px;
+
+      .mat-label {
+        width: 187px;
+        height: 21px;
+        flex-grow: 0;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: var(--solid-black);
+      }
+      .mat-mdc-form-field {
+        width: 352px !important;
+      }
+    }
+
+    .lower-div {
+      display: flex;
+      .btn {
+        --bs-btn-padding-y: -0.625rem;
+      }
+      .mat-mdc-outlined-button:not(:disabled) {
+        width: unset !important;
+      }
+      .mat-icon {
+        padding-top: 8px;
+      }
+    }
+  }
+}

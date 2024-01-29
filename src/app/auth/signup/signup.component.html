@@ -33,7 +33,7 @@
                             signupForm.controls['otp'].invalid">OTP is invalid</mat-error>
             </mat-form-field>
 
-            <div class="row" style="font-size: 10px;">
+            <div class="row" style="font-size: 12px;">
                 <span class="gray-font">By proceeding you agree to our <a href="#">Terms of Services</a> and <a
                         href="#">Privacy
                         Policy</a></span>
@@ -45,10 +45,6 @@
 
                 <button *ngIf="mobileNoEntered" [disabled]="!signupForm.valid" mat-raised-button color="primary w-100"
                     (click)="otpVerified=!otpVerified;onSubmitOtp()">Continue</button><br>
-
-                <button routerLink="/auth/login" mat-stroked-button class="mt-2 w-100" color="primary"><span
-                        class="gray-font">Already Registered ? </span><span style="color:#2E5BFF">Sign
-                        In</span></button>
             </div>
         </form>
 

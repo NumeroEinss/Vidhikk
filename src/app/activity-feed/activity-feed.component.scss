@@ -5,7 +5,10 @@
       display: flex;
       flex-direction: column;
       margin: 10px 0 0 10px;
+      font-family: Poppins;
       font-size: 14px;
+      width: -webkit-fill-available;
+      width: -moz-available;
       width: -webkit-fill-available;
       width: -moz-available;
       padding: 10px;
@@ -22,10 +25,11 @@
       line-height: 1.43;
       font-size: 14px;
       resize: none;
-      font-family: Inter;
+      font-family: Poppins;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
+      color: #18214d;
     }
 
     .section-2 textarea {
@@ -33,22 +37,20 @@
       height: -moz-available;
     }
 
-    .mat-icon {
-      padding-top: 5px;
-    }
-
     .section-2-btn {
       margin-top: 155px;
-      width: 90px;
-      height: 45px;
+      height: 40px;
       flex-grow: 0;
+      gap: 10px;
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      padding: 12px;
+      padding: 12px 24px;
       border-radius: 12px;
+      background-color: #2e5bff;
     }
+    // post secton styling ends
 
     .up-section-1 {
       width: 70%;
@@ -151,6 +153,17 @@
         text-align: left;
         color: var(--solid-gray);
       }
+      .name {
+        flex-grow: 0;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 700;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: var(--solid-gray);
+      }
 
       .location {
         flex-grow: 0;
@@ -198,13 +211,12 @@
         .comment {
           margin-top: 33px;
 
-          .down-section-1a {
-            display: flex;
-            // border-radius: 5px;
-            height: 58px;
-            width: -webkit-fill-available;
-            width: -moz-available;
-            padding: 0 24.5px 13.1px 2.5px;
+      .down-section-1a {
+        display: flex;
+        border-radius: 5px;
+        height: 80px;
+        width: -webkit-fill-available;
+        padding: 20px 0;
 
             .profile-container1 {
               width: 48px;
@@ -349,19 +361,18 @@
         letter-spacing: normal;
         color: var(--website-solid-dark-blue);
 
-        .activity-feed-bottom-btn {
-          border-style: none;
-          font-size: 14px;
-          font-weight: normal;
-          font-stretch: normal;
-          font-style: normal;
-          line-height: normal;
-          letter-spacing: normal;
-          text-align: left;
-          color: #18214d;
-          background-color: #fbfbfb;
-          padding-left: 15px;
-        }
+      .activity-feed-bottom-btn {
+        border-style: none;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: #18214d;
+        background-color: #fbfbfb;
+        padding-left: 15px;
       }
     }
   }

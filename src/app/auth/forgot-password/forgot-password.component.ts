@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { forgotModel } from '../../common/forgot-password.model';
 import {
   FormBuilder,
-  FormControl,
+  FormControlName,
   FormGroup,
   Validators,
 } from '@angular/forms';
