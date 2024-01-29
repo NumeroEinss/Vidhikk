@@ -3,8 +3,6 @@
     margin: 20px 0 0 30px;
 
     .create-case-diary-heading {
-      width: 222px;
-      height: 36px;
       flex-grow: 0;
       margin: 0 180px 23px 0;
       font-family: Poppins;
@@ -36,6 +34,7 @@
         text-align: left;
         color: var(--solid-black);
       }
+
       .mat-mdc-form-field {
         width: 352px !important;
       }
@@ -49,6 +48,7 @@
       .mat-mdc-outlined-button:not(:disabled) {
         width: unset !important;
       }
+
       .mat-icon {
         padding-top: 8px;
       }

@@ -23,7 +23,11 @@ body {
         margin-bottom: 50px;
     }
 
-
+    hr {
+        color: #2e5bff0d;
+        height: 1.5px;
+        opacity: unset;
+    }
 
     .text-align-right {
         text-align: right;
@@ -131,6 +135,7 @@ body {
         width: 357px !important;
         font-family: Poppins;
         max-width: -webkit-fill-available;
+        max-width: -moz-available;
         letter-spacing: normal;
         font-size: 14px;
         background-color: #2E5BFF;
@@ -142,6 +147,7 @@ body {
         width: 357px !important;
         font-family: Poppins;
         max-width: -webkit-fill-available;
+        max-width: -moz-available;
         letter-spacing: normal;
         font-size: 14px;
     }
@@ -153,6 +159,7 @@ body {
         width: 357px !important;
         font-family: Poppins;
         max-width: -webkit-fill-available;
+        max-width: -moz-available;
         letter-spacing: normal;
         font-size: 14px;
         // background-color: #053bff0d;

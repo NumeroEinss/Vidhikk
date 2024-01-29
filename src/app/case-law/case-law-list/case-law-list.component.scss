@@ -230,6 +230,7 @@
         .acts {
             height: 59px;
             width: -webkit-fill-available;
+            width: -moz-available;
             flex-grow: 0;
             padding: 20px 48px;
             font-family: Poppins;
@@ -292,7 +293,8 @@
 
     .overruledby {
         .acts {
-            // width: -webkit-fill-available;
+            width: -webkit-fill-available;
+            width: -moz-available;
             flex-grow: 0;
             padding: 15px 50px;
             font-family: Poppins;

@@ -15,6 +15,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateNewPasswordComponent } from './auth/create-new-password/create-new-password.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpIntterceptor } from './core/interceptors/http.interceptor';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { AuthGuard } from './core/guard/auth.guard';
+import { AuthService } from './shared/services/auth.service';
+import { HttpService } from './shared/services/http.service';
+import { SnackAlertService } from './shared/services/snack-alert.service';
 
 @NgModule({
   declarations: [
@@ -35,8 +42,12 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
     BrowserAnimationsModule,
     IntlTelInputNgModule,
   ],
-  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
-  { provide: MAT_DIALOG_DATA, useValue: {} }],
+  providers: [
+    AuthGuard, AuthService, HttpService, SnackAlertService,
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpIntterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

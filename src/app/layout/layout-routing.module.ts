@@ -21,6 +21,10 @@ const routes: Routes = [
             {
                 path: 'case-diary',
                 loadChildren: () => import('../case-diary/case-diary.module').then(m => m.CaseDiaryModule)
+            },
+            {
+                path: '**',
+                component: PageNotFoundComponent
             }
         ]
     },

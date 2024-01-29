@@ -234,7 +234,7 @@ export class CaseLawListComponent {
   }
 
   viewCase(caseId: any) {
-    this._router.navigate([`case-law/cases/view/${caseId}`])
+    this._router.navigate([`lawyer/case-law/cases/view/${caseId}`])
   }
 
   filterJudge(e: any) {

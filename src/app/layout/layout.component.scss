@@ -80,3 +80,22 @@
         background-color: white;
     }
 }
+
+@media only screen and (min-width:768px) and (max-width:1023px) {
+    .main-container {
+        .sidenav {
+            width: 180px;
+        }
+
+        mat-drawer-content {
+            margin-left: 180px !important;
+        }
+
+        .sidenav {
+            li {
+                padding: 12px 0 12px 26px;
+            }
+        }
+    }
+
+}
