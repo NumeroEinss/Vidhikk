@@ -17,7 +17,7 @@
           <div class="case-diary-list">
                <div class="item1">
                     <mat-form-field appearance="outline">
-                         <span matPrefix><img src="../../../assets/images/icons/case-diary.svg" class="ms-3"></span>
+                         <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3"></span>
                          <mat-select placeholder="Case Diary" required>
                               <mat-option *ngFor="let case of caseDiary" [value]="case.value">
                                    {{ case.viewValue }}
@@ -30,7 +30,6 @@
                <div class="item2">
                     <mat-form-field appearance="outline">
                          <input matInput formControlName="password" placeholder="Search Case Diary" required>
-                         <span matSuffix><mat-icon style="color: #2E5BFF;">search</mat-icon></span>
                     </mat-form-field>
                </div>
 
@@ -38,7 +37,8 @@
                <div class="item3">
                     <button mat-stroked-button color="primary" style="border-radius: 12px; "
                          routerLink="/case-diary/create-sub-diary"><img class="mx-1"
-                              src="../../../assets/images/sub-diary.svg"><span style="color:#2E5BFF;"></span>Create Sub
+                              src="../../../assets/images/icons/sub-diary.svg"><span
+                              style="color:#2E5BFF;"></span>Create Sub
                          Diary</button>
                </div>
           </div>

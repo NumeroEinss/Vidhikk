@@ -44,7 +44,7 @@
       margin: 36.2px 118px 0;
       padding: 12px 24px;
       border-radius: 12px;
-      background-color: #2E5BFF;
+      background-color: #2e5bff;
 
       .mat-icon {
         padding-top: 8px;
@@ -61,9 +61,21 @@
       display: flex;
       justify-content: space-between;
 
+      // .list1 {
+      //   // .mat-mdc-select-trigger::after {
+      //   //   content: "";
+      //   //   width: 15px;
+      //   //   height: 15px;
+      //   //   background-color: red;
+      //   //   background: url("../../../assets/images/vector.svg");
+      //   // }
+      //   // .mat-mdc-select-arrow-wrapper {
+      //   //   display: none;
+      //   // }
+      // }
+
       .item2 {
         .mat-mdc-form-field {
-          width: 700px !important;
         }
       }
       .mat-mdc-outlined-button:not(:disabled) {

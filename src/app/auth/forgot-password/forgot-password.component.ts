@@ -22,9 +22,9 @@ export interface City {
 export class ForgotPasswordComponent {
 
   questionList: any[] = [
-    { value: 'Indore', viewValue: 'Indore' },
-    { value: 'Bhopal', viewValue: 'Bhopal' },
-    { value: 'Surat', viewValue: 'Surat' },
+    { value: 'In what city were you born?', viewValue: 'In what city were you born?' },
+    { value: 'What is your favorite color?', viewValue: 'What is your favorite color?' },
+    { value: 'What is your first school name?', viewValue: 'What is your first school name?' },
   ];
 
   forgotPasswordForm: FormGroup;

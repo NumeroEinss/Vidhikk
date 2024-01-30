@@ -17,17 +17,17 @@ body {
   // font-family: 'Inter', sans-serif;
   font-family: "Poppins", sans-serif !important;
 
-    // Css for Root Container of every Component
-    .root {
-        // padding: 10px 0px 0px 0px;
-        margin-bottom: 50px;
-    }
+  // Css for Root Container of every Component
+  .root {
+    // padding: 10px 0px 0px 0px;
+    margin-bottom: 50px;
+  }
 
-    hr {
-        color: #2e5bff0d;
-        height: 1.5px;
-        opacity: unset;
-    }
+  hr {
+    color: #2e5bff0d;
+    height: 1.5px;
+    opacity: unset;
+  }
 
   .text-align-right {
     text-align: right;
@@ -117,7 +117,7 @@ body {
     height: 18px;
     flex-grow: 0;
     font-family: Poppins;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -149,36 +149,36 @@ body {
     width: 357px !important;
     font-family: Poppins;
     max-width: -webkit-fill-available;
-        max-width: -moz-available;
+    max-width: -moz-available;
     letter-spacing: normal;
     font-size: 14px;
     background-color: #2e5bff;
   }
 
-    .mat-mdc-raised-button:disabled {
-        height: 40px;
-        border-radius: 12px;
-        width: 357px !important;
-        font-family: Poppins;
-        max-width: -webkit-fill-available;
-        max-width: -moz-available;
-        letter-spacing: normal;
-        font-size: 14px;
-    }
+  .mat-mdc-raised-button:disabled {
+    height: 40px;
+    border-radius: 12px;
+    width: 357px !important;
+    font-family: Poppins;
+    max-width: -webkit-fill-available;
+    max-width: -moz-available;
+    letter-spacing: normal;
+    font-size: 14px;
+  }
 
-    .mat-mdc-outlined-button:not(:disabled) {
-        border-radius: 12px;
-        height: 40px;
-        border-color: #2e5bff !important;
-        width: 357px !important;
-        font-family: Poppins;
-        max-width: -webkit-fill-available;
-        max-width: -moz-available;
-        letter-spacing: normal;
-        font-size: 14px;
-        // background-color: #053bff0d;
-        color: #2E5BFF;
-    }
+  .mat-mdc-outlined-button:not(:disabled) {
+    border-radius: 12px;
+    height: 40px;
+    border-color: #2e5bff !important;
+    width: 357px !important;
+    font-family: Poppins;
+    max-width: -webkit-fill-available;
+    max-width: -moz-available;
+    letter-spacing: normal;
+    font-size: 14px;
+    // background-color: #053bff0d;
+    color: #2e5bff;
+  }
 
   .resend-otp {
     font-family: Poppins;
@@ -385,6 +385,20 @@ body {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
+  }
+
+  .mat-mdc-select-trigger {
+    padding: 7px 10px;
+  }
+  .mat-mdc-select-trigger::after {
+    content: "";
+    width: 20px;
+    height: 15px;
+    // background-color: red;
+    background: url("../Vidhikk/src/assets/images/vector.svg") 0 98%;
+  }
+  .mat-mdc-select-arrow-wrapper {
+    display: none;
   }
 
   // mat-button label Overrid Css

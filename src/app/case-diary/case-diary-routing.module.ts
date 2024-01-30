@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CaseDiaryComponent } from './case-diary.component';
 import { CaseDiaryLoginComponent } from './case-diary-login/case-diary-login.component';
 import { CaseDiarySignupComponent } from './case-diary-signup/case-diary-signup.component';
 import { CaseDiaryForgotComponent } from './case-diary-forgot/case-diary-forgot.component';
@@ -12,6 +13,10 @@ import { CreateSubDiaryComponent } from './create-sub-diary/create-sub-diary.com
 const routes: Routes = [
   {
     path: '',
+    component: CaseDiaryComponent
+  },
+  {
+    path: 'case-diary-login',
     component: CaseDiaryLoginComponent
   },
   {

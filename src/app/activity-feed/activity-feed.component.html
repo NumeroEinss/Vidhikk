@@ -10,6 +10,7 @@
             legal advertising regulations in your jurisdiction
             and ensure that your messages dhere to professional
             and ethical standards</marquee>
+
         <div class="d-flex w-100">
             <div class="up-section-1 w-100">
                 <div class="profile-container">
@@ -58,12 +59,16 @@
         <div *ngFor="let item of feedList">
             <div class="feed">
                 <div class="down-section-1">
-                    <div class="profile-container1">
-                        <img src="../../../../assets/images/image/anurag_goyal.jpg">
-                    </div>
-                    <div class="down-section-2">
-                        <div class="name">{{item.name}}</div>
-                        <div class="location"><mat-icon class="mat-icon2">location_on</mat-icon>{{item.location}}</div>
+                    <div class="d-flex">
+                        <div class="profile-container1">
+                            <img src="../../../../assets/images/image/anurag_goyal.jpg">
+                        </div>
+                        <div class="down-section-2">
+                            <div class="name">{{item.name}}</div>
+                            <div class="location"><img src="../../../../assets/images/location.svg"
+                                    alt="">{{item.location}}
+                            </div>
+                        </div>
                     </div>
                     <div class="post-date">{{item.postDate}}</div>
                 </div>
@@ -72,8 +77,10 @@
                     <div class="activity-feed-heading">{{item.heading}}</div>
                     <div class="activity-feed-comment">{{item.comment}}</div>
                     <div class="d-flex mt-1 like-comment">
-                        <div><mat-icon class="mat-icon2">favorite</mat-icon>{{item.likesCount}}</div>
-                        <div class="mx-3"><mat-icon class="mat-icon2">comment</mat-icon> {{item.commentsCount}}</div>
+                        <div class="like-icon"><img src="../../../../assets/images/like.svg" alt="">{{item.likesCount}}
+                        </div>
+                        <div class="mx-3 like-icon"><img src="../../../../assets/images/comment.svg" alt="">
+                            {{item.commentsCount}}</div>
                     </div>
                 </div>
 
@@ -82,13 +89,15 @@
 
                     <div *ngFor="let comment of item.comments" class="comment">
                         <div class="down-section-1a">
-                            <div class="profile-container1">
-                                <img src="../../../../assets/images/image/anurag_goyal.jpg">
-                            </div>
-                            <div class="down-section-2">
-                                <div class="name">{{comment.name}}</div>
-                                <div class="location"><mat-icon
-                                        class="mat-icon2">location_on</mat-icon>{{comment.location}}
+                            <div class="d-flex">
+                                <div class="profile-container1">
+                                    <img src="../../../../assets/images/image/anurag_goyal.jpg">
+                                </div>
+                                <div class="down-section-2">
+                                    <div class="name">{{comment.name}}</div>
+                                    <div class="location"><img src="../../../../assets/images/location.svg"
+                                            alt="">{{comment.location}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="post-date">{{comment.postDate}}</div>
@@ -97,8 +106,9 @@
                         <div class="activity-feed1">
                             <div class="activity-feed-comment">{{comment.comment}}</div>
                             <div class="d-flex mt-1 like-comment">
-                                <div><mat-icon class="mat-icon2">favorite</mat-icon>{{comment.likesCount}}</div>
-                                <div class="mx-3"><mat-icon class="mat-icon2">comment</mat-icon>
+                                <div class="like-icon"><img src="../../../../assets/images/like.svg"
+                                        alt="">{{comment.likesCount}}</div>
+                                <div class="mx-3 like-icon"><img src="../../../../assets/images/comment.svg" alt="">
                                     {{comment.commentsCount}}
                                 </div>
                             </div>
@@ -116,8 +126,8 @@
                         <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="comment"></textarea>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-primary comment-btn"
-                            (click)="addComment()"><mat-icon>edit_square</mat-icon>Post</button>
+                        <button type="button" class="btn btn-primary comment-btn" (click)="addComment()"><img
+                                src="../../../../assets/images/create.svg" alt="">Post</button>
                     </div>
                 </div>
                 <div class="activity-feed-bottom">
