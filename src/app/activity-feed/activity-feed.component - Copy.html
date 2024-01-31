@@ -11,11 +11,10 @@
             and ensure that your messages dhere to professional
             and ethical standards</marquee>
 
-        <!--Post-section start -->
-        <div class="d-flex flex-row">
-            <div class="up-section-1">
-                <div>
-                    <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container">
+        <div class="d-flex w-100">
+            <div class="up-section-1 w-100">
+                <div class="profile-container">
+                    <img src="../../../../assets/images/image/anurag_goyal.jpg">
                 </div>
                 <div class="section-2">
                     <input type="text" placeholder="Tittle" />
@@ -26,33 +25,31 @@
                             src="../../../../assets/images/create.svg">Post</button>
                 </div>
             </div>
-
-            <!-- carousel  -->
             <div class="advertisement">
                 <!-- <div id="carouselExample" class="carousel slide">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="../../assets/images/image/lawyer_1.jpg" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="../../assets/images/image/lawyer_2.jpg" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="../../assets/images/image/lawyer_3.jpg" class="d-block w-100" alt="...">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div> -->
-                <img src="../../assets/images/image/lawyer_1.jpg" width="300" alt="NoImage">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="../../assets/images/image/lawyer_1.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../../assets/images/image/lawyer_2.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../../assets/images/image/lawyer_3.jpg" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div> -->
+                <img src="../../assets/images/image/lawyer_1.jpg" width="300" alt="">
             </div>
         </div>
         <!-- Post section ends -->
@@ -60,85 +57,78 @@
 
         <!--Feedlist section start-->
         <div *ngFor="let item of feedList">
-            <div class="down-section-1">
-                <div class="d-flex">
-                    <div>
-                        <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container1">
+            <div class="feed">
+                <div class="down-section-1">
+                    <div class="profile-container1">
+                        <img src="../../../../assets/images/image/anurag_goyal.jpg">
                     </div>
                     <div class="down-section-2">
                         <div class="name">{{item.name}}</div>
-                        <div class="location"><img src="../../../../assets/images/location.svg">{{item.location}}</div>
+                        <div class="location"><mat-icon class="mat-icon2">location_on</mat-icon>{{item.location}}</div>
+                    </div>
+                    <div class="post-date">{{item.postDate}}</div>
+                </div>
+                <hr>
+                <div class="activity-feed">
+                    <div class="activity-feed-heading">{{item.heading}}</div>
+                    <div class="activity-feed-comment">{{item.comment}}</div>
+                    <div class="d-flex mt-1 like-comment">
+                        <div><mat-icon class="mat-icon2">favorite</mat-icon>{{item.likesCount}}</div>
+                        <div class="mx-3"><mat-icon class="mat-icon2">comment</mat-icon> {{item.commentsCount}}</div>
                     </div>
                 </div>
-                <div class="post-date">{{item.postDate}}</div>
-            </div>
-
-            <hr>
-
-            <div class="activity-feed">
-                <div class="activity-feed-heading">{{item.heading}}</div>
-                <div class="activity-feed-comment">{{item.comment}}</div>
-                <div class="d-flex mt-1 like-comment">
-                    <div class="like-icon"><img src="../../../../assets/images/like.svg">{{item.likesCount}}</div>
-                    <div class="mx-3 like-icon"><img src="../../../../assets/images/comment.svg">{{item.commentsCount}}
-                    </div>
-                </div>
-            </div>
-            <!--Feedlist section ends-->
 
 
-            <!-- comment-section start -->
-            <div id="comment-section" *ngIf="isCommentBoxOpen || isPost" class="comment-section">
-                <div *ngFor="let comment of item.comments">
-                    <div class="down-section-1a">
-                        <div class="d-flex">
-                            <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container1">
+                <div id="comment-section" *ngIf="isCommentBoxOpen || isPost" class="comment-section">
+
+                    <div *ngFor="let comment of item.comments" class="comment">
+                        <div class="down-section-1a">
+                            <div class="profile-container1">
+                                <img src="../../../../assets/images/image/anurag_goyal.jpg">
+                            </div>
                             <div class="down-section-2">
                                 <div class="name">{{comment.name}}</div>
-                                <div class="location"><img
-                                        src="../../../../assets/images/location.svg">{{comment.location}}
+                                <div class="location"><mat-icon
+                                        class="mat-icon2">location_on</mat-icon>{{comment.location}}
+                                </div>
+                            </div>
+                            <div class="post-date">{{comment.postDate}}</div>
+                        </div>
+                        <hr class="hr-line">
+                        <div class="activity-feed1">
+                            <div class="activity-feed-comment">{{comment.comment}}</div>
+                            <div class="d-flex mt-1 like-comment">
+                                <div><mat-icon class="mat-icon2">favorite</mat-icon>{{comment.likesCount}}</div>
+                                <div class="mx-3"><mat-icon class="mat-icon2">comment</mat-icon>
+                                    {{comment.commentsCount}}
                                 </div>
                             </div>
                         </div>
-                        <div class="post-date">{{comment.postDate}}</div>
                     </div>
-                    <hr class="hr-line">
-                    <div class="activity-feed1">
-                        <div class="activity-feed-comment">{{comment.comment}}</div>
-                        <div class="d-flex mt-1 like-comment">
-                            <div><img src="../../../../assets/images/like.svg">{{comment.likesCount}}</div>
-                            <div class="mx-3"><img src="../../../../assets/images/comment.svg">
-                                {{comment.commentsCount}}
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
-            </div>
-            <!-- comment-section ends -->
 
 
-            <!-- comment-box section start -->
-            <div class="comment-box" *ngIf="isCommentBoxOpen">
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <div>
-                        <img src="../../../../assets/images/anurag_goyal.jpg" class="profile-container2">
+                <div class="comment-box" *ngIf="isCommentBoxOpen">
+                    <div class="profile-container2">
+                        <img src="../../../../assets/images/image/anurag_goyal.jpg">
                     </div>
                     <div class="comment-box-textarea">
                         <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="comment"></textarea>
                     </div>
+                    <div>
+                        <button type="button" class="btn btn-primary comment-btn"
+                            (click)="addComment()"><mat-icon>edit_square</mat-icon>Post</button>
+                    </div>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-primary comment-btn" (click)="addComment()"><img
-                            src="../../../../assets/images/create.svg">Post</button>
+                <div class="activity-feed-bottom">
+                    <button class="activity-feed-bottom-btn"><img src="../../../../assets/images/icons/like_icon.svg"
+                            class="mx-1">Like</button>
+                    <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen"><img
+                            src="../../../../assets/images/icons/comment_icon.svg" class="mx-1">Comment</button>
+                    <button class="activity-feed-bottom-btn"><img src="../../../../assets/images/icons/share_icon.svg"
+                            class="mx-1">Share</button>
                 </div>
-            </div>
-            <div class="activity-feed-bottom">
-                <button class="activity-feed-bottom-btn"><img src="../../../../assets/images/like_icon.svg"
-                        class="mx-1">Like</button>
-                <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen"><img
-                        src="../../../../assets/images/comment_icon.svg" class="mx-1">Comment</button>
-                <button class="activity-feed-bottom-btn"><img src="../../../../assets/images/share_icon.svg"
-                        class="mx-1">Share</button>
             </div>
             <!-- comment-box section end-->
         </div>

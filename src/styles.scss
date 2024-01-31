@@ -378,6 +378,10 @@ body {
     letter-spacing: normal;
   }
 
+  .mat-mdc-select-trigger {
+    padding: 8px 10px;
+  }
+
   // mat-button label Overrid Css
   .mdc-button__label {
     display: flex !important;
