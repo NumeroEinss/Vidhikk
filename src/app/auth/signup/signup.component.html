@@ -2,7 +2,7 @@
     <div class="col-lg-5 d-flex signup-form">
 
         <div style="width:357px;">
-            <img src="../../../assets/images/image/vidhiklogo.png" alt="vidhik">
+            <img src="../../../assets/images/icons/vidhiklogo.png" alt="vidhik">
 
             <div class="welcome-text mt-4">Create an account</div>
 
@@ -62,7 +62,7 @@
 
             <mat-form-field appearance="outline" class="">
                 <span matPrefix><mat-icon>person</mat-icon></span>
-                <input type="text" matInput placeholder="Enter your Full Name" formControlName="fullName" required>
+                <input type="text" matInput placeholder="Enter your full name" formControlName="fullName" required>
                 <mat-error *ngIf="signupForm2.controls['fullName'].hasError('required')">Full name is
                     Required</mat-error>
             </mat-form-field>
@@ -105,7 +105,7 @@
 
             <mat-form-field appearance="outline">
                 <span matPrefix><mat-icon>phone</mat-icon></span>
-                <input type="text" matInput placeholder="Enter Mobile Number" formControlName="mobile" maxlength="10"
+                <input type="text" matInput placeholder="Enter mobile number" formControlName="mobile" maxlength="10"
                     [readonly]="true" />
                 <mat-error *ngIf="signupForm2.controls['mobile'].hasError('required')">Mobile No. is
                     Required</mat-error>
@@ -116,7 +116,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <input matInput placeholder="Enter your Email" formControlName="email" required>
+                <input matInput placeholder="Enter your email" formControlName="email" required>
                 <span matPrefix><mat-icon>mail &nbsp;</mat-icon></span>
                 <mat-error *ngIf="signupForm2.controls['email'].hasError('required')">Email is Required</mat-error>
                 <mat-error *ngIf="!signupForm2.controls['email'].hasError('required') && 
@@ -129,7 +129,7 @@
             </div>
 
             <mat-form-field appearance="outline">
-                <input matInput placeholder="Name of State Bar" formControlName="stateBar" required>
+                <input matInput placeholder="Name of state bar" formControlName="stateBar" required>
                 <span matPrefix><mat-icon>note &nbsp;</mat-icon></span>
                 <mat-error *ngIf="signupForm2.controls['stateBar'].hasError('required')">State Bar is
                     Required</mat-error>
@@ -145,7 +145,7 @@
             <mat-grid-list cols="2" rowHeight="2:1">
                 <mat-grid-tile>
                     <mat-form-field appearance="outline" style="display: inline-flex;width: 158px;">
-                        <input matInput placeholder="Bar License No." formControlName="licenseNo" required>
+                        <input matInput placeholder="Bar license no." formControlName="licenseNo" required>
                         <span matPrefix><mat-icon>badge &nbsp;</mat-icon></span>
                         <mat-error *ngIf="signupForm2.controls['licenseNo'].hasError('required')">License No. is
                             Required</mat-error>

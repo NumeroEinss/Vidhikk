@@ -9,7 +9,7 @@
           <form class="col mt-3" [formGroup]="caseDiaryForm">
                <mat-form-field appearance="outline">
                     <span matPrefix><mat-icon>person</mat-icon></span>
-                    <input type="text" matInput placeholder="Enter Username" formControlName="username" required>
+                    <input type="text" matInput placeholder="Enter username" formControlName="username" required>
                     <mat-error *ngIf="caseDiaryForm.controls['username'].hasError('required')">Username is
                          Required</mat-error>
                     <mat-error *ngIf="!caseDiaryForm.controls['username'].hasError('required') && 
@@ -34,15 +34,15 @@
                </mat-form-field>
 
                <div class="row">
-                    <a class="text-align-right forgot-password" routerLink="/lawyer/case-diary/case-diary-forgot">Forgot
+                    <a class="text-align-right forgot-password" routerLink="/lawyer/case-diary/forget-password">Forgot
                          Password
                          ?</a>
                </div>
                <div class="text-center mt-3">
-                    <button mat-raised-button color="primary w-100" routerLink="/lawyer/case-diary/case-diary-list">Sign
+                    <button mat-raised-button color="primary w-100" routerLink="/lawyer/case-diary/cases">Sign
                          In</button><br>
 
-                    <button routerLink="/lawyer/case-diary/case-diary-signup" mat-stroked-button class="mt-2 w-100"
+                    <button routerLink="/lawyer/case-diary/signup" mat-stroked-button class="mt-2 w-100"
                          color="primary"><span class="gray-font">Don't have an account ?&nbsp;</span><span
                               style="color:#2E5BFF">Sign up</span></button>
                </div>

@@ -22,7 +22,6 @@
                               <mat-option *ngFor="let case of caseDiary" [value]="case.value">
                                    {{ case.viewValue }}
                               </mat-option>
-                              <mat-option>Select</mat-option>
                          </mat-select>
                     </mat-form-field>
                </div>
@@ -30,13 +29,14 @@
                <div class="item2">
                     <mat-form-field appearance="outline">
                          <input matInput formControlName="password" placeholder="Search Case Diary" required>
+                         <span matSuffix><img src="../../../assets/images/icons/search-blue.svg"></span>
                     </mat-form-field>
                </div>
 
 
                <div class="item3">
                     <button mat-stroked-button color="primary" style="border-radius: 12px; "
-                         routerLink="/case-diary/create-sub-diary"><img class="mx-1"
+                         routerLink="/lawyer/case-diary/sub-diary"><img class="mx-1"
                               src="../../../assets/images/icons/sub-diary.svg"><span
                               style="color:#2E5BFF;"></span>Create Sub
                          Diary</button>
@@ -60,28 +60,32 @@
                </thead>
                <tbody>
                     <tr>
-                         <td>01-01-23</td>
-                         <td>Indore HG</td>
-                         <td>2341</td>
-                         <td>Karan Singh</td>
-                         <td>Ram Kumar</td>
-                         <td>Stag 4</td>
-                         <td>12 Mar 2024</td>
-                         <td>Criminal, Section 318</td>
-                         <td>Indore</td>
-                         <td><mat-icon>more_vert</mat-icon></td>
+                         <div class="mb-2" style="border:1px solid #f5f5f5;flex-direction: unset;">
+                              <td>01-01-23</td>
+                              <td>Indore HG</td>
+                              <td>2341</td>
+                              <td>Karan Singh</td>
+                              <td>Ram Kumar</td>
+                              <td>Stag 4</td>
+                              <td>12 Mar 2024</td>
+                              <td>Criminal, Section 318</td>
+                              <td>Indore</td>
+                              <td><mat-icon>more_vert</mat-icon></td>
+                         </div>
                     </tr>
                     <tr>
-                         <td>21-11-23</td>
-                         <td>Jabalpur HG</td>
-                         <td>2341</td>
-                         <td>Rajiram</td>
-                         <td>Ghisa Ram</td>
-                         <td>Stag 2</td>
-                         <td>18 Dec 2024</td>
-                         <td>Criminal, Section 318</td>
-                         <td>Jabalpur</td>
-                         <td><mat-icon>more_vert</mat-icon></td>
+                         <div class="pb-2" style="border:1px solid #f5f5f5;flex-direction: unset;">
+                              <td>21-11-23</td>
+                              <td>Jabalpur HG</td>
+                              <td>2341</td>
+                              <td>Rajiram</td>
+                              <td>Ghisa Ram</td>
+                              <td>Stag 2</td>
+                              <td>18 Dec 2024</td>
+                              <td>Criminal, Section 318</td>
+                              <td>Jabalpur</td>
+                              <td><mat-icon>more_vert</mat-icon></td>
+                         </div>
                     </tr>
                </tbody>
           </table>

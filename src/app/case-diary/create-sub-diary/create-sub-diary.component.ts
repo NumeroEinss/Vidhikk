@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class CreateSubDiaryComponent {
 
+  caseList: any[] = [
+    { value: 'Civil', viewValue: 'Civil' },
+    { value: 'Finance', viewValue: 'Finance' },
+    { value: 'Taxation', viewValue: 'Taxation' },
+  ];
+
+  memberList: any[] = [
+    { value: 'Civil', viewValue: 'Civil' },
+    { value: 'Finance', viewValue: 'Finance' },
+    { value: 'Taxation', viewValue: 'Taxation' },
+  ];
+
 }

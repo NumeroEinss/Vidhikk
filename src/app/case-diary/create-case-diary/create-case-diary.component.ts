@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-create-case-diary',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './create-case-diary.component.scss'
 })
 export class CreateCaseDiaryComponent {
+
+  createCaseDiary: FormGroup;
 
   courtNameList: any[] = [
     { value: 'District & Session Court INDORE', viewValue: 'District & Session Court INDORE' },
@@ -37,9 +40,12 @@ export class CreateCaseDiaryComponent {
     { value: 'Taxation', viewValue: 'Taxation' },
   ];
 
+  constructor(private _formBuilder: FormBuilder) {
+    this.createCaseDiary = this._formBuilder.group({
+      // username: new FormControl('', [Validators.required]),
+      // password: new FormControl('', [Validators.required, Validators.minLength(10)])
+    });
 
-
-  constructor() { }
-
+  }
 
 }

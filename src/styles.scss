@@ -117,7 +117,7 @@ body {
     height: 18px;
     flex-grow: 0;
     font-family: Poppins;
-    font-size: 14px;
+    font-size: 14px !important;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -388,14 +388,17 @@ body {
   }
 
   .mat-mdc-select-trigger {
-    padding: 7px 10px;
+    padding: 10px 10px;
   }
+
   .mat-mdc-select-trigger::after {
     content: "";
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 20px;
-    height: 15px;
-    // background-color: red;
-    background: url("../Vidhikk/src/assets/images/vector.svg") 0 98%;
+    height: 20px;
+    background: url("../src/assets/images/vector.svg") 0 98%;
   }
   .mat-mdc-select-arrow-wrapper {
     display: none;

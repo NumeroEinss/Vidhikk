@@ -11,6 +11,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 export class SignupComponent {
 
   @ViewChild('otpDialog', { static: false }) otpDialog!: TemplateRef<any>;
+
   signupForm: FormGroup;
   signupForm2: FormGroup;
   otpVerified: boolean = false;

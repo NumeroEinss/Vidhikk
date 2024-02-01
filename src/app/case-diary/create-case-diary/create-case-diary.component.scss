@@ -1,6 +1,6 @@
 .root {
   .create-case-diary {
-    margin: 20px 0 0 30px;
+    margin: 30px 36px 0 36px;
 
     .create-case-diary-heading {
       flex-grow: 0;
@@ -21,7 +21,8 @@
       gap: 40px;
 
       .mat-label {
-        width: 187px;
+        // width: 187px;
+        margin-bottom: 4px;
         height: 21px;
         flex-grow: 0;
         font-family: Poppins;
@@ -36,7 +37,7 @@
       }
 
       .mat-mdc-form-field {
-        width: 352px !important;
+        width: 357px !important;
       }
 
       input [type="file"] {
@@ -45,12 +46,21 @@
     }
 
     .lower-div {
+      display: flex;
+      margin-top: 35px;
+
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        font-size: 14px;
+      }
+      img {
+        margin-right: 10px;
+      }
       .mat-mdc-outlined-button:not(:disabled) {
         width: unset !important;
-      }
-
-      .mat-icon {
-        padding-top: 8px;
       }
     }
   }

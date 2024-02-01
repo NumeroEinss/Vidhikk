@@ -13,34 +13,35 @@ import { CreateSubDiaryComponent } from './create-sub-diary/create-sub-diary.com
 const routes: Routes = [
   {
     path: '',
-    component: CaseDiaryComponent
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
-    path: 'case-diary-login',
+    path: 'login',
     component: CaseDiaryLoginComponent
   },
   {
-    path: 'case-diary-signup',
+    path: 'signup',
     component: CaseDiarySignupComponent
   },
   {
-    path: 'case-diary-forgot',
+    path: 'forget-password',
     component: CaseDiaryForgotComponent
   },
   {
-    path: 'case-diary-reset-password',
+    path: 'reset-password',
     component: CaseDiaryResetPasswordComponent
   },
   {
-    path: 'case-diary-list',
+    path: 'cases',
     component: CaseDiaryListComponent
   },
   {
-    path: 'create-case-diary',
+    path: 'create',
     component: CreateCaseDiaryComponent
   },
   {
-    path: 'create-sub-diary',
+    path: 'sub-diary',
     component: CreateSubDiaryComponent
   },
 ];

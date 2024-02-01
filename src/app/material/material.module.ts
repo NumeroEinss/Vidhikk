@@ -13,10 +13,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 const elements = [MatTabsModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule,
   MatGridListModule, MatDialogModule, MatSelectModule, MatDividerModule, MatMenuModule, MatCheckboxModule,
-  MatRadioModule, MatSnackBarModule];
+  MatRadioModule, MatSnackBarModule, MatCardModule];
 
 @NgModule({
   declarations: [],
