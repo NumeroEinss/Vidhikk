@@ -1,0 +1,192 @@
+<!-- header  -->
+<app-header [menuName]="'Activity feed'"></app-header>
+
+<!-- root section & feed section start-->
+<div class="root">
+    <div class="feed-section">
+
+        <!--marquee -->
+        <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
+            legal advertising regulations in your jurisdiction
+            and ensure that your messages dhere to professional
+            and ethical standards</marquee>
+
+        <div class="d-flex w-100">
+            <div class="up-section-1 w-100">
+                <div class="profile-container">
+                    <img src="../../../../assets/images/image/anurag_goyal.jpg">
+                </div>
+                <div class="section-2">
+                    <input type="text" placeholder="Tittle" />
+                    <textarea matInput row="5" placeholder="Enter Text Here..."></textarea>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary section-2-btn"><img
+                            src="../../../../assets/images/create.svg">Post</button>
+                </div>
+            </div>
+            <div class="advertisement">
+                <!-- <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="../../assets/images/image/lawyer_1.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../../assets/images/image/lawyer_2.jpg" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../../assets/images/image/lawyer_3.jpg" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div> -->
+                <img src="../../assets/images/image/lawyer_1.jpg" width="300" alt="">
+            </div>
+        </div>
+        <!-- Post section ends -->
+
+
+        <!--Feedlist section start-->
+        <div *ngFor="let item of feedList">
+            <div class="feed">
+                <div class="down-section-1">
+                    <div class="profile-container1">
+                        <img src="../../../../assets/images/image/anurag_goyal.jpg">
+                    </div>
+                    <div class="down-section-2">
+                        <div class="name">{{item.name}}</div>
+                        <div class="location"><mat-icon class="mat-icon2">location_on</mat-icon>{{item.location}}</div>
+                    </div>
+                    <div class="post-date">{{item.postDate}}</div>
+                </div>
+                <hr>
+                <div class="activity-feed">
+                    <div class="activity-feed-heading">{{item.heading}}</div>
+                    <div class="activity-feed-comment">{{item.comment}}</div>
+                    <div class="d-flex mt-1 like-comment">
+                        <div><mat-icon class="mat-icon2">favorite</mat-icon>{{item.likesCount}}</div>
+                        <div class="mx-3"><mat-icon class="mat-icon2">comment</mat-icon> {{item.commentsCount}}</div>
+                    </div>
+                </div>
+
+
+                <div id="comment-section" *ngIf="isCommentBoxOpen || isPost" class="comment-section">
+
+                    <div *ngFor="let comment of item.comments" class="comment">
+                        <div class="down-section-1a">
+                            <div class="profile-container1">
+                                <img src="../../../../assets/images/image/anurag_goyal.jpg">
+                            </div>
+                            <div class="down-section-2">
+                                <div class="name">{{comment.name}}</div>
+                                <div class="location"><mat-icon
+                                        class="mat-icon2">location_on</mat-icon>{{comment.location}}
+                                </div>
+                            </div>
+                            <div class="post-date">{{comment.postDate}}</div>
+                        </div>
+                        <hr class="hr-line">
+                        <div class="activity-feed1">
+                            <div class="activity-feed-comment">{{comment.comment}}</div>
+                            <div class="d-flex mt-1 like-comment">
+                                <div><mat-icon class="mat-icon2">favorite</mat-icon>{{comment.likesCount}}</div>
+                                <div class="mx-3"><mat-icon class="mat-icon2">comment</mat-icon>
+                                    {{comment.commentsCount}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="comment-box" *ngIf="isCommentBoxOpen">
+                    <div class="profile-container2">
+                        <img src="../../../../assets/images/image/anurag_goyal.jpg">
+                    </div>
+                    <div class="comment-box-textarea">
+                        <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="comment"></textarea>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary comment-btn"
+                            (click)="addComment()"><mat-icon>edit_square</mat-icon>Post</button>
+                    </div>
+                </div>
+                <div class="activity-feed-bottom">
+                    <button class="activity-feed-bottom-btn"><img src="../../../../assets/images/icons/like_icon.svg"
+                            class="mx-1">Like</button>
+                    <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen"><img
+                            src="../../../../assets/images/icons/comment_icon.svg" class="mx-1">Comment</button>
+                    <button class="activity-feed-bottom-btn"><img src="../../../../assets/images/icons/share_icon.svg"
+                            class="mx-1">Share</button>
+                </div>
+            </div>
+            <!-- comment-box section end-->
+        </div>
+        <!--Feedlist section ends-->
+
+    </div>
+    <!-- root & feed section ends -->
+
+
+
+    <button id="modalButton" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"></button>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Disclaimer</h1>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li class="mb-3"><span class="list-heading">No Legal
+                            Advise : </span><span class="list-description">The information
+                            contained on the Website
+                            is for general informational purposes only and is not intended to provide legal
+                            advice. You should consult with a qualified legal professional for advice regarding your
+                            individual situation.
+                        </span></li>
+                    <li class="mb-3"><span class="list-heading">No Attorney-Client Relationship : </span><span
+                            class="list-description">Your use of the
+                            Website
+                            does not create an attorney-client
+                            relationship between you and vidhik. Such a relationship can only be established through a
+                            specific written agreement with us.
+                        </span></li>
+                    <li class="mb-3"><span class="list-heading">Accuracy of Information : </span><span>While we strive
+                            to provide
+                            accurate and up-to-date information, we
+                            make no representations or warranties of any kind, express or implied, about the
+                            completeness, accuracy, reliability, suitability, or availability of the information
+                            contained on the Website.
+                        </span></li>
+                    <li class="mb-3"><span class="list-heading">Acceptance of Terms : </span><span>By clicking
+                            &quot;Accept&quot;
+                            below, you acknowledge that you have
+                            read, understood, and agree to be bound by the terms of this disclaimer. If you do not agree
+                            to these terms, pleas click &quot;Reject&quot; and refrain from using the Website.</span>
+                    </li>
+                </ol>
+                <div class="text-center">
+                    <button mat-raised-button
+                        style="border: 1px solid blue; width: fit-content !important; color: blue;"
+                        routerLink="/auth/login" data-bs-dismiss="modal">Reject</button>
+
+                    <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 10px;"
+                        data-bs-dismiss="modal">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
