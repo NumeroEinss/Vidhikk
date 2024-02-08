@@ -1,0 +1,46 @@
+<!-- header section start -->
+<app-header [menuName]="'Member'"></app-header>
+
+<!-- root section start -->
+<div class="root">
+  <!-- popup section start -->
+  <div>
+    <button
+      id="modalButton"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      style="display: none"
+    ></button>
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <h1 class="text-center">Profile Upgradation</h1>
+          <div class="modal-body"> 
+            <p>
+              Unlock a world of upportunities to superchange your service and
+              stay ahead in the legal
+            </p>
+            <div class="text-center mt-3 mb-3">
+              <button
+                mat-raised-button
+                color="primary"
+                data-bs-dismiss="modal"
+                style="width: fit-content !important"
+              >
+                Go to premium
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- popup section ends -->
+</div>
+<!-- root section ends -->

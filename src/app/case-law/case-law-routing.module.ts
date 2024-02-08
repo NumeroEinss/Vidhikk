@@ -8,20 +8,20 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'cases',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'cases',
-    component: CaseLawListComponent
+    component: CaseLawListComponent,
   },
   {
     path: 'cases/view/:id',
-    component: CaseLawDetailComponent
-  }
+    component: CaseLawDetailComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CaseLawRoutingModule { }
+export class CaseLawRoutingModule {}

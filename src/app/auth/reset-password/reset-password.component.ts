@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { resetModel } from '../../common/reset-password.module';
+import { resetModel } from '../../common/reset-password.model';
 import {
   FormBuilder,
   FormGroup,

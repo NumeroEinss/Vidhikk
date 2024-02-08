@@ -1,0 +1,91 @@
+<!-- header -->
+<app-header [menuName]="'Case Diary'"></app-header>
+
+<!-- root-section-start -->
+<div class="root">
+  <!-- feed-section-start -->
+  <div class="feed-section">
+    <!-- case-diary-bar start-->
+    <div class="filter-bar mb-2">
+      <div class="pretext col-lg-6" (click)="backButton()">
+        <img src="../../../assets/images/icons/arrow-left.svg" />
+      </div>
+
+
+<!-- shareMenu, pdfMenu start-->
+      <div class="posttext col-lg-6">
+        <div [matMenuTriggerFor]="shareMenu" class="mat-menu-list">
+          <img src="../../../assets/images/icons/case-diary-share.svg" />
+        </div>
+        <img src="../../../assets/images/icons/pdf.svg" />
+        <img src="../../../assets/images/icons/print.svg" />
+      </div>
+      <mat-menu
+        #shareMenu="matMenu"
+        yPosition="below"
+        [hasBackdrop]="true"
+        class="mat-menu"
+      >
+        <button mat-menu-item>
+          <img
+            src="../../../assets/images/icons/email_share.svg"
+            alt=""
+            class="me-2"
+          />
+          <span class="mat-menu-list">Share on email</span>
+        </button>
+        <button mat-menu-item>
+          <img
+            src="../../../assets/images/icons/wtsp_share.svg"
+            alt=""
+            class="me-2"
+          />
+          <span class="mat-menu-list">Share on whatsapp</span>
+        </button>
+      </mat-menu>
+    </div>
+    <!-- case-diary-bar ends-->
+
+    <!-- case-diary details start-->
+    <div class="description">
+      <div>IN THE COURT OF <span class="bold">XII ADJ, Indore</span></div>
+      <div class="mt-3">
+        Case No: <span class="bold">2341</span><br />
+        Hearing Date: <span class="bold">15-01-24</span><br />
+        Case Title: <span class="bold">Criminal</span>
+      </div>
+      <div class="mt-3"><span class="bold">Karan Singh</span> Applicant</div>
+      <div class="mt-3">Versus</div>
+      <div class="mt-3"><span class="bold">Ram Kumar</span> Respondent</div>
+      <div class="mt-3">
+        Application u/s <span class="bold">318</span> Cr.P.C.
+      </div>
+      <div class="mt-3">Bail application pending hearing of appeal</div>
+      <div class="mt-3">Most respectfully showeth:-</div>
+      <div class="mt-3">
+        1. That petitioner has been convicted by the Hon'ble court for the
+        offence<br />under Section 318 and passed an order to undergo sentence
+        RI with fine in default to suffer
+      </div>
+      <div class="mt-3">
+        2. Applicant responded is
+        <span class="bold">Out of Station </span>Today.
+      </div>
+      <div class="mt-3">
+        It is most respectfully prayed that petitioner convict may please be
+        granted bail (Short bail) in order to<br />
+        enable to lodge appeal against the conviction and sentence.
+      </div>
+      <div class="mt-3">It is prayed accordingly.</div>
+      <div class="mt-3">Convict/Accused.</div>
+      <div class="mt-3">Date:<br />Through Counsel</div>
+      <div class="mt-3">
+        Place:<span class="bold">Indore</span><br />U/s. 389 (3) Cr. P. C. short
+        bail can be obtained for filing appeal to High Court/ Sessions Court.
+      </div>
+    </div>
+    <!-- case-diary details ends-->
+  </div>
+  <!-- feed-section-ends -->
+</div>
+<!-- root-section-ends -->

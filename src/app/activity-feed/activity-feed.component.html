@@ -161,6 +161,7 @@
             </button>
           </div>
         </div>
+
         <div class="activity-feed-bottom">
           <button class="activity-feed-bottom-btn">
             <img
@@ -177,11 +178,33 @@
               class="mx-1"
             />Comment
           </button>
-          <button class="activity-feed-bottom-btn">
+
+          <button
+            class="activity-feed-bottom-btn"
+            [matMenuTriggerFor]="shareMenu"
+          >
             <img
               src="../../../../assets/images/icons/share_icon.svg"
               class="mx-1"
             />Share
+            <mat-menu #shareMenu="matMenu">
+              <div mat-menu-item>
+                <img
+                  src="../../../assets/images/icons/share_facebook.svg"
+                  alt=""
+                  class="me-2"
+                />
+                <span class="mat-menu-list">Share on facebook</span>
+              </div>
+              <div mat-menu-item>
+                <img
+                  src="../../../assets/images/icons/wtsp_share.svg"
+                  alt=""
+                  class="me-2"
+                />
+                <span class="mat-menu-list">Share on whatsapp</span>
+              </div>
+            </mat-menu>
           </button>
         </div>
       </div>
@@ -189,32 +212,28 @@
     </div>
     <!--Feedlist section ends-->
   </div>
-  <!-- root & feed section ends -->
+  
 
-  <button
-    id="modalButton"
-    data-bs-toggle="modal"
-    data-bs-target="#exampleModal"
-    style="display: none"
-  ></button>
 </div>
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<!-- root & feed section ends -->
+
+<!-- modal start -->
+<button
+  id="modalButton"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  style="display: none"
+></button>
+<div class="modal fade" id="exampleModal" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true"  >
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Disclaimer</h1>
-        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
       <div class="modal-body">
         <ol>
           <li class="mb-3">
-            <span class="list-heading">No Legal Advise : </span
+            <span class="list-heading">No Legal Advise: </span
             ><span class="list-description"
               >The information contained on the Website is for general
               informational purposes only and is not intended to provide legal
@@ -223,7 +242,7 @@
             </span>
           </li>
           <li class="mb-3">
-            <span class="list-heading">No Attorney-Client Relationship : </span
+            <span class="list-heading">No Attorney-Client Relationship: </span
             ><span class="list-description"
               >Your use of the Website does not create an attorney-client
               relationship between you and vidhik. Such a relationship can only
@@ -231,7 +250,7 @@
             </span>
           </li>
           <li class="mb-3">
-            <span class="list-heading">Accuracy of Information : </span
+            <span class="list-heading">Accuracy of Information: </span
             ><span
               >While we strive to provide accurate and up-to-date information,
               we make no representations or warranties of any kind, express or
@@ -241,7 +260,7 @@
             </span>
           </li>
           <li class="mb-3">
-            <span class="list-heading">Acceptance of Terms : </span
+            <span class="list-heading">Acceptance of Terms: </span
             ><span
               >By clicking &quot;Accept&quot; below, you acknowledge that you
               have read, understood, and agree to be bound by the terms of this
@@ -257,6 +276,7 @@
               border: 1px solid blue;
               width: fit-content !important;
               color: blue;
+              background-color: unset !important;
             "
             routerLink="/auth/login"
             data-bs-dismiss="modal"
@@ -277,3 +297,8 @@
     </div>
   </div>
 </div>
+<!-- modal start -->
+
+
+
+

@@ -258,24 +258,37 @@ body {
     .modal-content {
       border-radius: 0px;
       border: none;
-      box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
+      box-shadow: 0px 4px 4px 0 #053bff14, 0px 0px 12px 0 #053bff14;
       background-color: #ffffff;
     }
   }
 
+  .mat-mdc-menu-item{
+    padding: 0px 16px;
+  }
+
   .list-container {
+    .mat-mdc-menu-item{
+      padding: unset !important;
+    }
     label {
       font-family: Poppins;
       font-size: 14px;
     }
   }
 
-  // mat-menu Override Css
+  // // mat-menu Override Css
   .mat-menu {
     max-width: 267px !important;
     border-radius: 12px !important;
     font-family: Poppins !important;
     padding: 0px 14px !important;
+  }
+
+  .mat-menu-list {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000cc;
   }
 
   // mat-checkbox Override Css
@@ -339,6 +352,7 @@ body {
 
   // mat-input with white background
   .mat-input-white {
+    max-width: 357px;
     .mat-mdc-text-field-wrapper {
       background-color: white;
     }
@@ -352,14 +366,14 @@ body {
   // mat-select overlay Override Css
   .mat-elevation-z8,
   .mat-mdc-elevation-specific.mat-elevation-z8 {
-    box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
-    position: relative;
-    top: 10%;
+    box-shadow: 2px -6px 10px 0 white, 1px 0px 10px 0 #053bff14;
+    position: relative !important;
+    top: 5%;
   }
 
   // mat-select overlay-root Override Css
   .mat-mdc-select-panel {
-    box-shadow: 8px 8px 24px 0 #053bff14, -8px -8px 24px 0 #053bff14;
+    box-shadow: 2px -6px 10px 0 white, 1px 0px 10px 0 #053bff14;
     border-radius: 12px;
   }
 
@@ -433,4 +447,32 @@ body {
     .mdc-notched-outline__leading:hover {
     border-right: none;
   }
+
+  //mat-label Override Css
+  mat-label {
+    max-width: 357px;
+  }
+
+  .mat-mdc-menu-panel {
+    border-radius: 20px;
+    
+  }
+
+  .cdk-overlay-connected-position-bounding-box {
+    // top: 195px !important;
+    // right: -20px !important;
+    // position: relative !important;
+
+    .cdk-overlay-pane::before {
+      background-color: white;
+      width: 30px;
+      height: 30px;
+      content: " ";
+      transform: rotate(45deg);
+      position: absolute;
+      right: 18px;
+      box-shadow: 2px 12px 3px 0 white, 0px 1px 12px 0 #053bff14;
+      top: 2px;
+    }  
+  }  
 }

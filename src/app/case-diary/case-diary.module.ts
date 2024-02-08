@@ -12,7 +12,7 @@ import { CaseDiaryResetPasswordComponent } from './case-diary-reset-password/cas
 import { CaseDiaryListComponent } from './case-diary-list/case-diary-list.component';
 import { CreateCaseDiaryComponent } from './create-case-diary/create-case-diary.component';
 import { CreateSubDiaryComponent } from './create-sub-diary/create-sub-diary.component';
-
+import { ViewApplicationComponent } from './view-application/view-application.component';
 
 
 @NgModule({
@@ -24,7 +24,8 @@ import { CreateSubDiaryComponent } from './create-sub-diary/create-sub-diary.com
     CaseDiaryResetPasswordComponent,
     CaseDiaryListComponent,
     CreateCaseDiaryComponent,
-    CreateSubDiaryComponent],
+    CreateSubDiaryComponent,
+    ViewApplicationComponent],
 
   imports: [
     CommonModule,

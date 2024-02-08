@@ -6,7 +6,6 @@ import { FooterComponent } from './component/footer/footer.component';
 import { MaterialModule } from '../material/material.module';
 
 
-
 @NgModule({
   declarations: [
     PageNotFoundComponent,

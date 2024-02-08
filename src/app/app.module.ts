@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -23,6 +22,7 @@ import { AuthService } from './shared/services/auth.service';
 import { HttpService } from './shared/services/http.service';
 import { SnackAlertService } from './shared/services/snack-alert.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +30,7 @@ import { SnackAlertService } from './shared/services/snack-alert.service';
     SignupComponent,
     ForgotPasswordComponent,
     CreateNewPasswordComponent,
-    ResetPasswordComponent,
+    ResetPasswordComponent,   
   ],
   imports: [
     FormsModule,
