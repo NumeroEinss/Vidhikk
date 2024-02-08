@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SnackAlertService } from '../../shared/services/snack-alert.service';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +15,14 @@ export class LoginComponent {
   hide: boolean = true;
   selectedIndex: number = 0;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private _router: Router, private _toastMessage: SnackAlertService) {
     this.loginForm = this._formBuilder.group({
+      userType: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(10)])
     });
     this.loginForm2 = this._formBuilder.group({
+      userType: new FormControl('', [Validators.required]),
       mobile: new FormControl(null, [Validators.required, Validators.pattern("[0-9 ]{10}")]),
       password: new FormControl('', [Validators.required, Validators.minLength(10)])
     });
@@ -39,12 +43,14 @@ export class LoginComponent {
   tabSelectionChange(event: any) {
     if (event.index == 0) {
       this.loginForm2 = this._formBuilder.group({
-        mobile: new FormControl('', [Validators.required, Validators.pattern("[0-9 ]{10}")]),
+        userType: new FormControl('', [Validators.required]),
+        mobile: new FormControl(null, [Validators.required, Validators.pattern("[0-9 ]{10}")]),
         password: new FormControl('', [Validators.required, Validators.minLength(10)])
       })
     }
     else {
       this.loginForm = this._formBuilder.group({
+        userType: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required, Validators.minLength(10)])
       })
@@ -53,5 +59,29 @@ export class LoginComponent {
 
   isNumber(event: any) {
     return event.charCode >= 48 && event.charCode <= 57;
+  }
+
+  login(formType: string) {
+    if (formType == 'form') {
+      if (this.loginForm.valid) {
+        this._toastMessage.success('Login Successfull !!');
+        this._router.navigate(['/lawyer/activity-feed']);
+      }
+      else {
+        this._toastMessage.error('Please Fill All Fields !!');
+      }
+    }
+    else if (formType == 'form2') {
+      if (this.loginForm2.valid) {
+        this._toastMessage.success('Login Successfull !!');
+        this._router.navigate(['/lawyer/activity-feed']);
+      }
+      else {
+        this._toastMessage.error('Please Fill All Fields !!');
+      }
+    }
+    else {
+      this._toastMessage.error('Please Fill All Fields !!');
+    }
   }
 }

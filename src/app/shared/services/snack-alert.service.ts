@@ -12,16 +12,25 @@ export class SnackAlertService {
 
 
   success(message: string, duration = 3500) {
-    this.MatSnackBar.open(message, '', { duration, panelClass: ['alert', 'alert-success'] })
+    this.MatSnackBar.open(message, '', {
+      duration, panelClass: ['alert', 'alert-success'], horizontalPosition: 'center',
+      verticalPosition: 'top'
+    })
   }
 
 
   error(message: string, duration = 3500) {
-    this.MatSnackBar.open(message, '', { duration, panelClass: ['alert', 'alert-error'] })
+    this.MatSnackBar.open(message, '', {
+      duration, panelClass: ['alert', 'alert-error'], horizontalPosition: 'center',
+      verticalPosition: 'top'
+    })
   }
 
   message(message: string, duration = 3500) {
-    this.MatSnackBar.open(message, '', { duration, panelClass: 'alert' })
+    this.MatSnackBar.open(message, '', {
+      duration, panelClass: 'alert', horizontalPosition: 'center',
+      verticalPosition: 'top'
+    })
 
   }
 

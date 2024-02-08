@@ -1,4 +1,5 @@
 .root {
+
   .feed-section {
     .section-2 {
       display: flex;
@@ -49,6 +50,7 @@
       border-radius: 12px;
       background-color: #2e5bff;
     }
+
     // post secton styling ends
 
     .up-section-1 {
@@ -148,6 +150,7 @@
         text-align: left;
         color: var(--solid-gray);
       }
+
       .name {
         flex-grow: 0;
         font-family: Poppins;
@@ -203,9 +206,6 @@
         width: -webkit-fill-available;
         width: -moz-available;
         height: 300px;
-        overflow: scroll;
-        overflow-x: hidden;
-        overflow-y: scroll;
 
         .comment {
           margin-top: 33px;
@@ -240,16 +240,16 @@
         }
       }
 
-      ::-webkit-scrollbar {
-        width: 4px;
-        background-color: #fbfbfb;
-        border-radius: 5px;
-      }
+      // ::-webkit-scrollbar {
+      //   width: 4px;
+      //   background-color: #fbfbfb;
+      //   border-radius: 5px;
+      // }
 
-      ::-webkit-scrollbar-thumb {
-        background-color: #c4c4c4;
-        border-radius: 2px;
-      }
+      // ::-webkit-scrollbar-thumb {
+      //   background-color: #c4c4c4;
+      //   border-radius: 2px;
+      // }
 
       .comment-box {
         display: flex;
@@ -279,7 +279,7 @@
           font-size: 14px;
           width: 100%;
           width: -moz-available;
-          margin: 20px 5px;
+          margin: 0px 10px;
 
           textarea {
             width: 100%;

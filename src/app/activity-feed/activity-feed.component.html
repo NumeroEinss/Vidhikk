@@ -6,7 +6,8 @@
     <div class="feed-section">
 
         <!--marquee -->
-        <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
+        <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with
+            any
             legal advertising regulations in your jurisdiction
             and ensure that your messages dhere to professional
             and ethical standards</marquee>
@@ -22,10 +23,10 @@
                 </div>
                 <div>
                     <button type="button" class="btn btn-primary section-2-btn"><img
-                            src="../../../../assets/images/create.svg">Post</button>
+                            src="../../assets/images/icons/post.svg">Post</button>
                 </div>
             </div>
-            <div class="advertisement">
+            <div class="advertisement" style="margin-right: 26px;">
                 <!-- <div id="carouselExample" class="carousel slide">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -49,7 +50,7 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div> -->
-                <img src="../../assets/images/image/lawyer_1.jpg" width="300" alt="">
+                <img src="../../assets/images/image/lawyer_2.jpg" [width]="300">
             </div>
         </div>
         <!-- Post section ends -->
@@ -65,7 +66,7 @@
                         </div>
                         <div class="down-section-2">
                             <div class="name">{{item.name}}</div>
-                            <div class="location"><img src="../../../../assets/images/location.svg"
+                            <div class="location"><img src="../../../../assets/images/icons/location.svg"
                                     alt="">{{item.location}}
                             </div>
                         </div>
@@ -77,9 +78,10 @@
                     <div class="activity-feed-heading">{{item.heading}}</div>
                     <div class="activity-feed-comment">{{item.comment}}</div>
                     <div class="d-flex mt-1 like-comment">
-                        <div class="like-icon"><img src="../../../../assets/images/like.svg" alt="">{{item.likesCount}}
+                        <div class="like-icon"><img src="../../../../assets/images/icons/like.svg"
+                                alt="">{{item.likesCount}}
                         </div>
-                        <div class="mx-3 like-icon"><img src="../../../../assets/images/comment.svg" alt="">
+                        <div class="mx-3 like-icon"><img src="../../../../assets/images/icons/comment.svg" alt="">
                             {{item.commentsCount}}</div>
                     </div>
                 </div>
@@ -87,34 +89,36 @@
 
                 <div id="comment-section" *ngIf="isCommentBoxOpen || isPost" class="comment-section">
 
-                    <div *ngFor="let comment of item.comments" class="comment">
-                        <div class="down-section-1a">
-                            <div class="d-flex">
-                                <div class="profile-container1">
-                                    <img src="../../../../assets/images/image/anurag_goyal.jpg">
+                    <ng-scrollbar autoHeightDisabled="false">
+                        <div *ngFor="let comment of item.comments" class="comment">
+                            <div class="down-section-1a">
+                                <div class="d-flex">
+                                    <div class="profile-container1">
+                                        <img src="../../../../assets/images/image/anurag_goyal.jpg">
+                                    </div>
+                                    <div class="down-section-2">
+                                        <div class="name">{{comment.name}}</div>
+                                        <div class="location"><img src="../../../../assets/images/icons/location.svg"
+                                                alt="">{{comment.location}}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="down-section-2">
-                                    <div class="name">{{comment.name}}</div>
-                                    <div class="location"><img src="../../../../assets/images/location.svg"
-                                            alt="">{{comment.location}}
+                                <div class="post-date">{{comment.postDate}}</div>
+                            </div>
+                            <hr class="hr-line">
+                            <div class="activity-feed1">
+                                <div class="activity-feed-comment">{{comment.comment}}</div>
+                                <div class="d-flex mt-1 like-comment">
+                                    <div class="like-icon"><img src="../../../../assets/images/icons/like.svg"
+                                            alt="">{{comment.likesCount}}</div>
+                                    <div class="mx-3 like-icon"><img src="../../../../assets/images/icons/comment.svg"
+                                            alt="">
+                                        {{comment.commentsCount}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="post-date">{{comment.postDate}}</div>
                         </div>
-                        <hr class="hr-line">
-                        <div class="activity-feed1">
-                            <div class="activity-feed-comment">{{comment.comment}}</div>
-                            <div class="d-flex mt-1 like-comment">
-                                <div class="like-icon"><img src="../../../../assets/images/like.svg"
-                                        alt="">{{comment.likesCount}}</div>
-                                <div class="mx-3 like-icon"><img src="../../../../assets/images/comment.svg" alt="">
-                                    {{comment.commentsCount}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    </ng-scrollbar>
                 </div>
 
 
@@ -127,7 +131,7 @@
                     </div>
                     <div>
                         <button type="button" class="btn btn-primary comment-btn" (click)="addComment()"><img
-                                src="../../../../assets/images/create.svg" alt="">Post</button>
+                                src="../../assets/images/icons/post.svg" alt="">Post</button>
                     </div>
                 </div>
                 <div class="activity-feed-bottom">

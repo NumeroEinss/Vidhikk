@@ -8,7 +8,6 @@ import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { IntlTelInputNgModule } from 'intl-tel-input-ng';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -22,7 +21,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { AuthService } from './shared/services/auth.service';
 import { HttpService } from './shared/services/http.service';
 import { SnackAlertService } from './shared/services/snack-alert.service';
-
+import { NgOtpInputModule } from 'ng-otp-input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +39,7 @@ import { SnackAlertService } from './shared/services/snack-alert.service';
     SharedModule,
     MaterialModule,
     BrowserAnimationsModule,
-    IntlTelInputNgModule,
+    NgOtpInputModule
   ],
   providers: [
     AuthGuard, AuthService, HttpService, SnackAlertService,

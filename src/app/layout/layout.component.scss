@@ -53,10 +53,21 @@
         display: none;
       }
     }
+
     li:hover {
       background-color: #2e5bff0d;
+
       a {
         color: #2e5bff;
+      }
+
+      .active {
+        margin-right: 12px;
+        display: block;
+      }
+
+      .in-active {
+        display: none;
       }
     }
 
