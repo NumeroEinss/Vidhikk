@@ -1,5 +1,10 @@
+mat-drawer-container {
+  position: unset;
+}
+
 .main-container {
   height: 100vh;
+  display: flex;
 
   .material-symbols-sharp {
     font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
@@ -8,6 +13,8 @@
   .sidenav {
     background-color: #fbfbfb;
     width: 220px;
+    position: relative;
+    display: block;
 
     .logo {
       height: 85px;
@@ -78,8 +85,15 @@
     }
   }
 
-  mat-drawer-content {
+  .main-content {
     background-color: white;
+    width: calc(100vw - 220px);
+    height: 100vh;
+    overflow: scroll;
+
+    .modal {
+      position: absolute !important;
+    }
   }
 }
 
@@ -89,7 +103,7 @@
       width: 180px;
     }
 
-    mat-drawer-content {
+    .main-content {
       margin-left: 180px !important;
     }
 

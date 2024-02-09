@@ -1,5 +1,5 @@
-<mat-drawer-container class="main-container">
-    <mat-drawer mode="side" opened class="sidenav">
+<div class="main-container" style="position: relative;">
+    <div mode="side" opened class="sidenav">
         <div class="logo">
             <img src="../../assets/images/icons/vidhiklogo.png" alt="Vidhik">
         </div>
@@ -53,9 +53,9 @@
                 <img src="../../assets/images/icons/active_marketplace.svg" class="active">
                 Marketplace</a>
         </li>
-    </mat-drawer>
-    <mat-drawer-content>
+    </div>
+    <div class="main-content">
         <router-outlet></router-outlet>
         <app-footer></app-footer>
-    </mat-drawer-content>
-</mat-drawer-container>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 .root {
   //  case repository styling start 
-  .case-diary-image {
+  .case-diary {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,7 +20,7 @@
       color: #000;
     }
 
-    .case-diary-l {
+    .case-diary-heading {
       flex-grow: 0;
       margin: 17px 0 26.3px;
       font-family: Poppins;
@@ -35,7 +35,7 @@
     }
 
     button {
-      width: 122px;
+      // width: 122px;
       height: 40px;
       flex-grow: 0;
       display: flex;
@@ -136,5 +136,5 @@
       }
     }
   }
-    // list-style start
+    // list-style ends
 }
