@@ -68,7 +68,7 @@ export class LoginComponent {
         this._router.navigate(['/lawyer/activity-feed']);
       }
       else {
-        this._toastMessage.error('Please Fill All Fields !!');
+        this._toastMessage.error('Please Fill All Fields Properly!!');
       }
     }
     else if (formType == 'form2') {
@@ -77,11 +77,11 @@ export class LoginComponent {
         this._router.navigate(['/lawyer/activity-feed']);
       }
       else {
-        this._toastMessage.error('Please Fill All Fields !!');
+        this._toastMessage.error('Please Fill All Fields Properly!!');
       }
     }
     else {
-      this._toastMessage.error('Please Fill All Fields !!');
+      this._toastMessage.error('Please Fill All Fields Properly!!');
     }
   }
 }

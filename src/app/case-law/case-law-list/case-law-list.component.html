@@ -284,7 +284,7 @@
         <mat-tab label="Universal Search">
             <div class="citation-wise">
                 <div class="title">
-                    Citation Wise
+                    Universal Search
                 </div>
                 <div class="d-flex mat-input-white" style="flex-direction: column;">
                     <mat-label class="mat-label">All these words or phrase</mat-label>
@@ -321,7 +321,62 @@
 
         <!-- Advance Search -->
         <mat-tab label="Advance Search">
+            <div class="advance-search">
+                <div class="title">
+                    Advance Search
+                </div>
+                <div class="row">
+                    <div class="d-flex mat-input-white" style="flex-direction: column;">
+                        <mat-label class="mat-label">Enter Text</mat-label>
+                        <mat-form-field appearance="outline">
+                            <input matInput placeholder="All these words in quotes dying">
+                        </mat-form-field>
+                    </div>
+                    <div class="d-flex mat-input-white" style="flex-direction: column;">
+                        <mat-label class="mat-label">Applicant Respondant Name</mat-label>
+                        <mat-form-field appearance="outline">
+                            <input matInput placeholder="Type Application Name">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="d-flex mat-input-white" style="flex-direction: column;">
+                        <mat-label class="mat-label">Judge Name</mat-label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Select Judge" required>
+                                <a (click)=" $event.stopPropagation();" style="text-decoration: none;">
+                                    <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                                        <input #search matInput (keyup)="filterJudge($event)"
+                                            placeholder="By Judge Name">
+                                        <span matSuffix><img class="me-2"
+                                                src="../../../assets/images/icons/search-blue.svg"></span>
+                                    </mat-form-field>
+                                </a>
+                                <mat-option>Select</mat-option>
+                                <mat-option *ngFor="let state of filteredJudgeList" [value]="state.value">
+                                    {{ state.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="d-flex mat-input-white" style="flex-direction: column;">
+                        <mat-label class="mat-label">Decision Date</mat-label>
+                        <mat-form-field appearance="outline">
+                            <input matInput [matDatepicker]="dp" placeholder="Select Date Range">
+                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                            <mat-datepicker #dp></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
 
+                <div class="d-flex mt-3">
+                    <button mat-raised-button color="primary"
+                        style="width:124px !important;margin-right: 26px;display:flex;"><img
+                            src="../../../assets/images/icons/search-white.svg" />Search</button><br>
+                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
+                            src="../../../assets/images/icons/reset.svg">Reset</button>
+                </div>
+            </div>
         </mat-tab>
         <!--Advance Search Ends -->
 

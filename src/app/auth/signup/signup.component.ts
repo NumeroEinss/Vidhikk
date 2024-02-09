@@ -65,10 +65,10 @@ export class SignupComponent {
     this.signupForm2.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
     this.signupForm2.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword()])
 
-    this.filteredField = this.signupForm2.controls.practiceField?.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.fields.slice())),
-    );
+    // this.filteredField = this.signupForm2.controls.practiceField?.valueChanges.pipe(
+    //   startWith(null),
+    //   map((fruit: string | null) => (fruit ? this._filter(fruit) : this.fields.slice())),
+    // );
   }
 
   get SignupFrmCtrl() {
@@ -118,7 +118,7 @@ export class SignupComponent {
     // Clear the input value
     event.chipInput!.clear();
 
-    this.signupForm2.controls.practiceField.setValue(null);
+    // this.signupForm2.controls.practiceField.setValue(null);
   }
 
   remove(fruit: any): void {
@@ -132,7 +132,7 @@ export class SignupComponent {
   selected(event: MatAutocompleteSelectedEvent): void {
     this.displayField.push(event.option.viewValue);
     // this.fieldInput.nativeElement.value = '';
-    this.signupForm2.controls.practiceField.setValue(null);
+    // this.signupForm2.controls.practiceField.setValue(null);
   }
 
   private _filter(value: any): string[] {

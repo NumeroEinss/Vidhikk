@@ -72,6 +72,18 @@
 
             <mat-tab label="Using Email">
                 <form [formGroup]="loginForm" class="col">
+
+                    <mat-form-field appearance="outline" class="mt-3">
+                        <span matPrefix><mat-icon>person</mat-icon></span>
+                        <mat-select placeholder=" I am what ?" formControlName="userType">
+                            <mat-option value="lawyer" selected>Lawyer</mat-option>
+                            <mat-option value="user">User</mat-option>
+                            <mat-option value="seller">Seller</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="loginForm.controls['userType'].hasError('required')">User Type is
+                            Required</mat-error>
+                    </mat-form-field>
+
                     <mat-form-field appearance="outline" class="mt-3">
                         <input matInput placeholder="pat@example.com" formControlName="email" required>
                         <span matPrefix><mat-icon>mail &nbsp;</mat-icon></span>
@@ -94,12 +106,13 @@
                     </mat-form-field>
 
                     <div class="row">
-                        <a class="text-align-right forgot-password" (click)="login('form')">Forgot Password
+                        <a class="text-align-right forgot-password" [routerLink]="'/auth/forgotPassword'">Forgot
+                            Password
                             ?</a>
                     </div>
 
                     <div class="mt-3">
-                        <button mat-raised-button color="primary w-100" [routerLink]="'/lawyer/activity-feed'">Sign
+                        <button mat-raised-button color="primary w-100" (click)="login('form')">Sign
                             In</button><br>
 
                         <button routerLink="/auth/signup" mat-stroked-button class="mt-2 w-100" color="primary"><span
