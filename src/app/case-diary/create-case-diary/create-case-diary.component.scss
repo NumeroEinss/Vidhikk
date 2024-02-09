@@ -17,11 +17,7 @@
     }
 
     .create-case-diary-fields {
-      display: flex;
-      gap: 40px;
-
       .mat-label {
-        // width: 187px;
         margin-bottom: 4px;
         height: 21px;
         flex-grow: 0;
@@ -34,10 +30,6 @@
         letter-spacing: normal;
         text-align: left;
         color: #00000099;
-      }
-
-      .mat-mdc-form-field {
-        width: 357px !important;
       }
 
       input [type="file"] {

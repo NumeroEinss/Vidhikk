@@ -12,7 +12,7 @@ export class HeaderComponent {
 
   constructor(private _router: Router) { }
 
-  clicked() {
+  userProfile() {
     this._router.navigate(['/lawyer/user-profile'])
   }
 

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CaseDiaryComponent } from './case-diary.component';
 
 describe('CaseDairyComponent', () => {

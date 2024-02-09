@@ -1,94 +1,197 @@
 <!-- Header -->
 <app-header [menuName]="'Case Diary'"></app-header>
 
-<!-- main content -->
+<!-- root section start-->
 <div class="root">
-
-     <!-- <div class="case-diary-image">
+  
+  <!-- case repository section start -->
+   <!-- <div class="case-diary">
           <div class="case-diary-repo">Legal Cases Repository</div>
-          <div class="case-diary-l">Create a Case Empowering Your Legal Journey</div>
+          <div class="case-diary-heading">Create a Case Empowering Your Legal Journey</div>
           <div class="case-diary-img"><img src="../../../assets/images/image/object.png" alt="NoImage" /></div>
           <div><button type="button" class="btn btn-primary" routerLink="/case-diary/create-case-diary"><span
                          matPrefix><mat-icon>edit</mat-icon></span>Create</button></div>
-     </div>
-     <div class="case-diary-list"></div> -->
-
-     <div class="main-div">
-          <div class="case-diary-list">
-               <div class="item1">
-                    <mat-form-field appearance="outline">
-                         <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3"></span>
-                         <mat-select placeholder="Case Diary" required>
-                              <mat-option *ngFor="let case of caseDiary" [value]="case.value">
-                                   {{ case.viewValue }}
-                              </mat-option>
-                         </mat-select>
-                    </mat-form-field>
-               </div>
-
-               <div class="item2">
-                    <mat-form-field appearance="outline" class="password">
-                         <input matInput formControlName="password" placeholder="Search Case Diary" required>
-                         <span matSuffix><img src="../../../assets/images/icons/search-blue.svg"></span>
-                    </mat-form-field>
-               </div>
+     </div> -->
+     <!-- case repository section ends-->
 
 
-               <div class="item3">
-                    <button mat-stroked-button color="primary" style="border-radius: 12px; "
-                         routerLink="/lawyer/case-diary/sub-diary"><img class="mx-1"
-                              src="../../../assets/images/icons/sub-diary.svg"><span
-                              style="color:#2E5BFF;"></span>Create Sub
-                         Diary</button>
-               </div>
-          </div>
+  <!-- main section start -->
+  <div class="main-div">
+    <!-- case-diary-list start -->
+    <div class="case-diary-list">
+      <!-- filter section start -->
+      <div class="filter-section">
+        <mat-form-field appearance="outline">
+          <span matPrefix
+            ><img src="../../../assets/images/icons/funnel.svg" class="ms-3"
+          /></span>
+          <mat-select
+            placeholder="Case Diary"
+            required
+            [(value)]="selectedDiary"
+          >
+            <mat-option *ngFor="let case of caseDiary" [value]="case.value">
+              {{ case.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- filter section ends -->
 
-          <table>
-               <thead>
-                    <tr>
-                         <th>REG. DATE</th>
-                         <th>COURT NAME</th>
-                         <th>CASE NO.</th>
-                         <th>APPLICANT</th>
-                         <th>RESPONDENT</th>
-                         <th>CASE STAGE</th>
-                         <th>NEXT HEARING</th>
-                         <th>APPLICATION</th>
-                         <th>CITY</th>
-                         <th>ACTION</th>
-                    </tr>
-               </thead>
-               <tbody>
-                    <tr>
-                         <div class="mb-2" style="border:1px solid #f5f5f5;flex-direction: unset;">
-                              <td>01-01-23</td>
-                              <td>Indore HG</td>
-                              <td>2341</td>
-                              <td>Karan Singh</td>
-                              <td>Ram Kumar</td>
-                              <td>Stag 4</td>
-                              <td>12 Mar 2024</td>
-                              <td>Criminal, Section 318</td>
-                              <td>Indore</td>
-                              <td><mat-icon>more_vert</mat-icon></td>
-                         </div>
-                    </tr>
-                    <tr>
-                         <div class="pb-2" style="border:1px solid #f5f5f5;flex-direction: unset;">
-                              <td>21-11-23</td>
-                              <td>Jabalpur HG</td>
-                              <td>2341</td>
-                              <td>Rajiram</td>
-                              <td>Ghisa Ram</td>
-                              <td>Stag 2</td>
-                              <td>18 Dec 2024</td>
-                              <td>Criminal, Section 318</td>
-                              <td>Jabalpur</td>
-                              <td><mat-icon>more_vert</mat-icon></td>
-                         </div>
-                    </tr>
-               </tbody>
-          </table>
-     </div>
+      <!-- search-bar start -->
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Search Case Diary" required />
+          <span matSuffix
+            ><img src="../../../assets/images/icons/search-blue.svg"
+          /></span>
+        </mat-form-field>
+      </div>
+      <!-- search-bar ends -->
 
+      <!-- creat-sub-diary start -->
+      <div class="create-sub-diary">
+        <button
+          mat-stroked-button
+          color="primary"
+          style="border-radius: 12px"
+          routerLink="/lawyer/case-diary/create-sub-diary"
+        >
+          <img
+            class="mx-1"
+            src="../../../assets/images/icons/sub-diary.svg"
+          /><span style="color: #2e5bff"></span>Create Sub Diary
+        </button>
+      </div>
+      <!-- creat-sub-diary ends -->
+    </div>
+    <!-- case-diary-list ends -->
+
+    <!-- case-diary list start -->
+    <div *ngIf="selectedDiary == 'caseDiary'">
+      <table>
+        <thead>
+          <tr>
+            <th>REG. DATE</th>
+            <th>COURT NAME</th>
+            <th>CASE NO.</th>
+            <th>APPLICANT</th>
+            <th>RESPONDENT</th>
+            <th>CASE STAGE</th>
+            <th>NEXT HEARING</th>
+            <th>APPLICATION</th>
+            <th>CITY</th>
+            <th>OWNER</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let item of diaryList">
+          <tr style="border: 1px solid #f5f5f5">
+            <td>{{ item.regDate }}</td>
+            <td>{{ item.courtName }}</td>
+            <td>{{ item.caseNo }}</td>
+            <td>{{ item.applicant }}</td>
+            <td>{{ item.respondent }}</td>
+            <td>{{ item.caseStage }}</td>
+            <td>{{ item.nextHearing }}</td>
+            <td>{{ item.application }}</td>
+            <td>{{ item.city }}</td>
+            <td>{{ item.owner }}</td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="caseDiaryMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </td>
+            <mat-menu #caseDiaryMenu="matMenu">
+              <div mat-menu-item>
+                <img
+                  src="../../../assets/images/icons/black_edit.svg"
+                  alt=""
+                  class="me-2"
+                  style="width: 22px; height: 22px"
+                />
+                <span class="mat-menu-list">Edit</span>
+              </div>
+             
+              <div mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
+                <img
+                  src="../../../assets/images/icons/view_application.svg"
+                  alt=""
+                  class="me-2"
+                  style="width: 20px; height: 20px"
+                />
+                <span class="mat-menu-list">View Application</span>
+              </div>
+            </mat-menu>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- case-diary list ends-->
+
+    <!-- sub-diary list start -->
+    <div *ngIf="selectedDiary == 'subDiary'">
+      <table>
+        <thead>
+          <tr>
+            <th>REG. DATE</th>
+            <th>COURT NAME</th>
+            <th>CASE NO.</th>
+            <th>APPLICANT</th>
+            <th>RESPONDENT</th>
+            <th>CASE STAGE</th>
+            <th>NEXT HEARING</th>
+            <th>APPLICATION</th>
+            <th>CITY</th>
+            <th>ASSIGNED TO</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let item of subDiaryList">
+          <tr style="border: 1px solid #f5f5f5">
+            <td>{{ item.regDate }}</td>
+            <td>{{ item.courtName }}</td>
+            <td>{{ item.caseNo }}</td>
+            <td>{{ item.applicant }}</td>
+            <td>{{ item.respondent }}</td>
+            <td>{{ item.caseStage }}</td>
+            <td>{{ item.nextHearing }}</td>
+            <td>{{ item.application }}</td>
+            <td>{{ item.city }}</td>
+            <td>{{ item.assignedTo }}</td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="subDiaryMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </td>
+            <mat-menu #subDiaryMenu="matMenu">
+              <div mat-menu-item>
+                <img
+                  src="../../../assets/images/icons/accept.svg"
+                  alt=""
+                  class="me-2"
+                  style="width: 22px; height: 22px"
+                />
+                <span class="mat-menu-list">Accept</span>
+              </div>
+              <div mat-menu-item>
+                <img
+                  src="../../../assets/images/icons/reject.svg"
+                  alt=""
+                  class="me-2"
+                  style="width: 22px; height: 22px"
+                />
+                <span class="mat-menu-list">Reject</span>
+              </div>
+            </mat-menu>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- sub-diary list ends -->
+  </div>
+  <!-- main section ends -->
 </div>
+<!-- root section ends -->

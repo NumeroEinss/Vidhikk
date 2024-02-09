@@ -6,11 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './case-diary.component.scss'
 })
 
-export class CaseDiaryComponent {
-
-  caseDiary: any[] = [
-    { value: 'Indore', viewValue: 'Indore' },
-    { value: 'Bhopal', viewValue: 'Bhopal' },
-    { value: 'Mumbai', viewValue: 'Mumbai' },
-  ];
+export class  CaseDiaryComponent {
 }

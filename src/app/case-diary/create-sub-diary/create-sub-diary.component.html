@@ -4,48 +4,53 @@
 
 <!-- root-section-start -->
 <div class="root">
+  <!-- create-case-diary-start -->
+  <div class="create-case-diary">
+    <div class="create-case-diary-heading">Create Sub Diary</div>
 
-     <!-- create-case-diary-start -->
-     <div class="create-case-diary">
-          <div class="create-case-diary-heading">Create Sub Diary</div>
+    <div class="create-case-diary-fields">
+      <div class="d-flex" style="flex-direction: column">
+        <mat-label class="mat-label">Case Name</mat-label>
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select case" required>
+            <mat-option *ngFor="let case of caseList" [value]="case.value">
+              {{ case.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-          <div class="create-case-diary-fields">
-               <div class="d-flex" style="flex-direction: column;">
-                    <mat-label class="mat-label">Case Name</mat-label>
-                    <mat-form-field appearance="outline">
-                         <mat-select placeholder="Select case" required>
-                              <mat-option *ngFor="let case of caseList" [value]="case.value">
-                                   {{case.viewValue }}
-                              </mat-option>
+      <div class="d-flex" style="flex-direction: column">
+        <mat-label class="mat-label">Members Name</mat-label>
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select junior" required>
+            <mat-option
+              *ngFor="let member of memberList"
+              [value]="member.value"
+            >
+              {{ member.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
 
-                         </mat-select>
-                    </mat-form-field>
-               </div>
+    <div class="lower-div">
+      <button
+        type="button"
+        class="btn btn-primary"
+        routerLink="/lawyer/case-diary/cases"
+      >
+        <img
+          src="../../../../assets/images/icons/create-case-diary.svg"
+        />Create
+      </button>
 
-               <div class="d-flex" style="flex-direction: column;">
-                    <mat-label class="mat-label">Members Name</mat-label>
-                    <mat-form-field appearance="outline">
-                         <mat-select placeholder="Select junior" required>
-                              <mat-option *ngFor="let member of memberList" [value]="member.value">
-                                   {{ member.viewValue }}
-                              </mat-option>
-
-                         </mat-select>
-                    </mat-form-field>
-               </div>
-          </div>
-
-          <div class="lower-div">
-               <button type="button" class="btn btn-primary"><img
-                         src="../../../../assets/images/icons/create-case-diary.svg">Create</button>
-
-               <button mat-stroked-button color="primary mx-3">
-                    <img src="../../../../assets/images/icons/reset.svg">Reset
-               </button>
-          </div>
-     </div>
-     <!-- create-case-diary-ends -->
-
-
+      <button mat-stroked-button color="primary mx-3">
+        <img src="../../../../assets/images/icons/reset.svg" />Reset
+      </button>
+    </div>
+  </div>
+  <!-- create-case-diary-ends -->
 </div>
 <!-- root-section-ends-->

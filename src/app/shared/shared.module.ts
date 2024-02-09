@@ -7,7 +7,6 @@ import { MaterialModule } from '../material/material.module';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 
-
 @NgModule({
   declarations: [
     PageNotFoundComponent,

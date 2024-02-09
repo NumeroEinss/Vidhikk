@@ -71,8 +71,8 @@ export class ActivityFeedComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // let element = document.getElementById('modalButton') as HTMLElement;
-    // element.click();
+    let element = document.getElementById('modalButton') as HTMLElement;
+    element.click();
   }
 
   addComment() {
