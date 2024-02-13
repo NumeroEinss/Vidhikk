@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { SnackAlertService } from '../../shared/services/snack-alert.service';
 
 export interface City {
   value: string;
@@ -35,7 +36,7 @@ export class ForgotPasswordComponent {
   isVerified: boolean = false;
 
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService) {
     this.forgotPasswordForm = this._formBuilder.group(new forgotModel());
     this.forgotFrmCtrl['mobile'].setValidators([
       Validators.required,
@@ -105,4 +106,7 @@ export class ForgotPasswordComponent {
     return event.charCode >= 48 && event.charCode <= 57;
   }
 
+  resendOtp() {
+    this._toastMessage.success('OTP Sent Successfully !!');
+  }
 }

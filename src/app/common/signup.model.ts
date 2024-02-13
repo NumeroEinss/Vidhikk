@@ -21,5 +21,15 @@ export class SignUpModel2 {
     answer: string = '';
     question2: string = '';
     answer2: string = '';
+    coreCompetency: string = "";
+    isAddressVisible: boolean = false;
+    isPrimaryContactVisible: boolean = false;
+    isPrimaryContactWhatsapp: boolean = false;
+    isSecondaryContactVisible: boolean = false;
+    isSecondaryContactWhatsapp: boolean = false;
+    isEmailVisible: boolean = false;
+    password: string = "";
+    confirmPassword: string = "";
+    secondaryContact: string = "";
 }
 

@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
 import { CaseLawDetailComponent } from './case-law-detail/case-law-detail.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { CaseLawDetailComponent } from './case-law-detail/case-law-detail.compon
     CaseLawRoutingModule,
     SharedModule,
     MaterialModule,
+    MatDatepickerModule
   ]
 })
 export class CaseLawModule { }

@@ -9,7 +9,7 @@
     line-height: normal;
     letter-spacing: normal;
     text-align: left;
-    color: var(--solid-black);
+    color: #00000099;
     padding-bottom: 8px;
   }
 
@@ -319,6 +319,25 @@
       transition: color 0.3s ease-in-out;
     }
   }
+
+  .advance-search {
+    font-family: Poppins;
+    padding: 20px 47px;
+
+    .title {
+      flex-grow: 0;
+      margin: 0 231px 24px 0;
+      font-family: Poppins;
+      font-size: 24px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: #000;
+    }
+  }
 }
 
 .list-container {
@@ -326,13 +345,6 @@
   overflow-y: scroll;
 }
 
-::-webkit-scrollbar {
-  width: 4px;
-  background-color: #fbfbfb;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #c4c4c4;
-  border-radius: 2px;
+.mat-mdc-menu-item {
+  padding: unset !important;
 }

@@ -15,9 +15,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+
 const elements = [MatTabsModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule,
   MatGridListModule, MatDialogModule, MatSelectModule, MatDividerModule, MatMenuModule, MatCheckboxModule,
-  MatRadioModule, MatSnackBarModule, MatCardModule];
+  MatRadioModule, MatSnackBarModule, MatCardModule, MatAutocompleteModule, MatChipsModule];
 
 @NgModule({
   declarations: [],

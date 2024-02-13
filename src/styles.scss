@@ -2,13 +2,7 @@
 
 @use "@angular/material" as mat;
 
-$my-custom-level: mat.define-typography-level(
-  $font-family: Poppins,
-  $font-weight: 400,
-  $font-size: 14px,
-  $line-height: 1,
-  $letter-spacing: normal,
-);
+
 
 html,
 body {
@@ -42,9 +36,7 @@ body {
   }
 
   //input field override
-  .mdc-text-field--outlined
-    .mdc-notched-outline
-    .mdc-notched-outline__trailing {
+  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
     border-radius: 0 12px 12px 0;
     border-color: #ebebeb;
   }
@@ -73,18 +65,22 @@ body {
     background-color: #fbfbfb;
     border-radius: 12px;
     height: 40px;
-    // padding-top: 10px !important;
-    // padding-bottom: 10px !important;
     font-size: 14px;
 
     .mat-mdc-form-field-infix {
       padding-top: 0px !important;
     }
   }
-  // .mat-mdc-form-field {
-  //   display: flex;
-  //   align-items: center;
-  // }
+
+  .example-chip-list {
+    .mat-mdc-text-field-wrapper {
+      height: auto;
+
+      .mat-mdc-form-field-infix {
+        padding-top: 16px !important;
+      }
+    }
+  }
 
   .mdc-text-field__input {
     padding: 8px 10px;
@@ -138,6 +134,7 @@ body {
     letter-spacing: normal;
     color: #8798ad;
   }
+
   .forgot-password:hover {
     color: #2e5bff;
     transition: all 0.3s ease-in-out;
@@ -203,8 +200,9 @@ body {
   }
 
   .red-font {
-    color: #ff2e2e;
+    color: #ff2e2e !important;
     font-family: "Poppins", sans-serif;
+    font-size: 10px !important;
   }
 
   .mat-mdc-raised-button.mat-primary:not(:disabled) {
@@ -292,52 +290,36 @@ body {
   }
 
   // mat-checkbox Override Css
-  .mdc-checkbox
-    .mdc-checkbox__native-control:enabled:checked
-    ~ .mdc-checkbox__background {
+  .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
     border-radius: 5px;
   }
 
-  .mdc-checkbox:hover
-    .mdc-checkbox__native-control:enabled:checked
-    ~ .mdc-checkbox__background {
+  .mdc-checkbox:hover .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
   }
 
-  .mdc-checkbox
-    .mdc-checkbox__native-control:enabled:focus:checked
-    ~ .mdc-checkbox__background {
+  .mdc-checkbox .mdc-checkbox__native-control:enabled:focus:checked~.mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
   }
 
-  .mdc-checkbox
-    .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not(
-      [data-indeterminate="true"]
-    )
-    ~ .mdc-checkbox__background {
+  .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate="true"])~.mdc-checkbox__background {
     border-radius: 5px;
   }
 
   // mat-input Override Css
-  .mdc-text-field--outlined:not(
-      .mdc-text-field--disabled
-    ).mdc-text-field--focused
-    .mdc-notched-outline__leading {
-    border-color: #2e5bff !important;
-    border-width: 0.5px;
-  }
+  // .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading {
+  //   border-color: #2e5bff !important;
+  //   border-width: 0.5px;
+  // }
 
-  .mdc-text-field--outlined:not(
-      .mdc-text-field--disabled
-    ).mdc-text-field--focused
-    .mdc-notched-outline__trailing {
-    border-color: #2e5bff !important;
-    border-width: 0.5px;
-  }
+  // .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
+  //   border-color: #2e5bff !important;
+  //   border-width: 0.5px;
+  // }
 
   // mat-input with white background and error block disabled
   .search-input {
@@ -348,6 +330,11 @@ body {
     .mat-mdc-text-field-wrapper {
       background-color: white;
     }
+  }
+
+  //Global Margin for all form fields
+  .mat-mdc-form-field {
+    margin-bottom: 12px;
   }
 
   // mat-input with white background
@@ -363,7 +350,49 @@ body {
     padding-right: 15px;
   }
 
+  .password {
+    .mat-ripple.mat-mdc-button-ripple {
+      display: none;
+    }
+
+    .mat-mdc-focus-indicator {
+      display: none;
+    }
+
+    .mat-mdc-icon-button .mat-mdc-button-persistent-ripple {
+      display: none;
+    }
+  }
+
+  .mdc-label {
+    font-size: 12px;
+    color: #8798ad;
+    font-family: Poppins;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+  }
+
+  //mat-error under mat-input Override Css
+  .mat-mdc-form-field:not(.mat-form-field-touched) {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+      transition: all 1s ease-in-out;
+    }
+  }
+
+  .mat-mdc-form-field.mat-form-field-invalid {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: block;
+      transition: all 1s ease-in-out;
+    }
+  }
+
+
   // mat-select overlay Override Css
+
   .mat-elevation-z8,
   .mat-mdc-elevation-specific.mat-elevation-z8 {
     box-shadow: 2px -6px 10px 0 white, 1px 0px 10px 0 #053bff14;
@@ -410,12 +439,25 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20px;
-    height: 20px;
-    background: url("../src/assets/images/vector.svg") 0 98%;
+    width: 24px;
+    height: 24px;
+    background: url("../src/assets/images/icons/arrow_down.svg");
   }
+
   .mat-mdc-select-arrow-wrapper {
     display: none;
+  }
+
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+    background-color: #1949f517;
+  }
+
+  .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+    background-color: #1949f517;
+  }
+
+  .mat-mdc-option.mat-mdc-option-active.mdc-list-item {
+    background-color: #1949f517;
   }
 
   // mat-button label Overrid Css
@@ -442,9 +484,7 @@ body {
     overflow: hidden !important;
   }
 
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
-    .mdc-notched-outline
-    .mdc-notched-outline__leading:hover {
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__leading:hover {
     border-right: none;
   }
 

@@ -29,7 +29,7 @@
         line-height: normal;
         letter-spacing: normal;
         text-align: left;
-        color: var(--solid-black);
+        color: #00000099;
       }
 
       input [type="file"] {
@@ -48,9 +48,11 @@
         border-radius: 12px;
         font-size: 14px;
       }
+
       img {
         margin-right: 10px;
       }
+
       .mat-mdc-outlined-button:not(:disabled) {
         width: unset !important;
       }

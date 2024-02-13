@@ -45,13 +45,13 @@
   background-color: #1949f517;
 }
 
-::-webkit-scrollbar {
-  width: 4px;
-  background-color: #fbfbfb;
-  border-radius: 5px;
+.head-text {
+  font-size: 20px;
+  font-weight: 600;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #c4c4c4;
-  border-radius: 2px;
+.sub-text{
+  .email{
+    font-weight: 700;
+  }
 }
