@@ -241,7 +241,7 @@
                 <!-- </mat-grid-tile>
                     <mat-grid-tile> -->
                 <mat-form-field appearance="outline">
-                    <input matInput placeholder="Year of practice" (keypress)="isNumber($event)" maxlength="4"
+                    <input matInput placeholder="Enter Bar Registration Year" (keypress)="isNumber($event)" maxlength="4"
                         formControlName="practiceYear" required>
                     <span matPrefix><mat-icon>calendar_month &nbsp;</mat-icon></span>
                     <mat-error *ngIf="signupForm2.controls['practiceYear'].hasError('required')">Practice year

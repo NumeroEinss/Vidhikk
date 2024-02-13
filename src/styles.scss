@@ -439,8 +439,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     background: url("../src/assets/images/icons/arrow_down.svg");
   }
 
@@ -503,17 +503,17 @@ body {
     // right: -20px !important;
     // position: relative !important;
 
-    .cdk-overlay-pane::before {
-      background-color: white;
-      width: 30px;
-      height: 30px;
-      content: " ";
-      transform: rotate(45deg);
-      position: absolute;
-      right: 18px;
-      box-shadow: 2px 12px 3px 0 white, 0px 1px 12px 0 #053bff14;
-      top: 2px;
-    }  
+    // .cdk-overlay-pane::before {
+    //   background-color: white;
+    //   width: 30px;
+    //   height: 30px;
+    //   content: " ";
+    //   transform: rotate(45deg);
+    //   position: absolute;
+    //   right: 18px;
+    //   box-shadow: 2px 12px 3px 0 white, 0px 1px 12px 0 #053bff14;
+    //   top: 2px;
+    // }  
   }  
 
   ng-scrollbar {
