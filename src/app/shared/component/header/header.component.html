@@ -1,18 +1,46 @@
 <div class="main-container">
-    <div class="main-text col-lg-7 col-sm-7">
-        <div class="welcome-text">
-            {{menuName}}
-        </div>
+  <div class="main-text col-lg-7 col-sm-7">
+    <div class="welcome-text">
+      {{ menuName }}
     </div>
-    <div class="col-lg-5 col-sm-5 sub-container">
-        <button class="btn-primary">Upgrade</button>
-        <div class="search"><img src="../../../../assets/images/icons/search.svg"></div>
-        <div class="notification-container"><img src="../../../../assets/images/icons/notification.svg">
-            <div class="notification-count">0</div>
-        </div>
-        <div class="add-button"><img src="../../../../assets/images/icons/add_button.svg"></div>
-        <div class="profile-container" (click)="userProfile()">
-            <img src="../../../../assets/images/image/anurag_goyal.jpg">
-        </div>
+  </div>
+  <div class="col-lg-5 col-sm-5 sub-container">
+    <button class="btn-primary">Upgrade</button>
+    <div class="search">
+      <img src="../../../../assets/images/icons/search.svg" />
     </div>
+    <div class="notification-container" [matMenuTriggerFor]="notificationMenu">
+      <img
+        src="../../../../assets/images/icons/notification.svg"
+      />
+      <div class="notification-count">0</div>
+    </div>
+    <!-- <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false"> -->
+    <mat-menu #notificationMenu="matMenu">
+      <div mat-menu-item>
+        <div
+          class="notification-content"
+          *ngFor="let notification of notifications"
+        >
+          <div class="d-flex">
+            <div><img [src]="notification.image" alt="" /></div>
+
+            <div class="notification-detail ms-2">
+              <div class="member-request">{{ notification.name }}</div>
+              <div class="notification">{{ notification.detail }}</div>
+            </div>
+          </div>
+
+          <div class="days">{{ notification.days }}</div>
+        </div>
+      </div>
+    </mat-menu>
+    <!-- </ng-scrollbar> -->
+    <div class="add-button">
+      <img src="../../../../assets/images/icons/add_button.svg" />
+    </div>
+    <div class="profile-container" (click)="userProfile()">
+      <img src="../../../../assets/images/image/anurag_goyal.jpg" />
+    </div>
+  </div>
 </div>

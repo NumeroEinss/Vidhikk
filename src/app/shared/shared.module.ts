@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { MaterialModule } from '../material/material.module';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 
 @NgModule({
@@ -14,11 +15,13 @@ import { MaterialModule } from '../material/material.module';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    NgScrollbarModule
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    NgScrollbarModule
   ]
 })
 export class SharedModule { }

@@ -56,7 +56,7 @@
         <tbody *ngFor="let member of memberList">
           <tr style="border: 1px solid #f5f5f5">
             <td>
-              <span> <img [src]="member.image" class="me-2" /> </span
+              <span><img [src]="member.image" class="me-2" /></span
               >{{ member.memberName }}
             </td>
             <td>
@@ -70,24 +70,25 @@
             <td>{{ member.designation }}</td>
             <td>{{ member.branch }}</td>
             <td>
-              <button mat-icon-button   data-bs-toggle="modal"
-              data-bs-target="#deleteModel">
+              <button
+                mat-icon-button
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModel"
+              >
                 <mat-icon>delete</mat-icon>
               </button>
-            </td>  
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div> 
-   <!-- add member list ends -->
-
+  </div>
+  <!-- add member list ends -->
 </div>
 <!-- root section ends -->
 
-
- <!-- popup section start -->
- <div>
+<!-- popup section start -->
+<div>
   <button
     id="modalButton"
     data-bs-toggle="modal"
@@ -106,8 +107,8 @@
         <div class="modal-body">
           <h1 class="text-center">Profile Upgradation</h1>
           <p>
-            Unlock a world of upportunities to superchange your service and
-            stay ahead in the legal
+            Unlock a world of upportunities to superchange your service and stay
+            ahead in the legal
           </p>
           <div class="text-center mt-3 mb-3">
             <button
@@ -126,35 +127,31 @@
 </div>
 <!-- popup section ends -->
 
-
-
 <!-- delete popup start -->
-  <div
-    class="modal fade"
-    id="deleteModel"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-      <div class="modal-content">
-    <div class="modal-header">
-      <h1 class="text-center">Delete Member</h1>
-    </div>
-        <div class="modal-body"> 
-          <p>
-            Are you sure you want to delete member?
-          </p>
-          <div class="text-center mt-3 mb-3">
-            <button 
-              mat-raised-button
-              color="primary"
-              style="width: fit-content !important"
-              data-bs-dismiss="modal"
-            >
-              Confirm
-            </button>
-            <button
+<div
+  class="modal fade"
+  id="deleteModel"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="text-center">Delete Member</h1>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete member?</p>
+        <div class="text-center mt-3 mb-3">
+          <button
+            mat-raised-button
+            color="primary"
+            style="width: fit-content !important"
+            data-bs-dismiss="modal"
+          >
+            Confirm
+          </button>
+          <button
             mat-raised-button
             style="
               border: 1px solid blue;
@@ -167,49 +164,327 @@
           >
             cancel
           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- delete popup ends -->
+
+<!-- add-member-popup start -->
+<div>
+  <div
+    class="modal fade"
+    id="addMemberModalToggle"
+    aria-hidden="true"
+    aria-labelledby="addMemberModalToggleLabel"
+    tabindex="-1"
+  >
+    <div class="modal-dialog modal-dialog-centered add-member-popup">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addMemberModalToggleLabel">
+            Add Member
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex" style="flex-direction: column">
+            <div class="d-flex">
+              <!-- <a (click)=" $event.stopPropagation();" style="text-decoration: none;"> -->
+              <mat-form-field class="search-input" appearance="outline">
+                <input matInput placeholder="Search Member" />
+                <span matSuffix
+                  ><img src="../../../assets/images/icons/search-blue.svg"
+                /></span>
+              </mat-form-field>
+              <img
+                src="../../../assets/images/icons/funnel_members.svg"
+                alt="noImage"
+                style="margin-left: 10px"
+                data-bs-target="#addMemberModalToggle2"
+                data-bs-toggle="modal"
+              />
+              <!-- </a> -->
+            </div>
+
+            <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false">
+              <div
+                class="add-member-details"
+                *ngFor="let member of memberDetails"
+              >
+                <div class="d-flex">
+                  <div>
+                    <img
+                      [src]="member.image"
+                      alt="noImage"
+                      class="member-img"
+                    />
+                  </div>
+
+                  <div class="member-detail ms-2">
+                    <div class="member-name">{{ member.name }}</div>
+                    <div class="member-lawyer-type">
+                      <img [src]="member.lawyerTypeImg" alt="" class="me-1" />{{
+                        member.lawyerType
+                      }}
+                    </div>
+                    <div class="member-experience">
+                      <img [src]="member.experienceImg" alt="" class="me-1" />{{
+                        member.experience
+                      }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="member-rating">
+                  <div style="font-size: 10px">
+                    <img [src]="member.ratingStar" alt="" />(4.5)
+                  </div>
+                  <div>
+                    <button mat-stroked-button color="primary">
+                      Add Member
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-scrollbar>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-<!-- delete popup ends -->
+  <!-- filter popup  start-->
+  <div>
+    <div
+      class="modal fade"
+      id="addMemberModalToggle2"
+      aria-hidden="true"
+      aria-labelledby="addMemberModalToggleLabel2"
+      tabindex="-1"
+    >
+      <div class="modal-dialog modal-dialog-centered add-member-popup">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addMemberModalToggleLabel2">
+              Filter
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
 
+          <div class="modal-body" style="padding: 20px">
+            <div class="d-flex mat-input-white" style="flex-direction: column">
+              <mat-label class="mat-label">Select Place</mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Select place" required>
+                  <mat-option
+                    *ngFor="let place of places"
+                    [value]="place.value"
+                  >
+                    {{ place.viewValue }}
+                  </mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
+                     Required !!</mat-error> -->
+              </mat-form-field>
 
+              <mat-label class="mat-label">Select Practising Field</mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Select place" required>
+                  <mat-option
+                    *ngFor="let field of practiseField"
+                    [value]="field.value"
+                  >
+                    {{ field.viewValue }}
+                  </mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
+                     Required !!</mat-error> -->
+              </mat-form-field>
 
-<!-- add-member-popup start -->
-  <div class="add-member-popup">
-      <div class="modal fade" id="addMemberModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              Show a second modal and hide this one with the button below.
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second modal</button>
+              <mat-label class="mat-label">Show Results</mat-label>
+              <div class="mb-3">
+                <div class="d-flex mt-1" style="justify-content: space-between">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckChecked"
+                      checked
+                    />
+                    <label class="form-check-label" for="flexCheckChecked">
+                      popularity
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Best Review
+                    </label>
+                  </div>
+                </div>
+
+                <div class="d-flex" style="justify-content: space-between">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Star Rating
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Most Review First
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <mat-label class="mat-label">Work Experience</mat-label>
+              <div class="mb-3">
+                <div class="d-flex mt-1" style="justify-content: space-between">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckChecked"
+                      checked
+                    />
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Any Experience
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      2-5 Years
+                    </label>
+                  </div>
+                </div>
+
+                <div class="d-flex" style="justify-content: space-between">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      5-10 Years
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      10+ Years
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <mat-label class="mat-label">Gender</mat-label>
+              <div class="mb-3">
+                <div class="d-flex mt-1" style="justify-content: space-between">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckChecked"
+                      checked
+                    />
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Male
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Female
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center mt-3">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  style="width: fit-content !important"
+                  data-bs-target="#addMemberModalToggle"
+                  data-bs-toggle="modal"
+                >
+                  Show Results
+                </button>
+                <button
+                  mat-raised-button
+                  style="
+                    border: 1px solid blue;
+                    width: fit-content !important;
+                    color: blue;
+                    background-color: unset !important;
+                    margin-left: 10px;
+                  "
+                  data-bs-dismiss="modal"
+                >
+                  cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              Hide this modal and show the first with the button below.
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> 
+    </div>
+    <!-- filter popup  ends-->
+  </div>
   <!-- add-member-popup ends -->
+</div>

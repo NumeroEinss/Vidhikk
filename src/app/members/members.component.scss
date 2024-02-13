@@ -48,26 +48,11 @@
       margin: 36.2px 118px 0;
       padding: 12px 24px;
       border-radius: 12px;
-      background-color: #2e5bff;
+      background-color: #2E5BFF;
       font-size: 14px;
     }
   }
   // member directory styling ends
-
-  //  add-member-popup styling start
-  .modal-dialog {
-    text-align: center;
-
-    .modal-body {
-      h1 {
-        margin-top: 20px !important;
-        font-weight: 500 !important;
-      }
-      text-align: center;
-      margin-bottom: 30px;
-    }
-  }
-  //  add-member-popup styling ends
 
   // add member list styling start
   .add-member-list {
@@ -154,4 +139,111 @@
   }
 
   // add member list styling ends
+}
+
+//  add-member-popup styling start
+.modal-dialog {
+  text-align: center;
+
+  .modal-body {
+    h1 {
+      margin-top: 20px !important;
+      font-weight: 500 !important;
+    }
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+//  add-member-popup styling ends
+
+
+
+
+
+.add-member-popup {
+  width: 420px !important;
+ 
+  .search-input{
+    width: 357px !important;
+  }
+
+  .add-member-details {
+    width: 357px !important;
+    display: flex;
+    justify-content: space-between;
+    border:1px solid #f5f5f5;
+    border-radius: 12px;
+    padding: 5px;
+    margin-top: 10px;
+   
+
+    .member-detail {
+      display: flex;
+      flex-direction: column;
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.7em;
+      letter-spacing: normal;
+      text-align: left;
+      color:#8798AD;
+      white-space: nowrap;
+
+      .member-name {
+        font-weight: 600 !important;
+        color: #282828;
+      }
+     
+    }
+
+    .member-rating {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      
+
+      button{
+        width: 80px !important;
+        height: 30px;
+        font-size: 10px;
+        color: #2e5bff;
+        white-space: nowrap;
+        border-color: #7d818e0d !important;
+        background-color: #053bff0d;
+
+      }
+    }
+  }  
+
+
+  // filter popup styling start
+  .modal-body{
+
+    .mat-label{
+      text-align: left;
+      font-size: 14px;
+      font-family: Poppins;
+      font-weight: 600 !important;
+      color: #000000;
+    }
+
+    .form-check{
+      .form-check-label{
+       color:#8798AD;
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      
+      }
+
+      .form-check-input[type=checkbox] {
+        border-radius: 1.25em 
+      }
+
+    }
+  }
+   // filter popup styling ends
 }

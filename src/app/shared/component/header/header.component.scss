@@ -63,6 +63,7 @@
       margin-right: 24px;
       display: flex;
       width: 31px;
+      cursor: pointer;
 
       div {
         background-color: #2e5bff;
@@ -78,6 +79,10 @@
         display: flex;
       }
     }
+
+    // notification styling start
+
+    // notification  styling ends
 
     .add-button {
       margin-right: 24px;
@@ -98,6 +103,49 @@
     }
   }
 }
+
+
+.notification-content {
+  display: flex;
+  padding: 5px;
+  justify-content: space-between;
+  width: 350px;
+
+  .notification-detail {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-size: 14px;
+    font-family: Poppins;
+
+    .member-request {
+      font-weight: 600 !important;
+      color: #000000;
+      line-height: 20px;
+    }
+
+    .notification {
+      color: #7c7c7c;
+      line-height: 20px;
+    }
+  }
+  .days {
+    display: flex;
+    white-space: nowrap;
+    font-size: 10px !important;
+  }
+}
+
+.notification-content:hover{
+  background-color: #2e5bff0d;
+}
+
+.mat-mdc-menu-item:not([disabled]):hover {
+   background-color:unset !important;
+}
+
+
+
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .main-container {

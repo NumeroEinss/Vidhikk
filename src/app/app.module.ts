@@ -23,6 +23,7 @@ import { HttpService } from './shared/services/http.service';
 import { SnackAlertService } from './shared/services/snack-alert.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,8 +40,7 @@ import { SnackAlertService } from './shared/services/snack-alert.service';
     AppRoutingModule,
     SharedModule,
     MaterialModule,
-    BrowserAnimationsModule,
-    IntlTelInputNgModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard, AuthService, HttpService, SnackAlertService,
