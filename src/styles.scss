@@ -250,6 +250,7 @@ body {
       h1 {
         font-family: Poppins !important;
         margin: unset;
+        font-size: 16px !important;
       }
     }
 
@@ -431,7 +432,7 @@ body {
   }
 
   .mat-mdc-select-trigger {
-    padding: 10px 10px;
+    padding: 8px 10px;
   }
 
   .mat-mdc-select-trigger::after {
@@ -515,4 +516,9 @@ body {
   //   //   top: 2px;
   //   // }  
   // }  
+
+  .cdk-overlay-container {
+  position: fixed !important;
+  z-index: 99999 !important;
+}
 }

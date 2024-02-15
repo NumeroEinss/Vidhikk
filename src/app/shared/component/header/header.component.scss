@@ -59,6 +59,10 @@
       margin-right: 24px;
     }
 
+    img{
+      cursor: pointer;
+    }
+
     .notification-container {
       margin-right: 24px;
       display: flex;
@@ -79,10 +83,7 @@
         display: flex;
       }
     }
-
-    // notification styling start
-
-    // notification  styling ends
+   
 
     .add-button {
       margin-right: 24px;
@@ -105,6 +106,7 @@
 }
 
 
+ // notification styling start
 .notification-content {
   display: flex;
   padding: 5px;
@@ -133,15 +135,30 @@
     display: flex;
     white-space: nowrap;
     font-size: 10px !important;
+    color: #A0A0A0;
   }
 }
 
-.notification-content:hover{
-  background-color: #2e5bff0d;
-}
+// .notification-content:hover{
+//   background-color: #2e5bff0d;
+// }
+ // notification  styling ends
+
+
 
 .mat-mdc-menu-item:not([disabled]):hover {
    background-color:unset !important;
+}
+
+.modal-dialog{
+  width: 380px !important;
+}
+
+.modal-dialog .modal-header, body .modal-dialog .modal-header {  
+  display: flex;
+  align-items: flex-start; 
+  justify-content: flex-start; 
+  background-color: #fbfbfb;
 }
 
 

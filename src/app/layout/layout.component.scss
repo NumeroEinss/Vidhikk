@@ -104,6 +104,7 @@ mat-drawer-container {
 
     .modal {
       position: absolute !important;
+      margin: calc(100vw - 220px);
     }
   }
 }

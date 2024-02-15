@@ -27,6 +27,10 @@ const routes: Routes = [
                 loadChildren: () => import('../members/members.module').then(m => m.MembersModule)
             },
             {
+                path: 'chat-room',
+                loadChildren: () => import('../chat-room/chat-room.module').then(m => m.ChatRoomModule)
+            },
+            {
                 path: '**',
                 component: PageNotFoundComponent
             }

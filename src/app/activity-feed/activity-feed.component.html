@@ -147,13 +147,13 @@
   <!-- root & feed section ends -->
 
   <!-- modal start -->
-  <button id="modalButton" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none"></button>
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  <button id="modalButton" data-bs-toggle="modal" data-bs-target="#activityFeedModal" style="display: none"></button>
+  <div class="modal fade" id="activityFeedModal" tabindex="-1" aria-labelledby="activityFeedModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Disclaimer</h1>
+          <h1 class="modal-title fs-5" id="activityFeedModalLabel">Disclaimer</h1>
         </div>
         <div class="modal-body">
           <ol>
@@ -190,14 +190,10 @@
             </li>
           </ol>
           <div class="text-center">
-            <button mat-raised-button style="
-              border: 1px solid blue;
-              width: fit-content !important;
-              color: blue;
-              background-color: unset !important;
-            " routerLink="/auth/login" data-bs-dismiss="modal">
-              Reject
-            </button>
+            <button mat-stroked-button color="primary" 
+            style="width: fit-content !important; margin-left: 10px;" 
+            routerLink="/auth/login"
+            data-bs-dismiss="modal">Reject</button>
 
             <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 10px"
               data-bs-dismiss="modal">
