@@ -1,0 +1,238 @@
+.root {
+    margin: 30px;
+  
+    // chat room styling start
+    .chat-room-directory {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 105px;
+  
+      .chat-room-heading {
+        flex-grow: 0;
+        font-family: Poppins;
+        font-size: 24px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: #000;
+      }
+  
+      .chat-room-sub-heading {
+        flex-grow: 0;
+        margin: 17px 0 26.3px;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: #000;
+      }
+  
+      button {
+        height: 45px;
+        flex-grow: 0;
+        font-family: Poppins;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 36.2px 118px 0;
+        padding: 12px 24px;
+        border-radius: 12px;
+        background-color: #2E5BFF;
+        font-size: 14px;
+      }
+    }
+     // chat room styling ends
+
+
+
+    // chat list styling start
+    .chat-list {
+      display: flex;
+     
+
+      .filter-section {
+        margin-right: 24px;
+
+        .mat-mdc-form-field {
+          width: 180px !important;
+        }
+      }
+
+      .search-bar {
+        width: 100% !important;
+        margin-right: 24px;
+
+        .mat-mdc-form-field {
+          width: 100% !important;
+        }
+      }
+
+      .create-chat-room {
+        width: 215px !important;
+
+        button {
+          width: 215px !important;
+          background-color: #053bff0d;
+          border-color: #7d818e0d !important;
+        }
+      }
+
+      .mat-mdc-outlined-button:not(:disabled) {
+        width: unset !important;
+      }
+    }
+    // chat list styling ends
+
+
+    // chat-room list styling start
+    table {
+      width: 100%;
+      margin-top: 20px;
+
+      th {
+        font-family: poppins;
+        font-size: 12px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: #8798ad;
+      }
+      .mat-icon {
+        width: 20px;
+        height: 20px;
+        margin: 5px 0 0 0;
+      }
+
+      tbody {
+        margin-top: 10px;
+
+        tr {
+          cursor: pointer;
+          font-family: poppins;
+          font-size: 14px;
+          height: 80px;
+
+          .mat-mdc-menu-panel {
+            .mat-mdc-menu-content {
+              .mat-mdc-menu-item {
+                .mat-mdc-menu-item-text {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  // chat-room list styling ends
+
+  
+
+  .test{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 20px;
+}
+.online{
+    width: 100%;
+    height: 100%;            
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;  /* for demo purpose  */
+    
+
+    img{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+}
+.stack-top{
+    z-index: 9;
+    margin: 20px; /* for demo purpose  */
+}
+
+}
+
+
+
+// chat-room initial popup styling start
+.modal-dialog {
+    text-align: center;
+    width: 350px !important;
+    height: 350px !important;
+  
+    .modal-body {
+      h1 {
+        margin: 25px 0px !important;
+        font-weight: 500 !important;
+      }
+      text-align: center;
+      button{
+        margin-top: 20px;
+      }
+    } 
+  }
+  // chat-room initial popup styling ends
+
+
+
+  // create-chat-room styling start
+  .create-chat-room-popup{
+    width: 400px !important;
+  
+     h1{
+      font-size: 16px !important;
+      color: #000000;
+      font-family: Poppins;
+      font-weight: 400 !important;
+     }
+    .modal-body{
+      padding: 25px;
+  
+      .mat-label{
+        text-align: left;
+        font-size: 14px;
+        font-family: Poppins;
+        font-weight: 500 !important;
+        color: #000000;
+      }
+
+      textarea{
+        color: #c4c4c4;
+        outline: none;
+        border: 1px solid  #ebebeb  ;
+        border-radius: 12px;
+        line-height: 1.43;
+        font-size: 14px;
+        resize: none;
+        font-family: Poppins;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        padding: 10px 10px 10px 25px;
+      }
+  
+    }
+  }
+ 
+   // create-chat-room styling ends
+
+  

@@ -21,7 +21,7 @@ import { AuthService } from './shared/services/auth.service';
 import { HttpService } from './shared/services/http.service';
 import { SnackAlertService } from './shared/services/snack-alert.service';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { CommonModule } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { CommonModule } from '@angular/common';
     SignupComponent,
     ForgotPasswordComponent,
     CreateNewPasswordComponent,
-    ResetPasswordComponent,
+    ResetPasswordComponent, 
   ],
   imports: [
     FormsModule,
