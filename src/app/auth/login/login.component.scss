@@ -5,10 +5,6 @@
   justify-content: center;
   align-items: center;
 
-  .mat-mdc-tab-body {
-    max-width: 357px;
-  }
-
   .welcome-text {
     flex-grow: 0;
     font-family: Poppins;
@@ -23,7 +19,6 @@
   }
 
   .sub-text {
-    width: 312px;
     flex-grow: 0;
     margin: 12px 0 0;
     font-family: Poppins;
@@ -37,6 +32,10 @@
     color: #8798ad;
   }
 
+  .header-text {
+    width: 357px;
+  }
+
   .mat-mdc-form-field {
     display: grid;
   }
@@ -44,4 +43,12 @@
 
 .image-container {
   background-color: #1949f517;
+}
+
+@media only screen and (min-width:768px) and (max-width: 1023px) {
+  .login-form {
+    .header-text {
+      width: 280px;
+    }
+  }
 }

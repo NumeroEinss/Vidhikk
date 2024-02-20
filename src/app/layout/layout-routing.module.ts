@@ -1,45 +1,66 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../shared/component/page-not-found/page-not-found.component';
+import { GlobalSearchComponent } from '../shared/component/global-search/global-search.component';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        children: [
-            {
-                path: 'case-law',
-                loadChildren: () => import('../case-law/case-law.module').then(m => m.CaseLawModule)
-            },
-            {
-                path: 'activity-feed',
-                loadChildren: () => import('../activity-feed/activity-feed.module').then(m => m.ActivityFeedModule)
-            },
-            {
-                path: 'user-profile',
-                loadChildren: () => import('../user-profile/user-profile.module').then(m => m.UserProfileModule)
-            },
-            {
-                path: 'case-diary',
-                loadChildren: () => import('../case-diary/case-diary.module').then(m => m.CaseDiaryModule)
-            },
-            {
-                path: 'members',
-                loadChildren: () => import('../members/members.module').then(m => m.MembersModule)
-            },
-            {
-                path: '**',
-                component: PageNotFoundComponent
-            }
-        ]
-    },
-    {
+  {
+    path: '',
+    children: [
+      {
+        path: 'case-law',
+        loadChildren: () =>
+          import('../case-law/case-law.module').then((m) => m.CaseLawModule),
+      },
+      {
+        path: 'activity-feed',
+        loadChildren: () =>
+          import('../activity-feed/activity-feed.module').then(
+            (m) => m.ActivityFeedModule
+          ),
+      },
+      {
+        path: 'user-profile',
+        loadChildren: () =>
+          import('../user-profile/user-profile.module').then(
+            (m) => m.UserProfileModule
+          ),
+      },
+      {
+        path: 'case-diary',
+        loadChildren: () =>
+          import('../case-diary/case-diary.module').then(
+            (m) => m.CaseDiaryModule
+          ),
+      },
+      {
+        path: 'members',
+        loadChildren: () =>
+          import('../members/members.module').then((m) => m.MembersModule),
+      },
+      {
+        path: 'global-search',
+        component: GlobalSearchComponent,
+      },
+      {
+        path: 'calendar',
+        component: CalendarComponent,
+      },
+      {
         path: '**',
-        component: PageNotFoundComponent
-    }
+        component: PageNotFoundComponent,
+      },
+    ],
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class LayoutRoutingModule { }
+export class LayoutRoutingModule {}

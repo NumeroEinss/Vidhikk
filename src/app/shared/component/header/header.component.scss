@@ -57,6 +57,37 @@
 
     .search {
       margin-right: 24px;
+      cursor: pointer;
+    }
+
+    .searchBox {
+      z-index: 5;
+      display: flex;
+      align-items: center;
+
+      input {
+        width: 98%;
+        padding: 0 70px;
+        height: 80px;
+        border: none;
+        background: #F5F5F5;
+        margin: 2px;
+        font-size: 24px;
+      }
+
+      .cancel {
+        position: absolute;
+        right: 18%;
+      }
+
+      .search {
+        position: relative;
+        margin: unset;
+        margin-left: unset;
+        position: absolute;
+        margin-left: 22px;
+      }
+
     }
 
     .notification-container {
@@ -129,6 +160,7 @@
       line-height: 20px;
     }
   }
+
   .days {
     display: flex;
     white-space: nowrap;
@@ -136,16 +168,13 @@
   }
 }
 
-.notification-content:hover{
+.notification-content:hover {
   background-color: #2e5bff0d;
 }
 
 .mat-mdc-menu-item:not([disabled]):hover {
-   background-color:unset !important;
+  background-color: unset !important;
 }
-
-
-
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .main-container {

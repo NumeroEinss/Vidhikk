@@ -61,14 +61,9 @@ export class SignupComponent {
     this.signupForm2 = this._fb.group(new SignUpModel2);
     // this.signupForm2.controls.email.setValidators([Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]);
     this.signupForm2.controls.email.setValidators([Validators.email]);
-    this.signupForm2.controls.coreCompetency.setValidators([Validators.minLength(150), Validators.maxLength(200)]);
+    this.signupForm2.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
     this.signupForm2.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
     this.signupForm2.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword()])
-
-    // this.filteredField = this.signupForm2.controls.practiceField?.valueChanges.pipe(
-    //   startWith(null),
-    //   map((fruit: string | null) => (fruit ? this._filter(fruit) : this.fields.slice())),
-    // );
   }
 
   get SignupFrmCtrl() {

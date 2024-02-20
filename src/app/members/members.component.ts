@@ -169,7 +169,7 @@ export class MembersComponent implements AfterViewInit {
   constructor() {}
 
   ngAfterViewInit() {
-    let element = document.getElementById('modalButton') as HTMLElement;
+    let element = document.getElementById('modalButton1') as HTMLElement;
     element.click();
   }
 }

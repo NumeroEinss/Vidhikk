@@ -1,11 +1,11 @@
 <app-header [menuName]="'Case Law'"></app-header>
 <div class="root">
     <div class="filter-bar">
-        <div class="pretext col-lg-6">
-            <img src="../../../assets/images/icons/arrow-left.svg" routerLink="/lawyer/case-law/cases">
+        <div class="pretext col-lg-6 col-md-6">
+            <img src="../../../assets/images/icons/arrow-left.svg" (click)="routeBack()">
             <div class="records">Case Law</div>
         </div>
-        <div class="posttext col-lg-6">
+        <div class="posttext col-lg-6 col-md-6">
             <img src="../../../assets/images/icons/bookmark.svg">
             <img src="../../../assets/images/icons/person.svg">
             <img src="../../../assets/images/icons/pdf.svg">

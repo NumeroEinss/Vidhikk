@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class CaseLawDetailComponent {
 
+  constructor(private _location: Location) { }
+
+  routeBack() {
+    this._location.back();
+  }
 }

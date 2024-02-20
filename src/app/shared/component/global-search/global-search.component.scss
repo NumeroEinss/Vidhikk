@@ -1,0 +1,63 @@
+.root {
+    .case-container {
+        font-family: Poppins;
+        padding: 20px 47px;
+        border-bottom: 2px solid #2e5bff0d;
+
+        .title {
+            height: 20px;
+            font-size: 16px;
+            font-weight: 400;
+            color: black;
+            margin-bottom: 13px;
+        }
+
+        .desc {
+            font-size: 14px;
+            color: #8798ad;
+            margin-bottom: 9px;
+        }
+
+        .sub-desc {
+            display: flex;
+            line-height: normal;
+            margin-bottom: 9px;
+
+            .court {
+                color: #2e5bff;
+                font-size: 14px;
+                margin-right: 4px;
+                font-weight: 700;
+            }
+
+            .bench {
+                font-size: 14px;
+                font-weight: 700;
+                color: black;
+            }
+
+            .cited {
+                font-size: 14px;
+                font-weight: 700;
+                color: black;
+            }
+        }
+
+        hr {
+            :last-child {
+                display: none;
+            }
+        }
+    }
+
+    .case-container:hover {
+        cursor: pointer;
+    }
+
+    .case-container .title:hover {
+        transition: all 0.3s ease-in-out;
+        -webkit-transition: all 0.3s ease-in-out;
+        color: #2e5bff;
+    }
+
+}

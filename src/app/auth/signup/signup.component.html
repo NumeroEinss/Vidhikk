@@ -1,17 +1,17 @@
 <div class="d-flex h-100">
-    <div class="col-lg-5 d-flex signup-form">
+    <div class="col-lg-5 col-md-5 d-flex signup-form">
 
-        <div style="width:357px;">
+        <div class="header-text">
             <img src="../../../assets/images/icons/vidhiklogo.png" alt="vidhik">
 
-            <div class="welcome-text mt-4">Create an account</div>
+            <div class="welcome-text mt-4 mb-4">Create an account</div>
 
-            <div class="sub-text mt-3" *ngIf="!otpVerified">Please enter your mobile no. and we will send you 6
+            <div class="sub-text mt-3 mb-3" *ngIf="!otpVerified">Please enter your mobile no. and we will send you 6
                 digit code via text message</div>
         </div>
 
 
-        <form [formGroup]="signupForm" class="col mt-3" *ngIf="!otpVerified" style="width: 357px;max-height: 290px;">
+        <form [formGroup]="signupForm" class="col mt-3" *ngIf="!otpVerified" class="otp-form">
             <mat-form-field appearance="outline">
                 <span matPrefix><mat-icon>phone</mat-icon></span>
                 <input type="text" matInput placeholder="9875642535" formControlName="mobile" required maxlength="10"
@@ -50,8 +50,7 @@
         </form>
 
         <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false">
-            <form [formGroup]="signupForm2" class="col mt-3" *ngIf="otpVerified" style="max-height: calc(100vh - 225px);
-            width: 357px; padding: 0 35px 0 0;">
+            <form [formGroup]="signupForm2" class="col mt-3" *ngIf="otpVerified" class="register-form">
                 <mat-form-field appearance="outline" class="">
                     <span matPrefix><mat-icon>domain</mat-icon></span>
                     <input type="text" matInput placeholder="Name of orgainization" formControlName="orgainization">
@@ -78,12 +77,12 @@
                 <mat-form-field appearance="outline" class="textArea">
                     <span matPrefix style="height: 82px;"><mat-icon>person</mat-icon></span>
                     <textarea id="text-area" type="text" matInput placeholder="Enter Your Core Competency"
-                        formControlName="coreCompetency" required rows="3"></textarea>
+                        formControlName="coreCompetency" required rows="3" maxlength="200"></textarea>
                     <mat-error *ngIf="signupForm2.controls['coreCompetency'].hasError('required')">Core Competency is
                         Required</mat-error>
-                    <mat-error *ngIf="!signupForm2.controls['coreCompetency'].hasError('required') &&
+                    <!-- <mat-error *ngIf="!signupForm2.controls['coreCompetency'].hasError('required') &&
                          signupForm2.controls['coreCompetency'].hasError('minlength')">Minimum 150 Characters
-                        Required</mat-error>
+                        Required</mat-error> -->
 
                     <mat-error *ngIf="!signupForm2.controls['coreCompetency'].hasError('required') &&
                     signupForm2.controls['coreCompetency'].hasError('maxlength')">Max Charaters Limit
@@ -91,7 +90,7 @@
                 </mat-form-field>
 
                 <div class="mdc-label mb-2">
-                    Note: Describe in min 150 character or max 200 character.
+                    Note: Describe in max 200 character.
                 </div>
 
                 <mat-form-field appearance="outline" class="">
@@ -166,18 +165,18 @@
 
                 <mat-form-field appearance="outline">
                     <input matInput placeholder="Enter your email" formControlName="email" required>
-                    <span matPrefix><mat-icon>mail &nbsp;</mat-icon></span>
+                    <span matPrefix><mat-icon>mail</mat-icon></span>
                     <mat-error *ngIf="signupForm2.controls['email'].hasError('required')">Email is Required</mat-error>
                     <mat-error *ngIf="!signupForm2.controls['email'].hasError('required') && 
                             signupForm2.controls['email'].invalid">Email is invalid</mat-error>
                 </mat-form-field>
 
                 <div class="row mb-2" style="font-size:10px;font-family:Poppins">
-                    <span class="col-lg-8 gray-font">Note: Email verification is needed for account recovery
+                    <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
                         purpose</span>
                     <!-- <button class="text-align-right col-lg-4 red-font" mat-button color="warn"
                         *ngIf="this.signupForm2.controls.email.value != ''">(Verified)</button> -->
-                    <button class="float-right col-lg-4 red-font" mat-button
+                    <button class="float-right col-lg-4 col-md-4 red-font" mat-button
                         [disabled]="this.signupForm2.controls.email.value == ''" data-bs-toggle="modal"
                         data-bs-target="#emailOtpModal">(Not Verified)</button>
                 </div>
@@ -218,14 +217,14 @@
 
                 <mat-form-field appearance="outline">
                     <input matInput placeholder="Name of state bar" formControlName="stateBar" required>
-                    <span matPrefix><mat-icon>note &nbsp;</mat-icon></span>
+                    <span matPrefix><mat-icon>note</mat-icon></span>
                     <mat-error *ngIf="signupForm2.controls['stateBar'].hasError('required')">State Bar is
                         Required</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                     <input matInput placeholder="Name of practising Court" formControlName="courtName" required>
-                    <span matPrefix><mat-icon>account_balance &nbsp;</mat-icon></span>
+                    <span matPrefix><mat-icon>account_balance</mat-icon></span>
                     <mat-error *ngIf="signupForm2.controls['courtName'].hasError('required')">Court Name is
                         Required</mat-error>
                 </mat-form-field>
@@ -234,33 +233,20 @@
                     <mat-grid-tile> -->
                 <mat-form-field appearance="outline">
                     <input matInput placeholder="Bar license no." formControlName="licenseNo" required>
-                    <span matPrefix><mat-icon>badge &nbsp;</mat-icon></span>
+                    <span matPrefix><mat-icon>badge</mat-icon></span>
                     <mat-error *ngIf="signupForm2.controls['licenseNo'].hasError('required')">License No. is
                         Required</mat-error>
                 </mat-form-field>
                 <!-- </mat-grid-tile>
                     <mat-grid-tile> -->
                 <mat-form-field appearance="outline">
-                    <input matInput placeholder="Enter Bar Registration Year" (keypress)="isNumber($event)" maxlength="4"
-                        formControlName="practiceYear" required>
-                    <span matPrefix><mat-icon>calendar_month &nbsp;</mat-icon></span>
+                    <input matInput placeholder="Enter Bar Registration Year" (keypress)="isNumber($event)"
+                        maxlength="4" formControlName="practiceYear" required>
+                    <span matPrefix><mat-icon>calendar_month</mat-icon></span>
                     <mat-error *ngIf="signupForm2.controls['practiceYear'].hasError('required')">Practice year
                         is
                         Required</mat-error>
                 </mat-form-field>
-                <!-- </mat-grid-tile>
-                </mat-grid-list> -->
-
-                <!-- <mat-form-field appearance="outline">
-                    <mat-select placeholder="Practising field" formControlName="practiceField" required>
-                        <mat-option *ngFor="let field of fields" [value]="field.value">
-                            {{ field.viewValue }}
-                        </mat-option>
-                    </mat-select>
-                    <span matPrefix><mat-icon>receipt_long &nbsp;</mat-icon></span>
-                    <mat-error *ngIf="signupForm2.controls['practiceField'].hasError('required')">Practice Field is
-                        Required</mat-error>
-                </mat-form-field> -->
 
                 <mat-form-field class="example-chip-list" appearance="outline">
                     <mat-chip-grid #chipGrid formControlName="practiceField" required>
@@ -276,7 +262,7 @@
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                         <mat-option [value]="item" *ngFor="let item of fields">{{item.viewValue}}</mat-option>
                     </mat-autocomplete>
-                    <span matPrefix><mat-icon>receipt_long &nbsp;</mat-icon></span>
+                    <span matPrefix><mat-icon>receipt_long</mat-icon></span>
                     <mat-error *ngIf="signupForm2.controls['practiceField'].hasError('required')">Practice Field is
                         Required</mat-error>
                 </mat-form-field>
@@ -287,14 +273,14 @@
                         {{ qus.viewValue }}
                     </mat-option>
                 </mat-select>
-                <span matPrefix><mat-icon>receipt_long &nbsp;</mat-icon></span>
+                <span matPrefix><mat-icon>receipt_long</mat-icon></span>
                 <mat-error *ngIf="signupForm2.controls['question'].hasError('required')">Question is
                     Required</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <input matInput placeholder="Enter your answer" formControlName="answer" required />
-                <span matPrefix><mat-icon>message &nbsp;</mat-icon></span>
+                <span matPrefix><mat-icon>message</mat-icon></span>
                 <mat-error *ngIf="signupForm2.controls['answer'].hasError('required')">Answer is Required</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
@@ -303,14 +289,14 @@
                         {{ qus.viewValue }}
                     </mat-option>
                 </mat-select>
-                <span matPrefix><mat-icon>receipt_long &nbsp;</mat-icon></span>
+                <span matPrefix><mat-icon>receipt_long</mat-icon></span>
                 <mat-error *ngIf="signupForm2.controls['question2'].hasError('required')">Question is
                     Required</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <input matInput placeholder="Enter your answer" formControlName="answer2" required />
-                <span matPrefix><mat-icon>message &nbsp;</mat-icon></span>
+                <span matPrefix><mat-icon>message</mat-icon></span>
                 <mat-error *ngIf="signupForm2.controls['answer2'].hasError('required')">Answer is Required</mat-error>
             </mat-form-field> -->
 
@@ -322,8 +308,9 @@
         </ng-scrollbar>
 
     </div>
-    <div class="col-lg-7 image-container d-flex align-item-center justify-content-center">
-        <img src="../../../assets/images/image/login.png" alt="" style="display: block;margin:auto;">
+    <div class="col-lg-7 col-md-7 ">
+        <!-- image-container d-flex align-item-center justify-content-center -->
+        <img src="../../../assets/images/image/vidhik-animated.gif" alt="" style="width: 100%;height: 100vh;" />
     </div>
 </div>
 
