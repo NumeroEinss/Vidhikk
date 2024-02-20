@@ -39,17 +39,19 @@ const routes: Routes = [
         loadChildren: () =>
           import('../members/members.module').then((m) => m.MembersModule),
       },
-            {
-                path: 'chat-room',
-                loadChildren: () => import('../chat-room/chat-room.module').then(m => m.ChatRoomModule)
-            },
+      {
+        path: 'chat-room',
+        loadChildren: () =>
+          import('../chat-room/chat-room.module').then((m) => m.ChatRoomModule),
+      },
       {
         path: 'global-search',
         component: GlobalSearchComponent,
       },
       {
         path: 'calendar',
-        component: CalendarComponent,
+        loadChildren: () =>
+          import('../calendar/calendar.module').then((m) => m.CalendarsModule),
       },
       {
         path: '**',

@@ -7,16 +7,33 @@
   <div [ngClass]="colConfig" class="sub-container">
     <button class="btn-primary" [ngStyle]="searchIcon">Upgrade</button>
 
-    <div class="search" (click)="searchStyle={width:'100%',display:'flex'};searchIcon={width:'0px',display:'none'};
-    redirectToSearch();" [ngStyle]="searchIcon">
+    <div
+      class="search"
+      (click)="
+        searchStyle = { width: '100%', display: 'flex' };
+        searchIcon = { width: '0px', display: 'none' };
+        redirectToSearch()
+      "
+      [ngStyle]="searchIcon"
+    >
       <img src="../../../../assets/images/icons/search.svg" />
     </div>
-    
+
     <div class="searchBox" [ngStyle]="searchStyle">
-      <input type="text">
-      <img class="cancel" (click)="searchStyle={width:'0px',display:'none'};searchIcon={width:'auto',display:'block'};
-      routeBack();" src="../../../../assets/images/icons/cancel.svg" />
-      <img class="search" src="../../../../assets/images/icons/search_grey.svg">
+      <input type="text" />
+      <img
+        class="cancel"
+        (click)="
+          searchStyle = { width: '0px', display: 'none' };
+          searchIcon = { width: 'auto', display: 'block' };
+          routeBack()
+        "
+        src="../../../../assets/images/icons/cancel.svg"
+      />
+      <img
+        class="search"
+        src="../../../../assets/images/icons/search_grey.svg"
+      />
     </div>
 
     <div class="notification-container" [matMenuTriggerFor]="notificationMenu">
@@ -25,12 +42,13 @@
     </div>
     <!-- <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false"> -->
     <mat-menu #notificationMenu="matMenu">
-      <div mat-menu-item  data-bs-toggle="modal"
-       data-bs-target="#deleteModel">
-        <div
-          class="notification-content"
-          *ngFor="let notification of notifications"
-        >
+      <div
+        mat-menu-item
+        data-bs-toggle="modal"
+        data-bs-target="#deleteModel"
+        *ngFor="let notification of notifications"
+      >
+        <div class="notification-content">
           <div class="d-flex">
             <div><img [src]="notification.image" alt="" /></div>
 
@@ -54,8 +72,6 @@
   </div>
 </div>
 
-
-
 <!-- notification popup start -->
 <div
   class="modal fade"
@@ -65,15 +81,17 @@
   aria-hidden="true"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
-  
 >
-  <div class="modal-dialog  modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1>Add Member Request</h1>
       </div>
       <div class="modal-body">
-       <div class="mt-3"><span style="font-weight: 600;">Amul Soni</span> has request to add you as member</div>
+        <div class="mt-3">
+          <span style="font-weight: 600">Amul Soni</span> has request to add you
+          as member
+        </div>
         <div class="text-center mt-3 mb-3">
           <button
             mat-raised-button
@@ -83,10 +101,14 @@
           >
             Accept
           </button>
-          <button mat-stroked-button color="primary" 
-          style="width: fit-content !important; margin-left: 10px;" 
-          data-bs-dismiss="modal">Reject</button>
-
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: fit-content !important; margin-left: 10px"
+            data-bs-dismiss="modal"
+          >
+            Reject
+          </button>
         </div>
       </div>
     </div>

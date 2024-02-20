@@ -2,8 +2,6 @@
 
 @use "@angular/material" as mat;
 
-
-
 html,
 body {
   height: 100%;
@@ -36,12 +34,16 @@ body {
   }
 
   //input field override
-  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
+  .mdc-text-field--outlined
+    .mdc-notched-outline
+    .mdc-notched-outline__trailing {
     border-radius: 0 12px 12px 0;
     border-color: #ebebeb;
   }
 
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover {
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+      .mdc-text-field--focused
+    ):hover {
     .mdc-notched-outline {
       .mdc-notched-outline__trailing {
         border-color: #2e5bff !important;
@@ -59,7 +61,6 @@ body {
     justify-content: end;
     align-items: center;
   }
-
 
   .mat-mdc-form-field-icon-suffix {
     .mat-icon {
@@ -116,7 +117,7 @@ body {
   }
 
   .mat-mdc-tab .mdc-tab__text-label {
-    color: #C4C4C4;
+    color: #c4c4c4;
     display: inline-flex;
     align-items: center;
     /* width: 69px; */
@@ -190,7 +191,7 @@ body {
     font-family: Poppins;
     text-align: left;
     color: #2e5bff;
-    margin: 10px;
+    margin: 0px 10px 0px 0px;
   }
 
   .f-12 {
@@ -206,12 +207,22 @@ body {
   .gray-font {
     color: #8798ad;
     font-family: "Poppins", sans-serif;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
   }
 
   .red-font {
     color: #ff2e2e !important;
     font-family: "Poppins", sans-serif;
     font-size: 10px !important;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
   }
 
   .mat-mdc-raised-button.mat-primary:not(:disabled) {
@@ -301,23 +312,35 @@ body {
   }
 
   // mat-checkbox Override Css
-  .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
-    background-color: #2e5bff;
-    border-color: #2e5bff;
-    border-radius: 5px;
+  .mdc-checkbox {
+    padding: 12px 0px;
+
+    .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
+      background-color: #2e5bff;
+      border-color: #2e5bff;
+      border-radius: 5px;
+    }
   }
 
-  .mdc-checkbox:hover .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+  .mdc-checkbox:hover
+    .mdc-checkbox__native-control:enabled:checked
+    ~ .mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
   }
 
-  .mdc-checkbox .mdc-checkbox__native-control:enabled:focus:checked~.mdc-checkbox__background {
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:focus:checked
+    ~ .mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
   }
 
-  .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate="true"])~.mdc-checkbox__background {
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not(
+      [data-indeterminate="true"]
+    )
+    ~ .mdc-checkbox__background {
     border-radius: 5px;
   }
 
@@ -386,6 +409,7 @@ body {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
+    white-space: nowrap;
   }
 
   //mat-error under mat-input Override Css
@@ -402,7 +426,6 @@ body {
       transition: all 1s ease-in-out;
     }
   }
-
 
   // mat-select overlay Override Css
 
@@ -461,7 +484,9 @@ body {
     display: none;
   }
 
-  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(
+      .mat-mdc-option-multiple
+    ) {
     background-color: #1949f517;
   }
 
@@ -497,7 +522,9 @@ body {
     overflow: hidden !important;
   }
 
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__leading:hover {
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline
+    .mdc-notched-outline__leading:hover {
     border-right: none;
   }
 
@@ -526,13 +553,13 @@ body {
   //   //   right: 18px;
   //   //   box-shadow: 2px 12px 3px 0 white, 0px 1px 12px 0 #053bff14;
   //   //   top: 2px;
-  //   // }  
-  // }  
+  //   // }
+  // }
 
   .cdk-overlay-container {
-  position: fixed !important;
-  z-index: 99999 !important;
-}
+    position: fixed !important;
+    z-index: 99999 !important;
+  }
 
   .mat-mdc-radio-button.mat-mdc-radio-checked {
     .mdc-radio__background::before {
@@ -542,13 +569,13 @@ body {
 
   .mat-mdc-radio-button {
     .mdc-radio {
-      .mdc-radio__native-control:enabled:checked+.mdc-radio__background {
+      .mdc-radio__native-control:enabled:checked + .mdc-radio__background {
         .mdc-radio__outer-circle {
           border-color: #2e5bff;
         }
       }
 
-      .mdc-radio__native-control:enabled+.mdc-radio__background {
+      .mdc-radio__native-control:enabled + .mdc-radio__background {
         .mdc-radio__inner-circle {
           border-color: #2e5bff;
         }
@@ -556,13 +583,13 @@ body {
     }
 
     .mdc-radio:not(:disabled):active {
-      .mdc-radio__native-control:enabled:checked+.mdc-radio__background {
+      .mdc-radio__native-control:enabled:checked + .mdc-radio__background {
         .mdc-radio__outer-circle {
           border-color: #2e5bff;
         }
       }
 
-      .mdc-radio__native-control:enabled+.mdc-radio__background {
+      .mdc-radio__native-control:enabled + .mdc-radio__background {
         .mdc-radio__inner-circle {
           border-color: #2e5bff;
         }
@@ -570,13 +597,13 @@ body {
     }
 
     .mdc-radio:hover {
-      .mdc-radio__native-control:enabled:checked+.mdc-radio__background {
+      .mdc-radio__native-control:enabled:checked + .mdc-radio__background {
         .mdc-radio__outer-circle {
           border-color: #2e5bff;
         }
       }
 
-      .mdc-radio__native-control:enabled+.mdc-radio__background {
+      .mdc-radio__native-control:enabled + .mdc-radio__background {
         .mdc-radio__inner-circle {
           border-color: #2e5bff;
         }
@@ -600,7 +627,6 @@ body {
 
   // textArea override css
   .textArea {
-
     .mat-mdc-text-field-wrapper {
       height: 100px;
 
@@ -622,10 +648,31 @@ body {
       }
     }
   }
+
+  //mat-checkbox Ripple override css
+  .mat-mdc-checkbox-ripple {
+    display: none;
+  }
+
+  .mat-mdc-checkbox {
+    margin-right: 8px;
+
+    .mdc-checkbox__ripple {
+      display: none;
+    }
+  }
+
+  .mdc-checkbox .mdc-checkbox__background {
+    left: 0px;
+  }
+
+  .modal {
+    width: calc(100vw - 220px);
+    margin-left: 220px;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-
   .login-form,
   .forgot-form,
   .reset-form,

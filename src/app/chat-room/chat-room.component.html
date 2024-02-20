@@ -49,9 +49,12 @@
     <div class="search-bar">
       <mat-form-field appearance="outline">
         <input matInput placeholder="Search Chat" required />
-        <span matSuffix
-          ><img src="../../../assets/images/icons/search-blue.svg"
-        /></span>
+        <div matSuffix>
+          <img
+            src="../../../assets/images/icons/search-blue.svg"
+            style="margin-right: 8px; cursor: pointer"
+          />
+        </div>
       </mat-form-field>
     </div>
     <!-- search-bar ends -->
@@ -88,17 +91,17 @@
       </thead>
 
       <tbody *ngFor="let item of lawyerList">
-        <tr style="border: 1px solid #f5f5f5; border-radius: 12px;">
+        <tr style="border: 1px solid #f5f5f5; border-radius: 12px">
           <td>{{ item.roomId }}</td>
           <td>{{ item.roomName }}</td>
-          <td>{{ item.created}}</td>
-          <td>{{ item.onlineLawyers}}</td>
+          <td>{{ item.created }}</td>
+          <td>{{ item.onlineLawyers }}</td>
           <td>
-            <button mat-icon-button [matMenuTriggerFor]="caseDiaryMenu">
+            <button mat-icon-button [matMenuTriggerFor]="actionMenu">
               <mat-icon>more_vert</mat-icon>
             </button>
           </td>
-          <mat-menu #caseDiaryMenu="matMenu">
+          <mat-menu #actionMenu="matMenu">
             <div mat-menu-item>
               <img
                 src="../../../assets/images/icons/black_edit.svg"
@@ -125,14 +128,20 @@
   </div>
 
   <div class="test">
-  <div class="online"><img src="../../../assets/images/image/anurag_goyal.jpg"></div>
-  <div class="online"><img src="../../../assets/images/image/anurag_goyal.jpg"></div>
-  <div class="online"><img src="../../../assets/images/image/anurag_goyal.jpg"></div>
-  <div class="online"><img src="../../../assets/images/image/anurag_goyal.jpg"></div>
-  
-</div>
-<!-- root ends -->
-
+    <div class="online">
+      <img src="../../../assets/images/image/anurag_goyal.jpg" />
+    </div>
+    <div class="online">
+      <img src="../../../assets/images/image/anurag_goyal.jpg" />
+    </div>
+    <div class="online">
+      <img src="../../../assets/images/image/anurag_goyal.jpg" />
+    </div>
+    <div class="online">
+      <img src="../../../assets/images/image/anurag_goyal.jpg" />
+    </div>
+  </div>
+  <!-- root ends -->
 
   <!-- chat-room initial popup start -->
   <div>
@@ -157,7 +166,7 @@
               Unlock a world of upportunities to superchange your service and
               stay ahead in the legal
             </p>
-            <div class="text-center  mb-4">
+            <div class="text-center mb-4">
               <button
                 mat-raised-button
                 color="primary"
@@ -173,7 +182,6 @@
     </div>
   </div>
   <!-- chat-room initial popup ends -->
-  
 
   <!-- create-chat-room popup start -->
   <div>
@@ -198,7 +206,6 @@
 
           <div class="modal-body" style="padding: 20px">
             <div class="d-flex mat-input-white" style="flex-direction: column">
-
               <mat-label class="mat-label mt-2">Room Name</mat-label>
               <mat-form-field appearance="outline" class="mt-1">
                 <input matInput placeholder="Enter room name" />
@@ -208,7 +215,7 @@
               <mat-form-field appearance="outline" class="mt-1">
                 <input matInput placeholder="Enter owner name" />
               </mat-form-field>
-              
+
               <mat-label class="mat-label mt-2">Select Members</mat-label>
               <mat-form-field appearance="outline" class="mt-1">
                 <mat-select placeholder="Select members" required>
@@ -219,10 +226,7 @@
                     {{ member.viewValue }}
                   </mat-option>
                 </mat-select>
-                <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
-                   Required !!</mat-error> -->
               </mat-form-field>
-
 
               <mat-label class="mat-label mt-2">Chat Description</mat-label>
               <textarea
