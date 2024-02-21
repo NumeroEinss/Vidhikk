@@ -17,7 +17,7 @@
         </div>
         <div class="section-2">
           <input type="text" placeholder="Tittle" />
-          <textarea matInput row="5" placeholder="Enter Text Here..."></textarea>
+          <textarea matInput placeholder="Enter Text Here..."></textarea>
         </div>
         <div>
           <button type="button" class="btn btn-primary section-2-btn">
@@ -148,8 +148,8 @@
 
   <!-- modal start -->
   <button id="modalButton" data-bs-toggle="modal" data-bs-target="#activityFeedModal" style="display: none"></button>
-  <div class="modal fade" id="activityFeedModal" tabindex="-1" aria-labelledby="activityFeedModalLabel" aria-hidden="true"
-    data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal fade" id="activityFeedModal" tabindex="-1" aria-labelledby="activityFeedModalLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -190,10 +190,8 @@
             </li>
           </ol>
           <div class="text-center">
-            <button mat-stroked-button color="primary" 
-            style="width: fit-content !important; margin-left: 10px;" 
-            routerLink="/auth/login"
-            data-bs-dismiss="modal">Reject</button>
+            <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 10px;"
+              routerLink="/auth/login" data-bs-dismiss="modal">Reject</button>
 
             <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 10px"
               data-bs-dismiss="modal">

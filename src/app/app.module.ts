@@ -6,7 +6,7 @@ import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -22,7 +22,6 @@ import { HttpService } from './shared/services/http.service';
 import { SnackAlertService } from './shared/services/snack-alert.service';
 import { NgOtpInputModule } from 'ng-otp-input';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +29,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     SignupComponent,
     ForgotPasswordComponent,
     CreateNewPasswordComponent,
-    ResetPasswordComponent, 
+    ResetPasswordComponent,
   ],
   imports: [
     FormsModule,
@@ -40,14 +39,18 @@ import { NgOtpInputModule } from 'ng-otp-input';
     SharedModule,
     MaterialModule,
     BrowserAnimationsModule,
-    NgOtpInputModule
+    NgOtpInputModule,
   ],
   providers: [
-    AuthGuard, AuthService, HttpService, SnackAlertService,
+    AuthGuard,
+    AuthService,
+    HttpService,
+    SnackAlertService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: HTTP_INTERCEPTORS, useClass: HttpIntterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
-  bootstrap: [AppComponent]
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

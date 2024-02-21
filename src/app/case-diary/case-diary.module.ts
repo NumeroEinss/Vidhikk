@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CaseDiaryRoutingModule } from './case-diary-routing.module';
-import { CaseDiaryComponent } from './case-diary.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,7 +16,6 @@ import { ViewApplicationComponent } from './view-application/view-application.co
 
 @NgModule({
   declarations: [
-    CaseDiaryComponent,
     CaseDiaryLoginComponent,
     CaseDiarySignupComponent,
     CaseDiaryForgotComponent,

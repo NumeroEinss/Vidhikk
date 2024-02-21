@@ -10,7 +10,7 @@
       Engage in Conversations on Diverse Topics
     </div>
     <div class="chat-room-img">
-      <img src="../../../assets/images/icons/chat-room.svg" alt="" />
+      <img src="../../../assets/images/icons/chat_room_directory.svg" alt="" />
     </div>
     <div>
       <button
@@ -28,229 +28,167 @@
     </div>
   </div> -->
 
-  <!-- chat-list start -->
-  <div class="chat-list">
-    <!-- filter section start -->
-    <div class="filter-section">
-      <mat-form-field appearance="outline">
-        <span matPrefix
-          ><img src="../../../assets/images/icons/funnel.svg" class="ms-3"
-        /></span>
-        <mat-select required [(value)]="selectedChat">
-          <mat-option *ngFor="let chat of chats" [value]="chat.value">
-            {{ chat.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <!-- filter section ends -->
+  <!-- chat-room chat-UI start -->
+  <!-- SideNav of  User Profile -->
+  <div class="chat-container">
+    <div class="group-list col-lg-3 col-md-3">
+      <div class="search-n-create-chat-room">
+        <mat-form-field class="search-input" appearance="outline">
+          <span matPrefix class="ms-3"><img src="../../../assets/images/icons/search-blue.svg" /></span>
+          <input matInput placeholder="Search chat" style="padding: 13px 6px !important" />
+        </mat-form-field>
 
-    <!-- search-bar start -->
-    <div class="search-bar">
-      <mat-form-field appearance="outline">
-        <input matInput placeholder="Search Chat" required />
-        <span matSuffix
-          ><img src="../../../assets/images/icons/search-blue.svg"
-        /></span>
-      </mat-form-field>
-    </div>
-    <!-- search-bar ends -->
+        <div>
+          <img src="../../../assets/images/icons/create_chat_room.svg" alt="noImage"
+            data-bs-target="#createChatRoomModal" data-bs-toggle="modal" class="create-chat-room-image" />
+        </div>
+      </div>
 
-    <!-- creat-chat start -->
-    <div class="create-chat-room">
-      <button
-        mat-stroked-button
-        color="primary"
-        style="border-radius: 12px"
-        data-bs-target="#createChatRoomModal"
-        data-bs-toggle="modal"
-      >
-        <img
-          class="mx-1"
-          src="../../../assets/images/icons/add_member_plus.svg"
-        /><span style="color: #2e5bff"></span>Create Chat Room
-      </button>
-    </div>
-    <!-- creat-chat-room ends -->
-  </div>
-  <!-- chat-list ends -->
-
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>ROOM ID</th>
-          <th>ROOM NAME</th>
-          <th>CREATED</th>
-          <th>ONLINE LAWYERS</th>
-          <th>ACTIONS</th>
-        </tr>
-      </thead>
-
-      <tbody *ngFor="let item of lawyerList">
-        <tr style="border: 1px solid #f5f5f5; border-radius: 12px;">
-          <td>{{ item.roomId }}</td>
-          <td>{{ item.roomName }}</td>
-          <td>{{ item.created}}</td>
-          <td>{{ item.onlineLawyers}}</td>
-          <td>
-            <button mat-icon-button [matMenuTriggerFor]="caseDiaryMenu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          </td>
-          <mat-menu #caseDiaryMenu="matMenu">
-            <div mat-menu-item>
-              <img
-                src="../../../assets/images/icons/black_edit.svg"
-                alt=""
-                class="me-2"
-                style="width: 22px; height: 22px"
-              />
-              <span class="mat-menu-list">Edit</span>
+      <ng-scrollbar style="height: calc(100vh - 210px)">
+        <div class="chat-room-details" *ngFor="let chat of roomList; index as i" (click)="addStyling('test', i)"
+          [ngClass]="chat.className">
+          <div class="d-flex one-more">
+            <div>
+              <img [src]="chat.image" alt="noImage" class="user-img" />
             </div>
 
-            <div mat-menu-item>
-              <img
-                src="../../../assets/images/icons/view_application.svg"
-                alt=""
-                class="me-2"
-                style="width: 20px; height: 20px"
-              />
-              <span class="mat-menu-list">View Application</span>
+            <div class="user-detail ms-2">
+              <div class="user-name">{{ chat.name }}</div>
+              <div class="user-msg">
+                {{ chat.message }}
+              </div>
             </div>
-          </mat-menu>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+        </div>
+      </ng-scrollbar>
+    </div>
+
+    <!-- Main Content of  User Profile -->
+    <div class="main-content col-lg-9 col-md-9">
+      <div class="chat-header">
+        <div class="chat-header-detail">
+          <div>
+            <img src="../../../assets/images/image/add_member2.png" alt="noImage" class="user-img" />
+          </div>
+
+          <div class="user-detail">
+            <div class="user-name">Anil Soni</div>
+            <div class="user-status">
+              <div></div>
+              Available
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-scrollbar>
+        <div class="chat-area" *ngFor="let item of chatList">
+          <div *ngIf="item.type == 'schedule'" style="display: flex">
+            <hr class="col-lg-5" />
+            <div class="align-items-center justify-content-center d-flex col-lg-2">
+              {{ item.message }}
+            </div>
+            <hr class="col-lg-5" />
+          </div>
+
+          <div class="sender-container" *ngIf="item.type == 'sender'">
+            <div class="sender-chat">
+              <div class="sender-name">{{ item.name }}</div>
+              <div class="sender-msg">{{ item.message }}</div>
+              <div class="send-time">{{ item.time }}</div>
+            </div>
+            <div class="sender-image">
+              <img [src]="item.senderImage" alt="" class="user-img" />
+            </div>
+          </div>
+
+          <div class="receiver-container" *ngIf="item.type == 'receiver'">
+            <div class="receiver-image">
+              <img [src]="item.receiverImage" alt="" class="user-img" />
+            </div>
+            <div class="receiver-chat">
+              <div class="receiver-name">{{ item.name }}</div>
+              <div class="receiver-msg">{{ item.message }}</div>
+              <div class="receive-time">{{ item.time }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-scrollbar>
+
+      <div class="chat-textarea" id="chat-textarea">
+        <textarea matInput placeholder="Enter Your text here" [(ngModel)]="message"></textarea>
+        <img src="../../../../assets/images/icons/chat_room_send.svg" alt="noImage" (click)="addMessage()" />
+      </div>
+    </div>
   </div>
 
-  <div class="test">
-  <div class="online"><img src="../../../assets/images/image/anurag_goyal.jpg"></div>
-  <div class="online"><img src="../../../assets/images/image/anurag_goyal.jpg"></div>
-  <div class="online"><img src="../../../assets/images/image/anurag_goyal.jpg"></div>
-  <div class="online"><img src="../../../assets/images/image/anurag_goyal.jpg"></div>
-  
+  <!-- chat-room chat-UI ends -->
+  <!-- root ends -->
 </div>
-<!-- root ends -->
 
 
-  <!-- chat-room initial popup start -->
-  <div>
-    <button
-      id="modalButton2"
-      data-bs-toggle="modal"
-      data-bs-target="#chatRoomModal"
-      style="display: none"
-    ></button>
-    <div
-      class="modal fade"
-      id="chatRoomModal"
-      tabindex="-1"
-      aria-labelledby="chatRoomModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">
-            <h1 class="text-center">Profile Upgradation</h1>
-            <p>
-              Unlock a world of upportunities to superchange your service and
-              stay ahead in the legal
-            </p>
-            <div class="text-center  mb-4">
-              <button
-                mat-raised-button
-                color="primary"
-                style="width: fit-content !important; background-color: #2e5bff"
-                data-bs-dismiss="modal"
-              >
-                Go to premium
-              </button>
-            </div>
+<!-- chat-room initial popup start -->
+<div>
+  <button id="modalButton2" data-bs-toggle="modal" data-bs-target="#chatRoomModal" style="display: none"></button>
+  <div class="modal fade" id="chatRoomModal" tabindex="-1" aria-labelledby="chatRoomModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h1 class="text-center">Profile Upgradation</h1>
+          <p>
+            Unlock a world of upportunities to superchange your service and
+            stay ahead in the legal
+          </p>
+          <div class="text-center mb-4">
+            <button mat-raised-button color="primary" style="width: fit-content !important; background-color: #2e5bff"
+              data-bs-dismiss="modal">
+              Go to premium
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- chat-room initial popup ends -->
-  
+</div>
+<!-- chat-room initial popup ends -->
 
-  <!-- create-chat-room popup start -->
-  <div>
-    <div
-      class="modal fade"
-      id="createChatRoomModal"
-      aria-hidden="true"
-      aria-labelledby="createChatRoomModalLabel"
-      tabindex="-1"
-    >
-      <div class="modal-dialog modal-dialog-centered create-chat-room-popup">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5">Create chat Room</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
+<!-- create-chat-room popup start -->
+<div>
+  <div class="modal fade" id="createChatRoomModal" aria-hidden="true" aria-labelledby="createChatRoomModalLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered create-chat-room-popup">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Create chat Room</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-          <div class="modal-body" style="padding: 20px">
-            <div class="d-flex mat-input-white" style="flex-direction: column">
+        <div class="modal-body" style="padding: 20px">
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <mat-label class="mat-label mt-2">Select Members</mat-label>
+            <mat-form-field appearance="outline" class="mt-1">
+              <mat-select placeholder="Select members" required>
+                <mat-option *ngFor="let member of members" [value]="member.value">
+                  {{ member.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-              <mat-label class="mat-label mt-2">Room Name</mat-label>
-              <mat-form-field appearance="outline" class="mt-1">
-                <input matInput placeholder="Enter room name" />
-              </mat-form-field>
+            <mat-label class="mat-label mt-2">Chat Room Name</mat-label>
+            <mat-form-field appearance="outline" class="mt-1">
+              <input matInput placeholder="Enter room name" />
+            </mat-form-field>
 
-              <mat-label class="mat-label mt-2">Room Owner Name</mat-label>
-              <mat-form-field appearance="outline" class="mt-1">
-                <input matInput placeholder="Enter owner name" />
-              </mat-form-field>
-              
-              <mat-label class="mat-label mt-2">Select Members</mat-label>
-              <mat-form-field appearance="outline" class="mt-1">
-                <mat-select placeholder="Select members" required>
-                  <mat-option
-                    *ngFor="let member of members"
-                    [value]="member.value"
-                  >
-                    {{ member.viewValue }}
-                  </mat-option>
-                </mat-select>
-                <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
-                   Required !!</mat-error> -->
-              </mat-form-field>
-
-
-              <mat-label class="mat-label mt-2">Chat Description</mat-label>
-              <textarea
-                rows="3"
-                class="mt-1"
-                matInput
-                placeholder="Enter Description"
-              ></textarea>
-
-              <div class="mt-3 mb-3 filter-btn">
-                <button
-                  mat-raised-button
-                  color="primary"
-                  style="width: fit-content !important"
-                >
-                  Create
-                </button>
-                <button
-                  mat-stroked-button
-                  color="primary"
-                  style="width: fit-content !important; margin-left: 10px"
-                  data-bs-dismiss="modal"
-                >
-                  Cancel
-                </button>
-              </div>
-              <!-- create-chat-room popup ends -->
+            <div class="mt-3 mb-3 filter-btn">
+              <button mat-raised-button color="primary" style="width: fit-content !important">
+                Create
+              </button>
+              <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 10px"
+                data-bs-dismiss="modal">
+                Cancel
+              </button>
             </div>
+            <!-- create-chat-room popup ends -->
           </div>
         </div>
       </div>

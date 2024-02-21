@@ -2,8 +2,6 @@
 
 @use "@angular/material" as mat;
 
-
-
 html,
 body {
   height: 100%;
@@ -12,10 +10,10 @@ body {
   font-family: "Poppins", sans-serif !important;
 
   // Css for Root Container of every Component
-  .root {
-    // padding: 10px 0px 0px 0px;
-    margin-bottom: 50px;
-  }
+  // .root {
+  //   // padding: 10px 0px 0px 0px;
+  //   margin-bottom: 50px;
+  // }
 
   hr {
     color: #2e5bff0d;
@@ -36,7 +34,9 @@ body {
   }
 
   //input field override
-  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
+  .mdc-text-field--outlined
+    .mdc-notched-outline
+    .mdc-notched-outline__trailing {
     border-radius: 0 12px 12px 0;
     border-color: #ebebeb;
   }
@@ -262,12 +262,12 @@ body {
     }
   }
 
-  .mat-mdc-menu-item{
+  .mat-mdc-menu-item {
     padding: 0px 16px;
   }
 
   .list-container {
-    .mat-mdc-menu-item{
+    .mat-mdc-menu-item {
       padding: unset !important;
     }
     label {
@@ -291,23 +291,33 @@ body {
   }
 
   // mat-checkbox Override Css
-  .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:checked
+    ~ .mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
     border-radius: 5px;
   }
 
-  .mdc-checkbox:hover .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+  .mdc-checkbox:hover
+    .mdc-checkbox__native-control:enabled:checked
+    ~ .mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
   }
 
-  .mdc-checkbox .mdc-checkbox__native-control:enabled:focus:checked~.mdc-checkbox__background {
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:focus:checked
+    ~ .mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
   }
 
-  .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate="true"])~.mdc-checkbox__background {
+  .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not(
+      [data-indeterminate="true"]
+    )
+    ~ .mdc-checkbox__background {
     border-radius: 5px;
   }
 
@@ -391,7 +401,6 @@ body {
     }
   }
 
-
   // mat-select overlay Override Css
 
   .mat-elevation-z8,
@@ -449,7 +458,9 @@ body {
     display: none;
   }
 
-  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(
+      .mat-mdc-option-multiple
+    ) {
     background-color: #1949f517;
   }
 
@@ -485,7 +496,9 @@ body {
     overflow: hidden !important;
   }
 
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__leading:hover {
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline
+    .mdc-notched-outline__leading:hover {
     border-right: none;
   }
 
@@ -514,11 +527,11 @@ body {
   //   //   right: 18px;
   //   //   box-shadow: 2px 12px 3px 0 white, 0px 1px 12px 0 #053bff14;
   //   //   top: 2px;
-  //   // }  
-  // }  
+  //   // }
+  // }
 
   .cdk-overlay-container {
-  position: fixed !important;
-  z-index: 99999 !important;
-}
+    position: fixed !important;
+    z-index: 99999 !important;
+  }
 }

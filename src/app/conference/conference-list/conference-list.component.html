@@ -1,0 +1,27 @@
+<!-- header start -->
+<app-header [menuName]="'Conference'"></app-header>
+<!-- header ends -->
+
+<div class="root">
+  <div class="conference-container">
+    <div class="conference-header">
+      <div class="grid-item1">ID</div>
+      <div class="grid-item1">CLIENT NAME</div>
+      <div class="grid-item1">DATE</div>
+      <div class="grid-item1">TIME</div>
+      <div class="grid-item1">ACTIONS</div>
+    </div>
+
+    <div *ngFor="let item of conferenceList" class="conference-data">
+      <div class="grid-item3">{{ item.id }}</div>
+      <div class="grid-item2">{{ item.clientName }}</div>
+      <div class="grid-item2">{{ item.date }}</div>
+      <div class="grid-item2">{{ item.time }}</div>
+      <div class="grid-item2">
+        <button mat-stroked-button color="primary" routerLink="/lawyer/conference/dgdfg7897yhvjbjrtyu">
+          Join
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

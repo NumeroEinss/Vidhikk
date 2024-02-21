@@ -31,6 +31,10 @@ const routes: Routes = [
                 loadChildren: () => import('../chat-room/chat-room.module').then(m => m.ChatRoomModule)
             },
             {
+                path: 'conference',
+                loadChildren: () => import('../conference/conference.module').then(m => m.ConferenceModule)
+            },
+            {
                 path: '**',
                 component: PageNotFoundComponent
             }

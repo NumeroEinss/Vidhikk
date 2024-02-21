@@ -14,7 +14,7 @@ export class CaseDiaryListComponent {
     { value: 'subDiary', viewValue: 'Sub Diary' },
   ];
 
-  diaryList = [
+  caseDiaryList = [
     {
       regDate: '01-01-23',
       courtName: 'Indore HG',

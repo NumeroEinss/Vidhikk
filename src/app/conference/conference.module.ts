@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MembersRoutingModule } from './members-routing.module';
+import { ConferenceRoutingModule } from './conference-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MembersComponent } from './members.component';
+import { ConferenceComponent } from './conference.component';
+import { ConferenceListComponent } from './conference-list/conference-list.component';
 
 @NgModule({
-  declarations: [MembersComponent],
+  declarations: [ConferenceComponent, ConferenceListComponent],
   imports: [
     CommonModule,
-    MembersRoutingModule,
+    ConferenceRoutingModule,
     SharedModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-
-export class MembersModule { }
+export class ConferenceModule {}
