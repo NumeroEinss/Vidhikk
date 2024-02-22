@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-conference',
   templateUrl: './conference.component.html',
@@ -80,6 +81,5 @@ chatList = [
   this.message = '';
   let element1 = document.getElementById('chat-textarea') as HTMLElement;
   element1.scrollTo(0,1000);
-
  }
 }

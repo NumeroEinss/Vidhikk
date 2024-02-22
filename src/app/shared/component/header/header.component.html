@@ -1,22 +1,53 @@
 <div class="main-container">
-  <div class="main-text col-lg-7 col-sm-7">
+  <div class="main-text col-lg-2 col-md-2" *ngIf="menuName">
     <div class="welcome-text">
       {{ menuName }}
     </div>
   </div>
-  <div class="col-lg-5 col-sm-5 sub-container">
-    <button class="btn-primary">Upgrade</button>
-    <div class="search">
+  <div [ngClass]="colConfig" class="sub-container">
+    <button class="btn-primary" [ngStyle]="searchIcon">Upgrade</button>
+
+    <div
+      class="search"
+      (click)="
+        searchStyle = { width: '100%', display: 'flex' };
+        searchIcon = { width: '0px', display: 'none' };
+        redirectToSearch()
+      "
+      [ngStyle]="searchIcon"
+    >
       <img src="../../../../assets/images/icons/search.svg" />
     </div>
+
+    <div class="searchBox" [ngStyle]="searchStyle">
+      <input type="text" />
+      <img
+        class="cancel"
+        (click)="
+          searchStyle = { width: '0px', display: 'none' };
+          searchIcon = { width: 'auto', display: 'block' };
+          routeBack()
+        "
+        src="../../../../assets/images/icons/cancel.svg"
+      />
+      <img
+        class="search"
+        src="../../../../assets/images/icons/search_grey.svg"
+      />
+    </div>
+
     <div class="notification-container" [matMenuTriggerFor]="notificationMenu">
       <img src="../../../../assets/images/icons/notification.svg" />
       <div class="notification-count">0</div>
     </div>
     <!-- <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false"> -->
     <mat-menu #notificationMenu="matMenu">
-      <div mat-menu-item *ngFor="let notification of notifications" data-bs-toggle="modal"
-        data-bs-target="#deleteModel">
+      <div
+        mat-menu-item
+        data-bs-toggle="modal"
+        data-bs-target="#deleteModel"
+        *ngFor="let notification of notifications"
+      >
         <div class="notification-content">
           <div class="d-flex">
             <div><img [src]="notification.image" alt="" /></div>
@@ -42,8 +73,15 @@
 </div>
 
 <!-- notification popup start -->
-<div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="deleteModelLabel" aria-hidden="true"
-  data-bs-backdrop="static" data-bs-keyboard="false">
+<div
+  class="modal fade"
+  id="deleteModel"
+  tabindex="-1"
+  aria-labelledby="deleteModelLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -58,8 +96,12 @@
           <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal">
             Accept
           </button>
-          <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 10px"
-            data-bs-dismiss="modal">
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: fit-content !important; margin-left: 10px"
+            data-bs-dismiss="modal"
+          >
             Reject
           </button>
         </div>

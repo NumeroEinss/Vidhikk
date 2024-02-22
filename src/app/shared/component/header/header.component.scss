@@ -57,6 +57,37 @@
 
     .search {
       margin-right: 24px;
+      cursor: pointer;
+    }
+
+    .searchBox {
+      z-index: 5;
+      display: flex;
+      align-items: center;
+
+      input {
+        width: 98%;
+        padding: 0 70px;
+        height: 80px;
+        border: none;
+        background: #F5F5F5;
+        margin: 2px;
+        font-size: 24px;
+      }
+
+      .cancel {
+        position: absolute;
+        right: 18%;
+      }
+
+      .search {
+        position: relative;
+        margin: unset;
+        margin-left: unset;
+        position: absolute;
+        margin-left: 22px;
+      }
+
     }
 
     img {
@@ -131,6 +162,7 @@
     }
   }
 
+
   .days {
     display: flex;
     white-space: nowrap;
@@ -139,8 +171,8 @@
   }
 }
 
-
 .mat-mdc-menu-item:not([disabled]):hover {
+  background-color: unset !important;
   background-color: unset !important;
 }
 

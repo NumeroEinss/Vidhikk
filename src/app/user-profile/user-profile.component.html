@@ -4,7 +4,7 @@
 <div class="root">
      <!-- SideNav of  User Profile -->
      <div class="profile-container">
-          <div class="profile-sidenav col-lg-3">
+          <div class="profile-sidenav col-lg-3 col-md-3">
                <li id="basic-nav">
                     <a (click)="addStyling('basic-nav'); addShadow('basic-info')">
                          Basic Info</a>
@@ -24,7 +24,7 @@
           </div>
 
           <!-- Main Content of  User Profile -->
-          <div class="main-content col-lg-9">
+          <div class="main-content col-lg-9 col-md-9">
 
                <!-- Basic-Info -->
                <div class="basic-info" id="basic-info">
@@ -139,10 +139,10 @@
                     </div>
                     <div class="user-details">
                          <div class="user-details-1a">
-                              <a routerLink="">
+                              <a routerLink="/auth/resetPassword">
                                    Change Password
                               </a>
-                              <a routerLink="">
+                              <a routerLink="/lawyer/case-diary/reset-password">
                                    Change Case Diary Password
                               </a>
 

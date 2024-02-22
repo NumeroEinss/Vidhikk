@@ -1,384 +1,587 @@
 <app-header [menuName]="'Case Law'"></app-header>
 <div class="root">
-
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="left" [(selectedIndex)]="selectedIndex"
-        (selectedTabChange)="tabSelectionChange($event)">
-
-        <!-- Latest Cases -->
-        <mat-tab label="Latest Cases">
-            <div class="filter-bar mt-2 mb-2">
-                <!-- Header -->
-                <div class="pretext col-lg-6">
-                    <img src="../../../assets/images/icons/arrow-left.svg">
-                    <div class="records">Found {{recordCount}} Cases</div>
-                </div>
-                <div class="posttext col-lg-6">
-                    <div><img [matMenuTriggerFor]="filterMenu" #filterMenuTrigger="matMenuTrigger"
-                            src="../../../assets/images/icons/sort.svg"></div>
-                    <div><img [matMenuTriggerFor]="sortMenu" src="../../../assets/images/icons/filter.svg"></div>
-                </div>
-                <!-- Filter Menu -->
-                <mat-menu #filterMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu">
-                    <a (click)=" $event.stopPropagation();" style="text-decoration: none;">
-                        <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                            <input #search matInput (keyup)="onKey($event)" placeholder="By Court">
-                        </mat-form-field>
-                        <div class="list-container">
-                            <li mat-menu-item *ngFor="let item of searchList" (click)="closed(item.name)"><mat-checkbox
-                                    [(ngModel)]="item.checked" [color]="'primary'">
-                                    {{item.name}}
-                                </mat-checkbox></li>
-                        </div>
-                        <div class="d-flex">
-                            <button mat-raised-button color="primary" class="m-2"
-                                (click)="filterMenuTrigger.closeMenu()">Done</button><br>
-                            <button mat-stroked-button color="primary" class="m-2"
-                                (click)="search.value = '';onKey()">Clear</button>
-                        </div>
-                    </a>
-                </mat-menu>
-                <!-- Sort Menu -->
-                <mat-menu #sortMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu">
-                    <div mat-menu-item (click)="sort('0')">Recent</div>
-                    <div mat-menu-item (click)="sort('1')">Relevance</div>
-                    <div mat-menu-item (click)="sort('2')">Most Cited</div>
-                    <div mat-menu-item (click)="sort('3')">Judge Bench</div>
-                </mat-menu>
+  <mat-tab-group
+    mat-stretch-tabs="false"
+    mat-align-tabs="left"
+    [(selectedIndex)]="selectedIndex"
+    (selectedTabChange)="tabSelectionChange($event)"
+  >
+    <!-- Latest Cases -->
+    <mat-tab label="Latest Cases">
+      <div class="filter-bar mt-2 mb-2">
+        <!-- Header -->
+        <div class="pretext col-lg-6 col-md-6">
+          <img src="../../../assets/images/icons/arrow-left.svg" />
+          <div class="records">Found {{ recordCount }} Cases</div>
+        </div>
+        <div class="posttext col-lg-6 col-md-6">
+          <div>
+            <img
+              [matMenuTriggerFor]="filterMenu"
+              #filterMenuTrigger="matMenuTrigger"
+              src="../../../assets/images/icons/sort.svg"
+            />
+          </div>
+          <div>
+            <img
+              [matMenuTriggerFor]="sortMenu"
+              src="../../../assets/images/icons/filter.svg"
+            />
+          </div>
+        </div>
+        <!-- Filter Menu -->
+        <mat-menu
+          #filterMenu="matMenu"
+          yPosition="below"
+          [hasBackdrop]="true"
+          class="mat-menu"
+        >
+          <a (click)="$event.stopPropagation()" style="text-decoration: none">
+            <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+              <input
+                #search
+                matInput
+                (keyup)="onKey($event)"
+                placeholder="By Court"
+              />
+            </mat-form-field>
+            <div class="list-container">
+              <li
+                mat-menu-item
+                *ngFor="let item of searchList"
+                (click)="closed(item.name)"
+              >
+                <mat-checkbox [(ngModel)]="item.checked" [color]="'primary'">
+                  {{ item.name }}
+                </mat-checkbox>
+              </li>
             </div>
-            <!-- Case Law List -->
-            <div class="case-container" *ngFor="let item of caseList" (click)="viewCase('edadsfalkdlk2jkldas2255E')">
-                <div class="title">
-                    {{item.caseTitle}}
-                </div>
-                <div class="desc">
-                    {{item.caseDesc}}
-                </div>
-                <div class="sub-desc">
-                    <div class="court">{{item.court}} </div>|
-                    <div class="bench">&nbsp;Bench : {{item.bench|uppercase}}&nbsp;</div>|
-                    <div class="cited">&nbsp;Cited : {{item.cited}}</div>
-                </div>
-                <div class="acts">
-                    Acts : {{item.acts}}
-                </div>
+            <div class="d-flex">
+              <button
+                mat-raised-button
+                color="primary"
+                class="m-2"
+                (click)="filterMenuTrigger.closeMenu()"
+              >
+                Done</button
+              ><br />
+              <button
+                mat-stroked-button
+                color="primary"
+                class="m-2"
+                (click)="search.value = ''; onKey()"
+              >
+                Clear
+              </button>
             </div>
-        </mat-tab>
-        <!-- Lates Cases Ends -->
+          </a>
+        </mat-menu>
+        <!-- Sort Menu -->
+        <mat-menu
+          #sortMenu="matMenu"
+          yPosition="below"
+          [hasBackdrop]="true"
+          class="mat-menu"
+        >
+          <div mat-menu-item (click)="sort('0')">Recent</div>
+          <div mat-menu-item (click)="sort('1')">Relevance</div>
+          <div mat-menu-item (click)="sort('2')">Most Cited</div>
+          <div mat-menu-item (click)="sort('3')">Judge Bench</div>
+        </mat-menu>
+      </div>
+      <!-- Case Law List -->
+      <div
+        class="case-container"
+        *ngFor="let item of caseList"
+        (click)="viewCase('edadsfalkdlk2jkldas2255E')"
+      >
+        <div class="title">
+          {{ item.caseTitle }}
+        </div>
+        <div class="desc">
+          {{ item.caseDesc }}
+        </div>
+        <div class="sub-desc">
+          <div class="court">{{ item.court }}</div>
+          |
+          <div class="bench">
+            &nbsp;Bench : {{ item.bench | uppercase }}&nbsp;
+          </div>
+          |
+          <div class="cited">&nbsp;Cited : {{ item.cited }}</div>
+        </div>
+        <div class="acts">Acts : {{ item.acts }}</div>
+      </div>
+    </mat-tab>
+    <!-- Lates Cases Ends -->
 
-        <!-- App/Resp -->
-        <mat-tab label="App/Resp">
-            <div class="app-resp-container">
-                <div class="title">
-                    App/Resp
-                </div>
-                <div class="d-flex mat-input-white" style="flex-direction: column;">
-                    <mat-label class="mat-label">Enter String Alphabets of the Name</mat-label>
-                    <mat-form-field appearance="outline">
-                        <input matInput placeholder="All these alphabets of the name">
-                    </mat-form-field>
-                </div>
-                <div class="d-flex mt-3">
-                    <button mat-raised-button color="primary"
-                        style="width:124px !important;margin-right: 26px;display:flex;"><img
-                            src="../../../assets/images/icons/search-white.svg" />Search</button><br>
-                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/icons/reset.svg">Reset</button>
-                </div>
-            </div>
-        </mat-tab>
-        <!-- App/Resp Ends -->
+    <!-- App/Resp -->
+    <mat-tab label="App/Resp">
+      <div class="app-resp-container">
+        <div class="title">App/Resp</div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label"
+            >Enter String Alphabets of the Name</mat-label
+          >
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="All these alphabets of the name" />
+          </mat-form-field>
+        </div>
+        <div class="d-flex mt-4">
+          <button
+            mat-raised-button
+            color="primary"
+            style="width: 124px !important; margin-right: 26px; display: flex"
+          >
+            <img
+              src="../../../assets/images/icons/search-white.svg"
+            />Search</button
+          ><br />
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: 124px !important; display: flex"
+          >
+            <img src="../../../assets/images/icons/reset.svg" />Reset
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <!-- App/Resp Ends -->
 
-        <!-- Judge Wise -->
-        <mat-tab label="Judge Wise">
-            <div class="judge-wise">
-                <div class="title">
-                    Judge Wise
-                </div>
-                <div class="d-flex mat-input-white" style="flex-direction: column;">
-                    <mat-label class="mat-label">Select by Name List</mat-label>
-                    <mat-form-field appearance="outline">
-                        <mat-select placeholder="Select Judge" required>
-                            <a (click)=" $event.stopPropagation();" style="text-decoration: none;">
-                                <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                                    <input #search matInput (keyup)="filterJudge($event)" placeholder="By Judge Name">
-                                    <span matSuffix><img class="me-2"
-                                            src="../../../assets/images/icons/search-blue.svg"></span>
-                                </mat-form-field>
-                            </a>
-                            <mat-option>Select</mat-option>
-                            <mat-option *ngFor="let state of filteredJudgeList" [value]="state.value">
-                                {{ state.name }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="d-flex mt-3">
-                    <button mat-raised-button color="primary"
-                        style="width:124px !important;margin-right: 26px;display:flex;"><img
-                            src="../../../assets/images/icons/search-white.svg" />Search</button><br>
-                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/icons/reset.svg">Reset</button>
-                </div>
-            </div>
-        </mat-tab>
-        <!-- Judge Wise Ends -->
+    <!-- Judge Wise -->
+    <mat-tab label="Judge Wise">
+      <div class="judge-wise">
+        <div class="title">Judge Wise</div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label">Select by Name List</mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select Judge" required>
+              <a
+                (click)="$event.stopPropagation()"
+                style="text-decoration: none"
+              >
+                <mat-form-field
+                  class="p-2 w-100 search-input"
+                  appearance="outline"
+                >
+                  <input
+                    #search
+                    matInput
+                    (keyup)="filterJudge($event)"
+                    placeholder="By Judge Name"
+                  />
+                  <span matSuffix
+                    ><img
+                      class="me-2"
+                      src="../../../assets/images/icons/search-blue.svg"
+                  /></span>
+                </mat-form-field>
+              </a>
+              <mat-option>Select</mat-option>
+              <mat-option
+                *ngFor="let state of filteredJudgeList"
+                [value]="state.value"
+              >
+                {{ state.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="d-flex mt-4">
+          <button
+            mat-raised-button
+            color="primary"
+            style="width: 124px !important; margin-right: 26px; display: flex"
+          >
+            <img
+              src="../../../assets/images/icons/search-white.svg"
+            />Search</button
+          ><br />
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: 124px !important; display: flex"
+          >
+            <img src="../../../assets/images/icons/reset.svg" />Reset
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <!-- Judge Wise Ends -->
 
-        <!-- Citation Wise -->
-        <mat-tab label="Citation Wise">
-            <div class="citation-wise">
-                <div class="title">
-                    Citation Wise
-                </div>
-                <div class="d-flex mat-input-white" style="flex-direction: column;">
-                    <mat-label class="mat-label">Journal</mat-label>
-                    <mat-form-field appearance="outline">
-                        <mat-select placeholder="Select Journal" required>
-                            <a (click)=" $event.stopPropagation();" style="text-decoration: none;">
-                                <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                                    <input #search matInput (keyup)="filterJournal($event)" placeholder="By Court">
-                                    <span matSuffix><img class="me-2"
-                                            src="../../../assets/images/icons/search-blue.svg"></span>
-                                </mat-form-field>
-                            </a>
-                            <mat-option>Select</mat-option>
-                            <mat-option *ngFor="let state of filteredJournalsList" [value]="state.value">
-                                {{ state.name }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-label class="mat-label">Year</mat-label>
-                    <mat-form-field appearance="outline">
-                        <mat-select placeholder="Select Year" required>
-                            <!-- <mat-option *ngFor="let state of states" [value]="state.value">
+    <!-- Citation Wise -->
+    <mat-tab label="Citation Wise">
+      <div class="citation-wise">
+        <div class="title">Citation Wise</div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label">Journal</mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select Journal" required>
+              <a
+                (click)="$event.stopPropagation()"
+                style="text-decoration: none"
+              >
+                <mat-form-field
+                  class="p-2 w-100 search-input"
+                  appearance="outline"
+                >
+                  <input
+                    #search
+                    matInput
+                    (keyup)="filterJournal($event)"
+                    placeholder="By Court"
+                  />
+                  <span matSuffix
+                    ><img
+                      class="me-2"
+                      src="../../../assets/images/icons/search-blue.svg"
+                  /></span>
+                </mat-form-field>
+              </a>
+              <mat-option>Select</mat-option>
+              <mat-option
+                *ngFor="let state of filteredJournalsList"
+                [value]="state.value"
+              >
+                {{ state.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-label class="mat-label">Year</mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select Year" required>
+              <!-- <mat-option *ngFor="let state of states" [value]="state.value">
                             {{ state.viewValue }}
                         </mat-option> -->
-                            <mat-option>Select</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-label class="mat-label">Volume</mat-label>
-                    <mat-form-field appearance="outline">
-                        <mat-select placeholder="Select Volume" required>
-                            <!-- <mat-option *ngFor="let state of states" [value]="state.value">
+              <mat-option>Select</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-label class="mat-label">Volume</mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select Volume" required>
+              <!-- <mat-option *ngFor="let state of states" [value]="state.value">
                             {{ state.viewValue }}
                         </mat-option> -->
-                            <mat-option>Select</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-label class="mat-label">Page No.</mat-label>
-                    <mat-form-field appearance="outline">
-                        <input matInput placeholder="Type the page number">
-                    </mat-form-field>
-                </div>
-                <div class="d-flex mt-3">
-                    <button mat-raised-button color="primary"
-                        style="width:124px !important;margin-right: 26px;display:flex;"><img
-                            src="../../../assets/images/icons/search-white.svg" />Search</button><br>
-                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/icons/reset.svg">Reset</button>
-                </div>
-            </div>
-        </mat-tab>
-        <!-- Citation Wise Ends -->
+              <mat-option>Select</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-label class="mat-label">Page No.</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Type the page number" />
+          </mat-form-field>
+        </div>
+        <div class="d-flex mt-4">
+          <button
+            mat-raised-button
+            color="primary"
+            style="width: 124px !important; margin-right: 26px; display: flex"
+          >
+            <img
+              src="../../../assets/images/icons/search-white.svg"
+            />Search</button
+          ><br />
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: 124px !important; display: flex"
+          >
+            <img src="../../../assets/images/icons/reset.svg" />Reset
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <!-- Citation Wise Ends -->
 
-        <!-- Bare Acts -->
-        <mat-tab label="Bare Acts">
-            <div class="filter-bar mt-2">
-                <div class="pretext col-lg-6">
-                    <img src="../../../assets/images/icons/arrow-left.svg">
-                    <div class="records">Found {{recordCount}} Cases</div>
-                </div>
-                <div class="posttext col-lg-6">
-                    <img src="../../../assets/images/icons/search-blue.svg">
-                </div>
-            </div>
-            <div class="bare-acts">
-                <div class="acts" *ngFor="let acts of actsList">
-                    {{acts.name}}
-                </div>
-            </div>
-        </mat-tab>
-        <!-- Bare Acts Ends -->
+    <!-- Bare Acts -->
+    <mat-tab label="Bare Acts">
+      <div class="filter-bar mt-2">
+        <div class="pretext col-lg-6 col-md-6">
+          <img src="../../../assets/images/icons/arrow-left.svg" />
+          <div class="records">Found {{ recordCount }} Cases</div>
+        </div>
+        <div class="posttext col-lg-6 col-md-6">
+          <img src="../../../assets/images/icons/search-blue.svg" />
+        </div>
+      </div>
+      <div class="bare-acts">
+        <div class="acts" *ngFor="let acts of actsList">
+          {{ acts.name }}
+        </div>
+      </div>
+    </mat-tab>
+    <!-- Bare Acts Ends -->
 
-        <!-- Act & Section Wise -->
-        <mat-tab label="Act & Section Wises">
-            <div class="act-section">
-                <div class="title">
-                    Act & Section Wise
-                </div>
-                <div class="d-flex mat-input-white" style="flex-direction: column;">
-                    <mat-label class="mat-label">Act Title</mat-label>
-                    <mat-form-field appearance="outline">
-                        <mat-select placeholder="Select Act Title" required>
-                            <mat-option>Select</mat-option>
-                            <mat-option *ngFor="let item of actList" value="item.value">{{item.name}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="d-flex mat-input-white" style="flex-direction: column;">
-                    <mat-label class="mat-label">Act Type</mat-label>
-                    <mat-form-field appearance="outline">
-                        <mat-select placeholder="Select Act Type" required>
-                            <mat-option>Select</mat-option>
-                            <mat-option *ngFor="let item of actTypeList" value="item.value">{{item.name}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="d-flex mt-3">
-                    <button mat-raised-button color="primary"
-                        style="width:124px !important;margin-right: 26px;display:flex;"><img
-                            src="../../../assets/images/icons/search-white.svg" />Search</button><br>
-                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/icons/reset.svg">Reset</button>
-                </div>
-            </div>
-        </mat-tab>
-        <!-- Act & Section Wise Ends -->
+    <!-- Act & Section Wise -->
+    <mat-tab label="Act & Section Wises">
+      <div class="act-section">
+        <div class="title">Act & Section Wise</div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label">Act Title</mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select Act Title" required>
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let item of actList" value="item.value">{{
+                item.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label">Act Type</mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select Act Type" required>
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let item of actTypeList" value="item.value">{{
+                item.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="d-flex mt-4">
+          <button
+            mat-raised-button
+            color="primary"
+            style="width: 124px !important; margin-right: 26px; display: flex"
+          >
+            <img
+              src="../../../assets/images/icons/search-white.svg"
+            />Search</button
+          ><br />
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: 124px !important; display: flex"
+          >
+            <img src="../../../assets/images/icons/reset.svg" />Reset
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <!-- Act & Section Wise Ends -->
 
-        <!-- Words & Phrase -->
-        <mat-tab label="Words & Phrases">
-            <div class="judge-wise">
-                <div class="title">
-                    Words & Phrases
-                </div>
-                <div class="d-flex mat-input-white" style="flex-direction: column;">
-                    <mat-label class="mat-label">Words & Phrases</mat-label>
-                    <mat-form-field appearance="outline">
-                        <mat-select placeholder="Select any word or phrases" required>
-                            <mat-option>Select</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="d-flex mt-3">
-                    <button mat-raised-button color="primary"
-                        style="width:124px !important;margin-right: 26px;display:flex;"><img
-                            src="../../../assets/images/icons/search-white.svg" />Search</button><br>
-                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/icons/reset.svg">Reset</button>
-                </div>
-            </div>
-        </mat-tab>
-        <!--Words & Phrase Ends -->
+    <!-- Words & Phrase -->
+    <mat-tab label="Words & Phrases">
+      <div class="judge-wise">
+        <div class="title">Words & Phrases</div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label">Words & Phrases</mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select any word or phrases" required>
+              <mat-option>Select</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="d-flex mt-4">
+          <button
+            mat-raised-button
+            color="primary"
+            style="width: 124px !important; margin-right: 26px; display: flex"
+          >
+            <img
+              src="../../../assets/images/icons/search-white.svg"
+            />Search</button
+          ><br />
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: 124px !important; display: flex"
+          >
+            <img src="../../../assets/images/icons/reset.svg" />Reset
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <!--Words & Phrase Ends -->
 
-        <!-- Overruled -->
-        <mat-tab label="Overruled">
-            <div class="filter-bar mt-2">
-                <div class="pretext col-lg-6">
-                    <img src="../../../assets/images/icons/arrow-left.svg">
-                    <div class="records">Found {{recordCount}} Cases</div>
-                </div>
-                <div class="posttext col-lg-6">
-                    <img src="../../../assets/images/icons/search-blue.svg">
-                </div>
-            </div>
-            <div class="overruledby">
-                <div class="acts" *ngFor="let case of overruledList" (click)="viewCase('dfasd23Eddf112sdnb2')">
-                    <div class="previous-attorney"> {{case.previousAttorney}}</div>
-                    <div class="overruled">Overruled By</div>
-                    <div class="current-attorney">{{case.currentAttorney}}</div>
-                </div>
-            </div>
-        </mat-tab>
-        <!--Overruled Ends -->
+    <!-- Overruled -->
+    <mat-tab label="Overruled">
+      <div class="filter-bar mt-2">
+        <div class="pretext col-lg-6 col-md-6">
+          <img src="../../../assets/images/icons/arrow-left.svg" />
+          <div class="records">Found {{ recordCount }} Cases</div>
+        </div>
+        <div class="posttext col-lg-6 col-md-6">
+          <img src="../../../assets/images/icons/search-blue.svg" />
+        </div>
+      </div>
+      <div class="overruledby">
+        <div
+          class="acts"
+          *ngFor="let case of overruledList"
+          (click)="viewCase('dfasd23Eddf112sdnb2')"
+        >
+          <div class="previous-attorney">{{ case.previousAttorney }}</div>
+          <div class="overruled">Overruled By</div>
+          <div class="current-attorney">{{ case.currentAttorney }}</div>
+        </div>
+      </div>
+    </mat-tab>
+    <!--Overruled Ends -->
 
-        <!-- Universal Search -->
-        <mat-tab label="Universal Search">
-            <div class="citation-wise">
-                <div class="title">
-                    Universal Search
-                </div>
-                <div class="d-flex mat-input-white" style="flex-direction: column;">
-                    <mat-label class="mat-label">All these words or phrase</mat-label>
-                    <mat-form-field appearance="outline">
-                        <input matInput placeholder="All these words in quotes dying">
-                    </mat-form-field>
-                    <mat-label class="mat-label">Search Within</mat-label>
-                    <mat-form-field appearance="outline">
-                        <input matInput placeholder="50">
-                    </mat-form-field>
-                    <mat-label class="mat-label">Any of these words</mat-label>
-                    <mat-form-field appearance="outline">
-                        <input matInput placeholder="Type All the words you want">
-                    </mat-form-field>
-                    <mat-label class="mat-label">None of these words</mat-label>
-                    <mat-form-field appearance="outline">
-                        <input matInput placeholder="Type All the words you don't want">
-                    </mat-form-field>
-                    <mat-radio-group aria-label="Select an option" class="mb-2">
-                        <mat-radio-button value="1" checked>Judgement</mat-radio-button>
-                        <mat-radio-button value="2">HeadNote</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div class="d-flex mt-3">
-                    <button mat-raised-button color="primary"
-                        style="width:124px !important;margin-right: 26px;display:flex;"><img
-                            src="../../../assets/images/icons/search-white.svg" />Search</button><br>
-                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/icons/reset.svg">Reset</button>
-                </div>
-            </div>
-        </mat-tab>
-        <!--Universal Ends -->
+    <!-- Universal Search -->
+    <mat-tab label="Universal Search">
+      <div class="citation-wise">
+        <div class="title">Universal Search</div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label">All these words or phrase</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="All these words in quotes dying" />
+          </mat-form-field>
+        </div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label">Search Within</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="50" />
+          </mat-form-field>
+        </div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label">Any of these words</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Type All the words you want" />
+          </mat-form-field>
+        </div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label">None of these words</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Type All the words you don't want" />
+          </mat-form-field>
+        </div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-radio-group aria-label="Select an option" class="mb-2">
+            <mat-radio-button value="1" class="me-3" checked
+              >Judgement</mat-radio-button
+            >
+            <mat-radio-button value="2">HeadNote</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="d-flex mt-4">
+          <button
+            mat-raised-button
+            color="primary"
+            style="width: 124px !important; margin-right: 26px; display: flex"
+          >
+            <img
+              src="../../../assets/images/icons/search-white.svg"
+            />Search</button
+          ><br />
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: 124px !important; display: flex"
+          >
+            <img src="../../../assets/images/icons/reset.svg" />Reset
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <!--Universal Ends -->
 
-        <!-- Advance Search -->
-        <mat-tab label="Advance Search">
-            <div class="advance-search">
-                <div class="title">
-                    Advance Search
-                </div>
-                <div class="d-flex">
-                    <div class="d-flex mat-input-white" style="flex-direction: column;">
-                        <mat-label class="mat-label">Enter Text</mat-label>
-                        <mat-form-field appearance="outline">
-                            <input matInput placeholder="All these words in quotes dying">
-                        </mat-form-field>
-                    </div>
-                    <div class="d-flex mat-input-white" style="flex-direction: column;">
-                        <mat-label class="mat-label">Applicant Respondant Name</mat-label>
-                        <mat-form-field appearance="outline">
-                            <input matInput placeholder="Type Application Name">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <div class="d-flex mat-input-white" style="flex-direction: column;">
-                        <mat-label class="mat-label">Judge Name</mat-label>
-                        <mat-form-field appearance="outline">
-                            <mat-select placeholder="Select Judge" required>
-                                <a (click)=" $event.stopPropagation();" style="text-decoration: none;">
-                                    <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                                        <input #search matInput (keyup)="filterJudge($event)"
-                                            placeholder="By Judge Name">
-                                        <span matSuffix><img class="me-2"
-                                                src="../../../assets/images/icons/search-blue.svg"></span>
-                                    </mat-form-field>
-                                </a>
-                                <mat-option>Select</mat-option>
-                                <mat-option *ngFor="let state of filteredJudgeList" [value]="state.value">
-                                    {{ state.name }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="d-flex mat-input-white" style="flex-direction: column;">
-                        <mat-label class="mat-label">Decision Date</mat-label>
-                        <mat-form-field appearance="outline">
-                            <input matInput [matDatepicker]="dp" placeholder="Select Date Range">
-                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                            <mat-datepicker #dp></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-                </div>
+    <!-- Advance Search -->
+    <mat-tab label="Advance Search">
+      <div class="advance-search">
+        <div class="title">Advance Search</div>
+        <div class="row">
+          <div class="mat-input-white col me-4">
+            <mat-label class="mat-label">Enter Text</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="All these words in quotes dying" />
+            </mat-form-field>
+          </div>
+          <div class="mat-input-white col">
+            <mat-label class="mat-label">Applicant Respondant Name</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Type Application Name" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mat-input-white col me-4">
+            <mat-label class="mat-label">Judge Name</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select Judge" required>
+                <a
+                  (click)="$event.stopPropagation()"
+                  style="text-decoration: none"
+                >
+                  <mat-form-field
+                    class="p-2 w-100 search-input"
+                    appearance="outline"
+                  >
+                    <input
+                      #search
+                      matInput
+                      (keyup)="filterJudge($event)"
+                      placeholder="By Judge Name"
+                    />
+                    <span matSuffix
+                      ><img
+                        class="me-2"
+                        src="../../../assets/images/icons/search-blue.svg"
+                    /></span>
+                  </mat-form-field>
+                </a>
+                <mat-option>Select</mat-option>
+                <mat-option
+                  *ngFor="let state of filteredJudgeList"
+                  [value]="state.value"
+                >
+                  {{ state.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="mat-input-white col">
+            <mat-label class="mat-label">Decision Date</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date" disabled />
+                <input matEndDate placeholder="End date" disabled />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+        </div>
 
-                <div class="d-flex mt-3">
-                    <button mat-raised-button color="primary"
-                        style="width:124px !important;margin-right: 26px;display:flex;"><img
-                            src="../../../assets/images/icons/search-white.svg" />Search</button><br>
-                    <button mat-stroked-button color="primary" style="width:124px !important;display:flex;"><img
-                            src="../../../assets/images/icons/reset.svg">Reset</button>
-                </div>
-            </div>
-        </mat-tab>
-        <!--Advance Search Ends -->
+        <div class="row">
+          <div class="mat-input-white col me-4">
+            <mat-label class="mat-label">Case No.</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Case" />
+            </mat-form-field>
+          </div>
+          <div class="mat-input-white col">
+            <mat-label class="mat-label">Act</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Type Application Name" />
+            </mat-form-field>
+          </div>
+        </div>
 
-    </mat-tab-group>
+        <div class="d-flex mt-4">
+          <button
+            mat-raised-button
+            color="primary"
+            style="width: 124px !important; margin-right: 26px; display: flex"
+          >
+            <img
+              src="../../../assets/images/icons/search-white.svg"
+            />Search</button
+          ><br />
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: 124px !important; display: flex"
+          >
+            <img src="../../../assets/images/icons/reset.svg" />Reset
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+    <!--Advance Search Ends -->
+  </mat-tab-group>
 </div>

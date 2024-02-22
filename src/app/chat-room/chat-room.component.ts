@@ -204,8 +204,6 @@ export class ChatRoomComponent implements AfterViewInit {
     },
   ];
 
-  
-
   constructor() {}
 
   ngAfterViewInit() {

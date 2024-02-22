@@ -3,9 +3,9 @@
 
 <!-- root section start-->
 <div class="root">
-  
+
   <!-- case repository section start -->
-   <!-- <div class="case-diary">
+  <!-- <div class="case-diary">
           <div class="case-diary-repo">Legal Cases Repository</div>
           <div class="case-diary-heading">Create a Case Empowering Your Legal Journey</div>
           <div class="case-diary-img"><img src="../../../assets/images/image/object.png" alt="NoImage" /></div>
@@ -13,7 +13,7 @@
                          matPrefix><mat-icon>edit</mat-icon></span>Create</button></div>
      </div> -->
      <!-- case repository section ends-->
-     
+
 
 
   <!-- main section start -->
@@ -23,14 +23,8 @@
       <!-- filter section start -->
       <div class="filter-section">
         <mat-form-field appearance="outline">
-          <span matPrefix
-            ><img src="../../../assets/images/icons/funnel.svg" class="ms-3"
-          /></span>
-          <mat-select
-            placeholder="Case Diary"
-            required
-            [(value)]="selectedDiary"
-          >
+          <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
+          <mat-select placeholder="Case Diary" required [(value)]="selectedDiary">
             <mat-option *ngFor="let case of caseDiary" [value]="case.value">
               {{ case.viewValue }}
             </mat-option>
@@ -43,25 +37,18 @@
       <div class="search-bar">
         <mat-form-field appearance="outline">
           <input matInput placeholder="Search Case Diary" required />
-          <span matSuffix
-            ><img src="../../../assets/images/icons/search-blue.svg"
-          /></span>
+          <div matSuffix><img src="../../../assets/images/icons/search-blue.svg"
+              style="margin-right: 8px;cursor:pointer;" /></div>
         </mat-form-field>
       </div>
       <!-- search-bar ends -->
 
       <!-- creat-sub-diary start -->
       <div class="create-sub-diary">
-        <button
-          mat-stroked-button
-          color="primary"
-          style="border-radius: 12px"
-          routerLink="/lawyer/case-diary/create-sub-diary"
-        >
-          <img
-            class="mx-1"
-            src="../../../assets/images/icons/sub-diary.svg"
-          /><span style="color: #2e5bff"></span>Create Sub Diary
+        <button mat-stroked-button color="primary" style="border-radius: 12px"
+          routerLink="/lawyer/case-diary/create-sub-diary">
+          <img class="mx-1" src="../../../assets/images/icons/sub-diary.svg" /><span
+            style="color: #2e5bff"></span>Create Sub Diary
         </button>
       </div>
       <!-- creat-sub-diary ends -->
@@ -73,7 +60,7 @@
     <!-- case-diary table start -->
     <div *ngIf="selectedDiary == 'caseDiary'">
      <div  class="case-diary-header">
-       <div class="grid-item1">REG. DATE</div>
+       <div class="grid-item-name">REG. DATE</div>
        <div class="grid-item1">COURT NAME</div>
        <div class="grid-item1">CASE NO.</div>
        <div class="grid-item1">APPLICANT</div>

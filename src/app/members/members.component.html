@@ -20,7 +20,6 @@
   </div>
   <!-- member directory section ends-->
 
-
   <!-- add member list start -->
   <div class="add-member-list">
     <div class="add-member-btn">
@@ -31,7 +30,30 @@
     </div>
 
     <div>
-      <table>
+      <div  class="member-list-header">
+        <div class="grid-item-name">NAME</div>
+        <div class="grid-item1">CONTACT NO. DETAILS</div>
+        <div class="grid-item1">EMAIL DETAILS</div>
+        <div class="grid-item1">DESIGNATION</div>
+        <div class="grid-item1">BRANCH</div>
+        <div class="grid-item1">ACTIONS</div>
+      </div>
+ 
+      <div *ngFor="let member of memberList" class="member-list-data">
+        <div  class="grid-item2"><span><img [src]="member.image" class="me-2" /></span>{{ member.memberName }}</div>
+        <div  class="grid-item2"><span><img [src]="member.icon" class="icon me-2" /> </span>{{ member.contactNo }}</div>
+        <div  class="grid-item2"><span><img [src]="member.emailIcon" class="icon me-2" /> </span>{{ member.emailDetails }}             </div>
+        <div  class="grid-item2">{{ member.designation }}</div>
+        <div  class="grid-item2">{{ member.branch }}</div>
+        <div class="grid-item2"><button
+          mat-icon-button
+          data-bs-toggle="modal"
+          data-bs-target="#deleteModel"
+        >
+          <mat-icon style="color: #2e5bff">delete</mat-icon>
+        </button></div>
+       
+      <!-- <table>
         <thead>
           <tr>
             <th>NAME</th>
@@ -49,28 +71,30 @@
               <span><img [src]="member.image" class="me-2" /></span>{{ member.memberName }}
             </td>
             <td>
-              <span> <img [src]="member.icon" class="icon me-2" /> </span>{{ member.contactNo }}
+              <span><img [src]="member.icon" class="icon me-2" /> </span>{{ member.contactNo }}
             </td>
             <td>
-              <span> <img [src]="member.emailIcon" class="icon me-2" /> </span>{{ member.emailDetails }}
+              <span><img [src]="member.emailIcon" class="icon me-2" /> </span>{{ member.emailDetails }}
             </td>
             <td>{{ member.designation }}</td>
             <td>{{ member.branch }}</td>
             <td>
-              <button mat-icon-button data-bs-toggle="modal" data-bs-target="#deleteModel">
-                <mat-icon style="color: #2E5BFF;">delete</mat-icon>
+              <button
+                mat-icon-button
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModel"
+              >
+                <mat-icon style="color: #2e5bff">delete</mat-icon>
               </button>
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
   </div>
   <!-- add member list ends -->
 </div>
 <!-- root section ends -->
-
-
 <!-- member initial popup start -->
 <div>
   <button id="modalButton1" data-bs-toggle="modal" data-bs-target="#profileUpgradationModal"
@@ -86,8 +110,12 @@
             ahead in the legal
           </p>
           <div class="text-center mb-4">
-            <button mat-raised-button color="primary" style="width: fit-content !important; background-color: 
-              #2E5BFF;" data-bs-dismiss="modal">
+            <button
+              mat-raised-button
+              color="primary"
+              style="width: fit-content !important; background-color: #2e5bff"
+              data-bs-dismiss="modal"
+            >
               Go to premium
             </button>
           </div>
@@ -97,8 +125,6 @@
   </div>
 </div>
 <!-- member initial popup ends -->
-
-
 
 <!-- delete popup start -->
 <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="deleteModelLabel" aria-hidden="true">
@@ -113,8 +139,14 @@
           <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal">
             Confirm
           </button>
-          <button mat-stroked-button color="primary" style="width: fit-content !important;
-                 margin-left: 10px;" data-bs-dismiss="modal">Cancel</button>
+          <button
+            mat-stroked-button
+            color="primary"
+            style="width: fit-content !important; margin-left: 10px"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>
@@ -122,34 +154,56 @@
 </div>
 <!-- delete popup ends -->
 
-
-
 <!-- add-member-popup start -->
-<div class="modal fade" id="addMemberModalToggle" aria-hidden="true" aria-labelledby="addMemberModalToggleLabel"
-  tabindex="-1">
+<div
+  class="modal fade"
+  id="addMemberModalToggle"
+  aria-hidden="true"
+  aria-labelledby="addMemberModalToggleLabel"
+  tabindex="-1"
+>
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable add-member-popup">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="addMemberModalToggleLabel">
           Add Member
         </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
-        <div class="d-flex" style="flex-direction: column">
+        <div class="add-member-body" >
           <div class="d-flex">
             <!-- <a (click)=" $event.stopPropagation();" style="text-decoration: none;"> -->
             <mat-form-field class="search-input" appearance="outline">
               <input matInput placeholder="Search Member" />
-              <span matSuffix><img src="../../../assets/images/icons/search-blue.svg" /></span>
+              <span matSuffix
+                ><img src="../../../assets/images/icons/search-blue.svg"
+              /></span>
             </mat-form-field>
-            <img src="../../../assets/images/icons/funnel_members.svg" alt="noImage" style="margin-left: 15px"
-              data-bs-target="#addMemberModalToggle2" data-bs-toggle="modal" class="funnel-image" />
+            <div class="d-flex">
+            <img
+              src="../../../assets/images/icons/funnel_members.svg"
+              alt="noImage"
+              style="margin-left: 15px;"
+              class="align-items-center"
+              data-bs-target="#addMemberModalToggle2"
+              data-bs-toggle="modal"
+              class="funnel-image"
+            />
+          </div>
             <!-- </a> -->
           </div>
 
-          <ng-scrollbar style="height: 400px;">
-            <div class="add-member-details" *ngFor="let member of memberDetails">
+          <ng-scrollbar style="height: 400px">
+            <div
+              class="add-member-details"
+              *ngFor="let member of memberDetails"
+            >
               <div class="d-flex">
                 <div>
                   <img [src]="member.image" alt="noImage" class="member-img" />
@@ -159,12 +213,12 @@
                   <div class="member-name">{{ member.name }}</div>
                   <div class="member-lawyer-type">
                     <img [src]="member.lawyerTypeImg" alt="" class="me-1" />{{
-                    member.lawyerType
+                      member.lawyerType
                     }}
                   </div>
                   <div class="member-experience">
                     <img [src]="member.experienceImg" alt="" class="me-1" />{{
-                    member.experience
+                      member.experience
                     }}
                   </div>
                 </div>
@@ -175,9 +229,7 @@
                   <img [src]="member.ratingStar" alt="" class="me-1" />(4.5)
                 </div>
                 <div>
-                  <button mat-stroked-button color="primary">
-                    Add Member
-                  </button>
+                  <button mat-stroked-button color="primary">Add Member</button>
                 </div>
               </div>
             </div>
@@ -190,15 +242,25 @@
 
 <!-- filter popup  start-->
 <div>
-  <div class="modal fade" id="addMemberModalToggle2" aria-hidden="true" aria-labelledby="addMemberModalToggleLabel2"
-    tabindex="-1">
+  <div
+    class="modal fade"
+    id="addMemberModalToggle2"
+    aria-hidden="true"
+    aria-labelledby="addMemberModalToggleLabel2"
+    tabindex="-1"
+  >
     <div class="modal-dialog modal-dialog-centered add-member-popup">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="addMemberModalToggleLabel2">
             Filter
           </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
 
         <div class="modal-body">
@@ -210,37 +272,45 @@
                   {{ place.viewValue }}
                 </mat-option>
               </mat-select>
+              <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
+                     Required !!</mat-error> -->
             </mat-form-field>
 
             <mat-label class="mat-label">Select Practising Field</mat-label>
             <mat-form-field appearance="outline" class="mt-1">
               <mat-select placeholder="Select place" required>
-                <mat-option *ngFor="let field of practiseField" [value]="field.value">
+                <mat-option
+                  *ngFor="let field of practiseField"
+                  [value]="field.value"
+                >
                   {{ field.viewValue }}
                 </mat-option>
               </mat-select>
+              <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
+                     Required !!</mat-error> -->
             </mat-form-field>
 
             <mat-label class="mat-label">Show Results</mat-label>
             <mat-radio-group aria-label="Select an option">
               <div class="row mb-3">
-                <div class="col-lg-6" style="padding-left: unset ;">
+                <div class="col-lg-6" style="padding-left: unset">
                   <mat-radio-button value="1">Popularity</mat-radio-button>
                   <mat-radio-button value="2">Start Rating</mat-radio-button>
                 </div>
 
                 <div class="col-lg-6">
                   <mat-radio-button value="1">Best Review</mat-radio-button>
-                  <mat-radio-button value="2">Most Review First</mat-radio-button>
+                  <mat-radio-button value="2"
+                    >Most Review First</mat-radio-button
+                  >
                 </div>
               </div>
             </mat-radio-group>
 
-
             <mat-label class="mat-label">Work Experience</mat-label>
             <mat-radio-group aria-label="Select an option">
               <div class="row mb-3">
-                <div class="col-lg-6" style="padding-left: unset ;">
+                <div class="col-lg-6" style="padding-left: unset">
                   <mat-radio-button value="1">Any Experience</mat-radio-button>
                   <mat-radio-button value="2">5-10 Years</mat-radio-button>
                 </div>
@@ -255,7 +325,7 @@
             <mat-label class="mat-label">Gender</mat-label>
             <mat-radio-group aria-label="Select an option">
               <div class="row mb-3">
-                <div class="col-lg-6" style="padding-left: unset ;">
+                <div class="col-lg-6" style="padding-left: unset">
                   <mat-radio-button value="1">Male</mat-radio-button>
                 </div>
 
@@ -265,14 +335,24 @@
               </div>
             </mat-radio-group>
 
-
             <div class="mt-3 mb-3 filter-btn">
-              <button mat-raised-button color="primary" style="width: fit-content !important"
-                data-bs-target="#addMemberModalToggle" data-bs-toggle="modal">
+              <button
+                mat-raised-button
+                color="primary"
+                style="width: fit-content !important"
+                data-bs-target="#addMemberModalToggle"
+                data-bs-toggle="modal"
+              >
                 Show Results
               </button>
-              <button mat-stroked-button color="primary" style="width: fit-content !important;
-                 margin-left: 10px;" data-bs-dismiss="modal">Cancel</button>
+              <button
+                mat-stroked-button
+                color="primary"
+                style="width: fit-content !important; margin-left: 10px"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>

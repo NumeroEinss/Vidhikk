@@ -47,7 +47,7 @@
       <ng-scrollbar style="height: calc(100vh - 210px)">
         <div class="chat-room-details" *ngFor="let chat of roomList; index as i" (click)="addStyling('test', i)"
           [ngClass]="chat.className">
-          <div class="d-flex one-more">
+          <div class="d-flex">
             <div>
               <img [src]="chat.image" alt="noImage" class="user-img" />
             </div>
@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <ng-scrollbar>
+      <ng-scrollbar #scrollbar>
         <div class="chat-area" *ngFor="let item of chatList">
           <div *ngIf="item.type == 'schedule'" style="display: flex">
             <hr class="col-lg-5" />
@@ -117,7 +117,7 @@
 
       <div class="chat-textarea" id="chat-textarea">
         <textarea matInput placeholder="Enter Your text here" [(ngModel)]="message"></textarea>
-        <img src="../../../../assets/images/icons/chat_room_send.svg" alt="noImage" (click)="addMessage()" />
+        <img src="../../../../assets/images/icons/chat_room_send.svg" alt="noImage" (click)="addMessage();" />
       </div>
     </div>
   </div>

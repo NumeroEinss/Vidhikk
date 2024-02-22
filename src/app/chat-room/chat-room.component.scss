@@ -81,7 +81,7 @@
           height: 50px;
           margin-bottom: unset !important;
 
-          input{
+          input {
             padding: 13px 6px;
           }
         }
@@ -111,6 +111,15 @@
         padding: 10px;
         border-bottom: 1px solid #f5f5f5;
 
+        .chat {
+          padding: 8px;
+          cursor: pointer;
+        }
+        
+        .chat.selected {
+          border-left: 3px solid blue;
+        }
+        
         .user-img {
           width: 42px;
           height: 42px;
@@ -211,19 +220,20 @@
         .sender-container {
           display: flex;
           justify-content: flex-end;
-          align-items: center;
+          align-items: flex-end;
           margin-right: 24px;
 
           .sender-chat {
             display: flex;
             flex-direction: column;
-            border-radius: 24px;
+            border-radius: 30px;
             background-color: #ffffff;
-            padding: 10px;
+            padding: 6px 16px;
             line-height: 1.2em;
             margin-top: 19px;
             max-width: 70%;
             word-break: break-all;
+            position: relative;
 
             .sender-name {
               font-size: 8px;
@@ -231,7 +241,7 @@
               text-align: right;
             }
 
-            .sender-chat {
+            .sender-msg {
               font-size: 12px;
               color: #000000;
             }
@@ -240,6 +250,15 @@
               font-size: 8px;
               text-align: right;
             }
+          }
+
+          .sender-chat::after {
+            width: 15px;
+            height: 18px;
+            content: url("../../assets/images/icons/shape-right.svg");
+            right: 0;
+            bottom: 0;
+            position: absolute
           }
 
           .sender-image {
@@ -259,25 +278,28 @@
         .receiver-container {
           display: flex;
           justify-content: flex-start;
-          align-items: center;
+          align-items: flex-end;
           margin-top: 19px;
           margin-left: 24px;
 
           .receiver-chat {
             display: flex;
             flex-direction: column;
-            border-radius: 24px;
+            border-radius: 30px;
             background-color: #ffffff;
-            padding: 10px;
+            padding: 6px 16px;
             line-height: 1.2em;
             margin-left: 8px;
+            max-width: 70%;
+            word-break: break-all;
+            position: relative;
 
             .receiver-name {
               font-size: 8px;
               color: #2e5bff;
             }
 
-            .receiver-chat {
+            .receiver-msg {
               font-size: 12px;
               color: #000000;
             }
@@ -285,6 +307,15 @@
             .receive-time {
               font-size: 8px;
             }
+          }
+
+          .receiver-chat::before{
+              width: 15px;
+              height: 16px;
+              content: url("../../assets/images/icons/shape-left.svg");      
+              bottom: 0;
+              left: 0;  
+              position: absolute  
           }
 
           .receiver-image {
@@ -337,6 +368,21 @@
 
   // chat-room chat-UI styling start
 }
+
+.mat-mdc-menu-panel {
+  .mat-mdc-menu-content {
+    .mat-mdc-menu-item {
+      .mat-mdc-menu-item-text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+// chat-room list styling ends
+
 
 // chat-room initial popup styling start
 .modal-dialog {

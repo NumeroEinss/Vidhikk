@@ -6,8 +6,6 @@
   align-items: center;
 
   .welcome-text {
-    // width: 229px;
-    height: 36px;
     flex-grow: 0;
     font-family: Poppins;
     font-size: 24px;
@@ -21,8 +19,6 @@
   }
 
   .sub-text {
-    width: 312px;
-    height: 30px;
     flex-grow: 0;
     margin: 12px 0 0;
     font-family: Poppins;
@@ -39,6 +35,21 @@
   .mat-mdc-form-field {
     display: grid;
   }
+
+  .header-text {
+    width: 357px;
+  }
+
+  .otp-form {
+    width: 357px;
+    max-height: 290px;
+  }
+
+  .register-form {
+    max-height: calc(100vh - 225px);
+    width: 357px;
+    padding: 0 35px 0 0;
+  }
 }
 
 .image-container {
@@ -50,8 +61,28 @@
   font-weight: 600;
 }
 
-.sub-text{
-  .email{
+.sub-text {
+  .email {
     font-weight: 700;
+  }
+}
+
+@media only screen and (min-width:768px) and (max-width: 1023px) {
+  .signup-form {
+    .header-text {
+      width: 280px;
+    }
+
+    .otp-form {
+      width: 280px;
+    }
+
+    .register-form {
+      width: 280px;
+    }
+
+    ng-scrollbar {
+      width: 280px !important;
+    }
   }
 }

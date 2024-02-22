@@ -5,18 +5,22 @@ import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { MaterialModule } from '../material/material.module';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { GlobalSearchComponent } from './component/global-search/global-search.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 @NgModule({
   declarations: [
     PageNotFoundComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    GlobalSearchComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    MatChipsModule
   ],
   exports: [
     HeaderComponent,

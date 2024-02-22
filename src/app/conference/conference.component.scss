@@ -1,10 +1,16 @@
 // conference popup styling start
+.modal {
+    width: unset;
+    margin-left: unset;
+}
+
 .modal-dialog {
     .modal-content {
         .modal-header {
             display: flex;
             justify-content: flex-start;
-            height: 90px;
+            align-items: center;
+            height: 70px;
             background-color: #fbfbfb;
 
             .conference-header {
@@ -32,6 +38,33 @@
                         margin-left: 20px;
                     }
                 }
+
+                .timer {
+                    .ui-widgets {
+                        cursor: pointer;
+                        display: inline-block;
+                        position: relative;
+                        width: 3rem;
+                        height: 3rem;
+                        border-radius: 5rem;
+                        border: 0.3rem solid #2e5bff;
+                        text-align: center;
+                        box-sizing: border-box;
+
+                        .values {
+                            top: 8px;
+                            position: absolute;
+                            left: 0;
+                            right: 0;
+                        }
+
+                        .count-down {
+                            font-size: 10px;
+                            color: #2e5bff;
+
+                        }
+                    }
+                }
             }
         }
     }
@@ -43,7 +76,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: calc(100vh - 290px);
+            height: calc(100vh - 200px);
 
             img {
                 width: 200px;
@@ -73,7 +106,7 @@
         justify-content: center;
         align-items: center;
         background-color: #fbfbfb;
-        height: 100px;
+        height: 70px;
 
         .footer-icon {
             display: flex;
@@ -94,7 +127,7 @@
             position: absolute;
             right: 40px;
             cursor: pointer;
-            margin-right: 54px;
+
 
             img {
                 width: 30px;
@@ -103,14 +136,14 @@
         }
 
         ng-scrollbar {
-            height: calc(100vh - 355px);
+            height: calc(100vh - 305px);
         }
 
         .chat-popup {
             display: none;
             position: fixed;
             right: 0;
-            bottom: 96px;
+            bottom: 66px;
             width: 441px;
             // z-index: 9;
             background-color: #f5f5f5;
@@ -137,22 +170,24 @@
             }
 
             .chat-area {
-                padding: 10px 10px;
+                margin-top: 20px;
+                padding: 10px;
 
                 .sender-container {
                     display: flex;
                     justify-content: flex-end;
-                    align-items: center;
+                    align-items: flex-end;
                     margin-right: 18px;
 
                     .sender-chat {
                         display: flex;
                         flex-direction: column;
-                        border-radius: 24px;
+                        border-radius: 30px;
                         background-color: #ffffff;
-                        padding: 10px;
+                        padding: 6px 16px;
                         max-width: 70%;
                         word-break: break-all;
+                        position: relative;
 
                         .sender-name {
                             font-size: 8px;
@@ -170,6 +205,15 @@
                             font-size: 8px;
                             text-align: right;
                         }
+                    }
+
+                    .sender-chat::after {
+                        width: 15px;
+                        height: 18px;
+                        content: url("../../assets/images/icons/shape-right.svg");
+                        right: 0;
+                        bottom: 0;
+                        position: absolute
                     }
 
                     .sender-image {
@@ -190,18 +234,21 @@
                 .receiver-container {
                     display: flex;
                     justify-content: flex-start;
-                    align-items: center;
+                    align-items: flex-end;
                     margin-left: 18px;
 
                     .receiver-chat {
                         display: flex;
                         flex-direction: column;
-                        border-radius: 24px;
+                        border-radius: 30px;
                         background-color: #ffffff;
-                        padding: 10px;
+                        padding: 6px 16px;
                         line-height: 1.2em;
                         margin-left: 8px;
                         text-align: left;
+                        max-width: 70%;
+                        word-break: break-all;
+                        position: relative;
 
                         .receiver-name {
                             font-size: 8px;
@@ -216,6 +263,15 @@
                         .receive-time {
                             font-size: 8px;
                         }
+                    }
+
+                    .receiver-chat::before {
+                        width: 15px;
+                        height: 16px;
+                        content: url("../../assets/images/icons/shape-left.svg");
+                        bottom: 0;
+                        left: 0;
+                        position: absolute
                     }
 
                     .receiver-image {
