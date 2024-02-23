@@ -3,11 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MembersComponent } from './members.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: '',
-  //   pathMatch: 'full',
-  // },
+  
   {
     path: '',
     component: MembersComponent,

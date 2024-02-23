@@ -82,128 +82,124 @@
     </div>
     <!-- case-diary-list ends -->
 
-    <!-- case-diary list start -->
+
+
+    <!-- case-diary table start -->
     <div *ngIf="selectedDiary == 'caseDiary'">
-      <table>
-        <thead>
-          <tr>
-            <th>REG. DATE</th>
-            <th>COURT NAME</th>
-            <th>CASE NO.</th>
-            <th>APPLICANT</th>
-            <th>RESPONDENT</th>
-            <th>CASE STAGE</th>
-            <th>NEXT HEARING</th>
-            <th>APPLICATION</th>
-            <th>CITY</th>
-            <th>OWNER</th>
-            <th>ACTION</th>
-          </tr>
-        </thead>
+     <div  class="case-diary-header">
+       <div class="grid-item-name">REG. DATE</div>
+       <div class="grid-item1">COURT NAME</div>
+       <div class="grid-item1">CASE NO.</div>
+       <div class="grid-item1">APPLICANT</div>
+       <div class="grid-item1">RESPONDENT</div>
+       <div class="grid-item1">CASE STAGE</div>
+       <div class="grid-item1">APPLICATION</div>
+       <div class="grid-item1">NEXT HEARING</div>
+       <div class="grid-item1">CITY</div>
+       <div class="grid-item1">OWNER</div>
+       <div class="grid-item1">ACTIONS</div>
+     </div>
 
-        <tbody *ngFor="let item of diaryList">
-          <tr style="border: 1px solid #f5f5f5">
-            <td>{{ item.regDate }}</td>
-            <td>{{ item.courtName }}</td>
-            <td>{{ item.caseNo }}</td>
-            <td>{{ item.applicant }}</td>
-            <td>{{ item.respondent }}</td>
-            <td>{{ item.caseStage }}</td>
-            <td>{{ item.nextHearing }}</td>
-            <td>{{ item.application }}</td>
-            <td>{{ item.city }}</td>
-            <td>{{ item.owner }}</td>
-            <td>
-              <button mat-icon-button [matMenuTriggerFor]="caseDiaryMenu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            </td>
-            <mat-menu #caseDiaryMenu="matMenu">
-              <div mat-menu-item>
-                <img
-                  src="../../../assets/images/icons/black_edit.svg"
-                  alt=""
-                  class="me-2"
-                  style="width: 22px; height: 22px"
-                />
-                <span class="mat-menu-list">Edit</span>
-              </div>
-
-              <div mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
-                <img
-                  src="../../../assets/images/icons/view_application.svg"
-                  alt=""
-                  class="me-2"
-                  style="width: 20px; height: 20px"
-                />
-                <span class="mat-menu-list">View Application</span>
-              </div>
-            </mat-menu>
-          </tr>
-        </tbody>
-      </table>
+     <div *ngFor="let item of caseDiaryList"
+     class="case-diary-data">
+       <div  class="grid-item2">{{ item.regDate }}</div>
+       <div  class="grid-item2">{{ item.courtName }}</div>
+       <div  class="grid-item2">{{ item.caseNo }}</div>
+       <div  class="grid-item2">{{ item.applicant }}</div>
+       <div  class="grid-item2">{{ item.respondent }}</div>
+       <div  class="grid-item2">{{ item.caseStage }}</div>
+       <div  class="grid-item2">{{ item.application }}</div>
+       <div  class="grid-item2">{{ item.nextHearing }}</div>
+       <div  class="grid-item2">{{ item.city }}</div>
+       <div  class="grid-item2">{{ item.owner }}</div>
+       <div  class="grid-item2"> <button mat-icon-button  [matMenuTriggerFor]="caseDiaryMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button></div>
+      <mat-menu #caseDiaryMenu="matMenu">
+        <div mat-menu-item>
+          <img
+            src="../../../assets/images/icons/black_edit.svg"
+            alt=""
+            class="me-2"
+            style="width: 22px; height: 22px"
+          />
+          <span class="mat-menu-list">Edit</span>
+        </div>
+       
+        <div mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
+          <img
+            src="../../../assets/images/icons/view_application.svg"
+            alt=""
+            class="me-2"
+            style="width: 20px; height: 20px"
+          />
+          <span class="mat-menu-list">View Application</span>
+        </div>
+      </mat-menu>
     </div>
-    <!-- case-diary list ends-->
+     <!-- case-diary list ends-->
+
+    </div>
+     <!-- case-diary table ends -->
+   
+
 
     <!-- sub-diary list start -->
     <div *ngIf="selectedDiary == 'subDiary'">
-      <table>
-        <thead>
-          <tr>
-            <th>REG. DATE</th>
-            <th>COURT NAME</th>
-            <th>CASE NO.</th>
-            <th>APPLICANT</th>
-            <th>RESPONDENT</th>
-            <th>CASE STAGE</th>
-            <th>NEXT HEARING</th>
-            <th>APPLICATION</th>
-            <th>CITY</th>
-            <th>ASSIGNED TO</th>
-            <th>ACTION</th>
-          </tr>
-        </thead>
+        <div  class="sub-diary-header">
+          <div class="grid-item1">REG. DATE</div>
+          <div class="grid-item1">COURT NAME</div>
+          <div class="grid-item1">CASE NO.</div>
+          <div class="grid-item1">APPLICANT</div>
+          <div class="grid-item1">RESPONDENT</div>
+          <div class="grid-item1">CASE STAGE</div>
+          <div class="grid-item1">NEXT HEARING</div>
+          <div class="grid-item1">APPLICATION</div>
+          <div class="grid-item1">CITY</div>
+          <div class="grid-item1">ASSIGNED TO</div>
+          <div class="grid-item1">ACTIONS</div>
+        </div>
+   
+        <div *ngFor="let item of subDiaryList"
+        class="sub-diary-data">
+          <div  class="grid-item2">{{ item.regDate }}</div>
+          <div  class="grid-item2">{{ item.courtName }}</div>
+          <div  class="grid-item2">{{ item.caseNo }}</div>
+          <div  class="grid-item2">{{ item.applicant }}</div>
+          <div  class="grid-item2">{{ item.respondent }}</div>
+          <div  class="grid-item2">{{ item.caseStage }}</div>
+          <div  class="grid-item2">{{ item.nextHearing }}</div>
+          <div  class="grid-item2">{{ item.application }}</div>
+          <div  class="grid-item2">{{ item.city }}</div>
+          <div  class="grid-item2">{{ item.assignedTo }}</div>
+          <div  class="grid-item2"> <button mat-icon-button  [matMenuTriggerFor]="caseDiaryMenu">
+           <mat-icon>more_vert</mat-icon>
+         </button></div>
+         <mat-menu #caseDiaryMenu="matMenu">
+           <div mat-menu-item>
+             <img
+               src="../../../assets/images/icons/black_edit.svg"
+               alt=""
+               class="me-2"
+               style="width: 22px; height: 22px"
+             />
+             <span class="mat-menu-list">Edit</span>
+           </div>
+          
+           <div mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
+             <img
+               src="../../../assets/images/icons/view_application.svg"
+               alt=""
+               class="me-2"
+               style="width: 20px; height: 20px"
+             />
+             <span class="mat-menu-list">View Application</span>
+           </div>
+         </mat-menu>
+       </div>
+        <!-- case-diary list ends-->
+   
 
-        <tbody *ngFor="let item of subDiaryList">
-          <tr style="border: 1px solid #f5f5f5">
-            <td>{{ item.regDate }}</td>
-            <td>{{ item.courtName }}</td>
-            <td>{{ item.caseNo }}</td>
-            <td>{{ item.applicant }}</td>
-            <td>{{ item.respondent }}</td>
-            <td>{{ item.caseStage }}</td>
-            <td>{{ item.nextHearing }}</td>
-            <td>{{ item.application }}</td>
-            <td>{{ item.city }}</td>
-            <td>{{ item.assignedTo }}</td>
-            <td>
-              <button mat-icon-button [matMenuTriggerFor]="subDiaryMenu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            </td>
-            <mat-menu #subDiaryMenu="matMenu">
-              <div mat-menu-item>
-                <img
-                  src="../../../assets/images/icons/accept.svg"
-                  alt=""
-                  class="me-2"
-                  style="width: 22px; height: 22px"
-                />
-                <span class="mat-menu-list">Accept</span>
-              </div>
-              <div mat-menu-item>
-                <img
-                  src="../../../assets/images/icons/reject.svg"
-                  alt=""
-                  class="me-2"
-                  style="width: 22px; height: 22px"
-                />
-                <span class="mat-menu-list">Reject</span>
-              </div>
-            </mat-menu>
-          </tr>
-        </tbody>
-      </table>
     </div>
     <!-- sub-diary list ends -->
   </div>

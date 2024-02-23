@@ -1,0 +1,141 @@
+<!-- conference popup  start-->
+<button
+  id="conference"
+  mat-stroked-button
+  color="primary"
+  class="d-none"
+  data-bs-toggle="modal"
+  data-bs-target="#conferenceModal"
+>
+  Join
+</button>
+
+<div
+  class="modal fade"
+  id="conferenceModal"
+  aria-hidden="true"
+  aria-labelledby="conferenceModalLabel"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="conference-header">
+          <div class="col-lg-10 col-md-10">
+            <div class="conference-header-details">
+              <img
+                src="../../../assets/images/image/anurag_goyal.jpg"
+                alt="noImage"
+                class="user-img"
+              />
+              <div class="user-name">Anurag Goyal</div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 timer">
+            <div class="ui-widgets">
+              <div class="values">
+                <countdown
+                  [config]="{ leftTime: 60, format: 'mm:ss' }"
+                  class="mt-5"
+                ></countdown>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="centered-image">
+          <img
+            src="../../../assets/images/image/anurag_goyal.jpg"
+            alt="noImage"
+          />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="footer-icon">
+          <div class="me-3">
+            <img
+              src="../../assets/images/icons/conference_mike.svg"
+              alt="noImage"
+            />
+          </div>
+          <div data-bs-dismiss="modal" [routerLink]="'/lawyer/conference'">
+            <img
+              src="../../assets/images/icons/conference_red_button.svg"
+              alt="noImage"
+            />
+          </div>
+        </div>
+
+        <div class="footer-chat-icon" (click)="isChatOpen()">
+          <img
+            src="../../assets/images/icons/conference_chat.svg"
+            alt="noImage"
+          />
+        </div>
+
+        <div id="myForm" class="chat-popup">
+          <div class="conference-chat-header">
+            <div class="chat-header-detail">
+              <div class="header-chat">Chat</div>
+              <div>
+                <img
+                  src="../../../assets/images/icons/close_button.svg"
+                  alt="noImage"
+                  class="close-button"
+                  (click)="isChatClose()"
+                />
+              </div>
+            </div>
+          </div>
+
+          <ng-scrollbar>
+            <div class="chat-area" *ngFor="let item of chatList">
+              <div class="sender-container" *ngIf="item.type == 'sender'">
+                <div class="sender-chat">
+                  <div class="sender-name">{{ item.name }}</div>
+                  <div class="sender-msg">{{ item.message }}</div>
+                  <div class="send-time">{{ item.time }}</div>
+                </div>
+                <div class="sender-image">
+                  <img [src]="item.senderImage" alt="" class="user-img" />
+                </div>
+              </div>
+
+              <div class="receiver-container" *ngIf="item.type == 'receiver'">
+                <div class="receiver-image">
+                  <img [src]="item.receiverImage" alt="" class="user-img" />
+                </div>
+                <div class="receiver-chat">
+                  <div class="receiver-name">{{ item.name }}</div>
+                  <div class="receiver-msg">{{ item.message }}</div>
+                  <div class="receive-time">{{ item.time }}</div>
+                </div>
+              </div>
+            </div>
+          </ng-scrollbar>
+
+          <div class="chat-textarea" id="chat-textarea">
+            <textarea
+              matInput
+              placeholder="Enter Your text here"
+              [(ngModel)]="message"
+            ></textarea>
+            <img
+              src="../../../../assets/images/icons/chat_room_send.svg"
+              alt="noImage"
+              (click)="addMessage()"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- conference popup  ends-->
+
+<!-- conference extension popup start -->
+
+<!-- conference extension popup ends -->

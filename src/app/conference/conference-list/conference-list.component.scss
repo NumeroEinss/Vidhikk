@@ -1,0 +1,63 @@
+.root {
+  .conference-container {
+    margin: 10px 50px 0 20px;
+
+    .conference-header {
+      display: grid;
+      grid-template-columns: 8% 30% 28% 20% 12%;
+      margin-bottom: 5px;
+      align-items: center;
+      padding: 2px 15px;
+      color: #8798ad !important;
+      font-size: 12px;
+      margin-top: 30px;
+    }
+
+    .conference-data {
+      display: grid;
+      grid-template-columns:  8% 30% 28% 20% 12%;
+      height: 80px;
+      border: 1px solid #f5f5f5;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      align-items: center;
+      padding: 5px;
+      font-size: 14px;
+
+      .grid-item3 {
+        padding-left: 15px;
+      }
+
+      button {
+        width: unset !important;
+        background-color: #053bff0d;
+        border-color: #7d818e0d !important;
+        font-size: 12px;
+        font-family: Poppins;
+      }
+    }
+  }
+}
+
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .main-container {
+    .sidenav {
+      width: 180px;
+    }
+
+    .main-content {
+      margin-left:unset;
+    }
+
+
+    .root{
+      .conference-container{
+        margin: 10px 0px 0 20px;
+      }
+    }
+    
+    
+  }
+}

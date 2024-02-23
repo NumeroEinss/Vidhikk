@@ -90,7 +90,7 @@
 
     }
 
-    img{
+    img {
       cursor: pointer;
     }
 
@@ -114,7 +114,6 @@
         display: flex;
       }
     }
-   
 
     .add-button {
       margin-right: 24px;
@@ -137,7 +136,7 @@
 }
 
 
- // notification styling start
+// notification styling start
 .notification-content {
   display: flex;
   padding: 5px;
@@ -163,6 +162,7 @@
     }
   }
 
+
   .days {
     display: flex;
     white-space: nowrap;
@@ -173,16 +173,18 @@
 
 .mat-mdc-menu-item:not([disabled]):hover {
   background-color: unset !important;
+  background-color: unset !important;
 }
 
-.modal-dialog{
+.modal-dialog {
   width: 380px !important;
 }
 
-.modal-dialog .modal-header, body .modal-dialog .modal-header {  
+.modal-dialog .modal-header,
+body .modal-dialog .modal-header {
   display: flex;
-  align-items: flex-start; 
-  justify-content: flex-start; 
+  align-items: flex-start;
+  justify-content: flex-start;
   background-color: #fbfbfb;
 }
 
