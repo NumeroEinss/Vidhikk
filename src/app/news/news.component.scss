@@ -1,0 +1,113 @@
+.root {
+    marquee {
+        color: #2e5bff;
+        background-color: #053bff0d;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+    }
+
+    .feed-section {
+        margin: 50px 24px 24px 30px;
+
+        .news {
+            width: 100%;
+            display: flex;
+            background-color: #fbfbfb;
+            border-radius: 12px;
+            height: 250px;
+            margin-right: 17px;
+            position: relative;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .advertisement {
+            img {
+                width: 300px;
+                height: 250px;
+            }
+        }
+    }
+
+    .news-logo-n-name {
+        display: flex;
+        align-items: center;
+
+        .news-feed{
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: right;
+            color: #000000;
+        }
+    }
+
+    .news-feed-container {
+        .news-feed-section{
+            display: flex;
+            border-radius: 10px;
+            box-shadow: 1px 2px 15px 0 rgba(0, 0, 0, 0.1);
+            background-color: var(--solid-white);
+            margin: 10px 0 30px 0;
+
+
+            .news-details {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                margin: 5px 15px;
+                padding: 5px;
+    
+                .news-heading {
+                    font-family: Poppins;
+                    font-size: 16px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.5;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: var(--solid-gray);
+                }
+    
+                .news-description {
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.71;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #8798ad;
+                }
+    
+                .read-more {
+                    a {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+
+}

@@ -72,10 +72,9 @@
       }
     }
 
-
     .member-list-header{
       display: grid;
-      grid-template-columns: 20% 20% 25% 20% 10% 5%;
+      grid-template-columns: 20% 20% 25% 20% 8% 7%;
       margin-bottom: 5px;
       align-items: center;
       padding: 5px;
@@ -83,14 +82,15 @@
       font-size: 12px;
       margin-top: 30px;
       
-      .grid-list-name{
-        
+      .grid-item-name{
+        padding-left: 10px;
       }
+      
     }
 
     .member-list-data {
       display: grid;
-      grid-template-columns: 20% 20% 25% 20% 10% 5%;
+      grid-template-columns: 20% 20% 25% 20% 8% 7%;
       height: 80px;
       border: 1px solid #f5f5f5;
       border-radius: 12px;
@@ -227,7 +227,6 @@
 //  add-member-popup styling start
 .add-member-popup {
   width: 420px !important;
-
 
   .add-member-body {
     display: flex;

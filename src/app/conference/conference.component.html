@@ -30,11 +30,11 @@
       <div class="modal-footer">
         <div class="footer-icon">
           <div class="me-3"><img src="../../assets/images/icons/conference_mike.svg" alt="noImage"></div>
-          <div><img src="../../assets/images/icons/conference_red_button.svg" alt="noImage"></div>
+          <div><img src="../../assets/images/icons/conference_end_button.svg" alt="noImage"></div>
         </div>
 
         <div class="footer-chat-icon" (click)="isChatOpen()">
-          <img src="../../assets/images/icons/conference_chat.svg" alt="noImage">
+          <img src="../../assets/images/icons/conference_chat (2).svg" alt="noImage">
         </div>
 
         <div id="myForm" class="chat-popup">
@@ -52,7 +52,7 @@
             <div class="chat-area" *ngFor="let item of chatList">
               <div class="sender-container" *ngIf="item.type == 'sender'">
                 <div class="sender-chat">
-                  <div class="sender-name">{{ item.name }}</div>
+                 
                   <div class="sender-msg">{{ item.message }}</div>
                   <div class="send-time">{{ item.time }}</div>
                 </div>

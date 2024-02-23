@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -8,14 +9,16 @@ import { Component } from '@angular/core';
 
 
 export class UserProfileComponent {
+  constructor(private formBuilder: FormBuilder) {
 
-  constructor() {
   }
 
   ngAfterViewInit() {
     const element = document.getElementById("basic-info") as HTMLElement
     element.scrollIntoView({ behavior: "smooth", block: "center" });
     element.classList.add('box-shadow');
+    const element2 = document.getElementById("basic-nav") as HTMLElement
+    element2.classList.add('active-nav');
   }
 
   addShadow(type: any) {
@@ -88,4 +91,8 @@ export class UserProfileComponent {
         break;
     }
   }
+    onOtpChange(e: any) {
+      console.log(e);
+    }
+
 }

@@ -5,15 +5,10 @@
 <div class="root">
   <div class="feed-section">
     <!--marquee -->
-    <marquee
-      behavior="'smooth'"
-      direction="rtl"
-      onmouseover="this.stop()"
-      onmouseout="this.start()"
-      >comply with any legal advertising regulations in your jurisdiction and
+    <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
+      legal advertising regulations in your jurisdiction and
       ensure that your messages dhere to professional and ethical
-      standards</marquee
-    >
+      standards</marquee>
 
     <div class="d-flex w-100">
       <div class="up-section-1 w-100">
@@ -70,10 +65,7 @@
             <div class="down-section-2">
               <div class="name">{{ item.name }}</div>
               <div class="location">
-                <img
-                  src="../../../../assets/images/icons/location.svg"
-                  alt=""
-                />{{ item.location }}
+                <img src="../../../../assets/images/icons/location.svg" alt="" />{{ item.location }}
               </div>
             </div>
           </div>
@@ -86,7 +78,7 @@
           <div class="d-flex mt-1 like-comment">
             <div class="like-icon">
               <img src="../../../../assets/images/icons/like.svg" alt="" />{{
-                item.likesCount
+              item.likesCount
               }}
             </div>
             <div class="mx-3 like-icon">
@@ -96,27 +88,18 @@
           </div>
         </div>
 
-        <div
-          id="comment-section"
-          *ngIf="isCommentBoxOpen || isPost"
-          class="comment-section"
-        >
+        <div id="comment-section" *ngIf="isCommentBoxOpen || isPost" class="comment-section">
           <ng-scrollbar autoHeightDisabled="false">
             <div *ngFor="let comment of item.comments" class="comment">
               <div class="down-section-1a">
                 <div class="d-flex">
                   <div class="profile-container1">
-                    <img
-                      src="../../../../assets/images/image/anurag_goyal.jpg"
-                    />
+                    <img src="../../../../assets/images/image/anurag_goyal.jpg" />
                   </div>
                   <div class="down-section-2">
                     <div class="name">{{ comment.name }}</div>
                     <div class="location">
-                      <img
-                        src="../../../../assets/images/icons/location.svg"
-                        alt=""
-                      />{{ comment.location }}
+                      <img src="../../../../assets/images/icons/location.svg" alt="" />{{ comment.location }}
                     </div>
                   </div>
                 </div>
@@ -127,16 +110,10 @@
                 <div class="activity-feed-comment">{{ comment.comment }}</div>
                 <div class="d-flex mt-1 like-comment">
                   <div class="like-icon">
-                    <img
-                      src="../../../../assets/images/icons/like.svg"
-                      alt=""
-                    />{{ comment.likesCount }}
+                    <img src="../../../../assets/images/icons/like.svg" alt="" />{{ comment.likesCount }}
                   </div>
                   <div class="mx-3 like-icon">
-                    <img
-                      src="../../../../assets/images/icons/comment.svg"
-                      alt=""
-                    />
+                    <img src="../../../../assets/images/icons/comment.svg" alt="" />
                     {{ comment.commentsCount }}
                   </div>
                 </div>
@@ -150,43 +127,23 @@
             <img src="../../../../assets/images/image/anurag_goyal.jpg" />
           </div>
           <div class="comment-box-textarea">
-            <textarea
-              matInput
-              placeholder="Enter Text Here..."
-              [(ngModel)]="comment"
-            ></textarea>
+            <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="comment"></textarea>
           </div>
           <div>
-            <button
-              type="button"
-              class="btn btn-primary comment-btn"
-              (click)="addComment()"
-            >
+            <button type="button" class="btn btn-primary comment-btn" (click)="addComment()">
               <img src="../../assets/images/icons/post.svg" alt="" />Post
             </button>
           </div>
         </div>
         <div class="activity-feed-bottom">
           <button class="activity-feed-bottom-btn">
-            <img
-              src="../../../../assets/images/icons/like_icon.svg"
-              class="mx-1"
-            />Like
+            <img src="../../../../assets/images/icons/like_icon.svg" class="mx-1" />Like
           </button>
-          <button
-            class="activity-feed-bottom-btn"
-            (click)="isCommentBoxOpen = !isCommentBoxOpen"
-          >
-            <img
-              src="../../../../assets/images/icons/comment_icon.svg"
-              class="mx-1"
-            />Comment
+          <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen">
+            <img src="../../../../assets/images/icons/comment_icon.svg" class="mx-1" />Comment
           </button>
           <button class="activity-feed-bottom-btn">
-            <img
-              src="../../../../assets/images/icons/share_icon.svg"
-              class="mx-1"
-            />Share
+            <img src="../../../../assets/images/icons/share_icon.svg" class="mx-1" />Share
           </button>
         </div>
       </div>
@@ -197,21 +154,9 @@
   <!-- root & feed section ends -->
 
   <!-- modal start -->
-  <button
-    id="modalButton"
-    data-bs-toggle="modal"
-    data-bs-target="#disclaimerModal"
-    style="display: none"
-  ></button>
-  <div
-    class="modal fade"
-    id="disclaimerModal"
-    tabindex="-1"
-    aria-labelledby="disclaimerModalLabel"
-    aria-hidden="true"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-  >
+  <button id="modalButton" data-bs-toggle="modal" data-bs-target="#disclaimerModal" style="display: none"></button>
+  <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -220,27 +165,24 @@
         <div class="modal-body mb-3">
           <ol>
             <li class="mb-3">
-              <span class="list-heading">No Legal Advise: </span
-              ><span class="list-description"
-                >The information contained on the Website is for general
+              <span class="list-heading">No Legal Advise: </span><span class="list-description">The information
+                contained on the Website is for general
                 informational purposes only and is not intended to provide legal
                 advice. You should consult with a qualified legal professional
                 for advice regarding your individual situation.
               </span>
             </li>
             <li class="mb-3">
-              <span class="list-heading">No Attorney-Client Relationship: </span
-              ><span class="list-description"
-                >Your use of the Website does not create an attorney-client
+              <span class="list-heading">No Attorney-Client Relationship: </span><span class="list-description">Your use
+                of the Website does not create an attorney-client
                 relationship between you and vidhik. Such a relationship can
                 only be established through a specific written agreement with
                 us.
               </span>
             </li>
             <li class="mb-3">
-              <span class="list-heading">Accuracy of Information: </span
-              ><span
-                >While we strive to provide accurate and up-to-date information,
+              <span class="list-heading">Accuracy of Information: </span><span>While we strive to provide accurate and
+                up-to-date information,
                 we make no representations or warranties of any kind, express or
                 implied, about the completeness, accuracy, reliability,
                 suitability, or availability of the information contained on the
@@ -248,32 +190,21 @@
               </span>
             </li>
             <li class="mb-3">
-              <span class="list-heading">Acceptance of Terms: </span
-              ><span
-                >By clicking &quot;Accept&quot; below, you acknowledge that you
+              <span class="list-heading">Acceptance of Terms: </span><span>By clicking &quot;Accept&quot; below, you
+                acknowledge that you
                 have read, understood, and agree to be bound by the terms of
                 this disclaimer. If you do not agree to these terms, pleas click
-                &quot;Reject&quot; and refrain from using the Website.</span
-              >
+                &quot;Reject&quot; and refrain from using the Website.</span>
             </li>
           </ol>
           <div class="text-center mt-4">
-            <button
-              mat-stroked-button
-              color="primary"
-              style="width: fit-content !important"
-              routerLink="/auth/login"
-              data-bs-dismiss="modal"
-            >
+            <button mat-stroked-button color="primary" style="width: fit-content !important" routerLink="/auth/login"
+              data-bs-dismiss="modal">
               Reject
             </button>
 
-            <button
-              mat-raised-button
-              color="primary"
-              style="width: fit-content !important; margin-left: 10px"
-              data-bs-dismiss="modal"
-            >
+            <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 10px"
+              data-bs-dismiss="modal">
               Accept
             </button>
           </div>

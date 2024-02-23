@@ -21,6 +21,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'news',
+        loadChildren: () =>
+          import('../news/news.module').then(
+            (m) => m.NewsModule
+          ),
+      },
+      {
         path: 'user-profile',
         loadChildren: () =>
           import('../user-profile/user-profile.module').then(

@@ -40,11 +40,12 @@
 
         <div>
           <img src="../../../assets/images/icons/create_chat_room.svg" alt="noImage"
-            data-bs-target="#createChatRoomModal" data-bs-toggle="modal" class="create-chat-room-image" />
+            data-bs-target="#createChatRoomModal" data-bs-toggle="modal" />
         </div>
       </div>
-
-      <ng-scrollbar style="height: calc(100vh - 210px)">
+     
+      <div style="height: calc(100vh - 210px)">
+      <ng-scrollbar >
         <div class="chat-room-details" *ngFor="let chat of roomList; index as i" (click)="addStyling('test', i)"
           [ngClass]="chat.className">
           <div class="d-flex">
@@ -61,6 +62,7 @@
           </div>
         </div>
       </ng-scrollbar>
+    </div>
     </div>
 
     <!-- Main Content of  User Profile -->
@@ -93,7 +95,6 @@
 
           <div class="sender-container" *ngIf="item.type == 'sender'">
             <div class="sender-chat">
-              <div class="sender-name">{{ item.name }}</div>
               <div class="sender-msg">{{ item.message }}</div>
               <div class="send-time">{{ item.time }}</div>
             </div>
@@ -151,6 +152,7 @@
   </div>
 </div>
 <!-- chat-room initial popup ends -->
+
 
 <!-- create-chat-room popup start -->
 <div>
