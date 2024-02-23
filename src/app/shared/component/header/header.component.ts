@@ -33,7 +33,7 @@ export class HeaderComponent {
   @Input() menuName: string = "";
   @Input() searchStyle = { width: '0px', display: 'none' };
   @Input() searchIcon = { width: 'auto', display: 'block' };
-  @Input() colConfig: string = "col-lg-10 col-md-10";
+  @Input() colConfig: string = "col-lg-8 col-md-8";
 
   constructor(private _router: Router, private _location: Location) { }
 

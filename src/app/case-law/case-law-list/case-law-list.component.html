@@ -46,15 +46,21 @@
               />
             </mat-form-field>
             <div class="list-container">
-              <li
-                mat-menu-item
-                *ngFor="let item of searchList"
-                (click)="closed(item.name)"
-              >
-                <mat-checkbox [(ngModel)]="item.checked" [color]="'primary'">
-                  {{ item.name }}
-                </mat-checkbox>
-              </li>
+              <ng-scrollbar autoHeightDisabled="false">
+                <li
+                  mat-menu-item
+                  *ngFor="let item of searchList"
+                  (click)="closed(item.name)"
+                >
+                  <mat-checkbox
+                    [(ngModel)]="item.checked"
+                    [color]="'primary'"
+                    style="color: black"
+                  >
+                    {{ item.name }}
+                  </mat-checkbox>
+                </li>
+              </ng-scrollbar>
             </div>
             <div class="d-flex">
               <button
@@ -178,13 +184,17 @@
                   /></span>
                 </mat-form-field>
               </a>
-              <mat-option>Select</mat-option>
-              <mat-option
-                *ngFor="let state of filteredJudgeList"
-                [value]="state.value"
-              >
-                {{ state.name }}
-              </mat-option>
+              <div style="height: 190px">
+                <ng-scrollbar autoHeightDisabled="false">
+                  <mat-option>Select</mat-option>
+                  <mat-option
+                    *ngFor="let state of filteredJudgeList"
+                    [value]="state.value"
+                  >
+                    {{ state.name }}
+                  </mat-option>
+                </ng-scrollbar>
+              </div>
             </mat-select>
           </mat-form-field>
         </div>
@@ -239,13 +249,18 @@
                   /></span>
                 </mat-form-field>
               </a>
-              <mat-option>Select</mat-option>
-              <mat-option
-                *ngFor="let state of filteredJournalsList"
-                [value]="state.value"
-              >
-                {{ state.name }}
-              </mat-option>
+
+              <div style="height: 190px">
+                <ng-scrollbar>
+                  <mat-option>Select</mat-option>
+                  <mat-option
+                    *ngFor="let state of filteredJournalsList"
+                    [value]="state.value"
+                  >
+                    {{ state.name }}
+                  </mat-option>
+                </ng-scrollbar>
+              </div>
             </mat-select>
           </mat-form-field>
           <mat-label class="mat-label">Year</mat-label>
@@ -320,10 +335,14 @@
           <mat-label class="mat-label">Act Title</mat-label>
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Act Title" required>
-              <mat-option>Select</mat-option>
-              <mat-option *ngFor="let item of actList" value="item.value">{{
-                item.name
-              }}</mat-option>
+              <div style="height: 190px">
+                <ng-scrollbar>
+                  <mat-option>Select</mat-option>
+                  <mat-option *ngFor="let item of actList" value="item.value">{{
+                    item.name
+                  }}</mat-option>
+                </ng-scrollbar>
+              </div>
             </mat-select>
           </mat-form-field>
         </div>
@@ -331,10 +350,16 @@
           <mat-label class="mat-label">Act Type</mat-label>
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Act Type" required>
-              <mat-option>Select</mat-option>
-              <mat-option *ngFor="let item of actTypeList" value="item.value">{{
-                item.name
-              }}</mat-option>
+              <div style="height: 190px">
+                <ng-scrollbar>
+                  <mat-option>Select</mat-option>
+                  <mat-option
+                    *ngFor="let item of actTypeList"
+                    value="item.value"
+                    >{{ item.name }}</mat-option
+                  >
+                </ng-scrollbar>
+              </div>
             </mat-select>
           </mat-form-field>
         </div>
@@ -521,13 +546,17 @@
                     /></span>
                   </mat-form-field>
                 </a>
-                <mat-option>Select</mat-option>
-                <mat-option
-                  *ngFor="let state of filteredJudgeList"
-                  [value]="state.value"
-                >
-                  {{ state.name }}
-                </mat-option>
+                <div style="height: 190px">
+                  <ng-scrollbar>
+                    <mat-option>Select</mat-option>
+                    <mat-option
+                      *ngFor="let state of filteredJudgeList"
+                      [value]="state.value"
+                    >
+                      {{ state.name }}
+                    </mat-option>
+                  </ng-scrollbar>
+                </div>
               </mat-select>
             </mat-form-field>
           </div>
@@ -535,8 +564,8 @@
             <mat-label class="mat-label">Decision Date</mat-label>
             <mat-form-field appearance="outline">
               <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Start date" disabled />
-                <input matEndDate placeholder="End date" disabled />
+                <input matStartDate placeholder="Start date" />
+                <input matEndDate placeholder="End date" />
               </mat-date-range-input>
               <mat-datepicker-toggle
                 matIconSuffix

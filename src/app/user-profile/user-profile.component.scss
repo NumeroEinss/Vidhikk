@@ -78,7 +78,6 @@
 
         .description {
           margin-top: 20px;
-          height: 36px;
           flex-grow: 0;
           font-family: Poppins;
           font-size: 12px;
@@ -142,6 +141,10 @@
               font-family: poppins;
               font-size: 14px;
               color: grey;
+            }
+
+            a:hover {
+              color: #2e5bff;
             }
           }
         }

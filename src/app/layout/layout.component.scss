@@ -100,12 +100,12 @@ mat-drawer-container {
     background-color: white;
     width: calc(100vw - 220px);
     height: 100vh;
-    overflow: scroll;
+    overflow: auto;
 
-    .modal {
-      position: absolute !important;
-      margin: calc(100vw - 220px);
-    }
+    // .modal {
+    //   position: absolute !important;
+    //   margin: calc(100vw - 220px);
+    // }
   }
 }
 

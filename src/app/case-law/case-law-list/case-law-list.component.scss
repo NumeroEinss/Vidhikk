@@ -54,7 +54,6 @@
     border-bottom: 2px solid #2e5bff0d;
 
     .title {
-      height: 20px;
       font-size: 16px;
       font-weight: 400;
       color: black;
@@ -130,20 +129,6 @@
     img {
       margin-right: 10px;
     }
-
-    // .mat-label {
-    //     flex-grow: 0;
-    //     font-family: Poppins;
-    //     font-size: 14px;
-    //     font-weight: 400;
-    //     font-stretch: normal;
-    //     font-style: normal;
-    //     line-height: normal;
-    //     letter-spacing: normal;
-    //     text-align: left;
-    //     color: var(--solid-black);
-    //     padding-bottom: 8px;
-    // }
   }
 
   .judge-wise {
@@ -167,20 +152,6 @@
     img {
       margin-right: 10px;
     }
-
-    // .mat-label {
-    //     flex-grow: 0;
-    //     font-family: Poppins;
-    //     font-size: 14px;
-    //     font-weight: 400;
-    //     font-stretch: normal;
-    //     font-style: normal;
-    //     line-height: normal;
-    //     letter-spacing: normal;
-    //     text-align: left;
-    //     color: var(--solid-black);
-    //     padding-bottom: 8px;
-    // }
   }
 
   .citation-wise {
@@ -204,20 +175,6 @@
     img {
       margin-right: 10px;
     }
-
-    // .mat-label {
-    //     flex-grow: 0;
-    //     font-family: Poppins;
-    //     font-size: 14px;
-    //     font-weight: 600;
-    //     font-stretch: normal;
-    //     font-style: normal;
-    //     line-height: normal;
-    //     letter-spacing: normal;
-    //     text-align: left;
-    //     color: var(--solid-black);
-    //     padding-bottom: 8px;
-    // }
   }
 
   mat-form-field {
@@ -272,20 +229,6 @@
     img {
       margin-right: 10px;
     }
-
-    // .mat-label {
-    //     flex-grow: 0;
-    //     font-family: Poppins;
-    //     font-size: 14px;
-    //     font-weight: 400;
-    //     font-stretch: normal;
-    //     font-style: normal;
-    //     line-height: normal;
-    //     letter-spacing: normal;
-    //     text-align: left;
-    //     color: var(--solid-black);
-    //     padding-bottom: 8px;
-    // }
   }
 
   .overruledby {
@@ -345,10 +288,5 @@
 }
 
 .list-container {
-  max-height: 250px;
-  overflow-y: scroll;
-}
-
-.mat-mdc-menu-item {
-  padding: unset !important;
+  height: 250px;
 }

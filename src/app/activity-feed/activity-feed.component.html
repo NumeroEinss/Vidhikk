@@ -3,7 +3,7 @@
 
 <!-- root section & feed section start-->
 <div class="root">
-  <div class="feed-section">
+  <div class="feed-section" [ngStyle]="opacityStyling">
     <!--marquee -->
     <marquee
       behavior="'smooth'"
@@ -277,6 +277,7 @@
               color="primary"
               style="width: fit-content !important; margin-left: 10px"
               data-bs-dismiss="modal"
+              (click)="opacityStyling = { opacity: 1 }"
             >
               Accept
             </button>

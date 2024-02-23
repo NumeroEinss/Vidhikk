@@ -3,7 +3,6 @@
 
 <!-- root section start-->
 <div class="root">
-
   <!-- case repository section start -->
   <!-- <div class="case-diary">
           <div class="case-diary-repo">Legal Cases Repository</div>
@@ -12,9 +11,7 @@
           <div><button type="button" class="btn btn-primary" routerLink="/case-diary/create-case-diary"><span
                          matPrefix><mat-icon>edit</mat-icon></span>Create</button></div>
      </div> -->
-     <!-- case repository section ends-->
-
-
+  <!-- case repository section ends-->
 
   <!-- main section start -->
   <div class="main-div">
@@ -23,8 +20,14 @@
       <!-- filter section start -->
       <div class="filter-section">
         <mat-form-field appearance="outline">
-          <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
-          <mat-select placeholder="Case Diary" required [(value)]="selectedDiary">
+          <span matPrefix
+            ><img src="../../../assets/images/icons/funnel.svg" class="ms-3"
+          /></span>
+          <mat-select
+            placeholder="Case Diary"
+            required
+            [(value)]="selectedDiary"
+          >
             <mat-option *ngFor="let case of caseDiary" [value]="case.value">
               {{ case.viewValue }}
             </mat-option>
@@ -37,29 +40,50 @@
       <div class="search-bar">
         <mat-form-field appearance="outline">
           <input matInput placeholder="Search Case Diary" required />
-          <div matSuffix><img src="../../../assets/images/icons/search-blue.svg"
-              style="margin-right: 8px;cursor:pointer;" /></div>
+          <div matSuffix>
+            <img
+              src="../../../assets/images/icons/search-blue.svg"
+              style="margin-right: 8px; cursor: pointer"
+            />
+          </div>
         </mat-form-field>
       </div>
       <!-- search-bar ends -->
 
+      <div class="create-sub-diary me-4">
+        <button
+          mat-stroked-button
+          color="primary"
+          style="border-radius: 12px"
+          routerLink="/lawyer/case-diary/create"
+        >
+          <img
+            class="mx-1"
+            src="../../../assets/images/icons/sub-diary.svg"
+          /><span style="color: #2e5bff"></span>Create Case Diary
+        </button>
+      </div>
+
       <!-- creat-sub-diary start -->
       <div class="create-sub-diary">
-        <button mat-stroked-button color="primary" style="border-radius: 12px"
-          routerLink="/lawyer/case-diary/create-sub-diary">
-          <img class="mx-1" src="../../../assets/images/icons/sub-diary.svg" /><span
-            style="color: #2e5bff"></span>Create Sub Diary
+        <button
+          mat-stroked-button
+          color="primary"
+          style="border-radius: 12px"
+          routerLink="/lawyer/case-diary/create-sub-diary"
+        >
+          <img
+            class="mx-1"
+            src="../../../assets/images/icons/sub-diary.svg"
+          /><span style="color: #2e5bff"></span>Create Sub Diary
         </button>
       </div>
       <!-- creat-sub-diary ends -->
     </div>
     <!-- case-diary-list ends -->
 
-
-
     <!-- case-diary list start -->
     <div *ngIf="selectedDiary == 'caseDiary'">
-     
       <table>
         <thead>
           <tr>
@@ -96,14 +120,22 @@
             </td>
             <mat-menu #caseDiaryMenu="matMenu">
               <div mat-menu-item>
-                <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
-                  style="width: 22px; height: 22px" />
+                <img
+                  src="../../../assets/images/icons/black_edit.svg"
+                  alt=""
+                  class="me-2"
+                  style="width: 22px; height: 22px"
+                />
                 <span class="mat-menu-list">Edit</span>
               </div>
 
               <div mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
-                <img src="../../../assets/images/icons/view_application.svg" alt="" class="me-2"
-                  style="width: 20px; height: 20px" />
+                <img
+                  src="../../../assets/images/icons/view_application.svg"
+                  alt=""
+                  class="me-2"
+                  style="width: 20px; height: 20px"
+                />
                 <span class="mat-menu-list">View Application</span>
               </div>
             </mat-menu>
@@ -112,7 +144,6 @@
       </table>
     </div>
     <!-- case-diary list ends-->
-
 
     <!-- sub-diary list start -->
     <div *ngIf="selectedDiary == 'subDiary'">
@@ -152,13 +183,21 @@
             </td>
             <mat-menu #subDiaryMenu="matMenu">
               <div mat-menu-item>
-                <img src="../../../assets/images/icons/accept.svg" alt="" class="me-2"
-                  style="width: 22px; height: 22px" />
+                <img
+                  src="../../../assets/images/icons/accept.svg"
+                  alt=""
+                  class="me-2"
+                  style="width: 22px; height: 22px"
+                />
                 <span class="mat-menu-list">Accept</span>
               </div>
               <div mat-menu-item>
-                <img src="../../../assets/images/icons/reject.svg" alt="" class="me-2"
-                  style="width: 22px; height: 22px" />
+                <img
+                  src="../../../assets/images/icons/reject.svg"
+                  alt=""
+                  class="me-2"
+                  style="width: 22px; height: 22px"
+                />
                 <span class="mat-menu-list">Reject</span>
               </div>
             </mat-menu>
