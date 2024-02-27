@@ -95,7 +95,6 @@
       gap: 10px;
 
       .grid-item2 {
-      .grid-item2 {
         img {
           width: 36px;
           height: 36px;
@@ -151,19 +150,16 @@
     display: flex;
     flex-direction: column;
 
-
     .search-input {
       width: 357px !important;
       cursor: pointer;
     }
-
 
     .funnel-image {
       padding-bottom: 12px;
       cursor: pointer;
     }
   }
-
 
   .add-member-details {
     width: 338px !important;
@@ -242,6 +238,11 @@
     .mat-mdc-radio-group {
       text-align: left !important;   
     }
-  }   
+
+    .mdc-label {
+      font-size: 14px;
+    }
   }
+
   // filter popup styling ends
+}
