@@ -117,7 +117,7 @@ body {
   }
 
   .mat-mdc-tab .mdc-tab__text-label {
-    color: #c4c4c4;
+    color: #000000;
     display: inline-flex;
     align-items: center;
     /* width: 69px; */
@@ -436,7 +436,7 @@ body {
   .mat-elevation-z8,
   .mat-mdc-elevation-specific.mat-elevation-z8 {
     box-shadow: 2px -6px 10px 0 transparent,
-      1px 5px 10px 0 rgba(5, 59, 255, 0.0784313725);
+      0 0 20px 0 rgba(5, 59, 255, 0.0784313725);
     position: relative !important;
     top: 5%;
   }
@@ -484,6 +484,7 @@ body {
     width: 24px;
     height: 24px;
     background: url("../src/assets/images/icons/arrow_down_blue.svg");
+    margin-top: 2px;
   }
 
   .mat-mdc-select-arrow-wrapper {
@@ -775,6 +776,32 @@ body {
 
   .mat-mdc-form-field-icon-prefix {
     padding: 0px 4px 0 10px;
+  }
+
+  .success {
+    background: #2e5bff;
+    color: white;
+    border-radius: 5px;
+    font-family: Poppins;
+    .mdc-snackbar__surface {
+      background-color: #2e5bff;
+      border-radius: 5px;
+    }
+  }
+
+  .error {
+    background: #f44336;
+    color: white;
+    border-radius: 5px;
+    font-family: Poppins;
+    .mdc-snackbar__surface {
+      background-color: #f44336;
+      border-radius: 5px;
+    }
+  }
+
+  .mat-mdc-snack-bar-container .mdc-snackbar__label {
+    font-family: Poppins;
   }
 }
 

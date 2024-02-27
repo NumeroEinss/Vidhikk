@@ -104,6 +104,20 @@
         *ngIf="otpVerified"
         class="register-form"
       >
+        <div class="profile-container">
+          <img
+            class="profile"
+            src="../../../assets/images/image/anurag_goyal.jpg"
+          />
+          <input type="file" #file accept="image/png, image/jpeg" />
+          <div class="profile-input" for="file" (click)="file.click()">
+            <img
+              class="camera"
+              src="../../../assets/../assets/images/icons/camera.svg"
+              alt=""
+            />
+          </div>
+        </div>
         <mat-form-field appearance="outline" class="">
           <span matPrefix
             ><mat-icon

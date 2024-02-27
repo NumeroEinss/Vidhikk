@@ -9,8 +9,7 @@
     line-height: normal;
     letter-spacing: normal;
     text-align: left;
-    color: #00000099;
-    padding-bottom: 8px;
+    color: #000000;
   }
 
   .filter-bar {
@@ -24,6 +23,7 @@
     .pretext {
       display: flex;
       align-items: center;
+      padding-left: 29px;
 
       .records {
         font-size: 14px;

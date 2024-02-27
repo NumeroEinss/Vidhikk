@@ -50,6 +50,44 @@
     width: 357px;
     padding: 0 35px 0 0;
   }
+
+  .profile-container {
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: 10px;
+
+    input {
+      display: none;
+    }
+
+    .profile {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    .profile-input {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      background-color: #2e5bff;
+      border-radius: 50%;
+      bottom: 0;
+      right: -8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      .camera {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
 }
 
 .image-container {
@@ -67,7 +105,7 @@
   }
 }
 
-@media only screen and (min-width:768px) and (max-width: 1023px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
   .signup-form {
     .header-text {
       width: 280px;

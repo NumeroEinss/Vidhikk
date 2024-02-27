@@ -226,26 +226,28 @@
             flex-direction: column;
             border-radius: 30px;
             background-color: #ffffff;
-            padding: 6px 16px;
+            padding: 16px 16px;
             line-height: 1.2em;
             margin-top: 19px;
             max-width: 70%;
             word-break: break-all;
             position: relative;
+            padding-bottom: 10px;
 
             .sender-name {
-              font-size: 8px;
+              font-size: 10px;
               color: #2e5bff;
               text-align: right;
             }
 
             .sender-msg {
-              font-size: 12px;
+              font-size: 14px;
               color: #000000;
+              line-height: 20px;
             }
 
             .send-time {
-              font-size: 8px;
+              font-size: 10px;
               text-align: right;
             }
           }
@@ -285,25 +287,27 @@
             flex-direction: column;
             border-radius: 30px;
             background-color: #ffffff;
-            padding: 6px 16px;
+            padding: 16px 16px;
             line-height: 1.2em;
             margin-left: 8px;
             max-width: 70%;
             word-break: break-all;
             position: relative;
+            padding-bottom: 10px;
 
             .receiver-name {
-              font-size: 8px;
+              font-size: 10px;
               color: #2e5bff;
             }
 
             .receiver-msg {
-              font-size: 12px;
+              font-size: 14px;
               color: #000000;
+              line-height: 20px;
             }
 
             .receive-time {
-              font-size: 8px;
+              font-size: 10px;
             }
           }
 

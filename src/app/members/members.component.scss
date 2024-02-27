@@ -46,14 +46,12 @@
       margin: 36.2px 118px 0;
       padding: 12px 24px;
       border-radius: 12px;
-      background-color: #2E5BFF;
+      background-color: #2e5bff;
       font-size: 14px;
     }
   }
 
   // member directory styling ends
-
-
 
   // add member list styling start
   .add-member-list {
@@ -70,132 +68,57 @@
       }
     }
 
-
-    .member-list-header{
+    .member-list-header {
       display: grid;
-      grid-template-columns: 20% 20% 25% 20% 10% 5%;
+      grid-template-columns: 250px 200px 250px 200px 120px 40px;
       margin-bottom: 5px;
       align-items: center;
-      padding: 5px;
+      padding: 0px 15px 0px 15px;
       color: #8798ad !important;
       font-size: 12px;
       margin-top: 30px;
-      
-      .grid-list-name{
-        
-      }
+      width: max-content;
+      gap: 10px;
     }
 
     .member-list-data {
       display: grid;
-      grid-template-columns: 20% 20% 25% 20% 10% 5%;
+      grid-template-columns: 250px 200px 250px 200px 120px 40px;
       height: 80px;
       border: 1px solid #f5f5f5;
       border-radius: 12px;
       margin-bottom: 12px;
       align-items: center;
-      padding: 5px;
+      padding: 0px 15px;
       font-size: 14px;
+      width: max-content;
+      gap: 10px;
 
-      .grid-item2{
+      .grid-item2 {
         img {
-                    width: 36px;
-                    height: 36px;
-                    border-radius: 50%;
-                  }
-      
-                  .icon {
-                    width: 16px;
-                    height: 16px;
-                  }
-      
-                  mat-menu {
-                    mat-menu-item {
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                    }
-                  }
-                }
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+        }
+
+        .icon {
+          width: 16px;
+          height: 16px;
+        }
+
+        mat-menu {
+          mat-menu-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
       }
     }
-    
-
-    // table {
-    //   width: 100%;
-    //   margin-top: 20px;
-
-    //   th {
-    //     font-family: poppins;
-    //     font-size: 12px;
-    //     font-weight: 500;
-    //     font-stretch: normal;
-    //     font-style: normal;
-    //     line-height: normal;
-    //     letter-spacing: normal;
-    //     text-align: left;
-    //     color: #8798ad;
-    //   }
-
-    //   .mat-icon {
-    //     width: 20px !important;
-    //     height: 20px !important;
-    //     margin: 5px 0 0 0;
-    //   }
-
-    //   tbody {
-    //     margin-top: 10px;
-
-    //     tr {
-    //       height: 60px;
-
-    //       td {
-    //         cursor: pointer;
-    //         font-family: poppins;
-    //         font-size: 14px;
-    //         font-weight: 500;
-    //         text-align: left;
-
-    //         img {
-    //           width: 36px;
-    //           height: 36px;
-    //           border-radius: 50%;
-    //         }
-
-    //         .icon {
-    //           width: 16px;
-    //           height: 16px;
-    //         }
-
-    //         mat-menu {
-    //           mat-menu-item {
-    //             display: flex;
-    //             justify-content: center;
-    //             align-items: center;
-    //           }
-    //         }
-    //       }
-
-    //       .mat-mdc-menu-panel {
-    //         .mat-mdc-menu-content {
-    //           .mat-mdc-menu-item {
-    //             .mat-mdc-menu-item-text {
-    //               display: flex;
-    //               justify-content: center;
-    //               align-items: center;
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   }
+}
 
-  // add member list styling ends
-
-
-
+// add member list styling ends
 
 //  member initial popup styling start
 .profileUpgrade {
@@ -219,28 +142,25 @@
 
 //  member initial popup styling ends
 
-
-
-
 //  add-member-popup styling start
 .add-member-popup {
   width: 420px !important;
 
-
   .add-member-body {
     display: flex;
     flex-direction: column;
-    
+
     .search-input {
       width: 357px !important;
+      cursor: pointer;
     }
-  
+
     .funnel-image {
       padding-bottom: 12px;
+      cursor: pointer;
     }
   }
 
- 
   .add-member-details {
     width: 338px !important;
     display: flex;
@@ -264,10 +184,10 @@
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
-      line-height: 1.7em;
+      line-height: 28px;
       letter-spacing: normal;
       text-align: left;
-      color: #8798AD;
+      color: #8798ad;
       white-space: nowrap;
 
       .member-name {
@@ -304,7 +224,6 @@
 
   //  add-member-popup styling start
 
-
   // filter popup styling start
   .modal-body {
     padding: 24px;
@@ -324,9 +243,7 @@
     .mdc-label {
       font-size: 14px;
     }
-
   }
-
 
   // filter popup styling ends
 }

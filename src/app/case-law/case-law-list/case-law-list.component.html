@@ -5,13 +5,14 @@
     mat-align-tabs="left"
     [(selectedIndex)]="selectedIndex"
     (selectedTabChange)="tabSelectionChange($event)"
+    animationDuration="0ms"
   >
     <!-- Latest Cases -->
     <mat-tab label="Latest Cases">
       <div class="filter-bar mt-2 mb-2">
         <!-- Header -->
         <div class="pretext col-lg-6 col-md-6">
-          <img src="../../../assets/images/icons/arrow-left.svg" />
+          <!-- <img src="../../../assets/images/icons/arrow-left.svg" /> -->
           <div class="records">Found {{ recordCount }} Cases</div>
         </div>
         <div class="posttext col-lg-6 col-md-6">
@@ -31,7 +32,7 @@
         </div>
         <!-- Filter Menu -->
         <mat-menu
-          #filterMenu="matMenu"
+          #sortMenu="matMenu"
           yPosition="below"
           [hasBackdrop]="true"
           class="mat-menu"
@@ -84,7 +85,7 @@
         </mat-menu>
         <!-- Sort Menu -->
         <mat-menu
-          #sortMenu="matMenu"
+          #filterMenu="matMenu"
           yPosition="below"
           [hasBackdrop]="true"
           class="mat-menu"
@@ -96,27 +97,31 @@
         </mat-menu>
       </div>
       <!-- Case Law List -->
-      <div
-        class="case-container"
-        *ngFor="let case of caseList"
-        (click)="viewCase('edadsfalkdlk2jkldas2255E')"
-      >
-        <div class="title">
-          {{ case.caseTitle }}
-        </div>
-        <div class="desc">
-          {{ case.caseDesc }}
-        </div>
-        <div class="sub-desc">
-          <div class="court">{{ case.court }}</div>
-          |
-          <div class="bench">
-            &nbsp;Bench : {{ case.bench | uppercase }}&nbsp;
+      <div style="height: calc(100vh - 243px)">
+        <ng-scrollbar autoHeightDisabled="false">
+          <div
+            class="case-container"
+            *ngFor="let case of caseList"
+            (click)="viewCase('edadsfalkdlk2jkldas2255E')"
+          >
+            <div class="title">
+              {{ case.caseTitle }}
+            </div>
+            <div class="desc">
+              {{ case.caseDesc }}
+            </div>
+            <div class="sub-desc">
+              <div class="court">{{ case.court }}</div>
+              |
+              <div class="bench">
+                &nbsp;Bench : {{ case.bench | uppercase }}&nbsp;
+              </div>
+              |
+              <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
+            </div>
+            <div class="acts">Acts : {{ case.acts }}</div>
           </div>
-          |
-          <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
-        </div>
-        <div class="acts">Acts : {{ case.acts }}</div>
+        </ng-scrollbar>
       </div>
     </mat-tab>
     <!-- Lates Cases Ends -->
@@ -312,17 +317,21 @@
     <mat-tab label="Bare Acts">
       <div class="filter-bar mt-2">
         <div class="pretext col-lg-6 col-md-6">
-          <img src="../../../assets/images/icons/arrow-left.svg" />
+          <!-- <img src="../../../assets/images/icons/arrow-left.svg" /> -->
           <div class="records">Found {{ recordCount }} Cases</div>
         </div>
         <div class="posttext col-lg-6 col-md-6">
           <img src="../../../assets/images/icons/search-blue.svg" />
         </div>
       </div>
-      <div class="bare-acts">
-        <div class="acts" *ngFor="let acts of actsList">
-          {{ acts.name }}
-        </div>
+      <div style="height: calc(100vh - 243px)">
+        <ng-scrollbar autoHeightDisabled="false">
+          <div class="bare-acts">
+            <div class="acts" *ngFor="let acts of actsList">
+              {{ acts.name }}
+            </div>
+          </div>
+        </ng-scrollbar>
       </div>
     </mat-tab>
     <!-- Bare Acts Ends -->
@@ -423,23 +432,27 @@
     <mat-tab label="Overruled">
       <div class="filter-bar mt-2">
         <div class="pretext col-lg-6 col-md-6">
-          <img src="../../../assets/images/icons/arrow-left.svg" />
+          <!-- <img src="../../../assets/images/icons/arrow-left.svg" /> -->
           <div class="records">Found {{ recordCount }} Cases</div>
         </div>
         <div class="posttext col-lg-6 col-md-6">
           <img src="../../../assets/images/icons/search-blue.svg" />
         </div>
       </div>
-      <div class="overruledby">
-        <div
-          class="acts"
-          *ngFor="let case of overruledList"
-          (click)="viewCase('dfasd23Eddf112sdnb2')"
-        >
-          <div class="previous-attorney">{{ case.previousAttorney }}</div>
-          <div class="overruled">Overruled By</div>
-          <div class="current-attorney">{{ case.currentAttorney }}</div>
-        </div>
+      <div style="height: calc(100vh - 243px)">
+        <ng-scrollbar autoHeightDisabled="false">
+          <div class="overruledby">
+            <div
+              class="acts"
+              *ngFor="let case of overruledList"
+              (click)="viewCase('dfasd23Eddf112sdnb2')"
+            >
+              <div class="previous-attorney">{{ case.previousAttorney }}</div>
+              <div class="overruled">Overruled By</div>
+              <div class="current-attorney">{{ case.currentAttorney }}</div>
+            </div>
+          </div>
+        </ng-scrollbar>
       </div>
     </mat-tab>
     <!--Overruled Ends -->

@@ -77,7 +77,26 @@ export class MembersComponent implements AfterViewInit {
       designation: 'Employement Lawyer',
       branch: 'Mumbai',
     },
-    
+    {
+      image: '../../assets/images/image/anurag_goyal.jpg',
+      memberName: 'Kunal Thakre',
+      icon: '../../assets/images/icons/call_member.svg',
+      contactNo: '+91-456-789-4560',
+      emailIcon: '../../assets/images/icons/mail_member.svg',
+      emailDetails: 'kunalthakre1@gmail.com',
+      designation: 'Employement Lawyer',
+      branch: 'Mumbai',
+    },
+    {
+      image: '../../assets/images/image/anurag_goyal.jpg',
+      memberName: 'Kunal Thakre',
+      icon: '../../assets/images/icons/call_member.svg',
+      contactNo: '+91-456-789-4560',
+      emailIcon: '../../assets/images/icons/mail_member.svg',
+      emailDetails: 'kunalthakre1@gmail.com',
+      designation: 'Employement Lawyer',
+      branch: 'Mumbai',
+    }
   ];
 
   memberDetails = [
@@ -151,7 +170,6 @@ export class MembersComponent implements AfterViewInit {
       ratingStar: '../../assets/images/icons/yellow_star.svg',
       rating: '(4.8)',
     },
-    
   ];
 
   places = [
