@@ -37,8 +37,6 @@
     }
 
     button {
-      //   width: 165px;
-      height: 45px;
       flex-grow: 0;
       font-family: Poppins;
       display: flex;
@@ -56,7 +54,6 @@
   // member directory styling ends
 
 
-
   // add member list styling start
   .add-member-list {
     .add-member-btn {
@@ -72,7 +69,7 @@
       }
     }
 
-    .member-list-header{
+    .member-list-header {
       display: grid;
       grid-template-columns: 20% 20% 25% 20% 8% 7%;
       margin-bottom: 5px;
@@ -81,11 +78,11 @@
       color: #8798ad !important;
       font-size: 12px;
       margin-top: 30px;
-      
-      .grid-item-name{
+
+      .grid-item-name {
         padding-left: 10px;
       }
-      
+
     }
 
     .member-list-data {
@@ -99,104 +96,30 @@
       padding: 5px;
       font-size: 14px;
 
-      .grid-item2{
+      .grid-item2 {
         img {
-                    width: 36px;
-                    height: 36px;
-                    border-radius: 50%;
-                  }
-      
-                  .icon {
-                    width: 16px;
-                    height: 16px;
-                  }
-      
-                  mat-menu {
-                    mat-menu-item {
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                    }
-                  }
-                }
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+        }
+
+        .icon {
+          width: 16px;
+          height: 16px;
+        }
+
+        mat-menu {
+          mat-menu-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
       }
     }
-    
-
-    // table {
-    //   width: 100%;
-    //   margin-top: 20px;
-
-    //   th {
-    //     font-family: poppins;
-    //     font-size: 12px;
-    //     font-weight: 500;
-    //     font-stretch: normal;
-    //     font-style: normal;
-    //     line-height: normal;
-    //     letter-spacing: normal;
-    //     text-align: left;
-    //     color: #8798ad;
-    //   }
-
-    //   .mat-icon {
-    //     width: 20px !important;
-    //     height: 20px !important;
-    //     margin: 5px 0 0 0;
-    //   }
-
-    //   tbody {
-    //     margin-top: 10px;
-
-    //     tr {
-    //       height: 60px;
-
-    //       td {
-    //         cursor: pointer;
-    //         font-family: poppins;
-    //         font-size: 14px;
-    //         font-weight: 500;
-    //         text-align: left;
-
-    //         img {
-    //           width: 36px;
-    //           height: 36px;
-    //           border-radius: 50%;
-    //         }
-
-    //         .icon {
-    //           width: 16px;
-    //           height: 16px;
-    //         }
-
-    //         mat-menu {
-    //           mat-menu-item {
-    //             display: flex;
-    //             justify-content: center;
-    //             align-items: center;
-    //           }
-    //         }
-    //       }
-
-    //       .mat-mdc-menu-panel {
-    //         .mat-mdc-menu-content {
-    //           .mat-mdc-menu-item {
-    //             .mat-mdc-menu-item-text {
-    //               display: flex;
-    //               justify-content: center;
-    //               align-items: center;
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   }
-
-  // add member list styling ends
-
-
+}
+// add member list styling ends
 
 
 //  member initial popup styling start
@@ -231,17 +154,16 @@
   .add-member-body {
     display: flex;
     flex-direction: column;
-    
+
     .search-input {
       width: 357px !important;
     }
-  
+
     .funnel-image {
       padding-bottom: 12px;
     }
   }
 
- 
   .add-member-details {
     width: 338px !important;
     display: flex;
@@ -302,7 +224,6 @@
       }
     }
   }
-
   //  add-member-popup styling start
 
 
@@ -319,15 +240,8 @@
     }
 
     .mat-mdc-radio-group {
-      text-align: left !important;
+      text-align: left !important;   
     }
-
-    .mdc-label {
-      font-size: 14px;
-    }
-
+  }   
   }
-
-
   // filter popup styling ends
-}

@@ -287,13 +287,13 @@ body {
   }
 
   .list-container {
-    .mat-mdc-menu-item {
-      padding: unset !important;
-    }
+    // .mat-mdc-menu-item {
+    //   padding: unset !important;
+    // }
 
     label {
       font-family: Poppins;
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 
@@ -313,8 +313,6 @@ body {
 
   // mat-checkbox Override Css
   .mdc-checkbox {
-    padding: 12px 0px;
-
     .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
       background-color: #2e5bff;
       border-color: #2e5bff;
@@ -345,15 +343,21 @@ body {
   }
 
   // mat-input Override Css
-  // .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading {
-  //   border-color: #2e5bff !important;
-  //   border-width: 0.5px;
-  // }
+  .mdc-text-field--outlined:not(
+      .mdc-text-field--disabled
+    ).mdc-text-field--focused
+    .mdc-notched-outline__leading {
+    border-color: #2e5bff !important;
+    border-width: 0.5px !important;
+  }
 
-  // .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
-  //   border-color: #2e5bff !important;
-  //   border-width: 0.5px;
-  // }
+  .mdc-text-field--outlined:not(
+      .mdc-text-field--disabled
+    ).mdc-text-field--focused
+    .mdc-notched-outline__trailing {
+    border-color: #2e5bff !important;
+    border-width: 0.5px !important;
+  }
 
   // mat-input with white background and error block disabled
   .search-input {
@@ -401,7 +405,7 @@ body {
   }
 
   .mdc-label {
-    font-size: 12px;
+    font-size: 14px;
     color: #8798ad;
     font-family: Poppins;
     font-weight: normal;
@@ -410,6 +414,7 @@ body {
     line-height: normal;
     letter-spacing: normal;
     white-space: nowrap;
+    padding-left: unset !important;
   }
 
   //mat-error under mat-input Override Css
@@ -431,14 +436,16 @@ body {
 
   .mat-elevation-z8,
   .mat-mdc-elevation-specific.mat-elevation-z8 {
-    box-shadow: 2px -6px 10px 0 white, 1px 0px 10px 0 #053bff14;
+    box-shadow: 2px -6px 10px 0 transparent,
+      1px 5px 10px 0 rgba(5, 59, 255, 0.0784313725);
     position: relative !important;
     top: 5%;
   }
 
   // mat-select overlay-root Override Css
   .mat-mdc-select-panel {
-    box-shadow: 2px -6px 10px 0 white, 1px 0px 10px 0 #053bff14;
+    box-shadow: 2px -6px 10px 0 transparent,
+      1px 5px 10px 0 rgba(5, 59, 255, 0.0784313725) !important;
     border-radius: 12px;
   }
 
@@ -666,9 +673,109 @@ body {
     left: 0px;
   }
 
-  .modal {
-    width: calc(100vw - 220px);
-    margin-left: 220px;
+  mat-checkbox {
+    .mat-internal-form-field {
+      align-items: flex-start;
+      height: 20px;
+
+      .mat-mdc-checkbox-touch-target {
+        width: 24px;
+        height: 24px;
+      }
+
+      .mdc-checkbox {
+        .mdc-checkbox__background {
+          top: 0;
+        }
+
+        .mdc-checkbox__native-control {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .mdc-label {
+        top: 0;
+        color: black;
+      }
+    }
+  }
+
+  .signup-form {
+    mat-checkbox {
+      .mat-internal-form-field {
+        margin-bottom: 8px;
+
+        .mdc-checkbox {
+          padding: 0px 0px 12px 0px;
+        }
+        .mdc-label {
+          color: #8798ad !important;
+        }
+      }
+    }
+  }
+
+  .mat-mdc-menu-content {
+    .mat-mdc-menu-item {
+      .mat-mdc-menu-item-text {
+        font-size: 14px;
+        font-family: Poppins;
+        font-weight: normal;
+        color: black;
+        letter-spacing: normal;
+        line-height: normal;
+      }
+    }
+  }
+
+  .mat-mdc-menu-item:not([disabled]):hover {
+    background-color: #2e5bff0d !important;
+  }
+
+  .mat-mdc-icon-button .mat-mdc-button-persistent-ripple {
+    display: none;
+  }
+
+  .mat-calendar-arrow {
+    margin: 8px 0 0 5px;
+    fill: #2e5bff;
+  }
+
+  .mat-datepicker-content {
+    .mat-calendar-previous-button:not(.mat-mdc-button-disabled) {
+      color: #2e5bff;
+    }
+    .mat-calendar-next-button:not(.mat-mdc-button-disabled) {
+      color: #2e5bff;
+    }
+  }
+
+  .mat-calendar-body-selected {
+    background-color: #2e5bff;
+  }
+
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+      .mat-calendar-body-comparison-identical
+    ) {
+    background-color: #2e5bff0d;
+  }
+
+  .mat-mdc-icon-button .mat-mdc-button-ripple {
+    display: none;
+  }
+
+  .mat-datepicker-toggle {
+    color: #2e5bff;
+  }
+
+  .mat-datepicker-toggle-active {
+    color: #2e5bff;
+  }
+
+  .mat-mdc-form-field-icon-prefix {
+    padding: 0px 4px 0 10px;
   }
 }
 

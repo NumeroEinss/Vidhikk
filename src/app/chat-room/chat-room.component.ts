@@ -18,142 +18,148 @@ export class ChatRoomComponent implements AfterViewInit {
 
   roomList = [
     {
+      image: '../../assets/images/icons/group_chat.png',
+      name: 'Group Chat Name',
+      message: 'No problem! Let me know if...',
+      className: 'colorless-border-chatroom',
+    },
+    {
       image: '../../assets/images/image/add_member2.png',
       name: 'Anil Soni',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member.png',
       name: 'Jay Goana',
       message: 'Ok Thanks',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member.png',
       name: 'Pratik Jaiswal',
       message: 'Please provide me',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Anjali Sharma',
       message: 'Thats Great',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member.png',
       name: 'Nitin Jaiswal',
       message: 'What about you',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Anil Soni',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Anil Soni',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Anil Soni',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Anil Soni',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Anil Soni',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member.png',
       name: 'Priya Singh',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
     {
       image: '../../assets/images/image/add_member2.png',
       name: 'Anil Soni',
       message: 'No problem! Let me know if...',
-      className: '',
+      className: 'colorless-border-chatroom',
     },
   ];
 
@@ -209,6 +215,8 @@ export class ChatRoomComponent implements AfterViewInit {
   ngAfterViewInit() {
     let element = document.getElementById('modalButton2') as HTMLElement;
     element.click();
+
+    this.roomList[0].className = "colored-border-chat-room";
   }
 
   addMessage() {
@@ -230,7 +238,7 @@ export class ChatRoomComponent implements AfterViewInit {
 
   addStyling(className: string, index: number) {
     this.roomList.forEach((room) => {
-      room.className = '';
+      room.className = 'colorless-border-chatroom';
     });
     this.roomList[index].className = className;
   }

@@ -232,6 +232,7 @@ export class CaseLawListComponent {
       value: 'ocr',
     },
   ];
+  filteredActList: any = [];
   actTypeList = [
     {
       name: '302',
@@ -266,11 +267,14 @@ export class CaseLawListComponent {
       value: 'ocr',
     },
   ];
+  filteredActTypeList: any = [];
 
   constructor(private _router: Router) {
     this.searchList = this.courtList;
     this.filteredJournalsList = this.journalList;
     this.filteredJudgeList = this.judgeList;
+    this.filteredActList = this.actList;
+    this.filteredActTypeList = this.actTypeList;
   }
 
   tabSelectionChange(e: any) {}
@@ -310,6 +314,21 @@ export class CaseLawListComponent {
   filterJudge(e: any) {
     let filter = e.target.value.toLowerCase();
     this.filteredJudgeList = this.judgeList.filter((key: any) =>
+      key.name.toLowerCase().startsWith(filter)
+    );
+  }
+  filterAct(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.filteredActList = this.actList.filter((key: any) =>
+      key.name.toLowerCase().startsWith(filter)
+    );
+  }
+  isNumber(event: any) {
+    return event.charCode >= 48 && event.charCode <= 57;
+  }
+  filterActType(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.filteredActTypeList = this.actList.filter((key: any) =>
       key.name.toLowerCase().startsWith(filter)
     );
   }

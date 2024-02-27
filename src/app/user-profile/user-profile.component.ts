@@ -9,8 +9,19 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 
 export class UserProfileComponent {
-  constructor(private formBuilder: FormBuilder) {
 
+  editProfile: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.editProfile = new FormGroup({
+      coreCompetency: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      mobile: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      email: new FormControl('', [Validators.required,  Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+    })
+  }
+
+  get editProfileFormCtrl() {
+    return this.editProfile.controls
   }
 
   ngAfterViewInit() {
@@ -91,8 +102,12 @@ export class UserProfileComponent {
         break;
     }
   }
-    onOtpChange(e: any) {
-      console.log(e);
-    }
+
+  isNumber(event: any) {
+    return event.charCode >= 48 && event.charCode <= 57;
+  }
+  onOtpChange(e: any) {
+    console.log(e);
+  }
 
 }

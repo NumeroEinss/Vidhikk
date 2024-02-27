@@ -39,14 +39,14 @@
         </mat-form-field>
 
         <div>
-          <img src="../../../assets/images/icons/create_chat_room.svg" alt="noImage"
+          <img src="../../../assets/images/icons/add_chat_chatRoom.svg" alt="noImage"
             data-bs-target="#createChatRoomModal" data-bs-toggle="modal" />
         </div>
       </div>
      
       <div style="height: calc(100vh - 210px)">
       <ng-scrollbar >
-        <div class="chat-room-details" *ngFor="let chat of roomList; index as i" (click)="addStyling('test', i)"
+        <div class="chat-room-details" *ngFor="let chat of roomList; index as i" (click)="addStyling('colored-border-chat-room', i)" id="chats"
           [ngClass]="chat.className">
           <div class="d-flex">
             <div>
@@ -59,6 +59,7 @@
                 {{ chat.message }}
               </div>
             </div>
+
           </div>
         </div>
       </ng-scrollbar>
@@ -69,17 +70,19 @@
     <div class="main-content col-lg-9 col-md-9">
       <div class="chat-header">
         <div class="chat-header-detail">
-          <div>
-            <img src="../../../assets/images/image/add_member2.png" alt="noImage" class="user-img" />
+          <div class="d-flex">
+          <div class="group-chat-icon">
+            <img src="../../../assets/images/icons/group_chat.png" alt="noImage" />
           </div>
 
           <div class="user-detail">
-            <div class="user-name">Anil Soni</div>
-            <div class="user-status">
-              <div></div>
-              Available
-            </div>
+            <div class="user-name">Group Chat Name</div>
+            <div class="participants">3 Participants</div>
           </div>
+        </div>
+
+        <div class="create-chat-icon"><img src="../../assets/images/icons/create_chat_room.svg" alt="noImage"></div>
+
         </div>
       </div>
 
@@ -131,7 +134,7 @@
 <!-- chat-room initial popup start -->
 <div>
   <button id="modalButton2" data-bs-toggle="modal" data-bs-target="#chatRoomModal" style="display: none"></button>
-  <div class="modal fade" id="chatRoomModal" tabindex="-1" aria-labelledby="chatRoomModalLabel" aria-hidden="true">
+  <div class="modal fade" id="chatRoomModal" tabindex="-1" aria-labelledby="chatRoomModalLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-sm modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
@@ -190,10 +193,10 @@
                 Cancel
               </button>
             </div>
-            <!-- create-chat-room popup ends -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+ <!-- create-chat-room popup ends -->

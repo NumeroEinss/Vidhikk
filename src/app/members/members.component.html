@@ -29,7 +29,6 @@
       </button>
     </div>
 
-    <div>
       <div class="member-list-header">
         <div class="grid-item-name">NAME</div>
         <div class="grid-item1">CONTACT NO. DETAILS</div>
@@ -49,55 +48,17 @@
         <div class="grid-item2"><button mat-icon-button data-bs-toggle="modal" data-bs-target="#deleteModel">
             <mat-icon style="color: #2e5bff">delete</mat-icon>
           </button></div>
-
-        <!-- <table>
-        <thead>
-          <tr>
-            <th>NAME</th>
-            <th>CONTACT NO. DETAILS</th>
-            <th>EMAIL DETAILS</th>
-            <th>DESIGNATION</th>
-            <th>BRANCH</th>
-            <th>ACTIONS</th>
-          </tr>
-        </thead>
-
-        <tbody *ngFor="let member of memberList">
-          <tr style="border: 1px solid #f5f5f5">
-            <td>
-              <span><img [src]="member.image" class="me-2" /></span>{{ member.memberName }}
-            </td>
-            <td>
-              <span><img [src]="member.icon" class="icon me-2" /> </span>{{ member.contactNo }}
-            </td>
-            <td>
-              <span><img [src]="member.emailIcon" class="icon me-2" /> </span>{{ member.emailDetails }}
-            </td>
-            <td>{{ member.designation }}</td>
-            <td>{{ member.branch }}</td>
-            <td>
-              <button
-                mat-icon-button
-                data-bs-toggle="modal"
-                data-bs-target="#deleteModel"
-              >
-                <mat-icon style="color: #2e5bff">delete</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
       </div>
-    </div>
     <!-- add member list ends -->
   </div>
   <!-- root section ends -->
+  
   <!-- member initial popup start -->
   <div>
     <button id="modalButton1" data-bs-toggle="modal" data-bs-target="#profileUpgradationModal"
       style="display: none"></button>
     <div class="modal fade" id="profileUpgradationModal" tabindex="-1" aria-labelledby="profileUpgradModalLabel"
-      aria-hidden="true">
+      aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false">
       <div class="modal-dialog modal-sm modal-dialog-centered profileUpgrade">
         <div class="modal-content">
           <div class="modal-body">
@@ -160,7 +121,8 @@
               <!-- <a (click)=" $event.stopPropagation();" style="text-decoration: none;"> -->
               <mat-form-field class="search-input" appearance="outline">
                 <input matInput placeholder="Search Member" />
-                <span matSuffix class="me-2"><img src="../../../assets/images/icons/search-blue.svg" /></span>
+                <span matSuffix><img src="../../../assets/images/icons/search-blue.svg"
+                    style="margin-right: 8px" /></span>
               </mat-form-field>
               <div class="d-flex">
                 <img src="../../../assets/images/icons/funnel_members.svg" alt="noImage" style="margin-left: 15px;"
@@ -246,7 +208,7 @@
             <mat-radio-group aria-label="Select an option">
               <div class="row mb-3">
                 <div class="col-lg-6" style="padding-left: unset">
-                  <mat-radio-button value="1">Popularity</mat-radio-button>
+                  <mat-radio-button value="1" class="radio-btn">Popularity</mat-radio-button>
                   <mat-radio-button value="2">Start Rating</mat-radio-button>
                 </div>
 

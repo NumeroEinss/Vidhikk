@@ -32,7 +32,8 @@ export class ForgotPasswordComponent {
   forgotPasswordForm1: FormGroup;
   hide: boolean = true;
   selectedIndex: number = 0;
-  isOTPSent: boolean = false;
+  isMobileNoEntered: boolean = false;
+  isEmailEntered: boolean = false;
   isVerified: boolean = false;
 
 

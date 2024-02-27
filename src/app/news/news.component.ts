@@ -27,6 +27,16 @@ export class NewsComponent {
       heading: 'Case Study: How TechVantage Transformed Company ABC&nbsp quotes Workflow',
       description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
     },
+    {
+      image: '../../assets/images/image/news_feed1.jpg',
+      heading: 'Webinar: The Future of Digital Transformation in Business',
+      description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
+    },
+    {
+      image: '../../assets/images/image/news_feed1.jpg',
+      heading: 'Webinar: The Future of Digital Transformation in Business',
+      description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
+    },
 
   ]
 }

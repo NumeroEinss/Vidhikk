@@ -1,67 +1,129 @@
 <app-header [menuName]="'Case Diary'"></app-header>
 <div class="root">
-     <div class="case-diary-signup">
-          <div class="diary-container">
-               <div>
-                    <div class="login-text">Signup </div>
-                    <div class="sub-text mt-3 mb-1">Create your username & password for case diary</div>
-               </div>
+  <div class="case-diary-signup">
+    <div class="diary-container">
+      <div>
+        <div class="login-text">Signup</div>
+        <div class="sub-text mt-3 mb-1">
+          Create your username & password for case diary
+        </div>
+      </div>
 
-               <form class="col mt-3" [formGroup]="caseDiarySignUpForm">
-                    <mat-form-field appearance="outline">
-                         <span matPrefix><mat-icon>person</mat-icon></span>
-                         <input type="text" matInput placeholder="Enter Username" formControlName="username" required>
-                         <mat-error *ngIf="caseDiarySignUpForm.controls['username'].hasError('required')">Username is
-                              Required</mat-error>
-                         <mat-error *ngIf="!caseDiarySignUpForm.controls['username'].hasError('required') && 
-                                     caseDiarySignUpForm.controls['username'].invalid">Username
-                              invalid</mat-error>
-                    </mat-form-field>
+      <form class="col mt-3" [formGroup]="caseDiarySignUpForm">
+        <mat-form-field appearance="outline">
+          <span matPrefix
+            ><mat-icon
+              ><img
+                src="../../../assets/images/icons/people-icon.svg"
+                alt="" /></mat-icon
+          ></span>
+          <input
+            type="text"
+            matInput
+            placeholder="Enter Username"
+            formControlName="username"
+            required
+          />
+          <mat-error
+            *ngIf="
+              caseDiarySignUpForm.controls['username'].hasError('required')
+            "
+            >Username is Required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              !caseDiarySignUpForm.controls['username'].hasError('required') &&
+              caseDiarySignUpForm.controls['username'].invalid
+            "
+            >Username invalid</mat-error
+          >
+        </mat-form-field>
 
-                    <mat-form-field appearance="outline" class="password">
-                         <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter Password"
-                              formControlName="password" required>
-                         <span matPrefix><mat-icon>lock</mat-icon></span>
-                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                              [attr.aria-pressed]="hide">
-                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                         </button>
-                         <mat-error *ngIf="caseDiarySignUpForm.controls['password'].errors?.['required']">Password is
-                              Required !!</mat-error>
-                         <mat-error
-                              *ngIf="!caseDiarySignUpForm.controls['password'].errors?.['required'] && caseDiarySignUpForm.controls['password'].invalid">Enter
-                              atleast 10 characters
-                              !!</mat-error>
-                    </mat-form-field>
+        <mat-form-field appearance="outline" class="password">
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            placeholder="Enter Password"
+            formControlName="password"
+            required
+          />
+          <span matPrefix
+            ><mat-icon
+              ><img
+                src="../../../assets/images/icons/lock-icon.svg"
+                alt="" /></mat-icon
+          ></span>
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="caseDiarySignUpForm.controls['password'].errors?.['required']"
+            >Password is Required !!</mat-error
+          >
+          <mat-error
+            *ngIf="!caseDiarySignUpForm.controls['password'].errors?.['required'] && caseDiarySignUpForm.controls['password'].invalid"
+            >Enter atleast 10 characters !!</mat-error
+          >
+        </mat-form-field>
 
-                    <mat-form-field appearance="outline">
-                         <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm Password"
-                              formControlName="confirmPassword" required>
-                         <span matPrefix><mat-icon>lock</mat-icon></span>
-                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                              [attr.aria-pressed]="hide">
-                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                         </button>
-                         <mat-error *ngIf="caseDiarySignUpForm.controls['confirmPassword'].errors?.['required']">
-                              Confirm
-                              Password is
-                              Required !!</mat-error>
-                         <mat-error
-                              *ngIf="!caseDiarySignUpForm.controls['confirmPassword'].errors?.['required'] && caseDiarySignUpForm.controls['confirmPassword'].invalid">Enter
-                              atleast 10 characters
-                              !!</mat-error>
-                    </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input
+            matInput
+            [type]="hideConfirmPassword ? 'password' : 'text'"
+            placeholder="Confirm Password"
+            formControlName="confirmPassword"
+            required
+          />
+          <span matPrefix
+            ><mat-icon
+              ><img
+                src="../../../assets/images/icons/lock-icon.svg"
+                alt="" /></mat-icon
+          ></span>
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hideConfirmPassword = !hideConfirmPassword"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hideConfirmPassword"
+          >
+            <mat-icon>{{
+              hideConfirmPassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="caseDiarySignUpForm.controls['confirmPassword'].errors?.['required']"
+          >
+            Confirm Password is Required !!</mat-error
+          >
+          <mat-error
+            *ngIf="!caseDiarySignUpForm.controls['confirmPassword'].errors?.['required'] && caseDiarySignUpForm.controls['confirmPassword'].invalid"
+            >Enter atleast 10 characters !!</mat-error
+          >
+        </mat-form-field>
 
-                    <div class="text-center mt-3">
-                         <button mat-raised-button color="primary w-100">Sign
-                              up</button><br>
+        <div class="text-center mt-3">
+          <button mat-raised-button color="primary w-100">Sign up</button><br />
 
-                         <button mat-stroked-button class="mt-2 w-100" color="primary"
-                              routerLink="/lawyer//case-diary/login"><span class="gray-font">Already have a
-                                   case diary ?&nbsp; </span><span style="color:#2E5BFF">Login
-                              </span></button>
-                    </div>
-               </form>
-          </div>
-     </div>
+          <button
+            mat-stroked-button
+            class="mt-2 w-100"
+            color="primary"
+            routerLink="/lawyer//case-diary/login"
+          >
+            <span class="gray-font">Already have a case diary ?&nbsp; </span
+            ><span style="color: #2e5bff">Login </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

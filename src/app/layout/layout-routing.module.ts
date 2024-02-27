@@ -51,10 +51,10 @@ const routes: Routes = [
         loadChildren: () =>
           import('../chat-room/chat-room.module').then((m) => m.ChatRoomModule),
       },
-            {
-                path: 'conference',
-                loadChildren: () => import('../conference/conference.module').then(m => m.ConferenceModule)
-            },
+      {
+        path: 'conference',
+        loadChildren: () => import('../conference/conference.module').then(m => m.ConferenceModule)
+      },
       {
         path: 'global-search',
         component: GlobalSearchComponent,
@@ -80,4 +80,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }

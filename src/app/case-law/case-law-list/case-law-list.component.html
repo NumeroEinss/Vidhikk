@@ -46,15 +46,21 @@
               />
             </mat-form-field>
             <div class="list-container">
-              <li
-                mat-menu-item
-                *ngFor="let item of searchList"
-                (click)="closed(item.name)"
-              >
-                <mat-checkbox [(ngModel)]="item.checked" [color]="'primary'">
-                  {{ item.name }}
-                </mat-checkbox>
-              </li>
+              <ng-scrollbar autoHeightDisabled="false">
+                <li
+                  mat-menu-item
+                  *ngFor="let search of searchList"
+                  (click)="closed(search.name)"
+                >
+                  <mat-checkbox
+                    [(ngModel)]="search.checked"
+                    [color]="'primary'"
+                    style="color: black"
+                  >
+                    {{ search.name }}
+                  </mat-checkbox>
+                </li>
+              </ng-scrollbar>
             </div>
             <div class="d-flex">
               <button
@@ -92,25 +98,25 @@
       <!-- Case Law List -->
       <div
         class="case-container"
-        *ngFor="let item of caseList"
+        *ngFor="let case of caseList"
         (click)="viewCase('edadsfalkdlk2jkldas2255E')"
       >
         <div class="title">
-          {{ item.caseTitle }}
+          {{ case.caseTitle }}
         </div>
         <div class="desc">
-          {{ item.caseDesc }}
+          {{ case.caseDesc }}
         </div>
         <div class="sub-desc">
-          <div class="court">{{ item.court }}</div>
+          <div class="court">{{ case.court }}</div>
           |
           <div class="bench">
-            &nbsp;Bench : {{ item.bench | uppercase }}&nbsp;
+            &nbsp;Bench : {{ case.bench | uppercase }}&nbsp;
           </div>
           |
-          <div class="cited">&nbsp;Cited : {{ item.cited }}</div>
+          <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
         </div>
-        <div class="acts">Acts : {{ item.acts }}</div>
+        <div class="acts">Acts : {{ case.acts }}</div>
       </div>
     </mat-tab>
     <!-- Lates Cases Ends -->
@@ -178,13 +184,17 @@
                   /></span>
                 </mat-form-field>
               </a>
-              <mat-option>Select</mat-option>
-              <mat-option
-                *ngFor="let state of filteredJudgeList"
-                [value]="state.value"
-              >
-                {{ state.name }}
-              </mat-option>
+              <div style="height: 190px">
+                <ng-scrollbar autoHeightDisabled="false">
+                  <mat-option>Select</mat-option>
+                  <mat-option
+                    *ngFor="let judge of filteredJudgeList"
+                    [value]="judge.value"
+                  >
+                    {{ judge.name }}
+                  </mat-option>
+                </ng-scrollbar>
+              </div>
             </mat-select>
           </mat-form-field>
         </div>
@@ -239,13 +249,18 @@
                   /></span>
                 </mat-form-field>
               </a>
-              <mat-option>Select</mat-option>
-              <mat-option
-                *ngFor="let state of filteredJournalsList"
-                [value]="state.value"
-              >
-                {{ state.name }}
-              </mat-option>
+
+              <div style="height: 190px">
+                <ng-scrollbar>
+                  <mat-option>Select</mat-option>
+                  <mat-option
+                    *ngFor="let journal of filteredJournalsList"
+                    [value]="journal.value"
+                  >
+                    {{ journal.name }}
+                  </mat-option>
+                </ng-scrollbar>
+              </div>
             </mat-select>
           </mat-form-field>
           <mat-label class="mat-label">Year</mat-label>
@@ -320,10 +335,14 @@
           <mat-label class="mat-label">Act Title</mat-label>
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Act Title" required>
-              <mat-option>Select</mat-option>
-              <mat-option *ngFor="let item of actList" value="item.value">{{
-                item.name
-              }}</mat-option>
+              <div style="height: 190px">
+                <ng-scrollbar>
+                  <mat-option>Select</mat-option>
+                  <mat-option *ngFor="let act of actList" value="item.value">{{
+                    act.name
+                  }}</mat-option>
+                </ng-scrollbar>
+              </div>
             </mat-select>
           </mat-form-field>
         </div>
@@ -331,10 +350,16 @@
           <mat-label class="mat-label">Act Type</mat-label>
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Act Type" required>
-              <mat-option>Select</mat-option>
-              <mat-option *ngFor="let item of actTypeList" value="item.value">{{
-                item.name
-              }}</mat-option>
+              <div style="height: 190px">
+                <ng-scrollbar>
+                  <mat-option>Select</mat-option>
+                  <mat-option
+                    *ngFor="let act of actTypeList"
+                    value="item.value"
+                    >{{ act.name }}</mat-option
+                  >
+                </ng-scrollbar>
+              </div>
             </mat-select>
           </mat-form-field>
         </div>
@@ -482,13 +507,16 @@
       <div class="advance-search">
         <div class="title">Advance Search</div>
         <div class="row">
-          <div class="mat-input-white col me-4">
+          <div
+            class="d-flex mat-input-white me-4"
+            style="flex-direction: column"
+          >
             <mat-label class="mat-label">Enter Text</mat-label>
             <mat-form-field appearance="outline">
               <input matInput placeholder="All these words in quotes dying" />
             </mat-form-field>
           </div>
-          <div class="mat-input-white col">
+          <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label">Applicant Respondant Name</mat-label>
             <mat-form-field appearance="outline">
               <input matInput placeholder="Type Application Name" />
@@ -496,7 +524,10 @@
           </div>
         </div>
         <div class="row">
-          <div class="mat-input-white col me-4">
+          <div
+            class="d-flex mat-input-white me-4"
+            style="flex-direction: column"
+          >
             <mat-label class="mat-label">Judge Name</mat-label>
             <mat-form-field appearance="outline">
               <mat-select placeholder="Select Judge" required>
@@ -521,22 +552,26 @@
                     /></span>
                   </mat-form-field>
                 </a>
-                <mat-option>Select</mat-option>
-                <mat-option
-                  *ngFor="let state of filteredJudgeList"
-                  [value]="state.value"
-                >
-                  {{ state.name }}
-                </mat-option>
+                <div style="height: 190px">
+                  <ng-scrollbar>
+                    <mat-option>Select</mat-option>
+                    <mat-option
+                      *ngFor="let judge of filteredJudgeList"
+                      [value]="judge.value"
+                    >
+                      {{ judge.name }}
+                    </mat-option>
+                  </ng-scrollbar>
+                </div>
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="mat-input-white col">
+          <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label">Decision Date</mat-label>
             <mat-form-field appearance="outline">
               <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Start date" disabled />
-                <input matEndDate placeholder="End date" disabled />
+                <input matStartDate placeholder="Start date" />
+                <input matEndDate placeholder="End date" />
               </mat-date-range-input>
               <mat-datepicker-toggle
                 matIconSuffix
@@ -548,16 +583,110 @@
         </div>
 
         <div class="row">
-          <div class="mat-input-white col me-4">
+          <div
+            class="d-flex mat-input-white me-4"
+            style="flex-direction: column"
+          >
             <mat-label class="mat-label">Case No.</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Case" />
+              <input matInput placeholder="Enter Case No." />
             </mat-form-field>
           </div>
-          <div class="mat-input-white col">
-            <mat-label class="mat-label">Act</mat-label>
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <mat-label class="mat-label">Act Title</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Type Application Name" />
+              <mat-select placeholder="Select Act Title" required>
+                <a
+                  (click)="$event.stopPropagation()"
+                  style="text-decoration: none"
+                >
+                  <mat-form-field
+                    class="p-2 w-100 search-input"
+                    appearance="outline"
+                  >
+                    <input #search matInput (keyup)="filterAct($event)" />
+                    <span matSuffix
+                      ><img
+                        class="me-2"
+                        src="../../../assets/images/icons/search-blue.svg"
+                    /></span>
+                  </mat-form-field>
+                </a>
+                <div style="height: 190px">
+                  <ng-scrollbar>
+                    <mat-option>Select</mat-option>
+                    <mat-option
+                      *ngFor="let act of filteredActList"
+                      [value]="act.value"
+                    >
+                      {{ act.name }}
+                    </mat-option>
+                  </ng-scrollbar>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            class="d-flex mat-input-white me-4"
+            style="flex-direction: column"
+          >
+            <mat-label class="mat-label">Case Year</mat-label>
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="Enter Case Year"
+                (keypress)="isNumber($event)"
+                maxlength="4"
+              />
+            </mat-form-field>
+          </div>
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <mat-label class="mat-label">Act Type</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select Act Type" required>
+                <a
+                  (click)="$event.stopPropagation()"
+                  style="text-decoration: none"
+                >
+                  <mat-form-field
+                    class="p-2 w-100 search-input"
+                    appearance="outline"
+                  >
+                    <input #search matInput (keyup)="filterActType($event)" />
+                    <span matSuffix
+                      ><img
+                        class="me-2"
+                        src="../../../assets/images/icons/search-blue.svg"
+                    /></span>
+                  </mat-form-field>
+                </a>
+                <div style="height: 190px">
+                  <ng-scrollbar>
+                    <mat-option>Select</mat-option>
+                    <mat-option
+                      *ngFor="let act of filteredActTypeList"
+                      [value]="act.value"
+                    >
+                      {{ act.name }}
+                    </mat-option>
+                  </ng-scrollbar>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            class="d-flex mat-input-white me-4"
+            style="flex-direction: column"
+          >
+            <mat-label class="mat-label">Advocates</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Advocate Name" />
             </mat-form-field>
           </div>
         </div>

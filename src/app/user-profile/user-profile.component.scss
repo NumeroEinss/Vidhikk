@@ -82,7 +82,6 @@
 
         .description {
           margin-top: 20px;
-          height: 36px;
           flex-grow: 0;
           font-family: Poppins;
           font-size: 12px;
@@ -147,6 +146,10 @@
               font-size: 14px;
               color: grey;
             }
+
+            :hover {
+              color: #2e5bff;
+            }
           }
         }
       }
@@ -165,7 +168,7 @@
 }
 
 // profile edit popup styling start
-.profile-edit-popup {
+.edit-profile-popup {
   width: 320px !important;
 
   h1 {
@@ -198,10 +201,6 @@
     }
 
     textarea {
-      color: #c4c4c4;
-      outline: none;
-      border: 1px solid #ebebeb;
-      border-radius: 12px;
       line-height: 1.43;
       font-size: 14px;
       resize: none;
@@ -209,7 +208,7 @@
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
-      padding: 10px 10px 10px 20px;
+      color: #000000;
     }
   }
 }
@@ -217,15 +216,132 @@
 // profile edit popup styling ends
 
 
-// Subscription Popup Styling Start
 
+// Mobile-verification popup styling start
+.mobile-verification-popup {
+  .modal-body {
+    .head-text {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .sub-text {
+      .mobile {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// Mobile-verification popup styling start
+
+
+
+// Email-verification popup styling start
+.email-verification-popup {
+  .modal-body {
+    .head-text {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .sub-text {
+      .email {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// Email-verification popup styling start
+
+
+// Subscription Popup Styling Start
 .subscription-modal {
 
   .modal-body {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin:30px 100px;
+    gap: 50px;
+    margin: 40px 0;
+
+    .feature {
+      color: #8798ad;
+      margin-top: 5px;
+
+      img {
+        margin-right: 8px;
+      }
+    }
+
+    .plan-name {
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: var(--solid-black);
+      margin-top: 30px;
+    }
+
+    .limit {
+      margin-top: 20px;
+      font-family: Poppins;
+      font-size: 20px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #8798ad;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .minus-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        background-color: #f5f5f5;
+        font-weight: 600;
+        color: #000000;
+        margin-left: 5px;
+      }
+
+      .number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 31px;
+        height: 36px;
+        border: 1px solid #f5f5f5;
+        border-radius: 4px;
+        color: #000000;
+        font-weight: 600;
+        margin-left: 10px;
+        font-size: 14px;
+      }
+
+      .plus-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        background-color: #f5f5f5;
+        font-weight: 600;
+        color: #000000;
+        margin-left: 10px;
+      }
+    }
+
 
     .basic-plan {
       display: flex;
@@ -234,19 +350,36 @@
       align-items: center;
       border: 2px solid rgba(5, 59, 255, 0.05);
       border-radius: 24px;
-      padding: 40px 40px;
+      padding: 50px 48px;
 
-      .plan-name {
-        font-family: Poppins;
-        font-size: 18px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: var(--solid-black);
+      .active-plan {
+        background-color: #2e5bff;
+        color: white;
+        padding: 8px 10px;
+        position: absolute;
+        top: 30px;
+        left: 111px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        margin-top: 10px;
+
+        .tringle {
+          content: "";
+          width: 12px;
+          height: 12px;
+          position: absolute;
+          top: 30px;
+          left: 0px;
+          border-bottom-left-radius: 5px;
+          border-left: 4px solid #2e5bff;
+        }
       }
+
+      .beginners {
+        font-weight: 500;
+        margin-top: 6px;
+      }
+
 
       .free {
         font-family: Poppins;
@@ -261,33 +394,13 @@
         margin-top: 20px;
       }
 
-      .limit {
+      .cancel-button {
         margin-top: 20px;
-        font-family: Poppins;
-        font-size: 20px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: #8798ad;
-      }
 
-      .feature{
-        color: #8798ad;
-        img{
-          margin-right: 5px;
+        .cancel-btn {
+          background-color: black;
         }
       }
-
-      .cancel-button{
-        margin-top: 20px;
-        .cancel-btn{
-          background-color: black;
-        }    
-      }
-
     }
 
     .personal-plan {
@@ -297,58 +410,45 @@
       align-items: center;
       border: 2px solid rgba(5, 59, 255, 0.05);
       border-radius: 24px;
-      padding: 50px 40px;
+      padding: 50px 48px;
 
-      .plan-name {
-        font-family: Poppins;
-        font-size: 18px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: var(--solid-black);
+      .individuals {
+        font-weight: 500;
+        margin-top: 6px;
       }
 
       .free {
+        display: flex;
+        align-items: baseline;
         font-family: Poppins;
-        font-size: 50px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: var(--solid-black);
         margin-top: 20px;
-      }
+        position: relative;
 
-      .limit {
-        margin-top: 20px;
-        font-family: Poppins;
-        font-size: 20px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: #8798ad;
-      }
+        .rupee {
+          position: absolute;
+          top: 13px;
+          left: -8px;
+        }
 
-      .feature{
-        color: #8798ad;
-        img{
-          margin-right: 5px;
+        .cost {
+          font-size: 50px;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: var(--solid-black);
+        }
+
+        .month {
+          color: #2e5bff;
+          white-space: nowrap;
         }
       }
 
-      .cancel-button{
+      .cancel-button {
         margin-top: 20px;
-        .cancel-btn{
-          background-color: black;
-        }    
       }
     }
 
@@ -359,58 +459,46 @@
       align-items: center;
       border: 2px solid rgba(5, 59, 255, 0.05);
       border-radius: 24px;
-      padding: 50px 40px;
+      padding: 50px 48px;
 
-      .plan-name {
-        font-family: Poppins;
-        font-size: 18px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: var(--solid-black);
+      .team {
+        font-weight: 500;
+        margin-top: 6px;
       }
 
       .free {
+        display: flex;
+        align-items: baseline;
         font-family: Poppins;
-        font-size: 50px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: var(--solid-black);
         margin-top: 20px;
-      }
+        position: relative;
 
-      .limit {
-        margin-top: 20px;
-        font-family: Poppins;
-        font-size: 20px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: #8798ad;
-      }
-
-      .feature{
-        color: #8798ad;
-        img{
-          margin-right: 5px;
+        .rupee {
+          position: absolute;
+          top: 13px;
+          left: -8px;
         }
+
+        .cost {
+          font-size: 50px;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: var(--solid-black);
+        }
+
+        .month {
+          color: #2e5bff;
+          white-space: nowrap;
+        }
+
       }
 
-      .cancel-button{
+      .cancel-button {
         margin-top: 20px;
-        .cancel-btn{
-          background-color: black;
-        }    
       }
     }
   }
