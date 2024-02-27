@@ -18,10 +18,10 @@
         align-items: center;
         width: 100%;
 
-        .conference-header-details {
-          display: flex;
-          align-items: center;
-          padding: 20px 10px;
+                .conference-header-details {
+                    display: flex;
+                    align-items: center;
+                    padding: 15px 10px;
 
           .user-img {
             width: 40px;
@@ -39,17 +39,19 @@
           }
         }
 
-        .timer {
-          .ui-widgets {
-            cursor: pointer;
-            display: inline-block;
-            position: relative;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 5rem;
-            border: 0.3rem solid #2e5bff;
-            text-align: center;
-            box-sizing: border-box;
+                    .ui-widgets {
+                        cursor: pointer;
+                        display: inline-block;
+                        position: relative;
+                        width: 3rem;
+                        height: 3rem;
+                        border-radius: 5rem;
+                        border: 0.3rem solid #2e5bff;
+                        text-align: center;
+                        box-sizing: border-box;
+                        position: absolute;
+                        right: 30px;
+                        top: 10px;
 
             .values {
               top: 8px;
@@ -58,15 +60,16 @@
               right: 0;
             }
 
-            .count-down {
-              font-size: 10px;
-              color: #2e5bff;
+                        .count-down {
+                            font-size: 10px;
+                            color: #2e5bff;
+
+                        }
+                    }
+                
             }
-          }
         }
-      }
     }
-  }
 
   .modal-body {
     padding: unset;
@@ -100,12 +103,13 @@
     }
   }
 
-  .modal-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fbfbfb;
-    height: 70px;
+    .modal-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fbfbfb;
+        height: 70px;
+        padding: unset !important;
 
     .footer-icon {
       display: flex;
@@ -119,13 +123,14 @@
       }
     }
 
-    .footer-chat-icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: absolute;
-      right: 40px;
-      cursor: pointer;
+        .footer-chat-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            right: 28px;
+            cursor: pointer;
+
 
       img {
         width: 30px;
@@ -159,13 +164,14 @@
             margin-left: 34px;
           }
 
-          .close-button {
-            width: 16.11px;
-            height: 16px;
-            margin-right: 34px;
-          }
-        }
-      }
+                    .close-button {
+                        width: 16.11px;
+                        height: 16px;
+                        margin-right: 34px;
+                        cursor: pointer;
+                    }
+                }
+            }
 
       .chat-area {
         margin-top: 20px;
@@ -310,15 +316,16 @@
           height: 46px;
         }
 
-        img {
-          margin-left: 25px;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
+                img {
+                    margin-left: 25px;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+            }
         }
-      }
     }
-  }
 }
 
 // conference popup styling ends

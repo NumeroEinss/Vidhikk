@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,13 +10,26 @@ import { Component } from '@angular/core';
 
 export class UserProfileComponent {
 
-  constructor() {
+  editProfile: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.editProfile = new FormGroup({
+      coreCompetency: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      mobile: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      email: new FormControl('', [Validators.required,  Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+    })
+  }
+
+  get editProfileFormCtrl() {
+    return this.editProfile.controls
   }
 
   ngAfterViewInit() {
     const element = document.getElementById("basic-info") as HTMLElement
     element.scrollIntoView({ behavior: "smooth", block: "center" });
     element.classList.add('box-shadow');
+    const element2 = document.getElementById("basic-nav") as HTMLElement
+    element2.classList.add('active-nav');
   }
 
   addShadow(type: any) {
@@ -88,4 +102,12 @@ export class UserProfileComponent {
         break;
     }
   }
+
+  isNumber(event: any) {
+    return event.charCode >= 48 && event.charCode <= 57;
+  }
+  onOtpChange(e: any) {
+    console.log(e);
+  }
+
 }

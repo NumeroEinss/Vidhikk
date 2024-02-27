@@ -7,6 +7,7 @@ import { MaterialModule } from '../material/material.module';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { GlobalSearchComponent } from './component/global-search/global-search.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { TableComponent } from './component/table/table.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { MatChipsModule } from '@angular/material/chips';
     PageNotFoundComponent,
     HeaderComponent,
     FooterComponent,
-    GlobalSearchComponent
+    GlobalSearchComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,

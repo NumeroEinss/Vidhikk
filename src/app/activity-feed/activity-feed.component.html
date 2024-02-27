@@ -5,15 +5,10 @@
 <div class="root">
   <div class="feed-section" [ngStyle]="opacityStyling">
     <!--marquee -->
-    <marquee
-      behavior="'smooth'"
-      direction="rtl"
-      onmouseover="this.stop()"
-      onmouseout="this.start()"
-      >comply with any legal advertising regulations in your jurisdiction and
+    <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
+      legal advertising regulations in your jurisdiction and
       ensure that your messages dhere to professional and ethical
-      standards</marquee
-    >
+      standards</marquee>
 
     <div style="height: calc(100vh - 196px)">
       <ng-scrollbar autoHeightDisabled="false">
@@ -207,21 +202,9 @@
   <!-- root & feed section ends -->
 
   <!-- modal start -->
-  <button
-    id="modalButton"
-    data-bs-toggle="modal"
-    data-bs-target="#disclaimerModal"
-    style="display: none"
-  ></button>
-  <div
-    class="modal fade"
-    id="disclaimerModal"
-    tabindex="-1"
-    aria-labelledby="disclaimerModalLabel"
-    aria-hidden="true"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-  >
+  <button id="modalButton" data-bs-toggle="modal" data-bs-target="#disclaimerModal" style="display: none"></button>
+  <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -230,27 +213,24 @@
         <div class="modal-body mb-3">
           <ol>
             <li class="mb-3">
-              <span class="list-heading">No Legal Advise: </span
-              ><span class="list-description"
-                >The information contained on the Website is for general
+              <span class="list-heading">No Legal Advise: </span><span class="list-description">The information
+                contained on the Website is for general
                 informational purposes only and is not intended to provide legal
                 advice. You should consult with a qualified legal professional
                 for advice regarding your individual situation.
               </span>
             </li>
             <li class="mb-3">
-              <span class="list-heading">No Attorney-Client Relationship: </span
-              ><span class="list-description"
-                >Your use of the Website does not create an attorney-client
+              <span class="list-heading">No Attorney-Client Relationship: </span><span class="list-description">Your use
+                of the Website does not create an attorney-client
                 relationship between you and vidhik. Such a relationship can
                 only be established through a specific written agreement with
                 us.
               </span>
             </li>
             <li class="mb-3">
-              <span class="list-heading">Accuracy of Information: </span
-              ><span
-                >While we strive to provide accurate and up-to-date information,
+              <span class="list-heading">Accuracy of Information: </span><span>While we strive to provide accurate and
+                up-to-date information,
                 we make no representations or warranties of any kind, express or
                 implied, about the completeness, accuracy, reliability,
                 suitability, or availability of the information contained on the
@@ -258,23 +238,16 @@
               </span>
             </li>
             <li class="mb-3">
-              <span class="list-heading">Acceptance of Terms: </span
-              ><span
-                >By clicking &quot;Accept&quot; below, you acknowledge that you
+              <span class="list-heading">Acceptance of Terms: </span><span>By clicking &quot;Accept&quot; below, you
+                acknowledge that you
                 have read, understood, and agree to be bound by the terms of
                 this disclaimer. If you do not agree to these terms, pleas click
-                &quot;Reject&quot; and refrain from using the Website.</span
-              >
+                &quot;Reject&quot; and refrain from using the Website.</span>
             </li>
           </ol>
           <div class="text-center mt-4">
-            <button
-              mat-stroked-button
-              color="primary"
-              style="width: fit-content !important"
-              routerLink="/auth/login"
-              data-bs-dismiss="modal"
-            >
+            <button mat-stroked-button color="primary" style="width: fit-content !important" routerLink="/auth/login"
+              data-bs-dismiss="modal">
               Reject
             </button>
 

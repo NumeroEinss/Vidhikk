@@ -21,6 +21,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'news',
+        loadChildren: () =>
+          import('../news/news.module').then(
+            (m) => m.NewsModule
+          ),
+      },
+      {
         path: 'user-profile',
         loadChildren: () =>
           import('../user-profile/user-profile.module').then(
@@ -44,10 +51,10 @@ const routes: Routes = [
         loadChildren: () =>
           import('../chat-room/chat-room.module').then((m) => m.ChatRoomModule),
       },
-            {
-                path: 'conference',
-                loadChildren: () => import('../conference/conference.module').then(m => m.ConferenceModule)
-            },
+      {
+        path: 'conference',
+        loadChildren: () => import('../conference/conference.module').then(m => m.ConferenceModule)
+      },
       {
         path: 'global-search',
         component: GlobalSearchComponent,
@@ -73,4 +80,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }

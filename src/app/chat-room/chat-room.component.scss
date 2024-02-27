@@ -50,8 +50,8 @@
       font-size: 14px;
     }
   }
-
   // chat room styling ends
+
 
   // chat-room chat-UI styling start
   .chat-container {
@@ -90,6 +90,7 @@
           margin-left: 10px;
           background-color: #ffffff;
           border-radius: 12px;
+          cursor: pointer;
 
           img {
             padding: 15px 15px;
@@ -97,8 +98,12 @@
         }
       }
 
-      .test {
-        border-left: 2px solid #2e5bff;
+      .colored-border-chat-room {
+        border-left: 3px solid #2e5bff;
+      }
+
+      .colorless-border-chatroom{
+        border-left: 3px solid #ffffff;
       }
 
       .chat-room-details {
@@ -178,18 +183,25 @@
 
         .chat-header-detail {
           display: flex;
+          justify-content: space-between;
           padding: 20px 10px;
-        }
 
-        .user-img {
-          width: 42px;
-          height: 42px;
-          border-radius: 50%;
-          margin-left: 20px;
+          .group-chat-icon{
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            margin-left: 20px;
+            img{
+              width: 42px;
+              height: 42px;
+              border-radius: 50%;
+            }
+          }
         }
 
         .user-detail {
           margin-left: 10px;
+          cursor: pointer;
 
           .user-name {
             font-weight: 600 !important;
@@ -198,19 +210,13 @@
             font-family: Poppins;
           }
 
-          .user-status {
+          .participants {
             display: flex;
-            justify-content: center;
             align-items: center;
-
-            div {
-              width: 10px;
-              height: 10px;
-              border-radius: 50%;
-              background-color: #23af53;
-              margin-right: 5px;
-            }
           }
+        }
+        .create-chat-icon{
+          margin-right: 30px;
         }
       }
 
@@ -345,7 +351,7 @@
           border: 1px solid #ebebeb;
           border-radius: 12px;
           line-height: 1.43;
-          font-size: 14px;
+          font-size: 12px;
           resize: none;
           font-family: Poppins;
           font-weight: normal;
@@ -359,6 +365,7 @@
 
         img {
           margin-left: 25px;
+          cursor: pointer;
         }
       }
 

@@ -1,0 +1,43 @@
+<!-- header  -->
+<app-header [menuName]="'News'"></app-header>
+
+<!-- root section start -->
+<div class="root">
+    <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
+        legal advertising regulations in your jurisdiction and
+        ensure that your messages dhere to professional and ethical
+        standards</marquee>
+
+    <div class="feed-section">
+        <div class="d-flex">
+            <div class="news w-100">
+                <img src="../../assets/images/image/mcdonald.jpg" alt="noImage">
+            </div>
+            <div class="advertisement">
+                <img src="../../assets/images/image/lawyer_2.jpg" [width]="300" alt="noImage" />
+            </div>
+        </div>
+
+        <div class="news-logo-n-name my-4">
+            <div>
+                <img src="../../assets/images/icons/news_feed.svg" alt="noImage" />
+            </div>
+            <div class="news-feed">News Feed</div>
+        </div>
+
+        <div style="height: calc(100vh - 210px)">
+            <ng-scrollbar >
+                <div class="news-feed-container">
+                    <div class="d-flex news-feed-section" *ngFor="let news of newsList">
+                        <div><img [src]="news.image" alt="noImage" /></div>
+                        <div class="news-details">
+                            <div class="news-heading">{{news.heading}}</div>
+                            <div class="news-description mt-1">{{news.description}}</div>
+                            <div class="read-more mt-1"><a href="https://sanantonioreport.org/">Read More</a></div>
+                        </div>
+                    </div>
+                </div>
+            </ng-scrollbar>
+        </div>
+    </div>
+    <!-- root section ends-->

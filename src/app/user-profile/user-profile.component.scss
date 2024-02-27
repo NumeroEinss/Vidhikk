@@ -45,6 +45,8 @@
 
     .main-content {
       margin-left: 300px;
+      width: -webkit-fill-available;
+      width: -moz-available;
 
       .basic-info {
         border: 1px solid rgb(238, 238, 238);
@@ -73,6 +75,8 @@
 
           button {
             width: unset !important;
+            background-color: #053bff0d;
+            border-color: #7d818e0d !important;
           }
         }
 
@@ -143,7 +147,7 @@
               color: grey;
             }
 
-            a:hover {
+            :hover {
               color: #2e5bff;
             }
           }
@@ -162,3 +166,342 @@
     }
   }
 }
+
+// profile edit popup styling start
+.edit-profile-popup {
+  width: 320px !important;
+
+  h1 {
+    font-size: 16px !important;
+    color: #000000;
+    font-family: Poppins;
+    font-weight: 400 !important;
+  }
+
+  .modal-body {
+    padding: 25px;
+
+    .row-field {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      a {
+        cursor: pointer;
+      }
+    }
+
+
+    .mat-label {
+      text-align: left;
+      font-size: 14px;
+      font-family: Poppins;
+      font-weight: 500 !important;
+      color: #000000;
+    }
+
+    textarea {
+      line-height: 1.43;
+      font-size: 14px;
+      resize: none;
+      font-family: Poppins;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      color: #000000;
+    }
+  }
+}
+
+// profile edit popup styling ends
+
+
+
+// Mobile-verification popup styling start
+.mobile-verification-popup {
+  .modal-body {
+    .head-text {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .sub-text {
+      .mobile {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// Mobile-verification popup styling start
+
+
+
+// Email-verification popup styling start
+.email-verification-popup {
+  .modal-body {
+    .head-text {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .sub-text {
+      .email {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// Email-verification popup styling start
+
+
+// Subscription Popup Styling Start
+.subscription-modal {
+
+  .modal-body {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 40px 0;
+
+    .feature {
+      color: #8798ad;
+      margin-top: 5px;
+
+      img {
+        margin-right: 8px;
+      }
+    }
+
+    .plan-name {
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: var(--solid-black);
+      margin-top: 30px;
+    }
+
+    .limit {
+      margin-top: 20px;
+      font-family: Poppins;
+      font-size: 20px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #8798ad;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .minus-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        background-color: #f5f5f5;
+        font-weight: 600;
+        color: #000000;
+        margin-left: 5px;
+      }
+
+      .number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 31px;
+        height: 36px;
+        border: 1px solid #f5f5f5;
+        border-radius: 4px;
+        color: #000000;
+        font-weight: 600;
+        margin-left: 10px;
+        font-size: 14px;
+      }
+
+      .plus-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        background-color: #f5f5f5;
+        font-weight: 600;
+        color: #000000;
+        margin-left: 10px;
+      }
+    }
+
+
+    .basic-plan {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid rgba(5, 59, 255, 0.05);
+      border-radius: 24px;
+      padding: 50px 48px;
+
+      .active-plan {
+        background-color: #2e5bff;
+        color: white;
+        padding: 8px 10px;
+        position: absolute;
+        top: 30px;
+        left: 111px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        margin-top: 10px;
+
+        .tringle {
+          content: "";
+          width: 12px;
+          height: 12px;
+          position: absolute;
+          top: 30px;
+          left: 0px;
+          border-bottom-left-radius: 5px;
+          border-left: 4px solid #2e5bff;
+        }
+      }
+
+      .beginners {
+        font-weight: 500;
+        margin-top: 6px;
+      }
+
+
+      .free {
+        font-family: Poppins;
+        font-size: 50px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: var(--solid-black);
+        margin-top: 20px;
+      }
+
+      .cancel-button {
+        margin-top: 20px;
+
+        .cancel-btn {
+          background-color: black;
+        }
+      }
+    }
+
+    .personal-plan {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid rgba(5, 59, 255, 0.05);
+      border-radius: 24px;
+      padding: 50px 48px;
+
+      .individuals {
+        font-weight: 500;
+        margin-top: 6px;
+      }
+
+      .free {
+        display: flex;
+        align-items: baseline;
+        font-family: Poppins;
+        margin-top: 20px;
+        position: relative;
+
+        .rupee {
+          position: absolute;
+          top: 13px;
+          left: -8px;
+        }
+
+        .cost {
+          font-size: 50px;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: var(--solid-black);
+        }
+
+        .month {
+          color: #2e5bff;
+          white-space: nowrap;
+        }
+      }
+
+      .cancel-button {
+        margin-top: 20px;
+      }
+    }
+
+    .agency-plan {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid rgba(5, 59, 255, 0.05);
+      border-radius: 24px;
+      padding: 50px 48px;
+
+      .team {
+        font-weight: 500;
+        margin-top: 6px;
+      }
+
+      .free {
+        display: flex;
+        align-items: baseline;
+        font-family: Poppins;
+        margin-top: 20px;
+        position: relative;
+
+        .rupee {
+          position: absolute;
+          top: 13px;
+          left: -8px;
+        }
+
+        .cost {
+          font-size: 50px;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: var(--solid-black);
+        }
+
+        .month {
+          color: #2e5bff;
+          white-space: nowrap;
+        }
+
+      }
+
+      .cancel-button {
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+// Subscription Popup Styling Ends

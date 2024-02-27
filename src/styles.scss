@@ -405,7 +405,7 @@ body {
   }
 
   .mdc-label {
-    font-size: 12px;
+    font-size: 14px;
     color: #8798ad;
     font-family: Poppins;
     font-weight: normal;
@@ -414,6 +414,7 @@ body {
     line-height: normal;
     letter-spacing: normal;
     white-space: nowrap;
+    padding-left: unset !important;
   }
 
   //mat-error under mat-input Override Css
