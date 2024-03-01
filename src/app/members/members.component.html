@@ -2,7 +2,7 @@
 <app-header [menuName]="'Member'"></app-header>
 
 <!-- root section start -->
-<div class="root">
+<div class="root" style="height: calc(100vh - 250px)">
   <!-- member directory section start -->
   <!-- <div class="member-directory">
     <div class="member-directory-repo">Member Directory</div>
@@ -21,60 +21,61 @@
   <!-- member directory section ends-->
 
   <!-- add member list start -->
-  <div class="add-member-list">
-    <div class="add-member-btn mb-4">
-      <button
-        mat-stroked-button
-        color="primary"
-        style="border-radius: 12px"
-        data-bs-target="#addMemberModalToggle"
-        data-bs-toggle="modal"
-      >
-        <img
-          class="me-2"
-          src="../../../assets/images/icons/add_member_plus.svg"
-        /><span style="color: #2e5bff"></span>Add Member
-      </button>
-    </div>
-
-    <div style="height: calc(100vh - 250px); overflow: auto">
-      <div class="member-list-header">
-        <div class="grid-item-name">NAME</div>
-        <div class="grid-item1">CONTACT NO. DETAILS</div>
-        <div class="grid-item1">EMAIL DETAILS</div>
-        <div class="grid-item1">DESIGNATION</div>
-        <div class="grid-item1">BRANCH</div>
-        <div class="grid-item1">ACTIONS</div>
-      </div>
-
-      <div *ngFor="let member of memberList" class="member-list-data">
-        <div class="grid-item2">
-          <span><img [src]="member.image" class="me-2" /></span
-          >{{ member.memberName }}
-        </div>
-        <div class="grid-item2">
-          <span><img [src]="member.icon" class="icon me-2" /> </span
-          >{{ member.contactNo }}
-        </div>
-        <div class="grid-item2">
-          <span><img [src]="member.emailIcon" class="icon me-2" /> </span
-          >{{ member.emailDetails }}
-        </div>
-        <div class="grid-item2">{{ member.designation }}</div>
-        <div class="grid-item2">{{ member.branch }}</div>
-        <div class="grid-item2">
-          <button
-            mat-icon-button
-            data-bs-toggle="modal"
-            data-bs-target="#deleteModel"
-          >
-            <mat-icon style="color: #2e5bff">delete</mat-icon>
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- add member list ends -->
+  <div class="add-member-btn mb-4">
+    <button
+      mat-stroked-button
+      color="primary"
+      style="border-radius: 12px"
+      data-bs-target="#addMemberModalToggle"
+      data-bs-toggle="modal"
+    >
+      <img
+        class="me-2"
+        src="../../../assets/images/icons/add_member_plus.svg"
+      /><span style="color: #2e5bff"></span>Add Member
+    </button>
   </div>
+  <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+    <div class="add-member-list">
+      <div>
+        <div class="member-list-header">
+          <div class="grid-item-name">NAME</div>
+          <div class="grid-item1">CONTACT NO. DETAILS</div>
+          <div class="grid-item1">EMAIL DETAILS</div>
+          <div class="grid-item1">DESIGNATION</div>
+          <div class="grid-item1">BRANCH</div>
+          <div class="grid-item1">ACTIONS</div>
+        </div>
+
+        <div *ngFor="let member of memberList" class="member-list-data">
+          <div class="grid-item2">
+            <span><img [src]="member.image" class="me-2" /></span
+            >{{ member.memberName }}
+          </div>
+          <div class="grid-item2">
+            <span><img [src]="member.icon" class="icon me-2" /> </span
+            >{{ member.contactNo }}
+          </div>
+          <div class="grid-item2">
+            <span><img [src]="member.emailIcon" class="icon me-2" /> </span
+            >{{ member.emailDetails }}
+          </div>
+          <div class="grid-item2">{{ member.designation }}</div>
+          <div class="grid-item2">{{ member.branch }}</div>
+          <div class="grid-item2">
+            <button
+              mat-icon-button
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModel"
+            >
+              <mat-icon style="color: #2e5bff">delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- add member list ends -->
+    </div>
+  </ng-scrollbar>
   <!-- root section ends -->
   <!-- member initial popup start -->
   <div>
@@ -171,7 +172,12 @@
           <h1 class="modal-title fs-5" id="addMemberModalToggleLabel">
             Add Member
           </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <div class="add-member-body">
@@ -257,7 +263,7 @@
   <!-- filter popup  start-->
   <div>
     <div
-      class="modal fade"
+      class="modal fade filterPopup"
       id="addMemberModalToggle2"
       aria-hidden="true"
       aria-labelledby="addMemberModalToggleLabel2"

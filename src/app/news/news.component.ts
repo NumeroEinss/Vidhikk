@@ -24,7 +24,7 @@ export class NewsComponent {
     },
     {
       image: '../../assets/images/image/news_feed3.jpg',
-      heading: 'Case Study: How TechVantage Transformed Company ABC&nbsp quotes Workflow',
+      heading: 'Case Study: How TechVantage Transformed Company ABC quotes Workflow',
       description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
     },
     {

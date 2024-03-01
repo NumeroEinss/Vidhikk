@@ -11,7 +11,7 @@
       standards</marquee>
 
     <div style="height: calc(100vh - 196px)">
-      <ng-scrollbar autoHeightDisabled="false">
+      <ng-scrollbar autoHeightDisabled="false" appearance="standard">
         <div class="d-flex w-100">
           <div class="up-section-1 w-100">
             <div class="profile-container">
@@ -102,7 +102,7 @@
               *ngIf="isCommentBoxOpen || isPost"
               class="comment-section"
             >
-              <ng-scrollbar autoHeightDisabled="false">
+              <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                 <div *ngFor="let comment of item.comments" class="comment">
                   <div class="down-section-1a">
                     <div class="d-flex">

@@ -18,7 +18,7 @@ export class ChatRoomComponent implements AfterViewInit {
 
   roomList = [
     {
-      image: '../../assets/images/icons/group_chat.png',
+      image: '../../assets/images/image/chat-default.png',
       name: 'Group Chat Name',
       message: 'No problem! Let me know if...',
       className: 'colorless-border-chatroom',
@@ -216,7 +216,7 @@ export class ChatRoomComponent implements AfterViewInit {
     let element = document.getElementById('modalButton2') as HTMLElement;
     element.click();
 
-    this.roomList[0].className = "colored-border-chat-room";
+    this.roomList[0].className = 'colored-border-chat-room';
   }
 
   addMessage() {
@@ -232,8 +232,8 @@ export class ChatRoomComponent implements AfterViewInit {
     };
     this.chatList.push(newMessage);
     this.message = '';
-    let element = document.getElementById('chat-textarea') as HTMLElement;
-    element.scrollTo(0, 1000);
+    // let element = document.getElementById('chat-textarea') as HTMLElement;
+    // element.scrollTo(0, 1000);
   }
 
   addStyling(className: string, index: number) {

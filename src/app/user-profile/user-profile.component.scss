@@ -41,6 +41,18 @@
           background-color: grey;
         }
       }
+      .logout {
+        a {
+          cursor: pointer;
+          font-family: Poppins;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.6);
+        }
+
+        :hover {
+          color: #2e5bff;
+        }
+      }
     }
 
     .main-content {
@@ -191,7 +203,6 @@
       }
     }
 
-
     .mat-label {
       text-align: left;
       font-size: 14px;
@@ -215,8 +226,6 @@
 
 // profile edit popup styling ends
 
-
-
 // Mobile-verification popup styling start
 .mobile-verification-popup {
   .modal-body {
@@ -234,8 +243,6 @@
 }
 
 // Mobile-verification popup styling start
-
-
 
 // Email-verification popup styling start
 .email-verification-popup {
@@ -255,10 +262,8 @@
 
 // Email-verification popup styling start
 
-
 // Subscription Popup Styling Start
 .subscription-modal {
-
   .modal-body {
     display: flex;
     justify-content: center;
@@ -342,7 +347,6 @@
       }
     }
 
-
     .basic-plan {
       display: flex;
       flex-direction: column;
@@ -379,7 +383,6 @@
         font-weight: 500;
         margin-top: 6px;
       }
-
 
       .free {
         font-family: Poppins;
@@ -494,7 +497,6 @@
           color: #2e5bff;
           white-space: nowrap;
         }
-
       }
 
       .cancel-button {

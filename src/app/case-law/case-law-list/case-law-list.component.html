@@ -47,7 +47,7 @@
               />
             </mat-form-field>
             <div class="list-container">
-              <ng-scrollbar autoHeightDisabled="false">
+              <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                 <li
                   mat-menu-item
                   *ngFor="let search of searchList"
@@ -98,7 +98,7 @@
       </div>
       <!-- Case Law List -->
       <div style="height: calc(100vh - 243px)">
-        <ng-scrollbar autoHeightDisabled="false">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           <div
             class="case-container"
             *ngFor="let case of caseList"
@@ -190,7 +190,7 @@
                 </mat-form-field>
               </a>
               <div style="height: 190px">
-                <ng-scrollbar autoHeightDisabled="false">
+                <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                   <mat-option>Select</mat-option>
                   <mat-option
                     *ngFor="let judge of filteredJudgeList"
@@ -325,7 +325,7 @@
         </div>
       </div>
       <div style="height: calc(100vh - 243px)">
-        <ng-scrollbar autoHeightDisabled="false">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           <div class="bare-acts">
             <div class="acts" *ngFor="let acts of actsList">
               {{ acts.name }}
@@ -440,7 +440,7 @@
         </div>
       </div>
       <div style="height: calc(100vh - 243px)">
-        <ng-scrollbar autoHeightDisabled="false">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           <div class="overruledby">
             <div
               class="acts"

@@ -18,10 +18,10 @@
         align-items: center;
         width: 100%;
 
-                .conference-header-details {
-                    display: flex;
-                    align-items: center;
-                    padding: 15px 10px;
+        .conference-header-details {
+          display: flex;
+          align-items: center;
+          padding: 15px 10px;
 
           .user-img {
             width: 40px;
@@ -39,37 +39,41 @@
           }
         }
 
-                    .ui-widgets {
-                        cursor: pointer;
-                        display: inline-block;
-                        position: relative;
-                        width: 3rem;
-                        height: 3rem;
-                        border-radius: 5rem;
-                        border: 0.3rem solid #2e5bff;
-                        text-align: center;
-                        box-sizing: border-box;
-                        position: absolute;
-                        right: 30px;
-                        top: 10px;
+        .ui-widgets {
+          display: flex;
+          justify-content: flex-end;
 
-            .values {
-              top: 8px;
-              position: absolute;
-              left: 0;
-              right: 0;
+          .timer-container {
+            cursor: pointer;
+            display: flex;
+            width: 48px;
+            height: 48px;
+            box-sizing: border-box;
+            background-color: #2e5bff;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            border-radius: 50%;
+
+            .timer-counter {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background-color: #fbfbfb;
+              height: 40px;
+              width: 40px;
+              border-radius: 50%;
             }
 
-                        .count-down {
-                            font-size: 10px;
-                            color: #2e5bff;
-
-                        }
-                    }
-                
+            .count-down {
+              font-size: 10px;
+              color: #2e5bff;
             }
+          }
         }
+      }
     }
+  }
 
   .modal-body {
     padding: unset;
@@ -103,13 +107,13 @@
     }
   }
 
-    .modal-footer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #fbfbfb;
-        height: 70px;
-        padding: unset !important;
+  .modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fbfbfb;
+    height: 70px;
+    padding: unset !important;
 
     .footer-icon {
       display: flex;
@@ -123,14 +127,13 @@
       }
     }
 
-        .footer-chat-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: absolute;
-            right: 28px;
-            cursor: pointer;
-
+    .footer-chat-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      right: 28px;
+      cursor: pointer;
 
       img {
         width: 30px;
@@ -138,18 +141,21 @@
       }
     }
 
-    ng-scrollbar {
-      height: calc(100vh - 305px);
-    }
-
     .chat-popup {
       display: none;
+      // position: fixed;
+      // right: 0;
+      // bottom: 230px;
+      // width: 441px;
+      // height: calc(100vh - 216px);
       position: fixed;
       right: 0;
       bottom: 66px;
       width: 441px;
-      // z-index: 9;
-      background-color: #f5f5f5;
+
+      .chat-box {
+        background-color: #f5f5f5;
+      }
 
       .conference-chat-header {
         background-color: #fbfbfb;
@@ -164,14 +170,14 @@
             margin-left: 34px;
           }
 
-                    .close-button {
-                        width: 16.11px;
-                        height: 16px;
-                        margin-right: 34px;
-                        cursor: pointer;
-                    }
-                }
-            }
+          .close-button {
+            width: 16.11px;
+            height: 16px;
+            margin-right: 34px;
+            cursor: pointer;
+          }
+        }
+      }
 
       .chat-area {
         margin-top: 20px;
@@ -316,16 +322,16 @@
           height: 46px;
         }
 
-                img {
-                    margin-left: 25px;
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    cursor: pointer;
-                }
-            }
+        img {
+          margin-left: 25px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          cursor: pointer;
         }
+      }
     }
+  }
 }
 
 // conference popup styling ends

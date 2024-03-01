@@ -23,7 +23,7 @@ export const colors: any = {
 })
 export class CalendarComponent {
   view: CalendarView = CalendarView.Month;
- 
+
   viewDate: Date = new Date();
 
   events: CalendarEvent[] = [
@@ -59,5 +59,93 @@ export class CalendarComponent {
       color: colors.red,
       start: new Date(),
     },
+  ];
+
+  eventTypeList = [
+    { name: 'All Events', value: 'allEvent' },
+    { name: 'Meetings', value: 'meetings' },
+  ];
+
+  eventType: string = 'allEvent';
+
+  availabilityList: any = [
+    {
+      id:'fasdljasdfa',
+      date: new Date().toLocaleDateString(),
+      timeSlot: [
+        {
+          slot: '5pm-6pm',
+          status: 'booked',
+        },
+        {
+          slot: '6pm-7pm',
+          status: 'available',
+        },
+        {
+          slot: '7pm-8pm',
+          status: 'booked',
+        },
+        {
+          slot: '8pm-9pm',
+          status: 'booked',
+        },
+        {
+          slot: '9pm-10pm',
+          status: 'available',
+        },
+      ]
+    },
+    {
+      id:'fasdasdfljasdfa',
+      date: new Date().toLocaleDateString(),
+      timeSlot: [
+        {
+          slot: '5pm-6pm',
+          status: 'booked',
+        },
+        {
+          slot: '6pm-7pm',
+          status: 'available',
+        },
+        {
+          slot: '7pm-8pm',
+          status: 'booked',
+        },
+        {
+          slot: '8pm-9pm',
+          status: 'booked',
+        },
+        {
+          slot: '9pm-10pm',
+          status: 'available',
+        },
+      ]
+    },
+    {
+      id:'ewrewrewrx',
+      date: new Date().toLocaleDateString(),
+      timeSlot: [
+        {
+          slot: '5pm-6pm',
+          status: 'booked',
+        },
+        {
+          slot: '6pm-7pm',
+          status: 'available',
+        },
+        {
+          slot: '7pm-8pm',
+          status: 'booked',
+        },
+        {
+          slot: '8pm-9pm',
+          status: 'booked',
+        },
+        {
+          slot: '9pm-10pm',
+          status: 'available',
+        },
+      ]
+    }
   ];
 }

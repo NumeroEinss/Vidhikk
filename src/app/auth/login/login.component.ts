@@ -91,7 +91,6 @@ export class LoginComponent {
   login(formType: string) {
     if (formType == 'form') {
       if (this.loginForm.valid) {
-        this._toastMessage.success('Login Successfull !!');
         this._router.navigate(['/lawyer/activity-feed']);
       } else {
         this._toastMessage.error('Please Fill All Fields Properly!!');

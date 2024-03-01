@@ -63,7 +63,7 @@ export class SignupComponent {
     this.signupForm2.controls.email.setValidators([Validators.email]);
     this.signupForm2.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
     this.signupForm2.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
-    this.signupForm2.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword()])
+    this.signupForm2.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword])
   }
 
   get SignupFrmCtrl() {

@@ -1,8 +1,129 @@
-h3 {
-  margin: 0 0 10px;
-}
+.root {
+  height: calc(100vh - 47px);
 
-pre {
-  background-color: #f5f5f5;
-  padding: 15px;
+  .card {
+    margin: 23px 36px;
+    border: none;
+    font-family: Poppins !important;
+
+    .calendar-header-menu {
+      display: flex;
+
+      .filter-section {
+        margin-right: 24px;
+
+        .mat-mdc-form-field {
+          width: 180px !important;
+        }
+      }
+
+      .search-bar {
+        width: 100% !important;
+        margin-right: 24px;
+
+        .mat-mdc-form-field {
+          width: 100% !important;
+        }
+      }
+
+      .create-event {
+        width: unset !important;
+        button {
+          width: 215px !important;
+          background-color: #053bff0d;
+          border-color: #7d818e0d !important;
+        }
+      }
+
+      .mat-mdc-outlined-button:not(:disabled) {
+        width: unset !important;
+      }
+    }
+    .availability {
+      position: relative;
+      margin-top: 56px;
+
+      .availability-label {
+        height: 40px;
+      }
+
+      .create-availability {
+        position: absolute;
+        right: 0;
+        width: unset !important;
+        button {
+          width: 215px !important;
+          background-color: #053bff0d;
+          border-color: #7d818e0d !important;
+        }
+      }
+
+      .add-availability-list {
+        .availability-list-header {
+          display: grid;
+          // grid-template-columns: 250px 200px 250px 200px 120px 40px;
+          grid-template-columns: 20% 70% 10%;
+          margin-bottom: 5px;
+          align-items: center;
+          padding: 0px 15px 0px 15px;
+          color: #8798ad !important;
+          font-size: 12px;
+          margin-top: 30px;
+          width: 100%;
+        }
+
+        .availability-list-data {
+          display: grid;
+          // grid-template-columns: 250px 200px 250px 200px 120px 40px;
+          grid-template-columns: 20% 70% 10%;
+          height: 80px;
+          border: 1px solid #f5f5f5;
+          border-radius: 12px;
+          margin-bottom: 12px;
+          align-items: center;
+          padding: 0px 15px;
+          font-size: 14px;
+          width: 100%;
+
+          .grid-item2 {
+            img {
+              width: 36px;
+              height: 36px;
+              border-radius: 50%;
+            }
+
+            .icon {
+              width: 16px;
+              height: 16px;
+            }
+
+            mat-menu {
+              mat-menu-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+
+            .available {
+              color: #258017;
+              background-color: #2580170d;
+              padding: 8px 16px;
+              border-radius: 40px;
+            }
+
+            .booked {
+              color: #ff2e2e;
+              background-color: #ff2e2e0d;
+              padding: 8px 16px;
+              border-radius: 40px;
+            }
+          }
+          .slots {
+            gap: 10px;
+          }
+        }
+      }
+    }
+  }
 }

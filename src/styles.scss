@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @use "@angular/material" as mat;
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 html,
 body {
@@ -405,7 +406,7 @@ body {
   }
 
   .mdc-label {
-    font-size: 14px;
+    font-size: 12px;
     color: #8798ad;
     font-family: Poppins;
     font-weight: normal;
@@ -414,7 +415,6 @@ body {
     line-height: normal;
     letter-spacing: normal;
     white-space: nowrap;
-    padding-left: unset !important;
   }
 
   //mat-error under mat-input Override Css
@@ -803,6 +803,55 @@ body {
 
   .mat-mdc-snack-bar-container .mdc-snackbar__label {
     font-family: Poppins;
+  }
+
+  .mat-calendar-body-in-range::before {
+    background: #2e5bff0d;
+  }
+
+  .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    background-color: #2e5bff0d;
+    border-color: #2e5bff;
+  }
+
+  .cdk-program-focused {
+    .mat-calendar-body-active
+      > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+        .mat-calendar-body-comparision-identical
+      ) {
+      background-color: #2e5bff0d;
+      border-color: #2e5bff;
+    }
+  }
+
+  .mat-mdc-chip-selected.cdk-focused {
+    .mat-mdc-chip-focus-overlay {
+      background: transparent;
+    }
+  }
+
+  .filterPopup {
+    .mdc-label {
+      font-size: 14px !important;
+    }
+  }
+
+  .cal-header {
+    font-weight: normal !important;
+    background: #f5f5f5;
+
+    .cal-cell {
+      border: 1px solid #e1e1e1;
+    }
+  }
+
+  .cal-week-view {
+    .cal-time {
+      font-weight: normal;
+    }
+    .cal-day-headers .cal-header {
+      font-weight: 100 !important;
+    }
   }
 }
 

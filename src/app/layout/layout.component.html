@@ -1,7 +1,12 @@
 <div class="main-container" style="position: relative">
   <div mode="side" opened class="sidenav">
     <div class="logo">
-      <img src="../../assets/images/icons/vidhiklogo.png" alt="Vidhik" />
+      <img
+        src="../../assets/images/icons/vidhiklogo.svg"
+        alt="Vidhik"
+        routerLink="/lawyer/activity-feed"
+        style="cursor: pointer"
+      />
     </div>
     <li [routerLinkActive]="'active-link'">
       <a routerLink="/lawyer/activity-feed">
@@ -85,7 +90,7 @@
           src="../../assets/images/icons/active_calendar.svg"
           class="active"
         />
-        Calander</a
+        Important Events</a
       >
     </li>
     <li [routerLinkActive]="'active-link'">

@@ -1,24 +1,163 @@
-<app-calendar-header [(view)]="view" [(viewDate)]="viewDate">
-</app-calendar-header>
+<div class="root">
+  <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+    <div class="card">
+      <!-- calendar-header-menu start -->
+      <div class="calendar-header-menu">
+        <!-- filter section start -->
+        <div class="filter-section">
+          <mat-form-field appearance="outline">
+            <span matPrefix
+              ><img src="../../../assets/images/icons/funnel.svg" class="ms-3"
+            /></span>
+            <mat-select
+              placeholder="Select Event"
+              required
+              [(value)]="eventType"
+            >
+              <mat-option
+                *ngFor="let event of eventTypeList"
+                [value]="event.value"
+              >
+                {{ event.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- filter section ends -->
 
-<div [ngSwitch]="view">
-  <mwl-calendar-month-view
-    *ngSwitchCase="'month'"
-    [viewDate]="viewDate"
-    [events]="events"
-    [activeDayIsOpen]="true"
-  >
-  </mwl-calendar-month-view>
-  <mwl-calendar-week-view
-    *ngSwitchCase="'week'"
-    [viewDate]="viewDate"
-    [events]="events"
-  >
-  </mwl-calendar-week-view>
-  <mwl-calendar-day-view
-    *ngSwitchCase="'day'"
-    [viewDate]="viewDate"
-    [events]="events"
-  >
-  </mwl-calendar-day-view>
+        <!-- search-bar start -->
+        <div class="search-bar">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Search Case Diary" required />
+            <div matSuffix>
+              <img
+                src="../../../assets/images/icons/search-blue.svg"
+                style="margin-right: 8px; cursor: pointer"
+              />
+            </div>
+          </mat-form-field>
+        </div>
+        <!-- search-bar ends -->
+
+        <!-- create-event start -->
+        <div class="create-event">
+          <button
+            mat-stroked-button
+            color="primary"
+            style="border-radius: 12px"
+          >
+            <img
+              class="mx-1"
+              src="../../assets/images/icons/add-event.svg"
+            /><span style="color: #2e5bff"></span>Add Event
+          </button>
+        </div>
+        <!-- creat-event ends -->
+      </div>
+      <!-- calendar-header-menu ends -->
+
+      <app-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+      </app-calendar-header>
+
+      <div [ngSwitch]="view" class="cal-container">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [activeDayIsOpen]="true"
+        >
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+          [viewDate]="viewDate"
+          [events]="events"
+        >
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
+          *ngSwitchCase="'day'"
+          [viewDate]="viewDate"
+          [events]="events"
+        >
+        </mwl-calendar-day-view>
+      </div>
+      <div class="availability">
+        <div class="d-flex">
+          <div class="availability-label align-items-center d-flex">
+            Availability
+          </div>
+          <!-- create-availability start -->
+          <div class="create-availability">
+            <button
+              mat-stroked-button
+              color="primary"
+              style="border-radius: 12px"
+            >
+              <img
+                class="mx-1"
+                src="../../assets/images/icons/add-event.svg"
+              /><span style="color: #2e5bff"></span>Add Availability
+            </button>
+          </div>
+          <!-- create-availability ends -->
+        </div>
+        <!-- add availability list starts -->
+        <div class="add-availability-list">
+          <div>
+            <div class="availability-list-header">
+              <div class="grid-item-name">DATE</div>
+              <div class="grid-item1">TIME SLOT</div>
+              <div class="grid-item1">ACTIONS</div>
+            </div>
+
+            <div
+              *ngFor="let availability of availabilityList"
+              class="availability-list-data"
+            >
+              <div class="grid-item2">{{ availability.date }}</div>
+              <div class="grid-item2 slots d-flex">
+                <div *ngFor="let slot of availability.timeSlot">
+                  <div class="available" *ngIf="slot.status == 'available'">
+                    {{ slot.slot }}
+                  </div>
+                  <div class="booked" *ngIf="slot.status == 'booked'">
+                    {{ slot.slot }}
+                  </div>
+                </div>
+              </div>
+              <div class="grid-item2">
+                <button mat-icon-button [matMenuTriggerFor]="editAvailability">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </div>
+              <mat-menu #editAvailability="matMenu">
+                <div mat-menu-item>
+                  <!-- <img
+                    src="../../../assets/images/icons/black_edit.svg"
+                    alt=""
+                    class="me-2"
+                    style="width: 22px; height: 22px"
+                  /> -->
+                  <mat-icon>edit</mat-icon>
+                  <span class="mat-menu-list">Edit</span>
+                </div>
+
+                <div mat-menu-item>
+                  <!-- <img
+                    src="../../../assets/images/icons/view_application.svg"
+                    alt=""
+                    class="me-2"
+                    style="width: 20px; height: 20px"
+                  />
+                  <span class="mat-menu-list">View Application</span> -->
+                  <mat-icon>delete</mat-icon>
+                  <span class="mat-menu-list">Delete</span>
+                </div>
+              </mat-menu>
+            </div>
+          </div>
+          <!-- add availability list ends -->
+        </div>
+      </div>
+    </div>
+  </ng-scrollbar>
 </div>

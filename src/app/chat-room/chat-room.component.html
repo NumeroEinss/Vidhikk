@@ -45,31 +45,39 @@
         </mat-form-field>
 
         <div>
-          <img src="../../../assets/images/icons/add_chat_chatRoom.svg" alt="noImage"
-            data-bs-target="#createChatRoomModal" data-bs-toggle="modal" />
+          <img
+            src="../../../assets/images/icons/add_chat_chatRoom.svg"
+            alt="noImage"
+            data-bs-target="#createChatRoomModal"
+            data-bs-toggle="modal"
+          />
         </div>
       </div>
-     
-      <div style="height: calc(100vh - 210px)">
-      <ng-scrollbar >
-        <div class="chat-room-details" *ngFor="let chat of roomList; index as i" (click)="addStyling('colored-border-chat-room', i)" id="chats"
-          [ngClass]="chat.className">
-          <div class="d-flex">
-            <div>
-              <img [src]="chat.image" alt="noImage" class="user-img" />
-            </div>
 
-            <div class="user-detail ms-2">
-              <div class="user-name">{{ chat.name }}</div>
-              <div class="user-msg">
-                {{ chat.message }}
+      <div style="height: calc(100vh - 210px)">
+        <ng-scrollbar>
+          <div
+            class="chat-room-details"
+            *ngFor="let chat of roomList; index as i"
+            (click)="addStyling('colored-border-chat-room', i)"
+            id="chats"
+            [ngClass]="chat.className"
+          >
+            <div class="d-flex">
+              <div>
+                <img [src]="chat.image" alt="noImage" class="user-img" />
+              </div>
+
+              <div class="user-detail ms-2">
+                <div class="user-name">{{ chat.name }}</div>
+                <div class="user-msg">
+                  {{ chat.message }}
+                </div>
               </div>
             </div>
-
           </div>
-        </div>
-      </ng-scrollbar>
-    </div>
+        </ng-scrollbar>
+      </div>
     </div>
 
     <!-- Main Content of  User Profile -->
@@ -77,18 +85,25 @@
       <div class="chat-header">
         <div class="chat-header-detail">
           <div class="d-flex">
-          <div class="group-chat-icon">
-            <img src="../../../assets/images/icons/group_chat.png" alt="noImage" />
+            <div class="group-chat-icon">
+              <img
+                src="../../assets/images/image/chat-default.png"
+                alt="noImage"
+              />
+            </div>
+
+            <div class="user-detail">
+              <div class="user-name">Group Chat Name</div>
+              <div class="participants">3 Participants</div>
+            </div>
           </div>
 
-          <div class="user-detail">
-            <div class="user-name">Group Chat Name</div>
-            <div class="participants">3 Participants</div>
+          <div class="create-chat-icon">
+            <img
+              src="../../assets/images/icons/create_chat_room.svg"
+              alt="noImage"
+            />
           </div>
-        </div>
-
-        <div class="create-chat-icon"><img src="../../assets/images/icons/create_chat_room.svg" alt="noImage"></div>
-
         </div>
       </div>
 
@@ -136,7 +151,7 @@
         <img
           src="../../../../assets/images/icons/chat_room_send.svg"
           alt="noImage"
-          (click)="addMessage()"
+          (click)="addMessage(); scrollbar.scrollTo({ bottom: 0 })"
         />
       </div>
     </div>
@@ -148,8 +163,21 @@
 
 <!-- chat-room initial popup start -->
 <div>
-  <button id="modalButton2" data-bs-toggle="modal" data-bs-target="#chatRoomModal" style="display: none"></button>
-  <div class="modal fade" id="chatRoomModal" tabindex="-1" aria-labelledby="chatRoomModalLabel" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false">
+  <button
+    id="modalButton2"
+    data-bs-toggle="modal"
+    data-bs-target="#chatRoomModal"
+    style="display: none"
+  ></button>
+  <div
+    class="modal fade"
+    id="chatRoomModal"
+    tabindex="-1"
+    aria-labelledby="chatRoomModalLabel"
+    aria-hidden="true"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+  >
     <div class="modal-dialog modal-sm modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
@@ -174,7 +202,6 @@
   </div>
 </div>
 <!-- chat-room initial popup ends -->
-
 
 <!-- create-chat-room popup start -->
 <div>
@@ -239,4 +266,4 @@
     </div>
   </div>
 </div>
- <!-- create-chat-room popup ends -->
+<!-- create-chat-room popup ends -->
