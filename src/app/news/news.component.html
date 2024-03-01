@@ -9,24 +9,24 @@
         standards</marquee>
 
     <div class="feed-section">
-        <div class="d-flex">
-            <div class="news w-100">
-                <img src="../../assets/images/image/mcdonald.jpg" alt="noImage">
-            </div>
-            <div class="advertisement">
-                <img src="../../assets/images/image/lawyer_2.jpg" [width]="300" alt="noImage" />
-            </div>
-        </div>
+        <div style="height: calc(100vh - 230px)">
+            <ng-scrollbar>
+                <div class="d-flex">
+                    <div class="news w-100">
+                        <img src="../../assets/images/image/mcdonald.jpg" alt="noImage">
+                    </div>
+                    <div class="advertisement">
+                        <img src="../../assets/images/image/lawyer_2.jpg" [width]="300" alt="noImage" />
+                    </div>
+                </div>
 
-        <div class="news-logo-n-name my-4">
-            <div>
-                <img src="../../assets/images/icons/news_feed.svg" alt="noImage" />
-            </div>
-            <div class="news-feed">News Feed</div>
-        </div>
+                <div class="news-logo-n-name my-4">
+                    <div>
+                        <img src="../../assets/images/icons/news_feed.svg" alt="noImage" />
+                    </div>
+                    <div class="news-feed">News Feed</div>
+                </div>
 
-        <div style="height: calc(100vh - 210px)">
-            <ng-scrollbar >
                 <div class="news-feed-container">
                     <div class="d-flex news-feed-section" *ngFor="let news of newsList">
                         <div><img [src]="news.image" alt="noImage" /></div>

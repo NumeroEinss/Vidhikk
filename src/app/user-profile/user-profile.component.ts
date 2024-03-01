@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
   styleUrl: './user-profile.component.scss'
 })
 
-
 export class UserProfileComponent {
 
   editProfile: FormGroup;
@@ -18,10 +17,6 @@ export class UserProfileComponent {
       mobile: new FormControl('', [Validators.required, Validators.minLength(10)]),
       email: new FormControl('', [Validators.required,  Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
     })
-  }
-
-  get editProfileFormCtrl() {
-    return this.editProfile.controls
   }
 
   ngAfterViewInit() {
@@ -103,6 +98,10 @@ export class UserProfileComponent {
     }
   }
 
+  get editProfileFormCtrl() {
+    return this.editProfile.controls
+  }
+  
   isNumber(event: any) {
     return event.charCode >= 48 && event.charCode <= 57;
   }

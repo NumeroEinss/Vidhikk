@@ -27,8 +27,8 @@
           <div class="main-content col-lg-9 col-md-9">
 
                <!-- Basic-Info -->
-               <div class="basic-info" id="basic-info">
-                    <div class="basic-info-head">
+               <div class="section-info" id="basic-info">
+                    <div class="section-info-head">
                          <h4>Basic Info</h4>
                          <button mat-stroked-button color="primary" data-bs-target="#editProfileModal"
                               data-bs-toggle="modal"><span style="color:#2E5BFF;">Edit</span></button>
@@ -39,7 +39,7 @@
                          policymaking, contributing significantly to legal and political discourse.
                     </div>
                     <div class="user-details">
-                         <div><img src="../../../../assets/images/image/anurag_goyal.jpg" class="user-profile"></div>
+                         <div class="col-lg-2 col-md-2"><img src="../../../../assets/images/image/anurag_goyal.jpg" class="user-profile"></div>
 
                          <div>
                               <div>
@@ -70,15 +70,15 @@
                </div>
 
                <!-- Organization-Info -->
-               <div class="basic-info" id="orgainization-info">
-                    <div class="basic-info-head">
+               <div class="section-info" id="orgainization-info">
+                    <div class="section-info-head">
                          <h4>Organization Info</h4>
                     </div>
 
                     <div class="user-details">
-                         <div><img src="../../../../assets/images/icons/organization.svg" class="user-profile"></div>
+                         <div class="col-lg-2 col-md-2"><img src="../../../../assets/images/icons/organization.svg" class="user-profile"></div>
 
-                         <div>
+                         <div class="col-lg-3 col-md-3">
                               <div>
                                    <div class="user-details-1">Organization Name</div>
                                    <div class="user-details-2">Anurag Law Firm</div>
@@ -93,7 +93,7 @@
                               </div>
                          </div>
 
-                         <div>
+                         <div class="col-lg-3 col-md-3">
                               <div>
                                    <div class="user-details-1">Branch Name/Address</div>
                                    <div class="user-details-2">Indore, Mp</div>
@@ -104,12 +104,12 @@
                               </div>
                          </div>
 
-                         <div>
-                              <div>
+                         <div class="col-lg-4 col-md-4">
+                              <div class="ms-3">
                                    <div class="user-details-1">Year of Practise</div>
                                    <div class="user-details-2">12</div>
                               </div>
-                              <div>
+                              <div class="ms-3">
                                    <div class="user-details-1">Name of Practicing Court</div>
                                    <div class="user-details-2">Name Here</div>
                               </div>
@@ -118,8 +118,8 @@
                </div>
 
                <!-- Subscription-Info -->
-               <div class="basic-info" id="subscription" style="height: 150px !important;">
-                    <div class="basic-info-head">
+               <div class="section-info" id="subscription" style="height: 150px !important;">
+                    <div class="section-info-head">
                          <h4>Subscription</h4>
                          <button mat-stroked-button color="primary" data-bs-target="#subscriptionModal"
                               data-bs-toggle="modal"><span>Edit</span></button>
@@ -131,8 +131,8 @@
                </div>
 
                <!-- Password & Security -->
-               <div class="basic-info" id="password&security" style="height: 250px !important; margin-bottom: 20px;">
-                    <div class="basic-info-head">
+               <div class="section-info" id="password&security" style="height: 250px !important; margin-bottom: 20px;">
+                    <div class="section-info-head">
                          <h4>Password & Security</h4>
                     </div>
                     <div class="description">To change your password, you'll need to verify the current one first. Then
@@ -171,7 +171,7 @@
                <div class="modal-body">
                     <form [formGroup]="editProfile">
                          <div class="d-flex mat-input-white" style="flex-direction: column">
-                              <mat-label class="mat-label mt-2">Core Competency</mat-label>
+                              <mat-label class="mat-label mt-2 mb-1">Core Competency</mat-label>
                               <mat-form-field appearance="outline" class="textArea">
                                    <textarea id="text-area" type="text" matInput
                                         placeholder="Enter Your Core Competency" formControlName="coreCompetency"
@@ -226,7 +226,7 @@
                                    Save
                               </button>
                               <button mat-stroked-button color="primary"
-                                   style="width: fit-content !important; margin-left: 10px; padding: 12px 36px;"
+                                   style="width: fit-content !important; margin-left: 20px; padding: 12px 36px;"
                                    data-bs-dismiss="modal">
                                    Cancel
                               </button>

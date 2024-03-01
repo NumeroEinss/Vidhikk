@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CaseLawListComponent } from './case-law-list/case-law-list.component';
 import { PageNotFoundComponent } from '../shared/component/page-not-found/page-not-found.component';
 import { CaseLawDetailComponent } from './case-law-detail/case-law-detail.component';
+import {BareActsDetailComponent} from './bare-acts-detail/bare-acts-detail.component'
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'cases/view/:id',
     component: CaseLawDetailComponent,
+  },
+  {
+    path: 'bare-acts/view/:id',
+    component: BareActsDetailComponent,
   },
 ];
 
