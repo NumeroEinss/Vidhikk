@@ -127,13 +127,12 @@
   height: 350px !important;
 
   .modal-body {
+    text-align: center;
     h1 {
       margin: 25px 0px !important;
-      font-weight: 500 !important;
+      font-weight: 600;
+      font-family: Poppins;
     }
-
-    text-align: center;
-
     button {
       margin-top: 20px;
     }

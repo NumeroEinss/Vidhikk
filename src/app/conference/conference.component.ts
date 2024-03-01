@@ -11,43 +11,45 @@ export class ConferenceComponent {
   @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
   message: string = '';
 
-  chatList = [
-    {
-      type: 'sender',
-      name: 'luvkush Mishra',
-      time: '05:32 PM',
-      message: 'Hey! how are you?',
-      senderImage: '../../assets/images/image/add_member2.png',
-    },
-    {
-      type: 'receiver',
-      name: 'Anurag Goyal',
-      time: '05:32 PM',
-      message: 'I am fine...',
-      receiverImage: '../../assets/images/image/anurag_goyal.jpg',
-    },
-    {
-      type: 'receiver',
-      name: 'Anurag Goyal',
-      time: '05:33 PM',
-      message: 'What about you..?',
-      receiverImage: '../../assets/images/image/anurag_goyal.jpg',
-    },
-    {
-      type: 'sender',
-      name: 'luvkush Mishra',
-      time: '05:35 PM',
-      message: 'I am also good. I saw your ad in this coat',
-      senderImage: '../../assets/images/image/add_member2.png',
-    },
-    {
-      type: 'sender',
-      name: 'luvkush Mishra',
-      time: '05:35 PM',
-      message: ' Yeah, Sure!!',
-      senderImage: '../../assets/images/image/add_member2.png',
-    },
-  ];
+chatList = [
+  {
+    type: 'sender',
+    name: 'luvkush Mishra',
+    time: '05:32 pm',
+    message: 'Hey! how are you?',
+    senderImage: '../../assets/images/image/add_member2.png',
+  },
+  {
+    type: 'receiver',
+    name: 'Anurag Goyal',
+    time: '05:32 pm',
+    message: 'I am fine...',
+    receiverImage: '../../assets/images/image/anurag_goyal.jpg',
+  },
+  {
+    type: 'receiver',
+    name: 'Anurag Goyal',
+    time: '05:33 pm',
+    message: 'What about you..?',
+    receiverImage: '../../assets/images/image/anurag_goyal.jpg',
+  },
+  {
+    type: 'sender',
+    name: 'luvkush Mishra',
+    time: '05:35 pm',
+    message:
+      'I am also good. I saw your ad in this coat',
+    senderImage: '../../assets/images/image/add_member2.png',
+  },
+  {
+    type: 'sender',
+    name: 'luvkush Mishra',
+    time: '05:35 pm',
+    message:
+      ' Yeah, Sure!!',
+    senderImage: '../../assets/images/image/add_member2.png',
+  },
+];
 
   timer: number = 61;
   timeInSecond: number = this.timer * 60;

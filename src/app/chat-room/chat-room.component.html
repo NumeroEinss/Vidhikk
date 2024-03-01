@@ -34,13 +34,13 @@
     <div class="group-list col-lg-3 col-md-3">
       <div class="search-n-create-chat-room">
         <mat-form-field class="search-input" appearance="outline">
-          <span matPrefix class="ms-3"
+          <span matPrefix class="search-icon"
             ><img src="../../../assets/images/icons/search-blue.svg"
           /></span>
           <input
             matInput
             placeholder="Search chat"
-            style="padding: 13px 6px !important"
+            
           />
         </mat-form-field>
 
@@ -110,13 +110,13 @@
       <ng-scrollbar #scrollbar>
         <div class="chat-area" *ngFor="let item of chatList">
           <div *ngIf="item.type == 'schedule'" style="display: flex">
-            <hr class="col-lg-5" />
+            <hr class="col-lg-5 col-sm-5" />
             <div
-              class="align-items-center justify-content-center d-flex col-lg-2"
+              class="schedule col-lg-2"
             >
               {{ item.message }}
             </div>
-            <hr class="col-lg-5" />
+            <hr class="col-lg-5 col-sm-5" />
           </div>
 
           <div class="sender-container" *ngIf="item.type == 'sender'">

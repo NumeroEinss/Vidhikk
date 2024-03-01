@@ -311,6 +311,10 @@ export class CaseLawListComponent {
     this._router.navigate([`lawyer/case-law/cases/view/${caseId}`]);
   }
 
+  viewBareActs(caseId: any) {
+    this._router.navigate([`lawyer/case-law/bare-acts/view/${caseId}`]);
+  }
+
   filterJudge(e: any) {
     let filter = e.target.value.toLowerCase();
     this.filteredJudgeList = this.judgeList.filter((key: any) =>

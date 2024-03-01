@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-sub-diary',
@@ -7,16 +8,31 @@ import { Component } from '@angular/core';
 })
 export class CreateSubDiaryComponent {
 
+  createSubDiaryForm: FormGroup;
+
+  constructor(private _formBuilder: FormBuilder) {
+    this.createSubDiaryForm = new FormGroup({
+      caseName: new FormControl('', [Validators.required]),
+      memberName: new FormControl('', [Validators.required])
+    }
+    );
+  }
+
   caseList: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
+    { value: 'civil', viewValue: 'Civil' },
+    { value: 'finance', viewValue: 'Finance' },
+    { value: 'taxation', viewValue: 'Taxation' },
   ];
 
   memberList: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
+    { value: 'anilSoni', viewValue: 'Anil Soni' },
+    { value: 'nitinNainwal', viewValue: 'Nitin Nainwal' },
+    { value: 'anjaliSharma', viewValue: 'Anjali Sharma' },
   ];
+
+
+  get createSubDiaryFormCtrl() {
+    return this.createSubDiaryForm.controls
+  }
 
 }

@@ -188,6 +188,11 @@ body .modal-dialog .modal-header {
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .main-container {
+
+    .welcome-text {
+      font-size: 20px;
+    }
+
     .search {
       margin-right: 10px;
     }

@@ -110,16 +110,32 @@ mat-drawer-container {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-  // .main-container {
-  //   // .sidenav {
-  //   //   width: 180px;
-  //   //   // li {
-  //   //   //   padding: 12px 0 12px 12px;
-  //   //   // }
-  //   // }
+  .main-container {
+    .sidenav {
+      width: 180px;
 
-  //   // .main-content {
-  //   //   margin-left: 180px !important;
-  //   // }
-  // }
+      li{
+        padding: 0 0 0 26px;
+
+        a{
+          font-size: 12px;
+        }
+
+        .in-active {
+        width: 20px;
+        height: 20px;
+        }
+  
+        .active {
+          width: 20px;
+          height: 20px;
+        }
+        
+      }
+    }   
+    
+    .main-content{
+      width: calc(100vw - 180px);
+    }
+  }
 }
