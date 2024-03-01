@@ -268,22 +268,30 @@
               </div>
             </mat-select>
           </mat-form-field>
+
           <mat-label class="mat-label">Year</mat-label>
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Year" required>
-              <!-- <mat-option *ngFor="let state of states" [value]="state.value">
-                            {{ state.viewValue }}
-                        </mat-option> -->
               <mat-option>Select</mat-option>
+              <mat-option
+                *ngFor="let year of filteredYearList"
+                [value]="year.value"
+              >
+                {{ year.viewValue }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
+
           <mat-label class="mat-label">Volume</mat-label>
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Volume" required>
-              <!-- <mat-option *ngFor="let state of states" [value]="state.value">
-                            {{ state.viewValue }}
-                        </mat-option> -->
               <mat-option>Select</mat-option>
+              <mat-option
+                *ngFor="let volume of filteredVolumeList"
+                [value]="volume.value"
+              >
+                {{ volume.viewValue }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-label class="mat-label">Page No.</mat-label>
@@ -327,7 +335,11 @@
       <div style="height: calc(100vh - 243px)">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           <div class="bare-acts">
-            <div class="acts" *ngFor="let acts of actsList"  (click)="viewBareActs('edadsfalkdlk2jkldas22559')">
+            <div
+              class="acts"
+              *ngFor="let acts of actsList"
+              (click)="viewBareActs('edadsfalkdlk2jkldas22559')"
+            >
               {{ acts.name }}
             </div>
           </div>

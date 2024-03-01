@@ -268,6 +268,20 @@ export class CaseLawListComponent {
     },
   ];
   filteredActTypeList: any = [];
+  yearList: any = [
+    { value: 2018, viewValue: 2018 },
+    { value: 2019, viewValue: 2019 },
+    { value: 2020, viewValue: 2020 },
+    { value: 2021, viewValue: 2021 },
+  ];
+  filteredYearList: any = [];
+  volumeList: any = [
+    { value: 'volume1', viewValue: 'Volume1' },
+    { value: 'volume2', viewValue: 'Volume2' },
+    { value: 'volume3', viewValue: 'Volume3' },
+    { value: 'volume4', viewValue: 'Volume4' },
+  ];
+  filteredVolumeList: any = [];
 
   constructor(private _router: Router) {
     this.searchList = this.courtList;
@@ -275,6 +289,8 @@ export class CaseLawListComponent {
     this.filteredJudgeList = this.judgeList;
     this.filteredActList = this.actList;
     this.filteredActTypeList = this.actTypeList;
+    this.filteredYearList = this.yearList;
+    this.filteredVolumeList = this.volumeList;
   }
 
   tabSelectionChange(e: any) {}
