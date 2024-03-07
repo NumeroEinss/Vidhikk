@@ -142,7 +142,7 @@
     }
 
     .chat-popup {
-      display: none;
+      // display: none;
       // position: fixed;
       // right: 0;
       // bottom: 230px;
@@ -150,8 +150,10 @@
       // height: calc(100vh - 216px);
       position: fixed;
       right: 0;
-      bottom: 66px;
+      bottom: 0;
       width: 441px;
+      height: 0;
+      transition: .3s all ease-in-out;
 
       .chat-box {
         background-color: #f5f5f5;

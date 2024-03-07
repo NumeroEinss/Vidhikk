@@ -97,12 +97,16 @@ chatList = [
 
   isChatOpen() {
     let element = document.getElementById('myForm') as HTMLElement;
-    element.style.display = 'block';
+    element.style.height = 'calc(100vh - 140px)';
+    element.style.bottom = '66px';
+    
   }
 
   isChatClose() {
     let element = document.getElementById('myForm') as HTMLElement;
-    element.style.display = 'none';
+    element.style.height = '0';
+    element.style.bottom = '0';
+
   }
 
   addMessage() {
