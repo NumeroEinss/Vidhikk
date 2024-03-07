@@ -805,7 +805,7 @@ body {
     font-family: Poppins;
   }
 
-  .mat-mdc-form-field-error{
+  .mat-mdc-form-field-error {
     font-family: Poppins;
   }
 
@@ -855,6 +855,34 @@ body {
     }
     .cal-day-headers .cal-header {
       font-weight: 100 !important;
+    }
+  }
+
+  .text-start {
+    .mdc-checkbox {
+      padding: 0 5px 0 0 !important;
+      margin: 0px !important;
+    }
+  }
+
+  mat-button-toggle-group {
+    background-color: transparent !important;
+    border: none !important;
+    .mat-button-toggle {
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
+      margin: 0 2px;
+      .mat-button-toggle-button[aria-pressed="true"] {
+        .mat-button-toggle-label-content {
+          visibility: visible;
+        }
+      }
+      .mat-button-toggle-button[aria-pressed="false"] {
+        .mat-button-toggle-label-content {
+          visibility: hidden;
+        }
+      }
     }
   }
 }
