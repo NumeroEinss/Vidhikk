@@ -6,10 +6,9 @@
     height: -moz-available;
     background-color: white;
     display: flex;
-    margin-top: 24px;
 
     .profile-sidenav {
-      padding: 0 90px 0 34px;
+      padding: 0 90px 0 0x;
       position: fixed;
 
       li {
@@ -20,7 +19,7 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        padding: 24px 24px 24px 20px;
+        padding: 24px 24px 24px 30px;
         color: rgba(0, 0, 0, 0.6);
 
         a {
@@ -37,33 +36,48 @@
           cursor: pointer;
         }
 
-        a.active-link {
-          background-color: grey;
+        :hover {
+          color: #2e5bff;
+          background-color: unset;
         }
       }
+
+      :hover {
+        color: #2e5bff;
+        background-color: #2e5bff0d;
+        cursor: pointer;
+      }
+
       .logout {
         a {
           cursor: pointer;
           font-family: Poppins;
           font-size: 14px;
           color: rgba(0, 0, 0, 0.6);
+          text-decoration: underline;
         }
 
         :hover {
           color: #2e5bff;
         }
       }
+
+      .active-nav {
+        background-color: #2e5bff0d;
+          a{
+            color: #2e5bff;
+          }  
+      }
     }
 
     .main-content {
-      margin-left: 300px;
       width: -webkit-fill-available;
       width: -moz-available;
-      margin-bottom: 50px;
+      margin: 24px 0 50px 250px;
 
       .section-info {
         border: 1px solid rgb(238, 238, 238);
-        margin-bottom: 20px;
+        margin: 0 30px 20px 0;
         width: -webkit-fill-available;
         width: -moz-available;
         padding: 24px;
@@ -84,17 +98,18 @@
             line-height: normal;
             letter-spacing: normal;
             color: var(--solid-black);
+            padding: 10px 0;
           }
 
           button {
             width: unset !important;
+            height: 40px !important;
             background-color: #053bff0d;
             border-color: #7d818e0d !important;
           }
         }
 
         .description {
-          margin-top: 20px;
           flex-grow: 0;
           font-family: Poppins;
           font-size: 12px;
@@ -115,13 +130,12 @@
             width: 90px;
             height: 90px;
             flex-grow: 0;
-            margin: 0 27px 73px 0;
             border-radius: 50%;
           }
 
-          .user-details-1 {
+          .user-details-heading {
             flex-grow: 0;
-            margin: 0 45px 0 20px;
+            margin: 0 0px 0 47px;
             font-family: Poppins;
             font-size: 12px;
             font-weight: normal;
@@ -133,7 +147,35 @@
             color: var(--solid-black-60);
           }
 
-          .user-details-2 {
+          .organization-heading{
+            flex-grow: 0;
+            margin: 0 0px 0 26px;
+            font-family: Poppins;
+            font-size: 12px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: var(--solid-black-60);
+          }
+
+          .organization-detail{
+            flex-grow: 0;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            margin: 0 45px 28px 26px;
+            color: black;
+          }
+
+          .user-details-detail {
             flex-grow: 0;
             margin: 4px 0 0;
             font-family: Poppins;
@@ -144,7 +186,7 @@
             line-height: normal;
             letter-spacing: normal;
             text-align: left;
-            margin: 0 45px 20px 20px;
+            margin: 0 40px 30px 47px;
             color: black;
           }
 
@@ -158,6 +200,7 @@
               font-family: poppins;
               font-size: 14px;
               color: grey;
+              text-decoration: underline;
             }
 
             :hover {
@@ -173,10 +216,7 @@
       }
     }
 
-    .active-nav {
-      background-color: #2e5bff0d;
-      color: #2e5bff;
-    }
+    
   }
 }
 
@@ -227,6 +267,7 @@
 
 // profile edit popup styling ends
 
+
 // Mobile-verification popup styling start
 .mobile-verification-popup {
   .modal-body {
@@ -242,8 +283,9 @@
     }
   }
 }
+// Mobile-verification popup styling ends
 
-// Mobile-verification popup styling start
+
 
 // Email-verification popup styling start
 .email-verification-popup {
@@ -260,8 +302,7 @@
     }
   }
 }
-
-// Email-verification popup styling start
+// Email-verification popup styling ends
 
 // Subscription Popup Styling Start
 .subscription-modal {
@@ -506,13 +547,26 @@
     }
   }
 }
-
 // Subscription Popup Styling Ends
+
+
+// Account delete modal styling start
+.delete-modal{
+  width: 380px;
+.modal-header{
+  display: flex;
+  justify-content: flex-start;
+  h1{
+    text-align: left;
+  }
+}
+}
+//Account delete modal styling ends
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .root {
-    .profile-container {  
+    .profile-container {
       .profile-sidenav {
         display: flex;
         position: relative;
@@ -537,7 +591,7 @@
           padding: 20px;
 
           .description {
-            white-space: break-spaces;
+            white-space: normal;
           }
         }
       }

@@ -100,6 +100,7 @@ export class UserProfileComponent {
 
   get editProfileFormCtrl() {
     return this.editProfile.controls
+    
   }
   
   isNumber(event: any) {

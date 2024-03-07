@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bare-acts-detail',
@@ -9,6 +10,7 @@ import { Location } from '@angular/common';
 
 export class BareActsDetailComponent {
   value: string = "";
+  sectionList: any = []; 
 
   sections = [
     { value: '1', viewValue: 'S.1' },
@@ -93,15 +95,24 @@ export class BareActsDetailComponent {
     },
   ];
 
-  constructor(private _location: Location) { }
+  constructor(private _location: Location, private _router: Router) {
+    this.sectionList = this.sections;
+   }
 
   routeBack() {
     this._location.back();
   }
 
-
   selected(event: any, val: string) {
     let element = document.getElementById(this.value) as HTMLElement
     element.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+
+  filterSection(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.sectionList = this.sections.filter((key: any) =>
+      key.viewValue.toLowerCase().startsWith(filter)  
+    );
   }
 }

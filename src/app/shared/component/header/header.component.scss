@@ -174,8 +174,8 @@
   background-color: unset !important;
 }
 
-.modal-dialog {
-  width: 380px !important;
+.notification-modal {
+  width: 400px !important;
 }
 
 .modal-dialog .modal-header,
@@ -185,6 +185,253 @@ body .modal-dialog .modal-header {
   justify-content: flex-start;
   background-color: #fbfbfb;
 }
+
+
+// Upgrade Popup Styling Start
+.upgrade-modal {
+  .modal-body {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 40px 0;
+
+    .feature {
+      color: #8798ad;
+      margin-top: 5px;
+
+      img {
+        margin-right: 8px;
+      }
+    }
+
+    .plan-name {
+      font-family: Poppins;
+      font-size: 18px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: var(--solid-black);
+      margin-top: 30px;
+    }
+
+    .limit {
+      margin-top: 20px;
+      font-family: Poppins;
+      font-size: 20px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #8798ad;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .minus-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        background-color: #f5f5f5;
+        font-weight: 600;
+        color: #000000;
+        margin-left: 5px;
+      }
+
+      .number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 31px;
+        height: 36px;
+        border: 1px solid #f5f5f5;
+        border-radius: 4px;
+        color: #000000;
+        font-weight: 600;
+        margin-left: 10px;
+        font-size: 14px;
+      }
+
+      .plus-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        background-color: #f5f5f5;
+        font-weight: 600;
+        color: #000000;
+        margin-left: 10px;
+      }
+    }
+
+    .basic-plan {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid rgba(5, 59, 255, 0.05);
+      border-radius: 24px;
+      padding: 50px 48px;
+
+      .active-plan {
+        background-color: #2e5bff;
+        color: white;
+        padding: 8px 10px;
+        position: absolute;
+        top: 30px;
+        left: 111px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        margin-top: 10px;
+
+        .tringle {
+          content: "";
+          width: 12px;
+          height: 12px;
+          position: absolute;
+          top: 30px;
+          left: 0px;
+          border-bottom-left-radius: 5px;
+          border-left: 4px solid #2e5bff;
+        }
+      }
+
+      .beginners {
+        font-weight: 500;
+        margin-top: 6px;
+      }
+
+      .free {
+        font-family: Poppins;
+        font-size: 50px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: var(--solid-black);
+        margin-top: 20px;
+      }
+
+      .cancel-button {
+        margin-top: 20px;
+
+        .cancel-btn {
+          background-color: black;
+        }
+      }
+    }
+
+    .personal-plan {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid rgba(5, 59, 255, 0.05);
+      border-radius: 24px;
+      padding: 50px 48px;
+
+      .individuals {
+        font-weight: 500;
+        margin-top: 6px;
+      }
+
+      .free {
+        display: flex;
+        align-items: baseline;
+        font-family: Poppins;
+        margin-top: 20px;
+        position: relative;
+
+        .rupee {
+          position: absolute;
+          top: 13px;
+          left: -8px;
+        }
+
+        .cost {
+          font-size: 50px;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: var(--solid-black);
+        }
+
+        .month {
+          color: #2e5bff;
+          white-space: nowrap;
+        }
+      }
+
+      .cancel-button {
+        margin-top: 20px;
+      }
+    }
+
+    .agency-plan {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid rgba(5, 59, 255, 0.05);
+      border-radius: 24px;
+      padding: 50px 48px;
+
+      .team {
+        font-weight: 500;
+        margin-top: 6px;
+      }
+
+      .free {
+        display: flex;
+        align-items: baseline;
+        font-family: Poppins;
+        margin-top: 20px;
+        position: relative;
+
+        .rupee {
+          position: absolute;
+          top: 13px;
+          left: -8px;
+        }
+
+        .cost {
+          font-size: 50px;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: var(--solid-black);
+        }
+
+        .month {
+          color: #2e5bff;
+          white-space: nowrap;
+        }
+      }
+
+      .cancel-button {
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+//Upgrade Popup Styling Ends
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .main-container {
