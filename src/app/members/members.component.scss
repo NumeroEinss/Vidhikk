@@ -70,7 +70,6 @@
   .add-member-list {
     .member-list-header {
       display: grid;
-      // grid-template-columns: 250px 200px 250px 200px 120px 40px;
       grid-template-columns: 22% 20% 24% 18% 12% 4%;
       margin-bottom: 5px;
       align-items: center;
@@ -117,8 +116,22 @@
     }
   }
 }
-
 // add member list styling ends
+
+
+// delete modal styling start
+.delete-modal{
+  width: 400px !important;
+.modal-header{
+  display: flex;
+  justify-content: flex-start;
+  h1{
+    text-align: left;
+  }
+}
+}
+// delete modal styling ends
+
 
 //  member initial popup styling start
 .profileUpgrade {

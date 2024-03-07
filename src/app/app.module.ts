@@ -21,6 +21,7 @@ import { AuthService } from './shared/services/auth.service';
 import { HttpService } from './shared/services/http.service';
 import { SnackAlertService } from './shared/services/snack-alert.service';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     ForgotPasswordComponent,
     CreateNewPasswordComponent,
     ResetPasswordComponent,
+    ContactUsComponent,
   ],
   
   imports: [

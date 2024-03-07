@@ -67,10 +67,7 @@
                 <div class="down-section-2">
                   <div class="name">{{ item.name }}</div>
                   <div class="location">
-                    <img
-                      src="../../../../assets/images/icons/location.svg"
-                      alt=""
-                    />{{ item.location }}
+                    <img src="../../../../assets/images/icons/location.svg" alt="" />{{ item.location }}
                   </div>
                 </div>
               </div>
@@ -82,42 +79,27 @@
               <div class="activity-feed-comment">{{ item.comment }}</div>
               <div class="d-flex mt-1 like-comment">
                 <div class="like-icon">
-                  <img
-                    src="../../../../assets/images/icons/like.svg"
-                    alt=""
-                  />{{ item.likesCount }}
+                  <img src="../../../../assets/images/icons/like.svg" alt="" />{{ item.likesCount }}
                 </div>
                 <div class="mx-3 like-icon">
-                  <img
-                    src="../../../../assets/images/icons/comment.svg"
-                    alt=""
-                  />
+                  <img src="../../../../assets/images/icons/comment.svg" alt="" />
                   {{ item.commentsCount }}
                 </div>
               </div>
             </div>
 
-            <div
-              id="comment-section"
-              *ngIf="isCommentBoxOpen || isPost"
-              class="comment-section"
-            >
+            <div id="comment-section" *ngIf="isCommentBoxOpen || isPost" class="comment-section">
               <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                 <div *ngFor="let comment of item.comments" class="comment">
                   <div class="down-section-1a">
                     <div class="d-flex">
                       <div class="profile-container1">
-                        <img
-                          src="../../../../assets/images/image/anurag_goyal.jpg"
-                        />
+                        <img src="../../../../assets/images/image/anurag_goyal.jpg" />
                       </div>
                       <div class="down-section-2">
                         <div class="name">{{ comment.name }}</div>
                         <div class="location">
-                          <img
-                            src="../../../../assets/images/icons/location.svg"
-                            alt=""
-                          />{{ comment.location }}
+                          <img src="../../../../assets/images/icons/location.svg" alt="" />{{ comment.location }}
                         </div>
                       </div>
                     </div>
@@ -130,16 +112,10 @@
                     </div>
                     <div class="d-flex mt-1 like-comment">
                       <div class="like-icon">
-                        <img
-                          src="../../../../assets/images/icons/like.svg"
-                          alt=""
-                        />{{ comment.likesCount }}
+                        <img src="../../../../assets/images/icons/like.svg" alt="" />{{ comment.likesCount }}
                       </div>
                       <div class="mx-3 like-icon">
-                        <img
-                          src="../../../../assets/images/icons/comment.svg"
-                          alt=""
-                        />
+                        <img src="../../../../assets/images/icons/comment.svg" alt="" />
                         {{ comment.commentsCount }}
                       </div>
                     </div>
@@ -153,45 +129,29 @@
                 <img src="../../../../assets/images/image/anurag_goyal.jpg" />
               </div>
               <div class="comment-box-textarea">
-                <textarea
-                  matInput
-                  placeholder="Enter Text Here..."
-                  [(ngModel)]="comment"
-                ></textarea>
+                <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="comment"></textarea>
               </div>
               <div>
-                <button
-                  type="button"
-                  class="btn btn-primary comment-btn"
-                  (click)="addComment()"
-                >
+                <button type="button" class="btn btn-primary comment-btn" (click)="addComment()">
                   <img src="../../assets/images/icons/post.svg" alt="" />Post
                 </button>
               </div>
             </div>
             <div class="activity-feed-bottom">
               <button class="activity-feed-bottom-btn">
-                <img
-                  src="../../../../assets/images/icons/like_icon.svg"
-                  class="mx-1"
-                />Like
+                <img src="../../../../assets/images/icons/like_icon.svg" class="mx-1" />Like
               </button>
-              <button
-                class="activity-feed-bottom-btn"
-                (click)="isCommentBoxOpen = !isCommentBoxOpen"
-              >
-                <img
-                  src="../../../../assets/images/icons/comment_icon.svg"
-                  class="mx-1"
-                />Comment
+              <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen">
+                <img src="../../../../assets/images/icons/comment_icon.svg" class="mx-1" />Comment
               </button>
-              <button class="activity-feed-bottom-btn">
-                <img
-                  src="../../../../assets/images/icons/share_icon.svg"
-                  class="mx-1"
-                />Share
+              <button class="activity-feed-bottom-btn" [matMenuTriggerFor]="shareMenu">
+                <img src="../../../../assets/images/icons/share_icon.svg" class="mx-1" />Share
               </button>
             </div>
+            <mat-menu #shareMenu="matMenu">
+              <button mat-menu-item><span><img src="../../assets/images/icons/facebook_share.svg" alt="" class="me-2"/></span>Share on Facebook</button>
+              <button mat-menu-item><span><img src="../../assets/images/icons/whatsapp_share.svg" alt="" class="me-2"/></span>Share on Whatsapp</button>
+            </mat-menu>
           </div>
           <!-- comment-box section end-->
         </div>
@@ -245,19 +205,105 @@
                 &quot;Reject&quot; and refrain from using the Website.</span>
             </li>
           </ol>
-          <div class="text-center mt-4">
+
+          <!-- Policy List Start -->
+          <div class="policy-list">
+            <ul>
+              <li (click)="selected('section1')"><a>Terms and Conditions</a></li>
+              <li (click)="selected('section2')"><a>Privacy Policy</a></li>
+              <li (click)="selected('section3')"><a>Cookies Policy</a></li>
+              <li (click)="selected('section4')"><a>Copyrights</a></li>
+              <li (click)="selected('section5')"><a>Trust and Safety</a></li>
+              <li (click)="selected('section6')"><a>Community Standard</a></li>
+            </ul>
+          </div>
+
+          <div style="height: calc(100vh - 300px); margin-bottom: 10px;">
+            <ng-scrollbar>
+              <!-- Terms & Conditions Section Start -->
+              <div class="policy-container" id="section1">
+                <div class="heading">Terms and Conditions</div>
+                <div>Welcome to Vidhik. These Terms and Conditions govern your use of the Website, including all
+                  features, content, and services provided by Vidhik.<br><br>
+                  By accessing or using the Website, you agree to be bound by these Terms. If you do not agree with any
+                  part of these Terms, you may not use the Website.</div>
+                <div *ngFor="let terms of termsCondition">
+                  <div class="sub-heading">{{terms.subHeading}}</div>
+                  <div class="details" *ngFor="let detail of terms.details">{{detail}}</div>
+                </div>
+              </div>
+
+              <!-- Privacy Policy Section Start -->
+              <div class="policy-container" id="section2">
+                <div class="heading">Privacy Policy</div>
+                <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects, uses,
+                  maintains, and discloses information collected from users ("you" or "your") of the Vidhik website.
+                </div>
+                <div *ngFor="let policy of privacyPolicy">
+                  <div class="sub-heading">{{policy.subHeading}}</div>
+                  <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+                </div>
+              </div>
+
+              <!-- Cookies Policy Section Start -->
+              <div class="policy-container" id="section3">
+                <div class="heading">Cookies Policy</div>
+                <div>This Cookies Policy explains how Vidhik ("we", "us", or "our") uses cookies and similar
+                  technologies on our website (the "Website"). By using the Website, you consent to the use of cookies
+                  in accordance with this policy.</div>
+                <div *ngFor="let policy of cookiesPolicy ">
+                  <div class="sub-heading">{{policy.subHeading}}</div>
+                  <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+                </div>
+              </div>
+
+              <!-- Copyrights Section Start -->
+              <div class="policy-container" id="section4">
+                <div class="heading">Copyrights</div>
+                <div>Welcome to the Copyrights Page of Vidhik ("we", "us", or "our"). This page outlines the copyright
+                  policies and procedures regarding the content available on our website (the "Website").</div>
+                <div *ngFor="let rights of copyrights">
+                  <div class="sub-heading">{{rights.subHeading}}</div>
+                  <div class="details" *ngFor="let detail of rights.details">{{detail}}</div>
+                </div>
+              </div>
+
+              <!-- Trust & Safety Section Start -->
+              <div class="policy-container" id="section5">
+                <div class="heading">Trust and Safety</div>
+                <div>Welcome to the Trust and Safety Page of Vidhik ("we", "us", or "our"). This page outlines our
+                  commitment to ensuring a safe and trustworthy environment for all users of our website.</div>
+                <div *ngFor="let policy of trustSafety">
+                  <div class="sub-heading">{{policy.subHeading}}</div>
+                  <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+                </div>
+              </div>
+
+              <!-- Community Standard Section Start -->
+              <div class="policy-container" id="section6">
+                <div class="heading">Community Standard</div>
+                <div>Welcome to the Community Standards Page of Vidhik ("we", "us", or "our"). This page outlines the
+                  standards of behavior and content that govern our online community on our website (the "Website").
+                </div>
+                <div *ngFor="let policy of communityStandard">
+                  <div class="sub-heading">{{policy.subHeading}}</div>
+                  <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+                </div>
+              </div>
+            </ng-scrollbar>
+          </div>
+
+
+          <div class="checkbox"><mat-checkbox [color]="'primary'" #confirmed>I have read and agree to the terms and conditions and
+              privacy policy outlined above.</mat-checkbox></div>
+          <div class="text-center mt-3">
+
             <button mat-stroked-button color="primary" style="width: fit-content !important" routerLink="/auth/login"
-              data-bs-dismiss="modal">
-              Reject
+              data-bs-dismiss="modal">Reject
             </button>
 
-            <button
-              mat-raised-button
-              color="primary"
-              style="width: fit-content !important; margin-left: 20px"
-              data-bs-dismiss="modal"
-              (click)="opacityStyling = { opacity: 1 }"
-            >
+            <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 20px"
+              data-bs-dismiss="modal" (click)="opacityStyling = { opacity: 1 }" [disabled]="!confirmed.checked">
               Accept
             </button>
           </div>
@@ -265,5 +311,5 @@
       </div>
     </div>
   </div>
-  <!-- modal start -->
+  <!-- modal ends -->
 </div>

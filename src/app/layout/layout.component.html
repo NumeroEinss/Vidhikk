@@ -1,113 +1,96 @@
 <div class="main-container" style="position: relative">
   <div mode="side" opened class="sidenav">
     <div class="logo">
-      <img
-        src="../../assets/images/icons/vidhiklogo.svg"
-        alt="Vidhik"
-        routerLink="/lawyer/activity-feed"
-        style="cursor: pointer"
-      />
+      <img src="../../assets/images/icons/vidhiklogo.svg" alt="Vidhik" routerLink="/lawyer/activity-feed"
+        style="cursor: pointer" />
     </div>
     <li [routerLinkActive]="'active-link'">
       <a routerLink="/lawyer/activity-feed">
         <!-- <mat-icon>query_stats</mat-icon> -->
-        <img
-          src="../../assets/images/icons/activity_feed.svg"
-          class="in-active"
-        />
+        <img src="../../assets/images/icons/activity_feed.svg" class="in-active" />
         <img src="../../assets/images/icons/active_feed.svg" class="active" />
-        Activity Feed</a
-      >
+        Activity Feed</a>
     </li>
     <li [routerLinkActive]="'active-link'">
       <a routerLink="/lawyer/news">
         <!-- <mat-icon>query_stats</mat-icon> -->
-        <img
-          src="../../assets/images/icons/inactive_news.svg"
-          class="in-active"
-        />
+        <img src="../../assets/images/icons/inactive_news.svg" class="in-active" />
         <img src="../../assets/images/icons/active_news.svg" class="active" />
-        News</a
-      >
+        News</a>
     </li>
     <li [routerLinkActive]="'active-link'" routerLink="/lawyer/case-law/cases">
       <a routerLink="/lawyer/case-law/cases">
         <!-- <mat-icon>gavel</mat-icon> -->
         <img src="../../assets/images/icons/case_law.svg" class="in-active" />
         <img src="../../assets/images/icons/active_law.svg" class="active" />
-        Case Law</a
-      >
+        Case Law</a>
     </li>
     <li [routerLinkActive]="'active-link'">
       <a routerLink="/lawyer/case-diary">
         <!-- <mat-icon>pie_chart_outline</mat-icon> -->
-        <img
-          src="../../assets/images/icons/case_diary (2).svg"
-          class="in-active"
-        />
+        <img src="../../assets/images/icons/case_diary (2).svg" class="in-active" />
         <img src="../../assets/images/icons/active_diary.svg" class="active" />
-        My Case Diary</a
-      >
+        My Case Diary</a>
     </li>
     <li [routerLinkActive]="'active-link'">
       <a routerLink="/lawyer/members">
         <!-- <mat-icon>groups</mat-icon> -->
         <img src="../../assets/images/icons/members.svg" class="in-active" />
-        <img
-          src="../../assets/images/icons/active_members.svg"
-          class="active"
-        />
-        Members</a
-      >
+        <img src="../../assets/images/icons/active_members.svg" class="active" />
+        Members</a>
     </li>
     <li [routerLinkActive]="'active-link'">
       <a routerLink="/lawyer/chat-room">
         <img src="../../assets/images/icons/chat_room.svg" class="in-active" />
         <img src="../../assets/images/icons/active_room.svg" class="active" />
         <!-- <mat-icon>chat</mat-icon> -->
-        Chat Room</a
-      >
+        Chat Room</a>
     </li>
     <li [routerLinkActive]="'active-link'">
       <a routerLink="/lawyer/conference">
-        <img
-          src="../../assets/images/icons/inactive_conference.svg"
-          class="in-active"
-        />
-        <img
-          src="../../assets/images/icons/active_conference.svg"
-          class="active"
-        />
+        <img src="../../assets/images/icons/inactive_conference.svg" class="in-active" />
+        <img src="../../assets/images/icons/active_conference.svg" class="active" />
         <!-- <mat-icon>chat</mat-icon> -->
-        Conference</a
-      >
+        Conference</a>
     </li>
     <li [routerLinkActive]="'active-link'">
       <a routerLink="/lawyer/calendar">
         <!-- <mat-icon>calendar_month</mat-icon> -->
         <img src="../../assets/images/icons/calendar.svg" class="in-active" />
-        <img
-          src="../../assets/images/icons/active_calendar.svg"
-          class="active"
-        />
-        Important Events</a
-      >
+        <img src="../../assets/images/icons/active_calendar.svg" class="active" />
+        Important Events</a>
     </li>
     <li [routerLinkActive]="'active-link'">
       <a routerLink="/lawyer/marketplace">
         <!-- <mat-icon>storefront</mat-icon> -->
-        <img
-          src="../../assets/images/icons/marketplace.svg"
-          class="in-active"
-        />
-        <img
-          src="../../assets/images/icons/active_marketplace.svg"
-          class="active"
-        />
-        Marketplace</a
-      >
+        <img src="../../assets/images/icons/marketplace.svg" class="in-active" />
+        <img src="../../assets/images/icons/active_marketplace.svg" class="active" />
+        Marketplace</a>
     </li>
+    <li [routerLinkActive]="'active-link'">
+      <a routerLink="/lawyer/about-us">
+        <!-- <mat-icon>storefront</mat-icon> -->
+        <img src="../../assets/images/icons/inactive_about_us.svg" class="in-active" />
+        <img src="../../assets/images/icons/active_about_us.svg" class="active" />
+        About Us</a>
+    </li>
+    <li [routerLinkActive]="'active-link'">
+      <a routerLink="/lawyer/contact-us">
+        <!-- <mat-icon>storefront</mat-icon> -->
+        <img src="../../assets/images/icons/inactive_contact_us.svg" class="in-active" />
+        <img src="../../assets/images/icons/active_contact_us.svg" class="active" />
+        Contact Us</a>
+    </li>
+
+    <div class="social-app">
+      <div class="me-2"><img src="../../assets/images/icons/facebook.svg"/></div>
+      <div class="me-2"><img src="../../assets/images/icons/instagram.svg"/></div>
+      <div class="me-2"><img src="../../assets/images/icons/twitter.svg"/></div>
+      <div><img src="../../assets/images/icons/whatsapp.svg"/></div> 
+    </div>
+
   </div>
+
   <div class="main-content">
     <router-outlet></router-outlet>
     <app-footer></app-footer>

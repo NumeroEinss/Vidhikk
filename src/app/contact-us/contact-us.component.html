@@ -1,0 +1,45 @@
+<app-header [menuName]="'Contact Us'"></app-header>
+
+<div class="root">
+    <div class="contact-us-container">
+        <div>Thank you for your interest in Vidhik. We're here to assist you with your legal inquiries and provide
+            support in any way we can. Please feel free to reach out to us through any of the following channels:</div>
+
+        <div class="header-menu">
+            <!-- filter section start -->
+            <div class="filter-section">
+                <mat-form-field appearance="outline">
+                    <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
+                    <mat-select placeholder="Case Diary" required [(value)]="selectedDiary">
+                        <mat-option *ngFor="let ticket of tickets" [value]="ticket.value">
+                            {{ ticket.viewValue }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <!-- filter section ends -->
+
+            <!-- search-bar start -->
+            <div class="search-bar">
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Search Case Diary" required />
+                    <div matSuffix>
+                        <img src="../../../assets/images/icons/search-blue.svg"
+                            style="margin-right: 8px; cursor: pointer" />
+                    </div>
+                </mat-form-field>
+            </div>
+            <!-- search-bar ends -->
+
+            <!-- creat-case-diary start -->
+            <div class="create-sub-diary me-4">
+                <button mat-stroked-button color="primary" style="border-radius: 12px"
+                    routerLink="/lawyer/case-diary/create">
+                    <img class="mx-1" src="../../../assets/images/icons/sub-diary.svg" /><span
+                        style="color: #2e5bff"></span>Create Case Diary
+                </button>
+            </div>
+            <!-- creat-case-diary ends -->
+
+        </div>
+    </div>

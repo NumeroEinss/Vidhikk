@@ -10,6 +10,7 @@ import { Subscription, interval, takeUntil } from 'rxjs';
 export class ConferenceComponent {
   @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
   message: string = '';
+  isMuted:boolean = false
 
 chatList = [
   {
@@ -97,12 +98,16 @@ chatList = [
 
   isChatOpen() {
     let element = document.getElementById('myForm') as HTMLElement;
-    element.style.display = 'block';
+    // element.style.display = 'block';
+    element.style.height = 'calc(100vh - 140px)';
+    element.style.bottom = '66px';
   }
 
   isChatClose() {
     let element = document.getElementById('myForm') as HTMLElement;
-    element.style.display = 'none';
+    // element.style.display = 'none';
+    element.style.height = '0';
+    element.style.bottom = '0';
   }
 
   addMessage() {
@@ -125,4 +130,10 @@ chatList = [
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+  enableMute(){
+    let element = document.getElementById("mute") as HTMLElement;
+    element.classList.add('muted')   
+    this.isMuted = !this.isMuted
+  }  
 }
