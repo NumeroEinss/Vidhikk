@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {
+  MAT_DATE_LOCALE,
+  MAT_DATE_FORMATS,
+  DateAdapter,
+} from '@angular/material/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
 
 export const colors: any = {
@@ -16,10 +22,30 @@ export const colors: any = {
   },
 };
 
+const MY_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY', // this is how your date will be parsed from Input
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY', // this is how your date will get displayed on the Input
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
+  ],
 })
 export class CalendarComponent {
   view: CalendarView = CalendarView.Month;
@@ -33,10 +59,9 @@ export class CalendarComponent {
       start: new Date(),
       actions: [
         {
-          label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-          onClick: ({ event }: { event: CalendarEvent }): void => {
-            console.log('Edit event', event);
-          },
+          label: 'Edit',
+          onClick: ({ event }: { event: CalendarEvent }) =>
+            this.editEvent(event),
         },
       ],
     },
@@ -46,7 +71,7 @@ export class CalendarComponent {
       start: new Date(),
       actions: [
         {
-          label: '<i class="fas fa-fw fa-trash-alt"></i>',
+          label: 'Delete',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.events = this.events.filter((iEvent) => iEvent !== event);
             console.log('Event deleted', event);
@@ -70,7 +95,7 @@ export class CalendarComponent {
 
   availabilityList: any = [
     {
-      id:'fasdljasdfa',
+      id: 'fasdljasdfa',
       date: new Date().toLocaleDateString(),
       timeSlot: [
         {
@@ -93,10 +118,10 @@ export class CalendarComponent {
           slot: '9pm-10pm',
           status: 'available',
         },
-      ]
+      ],
     },
     {
-      id:'fasdasdfljasdfa',
+      id: 'fasdasdfljasdfa',
       date: new Date().toLocaleDateString(),
       timeSlot: [
         {
@@ -119,10 +144,10 @@ export class CalendarComponent {
           slot: '9pm-10pm',
           status: 'available',
         },
-      ]
+      ],
     },
     {
-      id:'ewrewrewrx',
+      id: 'ewrewrewrx',
       date: new Date().toLocaleDateString(),
       timeSlot: [
         {
@@ -145,7 +170,52 @@ export class CalendarComponent {
           slot: '9pm-10pm',
           status: 'available',
         },
-      ]
-    }
+      ],
+    },
   ];
+
+  today: Date = new Date();
+
+  caseList = [
+    {
+      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
+      caseDesc:
+        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
+      court: 'Supreme Court',
+      bench: 'FB',
+      cited: 0,
+      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
+    },
+    {
+      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
+      caseDesc:
+        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
+      court: 'Supreme Court',
+      bench: 'FB',
+      cited: 0,
+      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
+    },
+    {
+      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
+      caseDesc:
+        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
+      court: 'Supreme Court',
+      bench: 'FB',
+      cited: 0,
+      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
+    },
+    {
+      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
+      caseDesc:
+        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
+      court: 'Supreme Court',
+      bench: 'FB',
+      cited: 0,
+      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
+    },
+  ];
+
+  editEvent(e: CalendarEvent) {
+    console.log(e);
+  }
 }

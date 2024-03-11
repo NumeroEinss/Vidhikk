@@ -589,12 +589,12 @@
         display: flex;
         position: relative;
         z-index: 10;
-        padding: 0 10px;
+        padding: 0 0px;
 
         li {
           white-space: nowrap;
-          padding: 10px;
-          max-width: unset;
+          padding: 6px;
+          max-width: unset;height: 50px;
         }
       }
 
@@ -602,17 +602,25 @@
         width: calc(100vw - 206px);
         white-space: nowrap;
         position: absolute;
-        top: 110px;
+        top: 70px;
         margin: 89px 14px 0 12px;
 
         .section-info {
-          padding: 20px;
+          padding: 20px; margin-right: 0px;
+          &:last-child{ margin-bottom: 80px;}
 
           .description {
             white-space: normal;
+          }
+          .user-details{
+            flex-wrap: wrap;
+            .user-details-heading{margin: 0px 0px 0 20px;}
+            .user-details-detail{margin: 0 10px 30px 20px;}
           }
         }
       }
     }
   }
 }
+
+

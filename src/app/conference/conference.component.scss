@@ -188,12 +188,12 @@
           padding: 31px 10px;
 
           .header-chat {
-            margin-left: 34px;
+            margin-left: 20px;
             font-size: 16px;
           }
 
                     .close-button {
-                        margin-right: 34px;
+                        margin-right: 20px;
                         cursor: pointer;
                     }
                 }
@@ -214,12 +214,11 @@
             flex-direction: column;
             border-radius: 30px;
             background-color: #ffffff;
-            padding: 16px 16px;
+            padding: 10px 16px;
             max-width: 70%;
             word-break: break-all;
             position: relative;
-            padding-bottom: 10px;
-
+          
             .sender-name {
               font-size: 10px;
               color: #2e5bff;
@@ -274,14 +273,14 @@
             flex-direction: column;
             border-radius: 30px;
             background-color: #ffffff;
-            padding: 16px 16px;
+            padding: 10px 16px;
             line-height: 1.2em;
             margin-left: 8px;
             text-align: left;
             max-width: 70%;
             word-break: break-all;
             position: relative;
-            padding-bottom: 10px;
+     
 
             .receiver-name {
               font-size: 10px;
@@ -343,7 +342,7 @@
         }
 
         img {
-          margin-left: 25px;
+          margin-left: 10px;
           width: 40px;
           height: 40px;
           border-radius: 50%;

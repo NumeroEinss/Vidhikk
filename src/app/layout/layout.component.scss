@@ -29,7 +29,7 @@ mat-drawer-container {
       flex-grow: 0;
       display: flex;
       gap: 12px;
-      padding: 0 0 0 36px;
+      padding: 0 0 0 30px;
       background-color: #ffffff0d;
       list-style-type: none;
 
@@ -125,10 +125,10 @@ mat-drawer-container {
       width: 180px;
 
       li{
-        padding: 0 0 0 26px;
+        padding: 0 0 0 20px;
 
         a{
-          font-size: 12px;
+          font-size: 14px;
         }
 
         .in-active {
@@ -143,6 +143,12 @@ mat-drawer-container {
         
       }
     }   
+
+    .social-app{
+      img{
+        max-width: 30px;
+      }
+    }
     
     .main-content{
       width: calc(100vw - 180px);

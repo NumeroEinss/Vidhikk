@@ -190,7 +190,7 @@
             width: 42px;
             height: 42px;
             border-radius: 50%;
-            margin-left: 20px;
+            margin-left: 15px;
 
             img {
               width: 42px;
@@ -243,7 +243,7 @@
           display: flex;
           justify-content: flex-end;
           align-items: flex-end;
-          margin-right: 24px;
+          margin-right: 30px;
           cursor: pointer;
 
           .sender-chat {
@@ -251,13 +251,13 @@
             flex-direction: column;
             border-radius: 30px;
             background-color: #ffffff;
-            padding: 16px 16px;
+            padding: 10px 16px;
             line-height: 1.2em;
             margin-top: 19px;
             max-width: 70%;
             word-break: break-all;
             position: relative;
-            padding-bottom: 10px;
+            
 
             .sender-name {
               font-size: 10px;
@@ -305,7 +305,7 @@
           justify-content: flex-start;
           align-items: flex-end;
           margin-top: 19px;
-          margin-left: 29px;
+          margin-left: 25px;
           cursor: pointer;
 
           .receiver-chat {
@@ -313,13 +313,13 @@
             flex-direction: column;
             border-radius: 30px;
             background-color: #ffffff;
-            padding: 16px 16px;
+            padding: 10px 16px;
             line-height: 1.2em;
             margin-left: 8px;
             max-width: 70%;
             word-break: break-all;
             position: relative;
-            padding-bottom: 10px;
+           
 
             .receiver-name {
               font-size: 10px;
@@ -360,7 +360,7 @@
       }
 
       .chat-textarea {
-        margin: 0px 24px;
+        margin: 0px 30px;
         display: flex;
         align-items: center;
         height: 82px;
@@ -384,7 +384,7 @@
         }
 
         img {
-          margin-left: 25px;
+          margin-left: 10px;
           cursor: pointer;
         }
       }
@@ -517,6 +517,7 @@
             input {
               padding: 8px 6px !important;
             }
+        
           }
 
           div {
@@ -525,6 +526,14 @@
 
             img {
               padding: 10px 10px;
+            }
+          }
+          button {
+            width: 50px;
+            height: 40px;
+            img
+            {
+              padding: 9px 0;
             }
           }
         }
@@ -543,13 +552,13 @@
             word-break: break-all;
             font-size: 12px;
 
-            .user-name {
-              font-size: 12px;
-            }
+            // .user-name {
+            //   font-size: 12px;
+            // }
 
-            .user-msg {
-              font-size: 10px;
-            }
+            // .user-msg {
+            //   font-size: 10px;
+            // }
           }
         }
       }
