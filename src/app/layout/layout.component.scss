@@ -95,7 +95,7 @@ mat-drawer-container {
       }
     }
 
-    .social-app{
+    .social-icon{
       display: flex;
       justify-content: center;
       position: absolute;
@@ -111,7 +111,7 @@ mat-drawer-container {
     width: calc(100vw - 220px);
     height: 100vh;
     overflow: auto;
-
+    
     // .modal {
     //   position: absolute !important;
     //   margin: calc(100vw - 220px);

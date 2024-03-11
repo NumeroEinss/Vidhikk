@@ -42,13 +42,13 @@
 
         <div *ngFor="let member of memberList" class="member-list-data">
           <div class="grid-item2">
-            <span><img [src]="member.image" class="me-2" /></span>{{ member.memberName }}
+            <span><img [src]="member.image" class="member-img me-2" /></span>{{ member.memberName }}
           </div>
           <div class="grid-item2">
-            <span><img [src]="member.icon" class="icon me-2" /> </span>{{ member.contactNo }}
+            <span><img [src]="member.icon" class="icon me-2" /></span>{{ member.contactNo }}
           </div>
           <div class="grid-item2">
-            <span><img [src]="member.emailIcon" class="icon me-2" /> </span>{{ member.emailDetails }}
+            <span><img [src]="member.emailIcon" class="icon me-2" /></span>{{ member.emailDetails }}
           </div>
           <div class="grid-item2">{{ member.designation }}</div>
           <div class="grid-item2">{{ member.branch }}</div>
@@ -129,23 +129,21 @@
         <div class="modal-body">
           <div class="add-member-body">
             <div class="d-flex">
-              <!-- <a (click)=" $event.stopPropagation();" style="text-decoration: none;"> -->
               <mat-form-field class="search-input" appearance="outline">
                 <input matInput placeholder="Search Member" />
                 <span matSuffix><img src="../../../assets/images/icons/search-blue.svg"
-                    style="margin-right: 8px" /></span>
+                    style="margin-right: 15px" /></span>
               </mat-form-field>
               <div class="d-flex">
                 <img src="../../../assets/images/icons/funnel_members.svg" alt="noImage" style="margin-left: 15px"
                   class="align-items-center" data-bs-target="#addMemberModalToggle2" data-bs-toggle="modal"
                   class="funnel-image" />
               </div>
-              <!-- </a> -->
             </div>
 
             <ng-scrollbar style="height: 400px">
               <div class="add-member-details" *ngFor="let member of memberDetails">
-                <div class="d-flex">
+                <div class="d-flex align-items-center">
                   <div>
                     <img [src]="member.image" alt="noImage" class="member-img" />
                   </div>

@@ -355,7 +355,7 @@
 
 <!-- Email Otp Verification Modal -->
 <div class="modal fade" id="emailOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered email-modal">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="otpModalLabel">Email Verification</h1>
@@ -369,11 +369,8 @@
         </div>
         <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }" class="mt-2"></ng-otp-input>
         <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
-          <button mat-button color="primary" style="font-size: 12px" class="mt-4">
+          <button mat-button color="primary" style="font-size: 12px" class="request-btn">
             Request a new Code
-          </button>
-          <button mat-raised-button color="primary" style="width: fit-content !important" class="mt-2">
-            Verify
           </button>
         </div>
       </div>

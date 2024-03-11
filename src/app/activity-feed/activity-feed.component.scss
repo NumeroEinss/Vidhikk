@@ -411,6 +411,7 @@
 
       .list-description {
         padding-bottom: 20px;
+        padding-right: 20px;
       }
 
       .policy-list {
@@ -446,6 +447,7 @@
         margin-left: 16px;
         margin-bottom: 30px;
         font-family: Poppins;
+        padding-right: 20px;
 
         .heading {
           font-size: 18px;
@@ -463,12 +465,7 @@
 
         .details {
           font-size: 14px;
-          padding-right: 10px;
         }
-      }
-
-      .checkbox {
-        padding-left: 16px;
       }
     }
   }

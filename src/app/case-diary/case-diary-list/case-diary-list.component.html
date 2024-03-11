@@ -20,14 +20,8 @@
       <!-- filter section start -->
       <div class="filter-section">
         <mat-form-field appearance="outline">
-          <span matPrefix
-            ><img src="../../../assets/images/icons/funnel.svg" class="ms-3"
-          /></span>
-          <mat-select
-            placeholder="Case Diary"
-            required
-            [(value)]="selectedDiary"
-          >
+          <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
+          <mat-select placeholder="Case Diary" required [(value)]="selectedDiary">
             <mat-option *ngFor="let case of caseDiary" [value]="case.value">
               {{ case.viewValue }}
             </mat-option>
@@ -41,43 +35,27 @@
         <mat-form-field appearance="outline">
           <input matInput placeholder="Search Case Diary" required />
           <div matSuffix>
-            <img
-              src="../../../assets/images/icons/search-blue.svg"
-              style="margin-right: 8px; cursor: pointer"
-            />
+            <img src="../../../assets/images/icons/search-blue.svg" style="margin-right: 15px; cursor: pointer" />
           </div>
         </mat-form-field>
       </div>
       <!-- search-bar ends -->
 
-       <!-- creat-case-diary start -->
+      <!-- creat-case-diary start -->
       <div class="create-sub-diary me-4">
-        <button
-          mat-stroked-button
-          color="primary"
-          style="border-radius: 12px"
-          routerLink="/lawyer/case-diary/create"
-        >
-          <img
-            class="mx-1"
-            src="../../../assets/images/icons/sub-diary.svg"
-          /><span style="color: #2e5bff"></span>Create Case Diary
+        <button mat-stroked-button color="primary" style="border-radius: 12px" routerLink="/lawyer/case-diary/create">
+          <img class="mx-1" src="../../../assets/images/icons/sub-diary.svg" /><span
+            style="color: #2e5bff"></span>Create Case Diary
         </button>
       </div>
       <!-- creat-case-diary ends -->
 
       <!-- creat-sub-diary start -->
       <div class="create-sub-diary">
-        <button
-          mat-stroked-button
-          color="primary"
-          style="border-radius: 12px"
-          routerLink="/lawyer/case-diary/create-sub-diary"
-        >
-          <img
-            class="mx-1"
-            src="../../../assets/images/icons/sub-diary.svg"
-          /><span style="color: #2e5bff"></span>Create Sub Diary
+        <button mat-stroked-button color="primary" style="border-radius: 12px"
+          routerLink="/lawyer/case-diary/create-sub-diary">
+          <img class="mx-1" src="../../../assets/images/icons/sub-diary.svg" /><span
+            style="color: #2e5bff"></span>Create Sub Diary
         </button>
       </div>
       <!-- creat-sub-diary ends -->
@@ -113,27 +91,19 @@
         <div class="grid-item2">{{ item.owner }}</div>
         <div class="grid-item2">
           <button mat-icon-button [matMenuTriggerFor]="caseDiaryMenu">
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon class="action-icon">more_vert</mat-icon>
           </button>
         </div>
         <mat-menu #caseDiaryMenu="matMenu">
-          <div mat-menu-item>
-            <img
-              src="../../../assets/images/icons/black_edit.svg"
-              alt=""
-              class="me-2"
-              style="width: 22px; height: 22px"
-            />
+          <div mat-menu-item  routerLink="/lawyer/case-diary/create">
+            <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
+              style="width: 22px; height: 22px" />
             <span class="mat-menu-list">Edit</span>
           </div>
 
           <div mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
-            <img
-              src="../../../assets/images/icons/view_application.svg"
-              alt=""
-              class="me-2"
-              style="width: 20px; height: 20px"
-            />
+            <img src="../../../assets/images/icons/view_application.svg" alt="" class="me-2"
+              style="width: 20px; height: 20px" />
             <span class="mat-menu-list">View Application</span>
           </div>
         </mat-menu>
@@ -170,28 +140,20 @@
         <div class="grid-item2">{{ item.city }}</div>
         <div class="grid-item2">{{ item.assignedTo }}</div>
         <div class="grid-item2">
-          <button mat-icon-button [matMenuTriggerFor]="caseDiaryMenu">
-            <mat-icon>more_vert</mat-icon>
+          <button mat-icon-button [matMenuTriggerFor]="subDiaryMenu">
+            <mat-icon  class="action-icon">more_vert</mat-icon>
           </button>
         </div>
-        <mat-menu #caseDiaryMenu="matMenu">
-          <div mat-menu-item>
-            <img
-              src="../../../assets/images/icons/black_edit.svg"
-              alt=""
-              class="me-2"
-              style="width: 22px; height: 22px"
-            />
+        <mat-menu #subDiaryMenu="matMenu" >
+          <div mat-menu-item routerLink="/lawyer/case-diary/create-sub-diary">
+            <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
+              style="width: 22px; height: 22px" />
             <span class="mat-menu-list">Edit</span>
           </div>
 
           <div mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
-            <img
-              src="../../../assets/images/icons/view_application.svg"
-              alt=""
-              class="me-2"
-              style="width: 20px; height: 20px"
-            />
+            <img src="../../../assets/images/icons/view_application.svg" alt="" class="me-2"
+              style="width: 20px; height: 20px" />
             <span class="mat-menu-list">View Application</span>
           </div>
         </mat-menu>

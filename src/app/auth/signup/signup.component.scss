@@ -117,8 +117,11 @@
   }
 }
 
+
+// Terms And Services styling Start
 .terms-service {
   width: 688px;
+
   .modal-content {
     .modal-header {
       display: flex;
@@ -132,10 +135,12 @@
 
   .modal-body {
     text-align: left;
+
     .policy-container {
       margin-left: 16px;
       margin-bottom: 30px;
       font-family: Poppins;
+      padding-right: 20px;
 
       .heading {
         font-size: 18px;
@@ -153,11 +158,28 @@
 
       .details {
         font-size: 14px;
-        padding-right: 10px;
       }
     }
   }
 }
+
+// Terms And Services styling ends
+
+
+// Email Verification Modal styling start
+.email-modal {
+  .modal-body {
+    .request-btn {
+      font-family: Poppins;
+      color: #2e5bff;
+      font-weight: 400;
+      font-size: 12px;
+      margin-top: 45px;
+    }
+  }
+}
+// Email Verification Modal styling ends
+
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .signup-form {

@@ -51,7 +51,7 @@
           </mat-form-field>
 
           <div class="row">
-            <a class="text-align-right forgot-password" routerLink="/auth/forgotPassword">Forgot Password</a>
+            <a class="text-align-right forgot-password" routerLink="/auth/forgotPassword">Forgot Password?</a>
           </div>
           <div class="text-center mt-3">
             <button mat-raised-button color="primary w-100" (click)="login('form2')">
@@ -78,7 +78,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input matInput placeholder="pat@example.com" formControlName="email" required />
+            <input matInput placeholder="Enter email address" formControlName="email" required />
             <span matPrefix><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></span>
             <mat-error *ngIf="this.loginForm.controls['email'].invalid">{{
               getErrorMessage()
@@ -99,7 +99,7 @@
           </mat-form-field>
 
           <div class="row">
-            <a class="text-align-right forgot-password" [routerLink]="'/auth/forgotPassword'">Forgot Password</a>
+            <a class="text-align-right forgot-password" [routerLink]="'/auth/forgotPassword'">Forgot Password?</a>
           </div>
 
           <div class="mt-3">

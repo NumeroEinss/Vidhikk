@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -8,7 +9,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 })
 
 export class UserProfileComponent {
-
+  userData: any;
   editProfile: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {

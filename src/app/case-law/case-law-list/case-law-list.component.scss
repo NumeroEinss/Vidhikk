@@ -11,7 +11,7 @@
     text-align: left;
     color: #000000;
   }
- 
+
 
   .filter-bar {
     background-color: #f6f6f6;
@@ -30,8 +30,6 @@
         font-family: Poppins;
         color: #8798ad;
       }
-
-
     }
 
     .posttext {
@@ -45,6 +43,17 @@
       cursor: pointer;
     }
   }
+
+  .mat-mdc-menu-panel {
+    .sort-menu {
+      padding: unset !important;
+    }
+  }
+
+  .mat-mdc-menu-content {
+    padding: unset !important;
+  }
+
 
   .mat-mdc-tab-body {
     max-width: unset !important;
@@ -291,4 +300,5 @@
 
 .list-container {
   height: 250px;
+  font-size: 14px;
 }

@@ -8,7 +8,10 @@ import { SnackAlertService } from '../shared/services/snack-alert.service';
 })
 export class ChatRoomComponent {
   selectedChat: string = 'allChat';
-  message: string = '';
+  message: string = 'Hey, start chat with....';
+  member:string = '';
+  roomName:string = '';
+  // modalVisible = false;
 
   members = [
     { value: 'anilSoni', viewValue: 'Anil Soni' },
@@ -20,130 +23,64 @@ export class ChatRoomComponent {
   roomList = [
     {
       image: '../../assets/images/image/chat-default.png',
-      name: 'Group Chat Name',
+      groupName: 'The Justice Squad',
       message: 'No problem! Let me know if...',
       className: 'colorless-border-chatroom',
     },
     {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Anil Soni',
+      image: '../../assets/images/image/chat-default.png',
+      groupName: 'The Lawful Thinkers',
       message: 'No problem! Let me know if...',
       className: 'colorless-border-label',
     },
     {
-      image: '../../assets/images/image/add_member.png',
-      name: 'Jay Goana',
+      image: '../../assets/images/image/chat-default.png',
+      groupName: 'The Legal Daredevils',
       message: 'Ok Thanks',
       className: 'colorless-border-label',
     },
     {
-      image: '../../assets/images/image/add_member.png',
-      name: 'Pratik Jaiswal',
+      image: '../../assets/images/image/chat-default.png',
+      groupName: 'The Justice League',
       message: 'Please provide me',
       className: 'colorless-border-label',
     },
     {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Anjali Sharma',
+      image: '../../assets/images/image/chat-default.png',
+      groupName: 'The Legal Warriors',
       message: 'Thats Great',
       className: 'colorless-border-label',
     },
     {
-      image: '../../assets/images/image/add_member.png',
-      name: 'Nitin Jaiswal',
+      image: '../../assets/images/image/chat-default.png',
+      groupName: 'The Legal Knights',
       message: 'What about you',
       className: 'colorless-border-label',
     },
     {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Priya Singh',
+      image: '../../assets/images/image/chat-default.png',
+      groupName: 'The Law Titans',
+      message: 'No problem! Let me know if...',
+      className: 'colorless-border-label',
+    },  
+    {
+      image: '../../assets/images/image/chat-default.png',
+      groupName: 'Legal Lions',
       message: 'No problem! Let me know if...',
       className: 'colorless-border-label',
     },
     {
-      image: '../../assets/images/image/add_member.png',
-      name: 'Priya Singh',
+      image: '../../assets/images/image/chat-default.png',
+      groupName: 'Legal Crusaders',
       message: 'No problem! Let me know if...',
       className: 'colorless-border-label',
     },
     {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Anil Soni',
+      image: '../../assets/images/image/chat-default.png',
+      groupName: 'Justice League',
       message: 'No problem! Let me know if...',
       className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Priya Singh',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member.png',
-      name: 'Priya Singh',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Anil Soni',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Priya Singh',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member.png',
-      name: 'Priya Singh',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Anil Soni',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Priya Singh',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member.png',
-      name: 'Priya Singh',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Anil Soni',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Priya Singh',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Priya Singh',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      name: 'Priya Singh',
-      message: 'No problem! Let me know if...',
-      className: 'colorless-border-label',
-    },
+    },  
   ];
 
   chatList = [
@@ -227,5 +164,21 @@ export class ChatRoomComponent {
 
   notifyUser() {
     this._toastMessage.message('You cannot add more than 20 Chat Rooms !!');
+  }
+
+  submit(){
+    const newData = {
+      image: '../../assets/images/image/chat-default.png',
+      groupName: this.roomName,
+      message: this.message,   
+      className: 'colorless-border-chatroom',
+    };
+
+    this.roomList.push(newData);
+    this.member = ''
+    this.roomName = '' 
+
+    // let element = document.getElementById("createChatRoomModal") as HTMLElement;
+    // element.close()
   }
 }

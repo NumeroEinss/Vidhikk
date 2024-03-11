@@ -28,7 +28,7 @@
             <div class="list-container">
               <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                 <li mat-menu-item *ngFor="let search of searchList" (click)="closed(search.name)">
-                  <mat-checkbox [(ngModel)]="search.checked" [color]="'primary'" style="color: black">
+                  <mat-checkbox [(ngModel)]="search.checked" [color]="'primary'" style="color: black" class="case-law-checkbox">
                     {{ search.name }}
                   </mat-checkbox>
                 </li>
@@ -44,7 +44,7 @@
           </a>
         </mat-menu>
         <!-- Sort Menu -->
-        <mat-menu #filterMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu">
+        <mat-menu #filterMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="sort-menu">
           <div mat-menu-item (click)="sort('0')">Recent</div>
           <div mat-menu-item (click)="sort('1')">Relevance</div>
           <div mat-menu-item (click)="sort('2')">Most Cited</div>

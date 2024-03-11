@@ -112,7 +112,7 @@
         .description {
           flex-grow: 0;
           font-family: Poppins;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: normal;
           font-stretch: normal;
           font-style: normal;
@@ -281,6 +281,15 @@
         font-weight: 700;
       }
     }
+
+    .request-btn{
+      font-family: Poppins;
+      color: #2e5bff;
+      font-weight: 400;
+      font-size: 12px;
+      margin-top: 45px;
+      letter-spacing: normal;
+    }
   }
 }
 // Mobile-verification popup styling ends
@@ -299,6 +308,15 @@
       .email {
         font-weight: 700;
       }
+    }
+
+    .request-btn{
+      font-family: Poppins;
+      color: #2e5bff;
+      font-weight: 400;
+      font-size: 12px;
+      margin-top: 45px;
+      letter-spacing: normal;
     }
   }
 }

@@ -290,7 +290,7 @@ body {
 
     label {
       font-family: Poppins;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 
@@ -329,6 +329,7 @@ body {
 
   .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate="true"])~.mdc-checkbox__background {
     border-radius: 5px;
+    border-color: #8798ad;
   }
 
   // mat-input Override Css
@@ -456,7 +457,7 @@ body {
   }
 
   .mat-mdc-select-trigger {
-    padding: 8px 10px;
+    padding: 8px 20px 8px 10px;
   }
 
   .mat-mdc-select-trigger::after {
@@ -484,6 +485,30 @@ body {
 
   .mat-mdc-option.mat-mdc-option-active.mdc-list-item {
     background-color: #1949f517;
+  }
+
+  //black arrow down overrid css
+  .case-diary-header-menu {
+    .filter-section {
+      // .mat-mdc-select-trigger {
+      //   padding: 8px 10px;
+      // }
+
+      .mat-mdc-select-trigger::after {
+        content: "";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 17px;
+        background: url("../src/assets/images/icons/black_arrow_down.svg");
+        margin-top: 2px;
+      }
+    }
+  }
+
+  .mat-mdc-menu-content {
+    padding: unset !important;
   }
 
   // mat-button label Overrid Css
@@ -843,19 +868,32 @@ body {
     }
   }
 
-  .checkbox {
+  .terms-service-checkbox {
     display: flex;
     align-items: center;
-    margin-top: 15px;
+    padding-left: 16px;
+    margin-top: 20px;
 
     .mdc-checkbox {
       padding: unset;
-      margin: unset;
     }
 
     .mdc-label {
-      padding-left: 7px;
+      padding-left: 10px;
       white-space: break-spaces;
+    }
+  }
+
+  .list-container {
+    .case-law-checkbox {
+      .mdc-checkbox {
+        padding: unset;
+        margin-top: 2px;
+      }
+
+      .mdc-label {
+        padding-left: 10px;
+      }
     }
   }
 }
