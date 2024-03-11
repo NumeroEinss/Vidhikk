@@ -406,7 +406,7 @@ body {
   }
 
   .mdc-label {
-    font-size: 12px;
+    font-size: 14px;
     color: #8798ad;
     font-family: Poppins;
     font-weight: normal;
@@ -487,6 +487,7 @@ body {
     background: url("../src/assets/images/icons/arrow_down_blue.svg");
     margin-top: 2px;
   }
+  
 
   .mat-mdc-select-arrow-wrapper {
     display: none;
@@ -663,7 +664,7 @@ body {
   }
 
   .mat-mdc-checkbox {
-    margin-right: 8px;
+    margin-right: 20px;
 
     .mdc-checkbox__ripple {
       display: none;
@@ -710,6 +711,7 @@ body {
         .mdc-checkbox {
           padding: 0px 0px 12px 0px;
         }
+
         .mdc-label {
           color: #8798ad !important;
         }
@@ -747,6 +749,7 @@ body {
     .mat-calendar-previous-button:not(.mat-mdc-button-disabled) {
       color: #2e5bff;
     }
+
     .mat-calendar-next-button:not(.mat-mdc-button-disabled) {
       color: #2e5bff;
     }
@@ -784,6 +787,7 @@ body {
     color: white;
     border-radius: 5px;
     font-family: Poppins;
+
     .mdc-snackbar__surface {
       background-color: #2e5bff;
       border-radius: 5px;
@@ -795,6 +799,7 @@ body {
     color: white;
     border-radius: 5px;
     font-family: Poppins;
+
     .mdc-snackbar__surface {
       background-color: #f44336;
       border-radius: 5px;
@@ -805,60 +810,114 @@ body {
     font-family: Poppins;
   }
 
-  .mat-mdc-form-field-error{
-    font-family: Poppins;
-  }
+  .mat-mdc-form-field-error {
+    .mat-mdc-form-field-error {
+      font-family: Poppins;
+    }
 
-  .mat-calendar-body-in-range::before {
-    background: #2e5bff0d;
-  }
+    .mat-calendar-body-in-range::before {
+      background: #2e5bff0d;
+    }
 
-  .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-    background-color: #2e5bff0d;
-    border-color: #2e5bff;
-  }
-
-  .cdk-program-focused {
-    .mat-calendar-body-active
-      > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
-        .mat-calendar-body-comparision-identical
-      ) {
+    .mat-calendar-body-today:not(.mat-calendar-body-selected) {
       background-color: #2e5bff0d;
       border-color: #2e5bff;
     }
-  }
 
-  .mat-mdc-chip-selected.cdk-focused {
-    .mat-mdc-chip-focus-overlay {
-      background: transparent;
+    .cdk-program-focused {
+      .mat-calendar-body-active
+        > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+          .mat-calendar-body-comparision-identical
+        ) {
+        background-color: #2e5bff0d;
+        border-color: #2e5bff;
+      }
     }
-  }
 
-  .filterPopup {
-    .mdc-label {
-      font-size: 14px !important;
+    .mat-mdc-chip-selected.cdk-focused {
+      .mat-mdc-chip-focus-overlay {
+        background: transparent;
+      }
     }
-  }
 
-  .cal-header {
-    font-weight: normal !important;
-    background: #f5f5f5;
-
-    .cal-cell {
-      border: 1px solid #e1e1e1;
+    .filterPopup {
+      .mdc-label {
+        font-size: 14px !important;
+      }
     }
-  }
 
-  .cal-week-view {
-    .cal-time {
-      font-weight: normal;
+    .cal-header {
+      font-weight: normal !important;
+      background: #f5f5f5;
+
+      .cal-cell {
+        border: 1px solid #e1e1e1;
+      }
     }
-    .cal-day-headers .cal-header {
-      font-weight: 100 !important;
+
+    .cal-week-view {
+      .cal-time {
+        font-weight: normal;
+      }
+
+      .cal-day-headers .cal-header {
+        font-weight: 100 !important;
+      }
+    }
+
+    .mat-mdc-tab-group {
+      .mat-mdc-tab-header {
+        .mat-mdc-tab-header-pagination-before {
+          padding-left: unset;
+        }
+      }
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+
+      .mdc-checkbox {
+        padding: unset;
+        margin: unset;
+      }
+
+      .mdc-label {
+        padding-left: 7px;
+        white-space: break-spaces;
+      }
+    }
+
+    .text-start {
+      .mdc-checkbox {
+        padding: 0 5px 0 0 !important;
+        margin: 0px !important;
+      }
+    }
+
+    mat-button-toggle-group {
+      background-color: transparent !important;
+      border: none !important;
+      .mat-button-toggle {
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        margin: 0 2px;
+        .mat-button-toggle-button[aria-pressed="true"] {
+          .mat-button-toggle-label-content {
+            visibility: visible;
+          }
+        }
+        .mat-button-toggle-button[aria-pressed="false"] {
+          .mat-button-toggle-label-content {
+            visibility: hidden;
+          }
+        }
+      }
     }
   }
 }
-
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .login-form,
   .forgot-form,
@@ -866,6 +925,10 @@ body {
   .signup-form {
     .mat-mdc-tab-group {
       width: 280px;
+    }
+
+    .mat-mdc-checkbox {
+      margin-right: 8px;
     }
   }
 }

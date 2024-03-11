@@ -1,10 +1,10 @@
 .root {
   .conference-container {
-    margin: 10px 20px 0 20px;
+    margin: 10px 30px 0 30px;
 
     .conference-header {
       display: grid;
-      grid-template-columns:15% 25% 25% 25% 10%;;
+      grid-template-columns:9.6% 30.2% 25.3% 20.5% 2%;
       margin-bottom: 5px;
       align-items: center;
       padding: 2px 15px;
@@ -15,7 +15,7 @@
 
     .conference-data {
       display: grid;
-      grid-template-columns: 15% 25% 25% 25% 10%;;
+      grid-template-columns: 10% 30% 25% 20% 16%;
       height: 80px;
       border: 1px solid #f5f5f5;
       border-radius: 12px;
@@ -52,12 +52,13 @@
     }
 
 
-    .root{
-      .conference-container{
-        margin: 10px 0px 0 20px;
-      }
+  
+    
+    
+  }
+  .root{
+    .conference-container{
+      margin: 10px 15px 0 15px;
     }
-    
-    
   }
 }

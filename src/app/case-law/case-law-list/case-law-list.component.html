@@ -1,12 +1,7 @@
 <app-header [menuName]="'Case Law'"></app-header>
 <div class="root">
-  <mat-tab-group
-    mat-stretch-tabs="false"
-    mat-align-tabs="left"
-    [(selectedIndex)]="selectedIndex"
-    (selectedTabChange)="tabSelectionChange($event)"
-    animationDuration="0ms"
-  >
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="left" [(selectedIndex)]="selectedIndex"
+    (selectedTabChange)="tabSelectionChange($event)" animationDuration="0ms">
     <!-- Latest Cases -->
     <mat-tab label="Latest Cases">
       <div class="filter-bar mt-2 mb-2">
@@ -17,79 +12,39 @@
         </div>
         <div class="posttext col-lg-6 col-md-6">
           <div>
-            <img
-              [matMenuTriggerFor]="filterMenu"
-              #filterMenuTrigger="matMenuTrigger"
-              src="../../../assets/images/icons/sort.svg"
-            />
+            <img [matMenuTriggerFor]="filterMenu" #filterMenuTrigger="matMenuTrigger"
+              src="../../../assets/images/icons/sort.svg" />
           </div>
           <div>
-            <img
-              [matMenuTriggerFor]="sortMenu"
-              src="../../../assets/images/icons/filter.svg"
-            />
+            <img [matMenuTriggerFor]="sortMenu" src="../../../assets/images/icons/filter.svg" />
           </div>
         </div>
         <!-- Filter Menu -->
-        <mat-menu
-          #sortMenu="matMenu"
-          yPosition="below"
-          [hasBackdrop]="true"
-          class="mat-menu"
-        >
+        <mat-menu #sortMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu">
           <a (click)="$event.stopPropagation()" style="text-decoration: none">
             <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-              <input
-                #search
-                matInput
-                (keyup)="onKey($event)"
-                placeholder="By Court"
-              />
+              <input #search matInput (keyup)="onKey($event)" placeholder="By Court" />
             </mat-form-field>
             <div class="list-container">
               <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-                <li
-                  mat-menu-item
-                  *ngFor="let search of searchList"
-                  (click)="closed(search.name)"
-                >
-                  <mat-checkbox
-                    [(ngModel)]="search.checked"
-                    [color]="'primary'"
-                    style="color: black"
-                  >
+                <li mat-menu-item *ngFor="let search of searchList" (click)="closed(search.name)">
+                  <mat-checkbox [(ngModel)]="search.checked" [color]="'primary'" style="color: black">
                     {{ search.name }}
                   </mat-checkbox>
                 </li>
               </ng-scrollbar>
             </div>
             <div class="d-flex">
-              <button
-                mat-raised-button
-                color="primary"
-                class="m-2"
-                (click)="filterMenuTrigger.closeMenu()"
-              >
-                Done</button
-              ><br />
-              <button
-                mat-stroked-button
-                color="primary"
-                class="m-2"
-                (click)="search.value = ''; onKey()"
-              >
+              <button mat-raised-button color="primary" class="m-2" (click)="filterMenuTrigger.closeMenu()">
+                Done</button><br />
+              <button mat-stroked-button color="primary" class="m-2" (click)="search.value = ''; onKey()">
                 Clear
               </button>
             </div>
           </a>
         </mat-menu>
         <!-- Sort Menu -->
-        <mat-menu
-          #filterMenu="matMenu"
-          yPosition="below"
-          [hasBackdrop]="true"
-          class="mat-menu"
-        >
+        <mat-menu #filterMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu">
           <div mat-menu-item (click)="sort('0')">Recent</div>
           <div mat-menu-item (click)="sort('1')">Relevance</div>
           <div mat-menu-item (click)="sort('2')">Most Cited</div>
@@ -99,11 +54,7 @@
       <!-- Case Law List -->
       <div style="height: calc(100vh - 243px)">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-          <div
-            class="case-container"
-            *ngFor="let case of caseList"
-            (click)="viewCase('edadsfalkdlk2jkldas2255E')"
-          >
+          <div class="case-container" *ngFor="let case of caseList" (click)="viewCase('edadsfalkdlk2jkldas2255E')">
             <div class="title">
               {{ case.caseTitle }}
             </div>
@@ -131,28 +82,15 @@
       <div class="app-resp-container">
         <div class="title">App/Resp</div>
         <div class="d-flex mat-input-white" style="flex-direction: column">
-          <mat-label class="mat-label"
-            >Enter String Alphabets of the Name</mat-label
-          >
+          <mat-label class="mat-label">Enter String Alphabets of the Name</mat-label>
           <mat-form-field appearance="outline">
             <input matInput placeholder="All these alphabets of the name" />
           </mat-form-field>
         </div>
         <div class="d-flex mt-4">
-          <button
-            mat-raised-button
-            color="primary"
-            style="width: 124px !important; margin-right: 26px; display: flex"
-          >
-            <img
-              src="../../../assets/images/icons/search-white.svg"
-            />Search</button
-          ><br />
-          <button
-            mat-stroked-button
-            color="primary"
-            style="width: 124px !important; display: flex"
-          >
+          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
+            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
+          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
             <img src="../../../assets/images/icons/reset.svg" />Reset
           </button>
         </div>
@@ -168,34 +106,16 @@
           <mat-label class="mat-label">Select by Name List</mat-label>
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Judge" required>
-              <a
-                (click)="$event.stopPropagation()"
-                style="text-decoration: none"
-              >
-                <mat-form-field
-                  class="p-2 w-100 search-input"
-                  appearance="outline"
-                >
-                  <input
-                    #search
-                    matInput
-                    (keyup)="filterJudge($event)"
-                    placeholder="By Judge Name"
-                  />
-                  <span matSuffix
-                    ><img
-                      class="me-2"
-                      src="../../../assets/images/icons/search-blue.svg"
-                  /></span>
+              <a (click)="$event.stopPropagation()" style="text-decoration: none">
+                <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                  <input #search matInput (keyup)="filterJudge($event)" placeholder="By Judge Name" />
+                  <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
                 </mat-form-field>
               </a>
               <div style="height: 190px">
                 <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                   <mat-option>Select</mat-option>
-                  <mat-option
-                    *ngFor="let judge of filteredJudgeList"
-                    [value]="judge.value"
-                  >
+                  <mat-option *ngFor="let judge of filteredJudgeList" [value]="judge.value">
                     {{ judge.name }}
                   </mat-option>
                 </ng-scrollbar>
@@ -204,20 +124,9 @@
           </mat-form-field>
         </div>
         <div class="d-flex mt-4">
-          <button
-            mat-raised-button
-            color="primary"
-            style="width: 124px !important; margin-right: 26px; display: flex"
-          >
-            <img
-              src="../../../assets/images/icons/search-white.svg"
-            />Search</button
-          ><br />
-          <button
-            mat-stroked-button
-            color="primary"
-            style="width: 124px !important; display: flex"
-          >
+          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
+            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
+          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
             <img src="../../../assets/images/icons/reset.svg" />Reset
           </button>
         </div>
@@ -233,35 +142,17 @@
           <mat-label class="mat-label">Journal</mat-label>
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Journal" required>
-              <a
-                (click)="$event.stopPropagation()"
-                style="text-decoration: none"
-              >
-                <mat-form-field
-                  class="p-2 w-100 search-input"
-                  appearance="outline"
-                >
-                  <input
-                    #search
-                    matInput
-                    (keyup)="filterJournal($event)"
-                    placeholder="By Court"
-                  />
-                  <span matSuffix
-                    ><img
-                      class="me-2"
-                      src="../../../assets/images/icons/search-blue.svg"
-                  /></span>
+              <a (click)="$event.stopPropagation()" style="text-decoration: none">
+                <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                  <input #search matInput (keyup)="filterJournal($event)" placeholder="By Court" />
+                  <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
                 </mat-form-field>
               </a>
 
               <div style="height: 190px">
                 <ng-scrollbar>
                   <mat-option>Select</mat-option>
-                  <mat-option
-                    *ngFor="let journal of filteredJournalsList"
-                    [value]="journal.value"
-                  >
+                  <mat-option *ngFor="let journal of filteredJournalsList" [value]="journal.value">
                     {{ journal.name }}
                   </mat-option>
                 </ng-scrollbar>
@@ -273,10 +164,7 @@
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Year" required>
               <mat-option>Select</mat-option>
-              <mat-option
-                *ngFor="let year of filteredYearList"
-                [value]="year.value"
-              >
+              <mat-option *ngFor="let year of filteredYearList" [value]="year.value">
                 {{ year.viewValue }}
               </mat-option>
             </mat-select>
@@ -286,10 +174,7 @@
           <mat-form-field appearance="outline">
             <mat-select placeholder="Select Volume" required>
               <mat-option>Select</mat-option>
-              <mat-option
-                *ngFor="let volume of filteredVolumeList"
-                [value]="volume.value"
-              >
+              <mat-option *ngFor="let volume of filteredVolumeList" [value]="volume.value">
                 {{ volume.viewValue }}
               </mat-option>
             </mat-select>
@@ -300,20 +185,9 @@
           </mat-form-field>
         </div>
         <div class="d-flex mt-4">
-          <button
-            mat-raised-button
-            color="primary"
-            style="width: 124px !important; margin-right: 26px; display: flex"
-          >
-            <img
-              src="../../../assets/images/icons/search-white.svg"
-            />Search</button
-          ><br />
-          <button
-            mat-stroked-button
-            color="primary"
-            style="width: 124px !important; display: flex"
-          >
+          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
+            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
+          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
             <img src="../../../assets/images/icons/reset.svg" />Reset
           </button>
         </div>
@@ -335,11 +209,7 @@
       <div style="height: calc(100vh - 243px)">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           <div class="bare-acts">
-            <div
-              class="acts"
-              *ngFor="let acts of actsList"
-              (click)="viewBareActs('edadsfalkdlk2jkldas22559')"
-            >
+            <div class="acts" *ngFor="let acts of actsList" (click)="viewBareActs('edadsfalkdlk2jkldas22559')">
               {{ acts.name }}
             </div>
           </div>
@@ -361,7 +231,7 @@
                   <mat-option>Select</mat-option>
                   <mat-option *ngFor="let act of actList" value="item.value">{{
                     act.name
-                  }}</mat-option>
+                    }}</mat-option>
                 </ng-scrollbar>
               </div>
             </mat-select>
@@ -374,31 +244,16 @@
               <div style="height: 190px">
                 <ng-scrollbar>
                   <mat-option>Select</mat-option>
-                  <mat-option
-                    *ngFor="let act of actTypeList"
-                    value="item.value"
-                    >{{ act.name }}</mat-option
-                  >
+                  <mat-option *ngFor="let act of actTypeList" value="item.value">{{ act.name }}</mat-option>
                 </ng-scrollbar>
               </div>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="d-flex mt-4">
-          <button
-            mat-raised-button
-            color="primary"
-            style="width: 124px !important; margin-right: 26px; display: flex"
-          >
-            <img
-              src="../../../assets/images/icons/search-white.svg"
-            />Search</button
-          ><br />
-          <button
-            mat-stroked-button
-            color="primary"
-            style="width: 124px !important; display: flex"
-          >
+          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
+            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
+          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
             <img src="../../../assets/images/icons/reset.svg" />Reset
           </button>
         </div>
@@ -419,20 +274,9 @@
           </mat-form-field>
         </div>
         <div class="d-flex mt-4">
-          <button
-            mat-raised-button
-            color="primary"
-            style="width: 124px !important; margin-right: 26px; display: flex"
-          >
-            <img
-              src="../../../assets/images/icons/search-white.svg"
-            />Search</button
-          ><br />
-          <button
-            mat-stroked-button
-            color="primary"
-            style="width: 124px !important; display: flex"
-          >
+          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
+            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
+          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
             <img src="../../../assets/images/icons/reset.svg" />Reset
           </button>
         </div>
@@ -454,11 +298,7 @@
       <div style="height: calc(100vh - 243px)">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           <div class="overruledby">
-            <div
-              class="acts"
-              *ngFor="let case of overruledList"
-              (click)="viewCase('dfasd23Eddf112sdnb2')"
-            >
+            <div class="acts" *ngFor="let case of overruledList" (click)="viewCase('dfasd23Eddf112sdnb2')">
               <div class="previous-attorney">{{ case.previousAttorney }}</div>
               <div class="overruled">Overruled By</div>
               <div class="current-attorney">{{ case.currentAttorney }}</div>
@@ -499,27 +339,14 @@
         </div>
         <div class="d-flex mat-input-white" style="flex-direction: column">
           <mat-radio-group aria-label="Select an option" class="mb-2">
-            <mat-radio-button value="1" class="me-3" checked
-              >Judgement</mat-radio-button
-            >
+            <mat-radio-button value="1" class="me-3" checked>Judgement</mat-radio-button>
             <mat-radio-button value="2">HeadNote</mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="d-flex mt-4">
-          <button
-            mat-raised-button
-            color="primary"
-            style="width: 124px !important; margin-right: 26px; display: flex"
-          >
-            <img
-              src="../../../assets/images/icons/search-white.svg"
-            />Search</button
-          ><br />
-          <button
-            mat-stroked-button
-            color="primary"
-            style="width: 124px !important; display: flex"
-          >
+          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
+            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
+          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
             <img src="../../../assets/images/icons/reset.svg" />Reset
           </button>
         </div>
@@ -532,10 +359,7 @@
       <div class="advance-search">
         <div class="title">Advance Search</div>
         <div class="row">
-          <div
-            class="d-flex mat-input-white me-4"
-            style="flex-direction: column"
-          >
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Enter Text</mat-label>
             <mat-form-field appearance="outline">
               <input matInput placeholder="All these words in quotes dying" />
@@ -549,41 +373,20 @@
           </div>
         </div>
         <div class="row">
-          <div
-            class="d-flex mat-input-white me-4"
-            style="flex-direction: column"
-          >
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Judge Name</mat-label>
             <mat-form-field appearance="outline">
               <mat-select placeholder="Select Judge" required>
-                <a
-                  (click)="$event.stopPropagation()"
-                  style="text-decoration: none"
-                >
-                  <mat-form-field
-                    class="p-2 w-100 search-input"
-                    appearance="outline"
-                  >
-                    <input
-                      #search
-                      matInput
-                      (keyup)="filterJudge($event)"
-                      placeholder="By Judge Name"
-                    />
-                    <span matSuffix
-                      ><img
-                        class="me-2"
-                        src="../../../assets/images/icons/search-blue.svg"
-                    /></span>
+                <a (click)="$event.stopPropagation()" style="text-decoration: none">
+                  <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                    <input #search matInput (keyup)="filterJudge($event)" placeholder="By Judge Name" />
+                    <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
                   </mat-form-field>
                 </a>
                 <div style="height: 190px">
                   <ng-scrollbar>
                     <mat-option>Select</mat-option>
-                    <mat-option
-                      *ngFor="let judge of filteredJudgeList"
-                      [value]="judge.value"
-                    >
+                    <mat-option *ngFor="let judge of filteredJudgeList" [value]="judge.value">
                       {{ judge.name }}
                     </mat-option>
                   </ng-scrollbar>
@@ -598,20 +401,14 @@
                 <input matStartDate placeholder="Start date" />
                 <input matEndDate placeholder="End date" />
               </mat-date-range-input>
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
           </div>
         </div>
 
         <div class="row">
-          <div
-            class="d-flex mat-input-white me-4"
-            style="flex-direction: column"
-          >
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Case No.</mat-label>
             <mat-form-field appearance="outline">
               <input matInput placeholder="Enter Case No." />
@@ -621,29 +418,16 @@
             <mat-label class="mat-label">Act Title</mat-label>
             <mat-form-field appearance="outline">
               <mat-select placeholder="Select Act Title" required>
-                <a
-                  (click)="$event.stopPropagation()"
-                  style="text-decoration: none"
-                >
-                  <mat-form-field
-                    class="p-2 w-100 search-input"
-                    appearance="outline"
-                  >
+                <a (click)="$event.stopPropagation()" style="text-decoration: none">
+                  <mat-form-field class="p-2 w-100 search-input" appearance="outline">
                     <input #search matInput (keyup)="filterAct($event)" />
-                    <span matSuffix
-                      ><img
-                        class="me-2"
-                        src="../../../assets/images/icons/search-blue.svg"
-                    /></span>
+                    <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
                   </mat-form-field>
                 </a>
                 <div style="height: 190px">
                   <ng-scrollbar>
                     <mat-option>Select</mat-option>
-                    <mat-option
-                      *ngFor="let act of filteredActList"
-                      [value]="act.value"
-                    >
+                    <mat-option *ngFor="let act of filteredActList" [value]="act.value">
                       {{ act.name }}
                     </mat-option>
                   </ng-scrollbar>
@@ -654,47 +438,26 @@
         </div>
 
         <div class="row">
-          <div
-            class="d-flex mat-input-white me-4"
-            style="flex-direction: column"
-          >
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Case Year</mat-label>
             <mat-form-field appearance="outline">
-              <input
-                matInput
-                placeholder="Enter Case Year"
-                (keypress)="isNumber($event)"
-                maxlength="4"
-              />
+              <input matInput placeholder="Enter Case Year" (keypress)="isNumber($event)" maxlength="4" />
             </mat-form-field>
           </div>
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label">Act Type</mat-label>
             <mat-form-field appearance="outline">
               <mat-select placeholder="Select Act Type" required>
-                <a
-                  (click)="$event.stopPropagation()"
-                  style="text-decoration: none"
-                >
-                  <mat-form-field
-                    class="p-2 w-100 search-input"
-                    appearance="outline"
-                  >
+                <a (click)="$event.stopPropagation()" style="text-decoration: none">
+                  <mat-form-field class="p-2 w-100 search-input" appearance="outline">
                     <input #search matInput (keyup)="filterActType($event)" />
-                    <span matSuffix
-                      ><img
-                        class="me-2"
-                        src="../../../assets/images/icons/search-blue.svg"
-                    /></span>
+                    <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
                   </mat-form-field>
                 </a>
                 <div style="height: 190px">
                   <ng-scrollbar>
                     <mat-option>Select</mat-option>
-                    <mat-option
-                      *ngFor="let act of filteredActTypeList"
-                      [value]="act.value"
-                    >
+                    <mat-option *ngFor="let act of filteredActTypeList" [value]="act.value">
                       {{ act.name }}
                     </mat-option>
                   </ng-scrollbar>
@@ -705,10 +468,7 @@
         </div>
 
         <div class="row">
-          <div
-            class="d-flex mat-input-white me-4"
-            style="flex-direction: column"
-          >
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Advocates</mat-label>
             <mat-form-field appearance="outline">
               <input matInput placeholder="Enter Advocate Name" />
@@ -717,20 +477,9 @@
         </div>
 
         <div class="d-flex mt-4">
-          <button
-            mat-raised-button
-            color="primary"
-            style="width: 124px !important; margin-right: 26px; display: flex"
-          >
-            <img
-              src="../../../assets/images/icons/search-white.svg"
-            />Search</button
-          ><br />
-          <button
-            mat-stroked-button
-            color="primary"
-            style="width: 124px !important; display: flex"
-          >
+          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
+            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
+          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
             <img src="../../../assets/images/icons/reset.svg" />Reset
           </button>
         </div>

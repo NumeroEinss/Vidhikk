@@ -9,6 +9,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [CalendarComponent, CalendarHeaderComponent],
@@ -19,6 +21,8 @@ import { SharedModule } from '../shared/shared.module';
     MaterialModule,
     ReactiveFormsModule,
     SharedModule,
+    MatDatepickerModule,
+    MatButtonToggleModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

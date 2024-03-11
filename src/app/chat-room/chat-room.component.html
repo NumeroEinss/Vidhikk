@@ -34,36 +34,26 @@
     <div class="group-list col-lg-3 col-md-3">
       <div class="search-n-create-chat-room">
         <mat-form-field class="search-input" appearance="outline">
-          <span matPrefix class="search-icon"
-            ><img src="../../../assets/images/icons/search-blue.svg"
-          /></span>
-          <input
-            matInput
-            placeholder="Search chat"
-            
-          />
+          <span matPrefix><img src="../../../assets/images/icons/search-blue.svg" class="search-icon" /></span>
+          <input matInput placeholder="Search chat" />
         </mat-form-field>
 
-        <div>
-          <img
-            src="../../../assets/images/icons/add_chat_chatRoom.svg"
-            alt="noImage"
-            data-bs-target="#createChatRoomModal"
-            data-bs-toggle="modal"
-          />
-        </div>
+        <button *ngIf="roomList.length>=20" (click)="notifyUser()">
+          <img src="../../../assets/images/icons/add_chat_chatRoom.svg" alt="noImage" />
+        </button>
+
+        <button *ngIf="roomList.length<20" data-bs-target="#createChatRoomModal" data-bs-toggle="modal">
+          <img src="../../../assets/images/icons/add_chat_chatRoom.svg" alt="noImage" />
+        </button>
+
+
       </div>
 
       <div style="height: calc(100vh - 210px)">
         <ng-scrollbar>
-          <div
-            class="chat-room-details"
-            *ngFor="let chat of roomList; index as i"
-            (click)="addStyling('colored-border-chat-room', i)"
-            id="chats"
-            [ngClass]="chat.className"
-          >
-            <div class="d-flex">
+          <div class="chat-room-details" *ngFor="let chat of roomList; index as i"
+            (click)="addStyling('colored-border-label', i)" id="chats" [ngClass]="chat.className">
+            <div class="d-flex chat">
               <div>
                 <img [src]="chat.image" alt="noImage" class="user-img" />
               </div>
@@ -86,10 +76,7 @@
         <div class="chat-header-detail">
           <div class="d-flex">
             <div class="group-chat-icon">
-              <img
-                src="../../assets/images/image/chat-default.png"
-                alt="noImage"
-              />
+              <img src="../../assets/images/image/chat-default.png" alt="noImage" />
             </div>
 
             <div class="user-detail">
@@ -98,12 +85,14 @@
             </div>
           </div>
 
-          <div class="create-chat-icon">
-            <img
-              src="../../assets/images/icons/create_chat_room.svg"
-              alt="noImage"
-            />
+          <div class="create-chat-icon" [matMenuTriggerFor]="notificationMenu">
+            <img src="../../assets/images/icons/action.svg" alt="noImage" />
           </div>
+          <mat-menu #notificationMenu="matMenu">
+            <button mat-menu-item data-bs-target="#addMemberModal" data-bs-toggle="modal">Add Member</button>
+            <button mat-menu-item data-bs-target="#removeMemberModal" data-bs-toggle="modal">Remove Member</button>
+            <button mat-menu-item data-bs-target="#deleteChatModal" data-bs-toggle="modal">Delete Chat</button>
+          </mat-menu>
         </div>
       </div>
 
@@ -111,9 +100,7 @@
         <div class="chat-area" *ngFor="let item of chatList">
           <div *ngIf="item.type == 'schedule'" style="display: flex">
             <hr class="col-lg-5 col-sm-5" />
-            <div
-              class="schedule col-lg-2"
-            >
+            <div class="schedule col-lg-2">
               {{ item.message }}
             </div>
             <hr class="col-lg-5 col-sm-5" />
@@ -143,16 +130,9 @@
       </ng-scrollbar>
 
       <div class="chat-textarea" id="chat-textarea">
-        <textarea
-          matInput
-          placeholder="Enter Your text here"
-          [(ngModel)]="message"
-        ></textarea>
-        <img
-          src="../../../../assets/images/icons/chat_room_send.svg"
-          alt="noImage"
-          (click)="addMessage(); scrollbar.scrollTo({ bottom: 0 })"
-        />
+        <textarea matInput placeholder="Enter Your text here" [(ngModel)]="message"></textarea>
+        <img src="../../../../assets/images/icons/chat_room_send.svg" alt="noImage"
+          (click)="addMessage(); scrollbar.scrollTo({ bottom: 0 })" />
       </div>
     </div>
   </div>
@@ -163,36 +143,20 @@
 
 <!-- chat-room initial popup start -->
 <div>
-  <button
-    id="modalButton2"
-    data-bs-toggle="modal"
-    data-bs-target="#chatRoomModal"
-    style="display: none"
-  ></button>
-  <div
-    class="modal fade"
-    id="chatRoomModal"
-    tabindex="-1"
-    aria-labelledby="chatRoomModalLabel"
-    aria-hidden="true"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-  >
+  <button id="modalButton2" data-bs-toggle="modal" data-bs-target="#chatRoomModal" style="display: none"></button>
+  <div class="modal fade" id="chatRoomModal" tabindex="-1" aria-labelledby="chatRoomModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-sm modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
           <h1 class="text-center">Profile Upgradation</h1>
-          <p>
+          <div>
             Unlock a world of upportunities to superchange your service and stay
             ahead in the legal
-          </p>
+          </div>
           <div class="text-center mb-4">
-            <button
-              mat-raised-button
-              color="primary"
-              style="width: fit-content !important; background-color: #2e5bff"
-              data-bs-dismiss="modal"
-            >
+            <button mat-raised-button color="primary" style="width: fit-content !important; background-color: #2e5bff"
+              data-bs-dismiss="modal">
               Go premium
             </button>
           </div>
@@ -205,34 +169,21 @@
 
 <!-- create-chat-room popup start -->
 <div>
-  <div
-    class="modal fade"
-    id="createChatRoomModal"
-    aria-hidden="true"
-    aria-labelledby="createChatRoomModalLabel"
-    tabindex="-1"
-  >
+  <div class="modal fade" id="createChatRoomModal" aria-hidden="true" aria-labelledby="createChatRoomModalLabel"
+    tabindex="-1">
     <div class="modal-dialog modal-dialog-centered create-chat-room-popup">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5">Create chat Room</h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body" style="padding: 20px">
           <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label mt-2">Select Members</mat-label>
+            <mat-label class="mat-label">Select Members</mat-label>
             <mat-form-field appearance="outline" class="mt-1">
               <mat-select placeholder="Select members" required>
-                <mat-option
-                  *ngFor="let member of members"
-                  [value]="member.value"
-                >
+                <mat-option *ngFor="let member of members" [value]="member.value">
                   {{ member.viewValue }}
                 </mat-option>
               </mat-select>
@@ -244,19 +195,11 @@
             </mat-form-field>
 
             <div class="mt-3 mb-3 filter-btn">
-              <button
-                mat-raised-button
-                color="primary"
-                style="width: fit-content !important"
-              >
+              <button mat-raised-button color="primary" style="width: fit-content !important">
                 Create
               </button>
-              <button
-                mat-stroked-button
-                color="primary"
-                style="width: fit-content !important; margin-left: 20px"
-                data-bs-dismiss="modal"
-              >
+              <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
+                data-bs-dismiss="modal">
                 Cancel
               </button>
             </div>
@@ -267,3 +210,94 @@
   </div>
 </div>
 <!-- create-chat-room popup ends -->
+
+
+
+<!-- Add Member popup start -->
+<div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered delete-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addMemberModalLabel">Add Member</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label mt-2">Add Member</mat-label>
+          <mat-form-field appearance="outline" class="mt-1">
+            <mat-select placeholder="Select members" required>
+              <mat-option *ngFor="let member of members" [value]="member.value">
+                {{ member.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="text-center mt-2 mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px;"
+            data-bs-dismiss="modal">
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Member popup ends -->
+
+<!-- Remove Member popup start -->
+<div class="modal fade" id="removeMemberModal" tabindex="-1" aria-labelledby="removeMemberModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered delete-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="removeMemberModalLabel">Remove Member</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-label class="mat-label mt-2">Remove Member</mat-label>
+          <mat-form-field appearance="outline" class="mt-1">
+            <mat-select placeholder="Select members" required>
+              <mat-option *ngFor="let member of members" [value]="member.value">
+                {{ member.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="text-center mt-2 mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px;"
+            data-bs-dismiss="modal">
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Remove Member popup ends -->
+
+<!--Delete Chat popup start -->
+<div class="modal fade" id="deleteChatModal" tabindex="-1" aria-labelledby="deleteChatModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered delete-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteChatModalLabel">Delete Chat</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-3">Are you sure you want to permanently delete this chat group? It will not retrieve at any cost.</div>
+        <div class="text-center mt-3 mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal">
+            Confirm
+          </button>
+          <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
+            data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Chat popup ends -->

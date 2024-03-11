@@ -125,6 +125,23 @@
         width: 46px;
         height: 46px;
       }
+
+      .muted { 
+        cursor: pointer;
+        position: relative; 
+      }
+
+      .muted::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        height: 2px; 
+        background-color: white; 
+        transform: translate(-50%, -50%) rotate(-45deg); 
+        transition: all 0.3s ease; 
+      } 
     }
 
     .footer-chat-icon {
@@ -143,14 +160,16 @@
 
     .chat-popup {
       // display: none;
+      // height: calc(100vh - 216px);
       // position: fixed;
       // right: 0;
-      // bottom: 230px;
+      // bottom: 66px;
       // width: 441px;
-      // height: calc(100vh - 216px);
+
+
       position: fixed;
       right: 0;
-      bottom: 0;
+      bottom: 0px;
       width: 441px;
       height: 0;
       transition: .3s all ease-in-out;
@@ -169,12 +188,12 @@
           padding: 31px 10px;
 
           .header-chat {
-            margin-left: 34px;
+            margin-left: 20px;
             font-size: 16px;
           }
 
                     .close-button {
-                        margin-right: 34px;
+                        margin-right: 20px;
                         cursor: pointer;
                     }
                 }
@@ -195,12 +214,11 @@
             flex-direction: column;
             border-radius: 30px;
             background-color: #ffffff;
-            padding: 16px 16px;
+            padding: 10px 16px;
             max-width: 70%;
             word-break: break-all;
             position: relative;
-            padding-bottom: 10px;
-
+          
             .sender-name {
               font-size: 10px;
               color: #2e5bff;
@@ -255,14 +273,14 @@
             flex-direction: column;
             border-radius: 30px;
             background-color: #ffffff;
-            padding: 16px 16px;
+            padding: 10px 16px;
             line-height: 1.2em;
             margin-left: 8px;
             text-align: left;
             max-width: 70%;
             word-break: break-all;
             position: relative;
-            padding-bottom: 10px;
+     
 
             .receiver-name {
               font-size: 10px;
@@ -324,7 +342,7 @@
         }
 
         img {
-          margin-left: 25px;
+          margin-left: 10px;
           width: 40px;
           height: 40px;
           border-radius: 50%;

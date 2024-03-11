@@ -11,89 +11,40 @@
 
       <form class="col mt-3" [formGroup]="caseDiaryForm">
         <mat-form-field appearance="outline">
-          <span matPrefix
-            ><mat-icon
-              ><img
-                src="../../../assets/images/icons/people-icon.svg"
-                alt="" /></mat-icon
-          ></span>
-          <input
-            type="text"
-            matInput
-            placeholder="Enter username"
-            formControlName="username"
-            required
-          />
-          <mat-error
-            *ngIf="caseDiaryForm.controls['username'].hasError('required')"
-            >Username is Required</mat-error
-          >
-          <mat-error
-            *ngIf="
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/people-icon.svg" alt="" /></mat-icon></span>
+          <input type="text" matInput placeholder="Enter username" formControlName="username" required />
+          <mat-error *ngIf="caseDiaryForm.controls['username'].hasError('required')">Username is Required</mat-error>
+          <mat-error *ngIf="
               !caseDiaryForm.controls['username'].hasError('required') &&
               caseDiaryForm.controls['username'].invalid
-            "
-            >Username Invalid</mat-error
-          >
+            ">Username Invalid</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="password">
-          <input
-            matInput
-            [type]="hide ? 'password' : 'text'"
-            formControlName="password"
-            placeholder="Enter Password"
-          />
-          <span matPrefix
-            ><mat-icon
-              ><img
-                src="../../../assets/images/icons/lock-icon.svg"
-                alt="" /></mat-icon
-          ></span>
-          <button
-            type="button"
-            mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
-          >
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Enter Password" />
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
+          <mat-error *ngIf="caseDiaryForm.controls['password'].errors?.['required']">Password is Required !!</mat-error>
           <mat-error
-            *ngIf="caseDiaryForm.controls['password'].errors?.['required']"
-            >Password is Required !!</mat-error
-          >
-          <mat-error
-            *ngIf="!caseDiaryForm.controls['password'].errors?.['required'] && caseDiaryForm.controls['password'].invalid"
-            >Enter atleast 10 characters !!</mat-error
-          >
+            *ngIf="!caseDiaryForm.controls['password'].errors?.['required'] && caseDiaryForm.controls['password'].invalid">Enter
+            atleast 10 characters !!</mat-error>
         </mat-form-field>
 
-        <div class="row">
-          <a
-            class="text-align-right forgot-password"
-            routerLink="/lawyer/case-diary/forget-password"
-            >Forgot Password ?</a
-          >
+        <div class="d-flex justify-content-between">
+          <a class="text-align-right forgot-password" routerLink="/lawyer/case-diary/reset-password">Reset Password</a>
+          <a class="text-align-right forgot-password" routerLink="/lawyer/case-diary/forget-password">Forgot
+            Password?</a>
         </div>
         <div class="text-center mt-3">
-          <button
-            mat-raised-button
-            color="primary w-100"
-            routerLink="/lawyer/case-diary/cases"
-          >
-            Sign In</button
-          ><br />
+          <button mat-raised-button color="primary w-100" routerLink="/lawyer/case-diary/cases">
+            Sign In</button><br />
 
-          <button
-            routerLink="/lawyer/case-diary/signup"
-            mat-stroked-button
-            class="mt-2 w-100"
-            color="primary"
-          >
-            <span class="gray-font">Don't have an account ?&nbsp;</span
-            ><span style="color: #2e5bff">Sign up</span>
+          <button routerLink="/lawyer/case-diary/signup" mat-stroked-button class="w-100" color="primary"
+            style="margin-top: 12px;">
+            <span class="gray-font">Don't have an account?&nbsp;</span><span style="color: #2e5bff">Sign up</span>
           </button>
         </div>
       </form>
