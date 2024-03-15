@@ -95,7 +95,7 @@
           cursor: pointer;
 
           img {
-            padding: 14px 0;
+            padding: 14px 10px;
           }
         }
       }
@@ -111,9 +111,8 @@
       .chat-room-details {
         height: 69px;
         display: flex;
-        padding: 10px;
+        padding: 13px 10px;
         border-bottom: 1px solid #f5f5f5;
-
 
         .chat {
           cursor: pointer;
@@ -202,7 +201,6 @@
 
         .user-detail {
           margin-left: 10px;
-          cursor: pointer;
 
           .user-name {
             font-weight: 600 !important;
@@ -236,7 +234,6 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
         }
 
         .sender-container {
@@ -244,7 +241,6 @@
           justify-content: flex-end;
           align-items: flex-end;
           margin-right: 30px;
-          cursor: pointer;
 
           .sender-chat {
             display: flex;
@@ -257,7 +253,6 @@
             max-width: 70%;
             word-break: break-all;
             position: relative;
-            
 
             .sender-name {
               font-size: 10px;
@@ -306,7 +301,6 @@
           align-items: flex-end;
           margin-top: 19px;
           margin-left: 25px;
-          cursor: pointer;
 
           .receiver-chat {
             display: flex;
@@ -319,7 +313,7 @@
             max-width: 70%;
             word-break: break-all;
             position: relative;
-           
+
 
             .receiver-name {
               font-size: 10px;
@@ -517,7 +511,7 @@
             input {
               padding: 8px 6px !important;
             }
-        
+
           }
 
           div {
@@ -528,11 +522,12 @@
               padding: 10px 10px;
             }
           }
+
           button {
             width: 50px;
             height: 40px;
-            img
-            {
+
+            img {
               padding: 9px 0;
             }
           }
@@ -551,14 +546,6 @@
             white-space: nowrap;
             word-break: break-all;
             font-size: 12px;
-
-            // .user-name {
-            //   font-size: 12px;
-            // }
-
-            // .user-msg {
-            //   font-size: 10px;
-            // }
           }
         }
       }

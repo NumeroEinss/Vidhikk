@@ -35,16 +35,12 @@ body {
   }
 
   //input field override
-  .mdc-text-field--outlined
-    .mdc-notched-outline
-    .mdc-notched-outline__trailing {
+  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
     border-radius: 0 12px 12px 0;
     border-color: #ebebeb;
   }
 
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
-      .mdc-text-field--focused
-    ):hover {
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover {
     .mdc-notched-outline {
       .mdc-notched-outline__trailing {
         border-color: #2e5bff !important;
@@ -314,49 +310,39 @@ body {
 
   // mat-checkbox Override Css
   .mdc-checkbox {
-    .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
+    .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
       background-color: #2e5bff;
       border-color: #2e5bff;
       border-radius: 5px;
     }
   }
 
-  .mdc-checkbox:hover
-    .mdc-checkbox__native-control:enabled:checked
-    ~ .mdc-checkbox__background {
+  .mdc-checkbox:hover .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
   }
 
-  .mdc-checkbox
-    .mdc-checkbox__native-control:enabled:focus:checked
-    ~ .mdc-checkbox__background {
+  .mdc-checkbox .mdc-checkbox__native-control:enabled:focus:checked~.mdc-checkbox__background {
     background-color: #2e5bff;
     border-color: #2e5bff;
   }
 
-  .mdc-checkbox
-    .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not(
-      [data-indeterminate="true"]
-    )
-    ~ .mdc-checkbox__background {
+  .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate="true"])~.mdc-checkbox__background {
     border-radius: 5px;
     border-color: #8798ad;
   }
 
+  .mdc-checkbox:hover .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate="true"])~.mdc-checkbox__background {
+    border-color: #8798ad;
+  }
+
   // mat-input Override Css
-  .mdc-text-field--outlined:not(
-      .mdc-text-field--disabled
-    ).mdc-text-field--focused
-    .mdc-notched-outline__leading {
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading {
     border-color: #2e5bff !important;
     border-width: 0.5px !important;
   }
 
-  .mdc-text-field--outlined:not(
-      .mdc-text-field--disabled
-    ).mdc-text-field--focused
-    .mdc-notched-outline__trailing {
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
     border-color: #2e5bff !important;
     border-width: 0.5px !important;
   }
@@ -475,7 +461,7 @@ body {
   }
 
   .mat-mdc-select-trigger {
-    padding: 8px 20px 8px 10px;
+    padding: 6px 20px 7px 10px;
   }
 
   .mat-mdc-select-trigger::after {
@@ -486,17 +472,15 @@ body {
     width: 24px;
     height: 24px;
     background: url("../src/assets/images/icons/arrow_down_blue.svg");
-    margin-top: 2px;
+    margin-top: 3px;
   }
-  
+
 
   .mat-mdc-select-arrow-wrapper {
     display: none;
   }
 
-  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(
-      .mat-mdc-option-multiple
-    ) {
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
     background-color: #1949f517;
   }
 
@@ -509,12 +493,8 @@ body {
   }
 
   //black arrow down overrid css
-  .case-diary-header-menu {
+  #header-menu {
     .filter-section {
-      // .mat-mdc-select-trigger {
-      //   padding: 8px 10px;
-      // }
-
       .mat-mdc-select-trigger::after {
         content: "";
         display: flex;
@@ -556,9 +536,7 @@ body {
     overflow: hidden !important;
   }
 
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
-    .mdc-notched-outline
-    .mdc-notched-outline__leading:hover {
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline .mdc-notched-outline__leading:hover {
     border-right: none;
   }
 
@@ -569,7 +547,11 @@ body {
 
   .mat-mdc-menu-panel {
     border-radius: 20px;
-    max-width: unset;
+    max-width: unset; 
+  }
+
+  div.mat-mdc-select-panel{
+    padding: 5px 0;
   }
 
   // .cdk-overlay-connected-position-bounding-box {
@@ -591,8 +573,7 @@ body {
   // }
 
   .cdk-overlay-container {
-    position: fixed !important;
-    z-index: 99999 !important;
+    z-index: 1060;
   }
 
   .mat-mdc-radio-button.mat-mdc-radio-checked {
@@ -603,13 +584,13 @@ body {
 
   .mat-mdc-radio-button {
     .mdc-radio {
-      .mdc-radio__native-control:enabled:checked + .mdc-radio__background {
+      .mdc-radio__native-control:enabled:checked+.mdc-radio__background {
         .mdc-radio__outer-circle {
           border-color: #2e5bff;
         }
       }
 
-      .mdc-radio__native-control:enabled + .mdc-radio__background {
+      .mdc-radio__native-control:enabled+.mdc-radio__background {
         .mdc-radio__inner-circle {
           border-color: #2e5bff;
         }
@@ -617,13 +598,13 @@ body {
     }
 
     .mdc-radio:not(:disabled):active {
-      .mdc-radio__native-control:enabled:checked + .mdc-radio__background {
+      .mdc-radio__native-control:enabled:checked+.mdc-radio__background {
         .mdc-radio__outer-circle {
           border-color: #2e5bff;
         }
       }
 
-      .mdc-radio__native-control:enabled + .mdc-radio__background {
+      .mdc-radio__native-control:enabled+.mdc-radio__background {
         .mdc-radio__inner-circle {
           border-color: #2e5bff;
         }
@@ -631,13 +612,13 @@ body {
     }
 
     .mdc-radio:hover {
-      .mdc-radio__native-control:enabled:checked + .mdc-radio__background {
+      .mdc-radio__native-control:enabled:checked+.mdc-radio__background {
         .mdc-radio__outer-circle {
           border-color: #2e5bff;
         }
       }
 
-      .mdc-radio__native-control:enabled + .mdc-radio__background {
+      .mdc-radio__native-control:enabled+.mdc-radio__background {
         .mdc-radio__inner-circle {
           border-color: #2e5bff;
         }
@@ -735,6 +716,7 @@ body {
 
         .mdc-checkbox {
           padding: 0px 0px 12px 0px;
+          margin-top: 2px;
         }
 
         .mdc-label {
@@ -784,10 +766,7 @@ body {
     background-color: #2e5bff;
   }
 
-  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
-    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
-      .mat-calendar-body-comparison-identical
-    ) {
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
     background-color: #2e5bff0d;
   }
 
@@ -836,81 +815,80 @@ body {
   }
 
   .mat-mdc-form-field-error {
-    .mat-mdc-form-field-error {
-      font-family: Poppins;
-    }
+    font-family: Poppins;
+  }
 
-    .mat-calendar-body-in-range::before {
-      background: #2e5bff0d;
-    }
+  .mat-calendar-body-in-range::before {
+    background: #2e5bff0d;
+  }
 
-    .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    background-color: #2e5bff0d;
+    border-color: #2e5bff;
+  }
+
+  .cdk-program-focused {
+    .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparision-identical) {
       background-color: #2e5bff0d;
       border-color: #2e5bff;
     }
+  }
 
-    .cdk-program-focused {
-      .mat-calendar-body-active
-        > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
-          .mat-calendar-body-comparision-identical
-        ) {
-        background-color: #2e5bff0d;
-        border-color: #2e5bff;
-      }
+  .mat-mdc-chip-selected.cdk-focused {
+    .mat-mdc-chip-focus-overlay {
+      background: transparent;
     }
+  }
 
-    .mat-mdc-chip-selected.cdk-focused {
-      .mat-mdc-chip-focus-overlay {
-        background: transparent;
-      }
-    }
-
-    .filterPopup {
-      .mdc-label {
-        font-size: 14px !important;
-      }
-    }
-
-    .cal-header {
-      font-weight: normal !important;
-      background: #f5f5f5;
-
-      .cal-cell {
-        border: 1px solid #e1e1e1;
-      }
-    }
-
-    .cal-week-view {
-      .cal-time {
-        font-weight: normal;
-      }
-
-      .cal-day-headers .cal-header {
-        font-weight: 100 !important;
-      }
-    }
-
-    .mat-mdc-tab-group {
-      .mat-mdc-tab-header {
-        .mat-mdc-tab-header-pagination-before {
-          padding-left: unset;
-        }
-      }
-    }
-
-    .terms-service-checkbox {
-      display: flex;
-      align-items: center;
-    padding-left: 16px;
-      margin-top: 20px;
-
-    .mdc-checkbox {
-      padding: unset;
-    }
-
+  .filterPopup {
     .mdc-label {
-      padding-left: 10px;
-      white-space: break-spaces;
+      font-size: 14px !important;
+    }
+  }
+
+  .cal-header {
+    font-weight: normal !important;
+    background: #f5f5f5;
+
+    .cal-cell {
+      border: 1px solid #e1e1e1;
+    }
+  }
+
+  .cal-week-view {
+    .cal-time {
+      font-weight: normal;
+    }
+
+    .cal-day-headers .cal-header {
+      font-weight: 100 !important;
+    }
+  }
+
+  .mat-mdc-tab-group {
+    .mat-mdc-tab-header {
+      .mat-mdc-tab-header-pagination-before {
+        padding-left: unset;
+      }
+    }
+  }
+
+  .terms-service-checkbox {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    margin-top: 20px;
+
+    .mat-mdc-checkbox {
+      .mdc-checkbox {
+        padding: unset;
+        margin: 2px 0 0 0px;
+      }
+
+      .mdc-label {
+        padding-left: 10px;
+        white-space: break-spaces;
+      }
     }
   }
 
@@ -926,9 +904,31 @@ body {
       }
     }
   }
+
+  .contact-us-container {
+    .header-menu {
+      .filter-section {
+        .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+          background-color: transparent !important;
+        }
+      }
+
+      .search-bar {
+        .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+          background-color: transparent !important;
+        }
+      }
+    }
+  }
+
+  // Create Chat Room popup placeholder override cssmat
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control{
+    font-family: Poppins;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
+
   .login-form,
   .forgot-form,
   .reset-form,
@@ -941,5 +941,9 @@ body {
       margin-right: 8px;
     }
   }
-}
+
+
+  .terms-service-checkbox {
+    margin-bottom: 20px;
+  }
 }

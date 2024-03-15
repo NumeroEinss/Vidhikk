@@ -38,39 +38,6 @@
             margin-left: 20px;
           }
         }
-
-        .ui-widgets {
-          display: flex;
-          justify-content: flex-end;
-
-          .timer-container {
-            cursor: pointer;
-            display: flex;
-            width: 48px;
-            height: 48px;
-            box-sizing: border-box;
-            background-color: #2e5bff;
-            justify-content: center;
-            display: flex;
-            align-items: center;
-            border-radius: 50%;
-
-            .timer-counter {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              background-color: #fbfbfb;
-              height: 40px;
-              width: 40px;
-              border-radius: 50%;
-            }
-
-            .count-down {
-              font-size: 10px;
-              color: #2e5bff;
-            }
-          }
-        }
       }
     }
   }
@@ -82,7 +49,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: calc(100vh - 200px);
+      height: calc(100vh - 150px);
+      flex-direction: column;
 
       img {
         width: 200px;
@@ -91,18 +59,41 @@
       }
     }
 
-    .name {
-      display: flex;
-      margin-left: 30px;
+    .ui-widgets {
+      position: absolute;
+      bottom: 85px;
 
-      div {
-        height: 40px;
-        background-color: #053bff0d;
+      .timer-counter {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        padding: 5px 10px;
-        white-space: nowrap;
+        justify-content: center;
+        position: relative;
+
+        .count-down {
+          font-size: 60px;
+          color: #2e5bff;
+        }
+
+        .countdown-label {
+          display: flex;
+          justify-content: space-between;
+          color: #0000004d;
+          font-size: 12px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          min-width: 220px;
+          position: absolute;
+          bottom: 0;
+
+          div {
+            justify-content: center;
+            align-items: center;
+          }
+        }
       }
     }
   }
@@ -126,9 +117,9 @@
         height: 46px;
       }
 
-      .muted { 
+      .muted {
         cursor: pointer;
-        position: relative; 
+        position: relative;
       }
 
       .muted::after {
@@ -137,11 +128,11 @@
         top: 50%;
         left: 50%;
         width: 50%;
-        height: 2px; 
-        background-color: white; 
-        transform: translate(-50%, -50%) rotate(-45deg); 
-        transition: all 0.3s ease; 
-      } 
+        height: 2px;
+        background-color: white;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        transition: all 0.3s ease;
+      }
     }
 
     .footer-chat-icon {
@@ -192,12 +183,12 @@
             font-size: 16px;
           }
 
-                    .close-button {
-                        margin-right: 20px;
-                        cursor: pointer;
-                    }
-                }
-            }
+          .close-button {
+            margin-right: 20px;
+            cursor: pointer;
+          }
+        }
+      }
 
       .chat-area {
         margin-top: 20px;
@@ -218,7 +209,7 @@
             max-width: 70%;
             word-break: break-all;
             position: relative;
-          
+
             .sender-name {
               font-size: 10px;
               color: #2e5bff;
@@ -280,7 +271,7 @@
             max-width: 70%;
             word-break: break-all;
             position: relative;
-     
+
 
             .receiver-name {
               font-size: 10px;

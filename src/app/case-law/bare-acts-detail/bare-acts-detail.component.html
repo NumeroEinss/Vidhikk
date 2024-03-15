@@ -16,7 +16,7 @@
           <mat-select placeholder="Select section" [(value)]="value">
             <a (click)="$event.stopPropagation()" style="text-decoration: none">
               <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                <input #search matInput (keyup)="filterSection($event)" placeholder="By section" />
+                <input  matInput (keyup)="filterSection($event)" placeholder="By section" />
                 <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
               </mat-form-field>
             </a>

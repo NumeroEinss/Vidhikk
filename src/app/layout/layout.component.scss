@@ -103,6 +103,38 @@ mat-drawer-container {
       z-index: 3;
       left: 17px;
       cursor: pointer;
+
+      div{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #1949f517;
+        border: 1px solid #1949f517;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       
+        .in-active {
+          display: block;
+        }
+  
+        .active {
+          display: none;
+        }
+      }
+
+      div:hover {
+        background-color: #2e5bff;
+        transition: all 0.3s ease-in-out;
+        .active {
+          display: block;
+        }
+  
+        .in-active {
+          display: none;
+        }
+      }
+  
     }
   }
 

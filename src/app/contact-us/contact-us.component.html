@@ -5,12 +5,13 @@
         <div>Thank you for your interest in Vidhik. We're here to assist you with your legal inquiries and provide
             support in any way we can. Please feel free to reach out to us through any of the following channels:</div>
 
-        <div class="header-menu">
+
+        <div class="header-menu" id="header-menu">
             <!-- filter section start -->
             <div class="filter-section">
                 <mat-form-field appearance="outline">
                     <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
-                    <mat-select placeholder="Case Diary" required [(value)]="selectedDiary">
+                    <mat-select placeholder="All Tickets" required [(value)]="selectedTicket">
                         <mat-option *ngFor="let ticket of tickets" [value]="ticket.value">
                             {{ ticket.viewValue }}
                         </mat-option>
@@ -22,24 +23,120 @@
             <!-- search-bar start -->
             <div class="search-bar">
                 <mat-form-field appearance="outline">
-                    <input matInput placeholder="Search Case Diary" required />
+                    <input matInput placeholder="Search Ticket" required />
                     <div matSuffix>
                         <img src="../../../assets/images/icons/search-blue.svg"
-                            style="margin-right: 8px; cursor: pointer" />
+                            style="margin-right: 15px; cursor: pointer" />
                     </div>
                 </mat-form-field>
             </div>
             <!-- search-bar ends -->
 
-            <!-- creat-case-diary start -->
-            <div class="create-sub-diary me-4">
-                <button mat-stroked-button color="primary" style="border-radius: 12px"
-                    routerLink="/lawyer/case-diary/create">
-                    <img class="mx-1" src="../../../assets/images/icons/sub-diary.svg" /><span
-                        style="color: #2e5bff"></span>Create Case Diary
+            <!-- add ticket start -->
+            <div class="add-ticket me-4">
+                <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-toggle="modal"
+                    data-bs-target="#addTicketModal">Raise a Tickets
                 </button>
             </div>
-            <!-- creat-case-diary ends -->
+            <!-- add ticket ends -->
+        </div>
 
+        <div style="height: calc(100vh - 270px);">
+            <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+                <div class="add-member-list">
+                    <div>
+                        <div class="member-list-header">
+                            <div class="grid-item-name">TICKET ID</div>
+                            <div class="grid-item1">TICKET TITLE</div>
+                            <div class="grid-item1">TICKET TYPE</div>
+                            <div class="grid-item1">CREATED</div>
+                            <div class="grid-item1">STATUS</div>
+                            <div class="grid-item1">ACTIONS</div>
+                        </div>
+
+                        <div *ngFor="let ticket of ticketList" class="member-list-data">
+                            <div class="grid-item2 id">{{ticket.ticketId }}</div>
+                            <div class="grid-item2">{{ticket.ticketTitle }}</div>
+                            <div class="grid-item2">{{ticket.ticketType }}</div>
+                            <div class="grid-item2">{{ticket.created}}</div>
+                            <div class="grid-item2">
+                                <div class="oval-div close-status" *ngIf="ticket.status == 'Close'">
+                                   Close
+                                </div>
+                                <div class="oval-div process-status" *ngIf="ticket.status == 'inProcess'">
+                                   In process
+                                </div>
+                                <div class="oval-div pending-status" *ngIf="ticket.status == 'Pending'">
+                                   Pending
+                                </div>
+                            </div>
+                            <div class="grid-item2 d-flex">
+                                <img src="../../../assets/images/icons/edit_blue.svg" alt="noImage"/>
+                                <button mat-icon-button>
+                                    <mat-icon style="color: #2e5bff">delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-scrollbar>
         </div>
     </div>
+
+    <!-- add ticket popup start -->
+    <div class="modal fade" id="addTicketModal" aria-hidden="true" aria-labelledby="addTicketModalLabel" tabindex="-1"
+        data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered add-ticket-popup">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addTicketModalLabel">
+                        Raise a Ticket
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="ticketFormGroup">
+                        <div class="d-flex mat-input-white" style="flex-direction: column">
+                            <mat-label class="mat-label mt-2">Title</mat-label>
+                            <mat-form-field appearance="outline">
+                                <input matInput placeholder="Enter your title" formControlName="title"  required />
+                                <mat-error *ngIf="ticketFormGroup.controls['title'].hasError('required')">Title is
+                                  Required</mat-error>
+                              </mat-form-field>
+
+                            <mat-label class="mat-label mt-2">Type of Support</mat-label>
+                            <mat-form-field appearance="outline" class="mt-1">
+                                <mat-select placeholder="Select your problem" formControlName="typeOfSupport"  required>
+                                    <mat-option *ngFor="let support of supportList" [value]="support.value">
+                                        {{ support.viewValue }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="ticketFormGroup.controls['typeOfSupport'].hasError('required')">Type of support is
+                                    Required</mat-error>
+                            </mat-form-field>
+
+                            <mat-label class="mat-label mt-2 mb-1">Description</mat-label>
+                            <mat-form-field appearance="outline" class="textArea">
+                                <textarea id="text-area" type="text" matInput placeholder="Enter description"
+                                    formControlName="description" required rows="3" maxlength="100"></textarea>
+                                    <mat-error *ngIf="ticketFormGroup.controls['description'].hasError('required')">Description is
+                                        Required</mat-error>
+                            </mat-form-field>
+
+                            <div class="mt-4 mb-3 filter-btn">
+                                <button mat-raised-button color="primary"
+                                    style="width: fit-content !important; padding: 12px 36px">
+                                    Submit
+                                </button>
+                                <button mat-stroked-button color="primary" style="width: fit-content !important;
+                                  margin-left: 20px; padding: 12px 36px;" data-bs-dismiss="modal">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add ticet popup ends -->
