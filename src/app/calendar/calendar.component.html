@@ -7,18 +7,9 @@
         <!-- filter section start -->
         <div class="filter-section">
           <mat-form-field appearance="outline">
-            <span matPrefix
-              ><img src="../../../assets/images/icons/funnel.svg" class="ms-3"
-            /></span>
-            <mat-select
-              placeholder="Select Event"
-              required
-              [(value)]="eventType"
-            >
-              <mat-option
-                *ngFor="let event of eventTypeList"
-                [value]="event.value"
-              >
+            <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
+            <mat-select placeholder="Select Event" required [(value)]="eventType">
+              <mat-option *ngFor="let event of eventTypeList" [value]="event.value">
                 {{ event.name }}
               </mat-option>
             </mat-select>
@@ -31,10 +22,7 @@
           <mat-form-field appearance="outline">
             <input matInput placeholder="Search Calendar" required />
             <div matSuffix>
-              <img
-                src="../../../assets/images/icons/search-blue.svg"
-                style="margin-right: 8px; cursor: pointer"
-              />
+              <img src="../../../assets/images/icons/search-blue.svg" style="margin-right: 8px; cursor: pointer" />
             </div>
           </mat-form-field>
         </div>
@@ -42,17 +30,10 @@
 
         <!-- create-event start -->
         <div class="create-event">
-          <button
-            mat-stroked-button
-            color="primary"
-            style="border-radius: 12px"
-            data-bs-toggle="modal"
-            data-bs-target="#addEventModal"
-          >
-            <img
-              class="mx-1"
-              src="../../assets/images/icons/add-event.svg"
-            /><span style="color: #2e5bff"></span>Add Event
+          <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-toggle="modal"
+            data-bs-target="#addEventModal">
+            <img class="mx-1" src="../../assets/images/icons/add-event.svg" /><span style="color: #2e5bff"></span>Add
+            Event
           </button>
         </div>
         <!-- creat-event ends -->
@@ -63,24 +44,11 @@
       </app-calendar-header>
 
       <div [ngSwitch]="view" class="cal-container">
-        <mwl-calendar-month-view
-          *ngSwitchCase="'month'"
-          [viewDate]="viewDate"
-          [events]="events"
-          [activeDayIsOpen]="true"
-        >
+        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events">
         </mwl-calendar-month-view>
-        <mwl-calendar-week-view
-          *ngSwitchCase="'week'"
-          [viewDate]="viewDate"
-          [events]="events"
-        >
+        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
         </mwl-calendar-week-view>
-        <mwl-calendar-day-view
-          *ngSwitchCase="'day'"
-          [viewDate]="viewDate"
-          [events]="events"
-        >
+        <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events">
         </mwl-calendar-day-view>
       </div>
       <div class="availability">
@@ -90,15 +58,9 @@
           </div>
           <!-- create-availability start -->
           <div class="create-availability">
-            <button
-              mat-stroked-button
-              color="primary"
-              style="border-radius: 12px"
-            >
-              <img
-                class="mx-1"
-                src="../../assets/images/icons/add-event.svg"
-              /><span style="color: #2e5bff"></span>Add Availability
+            <button mat-stroked-button color="primary" style="border-radius: 12px">
+              <img class="mx-1" src="../../assets/images/icons/add-event.svg" /><span style="color: #2e5bff"></span>Add
+              Availability
             </button>
           </div>
           <!-- create-availability ends -->
@@ -112,10 +74,7 @@
               <div class="grid-item1">ACTIONS</div>
             </div>
 
-            <div
-              *ngFor="let availability of availabilityList"
-              class="availability-list-data"
-            >
+            <div *ngFor="let availability of availabilityList ;index as i" class="availability-list-data">
               <div class="grid-item2">{{ availability.date }}</div>
               <div class="grid-item2 slots d-flex">
                 <div *ngFor="let slot of availability.timeSlot">
@@ -144,7 +103,7 @@
                   <span class="mat-menu-list">Edit</span>
                 </div>
 
-                <div mat-menu-item>
+                <div mat-menu-item (click)="this.deleteSlotIndex = i;handleDeleteAvailability();">
                   <!-- <img
                     src="../../../assets/images/icons/view_application.svg"
                     alt=""
@@ -162,47 +121,34 @@
         </div>
       </div>
     </div>
-    <mat-form-field appearance="outline">
-      <input
-        matInput
-        type="datetime-local"
-        placeholder="start date"
-        [max]="today"
-      />
-    </mat-form-field>
+    <!-- <mat-form-field appearance="outline">
+      <input matInput type="datetime-local" placeholder="start date" [max]="today" />
+    </mat-form-field> -->
   </ng-scrollbar>
+  <button id="deleteEventButton" data-bs-target="#deleteEvent" data-bs-toggle="modal" style="display: none;">Delete
+    Event</button>
+  <button id="deleteAvailabilityButton" data-bs-target="#deleteAvailability" data-bs-toggle="modal"
+    style="display: none;">Delete
+    Event</button>
+
 </div>
 
-<!-- Email Otp Verification Modal -->
-<div
-  class="modal modal-sm fade"
-  id="addEventModal"
-  tabindex="-1"
-  aria-labelledby="addEventLabel"
-  aria-hidden="true"
->
+<!-- Add Event Modal -->
+<div class="modal modal-md fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addEventLabel">Email Verification</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          data-bs-keyboard="false"
-        ></button>
+        <h1 class="modal-title fs-5" id="addEventLabel">Add Event</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          data-bs-keyboard="false"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body d-flex justify-content-center">
         <div>
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label text-start">Select Case</mat-label>
             <mat-form-field appearance="outline">
               <mat-select placeholder="Select case" required>
-                <mat-option
-                  *ngFor="let case of caseList"
-                  [value]="case.caseTitle"
-                >
+                <mat-option *ngFor="let case of caseList" [value]="case.caseTitle">
                   {{ case.caseTitle }}
                 </mat-option>
               </mat-select>
@@ -221,19 +167,10 @@
           </div>
 
           <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label text-start"
-              >Event Description</mat-label
-            >
+            <mat-label class="mat-label text-start">Event Description</mat-label>
             <mat-form-field appearance="outline" class="textArea">
-              <textarea
-                id="text-area"
-                type="text"
-                matInput
-                placeholder="Enter Event Description"
-                required
-                rows="3"
-                maxlength="200"
-              ></textarea>
+              <textarea id="text-area" type="text" matInput placeholder="Enter Event Description" required rows="3"
+                maxlength="200"></textarea>
             </mat-form-field>
           </div>
 
@@ -247,52 +184,29 @@
             </div>
             <div class="col-lg-8 col-md-8">
               <!-- <input type="color" [ngModel]="'#2e5bff'"  /> -->
-              <mat-button-toggle-group
-                name="favoriteColor"
-                aria-label="Favorite Color"
-              >
-                <mat-button-toggle
-                  value="red"
-                  style="background-color: #2e5bff; color: white"
-                  ><span>&#10003;</span></mat-button-toggle
-                >
-                <mat-button-toggle
-                  value="green"
-                  style="background-color: #00d34f; color: white"
-                  ><span>&#10003;</span></mat-button-toggle
-                >
-                <mat-button-toggle
-                  value="blue"
-                  style="background-color: #ef7e15; color: white"
-                  ><span>&#10003;</span></mat-button-toggle
-                >
-                <mat-button-toggle
-                  value="yellow"
-                  style="background-color: #ffde68; color: white"
-                  ><span>&#10003;</span></mat-button-toggle
-                >
-                <mat-button-toggle
-                  value="orange"
-                  style="background-color: #ff2e2e; color: white"
-                  ><span>&#10003;</span></mat-button-toggle
-                >
+              <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color">
+                <mat-button-toggle value="red"
+                  style="background-color: #2e5bff; color: white"><span>&#10003;</span></mat-button-toggle>
+                <mat-button-toggle value="green"
+                  style="background-color: #00d34f; color: white"><span>&#10003;</span></mat-button-toggle>
+                <mat-button-toggle value="blue"
+                  style="background-color: #ef7e15; color: white"><span>&#10003;</span></mat-button-toggle>
+                <mat-button-toggle value="yellow"
+                  style="background-color: #ffde68; color: white"><span>&#10003;</span></mat-button-toggle>
+                <mat-button-toggle value="orange"
+                  style="background-color: #ff2e2e; color: white"><span>&#10003;</span></mat-button-toggle>
               </mat-button-toggle-group>
             </div>
           </div>
 
           <div class="d-flex" style="position: relative">
             <div class="col-lg-4 col-md-4 text-start">
-              <mat-label class="mat-label" style="position: absolute; top: 8px"
-                >Start Date</mat-label
-              >
+              <mat-label class="mat-label" style="position: absolute; top: 8px">Start Date</mat-label>
             </div>
             <div class="col-lg-8 col-md-8">
               <mat-form-field appearance="outline">
                 <input matInput [matDatepicker]="picker" />
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             </div>
@@ -300,49 +214,100 @@
 
           <div class="d-flex" style="position: relative">
             <div class="col-lg-4 col-md-4 text-start">
-              <mat-label class="mat-label" style="position: absolute; top: 8px"
-                >End Date</mat-label
-              >
+              <mat-label class="mat-label" style="position: absolute; top: 8px">End Date</mat-label>
             </div>
             <div class="col-lg-8 col-md-8">
               <mat-form-field appearance="outline">
                 <input matInput [matDatepicker]="picker2" />
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="picker2"
-                ></mat-datepicker-toggle>
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
               </mat-form-field>
             </div>
           </div>
-        </div>
-        <div class="d-flex" style="flex-direction: column">
-          <button
-            mat-raised-button
-            color="primary"
-            style="font-size: 12px"
-            class="mt-4"
-          >
+
+          <div class="d-flex" style="position: relative">
+            <div class="col-lg-4 col-md-4 text-start">
+              <mat-label class="mat-label" style="position: absolute; top: 8px">Start Time</mat-label>
+            </div>
+            <div class="col-lg-8 col-md-8 d-flex justify-content-end">
+              <mat-form-field appearance="outline">
+                <input matInput type="time" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex" style="position: relative">
+            <div class="col-lg-4 col-md-4 text-start">
+              <mat-label class="mat-label" style="position: absolute; top: 8px">End Time</mat-label>
+            </div>
+            <div class="col-lg-8 col-md-8  d-flex justify-content-end">
+              <mat-form-field appearance="outline">
+                <input matInput type="time" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <button mat-raised-button color="primary" style="font-size: 12px" class="mt-4">
             Add
           </button>
-          <!-- <button
-            mat-raised-button
-            color="primary"
-            style="font-size: 12px;"
-            class="mt-4"
-          >
-            Edit
-          </button>
-          <button
-            mat-stroked-button
-            color="primary"
-            style="font-size: 12px;"
-            class="mt-4"
-          >
-            Delete
-          </button> -->
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!--Delete Event popup start -->
+
+<div class="modal fade" id="deleteEvent" tabindex="-1" aria-labelledby="deleteEvent" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered delete-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteEvent">Delete Event</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-3">Are you sure you want to permanently delete this event? It will not retrieve at any cost.
+        </div>
+        <div class="text-center mt-3 mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal"
+            (click)="deleteEvent()">
+            Confirm
+          </button>
+          <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
+            data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Event popup ends -->
+
+<!--Delete Event popup start -->
+
+<div class="modal fade" id="deleteAvailability" tabindex="-1" aria-labelledby="deleteAvailability" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered delete-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteAvailability">Delete Availability</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-3">Are you sure you want to permanently delete this slot? It will not retrieve at any cost.
+        </div>
+        <div class="text-center mt-3 mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal"
+            (click)="deleteAvailability()">
+            Confirm
+          </button>
+          <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
+            data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Event popup ends -->

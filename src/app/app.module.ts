@@ -22,7 +22,6 @@ import { HttpService } from './shared/services/http.service';
 import { SnackAlertService } from './shared/services/snack-alert.service';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-import { UserDataService } from './shared/services/user-data.service';
 
 
 @NgModule({
@@ -51,7 +50,6 @@ import { UserDataService } from './shared/services/user-data.service';
     AuthService,
     HttpService,
     SnackAlertService,
-    UserDataService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: HTTP_INTERCEPTORS, useClass: HttpIntterceptor, multi: true },

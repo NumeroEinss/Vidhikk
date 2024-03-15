@@ -6,6 +6,7 @@ import {
   DateAdapter,
 } from '@angular/material/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
+import { addDays } from 'date-fns';
 
 export const colors: any = {
   red: {
@@ -52,6 +53,10 @@ export class CalendarComponent {
 
   viewDate: Date = new Date();
 
+  eventToBeDeleted: CalendarEvent | undefined;
+
+  deleteSlotIndex: number = 0;
+
   events: CalendarEvent[] = [
     {
       title: 'Editable event',
@@ -60,22 +65,18 @@ export class CalendarComponent {
       actions: [
         {
           label: 'Edit',
-          onClick: ({ event }: { event: CalendarEvent }) =>
-            this.editEvent(event),
+          onClick: ({ event }: { event: CalendarEvent }) => { this.editEvent(event); console.log('test'); },
         },
       ],
     },
     {
-      title: 'Deletable event',
+      title: 'Deletable eventssss',
       color: colors.blue,
       start: new Date(),
       actions: [
         {
-          label: 'Delete',
-          onClick: ({ event }: { event: CalendarEvent }): void => {
-            this.events = this.events.filter((iEvent) => iEvent !== event);
-            console.log('Event deleted', event);
-          },
+          label: 'Delete Event ',
+          onClick: ({ event }: { event: CalendarEvent }): void => { this.handleDelete(), this.eventToBeDeleted = event },
         },
       ],
     },
@@ -215,7 +216,25 @@ export class CalendarComponent {
     },
   ];
 
-  editEvent(e: CalendarEvent) {
-    console.log(e);
+  editEvent(event: CalendarEvent) {
+
+  }
+
+  handleDelete() {
+    let deleteEventHandler = document.getElementById('deleteEventButton') as HTMLElement;
+    deleteEventHandler.click();
+  }
+
+  deleteEvent() {
+    this.events = this.events.filter((iEvent) => iEvent !== this.eventToBeDeleted);
+  }
+
+  handleDeleteAvailability() {
+    let deleteAvailabilityHandler = document.getElementById('deleteAvailabilityButton') as HTMLElement;
+    deleteAvailabilityHandler.click();
+  }
+
+  deleteAvailability() {
+    this.availabilityList.splice(this.deleteSlotIndex, 1);
   }
 }
