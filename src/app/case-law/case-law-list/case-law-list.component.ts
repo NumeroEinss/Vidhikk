@@ -35,6 +35,7 @@ const MY_DATE_FORMAT = {
 export class CaseLawListComponent {
   selectedIndex: number = 0;
   recordCount: number = 2134;
+  
   caseList = [
     {
       caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',

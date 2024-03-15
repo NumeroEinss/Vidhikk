@@ -1,5 +1,6 @@
 .root {
   margin: 30px;
+  margin-right: 0;
 
   //  member directory styling start
   .member-directory {
@@ -56,6 +57,7 @@
   .add-member-btn {
     display: flex;
     justify-content: flex-end;
+    margin-right: 30px;
 
     button {
       width: unset !important;
@@ -94,17 +96,17 @@
       width: 100%;
 
       .grid-item2 {
-        .member-img{
+        .member-img {
           width: 36px;
           height: 36px;
           border-radius: 50%;
         }
 
         .icon {
-          padding-bottom:1px;
+          padding-bottom: 1px;
         }
 
-        .material-icons{
+        .material-icons {
           font-size: 20px;
         }
 
@@ -119,20 +121,24 @@
     }
   }
 }
+
 // add member list styling ends
 
 
 // delete modal styling start
-.delete-modal{
+.delete-modal {
   width: 400px !important;
-.modal-header{
-  display: flex;
-  justify-content: flex-start;
-  h1{
-    text-align: left;
+
+  .modal-header {
+    display: flex;
+    justify-content: flex-start;
+
+    h1 {
+      text-align: left;
+    }
   }
 }
-}
+
 // delete modal styling ends
 
 
@@ -144,11 +150,13 @@
 
   .modal-body {
     text-align: center;
+
     h1 {
       margin: 25px 0px !important;
       font-weight: 600;
       font-family: Poppins;
     }
+
     button {
       margin-top: 20px;
     }
@@ -184,7 +192,6 @@
     border-radius: 12px;
     padding: 0 10px;
     margin-top: 10px;
-    overflow-x: scroll;
 
     .member-img {
       width: 80px;
@@ -237,6 +244,7 @@
       }
     }
   }
+
   //  add-member-popup styling start
 
   // filter popup styling start
@@ -255,12 +263,31 @@
       text-align: left !important;
     }
   }
+
   // filter popup styling ends
 }
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .root {
-    margin: 30px 15px;}
+    margin: 30px 15px;
 
+    .add-member-list {
+      overflow-x: scroll;
+      width: 100%;
+      white-space: nowrap;
+
+      .member-list-header {
+        div {
+          min-width: 180px;
+        }
+      }
+
+      .member-list-data {
+        div {
+          min-width: 180px;
+        }
+      }
+    }
+  }
 }

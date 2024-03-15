@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { SignUpModel2 } from '../../app/common/signup.model';
 
 
 @Component({
@@ -9,16 +10,15 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 })
 
 export class UserProfileComponent {
-  userData: any;
-  editProfile: FormGroup;
+  signupForm2: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.editProfile = new FormGroup({
-      coreCompetency: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      mobile: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      email: new FormControl('', [Validators.required,  Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
-    })
+  constructor(private _fb: FormBuilder) {
+    this.signupForm2 = this._fb.group(new SignUpModel2);
+    this.signupForm2.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
+    this.signupForm2.controls.mobile.setValidators([Validators.required, Validators.minLength(10)]);
+    this.signupForm2.controls.email.setValidators([Validators.email]);
   }
+
 
   ngAfterViewInit() {
     const element = document.getElementById("basic-info") as HTMLElement
@@ -97,11 +97,6 @@ export class UserProfileComponent {
         element1.classList.remove('active-nav');
         break;
     }
-  }
-
-  get editProfileFormCtrl() {
-    return this.editProfile.controls
-    
   }
   
   isNumber(event: any) {

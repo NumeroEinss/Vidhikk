@@ -64,9 +64,10 @@
 
       .active-nav {
         background-color: #2e5bff0d;
-          a{
-            color: #2e5bff;
-          }  
+
+        a {
+          color: #2e5bff;
+        }
       }
     }
 
@@ -147,34 +148,6 @@
             color: var(--solid-black-60);
           }
 
-          .organization-heading{
-            flex-grow: 0;
-            margin: 0 0px 0 26px;
-            font-family: Poppins;
-            font-size: 12px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: normal;
-            text-align: left;
-            color: var(--solid-black-60);
-          }
-
-          .organization-detail{
-            flex-grow: 0;
-            font-family: Poppins;
-            font-size: 14px;
-            font-weight: 500;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: normal;
-            text-align: left;
-            margin: 0 45px 28px 26px;
-            color: black;
-          }
-
           .user-details-detail {
             flex-grow: 0;
             margin: 4px 0 0;
@@ -188,6 +161,7 @@
             text-align: left;
             margin: 0 40px 30px 47px;
             color: black;
+            word-break: break-word;
           }
 
           .user-details-1a {
@@ -216,7 +190,7 @@
       }
     }
 
-    
+
   }
 }
 
@@ -282,7 +256,7 @@
       }
     }
 
-    .request-btn{
+    .request-btn {
       font-family: Poppins;
       color: #2e5bff;
       font-weight: 400;
@@ -292,6 +266,7 @@
     }
   }
 }
+
 // Mobile-verification popup styling ends
 
 
@@ -310,7 +285,7 @@
       }
     }
 
-    .request-btn{
+    .request-btn {
       font-family: Poppins;
       color: #2e5bff;
       font-weight: 400;
@@ -320,6 +295,7 @@
     }
   }
 }
+
 // Email-verification popup styling ends
 
 // Subscription Popup Styling Start
@@ -565,20 +541,24 @@
     }
   }
 }
+
 // Subscription Popup Styling Ends
 
 
 // Account delete modal styling start
-.delete-modal{
+.delete-modal {
   width: 380px;
-.modal-header{
-  display: flex;
-  justify-content: flex-start;
-  h1{
-    text-align: left;
+
+  .modal-header {
+    display: flex;
+    justify-content: flex-start;
+
+    h1 {
+      text-align: left;
+    }
   }
 }
-}
+
 //Account delete modal styling ends
 
 
@@ -594,33 +574,42 @@
         li {
           white-space: nowrap;
           padding: 6px;
-          max-width: unset;height: 50px;
+          max-width: unset;
+          height: 50px;
         }
       }
 
       .main-content {
         width: calc(100vw - 206px);
-        white-space: nowrap;
         position: absolute;
         top: 70px;
         margin: 89px 14px 0 12px;
 
         .section-info {
-          padding: 20px; margin-right: 0px;
-          &:last-child{ margin-bottom: 80px;}
+          padding: 20px;
+          margin-right: 0px;
+
+          &:last-child {
+            margin-bottom: 80px;
+          }
 
           .description {
             white-space: normal;
           }
-          .user-details{
+
+          .user-details {
             flex-wrap: wrap;
-            .user-details-heading{margin: 0px 0px 0 20px;}
-            .user-details-detail{margin: 0 10px 30px 20px;}
+
+            .user-details-heading {
+              margin: 0px 0px 0 20px;
+            }
+
+            .user-details-detail {
+              margin: 0 10px 30px 20px;
+            }
           }
         }
       }
     }
   }
 }
-
-

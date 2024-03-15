@@ -39,27 +39,30 @@
           contributing significantly to legal and political discourse.
         </div>
         <div class="user-details">
-          <div>
+          <div class="col-lg-1 col-md-1">
             <img src="../../../../assets/images/image/anurag_goyal.jpg" class="user-profile" />
           </div>
 
-          <div>
+          <div class="col-lg-4 col-md-6">
             <div class="user-details-heading">Name</div>
             <div class="user-details-detail">Anurag Goyal</div>
+
+            <div class="user-details-heading">Address</div>
+            <div class="user-details-detail">Numeroeins Softwares, 516, Appollo Premier , Vijay Nagar , Indore 452010,
+              Madhya Pradesh </div>
+
+
+          </div>
+
+          <div class="col-lg-4 col-md-4">
+            <div class="user-details-heading">father's Name</div>
+            <div class="user-details-detail">father's Name Here</div>
 
             <div class="user-details-heading">Email</div>
             <div class="user-details-detail">Anuraggoyal&#64;gmail.com</div>
           </div>
 
-          <div>
-            <div class="user-details-heading">father's Name</div>
-            <div class="user-details-detail">father's Name Here</div>
-
-            <div class="user-details-heading">Address</div>
-            <div class="user-details-detail">Addrerss Here</div>
-          </div>
-
-          <div>
+          <div class="col-lg-3 col-md-3">
             <div class="user-details-heading">Mobile number</div>
             <div class="user-details-detail">213-456-7980</div>
           </div>
@@ -73,11 +76,11 @@
         </div>
 
         <div class="user-details">
-          <div>
+          <div class="col-lg-1 col-md-1">
             <img src="../../../../assets/images/icons/organization.svg" class="user-profile" />
           </div>
 
-          <div>
+          <div class="col-lg-4 col-md-4">
             <div>
               <div class="user-details-heading">Organization Name</div>
               <div class="user-details-detail">Anurag Law Firm</div>
@@ -92,25 +95,25 @@
             </div>
           </div>
 
-          <div>
+          <div class="col-lg-4 col-md-4">
             <div>
-              <div class="organization-heading">Branch Name/Address</div>
-              <div class="organization-detail">Indore, Mp</div>
+              <div class="user-details-heading">Branch Name/Address</div>
+              <div class="user-details-detail">Indore, Mp</div>
             </div>
             <div>
-              <div class="organization-heading">Licence Number</div>
-              <div class="organization-detail">213-456-7980</div>
+              <div class="user-details-heading">Licence Number</div>
+              <div class="user-details-detail">213-456-7980</div>
             </div>
           </div>
 
-          <div>
-            <div class="ms-5">
-              <div class="organization-heading">Year of Practise</div>
-              <div class="organization-detail">12</div>
+          <div class="col-lg-3 col-md-3">
+            <div>
+              <div class="user-details-heading">Year of Practise</div>
+              <div class="user-details-detail">12</div>
             </div>
-            <div class="ms-5">
-              <div class="organization-heading">Name of Practicing Court</div>
-              <div class="organization-detail">Name Here</div>
+            <div>
+              <div class="user-details-heading">Name of Practicing Court</div>
+              <div class="user-details-detail">Name Here</div>
             </div>
           </div>
         </div>
@@ -167,24 +170,24 @@
       </div>
 
       <div class="modal-body">
-        <form [formGroup]="editProfile">
+        <form [formGroup]="signupForm2">
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label mt-2 mb-1">Core Competency</mat-label>
             <mat-form-field appearance="outline" class="textArea">
               <textarea id="text-area" type="text" matInput placeholder="Enter Your Core Competency"
                 formControlName="coreCompetency" required rows="3" maxlength="200"></textarea>
               <mat-error *ngIf="
-                  editProfile.controls['coreCompetency'].hasError('required')
+                  signupForm2.controls['coreCompetency'].hasError('required')
                 ">Core Competency is Required</mat-error>
               <!-- <mat-error *ngIf="!signupForm2.controls['coreCompetency'].hasError('required') &&
                                                   signupForm2.controls['coreCompetency'].hasError('minlength')">Minimum 150 Characters
                                                  Required</mat-error> -->
 
               <mat-error *ngIf="
-                  !editProfile.controls['coreCompetency'].hasError(
+                  !signupForm2.controls['coreCompetency'].hasError(
                     'required'
                   ) &&
-                  editProfile.controls['coreCompetency'].hasError('maxlength')
+                  signupForm2.controls['coreCompetency'].hasError('maxlength')
                 ">Max Charaters Limit Reached</mat-error>
             </mat-form-field>
 
@@ -194,14 +197,15 @@
                 <a class="resend-otp f-12" data-bs-toggle="modal" data-bs-target="#mobileOtpModal">Send OTP</a>
               </div>
             </div>
+
             <mat-form-field appearance="outline">
               <input matInput placeholder="Enter Mobile No" formControlName="mobile" maxlength="10"
                 (keypress)="isNumber($event)" required />
-              <mat-error *ngIf="editProfile.controls['mobile'].hasError('required')">Mobile No. is
+              <mat-error *ngIf="signupForm2.controls['mobile'].hasError('required')">Mobile No. is
                 Required</mat-error>
               <mat-error *ngIf="
-                  !editProfile.controls['mobile'].hasError('required') &&
-                  editProfile.controls['mobile'].invalid
+                  !signupForm2.controls['mobile'].hasError('required') &&
+                  signupForm2.controls['mobile'].invalid
                 ">Mobile No. invalid</mat-error>
             </mat-form-field>
 
@@ -213,10 +217,10 @@
             </div>
             <mat-form-field appearance="outline">
               <input matInput placeholder="Enter Email" formControlName="email" required />
-              <mat-error *ngIf="editProfile.controls['email'].hasError('required')">Email is Required</mat-error>
+              <mat-error *ngIf="signupForm2.controls['email'].hasError('required')">Email is Required</mat-error>
               <mat-error *ngIf="
-                  !editProfile.controls['email'].hasError('required') &&
-                  editProfile.controls['email'].invalid
+                  !signupForm2.controls['email'].hasError('required') &&
+                  signupForm2.controls['email'].invalid
                 ">Email is invalid</mat-error>
             </mat-form-field>
           </div>
@@ -290,36 +294,37 @@
 </div>
 <!-- Email Otp Verification Popup Ends -->
 
-  <!-- Subscription Popup Start  -->
-  <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
-    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-xl modal-dialog-centered subscription-modal">
-      <div class="modal-content">
-        <div class="modal-header">   <h1 class="modal-title fs-5" id="accountDeleteModalLabel">Plans</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="basic-plan">
-            <div class="active-plan">
-              <div class="tringle"></div>
-              Currently Active
-            </div>
-            <div class="plan-name">BASIC PLAN</div>
-            <div class="beginners">For Beginners</div>
-            <div class="free">FREE</div>
-            <div class="limit">Users : Unlimited</div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 1
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 2
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Feature 3
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 4
-            </div>
+<!-- Subscription Popup Start  -->
+<div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-xl modal-dialog-centered subscription-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="accountDeleteModalLabel">Plans</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="basic-plan">
+          <div class="active-plan">
+            <div class="tringle"></div>
+            Currently Active
+          </div>
+          <div class="plan-name">BASIC PLAN</div>
+          <div class="beginners">For Beginners</div>
+          <div class="free">FREE</div>
+          <div class="limit">Users : Unlimited</div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 1
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 2
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Feature 3
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 4
+          </div>
 
           <div class="cancel-button">
             <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
