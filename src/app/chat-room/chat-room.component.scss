@@ -251,7 +251,7 @@
             line-height: 1.2em;
             margin-top: 19px;
             max-width: 70%;
-            word-break: break-all;
+            word-break:break-word;
             position: relative;
 
             .sender-name {
@@ -311,7 +311,7 @@
             line-height: 1.2em;
             margin-left: 8px;
             max-width: 70%;
-            word-break: break-all;
+            word-break: break-word;
             position: relative;
 
 
@@ -364,7 +364,7 @@
           outline: none;
           border: 1px solid #ebebeb;
           border-radius: 12px;
-          line-height: 1.43;
+          line-height: normal;
           font-size: 12px;
           resize: none;
           font-family: Poppins;
@@ -374,7 +374,7 @@
           padding: 10px 10px 10px 12px;
           width: 100%;
           height: 46px;
-          word-break: break-all;
+          word-break: break-word;
         }
 
         img {
@@ -544,7 +544,7 @@
 
           .user-detail {
             white-space: nowrap;
-            word-break: break-all;
+            word-break: break-word;
             font-size: 12px;
           }
         }

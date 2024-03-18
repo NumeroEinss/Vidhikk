@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SnackAlertService } from '../shared/services/snack-alert.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -571,12 +571,11 @@ export class ChatRoomComponent {
 
 
   ngAfterContentInit() {
-    this.roomList.forEach((room: any) => { room.className = "" })
+    this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
     let element = document.getElementById('modalButton2') as HTMLElement;
     element.click();
     this.roomList[0].className = 'colored-border-label';
     this.selectedChatRoom = this.roomList[0];
-    // console.log(this.selectedChatRoom) 
   }
 
   addMessage() {
@@ -625,8 +624,8 @@ export class ChatRoomComponent {
       chatList: [],
     };
     this.roomList.unshift(newData);
-    this.selectedChatRoom = this.roomList[0]
-    this.roomList.forEach((room: any) => { room.className = "" })
+    this.selectedChatRoom = this.roomList[0];
+    this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
     this.roomList[0].className = 'colored-border-label';
   }
 
@@ -658,7 +657,7 @@ export class ChatRoomComponent {
       if (x.roomName == this.selectedChatRoom.roomName) {
         this.roomList.splice(index, 1)
         this.selectedChatRoom = this.roomList[0];
-        this.roomList.forEach((room: any) => { room.className = "" })
+        this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
         this.roomList[0].className = 'colored-border-label';
       }
     })
