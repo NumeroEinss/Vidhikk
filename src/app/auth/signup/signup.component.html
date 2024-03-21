@@ -1,5 +1,5 @@
 <div class="d-flex h-100">
-  <div class="col-lg-5 col-md-5 d-flex signup-form">
+  <div class="col-lg-5 col-md-5 d-flex signup-form" [ngStyle]="opacityStyling">
     <div class="header-text">
       <img src="../../../assets/images/icons/vidhiklogo.svg" alt="vidhik" />
 
@@ -26,7 +26,8 @@
       <mat-form-field appearance="outline" *ngIf="mobileNoEntered">
         <input type="text" matInput placeholder="" formControlName="otp" required maxlength="6"
           (keypress)="isNumber($event)" />
-        <span matSuffix style="cursor: pointer"><a (click)="resendOtp()" class="resend-otp f-12">Resend OTP</a></span>
+        <span matSuffix style="cursor: pointer"><a (click)=" resendOtp()" class="resend-otp f-12">Resend
+            OTP</a></span>
         <mat-error *ngIf="signupForm.controls['otp'].hasError('required')">OTP is Required</mat-error>
         <mat-error *ngIf="
             !signupForm.controls['otp'].hasError('required') &&
@@ -58,6 +59,13 @@
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/../assets/images/icons/camera.svg" alt="" />
           </div>
+        </div>
+        <div class="d-flex mat-input-white" style="flex-direction: column">
+          <mat-radio-group aria-label="User Type" class="mb-2">
+            <mat-radio-button value="lawyer" class="me-2" checked>Lawyer</mat-radio-button>
+            <mat-radio-button value="user" class="me-2">User</mat-radio-button>
+            <mat-radio-button value="seller">Seller</mat-radio-button>
+          </mat-radio-group>
         </div>
         <mat-form-field appearance="outline" class="">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
@@ -435,3 +443,158 @@
     </div>
   </div>
 </div>
+
+<!-- modal start -->
+<button id="modalButton" data-bs-toggle="modal" data-bs-target="#disclaimerModal" style="display: none"></button>
+<div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="disclaimerModalLabel">Disclaimer</h1>
+      </div>
+      <div class="modal-body mb-3">
+        <ol>
+          <li class="mb-3">
+            <span class="list-heading">No Legal Advise: </span><span class="list-description">The information
+              contained on the Website is for general
+              informational purposes only and is not intended to provide legal
+              advice. You should consult with a qualified legal professional
+              for advice regarding your individual situation.
+            </span>
+          </li>
+          <li class="mb-3">
+            <span class="list-heading">No Attorney-Client Relationship: </span><span class="list-description">Your use
+              of the Website does not create an attorney-client
+              relationship between you and vidhik. Such a relationship can
+              only be established through a specific written agreement with
+              us.
+            </span>
+          </li>
+          <li class="mb-3">
+            <span class="list-heading">Accuracy of Information: </span><span class="list-description">While we strive to
+              provide accurate and
+              up-to-date information,
+              we make no representations or warranties of any kind, express or
+              implied, about the completeness, accuracy, reliability,
+              suitability, or availability of the information contained on the
+              Website.
+            </span>
+          </li>
+          <li class="mb-3">
+            <span class="list-heading">Acceptance of Terms: </span><span class="list-description">By clicking
+              &quot;Accept&quot; below, you
+              acknowledge that you
+              have read, understood, and agree to be bound by the terms of
+              this disclaimer. If you do not agree to these terms, pleas click
+              &quot;Reject&quot; and refrain from using the Website.</span>
+          </li>
+        </ol>
+
+        <!-- Policy List Start -->
+        <div class="policy-list">
+          <ul>
+            <li (click)="selectedSection('section1')"><a>Terms and Conditions</a></li>
+            <li (click)="selectedSection('section2')"><a>Privacy Policy</a></li>
+            <li (click)="selectedSection('section3')"><a>Cookies Policy</a></li>
+            <li (click)="selectedSection('section4')"><a>Copyrights</a></li>
+            <li (click)="selectedSection('section5')"><a>Trust and Safety</a></li>
+            <li (click)="selectedSection('section6')"><a>Community Standard</a></li>
+          </ul>
+        </div>
+
+        <div style="height: calc(100vh - 300px); margin-bottom: 10px;">
+          <ng-scrollbar>
+            <!-- Terms & Conditions Section Start -->
+            <div class="policy-container" id="section1">
+              <div class="heading">Terms and Conditions</div>
+              <div>Welcome to Vidhik. These Terms and Conditions govern your use of the Website, including all
+                features, content, and services provided by Vidhik.<br><br>
+                By accessing or using the Website, you agree to be bound by these Terms. If you do not agree with any
+                part of these Terms, you may not use the Website.</div>
+              <div *ngFor="let terms of termsCondition">
+                <div class="sub-heading">{{terms.subHeading}}</div>
+                <div class="details" *ngFor="let detail of terms.details">{{detail}}</div>
+              </div>
+            </div>
+
+            <!-- Privacy Policy Section Start -->
+            <div class="policy-container" id="section2">
+              <div class="heading">Privacy Policy</div>
+              <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects, uses,
+                maintains, and discloses information collected from users ("you" or "your") of the Vidhik website.
+              </div>
+              <div *ngFor="let policy of privacyPolicy">
+                <div class="sub-heading">{{policy.subHeading}}</div>
+                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+              </div>
+            </div>
+
+            <!-- Cookies Policy Section Start -->
+            <div class="policy-container" id="section3">
+              <div class="heading">Cookies Policy</div>
+              <div>This Cookies Policy explains how Vidhik ("we", "us", or "our") uses cookies and similar
+                technologies on our website (the "Website"). By using the Website, you consent to the use of cookies
+                in accordance with this policy.</div>
+              <div *ngFor="let policy of cookiesPolicy ">
+                <div class="sub-heading">{{policy.subHeading}}</div>
+                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+              </div>
+            </div>
+
+            <!-- Copyrights Section Start -->
+            <div class="policy-container" id="section4">
+              <div class="heading">Copyrights</div>
+              <div>Welcome to the Copyrights Page of Vidhik ("we", "us", or "our"). This page outlines the copyright
+                policies and procedures regarding the content available on our website (the "Website").</div>
+              <div *ngFor="let rights of copyrights">
+                <div class="sub-heading">{{rights.subHeading}}</div>
+                <div class="details" *ngFor="let detail of rights.details">{{detail}}</div>
+              </div>
+            </div>
+
+            <!-- Trust & Safety Section Start -->
+            <div class="policy-container" id="section5">
+              <div class="heading">Trust and Safety</div>
+              <div>Welcome to the Trust and Safety Page of Vidhik ("we", "us", or "our"). This page outlines our
+                commitment to ensuring a safe and trustworthy environment for all users of our website.</div>
+              <div *ngFor="let policy of trustSafety">
+                <div class="sub-heading">{{policy.subHeading}}</div>
+                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+              </div>
+            </div>
+
+            <!-- Community Standard Section Start -->
+            <div class="policy-container" id="section6">
+              <div class="heading">Community Standard</div>
+              <div>Welcome to the Community Standards Page of Vidhik ("we", "us", or "our"). This page outlines the
+                standards of behavior and content that govern our online community on our website (the "Website").
+              </div>
+              <div *ngFor="let policy of communityStandard">
+                <div class="sub-heading">{{policy.subHeading}}</div>
+                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+              </div>
+            </div>
+          </ng-scrollbar>
+        </div>
+
+
+        <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I have read and agree to the
+            terms and conditions and
+            privacy policy outlined above.</mat-checkbox></div>
+
+        <div class="text-center mt-3">
+          <button mat-stroked-button color="primary" style="width: fit-content !important" routerLink="/auth/login"
+            data-bs-dismiss="modal">Reject
+          </button>
+
+          <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 20px"
+            data-bs-dismiss="modal" (click)="opacityStyling = { opacity: 1 }" [disabled]="!confirmed.checked">
+            Accept
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal ends -->

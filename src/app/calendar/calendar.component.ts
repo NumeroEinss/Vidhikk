@@ -1,5 +1,8 @@
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 import {
   MAT_DATE_LOCALE,
   MAT_DATE_FORMATS,
@@ -7,6 +10,9 @@ import {
 } from '@angular/material/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
 import { addDays } from 'date-fns';
+import { SnackAlertService } from '../shared/services/snack-alert.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { CalendarModel } from '../common/calendarModel';
 
 export const colors: any = {
   red: {
@@ -57,6 +63,8 @@ export class CalendarComponent {
 
   deleteSlotIndex: number = 0;
 
+  selectedTimes: any = { A: '', B: '' };
+
   events: CalendarEvent[] = [
     {
       title: 'Editable event',
@@ -65,14 +73,14 @@ export class CalendarComponent {
       actions: [
         {
           label: 'Edit',
-          onClick: ({ event }: { event: CalendarEvent }) => { this.editEvent(event); console.log('test'); },
+          onClick: ({ event }: { event: CalendarEvent }) => { console.log(event); },
         },
       ],
     },
     {
       title: 'Deletable eventssss',
       color: colors.blue,
-      start: new Date(),
+      start: addDays(new Date(), 2),
       actions: [
         {
           label: 'Delete Event ',
@@ -92,12 +100,25 @@ export class CalendarComponent {
     { name: 'Meetings', value: 'meetings' },
   ];
 
+  repeatList = [
+    { name: 'Once', value: 'once' },
+    { name: 'Daily', value: 'daily' },
+    { name: 'Mon to Friday', value: 'monToFriday' }
+  ]
+
+  reminderList = [
+    { name: '1 hours before', value: '1hour' },
+    { name: '2 hours before', value: '2hour' },
+    { name: '3 hours before', value: '3hour' },
+    { name: '4 hours before', value: '4hour' },
+  ]
+
   eventType: string = 'allEvent';
 
-  availabilityList: any = [
+  availabilityList: any = [ // Only slots from current date and after will fall under this.
     {
       id: 'fasdljasdfa',
-      date: new Date().toLocaleDateString(),
+      date: new Date(),
       timeSlot: [
         {
           slot: '5pm-6pm',
@@ -123,7 +144,7 @@ export class CalendarComponent {
     },
     {
       id: 'fasdasdfljasdfa',
-      date: new Date().toLocaleDateString(),
+      date: new Date(),
       timeSlot: [
         {
           slot: '5pm-6pm',
@@ -149,7 +170,7 @@ export class CalendarComponent {
     },
     {
       id: 'ewrewrewrx',
-      date: new Date().toLocaleDateString(),
+      date: new Date(),
       timeSlot: [
         {
           slot: '5pm-6pm',
@@ -176,6 +197,10 @@ export class CalendarComponent {
   ];
 
   today: Date = new Date();
+
+  repeat: any = "";
+
+  reminder: any = "";
 
   caseList = [
     {
@@ -216,8 +241,39 @@ export class CalendarComponent {
     },
   ];
 
-  editEvent(event: CalendarEvent) {
+  displaySlot: any = [];
 
+  slots: any = [
+    { value: '11am - 12pm', viewValue: '11am - 12pm' },
+    { value: '12:30pm - 01:30pm', viewValue: '12:30pm - 01:30pm' },
+    { value: '2pm - 3pm', viewValue: '2pm - 3pm' },
+    { value: '5pm-6pm', viewValue: '5pm-6pm' },
+    { value: '6pm-7pm', viewValue: '6pm-7pm' },
+    { value: '7pm-8pm', viewValue: '7pm-8pm' },
+    { value: '8pm-9pm', viewValue: '8pm-9pm' },
+  ];
+
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  minDate: Date = new Date();
+
+  slotDate: any = { _d: new Date() };
+
+  slot: any = [];
+
+  calendarForm: FormGroup;
+
+  isEditMode: boolean = false;
+
+  constructor(private _toastMessage: SnackAlertService, _fb: FormBuilder) {
+    this.calendarForm = _fb.group(new CalendarModel);
+    console.log(addDays(new Date(), 2), new Date())
+  }
+
+  editEvent(event: CalendarEvent, selectedEvent: any) {
+    let elemement = document.getElementById('addEventButton') as HTMLElement;
+    elemement.click();
+    this.calendarForm.patchValue(selectedEvent);
   }
 
   handleDelete() {
@@ -236,5 +292,54 @@ export class CalendarComponent {
 
   deleteAvailability() {
     this.availabilityList.splice(this.deleteSlotIndex, 1);
+  }
+
+  editAvailability(slot: any) {
+    this.isEditMode = true;
+    this.slot = [];
+    slot.timeSlot.forEach((element: any) => {
+      this.slot.push(element.slot);
+    });
+    console.log(this.slot)
+    this.slotDate = {
+      _d: slot.date
+    };
+    let element = document.getElementById('addAvailabilityButton') as HTMLElement;
+    element.click();
+  }
+
+  onTimeSet(e: any) {
+
+  }
+
+  addAvailabilitySlot(e: any) {
+    if (this.slotDate == null) {
+      this._toastMessage.error('Date is Required !!')
+    }
+    if (this.slot.length == 0) {
+      this._toastMessage.error('Select a slot to Add !!');
+    }
+    else {
+      let slot: any = [];
+      this.slot.forEach((item: any) => {
+        slot.push({
+          slot: item,
+          status: 'available',
+        },)
+      });
+      this.availabilityList.push(
+        {
+          id: 'seradadfasd' + Math.random().toFixed(1).toString(),
+          date: this.slotDate._d,
+          timeSlot: slot,
+        }
+      )
+      let element = document.getElementById('cancelSlotButton') as HTMLElement;
+      element.click();
+      this.slot = [];
+      this.slotDate = {
+        _d: new Date()
+      }
+    }
   }
 }

@@ -60,6 +60,12 @@ body {
   }
 
   .mat-mdc-form-field-icon-suffix {
+    min-width: 48px;
+
+    img {
+      margin: 12px;
+    }
+
     .mat-icon {
       color: #c4c4c4;
       display: flex;
@@ -710,7 +716,8 @@ body {
     }
   }
 
-  .signup-form {
+  .signup-form,
+  .calendar-form {
     mat-checkbox {
       .mat-internal-form-field {
         margin-bottom: 8px;
@@ -929,6 +936,13 @@ body {
 
   .mdc-checkbox .mdc-checkbox__native-control:enabled:focus:focus:not(:checked):not(:indeterminate)~.mdc-checkbox__background {
     border-color: #8798ad;
+  }
+
+  .signup-form {
+    .mat-mdc-form-field-icon-suffix {
+      min-width: unset;
+      white-space: nowrap;
+    }
   }
 }
 

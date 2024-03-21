@@ -142,6 +142,164 @@ export class SignupComponent {
     },
   ];
 
+  cookiesPolicy = [
+    {
+      subHeading: '1. What are Cookies?',
+      details: [
+        '1.1. Cookies are small text files that are placed on your computer or  device by websites that you visit. They are widely used in order to make  websites work, or work more efficiently, as well as to provide  information to the owners of the site.'
+      ],
+    },
+    {
+      subHeading: '2. How We Use Cookies',
+      details: [
+        '2.1. Essential Cookies: These cookies are necessary for the Website to function properly. They enable you to navigate around the Website and use its features.',
+        '2.2. Analytical/Performance Cookies: These cookies allow us to recognize and count the number of visitors to the Website and see how visitors move around the Website. This helps us to improve the way the Website works.',
+        '2.3. Functionality Cookies: These cookies are used to recognize you when you return to the Website. This enables us to personalize our content for you and remember your preferences.',
+        '2.4. Advertising/Targeting Cookies: These cookies are used to deliver advertisements that are relevant to you and your interests. They are also used to limit the number of times you see an advertisement, as well as to measure the effectiveness of the advertising campaign.',
+      ],
+    },
+    {
+      subHeading: '3. Third-Party Cookies',
+      details: [
+        '3.1. We may also use third-party cookies, such as those provided by  Google Analytics, to help us analyze how users use the Website and to  serve advertisements to you. The use of these cookies is subject to the  third parties own privacy policies.'
+      ],
+    },
+    {
+      subHeading: '4. How to Control Cookies',
+      details: [
+        '4.1. You can control and/or delete cookies as you wish. You can delete  all cookies that are already on your computer and you can set most  browsers to prevent them from being placed. If you do this, however, you  may have to manually adjust some preferences every time you visit a  site and some services and functionalities may not work.'
+      ],
+    },
+    {
+      subHeading: '5. Changes to this Cookies Policy',
+      details: [
+        '5.1. We may update this Cookies Policy from time to time in order to  reflect changes to the cookies we use or for other operational, legal,  or regulatory reasons. Please revisit this Cookies Policy regularly to  stay informed about our use of cookies.'
+      ],
+    },
+  ];
+
+  copyrights = [
+    {
+      subHeading: '1. Copyright Ownership',
+      details: [
+        '1.1. Cookies are small text files that are placed on your computer or  device by websites that you visit. They are widely used in order to make  websites work, or work more efficiently, as well as to provide  information to the owners of the site.'
+      ],
+    },
+    {
+      subHeading: '2. Use of Website Content',
+      details: [
+        '2.1. You may view, download, and print content from the Website for your personal, non-commercial use only, provided that you do not modify or alter the content in any way and that you retain all copyright and other proprietary notices contained in the original content.',
+        '2.2. Except as expressly permitted above, you may not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any content from the Website without the prior written consent of Vidhik.',
+      ],
+    },
+    {
+      subHeading: '3. Copyright Infringement',
+      details: [
+        '3.1. If you believe that your copyrighted work has been copied and is  accessible on the Website in a way that constitutes copyright  infringement, please notify us immediately by sending a notice to our  designated copyright agent at the  address',
+        '3.2. Your notice must include:',
+        'a. A physical or electronic signature of the copyright owner or a person authorized to act on behalf of the copyright owner',
+        'b. Identification of the copyrighted work claimed to have been infringed',
+        'c. Identification of the material that is claimed to be infringing or to be the subject of infringing activity and that is to be removed or access to which is to be disabled, and information reasonably sufficient to permit us to locate the material',
+        'd. Information reasonably sufficient to permit us to contact you, such as an address, telephone number, and, if available, an email address',
+        'e. A statement that you have a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law',
+        'f. A statement that the information in the notification is accurate, and under penalty of perjury, that you are authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.'
+      ],
+    },
+    {
+      subHeading: '4. Counter-Notification',
+      details: [
+        '4.1. If you believe that the material removed or disabled as a result of a copyright infringement notice is not infringing, or that you have the authorization from the copyright owner, the copyright owner&quotes agent, or pursuant to law, to post and use the material in your content, you may send a counter-notification to our designated copyright agent at the address provided above.',
+        '4.2. Your counter-notification must include:',
+        'a. Your physical or electronic signature',
+        'b. Identification of the material that has been removed or to which access has been disabled and the location at which the material appeared before it was removed or access to it was disabled',
+        'c. A statement under penalty of perjury that you have a good faith belief that the material was removed or disabled as a result of mistake or misidentification of the material removed or disabled',
+        'd. Your name, address, and telephone number, and a statement that you consent to the jurisdiction of the federal district court for the judicial district in which your address is located, or if your address is outside of the United States, for any judicial district in which we may be found, and that you will accept service of process from the person who provided the original notification of alleged infringement.'
+      ],
+    },
+    {
+      subHeading: '5. Changes to Copyright Policy',
+      details: [
+        '5.1. We reserve the right to modify or update this Copyrights Page at  any time without prior notice. Any changes will be effective immediately  upon posting on the Website. Your continued use of the Website after  the posting of revised Copyrights Page constitutes your acceptance of  such changes.'
+      ],
+    },
+  ];
+
+  trustSafety = [
+    {
+      subHeading: '1. User Safety',
+      details: [
+        '1.1. We are committed to providing a safe and secure environment for all users of the Website. We employ various measures to protect against unauthorized access, misuse, or alteration of information.',
+        '1.2. Users are encouraged to report any suspicious or inappropriate activity, content, or behavior encountered on the Website. Reports can be submitted through the designated channels provided on the Website.'
+      ],
+    },
+    {
+      subHeading: '2. Privacy Protection',
+      details: [
+        '2.1. Essential Cookies: These cookies are necessary for the Website to function properly. They enable you to navigate around the Website and use its features.',
+        '2.2. Analytical/Performance Cookies: These cookies allow us to recognize and count the number of visitors to the Website and see how visitors move around the Website. This helps us to improve the way the Website works.',
+        '2.3. Functionality Cookies: These cookies are used to recognize you when you return to the Website. This enables us to personalize our content for you and remember your preferences.',
+        '2.4. Advertising/Targeting Cookies: These cookies are used to deliver advertisements that are relevant to you and your interests. They are also used to limit the number of times you see an advertisement, as well as to measure the effectiveness of the advertising campaign.',
+      ],
+    },
+    {
+      subHeading: '3. Content Guidelines',
+      details: [
+        '3.1. We have established content guidelines to ensure that the material published on the Website complies with applicable laws and regulations and aligns with our community standards.',
+        '3.2. Users are expected to adhere to these guidelines when posting or sharing content on the Website. Content that violates these guidelines may be removed, and users who repeatedly violate the guidelines may face account suspension or termination.'
+      ],
+    },
+    {
+      subHeading: '4. Reporting Violations',
+      details: [
+        '4.1. Users are encouraged to report any violations of our terms of service, content guidelines, or applicable laws and regulations. Reports can be submitted through the designated reporting channels provided on the Website.',
+        '4.2. We investigate all reports promptly and take appropriate action, which may include removing offending content, suspending or terminating user accounts, and cooperating with law enforcement authorities if necessary.'
+      ],
+    },
+    {
+      subHeading: '5. Child Safety',
+      details: [
+        '5.1. We are committed to protecting the safety and privacy of children  online. The Website is not intended for use by children under the age of  13. We do not knowingly collect personal information from children  under 13. If you believe that we have inadvertently collected personal  information from a child under 13, please contact us immediately so that  we can take appropriate action.'
+      ],
+    },
+  ];
+
+  communityStandard = [
+    {
+      subHeading: '1. Respectful Conduct',
+      details: [
+        '1.1. We expect all users of the Website to treat each other with respect, dignity, and courtesy. Harassment, bullying, hate speech, discrimination, and threats of violence are strictly prohibited.',
+        '1.2. Users are encouraged to engage in constructive and respectful dialogue, even when expressing differing opinions. Disagreements should be handled in a civil manner, without resorting to personal attacks or insults.'
+      ],
+    },
+    {
+      subHeading: '2. Content Guidelines',
+      details: [
+        '2.1. Users are responsible for the content they post or share on the Website. Content must not violate any applicable laws or regulations, including those relating to copyright, trademark, defamation, and privacy.',
+        '2.2. Content that is illegal, obscene, pornographic, violent, hateful, or otherwise offensive is prohibited. This includes, but is not limited to, content that promotes violence, discrimination, or illegal activities.',
+      ],
+    },
+    {
+      subHeading: '3. Integrity of Information',
+      details: [
+        '3.1. Users should strive to provide accurate and truthful information on the Website. Misrepresentation, impersonation, or falsification of information is prohibited.',
+        '3.2. Users are encouraged to cite sources and provide evidence to support their claims whenever possible. Deliberate dissemination of false information or misinformation is not tolerated.'
+      ],
+    },
+    {
+      subHeading: '4. Respect for Privacy',
+      details: [
+        '4.1. Users must respect the privacy of others and refrain from sharing personal or sensitive information without consent.',
+        '4.2. Doxxing, stalking, or any other form of invasive behavior that compromises the privacy or safety of individuals is strictly prohibited.'
+      ],
+    },
+    {
+      subHeading: '5. Reporting Violations',
+      details: [
+        '5.1. Users are encouraged to report any violations of our community standards or terms of service. Reports can be submitted through the designated reporting channels provided on the Website.',
+        '5.2. We investigate all reports promptly and take appropriate action, which may include removing offending content, suspending or terminating user accounts, and cooperating with law enforcement authorities if necessary.'
+      ],
+    },
+  ];
 
   constructor(private _fb: FormBuilder, private _matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: SnackAlertService) {
@@ -155,6 +313,13 @@ export class SignupComponent {
     this.signupForm2.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
     this.signupForm2.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
     this.signupForm2.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword])
+  }
+
+  opacityStyling = { opacity: 0.1 };
+
+  ngAfterViewInit() {
+    let element = document.getElementById('modalButton') as HTMLElement;
+    element.click();
   }
 
   get SignupFrmCtrl() {
@@ -224,5 +389,10 @@ export class SignupComponent {
   private _filter(value: any): string[] {
     const filterValue = value.value.toLowerCase();
     return this.fields.filter(feilds => feilds.value.toLowerCase().includes(filterValue));
+  }
+
+  selectedSection(id: string) {
+    let element = document.getElementById(id) as HTMLElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 }
