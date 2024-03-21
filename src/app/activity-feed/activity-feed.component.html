@@ -1,6 +1,11 @@
 <!-- header  -->
 <app-header [menuName]="'Activity feed'"></app-header>
 
+<!--marquee -->
+<marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
+  legal advertising regulations in your jurisdiction and
+  ensure that your messages dhere to professional and ethical
+  standards</marquee>
 <!-- root section & feed section start-->
 <div class="root">
   <div class="feed-section">
@@ -9,6 +14,10 @@
       legal advertising regulations in your jurisdiction and
       ensure that your messages dhere to professional and ethical
       standards</marquee>
+
+<!-- root section & feed section start-->
+<div class="root">
+  <div class="feed-section">
 
     <div style="height: calc(100vh - 196px)">
       <ng-scrollbar autoHeightDisabled="false" appearance="standard">
@@ -28,29 +37,6 @@
             </div>
           </div>
           <div class="advertisement">
-            <!-- <div id="carouselExample" class="carousel slide">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="../../assets/images/image/lawyer_1.jpg" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../../assets/images/image/lawyer_2.jpg" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../../assets/images/image/lawyer_3.jpg" class="d-block w-100" alt="...">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div> -->
             <img src="../../assets/images/image/lawyer_2.jpg" [width]="300" />
           </div>
         </div>
@@ -139,16 +125,20 @@
             </div>
             <div class="activity-feed-bottom">
               <button class="activity-feed-bottom-btn">
-                <img src="../../../../assets/images/icons/like_icon.svg" class="mx-1" />Like
+                <img src="../../../../assets/images/icons/like_icon.svg" class="me-1" />Like
               </button>
               <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen">
-                <img src="../../../../assets/images/icons/comment_icon.svg" class="mx-1" />Comment
+                <img src="../../../../assets/images/icons/comment_icon.svg" class="me-1" />Comment
               </button>
               <button class="activity-feed-bottom-btn" [matMenuTriggerFor]="shareMenu">
-                <img src="../../../../assets/images/icons/share_icon.svg" class="mx-1" />Share
+                <img src="../../../../assets/images/icons/share_icon.svg" class="me-1" />Share
               </button>
             </div>
             <mat-menu #shareMenu="matMenu">
+              <button mat-menu-item><span><img src="../../assets/images/icons/facebook_share.svg" alt=""
+                    class="me-2" /></span>Share on Facebook</button>
+              <button mat-menu-item><span><img src="../../assets/images/icons/whatsapp_share.svg" alt=""
+                    class="me-2" /></span>Share on Whatsapp</button>
               <button mat-menu-item><span><img src="../../assets/images/icons/facebook_share.svg" alt=""
                     class="me-2" /></span>Share on Facebook</button>
               <button mat-menu-item><span><img src="../../assets/images/icons/whatsapp_share.svg" alt=""

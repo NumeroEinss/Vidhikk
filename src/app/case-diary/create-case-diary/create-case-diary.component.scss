@@ -1,6 +1,6 @@
 .root {
   .create-case-diary {
-    margin: 30px 30px 0 30px;
+    margin: 30px;
 
     .create-case-diary-heading {
       flex-grow: 0;
@@ -17,6 +17,11 @@
     }
 
     .create-case-diary-fields {
+      .case-diary-col {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
       .mat-label {
         margin-bottom: 4px;
         height: 21px;
@@ -39,7 +44,7 @@
 
     .lower-div {
       display: flex;
-      margin-top: 35px;
+      margin: 35px 0 35px 0;
 
       button {
         display: flex;
@@ -55,6 +60,18 @@
 
       .mat-mdc-outlined-button:not(:disabled) {
         width: unset !important;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    .create-case-diary {
+      margin: 15px;
+
+      .lower-div{
+        margin: 25px 0 70px 0;
       }
     }
   }

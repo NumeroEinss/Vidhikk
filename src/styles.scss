@@ -290,9 +290,11 @@ body {
   }
 
   .list-container {
-    // .mat-mdc-menu-item {
-    //   padding: unset !important;
-    // }
+    padding: 0 15px;
+
+    .mat-mdc-menu-item {
+      min-height: 40px !important;
+    }
 
     label {
       font-family: Poppins;
@@ -300,18 +302,31 @@ body {
     }
   }
 
-  // // mat-menu Override Css
+  // mat-menu Override Css
   .mat-menu {
     max-width: 267px !important;
     border-radius: 12px !important;
     font-family: Poppins !important;
-    padding: 0px 14px !important;
+
+    .mat-mdc-menu-content {
+      padding: 10px 0 !important;
+    }
   }
 
   .mat-menu-list {
     font-size: 14px;
     font-weight: 500;
     color: #000000cc;
+  }
+
+  .feed-section {
+    .view-application-mat-menu {
+      padding: unset;
+
+      .mat-mdc-menu-content {
+        padding: unset !important;
+      }
+    }
   }
 
   // mat-checkbox Override Css
@@ -372,7 +387,7 @@ body {
 
   // mat-input with white background
   .mat-input-white {
-    max-width: 357px;
+    width: 357px;
 
     .mat-mdc-text-field-wrapper {
       background-color: white;
@@ -468,7 +483,7 @@ body {
   }
 
   .mat-mdc-select-trigger {
-    padding: 7px 10px;
+    padding: 6px 10px 7px 10px;
   }
 
   .mat-mdc-select-trigger::after {
@@ -499,24 +514,18 @@ body {
     background-color: #1949f517;
   }
 
-  //black arrow down overrid css
-  #header-menu {
-    .filter-section {
-      .mat-mdc-select-trigger::after {
-        content: "";
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 20px;
-        height: 17px;
-        background: url("../src/assets/images/icons/black_arrow_down.svg");
-        margin-top: 2px;
-      }
-    }
-  }
-
   .mat-mdc-menu-content {
     padding: unset !important;
+  }
+
+
+  // Case diary override css
+  .case-diary-header-menu {
+    .filter-section {
+      .mat-mdc-select-trigger {
+        padding: 10px 20px 7px 10px;
+      }
+    }
   }
 
   // mat-button label Overrid Css
@@ -557,8 +566,8 @@ body {
     max-width: unset;
   }
 
-  div.mat-mdc-select-panel {
-    padding: 0;
+  div .mat-mdc-select-panel {
+    padding: 0 0;
   }
 
   // .cdk-overlay-connected-position-bounding-box {
@@ -729,6 +738,14 @@ body {
 
         .mdc-label {
           color: #8798ad !important;
+        }
+      }
+    }
+
+    .otp-form {
+      .resend-otp-col {
+        .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
+          width: min-content;
         }
       }
     }
@@ -913,12 +930,33 @@ body {
     }
   }
 
+  //black arrow down overrid css
+  #header-menu {
+    .filter-section {
+      .mat-mdc-select-trigger::after {
+        content: "";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 17px;
+        background: url("../src/assets/images/icons/black_arrow_down.svg");
+        margin-top: 2px;
+      }
+    }
+  }
+
   .contact-us-container {
     .header-menu {
       .filter-section {
         .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
           background-color: transparent !important;
         }
+
+        .mat-mdc-select-trigger {
+          padding: 9px 20px 7px 10px;
+        }
+
       }
 
       .search-bar {
@@ -961,8 +999,19 @@ body {
     }
   }
 
-
   .terms-service-checkbox {
     margin-bottom: 20px;
+  }
+
+  .case-diary-header-menu {
+    .filter-section {
+      .mat-mdc-select-trigger {
+        padding: 10px 9px 7px 0px !important;
+      }
+    }
+  }
+
+  .mat-pseudo-checkbox {
+    display: none !important;
   }
 }

@@ -1,5 +1,5 @@
 <div class="d-flex h-100">
-  <div class="col-lg-5 col-md-5 d-flex signup-form" [ngStyle]="opacityStyling">
+  <div class="col-lg-5 col-md-6 d-flex signup-form" [ngStyle]="opacityStyling">
     <div class="header-text">
       <img src="../../../assets/images/icons/vidhiklogo.svg" alt="vidhik" />
 
@@ -23,7 +23,7 @@
           ">Mobile No. invalid</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" *ngIf="mobileNoEntered">
+      <mat-form-field appearance="outline" *ngIf="mobileNoEntered" class="resend-otp-col">
         <input type="text" matInput placeholder="" formControlName="otp" required maxlength="6"
           (keypress)="isNumber($event)" />
         <span matSuffix style="cursor: pointer"><a (click)=" resendOtp()" class="resend-otp f-12">Resend
@@ -324,7 +324,7 @@
       </form>
     </ng-scrollbar>
   </div>
-  <div class="col-lg-7 col-md-7">
+  <div class="col-lg-7 col-md-6">
     <!-- image-container d-flex align-item-center justify-content-center -->
     <img src="../../../assets/images/image/vidhik-animated.gif" alt="" style="width: 100%; height: 100vh" />
   </div>

@@ -68,31 +68,10 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        position: relative;
 
         .count-down {
           font-size: 60px;
           color: #2e5bff;
-        }
-
-        .countdown-label {
-          display: flex;
-          justify-content: space-between;
-          color: #0000004d;
-          font-size: 12px;
-          font-weight: normal;
-          font-stretch: normal;
-          font-style: normal;
-          line-height: normal;
-          letter-spacing: normal;
-          min-width: 220px;
-          position: absolute;
-          bottom: 0;
-
-          div {
-            justify-content: center;
-            align-items: center;
-          }
         }
       }
     }
@@ -207,7 +186,7 @@
             background-color: #ffffff;
             padding: 10px 16px;
             max-width: 70%;
-            word-break: break-all;
+            word-break: break-word;
             position: relative;
 
             .sender-name {
@@ -269,7 +248,7 @@
             margin-left: 8px;
             text-align: left;
             max-width: 70%;
-            word-break: break-all;
+            word-break: break-word;
             position: relative;
 
 
@@ -345,3 +324,12 @@
 }
 
 // conference popup styling ends
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .modal-dialog{
+   .chat-popup{
+    margin-right: 0;
+   }
+  }
+}

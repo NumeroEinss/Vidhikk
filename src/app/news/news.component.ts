@@ -10,33 +10,41 @@ export class NewsComponent {
     {
       image: '../../assets/images/image/news_feed1.jpg',
       heading: '10 Essential Strategies for Business Growth',
-      description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
+      description: 'Since advertisements come in different shapes and sizes, an average viewer gets Since advertisements come in different shapes and sizes, an average viewer gets..',
     },
     {
       image: '../../assets/images/image/news_feed3.jpg',
       heading: 'Unlocking Data Analytics: Practical Tips and Techniques',
-      description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
+      description: 'Since advertisements come in different shapes and sizes, an average viewer gets Since advertisements come in different shapes and sizes, an average viewer gets..',
     },
     {
       image: '../../assets/images/image/news_feed1.jpg',
       heading: 'Webinar: The Future of Digital Transformation in Business',
-      description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
+      description: 'Since advertisements come in different shapes and sizes, an average viewer gets Since advertisements come in different shapes and sizes, an average viewer gets..',
     },
     {
       image: '../../assets/images/image/news_feed3.jpg',
       heading: 'Case Study: How TechVantage Transformed Company ABC quotes Workflow',
-      description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
+      description: 'Since advertisements come in different shapes and sizes, an average viewer gets Since advertisements come in different shapes and sizes, an average viewer gets..',
     },
     {
       image: '../../assets/images/image/news_feed1.jpg',
       heading: 'Webinar: The Future of Digital Transformation in Business',
-      description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
+      description: 'Since advertisements come in different shapes and sizes, an average viewer gets Since advertisements come in different shapes and sizes, an average viewer gets..',
     },
     {
       image: '../../assets/images/image/news_feed1.jpg',
       heading: 'Webinar: The Future of Digital Transformation in Business',
-      description: 'Since advertisements come in different shapes and sizes, an average viewer gets..Since advertisements come in different shapes and sizes, an average viewer gets..',
+      description: 'Since advertisements come in different shapes and sizes, an average viewer gets Since advertisements come in different shapes and sizes, an average viewer gets..',
     },
 
-  ]
+  ];
+
+  getHeadingLength(): number{
+    return (window.innerWidth > 1199) ? 120 :35;
+  }
+
+  getCharLength(): number {
+    return (window.innerWidth > 1199) ? 160 : 90;
+  }
 }

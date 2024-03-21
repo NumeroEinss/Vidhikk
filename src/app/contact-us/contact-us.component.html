@@ -3,8 +3,8 @@
 <div class="root">
     <div class="contact-us-container">
         <div>Thank you for your interest in Vidhik. We're here to assist you with your legal inquiries and provide
-            support in any way we can. Please feel free to reach out to us through any of the following channels:</div>
-
+            support in any way we can. Please feel free to reach out to us through any of the following channels:
+        </div>
 
         <div class="header-menu" id="header-menu">
             <!-- filter section start -->
@@ -33,7 +33,7 @@
             <!-- search-bar ends -->
 
             <!-- add ticket start -->
-            <div class="add-ticket me-4">
+            <div class="add-ticket">
                 <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-toggle="modal"
                     data-bs-target="#addTicketModal">Raise a Tickets
                 </button>
@@ -43,9 +43,9 @@
 
         <div style="height: calc(100vh - 270px);">
             <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-                <div class="add-member-list">
+                <div class="ticket-list">
                     <div>
-                        <div class="member-list-header">
+                        <div class="ticket-header">
                             <div class="grid-item-name">TICKET ID</div>
                             <div class="grid-item1">TICKET TITLE</div>
                             <div class="grid-item1">TICKET TYPE</div>
@@ -54,24 +54,24 @@
                             <div class="grid-item1">ACTIONS</div>
                         </div>
 
-                        <div *ngFor="let ticket of ticketList" class="member-list-data">
+                        <div *ngFor="let ticket of ticketList" class="ticket-data">
                             <div class="grid-item2 id">{{ticket.ticketId }}</div>
                             <div class="grid-item2">{{ticket.ticketTitle }}</div>
                             <div class="grid-item2">{{ticket.ticketType }}</div>
                             <div class="grid-item2">{{ticket.created}}</div>
                             <div class="grid-item2">
                                 <div class="oval-div close-status" *ngIf="ticket.status == 'Close'">
-                                   Close
+                                    Close
                                 </div>
                                 <div class="oval-div process-status" *ngIf="ticket.status == 'inProcess'">
-                                   In process
+                                    In process
                                 </div>
                                 <div class="oval-div pending-status" *ngIf="ticket.status == 'Pending'">
-                                   Pending
+                                    Pending
                                 </div>
                             </div>
                             <div class="grid-item2 d-flex">
-                                <img src="../../../assets/images/icons/edit_blue.svg" alt="noImage"/>
+                                <img src="../../../assets/images/icons/edit_blue.svg" alt="noImage" />
                                 <button mat-icon-button>
                                     <mat-icon style="color: #2e5bff">delete</mat-icon>
                                 </button>
@@ -99,19 +99,20 @@
                         <div class="d-flex mat-input-white" style="flex-direction: column">
                             <mat-label class="mat-label mt-2">Title</mat-label>
                             <mat-form-field appearance="outline">
-                                <input matInput placeholder="Enter your title" formControlName="title"  required />
+                                <input matInput placeholder="Enter your title" formControlName="title" required />
                                 <mat-error *ngIf="ticketFormGroup.controls['title'].hasError('required')">Title is
-                                  Required</mat-error>
-                              </mat-form-field>
+                                    Required</mat-error>
+                            </mat-form-field>
 
                             <mat-label class="mat-label mt-2">Type of Support</mat-label>
                             <mat-form-field appearance="outline" class="mt-1">
-                                <mat-select placeholder="Select your problem" formControlName="typeOfSupport"  required>
+                                <mat-select placeholder="Select your problem" formControlName="typeOfSupport" required>
                                     <mat-option *ngFor="let support of supportList" [value]="support.value">
                                         {{ support.viewValue }}
                                     </mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="ticketFormGroup.controls['typeOfSupport'].hasError('required')">Type of support is
+                                <mat-error *ngIf="ticketFormGroup.controls['typeOfSupport'].hasError('required')">Type
+                                    of support is
                                     Required</mat-error>
                             </mat-form-field>
 
@@ -119,8 +120,9 @@
                             <mat-form-field appearance="outline" class="textArea">
                                 <textarea id="text-area" type="text" matInput placeholder="Enter description"
                                     formControlName="description" required rows="3" maxlength="100"></textarea>
-                                    <mat-error *ngIf="ticketFormGroup.controls['description'].hasError('required')">Description is
-                                        Required</mat-error>
+                                <mat-error
+                                    *ngIf="ticketFormGroup.controls['description'].hasError('required')">Description is
+                                    Required</mat-error>
                             </mat-form-field>
 
                             <div class="mt-4 mb-3 filter-btn">

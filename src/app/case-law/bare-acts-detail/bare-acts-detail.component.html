@@ -34,7 +34,7 @@
     </div>
 
     <div style="height: calc(100vh - 330px); margin-top: 15px">
-      <ng-scrollbar>
+      <ng-scrollbar appearance="standard">
         <div class="bare-acts-section" *ngFor="let list of bareActList; index as i" [id]="(i + 1).toString()">
           <div class="title">
             <span>{{ list.section }}</span> : {{ list.title }}

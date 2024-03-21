@@ -17,6 +17,10 @@
     }
 
     .create-sub-diary-fields {
+      .case-diary-col{
+        display: flex;
+        flex-wrap: wrap;
+      }
       .mat-label {
         margin-bottom: 4px;
         height: 21px;
