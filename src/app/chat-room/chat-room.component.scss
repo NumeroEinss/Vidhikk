@@ -170,8 +170,6 @@
       width: -moz-available;
       height: calc(100vh - 129px);
       margin-left: 310px;
-      box-shadow: 8px 8px 24px 0 #053bff14,
-        -8px -8px 24px 0 rgba(5, 59, 255, 0.08);
       background-color: #f5f5f5;
       overflow-y: hidden;
 
@@ -511,16 +509,6 @@
             input {
               padding: 8px 6px !important;
             }
-
-          }
-
-          div {
-            width: 40px;
-            height: 40px;
-
-            img {
-              padding: 10px 10px;
-            }
           }
 
           button {
@@ -528,7 +516,7 @@
             height: 40px;
 
             img {
-              padding: 9px 0;
+              padding: 10px 5px;
             }
           }
         }

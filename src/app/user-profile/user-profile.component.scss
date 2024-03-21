@@ -68,6 +68,10 @@
         a {
           color: #2e5bff;
         }
+
+        a {
+          color: #2e5bff;
+        }
       }
     }
 
@@ -159,7 +163,6 @@
             text-align: left;
             margin: 0 40px 30px 0px;
             color: black;
-            // word-break: break-word;
           }
 
           .user-details-1a {
@@ -545,7 +548,7 @@
 
 // Account delete modal styling start
 .delete-modal {
-  width: 380px;
+  width: 430px;
 
   .modal-header {
     display: flex;
@@ -555,9 +558,16 @@
       text-align: left;
     }
   }
+
+  .modal-body {
+    .text-center {
+      margin-top: 30px;
+    }
+  }
 }
 
 //Account delete modal styling ends
+
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
@@ -572,6 +582,7 @@
         li {
           white-space: nowrap;
           padding: 6px;
+          height: 50px;
           max-width: unset;
           height: 50px;
         }
@@ -579,12 +590,18 @@
 
       .main-content {
         width: calc(100vw - 206px);
-        white-space: nowrap;
         position: absolute;
         top: 70px;
         margin: 89px 14px 0 12px;
 
         .section-info {
+          padding: 20px;
+          margin-right: 0px;
+
+          &:last-child {
+            margin-bottom: 80px;
+          }
+
           padding: 20px;
           margin-right: 0px;
 
@@ -606,10 +623,9 @@
             .user-details-detail {
               margin: 0 10px 30px 20px;
               word-break: break-word;
-              white-space: break-spaces;
-
             }
           }
+
         }
       }
     }

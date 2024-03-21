@@ -277,6 +277,12 @@
   .advance-search {
     font-family: Poppins;
     padding: 20px 30px;
+    // overflow-y: auto;
+    
+    .advance-search-col{
+      display: flex;
+      flex-wrap: wrap;
+    }
 
     .title {
       flex-grow: 0;
@@ -301,4 +307,58 @@
 .list-container {
   height: 250px;
   font-size: 14px;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    .filter-bar {
+      .pretext {
+        padding-left: 15px;
+      }
+
+      img {
+        margin-right: 15px;
+      }
+    }
+
+    .case-container {
+      padding: 20px 15px;
+    }
+
+    .app-resp-container {
+      padding: 20px 15px;
+    }
+
+    .judge-wise {
+      padding: 20px 15px;
+    }
+
+    .citation-wise {
+      padding: 20px 15px;
+    }
+
+    .bare-acts {
+      .acts {
+        padding: 20px 15px;
+      }
+    }
+
+    .act-section {
+      padding: 20px 15px;
+    }
+
+    .overruledby {
+      padding: unset;
+
+      .acts {
+        padding: 15px;
+      }
+    }
+
+    .advance-search {
+      padding: 20px 15px;
+    }
+
+  }
 }

@@ -1,4 +1,6 @@
 .root {
+  margin: 30px;
+
   //  case repository styling start
   .case-diary {
     display: flex;
@@ -22,7 +24,6 @@
 
     .case-diary-heading {
       flex-grow: 0;
-      margin: 17px 0 26.3px;
       font-family: Poppins;
       font-size: 14px;
       font-weight: normal;
@@ -50,12 +51,11 @@
       }
     }
   }
+
   //  case repository styling ends
 
   // list-style start
   .main-div {
-    margin: 30px;
-
     .case-diary-header-menu {
       display: flex;
 
@@ -63,24 +63,41 @@
         margin-right: 24px;
 
         .mat-mdc-form-field {
-          width: 180px !important;
+          width: 185px !important;
+        }
+
+        .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
+          padding-top: 3px !important;
+        }
+
+        .mat-mdc-select-trigger {
+          padding: 9px 20px 7px 10px !important;
         }
       }
 
       .search-bar {
-        width: 100% !important;
         margin-right: 24px;
+        width: 100% !important;
 
         .mat-mdc-form-field {
-          width: 100% ;
           max-width: unset;
+          width: 100% !important;
+        }
+      }
+
+      .create-case-diary {
+        margin-right: 24px;
+
+        button {
+          width: 185px !important;
+          background-color: #053bff0d;
+          border-color: #7d818e0d !important;
         }
       }
 
       .create-sub-diary {
-        width: 215px !important;
         button {
-          width: 215px !important;
+          width: 185px !important;
           background-color: #053bff0d;
           border-color: #7d818e0d !important;
         }
@@ -117,8 +134,8 @@
       padding: 5px;
       font-size: 14px;
 
-      .grid-item2{
-        .action-icon{
+      .grid-item2 {
+        .action-icon {
           font-size: 20px;
           color: #000;
         }
@@ -147,24 +164,121 @@
       align-items: center;
       padding: 5px;
 
-      .grid-item2{
-        .action-icon{
+      .grid-item2 {
+        .action-icon {
           font-size: 20px;
           color: #000;
         }
       }
     }
+
     // sub-diary table styling ends
   }
+
   // list-style ends
 }
 
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .mat-mdc-option {
+    font-size: 12px;
+    padding: 0 10px !important; 
+    
+  }
 
-.root {.main-div{
-  margin: 30px 15px;
+  .root {
+    margin: 30px 15px;
+
+    .main-div {
+      .case-diary-header-menu {
+        .filter-section {
+          margin-right: 10px;
+          font-size: 12px;
+
+          img {
+            display: none;
+          }
+
+          .mat-mdc-form-field {
+            width: 100px !important;
+          }
+
+          .mat-mdc-select-trigger {
+            padding: 10px 10px 7px 0px !important;
+          }
+
+          .mat-mdc-select {
+            font-size: 12px;
+          }
+        }
+
+        .search-bar {
+          margin-right: 10px;
+          width: 100% !important;
+
+          img {
+            margin-right: 12px !important;
+          }
+
+          .mdc-text-field__input {
+            padding: 8px 0px !important;
+            font-size: 12px !important;
+          }
+        }
+
+        .create-case-diary {
+          margin-right: 10px;
+
+          button {
+            width: 145px !important;
+            font-size: 12px;
+
+            img {
+              display: none;
+            }
+          }
+        }
+
+        .create-sub-diary {
+          button {
+            width: 135px !important;
+            font-size: 12px;
+
+            img {
+              display: none;
+            }
+          }
+        }
+      }
+
+      .case-diary-list {
+        width: 100%;
+        overflow-x: scroll;
+
+        .case-diary-header {
+          width: 1180px;
+        }
+
+        .case-diary-data {
+          width: 1180px;
+        }
+      }
+
+      .sub-diary-list {
+        width: 100%;
+        overflow-x: scroll;
+
+        .sub-diary-header {
+          width: 1180px;
+        }
+
+        .sub-diary-data {
+          width: 1180px;
+        }
+      }
+    }
+  }
 }
-}
-}
+
+@media screen and (min-width:1024px) {}

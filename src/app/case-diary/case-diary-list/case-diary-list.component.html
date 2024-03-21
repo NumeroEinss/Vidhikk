@@ -22,7 +22,7 @@
         <mat-form-field appearance="outline">
           <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
           <mat-select placeholder="Case Diary" required [(value)]="selectedDiary">
-            <mat-option *ngFor="let case of caseDiary" [value]="case.value">
+            <mat-option *ngFor="let case of caseDiary" [value]="case.value" class="mat-options">
               {{ case.viewValue }}
             </mat-option>
           </mat-select>
@@ -45,9 +45,9 @@
       <!-- search-bar ends -->
 
       <!-- creat-case-diary start -->
-      <div class="create-sub-diary me-4">
+      <div class="create-case-diary">
         <button mat-stroked-button color="primary" style="border-radius: 12px" routerLink="/lawyer/case-diary/create">
-          <img class="mx-1" src="../../../assets/images/icons/sub-diary.svg" /><span
+          <img class="me-1" src="../../../assets/images/icons/sub-diary.svg" /><span
             style="color: #2e5bff"></span>Create Case Diary
         </button>
       </div>
@@ -57,16 +57,16 @@
       <div class="create-sub-diary">
         <button mat-stroked-button color="primary" style="border-radius: 12px"
           routerLink="/lawyer/case-diary/create-sub-diary">
-          <img class="mx-1" src="../../../assets/images/icons/sub-diary.svg" /><span
+          <img class="me-1" src="../../../assets/images/icons/sub-diary.svg" /><span
             style="color: #2e5bff"></span>Create Sub Diary
         </button>
       </div>
       <!-- creat-sub-diary ends -->
     </div>
     <!-- case-diary-header-menu ends -->
-
+  
     <!-- case-diary table start -->
-    <div *ngIf="selectedDiary == 'caseDiary'">
+    <div *ngIf="selectedDiary == 'caseDiary'" class="case-diary-list">
       <div class="case-diary-header">
         <div class="grid-item-name">REG. DATE</div>
         <div class="grid-item1">COURT NAME</div>
@@ -98,17 +98,17 @@
           </button>
         </div>
         <mat-menu #caseDiaryMenu="matMenu">
-          <div mat-menu-item  routerLink="/lawyer/case-diary/create">
+          <button mat-menu-item  routerLink="/lawyer/case-diary/create">
             <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
               style="width: 22px; height: 22px" />
             <span class="mat-menu-list">Edit</span>
-          </div>
+          </button>
 
-          <div mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
+          <button mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
             <img src="../../../assets/images/icons/view_application.svg" alt="" class="me-2"
               style="width: 20px; height: 20px" />
             <span class="mat-menu-list">View Application</span>
-          </div>
+          </button>
         </mat-menu>
       </div>
       <!-- case-diary list ends-->
@@ -116,7 +116,7 @@
     <!-- case-diary table ends -->
 
     <!-- sub-diary list start -->
-    <div *ngIf="selectedDiary == 'subDiary'">
+    <div *ngIf="selectedDiary == 'subDiary'" class="sub-diary-list">
       <div class="sub-diary-header">
         <div class="grid-item1">REG. DATE</div>
         <div class="grid-item1">COURT NAME</div>
@@ -154,7 +154,7 @@
             <span class="mat-menu-list">Edit</span>
           </div>
 
-          <div mat-menu-item (click)="viewCase('edadsfalkdlk2jkldas2255E')">
+          <div mat-menu-item>
             <img src="../../../assets/images/icons/view_application.svg" alt="" class="me-2"
               style="width: 20px; height: 20px" />
             <span class="mat-menu-list">View Application</span>

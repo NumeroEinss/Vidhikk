@@ -1,3 +1,21 @@
+marquee {
+  color: #2e5bff;
+  background-color: #053bff0d;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+
 .root {
   .feed-section {
     .section-2 {
@@ -80,22 +98,6 @@
       }
     }
 
-    marquee {
-      color: #2e5bff;
-      background-color: #053bff0d;
-      height: 46px;
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-      font-family: Poppins;
-      font-size: 14px;
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: left;
-    }
 
     .feed {
       margin-top: 33px;
@@ -106,12 +108,12 @@
         height: 58px;
         width: -webkit-fill-available;
         width: -moz-available;
-        padding: 0 24.5px 13.1px 2.5px;
+        // padding: 0 24.5px 13.1px 2.5px;
+        margin: 0 0 0 30px;
 
         .profile-container1 {
           width: 48px;
           height: 48px;
-          margin: 0px 0 0 30px;
           flex-grow: 0;
           border-radius: 50px;
 
@@ -181,7 +183,7 @@
       }
 
       .post-date {
-        margin-right: 40px;
+        // margin-right: 40px;
         flex-grow: 0;
         font-family: Poppins;
         font-size: 13px;
@@ -194,13 +196,13 @@
       }
 
       .activity-feed {
-        margin: 0px 30px;
+        margin: 0px 20px 0 30px;
         width: -webkit-fill-available;
         width: -moz-available;
       }
 
       .comment-section {
-        margin-left: 93px;
+        margin-left: 65px;
         width: -webkit-fill-available;
         width: -moz-available;
         height: 300px;
@@ -219,7 +221,6 @@
             .profile-container1 {
               width: 48px;
               height: 48px;
-              margin: 0px 0 0 5px;
               flex-grow: 0;
               border-radius: 50px;
 
@@ -257,7 +258,7 @@
         background-color: #fbfbfb;
         border-radius: 12px;
         // height: 73px;
-        margin: 20px 40px 30px 93px;
+        margin: 20px 40px 30px 65px;
 
         .profile-container2 {
           width: 40px;
@@ -348,7 +349,6 @@
       .activity-feed-bottom {
         margin-top: 15px;
         height: 40px;
-        padding-left: 10px;
         width: -webkit-fill-available;
         width: -moz-available;
         display: flex;
@@ -377,7 +377,7 @@
           text-align: left;
           color: #18214d;
           background-color: #fbfbfb;
-          padding-left: 15px;
+          padding-left: 30px;
         }
       }
     }
@@ -470,24 +470,54 @@
       }
     }
   }
+}
 
-  @media only screen and (min-width: 768px) and (max-width: 1023px) {
-    .root {
-      .feed-section {
-        .up-section-1 {
-          width: unset;
-        }
 
-        .advertisement {
-          img {
-            display: none;
-          }
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    .feed-section {
+      .up-section-1 {
+        margin: 0 0 0 15px;
+      }
+
+      .advertisement {
+        display: none;
+
+        img {
+          display: none;
         }
       }
-    }
 
-    .terms-service-checkbox {
-      margin-bottom: 45px;
+      .feed {
+        .down-section-1 {
+          margin: 0 0 0 15px;
+        }
+
+        .post-date {
+          margin-right: unset;
+          padding: unset;
+        }
+
+        .activity-feed{
+          margin: 0 0 0 15px;
+        }
+
+        .activity-feed-bottom{
+          padding-left: 17px;
+        }
+      }
+
+      .comment-section {
+        margin-left: 52px !important;
+      }
+
+      .comment-box {
+        margin-left: 52px !important;
+      }
     }
+  }
+
+  .terms-service-checkbox {
+    margin-bottom: 50px;
   }
 }

@@ -11,36 +11,22 @@
         <img src="../../../assets/images/icons/arrow-left.svg" />
       </div>
 
-
-<!-- shareMenu, pdfMenu start-->
+      <!-- shareMenu, pdfMenu start-->
       <div class="posttext col-lg-6 col-md-6">
         <div [matMenuTriggerFor]="shareMenu" class="mat-menu-list">
           <img src="../../../assets/images/icons/case-diary-share.svg" />
         </div>
         <img src="../../../assets/images/icons/pdf.svg" />
-        <img src="../../../assets/images/icons/print.svg" />
+        <img src="../../../assets/images/icons/print.svg" style="margin-right: 0;"/>
       </div>
-      <mat-menu
-        #shareMenu="matMenu"
-        yPosition="below"
-        [hasBackdrop]="true"
-        class="mat-menu"
-      >
+      <mat-menu #shareMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="view-application-mat-menu">
         <button mat-menu-item>
-          <img
-            src="../../../assets/images/icons/email_share.svg"
-            alt=""
-            class="me-2"
-          />
-          <span class="mat-menu-list">Share on email</span>
+          <img src="../../../assets/images/icons/email_share.svg" alt="" class="me-2" />
+          <span >Share on email</span>
         </button>
         <button mat-menu-item>
-          <img
-            src="../../../assets/images/icons/wtsp_share.svg"
-            alt=""
-            class="me-2"
-          />
-          <span class="mat-menu-list">Share on whatsapp</span>
+          <img src="../../../assets/images/icons/wtsp_share.svg" alt="" class="me-2" />
+          <span >Share on whatsapp</span>
         </button>
       </mat-menu>
     </div>

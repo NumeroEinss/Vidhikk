@@ -3,15 +3,10 @@
 
 <!-- root section start -->
 <div class="root" style="height: calc(100vh - 172px)">
-  <marquee
-    behavior="'smooth'"
-    direction="rtl"
-    onmouseover="this.stop()"
-    onmouseout="this.start()"
-    >comply with any legal advertising regulations in your jurisdiction and
+  <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any legal
+    advertising regulations in your jurisdiction and
     ensure that your messages dhere to professional and ethical
-    standards</marquee
-  >
+    standards</marquee>
 
   <ng-scrollbar autoHeightDisabled="false" scrollViewport>
     <div class="feed-section">
@@ -20,23 +15,20 @@
           <img src="../../assets/images/image/mcdonald.jpg" alt="noImage" />
         </div>
         <div class="advertisement">
-          <img
-            src="../../assets/images/image/lawyer_2.jpg"
-            [width]="300"
-            alt="noImage"
-          />
+          <img src="../../assets/images/image/lawyer_2.jpg" [width]="300" alt="noImage" />
         </div>
       </div>
 
       <div>
         <div class="news-feed-container">
           <div class="d-flex news-feed-section" *ngFor="let news of newsList">
-            <div><img [src]="news.image" alt="noImage" /></div>
+            <div class="news-image"><img [src]="news.image" alt="noImage" /></div>
             <div class="news-details">
-              <div class="news-heading">{{ news.heading }}</div>
-              <div class="news-description mt-1">{{ news.description }}</div>
+              <div class="news-heading">{{ news.heading.substr(0,
+                getHeadingLength())}} {{news.heading.length>getHeadingLength()?'...':''}}</div>
+              <div class="news-description mt-1">{{ news.description.substr(0,getCharLength())}} {{news.description.length>getCharLength()? '...': ''}}</div>
               <div class="read-more mt-1">
-                <a  target="_blank"  href="https://sanantonioreport.org/">Read More</a>
+                <a target="_blank" href="https://sanantonioreport.org/">Read More</a>
               </div>
             </div>
           </div>

@@ -38,15 +38,13 @@
           <input matInput placeholder="Search chat" />
         </mat-form-field>
 
-        <button *ngIf="roomList.length>=20" (click)="notifyUser()">
+        <button *ngIf="roomList.length>=5" (click)="notifyUser()">
           <img src="../../../assets/images/icons/add_chat_chatRoom.svg" alt="noImage" />
         </button>
 
-        <button *ngIf="roomList.length<20" data-bs-target="#createChatRoomModal" data-bs-toggle="modal">
+        <button *ngIf="roomList.length<5" data-bs-target="#createChatRoomModal" data-bs-toggle="modal">
           <img src="../../../assets/images/icons/add_chat_chatRoom.svg" alt="noImage" />
         </button>
-
-
       </div>
 
       <div style="height: calc(100vh - 210px)">
@@ -90,12 +88,12 @@
           <mat-menu #notificationMenu="matMenu">
             <button mat-menu-item data-bs-target="#addMemberModal" data-bs-toggle="modal">Add Member</button>
             <button mat-menu-item data-bs-target="#removeMemberModal" data-bs-toggle="modal">Remove Member</button>
-            <button mat-menu-item data-bs-target="#deleteChatModal" data-bs-toggle="modal">Delete Chat</button>
+            <button mat-menu-item data-bs-target="#deleteChatModal" data-bs-toggle="modal">Delete Chat Room</button>
           </mat-menu>
         </div>
       </div>
 
-      <ng-scrollbar #scrollbar>
+      <ng-scrollbar #scrollbar appearance="standard">
         <div class="chat-area" *ngFor="let chat of selectedChatRoom.chatList">
           <div *ngIf="chat.type == 'schedule'" style="display: flex">
             <hr class="col-lg-5 col-sm-5" />
@@ -238,7 +236,7 @@
           <mat-label class="mat-label mt-2">Add Member</mat-label>
           <mat-form-field appearance="outline" class="mt-1">
             <mat-select placeholder="Select members" [(value)]="selectedAddMember" required multiple>
-              <a style="text-decoration: none">
+              <a  style="text-decoration: none">
                 <mat-form-field class="p-2 w-100 search-input" appearance="outline">
                   <input matInput (keyup)="filterMember($event)" placeholder="By name" />
                   <span matSuffix><img class="me-3" src="../../../assets/images/icons/search-blue.svg" /></span>
@@ -281,7 +279,7 @@
           <mat-label class="mat-label mt-2">Remove Member</mat-label>
           <mat-form-field appearance="outline" class="mt-1">
             <mat-select placeholder="Select members" [(value)]="selectedRemoveMember" required multiple>
-              <a style="text-decoration: none">
+              <a   (click)="$event.stopPropagation()" style="text-decoration: none">
                 <mat-form-field class="p-2 w-100 search-input" appearanc="outline">
                   <input matInput (keyup)="filterMember($event)" placeholder="By name" />
                   <span matSuffix><img class="me-3" src="../../../assets/images/icons/search-blue.svg" /></span>

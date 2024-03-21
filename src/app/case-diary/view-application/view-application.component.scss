@@ -7,7 +7,7 @@
       position: relative;
       display: flex;
       height: 47px;
-      padding: 0px 18px;
+      padding: 0px 30px;
 
       .pretext {
         display: flex;
@@ -27,7 +27,7 @@
     }
 
     .description {
-      margin: 30px 50px 50px 50px;
+      margin: 30px;
       font-family: poppins;
       font-stretch: normal;
       font-style: normal;
@@ -41,7 +41,20 @@
       }
     }
    
-  }
+  }  
+}
 
-  
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+.root{
+  .feed-section {
+    .filter-bar{
+      padding: 0 15px;
+    }
+    .description{
+      margin:15px;
+    }
+  }
+}
 }

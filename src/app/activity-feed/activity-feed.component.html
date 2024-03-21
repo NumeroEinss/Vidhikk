@@ -1,14 +1,15 @@
 <!-- header  -->
 <app-header [menuName]="'Activity feed'"></app-header>
 
+<!--marquee -->
+<marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
+  legal advertising regulations in your jurisdiction and
+  ensure that your messages dhere to professional and ethical
+  standards</marquee>
+
 <!-- root section & feed section start-->
 <div class="root">
   <div class="feed-section" [ngStyle]="opacityStyling">
-    <!--marquee -->
-    <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
-      legal advertising regulations in your jurisdiction and
-      ensure that your messages dhere to professional and ethical
-      standards</marquee>
 
     <div style="height: calc(100vh - 196px)">
       <ng-scrollbar autoHeightDisabled="false" appearance="standard">
@@ -139,18 +140,20 @@
             </div>
             <div class="activity-feed-bottom">
               <button class="activity-feed-bottom-btn">
-                <img src="../../../../assets/images/icons/like_icon.svg" class="mx-1" />Like
+                <img src="../../../../assets/images/icons/like_icon.svg" class="me-1" />Like
               </button>
               <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen">
-                <img src="../../../../assets/images/icons/comment_icon.svg" class="mx-1" />Comment
+                <img src="../../../../assets/images/icons/comment_icon.svg" class="me-1" />Comment
               </button>
               <button class="activity-feed-bottom-btn" [matMenuTriggerFor]="shareMenu">
-                <img src="../../../../assets/images/icons/share_icon.svg" class="mx-1" />Share
+                <img src="../../../../assets/images/icons/share_icon.svg" class="me-1" />Share
               </button>
             </div>
             <mat-menu #shareMenu="matMenu">
-              <button mat-menu-item><span><img src="../../assets/images/icons/facebook_share.svg" alt="" class="me-2"/></span>Share on Facebook</button>
-              <button mat-menu-item><span><img src="../../assets/images/icons/whatsapp_share.svg" alt="" class="me-2"/></span>Share on Whatsapp</button>
+              <button mat-menu-item><span><img src="../../assets/images/icons/facebook_share.svg" alt=""
+                    class="me-2" /></span>Share on Facebook</button>
+              <button mat-menu-item><span><img src="../../assets/images/icons/whatsapp_share.svg" alt=""
+                    class="me-2" /></span>Share on Whatsapp</button>
             </mat-menu>
           </div>
           <!-- comment-box section end-->
@@ -189,7 +192,8 @@
               </span>
             </li>
             <li class="mb-3">
-              <span class="list-heading">Accuracy of Information: </span><span class="list-description">While we strive to provide accurate and
+              <span class="list-heading">Accuracy of Information: </span><span class="list-description">While we strive
+                to provide accurate and
                 up-to-date information,
                 we make no representations or warranties of any kind, express or
                 implied, about the completeness, accuracy, reliability,
@@ -198,7 +202,8 @@
               </span>
             </li>
             <li class="mb-3">
-              <span class="list-heading">Acceptance of Terms: </span><span class="list-description">By clicking &quot;Accept&quot; below, you
+              <span class="list-heading">Acceptance of Terms: </span><span class="list-description">By clicking
+                &quot;Accept&quot; below, you
                 acknowledge that you
                 have read, understood, and agree to be bound by the terms of
                 this disclaimer. If you do not agree to these terms, pleas click
@@ -219,7 +224,7 @@
           </div>
 
           <div style="height: calc(100vh - 300px); margin-bottom: 10px;">
-            <ng-scrollbar>
+            <ng-scrollbar appearance="standard">
               <!-- Terms & Conditions Section Start -->
               <div class="policy-container" id="section1">
                 <div class="heading">Terms and Conditions</div>
@@ -294,7 +299,8 @@
           </div>
 
 
-          <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I have read and agree to the terms and conditions and
+          <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I have read and agree to the
+              terms and conditions and
               privacy policy outlined above.</mat-checkbox></div>
 
           <div class="text-center mt-3">

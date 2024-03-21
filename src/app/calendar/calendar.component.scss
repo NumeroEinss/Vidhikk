@@ -1,5 +1,5 @@
 .root {
-  height: calc(100vh - 47px);
+  height: calc(100vh - 90px);
 
   .card {
     margin: 23px 36px;
@@ -22,6 +22,7 @@
         margin-right: 24px;
 
         .mat-mdc-form-field {
+          max-width: unset;
           width: 100% !important;
           max-width: unset;
         }
@@ -29,6 +30,7 @@
 
       .create-event {
         width: unset !important;
+
         button {
           width: 215px !important;
           background-color: #053bff0d;
@@ -40,18 +42,21 @@
         width: unset !important;
       }
     }
+
     .availability {
       position: relative;
       margin-top: 56px;
 
       .availability-label {
         height: 40px;
+        font-size: 18px;
       }
 
       .create-availability {
         position: absolute;
         right: 0;
         width: unset !important;
+
         button {
           width: 215px !important;
           background-color: #053bff0d;
@@ -87,6 +92,8 @@
           width: 100%;
 
           .grid-item2 {
+            font-size: 12px;
+
             img {
               width: 36px;
               height: 36px;
@@ -120,6 +127,7 @@
               border-radius: 40px;
             }
           }
+
           .slots {
             gap: 10px;
           }
