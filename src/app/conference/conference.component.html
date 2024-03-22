@@ -17,14 +17,15 @@
         </div>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body main-modal">
         <div class="centered-image">
           <img src="../../../assets/images/image/anurag_goyal.jpg" alt="noImage" />
 
           <div class="ui-widgets">
             <div class="timer-container" id="timer">
               <div class="timer-counter">
-                <countdown class="countdown" #cd [config]="{ leftTime: timeInSecond }"></countdown>
+                <countdown class="countdown" #cd [config]="{ leftTime: timeInSecond }" (event)="notify($event)">
+                </countdown>
                 <!-- <div class="countdown-label">
                   <div>Hours</div>
                   <div>Minutes</div>
@@ -106,24 +107,30 @@
 <!-- conference popup  ends-->
 
 <!-- conference extension popup start -->
-<div class="modal fade" id="extentionModel" tabindex="-1" aria-labelledby="extentionModelLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
+<button id="extendConfrenceButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
+  data-bs-target="#extendConferenceModal" class="d-none"></button>
+<div class="modal fade" id="extendConferenceModal" tabindex="-1" aria-labelledby="extendConferenceModalLabel"
+  aria-hidden="true" style="width: 100%;">
+  <div class="modal-dialog modal-md modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="text-center">Conference Extention</h1>
+        <div class="modal-title" id="extendConferenceModalLabel">Conference Extention</div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>
-          Client want to extend the meeting by 15 minutes. would you accept the
-          request from the client?
-        </p>
+        <div class="mt-2 mb-2">
+          <p>
+            Client want to extend the meeting by 15 minutes. would you accept the
+            request from the client?
+          </p>
+        </div>
         <div class="text-center mt-3 mb-3">
-          <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal">
+          <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-toggle="modal"
+            data-bs-target="#conferenceModal" (click)="timer =  2; timeInSecond = (timer * 60);">
             Extend
           </button>
           <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 10px"
-            data-bs-dismiss="modal">
+            data-bs-dismiss="modal" routerLink="/lawyer/conference">
             Cancel
           </button>
         </div>
@@ -132,3 +139,29 @@
   </div>
 </div>
 <!-- conference extension popup ends -->
+
+<!-- conference completion popup start -->
+<button id="completeConfrenceButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
+  data-bs-target="#completeConferenceModal" class="d-none"></button>
+<div class="modal fade" id="completeConferenceModal" tabindex="-1" aria-labelledby="completeConferenceModalLabel"
+  aria-hidden="true" style="width: 100%;">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="completeConferenceModalLabel">Conference Completed</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img class="mt-2 mb-2" src="../../assets/images/image/meeting_completion.png" alt="">
+        <p class="mt-2 mb-2">Your conference with client has completed. Transcript has been sent to you over the mail.
+        </p>
+        <div class="text-center mt-3 mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-toggle="modal"
+            data-bs-target="#conferenceModal" routerLink="/lawyer/conference">
+            Go To Home
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

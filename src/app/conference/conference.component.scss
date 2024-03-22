@@ -42,7 +42,7 @@
     }
   }
 
-  .modal-body {
+  .main-modal {
     padding: unset;
 
     .centered-image {
@@ -327,9 +327,9 @@
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-  .modal-dialog{
-   .chat-popup{
-    margin-right: 0;
-   }
+  .modal-dialog {
+    .chat-popup {
+      margin-right: 0;
+    }
   }
 }

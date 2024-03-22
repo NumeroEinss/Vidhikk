@@ -28,7 +28,8 @@
             <div class="list-container">
               <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                 <li mat-menu-item *ngFor="let search of searchList" (click)="closed(search.name)">
-                  <mat-checkbox [(ngModel)]="search.checked" [color]="'primary'" style="color: black" class="case-law-checkbox">
+                  <mat-checkbox [(ngModel)]="search.checked" [color]="'primary'" style="color: black"
+                    class="case-law-checkbox">
                     {{ search.name }}
                   </mat-checkbox>
                 </li>
@@ -274,7 +275,8 @@
           </mat-form-field>
         </div>
         <div class="d-flex mt-4">
-          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
+          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex"
+            data-bs-toggle="modal" data-bs-target="#definationModal">
             <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
           <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
             <img src="../../../assets/images/icons/reset.svg" />Reset
@@ -487,4 +489,49 @@
     </mat-tab>
     <!--Advance Search Ends -->
   </mat-tab-group>
+</div>
+
+
+<!--Definition Modal -->
+<div class="modal fade" id="definationModal" tabindex="-1" aria-labelledby="definationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="definationModalLabel">
+          Defination
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-left">
+          <h2><b>Accidental Murder and Murder</b></h2>
+        </div>
+        <p class="text-left">
+          The term "murder" refers to the unlawful killing of another person with malice aforethought. In legal
+          contexts, it is a specific crime that involves the intentional and unlawful causing of the death of another
+          human being. The legal definition of murder can vary by jurisdiction, but it typically includes elements such
+          as intent, causation, and the absence of legal justification or excuse.
+          Here are some related words and phrases associated with murder:
+        </p>
+        <ol class="text-left mb-2">
+          <li>Homicide: The generic term for the killing of one person by another. It includes both lawful killings
+            (such as self-defense or justifiable homicide) and unlawful killings (such as murder).
+          </li>
+          <li>Malice Aforethought: This legal term refers to the mental state or intent to cause serious harm or death
+            to another person. It is a crucial element in establishing murder.
+          </li>
+          <li>Manslaughter: A lesser offense compared to murder, manslaughter involves the killing of another person
+            without malice aforethought. It can be classified as voluntary (intentional but without malice) or
+            involuntary (unintentional or caused by recklessness).
+          </li>
+        </ol>
+        <div class="text-center mt-3 mb-3">
+          <button mat-raised-button color="primary" class="me-2" style="width: fit-content !important;"
+            data-bs-dismiss="modal">
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

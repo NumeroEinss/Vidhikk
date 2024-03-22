@@ -387,7 +387,7 @@ body {
 
   // mat-input with white background
   .mat-input-white {
-    width: 357px;
+    max-width: 357px;
 
     .mat-mdc-text-field-wrapper {
       background-color: white;

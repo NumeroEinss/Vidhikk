@@ -11,120 +11,97 @@
 
       <form class="col mt-3" [formGroup]="caseDiarySignUpForm">
         <mat-form-field appearance="outline">
-          <span matPrefix
-            ><mat-icon
-              ><img
-                src="../../../assets/images/icons/people-icon.svg"
-                alt="" /></mat-icon
-          ></span>
-          <input
-            type="text"
-            matInput
-            placeholder="Enter Username"
-            formControlName="username"
-            required
-          />
-          <mat-error
-            *ngIf="
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/people-icon.svg" alt="" /></mat-icon></span>
+          <input type="text" matInput placeholder="Enter Username" formControlName="username" required />
+          <mat-error *ngIf="
               caseDiarySignUpForm.controls['username'].hasError('required')
-            "
-            >Username is Required</mat-error
-          >
-          <mat-error
-            *ngIf="
+            ">Username is Required</mat-error>
+          <mat-error *ngIf="
               !caseDiarySignUpForm.controls['username'].hasError('required') &&
               caseDiarySignUpForm.controls['username'].invalid
-            "
-            >Username invalid</mat-error
-          >
+            ">Username invalid</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="password">
-          <input
-            matInput
-            [type]="hide ? 'password' : 'text'"
-            placeholder="Enter Password"
-            formControlName="password"
-            required
-          />
-          <span matPrefix
-            ><mat-icon
-              ><img
-                src="../../../assets/images/icons/lock-icon.svg"
-                alt="" /></mat-icon
-          ></span>
-          <button
-            type="button"
-            mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
-          >
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter Password" formControlName="password"
+            required />
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
+          <mat-error *ngIf="caseDiarySignUpForm.controls['password'].errors?.['required']">Password is Required
+            !!</mat-error>
           <mat-error
-            *ngIf="caseDiarySignUpForm.controls['password'].errors?.['required']"
-            >Password is Required !!</mat-error
-          >
-          <mat-error
-            *ngIf="!caseDiarySignUpForm.controls['password'].errors?.['required'] && caseDiarySignUpForm.controls['password'].invalid"
-            >Enter atleast 10 characters !!</mat-error
-          >
+            *ngIf="!caseDiarySignUpForm.controls['password'].errors?.['required'] && caseDiarySignUpForm.controls['password'].invalid">Enter
+            atleast 10 characters !!</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <input
-            matInput
-            [type]="hideConfirmPassword ? 'password' : 'text'"
-            placeholder="Confirm Password"
-            formControlName="confirmPassword"
-            required
-          />
-          <span matPrefix
-            ><mat-icon
-              ><img
-                src="../../../assets/images/icons/lock-icon.svg"
-                alt="" /></mat-icon
-          ></span>
-          <button
-            type="button"
-            mat-icon-button
-            matSuffix
-            (click)="hideConfirmPassword = !hideConfirmPassword"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hideConfirmPassword"
-          >
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" placeholder="Confirm Password"
+            formControlName="confirmPassword" required />
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
+          <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
             <mat-icon>{{
               hideConfirmPassword ? "visibility_off" : "visibility"
-            }}</mat-icon>
+              }}</mat-icon>
           </button>
+          <mat-error *ngIf="caseDiarySignUpForm.controls['confirmPassword'].errors?.['required']">
+            Confirm Password is Required !!</mat-error>
           <mat-error
-            *ngIf="caseDiarySignUpForm.controls['confirmPassword'].errors?.['required']"
-          >
-            Confirm Password is Required !!</mat-error
-          >
-          <mat-error
-            *ngIf="!caseDiarySignUpForm.controls['confirmPassword'].errors?.['required'] && caseDiarySignUpForm.controls['confirmPassword'].invalid"
-            >Enter atleast 10 characters !!</mat-error
-          >
+            *ngIf="!caseDiarySignUpForm.controls['confirmPassword'].errors?.['required'] && caseDiarySignUpForm.controls['confirmPassword'].invalid">Enter
+            atleast 10 characters !!</mat-error>
         </mat-form-field>
 
         <div class="text-center mt-3">
           <button mat-raised-button color="primary w-100">Sign up</button><br />
 
-          <button
-            mat-stroked-button
-            class="w-100"
-            color="primary"
-            routerLink="/lawyer//case-diary/login"
-            style="margin-top: 12px;"
-          >
-            <span class="gray-font">Already have a case diary?&nbsp; </span
-            ><span style="color: #2e5bff">Login </span>
+          <button mat-stroked-button class="w-100" color="primary" routerLink="/lawyer//case-diary/login"
+            style="margin-top: 12px;">
+            <span class="gray-font">Already have a case diary?&nbsp; </span><span style="color: #2e5bff">Login </span>
           </button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+
+<!--Company Policy Modal -->
+<button id="companyPolicyButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
+  data-bs-target="#companyPolicyModal" class="d-none">
+</button>
+<div class="modal fade" id="companyPolicyModal" tabindex="-1" aria-labelledby="companyPolicyModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="companyPolicyModalLabel">
+          Company Policy
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mt-2 mb-2">
+          <b>CONFIDENTIALITY:</b> This email and any files transmitted with it are confidential and intended solely for
+          the use of the individual or entity to whom they are addressed. If you have received this email in error
+          please notify the system manager. If you are not the intended recipient you are notified that disclosing,
+          copying, distributing or taking any action in reliance on the contents of this information is strictly
+          prohibited.
+        </p>
+        <div class="text-center mt-3 mb-3">
+          <button mat-raised-button color="primary" class="me-2" style="width: fit-content !important;"
+            data-bs-dismiss="modal">
+            Accept
+          </button>
+
+          <button mat-stroked-button color="primary" style="width: fit-content !important;" data-bs-dismiss="modal"
+            routerLink="/lawyer/case-diary/login">
+            Reject
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

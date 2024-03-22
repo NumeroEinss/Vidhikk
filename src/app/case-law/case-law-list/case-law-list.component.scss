@@ -278,8 +278,8 @@
     font-family: Poppins;
     padding: 20px 30px;
     // overflow-y: auto;
-    
-    .advance-search-col{
+
+    .advance-search-col {
       display: flex;
       flex-wrap: wrap;
     }
@@ -361,4 +361,8 @@
     }
 
   }
+}
+
+.text-left {
+  text-align: left;
 }

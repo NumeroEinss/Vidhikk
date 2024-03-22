@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { CountdownComponent } from 'ngx-countdown';
 import { Subscription, interval, takeUntil } from 'rxjs';
 
@@ -52,13 +53,15 @@ export class ConferenceComponent {
     },
   ];
 
-  timer: number = 61;
-  timeInSecond: number = this.timer * 60;
+  timer: number = 1;
+  timeInSecond: number = 10;
   // pause: boolean = true;
   // source = interval(60000);
   // subscription: Subscription;
 
-  constructor() {
+  isExtended: boolean = false;
+
+  constructor(private _router: Router) {
     // this.subscription = this.source.subscribe(() => this.decreaseTimer());
   }
 
@@ -135,5 +138,17 @@ export class ConferenceComponent {
     let element = document.getElementById("mute") as HTMLElement;
     element.classList.add('muted')
     this.isMuted = !this.isMuted
+  }
+
+  notify(e: any) {
+    if (e.action === 'done' && this.isExtended == false) {
+      let element = document.getElementById('extendConfrenceButton') as HTMLElement;
+      element.click();
+      this.isExtended = true;
+    }
+    else if (e.action === 'done' && this.isExtended == true) {
+      let element = document.getElementById('completeConfrenceButton') as HTMLElement;
+      element.click();
+    }
   }
 }
