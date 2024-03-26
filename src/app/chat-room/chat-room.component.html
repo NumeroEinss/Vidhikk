@@ -279,7 +279,7 @@
           <mat-label class="mat-label mt-2">Remove Member</mat-label>
           <mat-form-field appearance="outline" class="mt-1">
             <mat-select placeholder="Select members" [(value)]="selectedRemoveMember" required multiple>
-              <a   (click)="$event.stopPropagation()" style="text-decoration: none">
+              <a  (click)="$event.stopPropagation()" style="text-decoration: none">
                 <mat-form-field class="p-2 w-100 search-input" appearanc="outline">
                   <input matInput (keyup)="filterMember($event)" placeholder="By name" />
                   <span matSuffix><img class="me-3" src="../../../assets/images/icons/search-blue.svg" /></span>

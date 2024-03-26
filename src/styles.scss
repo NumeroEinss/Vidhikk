@@ -60,8 +60,8 @@ body {
   }
 
   .mat-mdc-form-field-icon-suffix {
-    min-width: 48px;
 
+    // min-height: 48px;
     img {
       margin: 12px;
     }
@@ -387,7 +387,7 @@ body {
 
   // mat-input with white background
   .mat-input-white {
-    width: 357px;
+    max-width: 357px;
 
     .mat-mdc-text-field-wrapper {
       background-color: white;
@@ -946,6 +946,7 @@ body {
     }
   }
 
+// mat-input-white override css
   .contact-us-container {
     .header-menu {
       .filter-section {
@@ -956,13 +957,31 @@ body {
         .mat-mdc-select-trigger {
           padding: 9px 20px 7px 10px;
         }
-
       }
 
       .search-bar {
         .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
           background-color: transparent !important;
         }
+      }
+    }
+  }
+
+  .calendar-header-menu,
+  .case-diary-header-menu {
+    .filter-section {
+      .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+        background-color: transparent !important;
+      }
+
+      .mat-mdc-select-trigger {
+        padding: 9px 20px 7px 10px;
+      }
+    }
+
+    .search-bar {
+      .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+        background-color: transparent !important;
       }
     }
   }

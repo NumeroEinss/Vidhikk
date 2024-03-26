@@ -278,11 +278,6 @@
     font-family: Poppins;
     padding: 20px 30px;
     // overflow-y: auto;
-    
-    .advance-search-col{
-      display: flex;
-      flex-wrap: wrap;
-    }
 
     .title {
       flex-grow: 0;
@@ -298,9 +293,13 @@
       color: #000;
     }
 
-    img {
-      margin-right: 10px;
-    }
+    .advance-search-col{
+      display: flex;
+      flex-wrap: wrap;
+      img {
+        margin-right: 10px;
+      }
+    }    
   }
 }
 

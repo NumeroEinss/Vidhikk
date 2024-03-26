@@ -3,7 +3,7 @@
   <ng-scrollbar autoHeightDisabled="false" appearance="standard">
     <div class="cards">
       <!-- calendar-header-menu start -->
-      <div class="calendar-header-menu">
+      <div class="calendar-header-menu" id="header-menu" >
         <!-- filter section start -->
         <div class="filter-section">
           <mat-form-field appearance="outline">
@@ -53,8 +53,8 @@
         </mwl-calendar-day-view>
       </div>
       <div class="availability">
-        <div class="d-flex">
-          <div class="availability-label align-items-center d-flex">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="availability-label">
             Availability
           </div>
           <!-- create-availability start -->
@@ -76,7 +76,7 @@
               <div class="grid-item1">ACTIONS</div>
             </div>
 
-            <div *ngFor="let availability of availabilityList ;index as i" class="availability-list-data">
+            <div *ngFor="let availability of availabilityList; index as i" class="availability-list-data">
               <div class="grid-item2">{{ availability.date | date:'dd/MM/yyyy' }}</div>
               <div class="grid-item2 slots d-flex">
                 <div *ngFor="let slot of availability.timeSlot">

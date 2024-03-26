@@ -11,6 +11,7 @@
 
       .filter-section {
         margin-right: 24px;
+        width: 180px !important;
 
         .mat-mdc-form-field {
           width: 180px !important;
@@ -24,12 +25,15 @@
         .mat-mdc-form-field {
           max-width: unset;
           width: 100% !important;
-          max-width: unset;
+
+          .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+            background-color: transparent !important;
+          }
         }
       }
 
       .create-event {
-        width: unset !important;
+        width: 215px !important;
 
         button {
           width: 215px !important;
@@ -44,17 +48,16 @@
     }
 
     .availability {
-      position: relative;
+      // position: relative;
       margin-top: 56px;
 
       .availability-label {
-        height: 40px;
         font-size: 18px;
       }
 
       .create-availability {
-        position: absolute;
-        right: 0;
+        // position: absolute;
+        // right: 0;
         width: unset !important;
 
         button {
@@ -146,5 +149,49 @@
 .calendar-form {
   .mat-mdc-form-field {
     max-width: 260px;
+  }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    margin: 15px;
+    margin-right: 0;
+
+    .cards {
+      .calendar-header-menu {
+        margin-right: 15px;
+
+        .filter-section {
+          margin-right: 15px;
+          width: 180px !important;
+
+          .mat-mdc-form-field {
+            width: 180px !important;
+          }
+        }
+
+        .search-bar {
+          width: 100% !important;
+          margin-right: 15px;
+        }
+
+        .create-event {
+          width: 180px !important;
+
+          button {
+            width: 180px !important;
+          }
+        }
+      }
+
+      // .availability {
+      //   // margin-right: 15px;
+
+      //   .create-availability {
+      //     margin-right: 15px;
+      //   }
+      // }
+    }
   }
 }

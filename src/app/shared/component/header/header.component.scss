@@ -190,13 +190,14 @@ body .modal-dialog .modal-header {
 .upgrade-modal {
   .modal-body {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 50px;
     margin: 40px 0;
 
     .feature {
       color: #8798ad;
-      margin-top: 5px;
+      margin-top: 12px;
 
       img {
         margin-right: 8px;
