@@ -9,10 +9,9 @@
 
 <!-- root section & feed section start-->
 <div class="root">
-  <div class="feed-section">
-
-    <div style="height: calc(100vh - 196px)">
-      <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+  <div style="height: calc(100vh - 196px)">
+    <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+      <div class="feed-section">
         <div class="d-flex w-100">
           <div class="up-section-1 w-100" [ngClass]="userType != 'lawyer'?'up-section':''">
             <div *ngIf="userType === 'lawyer'">
@@ -142,8 +141,8 @@
           <!-- comment-box section end-->
         </div>
         <!--Feedlist section ends-->
-      </ng-scrollbar>
-    </div>
+      </div>
+    </ng-scrollbar>
   </div>
   <!-- root & feed section ends -->
 </div>

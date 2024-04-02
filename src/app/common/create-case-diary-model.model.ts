@@ -1,5 +1,4 @@
 export class CreateCaseDiaryModel {
-
     registrationDate: string = "";
     applicantName: string = "";
     courtName: string = "";

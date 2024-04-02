@@ -2,149 +2,194 @@
   height: calc(100vh - 170px);
   margin: 30px 0 0px 30px;
 
-  // .cards {
-  //   border: none;
-  //   font-family: Poppins !important;
+  .cards {
+    border: none;
+    font-family: Poppins;
 
-  .calendar-header-menu {
-    display: flex;
+    .calendar-header-menu {
+      display: flex;
 
-    .filter-section {
-      margin-right: 24px;
+      .filter-section {
+        margin-right: 24px;
+        width: 180px;
 
-      .mat-mdc-form-field {
-        width: 180px !important;
+        .mat-mdc-form-field {
+          width: 180px;
+        }
       }
-    }
 
-    .search-bar {
-      width: 100% !important;
-      margin-right: 24px;
-
-      .mat-mdc-form-field {
-        max-width: unset;
-        width: 100% !important;
-        max-width: unset;
-      }
-    }
-
-    .create-event {
-      width: unset !important;
-
-      button {
-        width: 215px !important;
-        background-color: #053bff0d;
-        border-color: #7d818e0d !important;
-      }
-    }
-
-    .mat-mdc-outlined-button:not(:disabled) {
-      width: unset !important;
-    }
-  }
-
-  .availability {
-    position: relative;
-    margin-top: 56px;
-
-    .availability-label {
-      font-size: 18px;
-    }
-
-    .create-availability {
-      position: absolute;
-      right: 0;
-      width: unset !important;
-
-      button {
-        width: 215px !important;
-        background-color: #053bff0d;
-        border-color: #7d818e0d !important;
-      }
-    }
-
-    .add-availability-list {
-      .availability-list-header {
-        display: grid;
-        // grid-template-columns: 250px 200px 250px 200px 120px 40px;
-        grid-template-columns: 20% 70% 10%;
-        margin-bottom: 5px;
-        align-items: center;
-        padding: 0px 15px 0px 15px;
-        color: #8798ad !important;
-        font-size: 12px;
-        margin-top: 30px;
+      .search-bar {
         width: 100%;
+        margin-right: 24px;
+
+        .mat-mdc-form-field {
+          max-width: unset;
+          width: 100%;
+
+          .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+            background-color: transparent;
+          }
+        }
       }
 
-      .availability-list-data {
-        display: grid;
-        // grid-template-columns: 250px 200px 250px 200px 120px 40px;
-        grid-template-columns: 20% 70% 10%;
-        height: 80px;
-        border: 1px solid #f5f5f5;
-        border-radius: 12px;
-        margin-bottom: 12px;
-        align-items: center;
-        padding: 0px 15px;
-        font-size: 14px;
-        width: 100%;
+      .create-event {
+        width: 215px;
 
-        .grid-item2 {
+        button {
+          width: 215px;
+          background-color: #053bff0d;
+          border-color: #7d818e0d;
+        }
+      }
+
+      .mat-mdc-outlined-button:not(:disabled) {
+        width: unset;
+      }
+    }
+
+    .availability {
+      position: relative;
+      margin-top: 56px;
+
+      .availability-label {
+        font-size: 18px;
+      }
+
+      .create-availability {
+        position: absolute;
+        right: 0;
+        width: unset;
+
+        button {
+          width: 215px !important;
+          background-color: #053bff0d;
+          border-color: #7d818e0d;
+        }
+      }
+
+      .add-availability-list {
+        .availability-list-header {
+          display: grid;
+          // grid-template-columns: 250px 200px 250px 200px 120px 40px;
+          grid-template-columns: 20% 70% 10%;
+          margin-bottom: 5px;
+          align-items: center;
+          padding: 0px 15px 0px 15px;
+          color: #8798ad;
           font-size: 12px;
+          margin-top: 30px;
+          width: 100%;
+        }
 
-          img {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-          }
+        .availability-list-data {
+          display: grid;
+          // grid-template-columns: 250px 200px 250px 200px 120px 40px;
+          grid-template-columns: 20% 70% 10%;
+          height: 80px;
+          border: 1px solid #f5f5f5;
+          border-radius: 12px;
+          margin-bottom: 12px;
+          align-items: center;
+          padding: 0px 15px;
+          font-size: 14px;
+          width: 100%;
 
-          .icon {
-            width: 16px;
-            height: 16px;
-          }
+          .grid-item2 {
+            font-size: 12px;
 
-          mat-menu {
-            mat-menu-item {
-              display: flex;
-              justify-content: center;
-              align-items: center;
+            img {
+              width: 36px;
+              height: 36px;
+              border-radius: 50%;
+            }
+
+            .icon {
+              width: 16px;
+              height: 16px;
+            }
+
+            .action-icon {
+              font-size: 20px;
+              color: #000;
+            }
+
+            mat-menu {
+              mat-menu-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+
+            .available {
+              color: #258017;
+              background-color: #2580170d;
+              padding: 8px 16px;
+              border-radius: 40px;
+            }
+
+            .booked {
+              color: #ff2e2e;
+              background-color: #ff2e2e0d;
+              padding: 8px 16px;
+              border-radius: 40px;
             }
           }
 
-          .available {
-            color: #258017;
-            background-color: #2580170d;
-            padding: 8px 16px;
-            border-radius: 40px;
+          .slots {
+            gap: 10px;
           }
-
-          .booked {
-            color: #ff2e2e;
-            background-color: #ff2e2e0d;
-            padding: 8px 16px;
-            border-radius: 40px;
-          }
-        }
-
-        .slots {
-          gap: 10px;
         }
       }
     }
   }
-
-  // }
 }
 
 .mat-mdc-icon-button.mat-mdc-button-base {
-  width: 24px !important;
-  height: 24px !important;
-  padding: 0px !important;
+  width: 24px;
+  height: 24px;
+  padding: 0px;
 }
 
-// .calendar-form {
-//   .mat-mdc-form-field {
-//     max-width: 260px;
-//   }
-// }
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    margin: 15px;
+    margin-right: 0;
+
+    .cards {
+      .calendar-header-menu {
+
+        .filter-section {
+          margin-right: 15px;
+        }
+
+        .search-bar {
+          width: 100% !important;
+          margin-right: 15px;
+        }
+
+        button {
+          width: 140px !important;
+        }
+      }
+
+      .cal-container {
+        width: calc(100vw - 210px);
+      }
+
+      .add-availability-list {
+        overflow-x: scroll;
+        width: calc(100vw - 210px);
+
+        .availability-list-header {
+          min-width: 1000px;
+        }
+
+        .availability-list-data {
+          min-width: 1000px;
+        }
+      }
+    }
+  }
+}

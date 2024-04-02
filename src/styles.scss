@@ -61,6 +61,7 @@ body {
 
   .mat-mdc-form-field-icon-suffix {
 
+    // min-height: 48px;
     img {
       margin: 12px;
     }
@@ -927,23 +928,10 @@ body {
       }
     }
   }
-
   //black arrow down overrid css
-  #header-menu {
-    .filter-section {
-      .mat-mdc-select-trigger::after {
-        content: "";
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 20px;
-        height: 17px;
-        background: url("../src/assets/images/icons/black_arrow_down.svg");
-        margin-top: 2px;
-      }
-    }
-  }
+ 
 
+// mat-input-white override css
   .contact-us-container {
     .header-menu {
       .filter-section {
@@ -955,12 +943,52 @@ body {
           padding: 9px 20px 7px 10px;
         }
 
+        .mat-mdc-select-trigger::after {
+          content: "";
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 20px;
+          height: 17px;
+          background: url("../src/assets/images/icons/black_arrow_down.svg");
+          margin-top: 2px;
+        }
       }
 
       .search-bar {
         .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
           background-color: transparent !important;
         }
+      }
+    }
+  }
+
+  .calendar-header-menu,
+  .case-diary-header-menu {
+    .filter-section {
+      .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+        background-color: transparent !important;
+      }
+
+      .mat-mdc-select-trigger {
+        padding: 9px 20px 7px 10px;
+      }
+
+      .mat-mdc-select-trigger::after {
+        content: "";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 17px;
+        background: url("../src/assets/images/icons/black_arrow_down.svg");
+        margin-top: 2px;
+      }
+    }
+
+    .search-bar {
+      .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+        background-color: transparent !important;
       }
     }
   }
@@ -979,7 +1007,15 @@ body {
       min-width: unset;
       white-space: nowrap;
     }
-  }
+  } 
+
+  // dashed border override css
+  mwl-calendar-week-view-event{
+    .cal-event {
+      border-style: dashed !important;
+      border-width: 2px !important;
+    } 
+}
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

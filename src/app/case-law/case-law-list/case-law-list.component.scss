@@ -298,9 +298,13 @@
       color: #000;
     }
 
-    img {
-      margin-right: 10px;
-    }
+    .advance-search-col{
+      display: flex;
+      flex-wrap: wrap;
+      img {
+        margin-right: 10px;
+      }
+    }    
   }
 }
 

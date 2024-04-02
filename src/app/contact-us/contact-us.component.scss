@@ -34,6 +34,7 @@
 
       .add-ticket {
         width: 215px !important;
+        margin-right: 15px;
 
         button {
           width: 215px !important;
@@ -81,7 +82,8 @@
         }
 
         .grid-item2 {
-          // padding-left: 10px;
+         display: flex;
+         align-items: center;
 
           .oval-div {
             width: 100px;
@@ -179,29 +181,30 @@
     margin-right: 0;
 
     .contact-us-container {
-      .header-menu{
+      .header-menu {
         margin-right: 15px;
 
         .filter-section {
           margin-right: 15px;
-  
+
           .mat-mdc-form-field {
             width: 180px !important;
           }
-      }
+        }
 
-      .search-bar {
-        margin-right: 15px;
-      }
+        .search-bar {
+          margin-right: 15px;
+        }
 
-      .add-ticket {
-        width: 180px !important;
-
-        button {
+        .add-ticket {
           width: 180px !important;
+
+          button {
+            width: 180px !important;
+          }
         }
       }
-    }
+
       .ticket-list {
         overflow-x: scroll;
         width: calc(100vw - 210px);

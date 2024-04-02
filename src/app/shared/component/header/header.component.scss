@@ -190,13 +190,14 @@ body .modal-dialog .modal-header {
 .upgrade-modal {
   .modal-body {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 50px;
     margin: 40px 0;
 
     .feature {
       color: #8798ad;
-      margin-top: 5px;
+      margin-top: 12px;
 
       img {
         margin-right: 8px;
@@ -271,7 +272,8 @@ body .modal-dialog .modal-header {
       }
     }
 
-    .basic-plan {
+    .silver-plan {
+      width: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -286,7 +288,7 @@ body .modal-dialog .modal-header {
         padding: 8px 10px;
         position: absolute;
         top: 30px;
-        left: 111px;
+        left: 65px;
         border-top-right-radius: 12px;
         border-bottom-right-radius: 12px;
         margin-top: 10px;
@@ -330,7 +332,8 @@ body .modal-dialog .modal-header {
       }
     }
 
-    .personal-plan {
+    .gold-plan {
+      width: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -379,7 +382,8 @@ body .modal-dialog .modal-header {
       }
     }
 
-    .agency-plan {
+    .platinum-plan {
+      width: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;

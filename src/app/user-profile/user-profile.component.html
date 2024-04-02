@@ -4,7 +4,7 @@
 <div class="root">
   <!-- SideNav of  User Profile -->
   <div class="profile-container">
-    <div class="profile-sidenav col-lg-3 col-md-3">
+    <div class="profile-sidenav col-lg-3 col-md-12">
       <li id="basic-nav" (click)="addStyling('basic-nav'); addShadow('basic-info')">
         <a>Basic Info</a>
       </li>
@@ -24,7 +24,7 @@
 
 
     <!-- Main Content of  User Profile -->
-    <div class="main-content col-lg-9 col-md-9">
+    <div class="main-content col-lg-9 col-md-12">
       <!-- Basic-Info -->
       <div class="section-info" id="basic-info">
         <div class="section-info-head">
@@ -68,7 +68,7 @@
                   <div class="user-details-detail">Anuraggoyal117&#64;gmail.com</div>
                 </div>
 
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-8 col-md-8">
                   <div class="user-details-heading">Address</div>
                   <div class="user-details-detail">Numeroeins Software Pvt Ltd, 516 Appollo Tower 452010, Indore, M.p
                   </div>
@@ -137,39 +137,39 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Subscription-Info -->
-        <div class="section-info" id="subscription">
-          <div class="section-info-head">
-            <h4>Subscription</h4>
-            <button mat-stroked-button color="primary" data-bs-target="#subscriptionModal" data-bs-toggle="modal">
-              <span>Edit</span>
-            </button>
-          </div>
-          <div class="description">
-            To change your password, you'll need to verify the current one first.
-            Then create a password you're not using elsewhere, and be sure to
-            change it regularly as well as anytime you suspect it's been
-            compromised.
-          </div>
+      <!-- Subscription-Info -->
+      <div class="section-info" id="subscription">
+        <div class="section-info-head">
+          <h4>Subscription</h4>
+          <button mat-stroked-button color="primary" data-bs-target="#subscriptionModal" data-bs-toggle="modal">
+            <span>Edit</span>
+          </button>
         </div>
+        <div class="description">
+          To change your password, you'll need to verify the current one first.
+          Then create a password you're not using elsewhere, and be sure to
+          change it regularly as well as anytime you suspect it's been
+          compromised.
+        </div>
+      </div>
 
-        <!-- Password & Security -->
-        <div class="section-info" id="password&security" style="margin-bottom: 20px">
-          <div class="section-info-head">
-            <h4>Password & Security</h4>
-          </div>
-          <div class="description">
-            To change your password, you'll need to verify the current one first.
-            Then create a password you're not using elsewhere, and be sure to
-            change it regularly as well as anytime you suspect it's been
-            compromised.
-          </div>
-          <div class="user-details">
-            <div class="user-details-1a">
-              <a routerLink="/auth/resetPassword">Change Password </a>
-              <a data-bs-toggle="modal" data-bs-target="#accountDeleteModal">Delete Your Account</a>
-            </div>
+      <!-- Password & Security -->
+      <div class="section-info" id="password&security" style="margin-bottom: 20px">
+        <div class="section-info-head">
+          <h4>Password & Security</h4>
+        </div>
+        <div class="description">
+          To change your password, you'll need to verify the current one first.
+          Then create a password you're not using elsewhere, and be sure to
+          change it regularly as well as anytime you suspect it's been
+          compromised.
+        </div>
+        <div class="user-details">
+          <div class="user-details-1a">
+            <a routerLink="/auth/resetPassword">Change Password </a>
+            <a data-bs-toggle="modal" data-bs-target="#accountDeleteModal">Delete Your Account</a>
           </div>
         </div>
       </div>
@@ -323,26 +323,26 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="basic-plan">
+          <div class="silver-plan">
             <div class="active-plan">
               <div class="tringle"></div>
               Currently Active
             </div>
-            <div class="plan-name">BASIC PLAN</div>
+            <div class="plan-name">SILVER PLAN</div>
             <div class="beginners">For Beginners</div>
             <div class="free">FREE</div>
             <div class="limit">Users : Unlimited</div>
             <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 1
+              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 2
+              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />1 Case Diary
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Feature 3
+              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Blog
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 4
+              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top Listing
             </div>
 
             <div class="cancel-button">
@@ -352,9 +352,9 @@
             </div>
           </div>
 
-          <div class="personal-plan">
-            <div class="plan-name">PERSONAL PLAN</div>
-            <div class="individuals">For Individuals</div>
+          <div class="gold-plan">
+            <div class="plan-name">GOLD PLAN</div>
+            <div class="individuals">For Mediators</div>
             <div class="free">
               <div class="rupee">
                 <img src="../../assets/images/icons/repey.svg" alt="noImage" />
@@ -364,18 +364,18 @@
                 / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
               </div>
             </div>
-            <div class="limit">Users : 0</div>
+            <div class="limit">Users : Unlimited</div>
             <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 1
+              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 2
+              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />2 Case Diary
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 3
+              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Feature 3
+              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top 100 Listing
             </div>
             <div class="cancel-button">
               <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
@@ -383,9 +383,9 @@
               </button>
             </div>
           </div>
-          <div class="agency-plan">
-            <div class="plan-name">AGENCY PLAN</div>
-            <div class="team">For Your Team</div>
+          <div class="platinum-plan">
+            <div class="plan-name">PLATINUM PLAN</div>
+            <div class="team">For Experts</div>
             <div class="free">
               <div class="rupee">
                 <img src="../../assets/images/icons/repey.svg" alt="noImage" />
@@ -402,16 +402,16 @@
               <div class="plus-btn">+</div>
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 1
+              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 2
+              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />3 Case Diary
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 3
+              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
             </div>
             <div class="feature">
-              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Feature 3
+              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Top 50 Listing
             </div>
             <div class="cancel-button">
               <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">

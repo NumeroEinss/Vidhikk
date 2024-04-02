@@ -20,25 +20,25 @@
       .case-diary-col {
         display: flex;
         flex-wrap: wrap;
-      }
 
-      .mat-label {
-        margin-bottom: 4px;
-        height: 21px;
-        flex-grow: 0;
-        font-family: Poppins;
-        font-size: 14px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: #000000;
-      }
+        .mat-label {
+          margin-bottom: 4px;
+          height: 21px;
+          flex-grow: 0;
+          font-family: Poppins;
+          font-size: 14px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: #000000;
+        }
 
-      input [type="file"] {
-        font-family: Poppins;
+        input [type="file"] {
+          font-family: Poppins;
+        }
       }
     }
 
@@ -70,7 +70,7 @@
     .create-case-diary {
       margin: 15px;
 
-      .lower-div{
+      .lower-div {
         margin: 25px 0 70px 0;
       }
     }

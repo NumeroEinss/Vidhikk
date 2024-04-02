@@ -1,117 +1,119 @@
 <app-header [menuName]="'Calendar'"></app-header>
 <div class="root">
   <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-    <!-- <div class="cards"> -->
-    <!-- calendar-header-menu start -->
-    <div class="calendar-header-menu">
-      <!-- filter section start -->
-      <div class="filter-section">
-        <mat-form-field appearance="outline">
-          <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
-          <mat-select placeholder="Select Event" required [(value)]="eventType">
-            <mat-option *ngFor="let event of eventTypeList" [value]="event.value">
-              {{ event.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <!-- filter section ends -->
-
-      <!-- search-bar start -->
-      <div class="search-bar">
-        <mat-form-field appearance="outline">
-          <input matInput placeholder="Search Calendar" required />
-          <div matSuffix>
-            <img src="../../../assets/images/icons/search-blue.svg" style="margin-right: 8px; cursor: pointer" />
-          </div>
-        </mat-form-field>
-      </div>
-      <!-- search-bar ends -->
-
-      <!-- create-event start -->
-      <div class="create-event">
-        <button id="addEventButton" mat-stroked-button color="primary" style="border-radius: 12px"
-          data-bs-toggle="modal" data-bs-target="#addEventModal">
-          <img class="mx-1" src="../../assets/images/icons/add-event.svg" /><span style="color: #2e5bff"></span>Add
-          Event
-        </button>
-      </div>
-      <!-- creat-event ends -->
-    </div>
-    <!-- calendar-header-menu ends -->
-
-    <app-calendar-header [(view)]="view" [(viewDate)]="viewDate">
-    </app-calendar-header>
-
-    <div [ngSwitch]="view" class="cal-container">
-      <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [activeDayIsOpen]="true">
-      </mwl-calendar-month-view>
-      <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
-      </mwl-calendar-week-view>
-      <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events">
-      </mwl-calendar-day-view>
-    </div>
-    <div class="availability">
-      <div class="d-flex align-items-center">
-        <div class="availability-label">
-          Availability
+    <div class="cards">
+      <!-- calendar-header-menu start -->
+      <div class="calendar-header-menu">
+        <!-- filter section start -->
+        <div class="filter-section">
+          <mat-form-field appearance="outline">
+            <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
+            <mat-select placeholder="Select Event" required [(value)]="eventType">
+              <mat-option *ngFor="let event of eventTypeList" [value]="event.value">
+                {{ event.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <!-- create-availability start -->
-        <div class="create-availability">
-          <button id="addAvailabilityButton" mat-stroked-button color="primary" style="border-radius: 12px"
-            data-bs-target="#addSlotModal" data-bs-toggle="modal">
+        <!-- filter section ends -->
+
+        <!-- search-bar start -->
+        <div class="search-bar">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Search Calendar" required />
+            <div matSuffix>
+              <img src="../../../assets/images/icons/search-blue.svg" style="margin-right: 8px; cursor: pointer" />
+            </div>
+          </mat-form-field>
+        </div>
+        <!-- search-bar ends -->
+
+        <!-- create-event start -->
+        <div class="create-event">
+          <button id="addEventButton" mat-stroked-button color="primary" style="border-radius: 12px"
+            data-bs-toggle="modal" data-bs-target="#addEventModal">
             <img class="mx-1" src="../../assets/images/icons/add-event.svg" /><span style="color: #2e5bff"></span>Add
-            Availability
+            Event
           </button>
         </div>
-        <!-- create-availability ends -->
+        <!-- creat-event ends -->
       </div>
-      <!-- add availability list starts -->
-      <div class="add-availability-list">
-        <div>
-          <div class="availability-list-header">
-            <div class="grid-item-name">DATE</div>
-            <div class="grid-item1">TIME SLOT</div>
-            <div class="grid-item1">ACTIONS</div>
-          </div>
+      <!-- calendar-header-menu ends -->
 
-          <div *ngFor="let availability of availabilityList ;index as i" class="availability-list-data">
-            <div class="grid-item2">{{ availability.date | date:'dd/MM/yyyy' }}</div>
-            <div class="grid-item2 slots d-flex">
-              <div *ngFor="let slot of availability.timeSlot">
-                <div class="available" *ngIf="slot.status == 'available'">
-                  {{ slot.slot }}
-                </div>
-                <div class="booked" *ngIf="slot.status == 'booked'">
-                  {{ slot.slot }}
-                </div>
-              </div>
-            </div>
-            <div class="grid-item2">
-              <button mat-icon-button [matMenuTriggerFor]="availabilityMenu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            </div>
-            <mat-menu #availabilityMenu="matMenu">
-              <div mat-menu-item (click)="editAvailability(availability)">
-                <mat-icon>edit</mat-icon>
-                <span class="mat-menu-list">Edit</span>
-              </div>
+      <app-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+      </app-calendar-header>
 
-              <div mat-menu-item (click)="this.deleteSlotIndex = i;handleDeleteAvailability();">
-                <mat-icon>delete</mat-icon>
-                <span class="mat-menu-list">Delete</span>
-              </div>
-            </mat-menu>
+      <div [ngSwitch]="view" class="cal-container">
+        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
+          [activeDayIsOpen]="true">
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events">
+        </mwl-calendar-day-view>
+      </div>
+      <div class="availability">
+        <div class="d-flex align-items-center">
+          <div class="availability-label">
+            Availability
           </div>
+          <!-- create-availability start -->
+          <div class="create-availability">
+            <button id="addAvailabilityButton" mat-stroked-button color="primary" style="border-radius: 12px"
+              data-bs-target="#addSlotModal" data-bs-toggle="modal">
+              <img class="mx-1" src="../../assets/images/icons/add-event.svg" /><span style="color: #2e5bff"></span>Add
+              Availability
+            </button>
+          </div>
+          <!-- create-availability ends -->
         </div>
-        <!-- add availability list ends -->
+        <!-- add availability list starts -->
+        <div class="add-availability-list">
+          <div>
+            <div class="availability-list-header">
+              <div class="grid-item-name">DATE</div>
+              <div class="grid-item1">TIME SLOT</div>
+              <div class="grid-item1">ACTIONS</div>
+            </div>
+
+            <div *ngFor="let availability of availabilityList; index as i" class="availability-list-data">
+              <div class="grid-item2">{{ availability.date | date:'dd/MM/yyyy' }}</div>
+              <div class="grid-item2 slots d-flex">
+                <div *ngFor="let slot of availability.timeSlot">
+                  <div class="available" *ngIf="slot.status == 'available'">
+                    {{ slot.slot }}
+                  </div>
+                  <div class="booked" *ngIf="slot.status == 'booked'">
+                    {{ slot.slot }}
+                  </div>
+                </div>
+              </div>
+              <div class="grid-item2">
+                <button mat-icon-button [matMenuTriggerFor]="availabilityMenu">
+                  <mat-icon class="action-icon">more_vert</mat-icon>
+                </button>
+              </div>
+              <mat-menu #availabilityMenu="matMenu">
+                <div mat-menu-item (click)="editAvailability(availability)">
+                  <mat-icon>edit</mat-icon>
+                  <span class="mat-menu-list">Edit</span>
+                </div>
+
+                <div mat-menu-item (click)="this.deleteSlotIndex = i; handleDeleteAvailability();">
+                  <mat-icon>delete</mat-icon>
+                  <span class="mat-menu-list">Delete</span>
+                </div>
+              </mat-menu>
+            </div>
+          </div>
+          <!-- add availability list ends -->
+        </div>
       </div>
     </div>
-    <!-- </div> -->
 
   </ng-scrollbar>
-  <button id="deleteEventButton" data-bs-target="#deleteEvent" data-bs-toggle="modal" style="display: none;">Delete
+  <button id="deleteEventButton" data-bs-target="#deleteEvent" data-bs-toggle="modal" style="display: none;"
+    class="delete-event">Delete
     Event</button>
   <button id="deleteAvailabilityButton" data-bs-target="#deleteAvailability" data-bs-toggle="modal"
     style="display: none;">Delete
@@ -323,7 +325,6 @@
 </div>
 
 <!--Delete Event popup start -->
-
 <div class=" modal fade" id="deleteEvent" tabindex="-1" aria-labelledby="deleteEvent" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered delete-modal">
     <div class="modal-content">
@@ -352,7 +353,6 @@
 <!-- Delete Event popup ends -->
 
 <!--Delete Event popup start -->
-
 <div class="modal fade" id="deleteAvailability" tabindex="-1" aria-labelledby="deleteAvailability" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered delete-modal">
     <div class="modal-content">

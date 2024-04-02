@@ -16,13 +16,14 @@
         <div [matMenuTriggerFor]="shareMenu" class="mat-menu-list">
           <img src="../../../assets/images/icons/case-diary-share.svg" />
         </div>
-        <img src="../../../assets/images/icons/pdf.svg" />
-        <img src="../../../assets/images/icons/print.svg" style="margin-right: 0;"/>
+        <div (click)="exportAsPDF('printableArea')"><img src="../../../assets/images/icons/pdf.svg" /></div>
+        <div (click)="print()"><img src="../../../assets/images/icons/print.svg" style="margin-right: 0;"/></div>
       </div>
+      
       <mat-menu #shareMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="view-application-mat-menu">
         <button mat-menu-item>
           <img src="../../../assets/images/icons/email_share.svg" alt="" class="me-2" />
-          <span >Share on email</span>
+          <span><a href="mailto:test123@gmail.com" style="color: black; text-decoration: none;">Share on email</a></span>
         </button>
         <button mat-menu-item>
           <img src="../../../assets/images/icons/wtsp_share.svg" alt="" class="me-2" />
@@ -32,8 +33,8 @@
     </div>
     <!-- case-diary-bar ends-->
 
-    <!-- case-diary details start-->
-    <div class="description">
+    <!-- case-diary details start--> 
+    <div class="description" #printableContent id="printableArea">
       <div>IN THE COURT OF <span class="bold">XII ADJ, Indore</span></div>
       <div class="mt-3">
         Case No: <span class="bold">2341</span><br />
@@ -69,7 +70,6 @@
         Place:<span class="bold">Indore</span><br />U/s. 389 (3) Cr. P. C. short
         bail can be obtained for filing appeal to High Court/ Sessions Court.
       </div>
-    </div>
     <!-- case-diary details ends-->
   </div>
   <!-- feed-section-ends -->

@@ -303,13 +303,14 @@
 .subscription-modal {
   .modal-body {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 50px;
     margin: 40px 0;
 
     .feature {
       color: #8798ad;
-      margin-top: 5px;
+      margin-top: 12px;
 
       img {
         margin-right: 8px;
@@ -384,7 +385,8 @@
       }
     }
 
-    .basic-plan {
+    .silver-plan {
+      width: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -399,7 +401,7 @@
         padding: 8px 10px;
         position: absolute;
         top: 30px;
-        left: 111px;
+        left: 65px;
         border-top-right-radius: 12px;
         border-bottom-right-radius: 12px;
         margin-top: 10px;
@@ -443,7 +445,8 @@
       }
     }
 
-    .personal-plan {
+    .gold-plan {
+      width: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -492,7 +495,8 @@
       }
     }
 
-    .agency-plan {
+    .platinum-plan {
+      width: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -577,22 +581,33 @@
         display: flex;
         position: relative;
         z-index: 10;
-        padding: 0 0px;
-
+        padding: 0 15px;
+      
         li {
           white-space: nowrap;
-          padding: 6px;
+          padding: 6px 10px;
           height: 50px;
           max-width: unset;
           height: 50px;
+
+          a {
+            font-size: 12px;
+          }
+        }
+        .logout {
+          a {
+            font-size: 12px;
+          }
         }
       }
 
       .main-content {
-        width: calc(100vw - 206px);
+        // width: calc(100vw - 206px);
+        height: calc(100vh - 200px);
+        overflow-y: auto;
         position: absolute;
         top: 70px;
-        margin: 89px 14px 0 12px;
+        margin: 89px 14px 0px 12px;
 
         .section-info {
           padding: 20px;
@@ -617,11 +632,11 @@
             flex-wrap: wrap;
 
             .user-details-heading {
-              margin: 0px 0px 0 20px;
+              margin: 0px 0px 0 15px;
             }
 
             .user-details-detail {
-              margin: 0 10px 30px 20px;
+              margin: 0 10px 30px 15px;
               word-break: break-word;
             }
           }
