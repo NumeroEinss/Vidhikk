@@ -11,7 +11,8 @@ import { Subscription, interval, takeUntil } from 'rxjs';
 export class ConferenceComponent {
   @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
   message: string = '';
-  isMuted: boolean = false
+  isMuted: boolean = false;
+  userType: string = "";
 
   chatList = [
     {
@@ -63,6 +64,7 @@ export class ConferenceComponent {
 
   constructor(private _router: Router) {
     // this.subscription = this.source.subscribe(() => this.decreaseTimer());
+    this.userType = this._router.url.split('/')[1];
   }
 
   ngAfterViewInit() {
@@ -141,14 +143,32 @@ export class ConferenceComponent {
   }
 
   notify(e: any) {
-    if (e.action === 'done' && this.isExtended == false) {
+    if (e.action === 'done' && this.isExtended == false && this.userType == 'lawyer') {
       let element = document.getElementById('extendConfrenceButton') as HTMLElement;
       element.click();
       this.isExtended = true;
     }
-    else if (e.action === 'done' && this.isExtended == true) {
+    else if (e.action === 'done' && this.isExtended == true && this.userType == 'lawyer') {
       let element = document.getElementById('completeConfrenceButton') as HTMLElement;
       element.click();
+    }
+    else if (e.action === 'done' && this.isExtended == false && this.userType == 'user') {
+      let element = document.getElementById('extendUserConfrenceButton') as HTMLElement;
+      element.click();
+      this.isExtended = true;
+    }
+    else if (e.action === 'done' && this.isExtended == true && this.userType == 'user') {
+      let element = document.getElementById('completeConfrenceButton') as HTMLElement;
+      element.click();
+    }
+  }
+
+  exitConfrence() {
+    if (this.userType == 'user') {
+      this._router.navigate(['/user/conference']);
+    }
+    else if (this.userType == 'lawyer') {
+      this._router.navigate(['/lawyer/conference']);
     }
   }
 }

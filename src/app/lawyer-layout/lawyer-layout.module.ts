@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LayoutComponent } from './layout.component';
+import { LawyerLayoutComponent } from './lawyer-layout.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { LayoutRoutingModule } from './layout-routing.module';
+import { LawyerLayoutRoutingModule } from './lawyer-layout-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
   declarations: [
-    LayoutComponent,
+    LawyerLayoutComponent,
   ],
   imports: [
     CommonModule,
     MatSidenavModule,
-    LayoutRoutingModule,
+    LawyerLayoutRoutingModule,
     SharedModule,
     MaterialModule
   ]
 })
-export class LayoutModule { }
+export class LawyerLayoutModule { }

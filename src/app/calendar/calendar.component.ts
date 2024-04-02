@@ -75,6 +75,10 @@ export class CalendarComponent {
           label: 'Edit',
           onClick: ({ event }: { event: CalendarEvent }) => { console.log(event); },
         },
+        {
+          label: 'Delete Event ',
+          onClick: ({ event }: { event: CalendarEvent }): void => { this.handleDelete(), this.eventToBeDeleted = event },
+        },
       ],
     },
     {

@@ -1,0 +1,87 @@
+<!-- Header -->
+<app-header [menuName]="'Advocates'"></app-header>
+
+<!-- root section start-->
+<div class="root">
+    <!-- main section start -->
+    <div class="main-div">
+        <!-- advocate-header-menu start -->
+        <div class="advocate-header-menu" id="header-menu">
+            <!-- filter section start -->
+            <div class="filter-section">
+                <mat-form-field appearance="outline" class="mat-input-white">
+                    <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
+                    <mat-select placeholder="Advocates" required [(value)]="selectedAdvocateType">
+                        <mat-option *ngFor="let advocate of advocateTypeList" [value]="advocate.value"
+                            class="mat-options">
+                            {{ advocate.viewValue }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <!-- filter section ends -->
+
+            <!-- search-bar start -->
+            <div class="search-bar">
+                <mat-form-field appearance="outline" class="mat-input-white">
+                    <input matInput placeholder="Search Advocates" required />
+                    <div matSuffix>
+                        <img src="../../../assets/images/icons/search-blue.svg"
+                            style="margin-right: 20px; cursor: pointer" />
+                    </div>
+                </mat-form-field>
+            </div>
+            <!-- search-bar ends -->
+        </div>
+
+        <div style="height: calc(100vh - 196px)">
+            <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+                <div class="popular-lawyer">
+                    <div class="heading">Popular Lawyers</div>
+                    <div class="list">
+                        <div class="node" *ngFor="let lawyer of popularLawyerList" (click)="viewLawyerDetails()">
+                            <div class="subnode d-flex justify-content-center">
+                                <img class="display-profile" [src]="lawyer.image" width="200" height="150" alt="">
+                                <div class="lawyer-details">
+                                    <div class="location">{{lawyer.location}}</div>
+                                    <div class="type">{{lawyer.type}}</div>
+                                    <div class="d-flex">
+                                        <div class="experience">{{lawyer.experience}}</div>
+                                        <div class="rating">
+                                            <img src="../../../assets/images/icons/star.svg" alt="">
+                                            <div>({{lawyer.rating}})</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border: 1.5px solid #2E5BFF0D;">
+
+                <div class="all-lawyer">
+                    <div class="heading">All Lawyers</div>
+                    <div class="list">
+                        <div class="node" *ngFor="let lawyer of allLawyerList" (click)="viewLawyerDetails()">
+                            <div class="subnode d-flex justify-content-center">
+                                <img class="display-profile" [src]="lawyer.image" width="200" height="150" alt="">
+                                <div class="lawyer-details">
+                                    <div class="location">{{lawyer.location}}</div>
+                                    <div class="type">{{lawyer.type}}</div>
+                                    <div class="d-flex">
+                                        <div class="experience">{{lawyer.experience}}</div>
+                                        <div class="rating">
+                                            <img src="../../../assets/images/icons/star.svg" alt="">
+                                            <div>({{lawyer.rating}})</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-scrollbar>
+        </div>
+    </div>
+</div>

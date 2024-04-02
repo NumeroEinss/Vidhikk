@@ -4,6 +4,7 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity-feed',
@@ -14,6 +15,7 @@ export class ActivityFeedComponent {
   isCommentBoxOpen: boolean = false;
   isPost: boolean = false;
   comment: string = '';
+  userType: string = "";
 
   feedList = [
     {
@@ -80,11 +82,13 @@ export class ActivityFeedComponent {
     },
   ];
 
-  constructor() { }
+  constructor(private _activatedRoute: ActivatedRoute, private _router: Router) {
+    this.userType = _router.url.split('/')[1];
+  }
 
   addComment() {
     this.feedList[0].comments.push({
-      name: 'lavkush Mishra',
+      name: 'Lavkush Mishra',
       location: 'Bhopal, MP',
       postDate: '2 days ago',
       comment: this.comment,

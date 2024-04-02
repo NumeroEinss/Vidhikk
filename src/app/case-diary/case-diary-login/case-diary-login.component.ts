@@ -17,11 +17,6 @@ export class CaseDiaryLoginComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(10)])
     });
   }
-
-  ngAfterViewInit() {
-    let element = document.getElementById('confidentialityButton') as HTMLElement;
-    element.click();
-  }
 }
 
 

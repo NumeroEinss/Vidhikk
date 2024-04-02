@@ -68,7 +68,7 @@ marquee {
     }
 
     .up-section-1 {
-      width: 70%;
+      // width: 70%;
       display: flex;
       background-color: #fbfbfb;
       border-radius: 12px;
@@ -88,6 +88,15 @@ marquee {
           height: 48px;
           border-radius: 50%;
         }
+      }
+    }
+
+    .up-section {
+      padding: unset;
+
+      img {
+        width: 100%;
+        height: 100%;
       }
     }
 
@@ -498,11 +507,11 @@ marquee {
           padding: unset;
         }
 
-        .activity-feed{
+        .activity-feed {
           margin: 0 0 0 15px;
         }
 
-        .activity-feed-bottom{
+        .activity-feed-bottom {
           padding-left: 17px;
         }
       }

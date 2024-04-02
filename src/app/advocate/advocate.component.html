@@ -1,0 +1,289 @@
+<app-header [menuName]="'Advocate Detail'"></app-header>
+<div class="root">
+    <div class="lawyer-info d-flex">
+        <div class="d-flex">
+            <img class="display-profile" src="../../assets/images/image/advocate_3.jpg" alt="">
+            <div class="lawyer-details d-flex" style="flex-direction: column;">
+                <div class="name" *ngIf="isNameVisible">{{lawyer?.name}}</div>
+                <div class="type">{{lawyer?.type}}</div>
+                <div class="d-flex">
+                    <div class="case-won">{{lawyer?.caseWon}}</div>&nbsp;&nbsp;
+                    <div class="rating">
+                        <img src="../../../assets/images/icons/star.svg" alt="">
+                        <div>({{lawyer?.rating}})</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button mat-stroked-button color="primary" style="width: fit-content !important;" data-bs-toggle="modal"
+                data-bs-target="#qrModal" *ngIf="!isNameVisible">
+                <span style="color: #2e5bff">Pay to show details</span>
+            </button>
+            <button mat-stroked-button color="primary" style="width: fit-content !important;" *ngIf="isNameVisible">
+                <span style="color: #2e5bff" [routerLink]="activeRoute+'/hire'">Schedule a meeting</span>
+            </button>
+        </div>
+    </div>
+    <div>
+        <div class="personal-information">
+            Personal Information
+        </div>
+        <p>An Indian politician and senior advocate who has been associated with the Indian National Congress party.
+            Born on August 8, 1948, he has served in various capacities, including as the Union Minister of Human
+            Resource Development and the Union Minister of Law and Justice.Born on August 8, 1948, he has served in
+            various capacities, including as the Union Minister of Human Resource Development and the Union Minister of
+            Law and Justice.</p>
+    </div>
+    <div>
+        <div class="general-information">
+            General Information
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/location.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    Location
+                </div>
+                <div class="info-detail">
+                    {{lawyer.location}}
+                </div>
+            </div>
+        </div>
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/active_law.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    Lawsuits
+                </div>
+                <div class="info-detail">
+                    {{lawyer.lawsuit}}
+                </div>
+            </div>
+        </div>
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/file_achievement.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    File Achievements
+                </div>
+                <div class="info-detail">
+                    {{lawyer.fileAchievement}}
+                </div>
+            </div>
+        </div>
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/experience.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    Experience
+                </div>
+                <div class="info-detail">
+                    {{lawyer.experience}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="other-information">
+            Other Information
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/location.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    Name of State Bar
+                </div>
+                <div class="info-detail">
+                    {{lawyer.stateBar}}
+                </div>
+            </div>
+        </div>
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/practising_court_blue.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    Name of Practising Court
+                </div>
+                <div class="info-detail">
+                    {{lawyer.practisingCourt}}
+                </div>
+            </div>
+        </div>
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/active_law.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    Practising Field
+                </div>
+                <div class="info-detail">
+                    {{lawyer.practisingField}}
+                </div>
+            </div>
+        </div>
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/file_achievement.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    Bar Liscense
+                </div>
+                <div class="info-detail">
+                    {{lawyer.barLiscense}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="contact-information">
+            Contact Information
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/call_blue.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    Phone Number
+                </div>
+                <div class="info-detail">
+                    {{lawyer.phoneNo}}
+                </div>
+            </div>
+        </div>
+        <div class="general-info">
+            <div class="image-container">
+                <img src="../../assets/images/icons/mail_blue.svg" alt="">
+            </div>
+            <div>
+                <div class="info-header">
+                    Mail
+                </div>
+                <div class="info-detail">
+                    {{lawyer.mail}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- QR payment popup start -->
+<!-- <button id="qrModalButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
+  data-bs-target="#qrModal" class="d-none"></button> -->
+<div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true"
+    style="width: 100%;">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="qrModalLabel">Scan QR Code</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mt-4 mb-4" style="color: #8798AD;">
+                    All the details of the lawyer upon successful payment. For this you will be charged INR 500.
+                </p>
+                <div class="mt-2 mb-2 d-flex justify-content-center" data-bs-toggle="modal"
+                    data-bs-target="#conferenceModal">
+                    <p style="background:#2E5BFF0D; max-width: 360px; padding: 20px 122px;font-size: 16px;border-radius: 12px;cursor: pointer;"
+                        data-bs-toggle="modal" data-bs-target="#paymentSuccessfullModal">
+                        Scan QR Code
+                    </p>
+                </div>
+                <div class="mt-4 mb-4">
+                    <img src="../../assets/images/image/QRtiger.png" width="236" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Successful popup start -->
+<!-- <button id="paymentSuccessfullPopupButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
+  data-bs-target="#paymentSuccessfullModal" class="d-none"></button> -->
+<div class="modal fade" id="paymentSuccessfullModal" tabindex="-1" aria-labelledby="paymentSuccessfullModalLabel"
+    aria-hidden="true" style="width: 100%;">
+    <div class="modal-dialog modal-md modal-dialog-centered" style="width: 430px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="paymentSuccessfullModalLabel">Payment Successfull</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-3 mb-3">
+                    <img src="../../assets/images/image/payment_successful.png" alt="">
+                </div>
+                <p class="mb-4">
+                    Payment Successfull
+                </p>
+                <p class="m-4" style="color:#8798AD">
+                    You have successfully paid to see the details of the lawyer.<br><br> These details will be shown to
+                    you only 48 hours after the payment is completed.
+                </p>
+                <div class="mt-4 mb-4 px-4 py-3" style="border:1px solid #0000001A;border-radius: 12px;">
+                    <div class="payment-detail">
+                        Payment Details
+                    </div>
+                    <div class="transaction-detail">
+                        <div class="d-flex">
+                            <div class="col-lg-6 col-md-6 label">Client</div>
+                            <div class="col-lg-6 col-md-6 detail">Kapil Sibbal</div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="col-lg-6 col-md-6 label">Transaction ID</div>
+                            <div class="col-lg-6 col-md-6 detail">TTCNI022000800594</div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="col-lg-6 col-md-6 label">Payment Date</div>
+                            <div class="col-lg-6 col-md-6 detail">Feb 15 2024, 4:35 PM</div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="col-lg-6 col-md-6 label">Payment Method</div>
+                            <div class="col-lg-6 col-md-6 detail">Bank Account</div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="col-lg-6 col-md-6 label">Confirmation</div>
+                            <div class="col-lg-6 col-md-6 detail">Successful</div>
+                        </div>
+
+                        <hr>
+
+                        <div>
+                            <button mat-raised-button color="primary" class="m-2" (click)="isNameVisible = true"
+                                data-bs-dismiss="modal">Done</button><br />
+                            <button mat-stroked-button color=" primary" class="m-2">
+                                Download Receipt
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

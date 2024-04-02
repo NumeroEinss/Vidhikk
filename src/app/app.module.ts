@@ -22,6 +22,7 @@ import { HttpService } from './shared/services/http.service';
 import { SnackAlertService } from './shared/services/snack-alert.service';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { UserLayoutComponent } from './user-layout/user-layout.component';
 
 
 @NgModule({
@@ -33,8 +34,9 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     CreateNewPasswordComponent,
     ResetPasswordComponent,
     ContactUsComponent,
+    UserLayoutComponent
   ],
-  
+
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -57,4 +59,4 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

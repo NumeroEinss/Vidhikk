@@ -1,0 +1,155 @@
+.root {
+    margin: 30px 0 30px 30px;
+
+    //  case repository styling start
+    .advocate {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 105px;
+
+        .advocate-repo {
+            flex-grow: 0;
+            font-family: Poppins;
+            font-size: 24px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: center;
+            color: #000;
+        }
+
+        .advocate-heading {
+            flex-grow: 0;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: center;
+            color: #000;
+        }
+
+        button {
+            flex-grow: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 36.2px 118px 0;
+            padding: 12px 24px;
+            border-radius: 12px;
+            background-color: #2e5bff;
+
+            .mat-icon {
+                padding-top: 8px;
+            }
+        }
+    }
+
+    //  case repository styling ends
+
+    // list-style start
+    .main-div {
+        .advocate-header-menu {
+            display: flex;
+
+            .filter-section {
+                margin-right: 24px;
+
+                .mat-mdc-form-field {
+                    width: 185px !important;
+                }
+
+                .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
+                    padding-top: 3px !important;
+                }
+
+                .mat-mdc-select-trigger {
+                    padding: 9px 20px 7px 10px !important;
+                }
+            }
+
+            .search-bar {
+                width: 100% !important;
+                margin-right: 30px;
+
+                .mat-mdc-form-field {
+                    max-width: unset;
+                    width: 100% !important;
+                }
+            }
+        }
+
+        .popular-lawyer,
+        .all-lawyer {
+            margin-top: 26px;
+
+            .heading {
+                font-size: 24px;
+                font-weight: 500;
+            }
+
+            .list {
+                display: flex;
+                flex-wrap: wrap;
+
+                .node {
+                    cursor: pointer;
+                    width: 200px;
+                    min-width: 200px;
+                    margin: 20px 40px 38px 0;
+                    flex-direction: column;
+                    height: 180px;
+
+                    .subnode {
+                        position: relative;
+
+                        .display-profile {
+                            border-radius: 12px;
+                        }
+
+                        .lawyer-details {
+                            background-color: white;
+                            border-radius: 12px;
+                            width: 160px;
+                            height: 70px;
+                            padding: 5px 8px 5px 15.2px;
+                            box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+                            position: absolute;
+                            bottom: -35px;
+
+                            .type {
+                                color: #8798ad;
+                            }
+
+                            .d-flex {
+                                flex-direction: row;
+                                justify-content: space-between;
+
+                                .experience {
+                                    font-size: 10px;
+                                    color: #000000cc;
+                                }
+
+                                .rating {
+                                    display: flex;
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .node:nth-child(5n+5) {
+                    margin-right: 0px;
+                }
+            }
+        }
+    }
+}
