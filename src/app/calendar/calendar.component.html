@@ -3,7 +3,7 @@
   <ng-scrollbar autoHeightDisabled="false" appearance="standard">
     <div class="cards">
       <!-- calendar-header-menu start -->
-      <div class="calendar-header-menu" id="header-menu" >
+      <div class="calendar-header-menu">
         <!-- filter section start -->
         <div class="filter-section">
           <mat-form-field appearance="outline">
@@ -53,7 +53,7 @@
         </mwl-calendar-day-view>
       </div>
       <div class="availability">
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
           <div class="availability-label">
             Availability
           </div>
@@ -90,7 +90,7 @@
               </div>
               <div class="grid-item2">
                 <button mat-icon-button [matMenuTriggerFor]="availabilityMenu">
-                  <mat-icon>more_vert</mat-icon>
+                  <mat-icon class="action-icon">more_vert</mat-icon>
                 </button>
               </div>
               <mat-menu #availabilityMenu="matMenu">
@@ -99,7 +99,7 @@
                   <span class="mat-menu-list">Edit</span>
                 </div>
 
-                <div mat-menu-item (click)="this.deleteSlotIndex = i;handleDeleteAvailability();">
+                <div mat-menu-item (click)="this.deleteSlotIndex = i; handleDeleteAvailability();">
                   <mat-icon>delete</mat-icon>
                   <span class="mat-menu-list">Delete</span>
                 </div>
@@ -112,7 +112,8 @@
     </div>
 
   </ng-scrollbar>
-  <button id="deleteEventButton" data-bs-target="#deleteEvent" data-bs-toggle="modal" style="display: none;">Delete
+  <button id="deleteEventButton" data-bs-target="#deleteEvent" data-bs-toggle="modal" style="display: none;"
+    class="delete-event">Delete
     Event</button>
   <button id="deleteAvailabilityButton" data-bs-target="#deleteAvailability" data-bs-toggle="modal"
     style="display: none;">Delete
@@ -324,7 +325,6 @@
 </div>
 
 <!--Delete Event popup start -->
-
 <div class=" modal fade" id="deleteEvent" tabindex="-1" aria-labelledby="deleteEvent" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered delete-modal">
     <div class="modal-content">
@@ -353,7 +353,6 @@
 <!-- Delete Event popup ends -->
 
 <!--Delete Event popup start -->
-
 <div class="modal fade" id="deleteAvailability" tabindex="-1" aria-labelledby="deleteAvailability" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered delete-modal">
     <div class="modal-content">

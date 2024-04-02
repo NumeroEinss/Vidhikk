@@ -929,22 +929,8 @@ body {
       }
     }
   }
-
   //black arrow down overrid css
-  #header-menu {
-    .filter-section {
-      .mat-mdc-select-trigger::after {
-        content: "";
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 20px;
-        height: 17px;
-        background: url("../src/assets/images/icons/black_arrow_down.svg");
-        margin-top: 2px;
-      }
-    }
-  }
+ 
 
 // mat-input-white override css
   .contact-us-container {
@@ -956,6 +942,17 @@ body {
 
         .mat-mdc-select-trigger {
           padding: 9px 20px 7px 10px;
+        }
+
+        .mat-mdc-select-trigger::after {
+          content: "";
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 20px;
+          height: 17px;
+          background: url("../src/assets/images/icons/black_arrow_down.svg");
+          margin-top: 2px;
         }
       }
 
@@ -976,6 +973,17 @@ body {
 
       .mat-mdc-select-trigger {
         padding: 9px 20px 7px 10px;
+      }
+
+      .mat-mdc-select-trigger::after {
+        content: "";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 17px;
+        background: url("../src/assets/images/icons/black_arrow_down.svg");
+        margin-top: 2px;
       }
     }
 
@@ -1000,7 +1008,15 @@ body {
       min-width: unset;
       white-space: nowrap;
     }
-  }
+  } 
+
+  // dashed border override css
+  mwl-calendar-week-view-event{
+    .cal-event {
+      border-style: dashed !important;
+      border-width: 2px !important;
+    } 
+}
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

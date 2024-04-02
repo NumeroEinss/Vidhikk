@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { SnackAlertService } from '../shared/services/snack-alert.service';
 
 @Component({
   selector: 'app-members',
@@ -210,7 +211,7 @@ export class MembersComponent implements AfterViewInit {
     { value: 'civil', viewValue: 'Civil' },
   ];
 
-  constructor() { }
+  constructor(private _toastMessage: SnackAlertService,) { }
 
   ngAfterViewInit() {
     let element = document.getElementById('modalButton1') as HTMLElement;
@@ -219,7 +220,7 @@ export class MembersComponent implements AfterViewInit {
 
   addMember(member: any) {
     console.log(member)
-    this.memberList.push(member)
+    this.memberList.unshift(member)
   }
 
   deleteMember() {
@@ -227,7 +228,7 @@ export class MembersComponent implements AfterViewInit {
       if (x.id == this.selectedMember.id) {
         this.memberList.splice(index, 1)
       }
+      this._toastMessage.message('Member Deleted Successfully!!');
     })
-
   }
 }

@@ -29,4 +29,9 @@ export class CaseDiarySignupComponent {
       ]),
     });
   }
+
+  ngAfterViewInit() {
+    let element = document.getElementById('companyPolicyButton') as HTMLElement;
+    element.click();
+  }
 }

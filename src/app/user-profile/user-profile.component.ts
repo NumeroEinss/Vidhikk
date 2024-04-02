@@ -22,7 +22,7 @@ export class UserProfileComponent {
 
   ngAfterViewInit() {
     const element = document.getElementById("basic-info") as HTMLElement
-    element.scrollIntoView({ behavior: "smooth", block: "center" });
+    element.scrollIntoView({ behavior: "smooth", block: "end" });
     element.classList.add('box-shadow');
     const element2 = document.getElementById("basic-nav") as HTMLElement
     element2.classList.add('active-nav');
@@ -35,7 +35,7 @@ export class UserProfileComponent {
     let element4 = document.getElementById("basic-info") as HTMLElement;
     switch (type) {
       case 'password&security':
-        element1.scrollIntoView({ behavior: "smooth", block: "center" });
+        element1.scrollIntoView({ behavior: "smooth", block: "start" });
         element1.classList.add('box-shadow');
         element1.classList.add('mb-3');
         element2.classList.remove('box-shadow');
@@ -43,21 +43,21 @@ export class UserProfileComponent {
         element4.classList.remove('box-shadow');
         break;
       case 'subscription':
-        element2.scrollIntoView({ behavior: "smooth", block: "center" });
+        element2.scrollIntoView({ behavior: "smooth", block: "start" });
         element2.classList.add('box-shadow');
         element1.classList.remove('box-shadow');
         element3.classList.remove('box-shadow');
         element4.classList.remove('box-shadow');
         break;
       case 'orgainization-info':
-        element3.scrollIntoView({ behavior: "smooth", block: "center" });
+        element3.scrollIntoView({ behavior: "smooth", block: "start" });
         element3.classList.add('box-shadow');
         element2.classList.remove('box-shadow');
         element1.classList.remove('box-shadow');
         element4.classList.remove('box-shadow');
         break;
       case 'basic-info':
-        element4.scrollIntoView({ behavior: "smooth", block: "end" });
+        element4.scrollIntoView({ behavior: "smooth", block: "center" });
         element4.classList.add('box-shadow');
         element2.classList.remove('box-shadow');
         element3.classList.remove('box-shadow');

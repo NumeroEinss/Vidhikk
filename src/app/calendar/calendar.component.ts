@@ -287,11 +287,12 @@ export class CalendarComponent {
 
   handleDeleteAvailability() {
     let deleteAvailabilityHandler = document.getElementById('deleteAvailabilityButton') as HTMLElement;
-    deleteAvailabilityHandler.click();
+    deleteAvailabilityHandler.click();  
   }
 
   deleteAvailability() {
     this.availabilityList.splice(this.deleteSlotIndex, 1);
+    this._toastMessage.message('Availability Deleted Successfully!!');
   }
 
   editAvailability(slot: any) {

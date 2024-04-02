@@ -270,7 +270,6 @@ export class ChatRoomComponent {
       message: this.message,
       senderImage: '../../assets/images/image/add_member2.png',
     };
-    console.log(this.selectedChatRoom)
     this.selectedChatRoom.chatList.push(newMessage);
     this.message = '';
     // let element = document.getElementById('chat-textarea') as HTMLElement;

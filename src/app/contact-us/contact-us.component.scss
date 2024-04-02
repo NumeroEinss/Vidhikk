@@ -82,7 +82,8 @@
         }
 
         .grid-item2 {
-          // padding-left: 10px;
+         display: flex;
+         align-items: center;
 
           .oval-div {
             width: 100px;

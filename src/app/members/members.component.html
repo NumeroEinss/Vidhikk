@@ -54,7 +54,7 @@
           <div class="grid-item2">{{ member.designation }}</div>
           <div class="grid-item2">{{ member.branch }}</div>
           <div class="grid-item2">
-            <button mat-icon-button data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="selectedMember=member">
+            <button mat-icon-button data-bs-toggle="modal" data-bs-target="#deleteMemberModal" (click)="selectedMember=member">
               <mat-icon style="color: #2e5bff">delete</mat-icon>
             </button>
           </div>
@@ -93,11 +93,11 @@
   <!-- member initial popup ends -->
 
   <!-- delete popup start -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteMemberModal" tabindex="-1" aria-labelledby="deleteMemberModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered delete-modal">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Member</h1>
+          <h1 class="modal-title fs-5" id="deleteMemberModalLabel">Delete Member</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

@@ -2,24 +2,34 @@
 <div class="root">
   <div class="filter-bar">
     <div class="pretext col-lg-6 col-md-6">
-      <img
-        src="../../../assets/images/icons/arrow-left.svg"
-        (click)="routeBack()"
-      />
+      <img src="../../../assets/images/icons/arrow-left.svg" (click)="routeBack()" />
       <div class="records">Case Law</div>
     </div>
     <div class="posttext col-lg-6 col-md-6">
-      <img src="../../../assets/images/icons/bookmark.svg" />
-      <img src="../../../assets/images/icons/person.svg" />
-      <img src="../../../assets/images/icons/pdf.svg" />
-      <img src="../../../assets/images/icons/mailTo.svg" />
-      <img src="../../../assets/images/icons/print.svg" />
-      <img src="../../../assets/images/icons/search-blue.svg" />
+      <div class="search" (click)="searchStyle = { width: '100%', display: 'flex' };
+      searchIcon = { width: '0px', display: 'none' };" [ngStyle]="searchIcon"><img
+          src="../../../assets/images/icons/search-blue.svg" />
+      </div>
+
+      <div class="searchBox" [ngStyle]="searchStyle">
+        <input type="text" #searchInput />
+        <img class="cancel" (click)="
+            searchStyle = { width: '0px', display: 'none' };
+            searchIcon = { width: 'auto', display: 'block' };" src="../../../../assets/images/icons/cancel.svg" />
+        <img class="search" src="../../../../assets/images/icons/search_grey.svg"/>
+      </div>
+
+      <div><img src="../../../assets/images/icons/bookmark.svg" /></div>
+      <div><img src="../../../assets/images/icons/person.svg" /></div>
+      <div (click)="exportAsPDF('section-to-print')"><img src="../../../assets/images/icons/pdf.svg" /></div>
+      <div><a href="mailto:test123@gmail.com" style="color: black; text-decoration: none;">
+          <img src="../../../assets/images/icons/mailTo.svg" /></a></div>
+      <div (click)="print()"><img src="../../../assets/images/icons/print.svg" /></div>
     </div>
   </div>
   <div style="height: calc(100vh - 175px)">
     <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-      <div id="section-to-print" class="case-law-detail">
+      <div id="section-to-print" #printableContent class="case-law-detail">
         <div class="logo">
           <img src="../../../assets/images/icons/vidhiklogo.svg" alt="" />
         </div>

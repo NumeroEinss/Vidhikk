@@ -1,7 +1,8 @@
 .calendar-header {
   font-family: Poppins !important;
   position: relative;
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
   height: 50px;
   color: #000000cc;
   font-weight: normal;
@@ -11,11 +12,9 @@
   letter-spacing: normal;
 
   .today {
-    height: 50px;
-    position: absolute;
     display: flex;
     align-items: center;
-    left: 0;
+    height: 50px;
     cursor: pointer;
   }
 
@@ -27,9 +26,6 @@
   }
 
   .view-controller {
-    position: absolute;
-    right: 0;
-
     div {
       width: 87px;
       height: 45px;
@@ -46,4 +42,19 @@
       border-bottom: 2px solid #2e5bff;
     }
   }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+.calendar-header{
+  .navigators{
+    gap: 5px;
+  }
+
+  .view-controller {
+    div{
+      width: 70px;
+    }
+  }
+}
 }

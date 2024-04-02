@@ -48,7 +48,7 @@
     }
 
     .availability {
-      // position: relative;
+      position: relative;
       margin-top: 56px;
 
       .availability-label {
@@ -56,8 +56,8 @@
       }
 
       .create-availability {
-        // position: absolute;
-        // right: 0;
+        position: absolute;
+        right: 0;
         width: unset !important;
 
         button {
@@ -108,6 +108,11 @@
               height: 16px;
             }
 
+            .action-icon {
+              font-size: 20px;
+              color: #000;
+            }
+
             mat-menu {
               mat-menu-item {
                 display: flex;
@@ -136,7 +141,7 @@
           }
         }
       }
-    }
+    } 
   }
 }
 
@@ -160,7 +165,6 @@
 
     .cards {
       .calendar-header-menu {
-        margin-right: 15px;
 
         .filter-section {
           margin-right: 15px;
@@ -185,13 +189,22 @@
         }
       }
 
-      // .availability {
-      //   // margin-right: 15px;
+      .cal-container {
+        width: calc(100vw - 210px);
+      }
 
-      //   .create-availability {
-      //     margin-right: 15px;
-      //   }
-      // }
+      .add-availability-list {
+        overflow-x: scroll;
+        width: calc(100vw - 210px);
+
+        .availability-list-header {
+          min-width: 1000px;
+        }
+
+        .availability-list-data {
+          min-width: 1000px;
+        }
+      }
     }
   }
 }

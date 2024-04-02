@@ -1,4 +1,4 @@
-<div class="d-flex calendar-header">
+<div class="calendar-header">
   <div
     class="today"
     mwlCalendarToday
@@ -7,6 +7,7 @@
   >
     <div>Today</div>
   </div>
+
   <div class="btn-group navigators">
     <div
       mwlCalendarPreviousView
@@ -28,6 +29,7 @@
       <img src="../../../assets/images/icons/arrow-right.svg" alt="" />
     </div>
   </div>
+
   <div class="btn-group view-controller">
     <div
       (click)="viewChange.emit(CalendarView.Day)"
