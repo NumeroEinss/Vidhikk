@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { SignUpModel2 } from '../../app/common/signup.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserProfileModel } from '../common/userProfile.model';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class UserProfileComponent {
   signupForm2: FormGroup;
 
   constructor(private _fb: FormBuilder) {
-    this.signupForm2 = this._fb.group(new SignUpModel2);
+    this.signupForm2 = this._fb.group(new UserProfileModel);
     this.signupForm2.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
     this.signupForm2.controls.mobile.setValidators([Validators.required, Validators.minLength(10)]);
     this.signupForm2.controls.email.setValidators([Validators.email]);
@@ -98,12 +98,12 @@ export class UserProfileComponent {
         break;
     }
   }
-  
+
   isNumber(event: any) {
     return event.charCode >= 48 && event.charCode <= 57;
   }
+
   onOtpChange(e: any) {
     console.log(e);
   }
-
 }
