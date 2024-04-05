@@ -124,7 +124,7 @@
                             <mat-label class="mat-label mt-2 mb-1">Description</mat-label>
                             <mat-form-field appearance="outline" class="textArea">
                                 <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                    formControlName="description" required rows="3" maxlength="100"></textarea>
+                                    formControlName="description" required rows="3" minlength="10" maxlength="100"></textarea>
                                 <mat-error *ngIf="ticketForm.controls['description'].hasError('required')">Description
                                     is
                                     Required</mat-error>

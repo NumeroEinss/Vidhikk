@@ -54,6 +54,7 @@
 
     //  case repository styling ends
 
+
     // list-style start
     .main-div {
         .advocate-header-menu {
@@ -68,10 +69,6 @@
 
                 .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
                     padding-top: 3px !important;
-                }
-
-                .mat-mdc-select-trigger {
-                    padding: 9px 20px 7px 10px !important;
                 }
             }
 
@@ -148,6 +145,46 @@
 
                 .node:nth-child(5n+5) {
                     margin-right: 0px;
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .root {
+        margin: 15px;
+        margin-right: 0;
+
+        .main-div {
+
+            .popular-lawyer,
+            .all-lawyer {
+                .list {
+
+                    .node:nth-child(5n+5) {
+                        margin-right: 40px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1300px) {
+    .root {
+        margin: 15px;
+        margin-right: 0;
+
+        .main-div {
+
+            .popular-lawyer,
+            .all-lawyer {
+                .list {
+                    .node:nth-child(5n+5) {
+                        margin-right: 40px;
+                    }
                 }
             }
         }

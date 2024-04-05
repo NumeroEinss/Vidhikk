@@ -1,0 +1,215 @@
+//root styling start
+.root {
+    .rating-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 30px;
+
+        .image-container {
+            width: 126px;
+            height: 126px;
+
+            .display-profile {
+                width: 126px;
+                height: 126px;
+                border-radius: 50%;
+            }
+        }
+
+        .detail {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 30px;
+            // width: 200px;
+
+            .name {
+                font-size: 24px;
+                color: black;
+            }
+
+            .type {
+                margin-top: 10px;
+                font-size: 16px;
+                color: #8798AD;
+            }
+        }
+
+        .rating-detail {
+            // width: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .rating {
+                font-size: 40px;
+                font-weight: 700;
+            }
+
+            .rating-img {
+                margin-top: 10px;
+            }
+
+            .rating-count {
+                margin-top: 10px;
+                font-size: 14px;
+                color: #8798AD;
+            }
+        }
+
+
+        .advovate-info {
+            .advocate-detail {
+                min-width: 200px;
+                margin-bottom: 9px;
+                font-size: 14px;
+                color: #18214d;
+            }
+
+            .container {
+                width: 200px;
+                margin-top: 6px;
+
+                .progress {
+                    height: 10px;
+                }
+            }
+        }
+    }
+
+    hr {
+        height: 2px;
+        color: #f0f0f0;
+    }
+
+    .rating-btn {
+        text-align: right;
+        margin-right: 2px;
+
+        button {
+            width: fit-content !important;
+            padding: 0 40px;
+        }
+    }
+
+    .add-rating {
+        margin: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .add-overall-rating {
+            margin-top: 30px;
+
+            .rating-criteria {
+                min-width: 250px;
+            }
+
+            .star-content {
+                cursor: pointer;
+
+                .star-container {
+                    .rating.medium .star {
+                        width: 25px;
+                        height: 20px;
+                    }
+                }
+            }
+        }
+
+        .submit-btn {
+            margin-top: 30px;
+
+            button {
+                width: fit-content !important;
+                padding: 0 40px;
+            }
+
+        }
+    }
+
+    .rating-list {
+        margin: 50px 2px 30px 30px;
+
+        .rating-list-content {
+            display: flex;
+            justify-content: space-between;
+
+            .image {
+                width: 40px;
+                height: 40px;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                }
+            }
+
+            .name {
+                color: #282828;
+            }
+
+            .group-star {
+                display: flex;
+                align-items: center;
+               
+            }
+
+            .days {
+                color: #8798ad;
+            }
+        }
+
+        hr {
+            margin-top: 25px;
+        }
+
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .root {
+        .rating-container {
+            margin: 15px;
+
+            .advovate-info {
+                margin-top: 20px;
+            }
+        }
+
+        .rating-btn{
+            margin-right: 15px;
+        }
+
+        .add-rating, 
+        .rating-list{
+            margin: 15px;
+        }
+    }
+}
+
+
+@media only screen and (min-width: 1024px) and (max-width: 1399px) {
+    .root {
+        .rating-container {
+            margin: 30px;
+
+            .advovate-info {
+                margin-top: 20px;
+            }
+        }
+
+        .rating-btn{
+            margin-right: 30px;
+        }
+
+        .add-rating, 
+        .rating-list{
+            margin: 30px;
+        }
+    }
+}

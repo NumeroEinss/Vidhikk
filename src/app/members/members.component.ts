@@ -11,7 +11,7 @@ export class MembersComponent implements AfterViewInit {
 
   memberList = [
     {
-      id: '1',
+      id: 1,
       image: '../../assets/images/image/anurag_goyal.jpg',
       memberName: 'Anil Pandey',
       icon: '../../assets/images/icons/lock_member.svg',
@@ -22,7 +22,7 @@ export class MembersComponent implements AfterViewInit {
       branch: 'Pune',
     },
     {
-      id: '2',
+      id: 2,
       image: '../../assets/images/image/add_member2.png',
       memberName: 'Bhushan Singh',
       icon: '../../assets/images/icons/call_member.svg',
@@ -33,7 +33,7 @@ export class MembersComponent implements AfterViewInit {
       branch: 'Goa',
     },
     {
-      id: '3',
+      id: 3,
       image: '../../assets/images/image/add_member.png',
       memberName: 'Kunal Thakre',
       icon: '../../assets/images/icons/call_member.svg',
@@ -44,7 +44,7 @@ export class MembersComponent implements AfterViewInit {
       branch: 'Mumbai',
     },
     {
-      id: '4',
+      id: 4,
       image: '../../assets/images/image/anurag_goyal.jpg',
       memberName: 'Vinit Upadhyaya',
       icon: '../../assets/images/icons/lock_member.svg',
@@ -55,7 +55,7 @@ export class MembersComponent implements AfterViewInit {
       branch: 'Pune',
     },
     {
-      id: '5',
+      id: 5,
       image: '../../assets/images/image/add_member.png',
       memberName: 'Manika Da',
       icon: '../../assets/images/icons/lock_member.svg',
@@ -66,7 +66,7 @@ export class MembersComponent implements AfterViewInit {
       branch: 'Pune',
     },
     {
-      id: '6',
+      id: 6,
       image: '../../assets/images/image/add_member2.png',
       memberName: 'Kunal Thakre',
       icon: '../../assets/images/icons/call_member.svg',
@@ -77,7 +77,7 @@ export class MembersComponent implements AfterViewInit {
       branch: 'Mumbai',
     },
     {
-      id: '7',
+      id: 7,
       image: '../../assets/images/image/anurag_goyal.jpg',
       memberName: 'Kunal Thakre',
       icon: '../../assets/images/icons/call_member.svg',
@@ -88,7 +88,7 @@ export class MembersComponent implements AfterViewInit {
       branch: 'Mumbai',
     },
     {
-      id: '8',
+      id: 8,
       image: '../../assets/images/image/add_member.png',
       memberName: 'Kunal Thakre',
       icon: '../../assets/images/icons/call_member.svg',

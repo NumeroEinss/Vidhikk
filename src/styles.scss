@@ -2,6 +2,7 @@
 
 @use "@angular/material" as mat;
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "../node_modules/css-star-rating/css/star-rating.css";
 
 html,
 body {
@@ -928,10 +929,11 @@ body {
       }
     }
   }
-  //black arrow down overrid css
- 
 
-// mat-input-white override css
+  //black arrow down overrid css
+
+
+  // mat-input-white override css
   .contact-us-container {
     .header-menu {
       .filter-section {
@@ -940,7 +942,7 @@ body {
         }
 
         .mat-mdc-select-trigger {
-          padding: 9px 20px 7px 10px;
+          padding: 8px 20px 7px 10px;
         }
 
         .mat-mdc-select-trigger::after {
@@ -971,7 +973,7 @@ body {
       }
 
       .mat-mdc-select-trigger {
-        padding: 9px 20px 7px 10px;
+        padding: 8px 20px 7px 10px;
       }
 
       .mat-mdc-select-trigger::after {
@@ -993,6 +995,46 @@ body {
     }
   }
 
+  .advocate-header-menu {
+    .mat-mdc-select-trigger {
+      padding: 8px 12px 7px 8px;
+    }
+
+    .mat-mdc-select-trigger::after {
+      content: "";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 17px;
+      background: url("../src/assets/images/icons/black_arrow_down.svg");
+      margin-top: 2px;
+    }
+
+  }
+
+  // star-rating css override
+  .star-container {
+    margin-left: 0;
+
+    .star {
+      width: 25px !important;
+      height: 20px !important;
+    }
+  }
+
+  .schedule-meeting-qr-Modal {
+    .modal-body {
+      .payment {
+        .mdc-label {
+          color: #000000;
+          font-weight: 500;
+          padding-left: unset;
+        }
+      }
+    }
+  }
+
   // Create Chat Room popup placeholder override cssmat
   .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
     font-family: Poppins;
@@ -1007,15 +1049,15 @@ body {
       min-width: unset;
       white-space: nowrap;
     }
-  } 
+  }
 
   // dashed border override css
-  mwl-calendar-week-view-event{
+  mwl-calendar-week-view-event {
     .cal-event {
       border-style: dashed !important;
       border-width: 2px !important;
-    } 
-}
+    }
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

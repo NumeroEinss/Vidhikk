@@ -120,16 +120,18 @@
               </div>
             </div>
             <div class="activity-feed-bottom">
-              <button class="activity-feed-bottom-btn">
-                <img src="../../../../assets/images/icons/like_icon.svg" class="me-1" />Like
-              </button>
-              <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen"
-                *ngIf="userType === 'lawyer'">
-                <img src="../../../../assets/images/icons/comment_icon.svg" class="me-1" />Comment
-              </button>
-              <button class="activity-feed-bottom-btn" [matMenuTriggerFor]="shareMenu">
-                <img src="../../../../assets/images/icons/share_icon.svg" class="me-1" />Share
-              </button>
+              <div class="like-comment-share-buttons">
+                <button class="activity-feed-bottom-btn">
+                  <img src="../../../../assets/images/icons/like_icon.svg" class="me-1" />Like
+                </button>
+                <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen"
+                  *ngIf="userType === 'lawyer'">
+                  <img src="../../../../assets/images/icons/comment_icon.svg" class="me-1" />Comment
+                </button>
+                <button class="activity-feed-bottom-btn" [matMenuTriggerFor]="shareMenu">
+                  <img src="../../../../assets/images/icons/share_icon.svg" class="me-1" />Share
+                </button>
+              </div>
             </div>
             <mat-menu #shareMenu="matMenu">
               <button mat-menu-item><span><img src="../../assets/images/icons/facebook_share.svg" alt=""

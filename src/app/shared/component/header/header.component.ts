@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  userType: string = "";
 
   notifications = [
     {
@@ -35,10 +36,19 @@ export class HeaderComponent {
   @Input() searchIcon = { width: 'auto', display: 'block' };
   @Input() colConfig: string = "col-lg-8 col-md-8";
 
-  constructor(private _router: Router, private _location: Location) { }
+  constructor(private _router: Router, private _location: Location) { 
+    this.userType = this._router.url.split('/')[1];
+  }
 
-  userProfile() {
-    this._router.navigate(['/lawyer/user-profile']);
+  redirectToProfile() {
+    if (this.userType == 'user') {
+      console.log("clicked user")
+      this._router.navigate(['/user/user-profile']);
+    }
+    else if (this.userType == 'lawyer') {
+      console.log("clicked lawyer")
+      this._router.navigate(['/lawyer/user-profile']);
+    }
   }
 
   redirectToSearch() {

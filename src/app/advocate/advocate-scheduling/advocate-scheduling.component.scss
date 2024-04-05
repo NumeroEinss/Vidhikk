@@ -1,6 +1,20 @@
 .root {
     margin: 30px;
 
+    .availability-list-header {
+        display: grid;
+        grid-template-columns: 20% 70% 10%;
+        color: #8798ad;
+        font-size: 12px;
+        letter-spacing: normal;
+        margin-bottom: 5px;
+
+        .grid-item {
+            padding-left: 20px;
+
+        }
+    }
+
     .availability-list-data {
         display: grid;
         // grid-template-columns: 250px 200px 250px 200px 120px 40px;
@@ -45,7 +59,7 @@
                     width: 100%;
                     padding: 8px 16px;
                     border-radius: 40px;
-                    font-size: 10px;
+                    font-size: 12px;
                 }
             }
 
@@ -58,13 +72,90 @@
                     padding: 8px 16px;
                     width: 100%;
                     border-radius: 40px;
-                    font-size: 10px;
+                    font-size: 12px;
                 }
             }
         }
 
         .slots {
             gap: 10px;
+        }
+    }
+}
+
+// schedule meeting qr modal styling
+.schedule-meeting-qr-Modal {
+    width: 429px;
+
+    .modal-body {
+        .payment {
+            background-color: #053bff0d;
+            border-color: #7d818e0d !important;
+            border-radius: 24px;
+            padding: 10px 20px 10px 0;
+            margin-top: 10px;
+
+            .duration {
+                font-size: 12px;
+                padding-left: 33px;
+                color: #000000cc;
+            }
+        }
+
+        .scan-btn {
+            background-color: #2E5BFF0D;
+            max-width: 360px;
+            padding: 20px 122px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+    }
+}
+
+
+// payment successful modal styling
+.payment-successful {
+    width: 429px;
+
+    .modal-body {
+        .payment-detail {
+            font-weight: 500;
+            text-align: left;
+            font-size: 16px;
+        }
+        
+        .transaction-detail {
+            .label {
+                text-align: left;
+                color: #00000099;
+            }
+        
+            .detail {
+                text-align: right;
+                color: #000000;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .root {
+        margin: 15px;
+
+        .availability-list {
+            overflow-x: scroll;
+            width: calc(100vw - 209px);
+
+            .availability-list-header {
+                min-width: 1000px;
+            }
+
+            .availability-list-data {
+                min-width: 1000px;
+            }
         }
     }
 }

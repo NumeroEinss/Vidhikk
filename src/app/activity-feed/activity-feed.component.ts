@@ -99,5 +99,4 @@ export class ActivityFeedComponent {
     let element = document.getElementById('comment-section') as HTMLElement;
     element.scrollTo(0, 1000);
   }
-
 }
