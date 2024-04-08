@@ -281,28 +281,18 @@ body .modal-dialog .modal-header {
       border: 2px solid rgba(5, 59, 255, 0.05);
       border-radius: 24px;
       padding: 50px 48px;
+      position: relative;
 
       .active-plan {
-        background-color: #2e5bff;
-        color: white;
-        padding: 8px 10px;
+        // background-color: #2e5bff;
+        // color: white;
+        // padding: 8px 10px;
         position: absolute;
-        top: 30px;
-        left: 65px;
-        border-top-right-radius: 12px;
-        border-bottom-right-radius: 12px;
+        top: 0px;
+        left: -22px;
+        // border-top-right-radius: 12px;
+        // border-bottom-right-radius: 12px;
         margin-top: 10px;
-
-        .tringle {
-          content: "";
-          width: 12px;
-          height: 12px;
-          position: absolute;
-          top: 30px;
-          left: 0px;
-          border-bottom-left-radius: 5px;
-          border-left: 4px solid #2e5bff;
-        }
       }
 
       .beginners {
@@ -438,7 +428,6 @@ body .modal-dialog .modal-header {
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .main-container {
-
     .welcome-text {
       font-size: 20px;
       padding-left: 15px;
@@ -460,4 +449,15 @@ body .modal-dialog .modal-header {
       margin-right: 15px !important;
     }
   }
+
+
+  // .upgrade-modal {
+  //   .modal-body {
+  //     .silver-plan{
+  //       .active-plan{
+  //         left: 95px;
+  //       }
+  //     }
+  //   }
+  // }
 }

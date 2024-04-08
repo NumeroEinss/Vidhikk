@@ -19,6 +19,7 @@ marquee {
 .root {
   .feed-section {
     margin-top: 30px;
+    margin-right: 2px;
     .section-2 {
       display: flex;
       flex-direction: column;
@@ -373,22 +374,28 @@ marquee {
         letter-spacing: normal;
         color: var(--website-solid-dark-blue);
 
-        .activity-feed-bottom-btn {
+        .like-comment-share-buttons{
           display: flex;
-          justify-content: center;
-          align-items: center;
-          border-style: none;
-          font-size: 14px;
-          font-weight: normal;
-          font-stretch: normal;
-          font-style: normal;
-          line-height: normal;
-          letter-spacing: normal;
-          text-align: left;
-          color: #18214d;
-          background-color: #fbfbfb;
-          padding-left: 30px;
-        }
+          margin-left: 30px;
+
+          .activity-feed-bottom-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-style: none;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: #18214d;
+            background-color: #fbfbfb;
+            padding-right: 30px;
+            padding-left: 0px;
+          }
+        }    
       }
     }
   }
@@ -487,7 +494,8 @@ marquee {
   .root {
     .feed-section {
       .up-section-1 {
-        margin: 0 0 0 15px;
+        margin: 0 15px;
+        margin-right: unset;
       }
 
       .advertisement {
@@ -500,7 +508,7 @@ marquee {
 
       .feed {
         .down-section-1 {
-          margin: 0 0 0 15px;
+          margin: 0 15px;
         }
 
         .post-date {
@@ -509,11 +517,13 @@ marquee {
         }
 
         .activity-feed {
-          margin: 0 0 0 15px;
+          margin: 0 15px;
         }
 
         .activity-feed-bottom {
-          padding-left: 17px;
+          .like-comment-share-buttons{
+            margin-left: 15px;
+          } 
         }
       }
 

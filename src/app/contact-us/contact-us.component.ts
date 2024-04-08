@@ -80,7 +80,7 @@ export class ContactUsComponent {
     this.ticketForm = this._formBuilder.group(new TicketModel());
     this.ticketFrmCtrl['ticketTitle'].setValidators([Validators.required,]);
     this.ticketFrmCtrl['ticketType'].setValidators([Validators.required,]);
-    this.ticketFrmCtrl['description'].setValidators([Validators.required, Validators.maxLength(100)]);
+    this.ticketFrmCtrl['description'].setValidators([Validators.required,Validators.minLength(10), Validators.maxLength(100)]);
   }
 
   get ticketFrmCtrl() {

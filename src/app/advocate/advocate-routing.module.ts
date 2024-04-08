@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdvocateComponent } from './advocate.component';
 import { AdvocateListComponent } from './advocate-list/advocate-list.component';
 import { AdvocateSchedulingComponent } from './advocate-scheduling/advocate-scheduling.component';
+import {AdvocateRatingComponent} from './advocate-rating/advocate-rating.component'
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: ':id/hire',
     component: AdvocateSchedulingComponent
+  },
+  {
+    path:':id/advocate-rating',
+    component:AdvocateRatingComponent
   }
 ];
 

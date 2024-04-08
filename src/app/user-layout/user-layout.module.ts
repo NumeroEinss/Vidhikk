@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserLayoutRoutingModule } from './user-layout-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MaterialModule } from '../material/material.module';

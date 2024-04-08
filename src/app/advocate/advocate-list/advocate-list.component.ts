@@ -129,4 +129,8 @@ export class AdvocateListComponent {
   viewLawyerDetails() {
     this._router.navigate(['/user/advocates/dflkasdksdfasde']);
   }
+
+  viewRating(){
+    this._router.navigate(['/user/advocates/gfdyfvayfd/advocate-rating'])
+  }
 }

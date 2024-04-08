@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './advocate-scheduling.component.scss'
 })
 export class AdvocateSchedulingComponent {
+  isNameVisible: boolean = false;
 
   availabilityList: any = [ // Only slots from current date and after will fall under this.
     {

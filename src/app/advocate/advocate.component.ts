@@ -31,4 +31,8 @@ export class AdvocateComponent {
   constructor(private _router: Router) {
     this.activeRoute = this._router.url
   }
+
+  viewRating(){
+    this._router.navigate(['/user/advocates/gfdyfvayfd/advocate-rating'])
+  }
 }

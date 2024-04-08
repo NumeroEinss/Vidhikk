@@ -2,9 +2,9 @@
     margin: 30px;
 
     .lawyer-info {
+        display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-bottom: 35px;
 
         .display-profile {
             width: 126px;
@@ -14,7 +14,8 @@
         }
 
         .lawyer-details {
-            align-items: center;
+            display: flex;
+            align-items: flex-start;
             justify-content: center;
 
             .name {
@@ -25,28 +26,52 @@
             .type {
                 font-size: 16px;
                 color: #8798AD;
-                margin-bottom: 20px;
+                margin-bottom: 5px;
             }
 
             .rating {
+                cursor: pointer;
                 display: flex;
             }
         }
+
+        .payment-schedule-button {
+            button {
+                background-color: #053bff0d;
+                border-color: #7d818e0d !important;
+            }
+        }
+
+        .mat-mdc-outlined-button:not(:disabled) {
+            width: unset !important;
+        }
     }
 
-    .personal-information,
+    .personal-information {
+        font-size: 14px;
+        color: #1e2a3a;
+        font-weight: 500;
+        margin-top: 35px;
+    }
+
     .general-information,
     .contact-information,
     .other-information {
         font-size: 14px;
         color: #1e2a3a;
         font-weight: 500;
-        padding: 15px 0px;
+        margin-top: 47px;
+        margin-bottom: 10px;
     }
 
     p {
         font-size: 14px;
         color: #8798ad;
+    }
+
+    .information {
+        display: flex;
+        flex-wrap: wrap;
     }
 
     .general-info {
@@ -92,5 +117,43 @@
     .detail {
         text-align: right;
         color: #000000;
+    }
+}
+
+.schedule-meeting-modal{
+    width: 430px !important;
+    .modal-body{
+        padding: 20px;
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .root {
+        margin: 15px;
+
+        .general-information,
+        .contact-information,
+        .other-information {
+            margin-top: 40px;
+        }
+
+        .general-info {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+@media only screen and (min-width: 1023px) and (max-width: 1279px) {
+    .root {
+        .general-information,
+        .contact-information,
+        .other-information {
+            margin-top: 40px;
+        }
+
+        .general-info {
+            margin-bottom: 15px;
+        }
     }
 }

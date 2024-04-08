@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  userType: string = "";
 
   notifications = [
     {
@@ -34,8 +35,6 @@ export class HeaderComponent {
   @Input() searchStyle = { width: '0px', display: 'none' };
   @Input() searchIcon = { width: 'auto', display: 'block' };
   @Input() colConfig: string = "col-lg-8 col-md-8";
-
-  userType: string = "";
 
   constructor(private _router: Router, private _location: Location) {
     this.userType = this._router.url.split('/')[1];

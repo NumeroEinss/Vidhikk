@@ -193,6 +193,124 @@
 
 
   }
+
+  .user-profile-root {
+    margin: 30px;
+
+    .display-profile {
+      width: 126px;
+      height: 126px;
+
+      img {
+        width: 126px;
+        height: 126px;
+        border-radius: 50%;
+      }
+    }
+
+    button {
+      width: fit-content !important;
+      background-color: #053bff0d;
+      border-color: #7d818e0d !important;
+    }
+
+    .basic-information {
+      margin-top: 30px;
+
+      h4 {
+        flex-grow: 0;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: var(--solid-black);
+      }
+
+      .details-container {
+        display: flex;
+        flex-direction: column;
+        min-width: 300px;
+        .heading {
+          flex-grow: 0;
+          font-family: Poppins;
+          font-size: 12px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: var(--solid-black-60);
+        }
+
+        .detail {
+          flex-grow: 0;
+          font-family: Poppins;
+          font-size: 14px;
+          font-weight: 400;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: black;
+          margin: 5px 0 20px 0;
+        }
+      }
+    }
+
+    .password-security {
+      margin-top: 30px;
+
+      h4 {
+        flex-grow: 0;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: var(--solid-black);
+      }
+
+      .description {
+        flex-grow: 0;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: var(--solid-black-60);
+        padding-right: 200px;
+      }
+
+      .user-details {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+
+        a {
+          cursor: pointer;
+          font-family: poppins;
+          font-size: 14px;
+          color: grey;
+          text-decoration: underline;
+          margin-top: 15px;
+        }
+
+        :hover {
+          color: #2e5bff;
+        }
+      }
+    }
+  }
 }
 
 // profile edit popup styling start
@@ -239,7 +357,6 @@
     }
   }
 }
-
 // profile edit popup styling ends
 
 
@@ -267,9 +384,7 @@
     }
   }
 }
-
 // Mobile-verification popup styling ends
-
 
 
 // Email-verification popup styling start
@@ -296,7 +411,6 @@
     }
   }
 }
-
 // Email-verification popup styling ends
 
 // Subscription Popup Styling Start
@@ -394,28 +508,12 @@
       border: 2px solid rgba(5, 59, 255, 0.05);
       border-radius: 24px;
       padding: 50px 48px;
+      position: relative;
 
       .active-plan {
-        background-color: #2e5bff;
-        color: white;
-        padding: 8px 10px;
         position: absolute;
-        top: 30px;
-        left: 65px;
-        border-top-right-radius: 12px;
-        border-bottom-right-radius: 12px;
-        margin-top: 10px;
-
-        .tringle {
-          content: "";
-          width: 12px;
-          height: 12px;
-          position: absolute;
-          top: 30px;
-          left: 0px;
-          border-bottom-left-radius: 5px;
-          border-left: 4px solid #2e5bff;
-        }
+        top: 0px;
+        left: -22px;
       }
 
       .beginners {
@@ -546,7 +644,6 @@
     }
   }
 }
-
 // Subscription Popup Styling Ends
 
 
@@ -569,10 +666,59 @@
     }
   }
 }
-
 //Account delete modal styling ends
 
 
+// user/user-profile edit profile styling start
+.user-edit-profile-popup{
+  width: 400px;
+
+  h1 {
+    font-size: 16px !important;
+    color: #000000;
+    font-family: Poppins;
+    font-weight: 400 !important;
+  }
+
+  .modal-body {
+    padding: 25px;
+
+    .picture{
+      width: 70px;
+      height: 70px;
+      img{
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+      }
+    }
+
+    .change-picture{
+      color: #2e5bff;
+      margin-left: 10px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .row-field {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      a {
+        cursor: pointer;
+      }
+    }
+
+    .mat-label {
+      text-align: left;
+      font-size: 14px;
+      font-family: Poppins;
+      font-weight: 500 !important;
+      color: #000000;
+    }
+  }
+}
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .root {
@@ -582,7 +728,7 @@
         position: relative;
         z-index: 10;
         padding: 0 15px;
-      
+
         li {
           white-space: nowrap;
           padding: 6px 10px;
@@ -594,6 +740,7 @@
             font-size: 12px;
           }
         }
+
         .logout {
           a {
             font-size: 12px;
@@ -641,6 +788,23 @@
             }
           }
 
+        }
+      }
+    }
+
+
+    .user-profile-root {
+      margin: 15px;
+
+      .basic-information{
+        .details-container{
+          min-width: 250px;
+        }
+      }
+
+      .password-security{
+        .description{
+          padding-right:50px;
         }
       }
     }
