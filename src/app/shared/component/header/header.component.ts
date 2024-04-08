@@ -40,7 +40,7 @@ export class HeaderComponent {
     this.userType = this._router.url.split('/')[1];
   }
 
-  userProfile() {
+  redirectToProfile() {
     if (this.userType == "user") {
       this._router.navigate(['/user/user-profile']);
     }
