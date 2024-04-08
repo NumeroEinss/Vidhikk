@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { SignUpModel2 } from '../../app/common/signup.model';
+import { LawyerSignupModel } from '../../app/common/signup.model';
 import { userProfileModel } from '../common/user-profile.model';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class UserProfileComponent {
   signupForm2: FormGroup;
   userEditProfileForm: FormGroup;
-  userType:string ="";
+  userType: string = "";
 
   cities: any[] = [
     { value: 'indore', viewValue: 'Indore' },
@@ -22,30 +22,64 @@ export class UserProfileComponent {
     { value: 'surat', viewValue: 'Surat' },
   ];
 
+  states: any[] = [
+    { value: 'Madhya Pradesh', viewValue: 'Madhya Pradesh' },
+    { value: 'Uttar Pradesh', viewValue: 'Uttar Pradesh' },
+    { value: 'Gujrat', viewValue: 'Gujrat' },
+  ];
+
+  districts: any[] = [
+    { value: 'Indore', viewValue: 'Indore' },
+    { value: 'Bhopal', viewValue: 'Bhopal' },
+    { value: 'Gwalior', viewValue: 'Gwalior' },
+  ];
+
+  courtType: any[] = [
+    { value: 'District Court', viewValue: 'District Court' },
+    { value: 'Supreme Court', viewValue: 'Supreme Court' },
+    { value: 'Civil Court', viewValue: 'Civil Court' },
+  ];
+
+  courtName: any[] = [
+    {
+      value: 'District & Session Court INDORE',
+      viewValue: 'District & Session Court INDORE',
+    },
+    { value: 'Civil Court GOHAD', viewValue: 'Civil Court GOHAD' },
+    {
+      value: 'District & Session Court BHOPAL',
+      viewValue: 'District & Session Court BHOPAL',
+    },
+  ];
+
   constructor(private _fb: FormBuilder, private _router: Router,) {
     this.userType = this._router.url.split('/')[1];
 
-    this.signupForm2 = this._fb.group(new SignUpModel2);
+    this.signupForm2 = this._fb.group(new LawyerSignupModel);
     this.signupForm2.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
     this.signupForm2.controls.mobile.setValidators([Validators.required, Validators.minLength(10)]);
     this.signupForm2.controls.email.setValidators([Validators.email]);
 
-     this.userEditProfileForm = this._fb.group(new userProfileModel);
-     this.userEditProfileForm.controls.name.setValidators([Validators.required]);
-     this.userEditProfileForm.controls.city.setValidators([Validators.required]);
-     this.userEditProfileForm.controls.mobile.setValidators([Validators.required,Validators.minLength(10)])
-     this.userEditProfileForm.controls.email.setValidators([Validators.email]);
+    this.userEditProfileForm = this._fb.group(new userProfileModel);
+    this.userEditProfileForm.controls.name.setValidators([Validators.required]);
+    this.userEditProfileForm.controls.city.setValidators([Validators.required]);
+    this.userEditProfileForm.controls.mobile.setValidators([Validators.required, Validators.minLength(10)])
+    this.userEditProfileForm.controls.email.setValidators([Validators.email]);
+    this.userEditProfileForm.controls.state.setValidators([Validators.required]);
+    this.userEditProfileForm.controls.district.setValidators([Validators.required]);
+    this.userEditProfileForm.controls.courtType.setValidators([Validators.required]);
+    this.userEditProfileForm.controls.courtName.setValidators([Validators.required]);
   }
 
 
   ngAfterViewInit() {
-    if(this.userType == 'lawyer'){
+    if (this.userType == 'lawyer') {
       const element = document.getElementById("basic-info") as HTMLElement
-      element.scrollIntoView({ behavior: "smooth", block: "end" });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
       element.classList.add('box-shadow');
       const element2 = document.getElementById("basic-nav") as HTMLElement
       element2.classList.add('active-nav');
-    }  
+    }
   }
 
   addShadow(type: any) {
@@ -118,10 +152,11 @@ export class UserProfileComponent {
         break;
     }
   }
-  
+
   isNumber(event: any) {
     return event.charCode >= 48 && event.charCode <= 57;
   }
+
   onOtpChange(e: any) {
     console.log(e);
   }

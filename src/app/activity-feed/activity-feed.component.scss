@@ -19,6 +19,7 @@ marquee {
 .root {
   .feed-section {
     margin-top: 30px;
+    margin-right: 2px;
     .section-2 {
       display: flex;
       flex-direction: column;
@@ -493,7 +494,8 @@ marquee {
   .root {
     .feed-section {
       .up-section-1 {
-        margin: 0 0 0 15px;
+        margin: 0 15px;
+        margin-right: unset;
       }
 
       .advertisement {
@@ -506,7 +508,7 @@ marquee {
 
       .feed {
         .down-section-1 {
-          margin: 0 0 0 15px;
+          margin: 0 15px;
         }
 
         .post-date {
@@ -515,7 +517,7 @@ marquee {
         }
 
         .activity-feed {
-          margin: 0 0 0 15px;
+          margin: 0 15px;
         }
 
         .activity-feed-bottom {

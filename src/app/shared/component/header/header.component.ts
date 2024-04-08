@@ -42,12 +42,13 @@ export class HeaderComponent {
 
   redirectToProfile() {
     if (this.userType == 'user') {
-      console.log("clicked user")
       this._router.navigate(['/user/user-profile']);
     }
     else if (this.userType == 'lawyer') {
-      console.log("clicked lawyer")
       this._router.navigate(['/lawyer/user-profile']);
+    }
+    else if(this.userType == 'judge'){
+      this._router.navigate(['/judge/user-profile'])
     }
   }
 

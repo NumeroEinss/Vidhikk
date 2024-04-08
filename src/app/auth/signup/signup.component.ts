@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators, FormControl } from '@angular/forms';
-import { SignUpModel, SignUpModel2 } from '../../common/signup.model';
+import { SignUpModel, LawyerSignupModel, UserSignupModel } from '../../common/signup.model';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { SnackAlertService } from '../../shared/services/snack-alert.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -18,7 +18,7 @@ export class SignupComponent {
   @ViewChild('otpDialog', { static: false }) otpDialog!: TemplateRef<any>;
   // @ViewChild('fieldInput') fieldInput!: ElementRef<HTMLInputElement>;
   signupForm: FormGroup;
-  signupForm2: FormGroup;
+  lawyerForm: FormGroup;
   otpVerified: boolean = false;
   mobileNoEntered: boolean = false;
   hidePassword: boolean = true;
@@ -301,18 +301,24 @@ export class SignupComponent {
     },
   ];
 
+  userType: string = "lawyer";
+  userForm: FormGroup;
+  userImage: any;
+
   constructor(private _fb: FormBuilder, private _matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: SnackAlertService) {
     this.signupForm = this._fb.group(new SignUpModel());
     this.SignupFrmCtrl.mobile.setValidators([Validators.required, Validators.minLength(10)]);
     this.SignupFrmCtrl.otp.setValidators([Validators.required, Validators.minLength(6)]);
 
-    this.signupForm2 = this._fb.group(new SignUpModel2);
+    this.lawyerForm = this._fb.group(new LawyerSignupModel);
     // this.signupForm2.controls.email.setValidators([Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]);
-    this.signupForm2.controls.email.setValidators([Validators.email]);
-    this.signupForm2.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
-    this.signupForm2.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
-    this.signupForm2.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword])
+    this.lawyerForm.controls.email.setValidators([Validators.email]);
+    this.lawyerForm.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
+    this.lawyerForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
+    this.lawyerForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword]);
+
+    this.userForm = this._fb.group(new UserSignupModel);
   }
 
   opacityStyling = { opacity: 0.1 };
@@ -331,7 +337,8 @@ export class SignupComponent {
   }
 
   onSubmitOtp() {
-    this.signupForm2.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
+    this.lawyerForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
+    this.userForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
   }
 
   resendOtp() {
@@ -347,7 +354,7 @@ export class SignupComponent {
         return null;
       }
 
-      const passwordValid = control.value == this.signupForm2.controls.password.value;
+      const passwordValid = control.value == this.lawyerForm.controls.password.value;
 
       return !passwordValid ? { passwordMatch: true } : null;
     }
@@ -394,5 +401,14 @@ export class SignupComponent {
   selectedSection(id: string) {
     let element = document.getElementById(id) as HTMLElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  userImageChange(event: any) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.userImage = e.target?.result;
+    }
+
+    reader.readAsDataURL(event.target.files[0]);
   }
 }

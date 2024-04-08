@@ -594,7 +594,7 @@ body {
 
   .mat-mdc-radio-button.mat-mdc-radio-checked {
     .mdc-radio__background::before {
-      background-color: #2e5bff;
+      display: none;
     }
   }
 
@@ -645,6 +645,14 @@ body {
   .mat-mdc-radio-button.mat-mdc-radio-checked {
     .mat-ripple-element {
       background-color: #2e5bff;
+    }
+  }
+
+  .mat-mdc-radio-button {
+    .mdc-radio {
+      .mdc-radio__background::before {
+        display: none;
+      }
     }
   }
 
@@ -729,7 +737,7 @@ body {
   .calendar-form {
     mat-checkbox {
       .mat-internal-form-field {
-        margin-bottom: 8px;
+        margin-bottom: 12px;
 
         .mdc-checkbox {
           padding: 0px 0px 12px 0px;
