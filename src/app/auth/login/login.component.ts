@@ -107,8 +107,7 @@ export class LoginComponent {
           this._toastMessage.message('Please select different user !!');
         }
         else if (this.loginFrmCtrl.userType.value == "judge") {
-          // this._router.navigate(['/judge/activity-feed']);
-          this._toastMessage.message('Please select different user !!');
+          this._router.navigate(['/judge/activity-feed']);
         }
       }
       else {
@@ -128,8 +127,7 @@ export class LoginComponent {
           this._toastMessage.message('Please select different user !!');
         }
         else if (this.loginFrmCtrl2.userType.value == "judge") {
-          // this._router.navigate(['/judge/activity-feed']);
-          this._toastMessage.message('Please select different user !!');
+          this._router.navigate(['/judge/activity-feed']);
         }
       }
       else {

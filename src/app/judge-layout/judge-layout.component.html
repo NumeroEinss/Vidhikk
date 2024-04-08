@@ -1,0 +1,75 @@
+<div class="main-container" style="position: relative">
+    <div mode="side" opened class="sidenav">
+        <div class="logo">
+            <img src="../../assets/images/icons/vidhiklogo.svg" alt="Vidhik" routerLink="/judge/activity-feed"
+                style="cursor: pointer" />
+        </div>
+        <li [routerLinkActive]="'active-link'">
+            <a routerLink="/judge/activity-feed">
+                <!-- <mat-icon>query_stats</mat-icon> -->
+                <img src="../../assets/images/icons/activity_feed.svg" class="in-active" />
+                <img src="../../assets/images/icons/active_feed.svg" class="active" />
+                Activity Feed</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+            <a routerLink="/judge/news">
+                <!-- <mat-icon>query_stats</mat-icon> -->
+                <img src="../../assets/images/icons/inactive_news.svg" class="in-active" />
+                <img src="../../assets/images/icons/active_news.svg" class="active" />
+                News</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+            <a routerLink="/judge/case-law">
+                <!-- <mat-icon>gavel</mat-icon> -->
+                <img src="../../assets/images/icons/case_law.svg" class="in-active" />
+                <img src="../../assets/images/icons/active_law.svg" class="active" />
+                Case Law</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+            <a routerLink="/judge/marketplace">
+                <!-- <mat-icon>storefront</mat-icon> -->
+                <img src="../../assets/images/icons/marketplace.svg" class="in-active" />
+                <img src="../../assets/images/icons/active_marketplace.svg" class="active" />
+                Marketplace</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+            <a routerLink="/judge/about-us">
+                <!-- <mat-icon>storefront</mat-icon> -->
+                <img src="../../assets/images/icons/inactive_about_us.svg" class="in-active" />
+                <img src="../../assets/images/icons/active_about_us.svg" class="active" />
+                About Us</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+            <a routerLink="/judge/contact-us">
+                <!-- <mat-icon>storefront</mat-icon> -->
+                <img src="../../assets/images/icons/inactive_contact_us.svg" class="in-active" />
+                <img src="../../assets/images/icons/active_contact_us.svg" class="active" />
+                Contact Us</a>
+        </li>
+
+        <div class="social-icon">
+            <div class="me-2">
+                <img src="../../assets/images/icons/facebook_icon.svg" class="in-active" />
+                <img src="../../assets/images/icons/hover_facebook.svg" class="active" />
+            </div>
+            <div class="me-2">
+                <img src="../../assets/images/icons/instagram_icon.svg" class="in-active" />
+                <img src="../../assets/images/icons/hover_instagram.svg" class="active" />
+            </div>
+            <div class="me-2">
+                <img src="../../assets/images/icons/twitter_icon.svg" class="in-active" />
+                <img src="../../assets/images/icons/hover_twitter.svg" class="active" />
+            </div>
+            <div class="me-2">
+                <img src="../../assets/images/icons/whatsapp_icon.svg" class="in-active" />
+                <img src="../../assets/images/icons/hover_whatsapp.svg" class="active" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="main-content">
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+    </div>
+</div>

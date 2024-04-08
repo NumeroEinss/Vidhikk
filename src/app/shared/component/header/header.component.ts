@@ -35,14 +35,40 @@ export class HeaderComponent {
   @Input() searchIcon = { width: 'auto', display: 'block' };
   @Input() colConfig: string = "col-lg-8 col-md-8";
 
-  constructor(private _router: Router, private _location: Location) { }
+  userType: string = "";
+
+  constructor(private _router: Router, private _location: Location) {
+    this.userType = this._router.url.split('/')[1];
+  }
 
   userProfile() {
-    this._router.navigate(['/lawyer/user-profile']);
+    if (this.userType == "user") {
+      this._router.navigate(['/user/user-profile']);
+    }
+    else if (this.userType == "lawyer") {
+      this._router.navigate(['/lawyer/user-profile']);
+    }
+    else if (this.userType == "seller") {
+      this._router.navigate(['/seller/user-profile']);
+    }
+    else if (this.userType == "judge") {
+      this._router.navigate(['/judge/user-profile']);
+    }
   }
 
   redirectToSearch() {
-    this._router.navigate(['/lawyer/global-search']);
+    if (this.userType == "user") {
+      this._router.navigate(['/user/global-search']);
+    }
+    else if (this.userType == "lawyer") {
+      this._router.navigate(['/lawyer/global-search']);
+    }
+    else if (this.userType == "seller") {
+      this._router.navigate(['/seller/global-search']);
+    }
+    else if (this.userType == "judge") {
+      this._router.navigate(['/judge/global-search']);
+    }
   }
 
   routeBack() {

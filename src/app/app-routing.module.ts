@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { UserLayoutComponent } from './user-layout/user-layout.component';
+import { JudgeLayoutComponent } from './judge-layout/judge-layout.component';
 
 const routes: Routes = [
   {
@@ -54,12 +55,12 @@ const routes: Routes = [
   //   loadChildren: () => import('./lawyer-Layout/lawyer-layout.module').then(m => m.LawyerLayoutModule),
   //   // canActivate: [AuthGuard]
   // },
-  // {
-  //   path: 'judge',
-  //   component: LawyerLayoutComponent,
-  //   loadChildren: () => import('./lawyer-Layout/lawyer-layout.module').then(m => m.LawyerLayoutModule),
-  //   // canActivate: [AuthGuard]
-  // },
+  {
+    path: 'judge',
+    component: JudgeLayoutComponent,
+    loadChildren: () => import('./judge-layout/judge-layout.module').then(m => m.JudgeLayoutModule),
+    // canActivate: [AuthGuard]
+  },
   {
     path: '**',
     component: PageNotFoundComponent
