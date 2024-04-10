@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { JudgeLayoutRoutingModule } from './judge-layout-routing.module';
 import { JudgeLayoutComponent } from './judge-layout.component';
 import { MatSidenavModule } from '@angular/material/sidenav';

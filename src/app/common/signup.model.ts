@@ -4,7 +4,7 @@ export class SignUpModel {
 }
 
 export class LawyerSignupModel {
-    userType: string = "lawyer"
+    userType: string = "lawyer";
     orgainization: string = "";
     fullName: string = "";
     fatherName: string = "";
@@ -35,7 +35,7 @@ export class LawyerSignupModel {
 }
 
 export class UserSignupModel {
-    userType: string = "lawyer"
+    userType: string = "user";
     fullName: string = "";
     address: string = "";
     state: string = "";
@@ -51,4 +51,31 @@ export class UserSignupModel {
     password: string = "";
     confirmPassword: string = "";
     secondaryContact: string = "";
+}
+
+
+export class JudgeSignupModel{
+    userType: string = "judge";
+    fullName:string = "";
+    address: string = "";
+    state: string = "";
+    city: string = "";
+    district: string = "";
+    mobile: string = "";
+    email: string = "";
+    currentState: string = "";
+    currentDistrict: string = "";
+    courtType: string = "";
+    courtName: string = "";
+    registrationNo: string = "";
+    password: string = "";
+    confirmPassword: string = "";
+    question: string = '';
+    answer: string = '';
+    question2: string = '';
+    answer2: string = '';
+    isPrimaryContactWhatsapp: boolean = false;
+    isSecondaryContactWhatsapp: boolean = false;
+    secondaryContact: string = "";
+    isEmailVisible: boolean = false;
 }
