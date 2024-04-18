@@ -57,7 +57,7 @@ export class UserProfileComponent {
 
     this.signupForm2 = this._fb.group(new LawyerSignupModel);
     this.signupForm2.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
-    this.signupForm2.controls.mobile.setValidators([Validators.required, Validators.minLength(10)]);
+    this.signupForm2.controls.phoneNumber.setValidators([Validators.required, Validators.minLength(10)]);
     this.signupForm2.controls.email.setValidators([Validators.email]);
 
     this.userEditProfileForm = this._fb.group(new userProfileModel);

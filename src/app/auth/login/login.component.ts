@@ -116,16 +116,20 @@ export class LoginComponent {
     }
     else if (formType == 'form2') {
       if (this.loginForm2.valid) {
+
         if (this.loginFrmCtrl2.userType.value == "user") {
           this._router.navigate(['/user/activity-feed']);
         }
+
         else if (this.loginFrmCtrl2.userType.value == "lawyer") {
-          this._router.navigate(['/lawyer/activity-feed']);
+          this._router.navigate(['/lawyer/activity-feed']); ''
         }
+
         else if (this.loginFrmCtrl2.userType.value == "seller") {
           // this._router.navigate(['/user/activity-feed']);
           this._toastMessage.message('Please select different user !!');
         }
+
         else if (this.loginFrmCtrl2.userType.value == "judge") {
           this._router.navigate(['/judge/activity-feed']);
         }
