@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators, FormControl } from '@angular/forms';
-import { SignUpModel, LawyerSignupModel, UserSignupModel } from '../../common/signup.model';
+import { SignUpModel, LawyerSignupModel, UserSignupModel, JudgeSignupModel } from '../../common/signup.model';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { SnackAlertService } from '../../shared/services/snack-alert.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -30,22 +30,55 @@ export class SignupComponent {
   filteredField: any = [];
   displayField: any = [];
 
-  states: any[] = [
-    { value: 'Madhya Pradesh', viewValue: 'Madhya Pradesh' },
-    { value: 'Uttar Pradesh', viewValue: 'Uttar Pradesh' },
-    { value: 'Gujrat', viewValue: 'Gujrat' },
-  ];
+  userType: string = "lawyer";
+  userForm: FormGroup;
+  judgeForm: FormGroup;
+  userImage: any;
 
   cities: any[] = [
-    { value: 'Madhya Pradesh', viewValue: 'Indore' },
-    { value: 'Uttar Pradesh', viewValue: 'Bhopal' },
-    { value: 'Gujrat', viewValue: 'Surat' },
+    { value: 'indore', viewValue: 'Indore' },
+    { value: 'bhopal', viewValue: 'Bhopal' },
+    { value: 'surat', viewValue: 'Surat' },
+  ];
+
+  states: any[] = [
+    { value: 'mp', viewValue: 'Madhya Pradesh' },
+    { value: 'up', viewValue: 'Uttar Pradesh' },
+    { value: 'gujrat', viewValue: 'Gujrat' },
+    { value: 'punjab', viewValue: 'Punjab' },
+    { value: 'maharashtra', viewValue: 'Maharashtra' },
+  ];
+
+
+  allDistricts: any[] = [
+    { state: 'mp', value: 'indore', viewValue: 'Indore' },
+    { state: 'mp', value: 'bhopal', viewValue: 'Bhopal' },
+    { state: 'up', value: 'aligarh', viewValue: 'Aligarh' },
+    { state: 'up', value: 'bareli', viewValue: 'Bareli' },
+    { state: 'gujrat', value: 'surat', viewValue: 'Surat' },
+    { state: 'gujrat', value: 'ahmedabad', viewValue: 'Ahmedabad' },
+  ];
+
+  allCourtType: any[] = [
+    { district: 'indore', value: 'district Court', viewValue: 'District Court' },
+    { district: 'bhopal', value: 'civil Court', viewValue: 'Civil Court' },
+    { district: 'aligarh', value: 'subordinate Court', viewValue: 'Subordinate Court' },
+    { district: 'bareli', value: 'supreme Court', viewValue: 'Supreme Court' },
+    { district: 'surat', value: 'district Court', viewValue: 'District Court Surat' },
+    { district: 'ahmedabad', value: 'supreme Court', viewValue: 'Supreme Court' },
+  ];
+
+  allCourtName: any[] = [
+    { type: 'district Court', value: 'District & Session Court', viewValue: 'District & Session Court', },
+    { type: 'civil Court', value: 'District & Session Court BHOPAL', viewValue: 'District & Session Court BHOPAL', },
+    { type: 'subordinate Court', value: 'Civil Court Uttar Pradesh', viewValue: 'Civil Court Uttar Pradesh' },
+    { type: 'supreme Court', value: 'Subordinate Court Ahmedabad', viewValue: 'Subordinate Court Ahmedabad' },
   ];
 
   fields: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
+    { value: 'civil', viewValue: 'Civil' },
+    { value: 'finance', viewValue: 'Finance' },
+    { value: 'taxation', viewValue: 'Taxation' },
   ];
 
   queries: any[] = [
@@ -324,6 +357,7 @@ export class SignupComponent {
     this.userForm = this._fb.group(new UserSignupModel);
     this.userForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
     this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword]);
+    this.judgeForm = this._fb.group(new JudgeSignupModel);
   }
 
   opacityStyling = { opacity: 0.1 };
@@ -341,17 +375,23 @@ export class SignupComponent {
     return event.charCode >= 48 && event.charCode <= 57;
   }
 
+  onSubmitOtp() {
+    this.lawyerForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
+    this.userForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
+    this.judgeForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
+  }
+
+  resendOtp() {
+    this._toastMessage.success('Otp Sent Successfully !!');
+  }
+
   validateConfirmPassword(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-
       const value = control.value;
-
       if (!value) {
         return null;
       }
-
       const passwordValid = control.value == this.lawyerForm.controls.password.value;
-
       return !passwordValid ? { passwordMatch: true } : null;
     }
   }
@@ -402,6 +442,33 @@ export class SignupComponent {
 
     reader.readAsDataURL(event.target.files[0]);
   }
+
+  filteredDistricts: any[] = [];
+  filteredCourtNames: any[] = [];
+  filteredCourtTypes: any[] = [];
+
+  onStateChange(selectedState: string) {
+    this.filteredDistricts = this.allDistricts.filter(district => district.state === selectedState);
+    this.judgeFrmCtrl.currentDistrict.setValue('');
+    this.judgeFrmCtrl.courtType.setValue('');
+    this.judgeFrmCtrl.courtName.setValue('');
+  }
+
+  onDistrictChange(selectedDistrict: string) {
+    this.filteredCourtTypes = this.allCourtType.filter(court => court.district === selectedDistrict);
+    this.judgeFrmCtrl.courtType.setValue('');
+    this.judgeFrmCtrl.courtName.setValue('');
+  }
+
+  onCourtTypeChange(selectedCourtType: string) {
+    this.filteredCourtNames = this.allCourtName.filter(name => name.type === selectedCourtType);
+    this.judgeFrmCtrl.courtName.setValue('');
+  }
+
+  get judgeFrmCtrl(){
+    return this.judgeForm.controls;
+  }
+
 
   //generateMobileOtpForSignup
   generateOtp() {

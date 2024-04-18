@@ -233,48 +233,52 @@
   </div>
 
   <!-- judge/user-profile start -->
-  <div class="user-profile-root" *ngIf="userType == 'judge'">
-    <div class="d-flex justify-content-between">
-      <div class="display-profile"><img src="../../assets/images/image/anurag_goyal.jpg" alt="noImage" /></div>
-      <div><button mat-stroked-button color="primary" data-bs-target="#judgeEditProfileModal" data-bs-toggle="modal">
-          <span style="color: #2e5bff">Edit</span>
-        </button></div>
-    </div>
-
-    <div class="basic-information">
-      <h4>Basic Information</h4>
-      <div class="d-flex">
-        <div class="details-container">
-          <div class="heading">Name</div>
-          <div class="detail">Anurag Goyal</div>
+  <div style="height: calc(100vh - 130px);" *ngIf="userType == 'judge'">
+    <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+      <div class="user-profile-root" style="margin-right: 0;">
+        <div class="d-flex justify-content-between">
+          <div class="display-profile"><img src="../../assets/images/image/anurag_goyal.jpg" alt="noImage" /></div>
+          <div><button mat-stroked-button color="primary" data-bs-target="#judgeEditProfileModal"
+              data-bs-toggle="modal">
+              <span style="color: #2e5bff">Edit</span>
+            </button></div>
         </div>
 
-        <div class="details-container">
-          <div class="heading">Location</div>
-          <div class="detail">Indore, MP</div>
-        </div>
-      </div>
 
-      <div class="d-flex">
-        <div class="details-container">
-          <div class="heading">Mobile</div>
-          <div class="detail">213-456-7980<span
-              style="color: green; margin-left: 5px; font-size: 12px; cursor: pointer;">(Verfied)</span></div>
-        </div>
+        <div class="basic-information">
+          <h4>Basic Information</h4>
+          <div class="d-flex">
+            <div class="details-container">
+              <div class="heading">Name</div>
+              <div class="detail">Anurag Goyal</div>
+            </div>
 
-        <div class="details-container">
-          <div class="heading">Email</div>
-          <div class="detail">Anuraggoyal117&#64;gmail.com<span
-              style="color: red; margin-left: 5px; font-size: 12px; cursor: pointer;">(Not verfied)</span></div>
-        </div>
-      </div>
+            <div class="details-container">
+              <div class="heading">Location</div>
+              <div class="detail">Indore, MP</div>
+            </div>
+          </div>
+
+          <div class="d-flex">
+            <div class="details-container">
+              <div class="heading">Mobile</div>
+              <div class="detail">213-456-7980<span
+                  style="color: green; margin-left: 5px; font-size: 12px; cursor: pointer;">(Verfied)</span></div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Email</div>
+              <div class="detail">Anuraggoyal117&#64;gmail.com<span
+                  style="color: red; margin-left: 5px; font-size: 12px; cursor: pointer;">(Not verfied)</span></div>
+            </div>
+          </div>
 
 
-      <div class="d-flex">
-        <div class="details-container">
-          <div class="heading">Registration No</div>
-          <div class="detail">534534534</div>
-        </div>
+          <div class="d-flex">
+            <div class="details-container">
+              <div class="heading">Registration No</div>
+              <div class="detail">534534534</div>
+            </div>
 
         <div class="details-container">
           <div class="heading">Address</div>
@@ -282,51 +286,55 @@
         </div>
       </div>
 
-      <div class="d-flex">
-        <div class="details-container">
-          <div class="heading">Current State</div>
-          <div class="detail">Madhya Pradesh</div>
+          <div class="d-flex">
+            <div class="details-container">
+              <div class="heading">Current State</div>
+              <div class="detail">Madhya Pradesh</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Current District</div>
+              <div class="detail">Indore</div>
+            </div>
+          </div>
+
+
+          <div class="d-flex">
+            <div class="details-container">
+              <div class="heading">Court Type</div>
+              <div class="detail">High Court</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Court Name</div>
+              <div class="detail">District & Session Court Indore</div>
+            </div>
+          </div>
         </div>
 
-        <div class="details-container">
-          <div class="heading">Current District</div>
-          <div class="detail">Indore</div>
+
+        <div class="password-security">
+          <h4>Password & Security</h4>
+          <div class="description">
+            To change your password, you'll need to verify the current one first.
+            Then create a password you're not using elsewhere, and be sure to
+            change it regularly as well as anytime you suspect it's been
+            compromised.
+          </div>
+          <div class="user-details">
+            <a routerLink="/auth/resetPassword">Change Password </a>
+            <a data-bs-toggle="modal" data-bs-target="#userAccountDeleteModal">Delete Your Account</a>
+          </div>
         </div>
       </div>
-
-
-      <div class="d-flex">
-        <div class="details-container">
-          <div class="heading">Court Type</div>
-          <div class="detail">High Court</div>
-        </div>
-
-        <div class="details-container">
-          <div class="heading">Court Name</div>
-          <div class="detail">District & Session Court Indore</div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="password-security">
-      <h4>Password & Security</h4>
-      <div class="description">
-        To change your password, you'll need to verify the current one first.
-        Then create a password you're not using elsewhere, and be sure to
-        change it regularly as well as anytime you suspect it's been
-        compromised.
-      </div>
-      <div class="user-details">
-        <a routerLink="/auth/resetPassword">Change Password </a>
-        <a data-bs-toggle="modal" data-bs-target="#userAccountDeleteModal">Delete Your Account</a>
-      </div>
-    </div>
+    </ng-scrollbar>
   </div>
 </div>
 
 
 <!-- lawyer/user-profile- Edit Profile Popup Start -->
+<div class="modal fade" id="lawyerEditProfileModal" aria-hidden="true" aria-labelledby="lawyerEditProfileModalLabel"
+  tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
 <div class="modal fade" id="lawyerEditProfileModal" aria-hidden="true" aria-labelledby="lawyerEditProfileModalLabel"
   tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered edit-profile-popup">
@@ -395,6 +403,8 @@
           </div>
 
           <div class="mt-3 mb-3 filter-btn">
+            <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px"
+              data-bs-dismiss="modal">
             <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px"
               data-bs-dismiss="modal">
               Save
@@ -685,7 +695,7 @@
             <mat-label class="mat-label mt-3">Name</mat-label>
             <mat-form-field appearance="outline">
               <input matInput placeholder="Enter Name" formControlName="name" required />
-              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Name is Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Name is Required</mat-error>
               <mat-error *ngIf="
                     !userEditProfileForm.controls['name'].hasError('required') &&
                     userEditProfileForm.controls['name'].invalid
@@ -784,7 +794,7 @@
             <mat-label class="mat-label mt-3">Name</mat-label>
             <mat-form-field appearance="outline">
               <input matInput placeholder="Enter Name" formControlName="name" required />
-              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Name is Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Name is Required</mat-error>
               <mat-error *ngIf="
                     !userEditProfileForm.controls['name'].hasError('required') &&
                     userEditProfileForm.controls['name'].invalid
@@ -830,6 +840,8 @@
               </mat-select>
               <mat-error *ngIf="userEditProfileForm.controls['courtType'].hasError('required')">Court Type is
                 Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['courtType'].hasError('required')">Court Type is
+                Required</mat-error>
               <mat-error *ngIf="
                     !userEditProfileForm.controls['courtType'].hasError('required') &&
                     userEditProfileForm.controls['courtType'].invalid
@@ -843,6 +855,8 @@
                   {{ name.viewValue }}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="userEditProfileForm.controls['courtName'].hasError('required')">Court Name is
+                Required</mat-error>
               <mat-error *ngIf="userEditProfileForm.controls['courtName'].hasError('required')">Court Name is
                 Required</mat-error>
               <mat-error *ngIf="

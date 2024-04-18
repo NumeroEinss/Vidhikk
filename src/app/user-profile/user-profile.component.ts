@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { LawyerSignupModel } from '../../app/common/signup.model';
+import { JudgeSignupModel, LawyerSignupModel } from '../../app/common/signup.model';
 import { userProfileModel } from '../common/user-profile.model';
 import { Router } from '@angular/router';
 
@@ -61,14 +61,14 @@ export class UserProfileComponent {
     this.signupForm2.controls.email.setValidators([Validators.email]);
 
     this.userEditProfileForm = this._fb.group(new userProfileModel);
-    this.userEditProfileForm.controls.name.setValidators([Validators.required]);
-    this.userEditProfileForm.controls.city.setValidators([Validators.required]);
-    this.userEditProfileForm.controls.mobile.setValidators([Validators.required, Validators.minLength(10)])
-    this.userEditProfileForm.controls.email.setValidators([Validators.email]);
-    this.userEditProfileForm.controls.state.setValidators([Validators.required]);
-    this.userEditProfileForm.controls.district.setValidators([Validators.required]);
-    this.userEditProfileForm.controls.courtType.setValidators([Validators.required]);
-    this.userEditProfileForm.controls.courtName.setValidators([Validators.required]);
+    this.userEditFrmCtrl.name.setValidators([Validators.required]);
+    this.userEditFrmCtrl.city.setValidators([Validators.required]);
+    this.userEditFrmCtrl.mobile.setValidators([Validators.required, Validators.minLength(10)])
+    this.userEditFrmCtrl.email.setValidators([Validators.email]);
+    this.userEditFrmCtrl.state.setValidators([Validators.required]);
+    this.userEditFrmCtrl.district.setValidators([Validators.required]);
+    this.userEditFrmCtrl.courtType.setValidators([Validators.required]);
+    this.userEditFrmCtrl.courtName.setValidators([Validators.required]);
   }
 
 
@@ -80,6 +80,10 @@ export class UserProfileComponent {
       const element2 = document.getElementById("basic-nav") as HTMLElement
       element2.classList.add('active-nav');
     }
+  }
+
+  get userEditFrmCtrl(){
+    return this.userEditProfileForm.controls;
   }
 
   addShadow(type: any) {

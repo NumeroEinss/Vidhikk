@@ -50,3 +50,57 @@ export class UserSignupModel {
     password = new FormControl("", [Validators.required]);
     confirmPassword = new FormControl("", [Validators.required]);
 }
+
+
+export class JudgeSignupModel{
+    userType: string = "judge";
+    fullName:string = "";
+    address: string = "";
+    state: string = "";
+    city: string = "";
+    district: string = "";
+    mobile: string = "";
+    email: string = "";
+    currentState: string = "";
+    currentDistrict: string = "";
+    courtType: string = "";
+    courtName: string = "";
+    registrationNo: string = "";
+    password: string = "";
+    confirmPassword: string = "";
+    question: string = '';
+    answer: string = '';
+    question2: string = '';
+    answer2: string = '';
+    isPrimaryContactWhatsapp: boolean = false;
+    isSecondaryContactWhatsapp: boolean = false;
+    secondaryContact: string = "";
+    isEmailVisible: boolean = false;
+}
+
+
+export class JudgeSignupModel{
+    userType: string = "judge";
+    fullName:string = "";
+    address: string = "";
+    state: string = "";
+    city: string = "";
+    district: string = "";
+    mobile: string = "";
+    email: string = "";
+    currentState: string = "";
+    currentDistrict: string = "";
+    courtType: string = "";
+    courtName: string = "";
+    registrationNo: string = "";
+    password: string = "";
+    confirmPassword: string = "";
+    question: string = '';
+    answer: string = '';
+    question2: string = '';
+    answer2: string = '';
+    isPrimaryContactWhatsapp: boolean = false;
+    isSecondaryContactWhatsapp: boolean = false;
+    secondaryContact: string = "";
+    isEmailVisible: boolean = false;
+}
