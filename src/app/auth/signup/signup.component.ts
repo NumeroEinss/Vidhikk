@@ -49,7 +49,6 @@ export class SignupComponent {
     { value: 'maharashtra', viewValue: 'Maharashtra' },
   ];
 
-
   allDistricts: any[] = [
     { state: 'mp', value: 'indore', viewValue: 'Indore' },
     { state: 'mp', value: 'bhopal', viewValue: 'Bhopal' },
@@ -336,9 +335,6 @@ export class SignupComponent {
     },
   ];
 
-  userType: string = "lawyer";
-  userForm: FormGroup;
-  userImage: any;
   emailOtpVerified: boolean = false;
 
   constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router,
@@ -379,10 +375,6 @@ export class SignupComponent {
     this.lawyerForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
     this.userForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
     this.judgeForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
-  }
-
-  resendOtp() {
-    this._toastMessage.success('Otp Sent Successfully !!');
   }
 
   validateConfirmPassword(): ValidatorFn {
