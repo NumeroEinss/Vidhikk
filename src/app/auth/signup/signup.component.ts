@@ -6,8 +6,9 @@ import { SnackAlertService } from '../../shared/services/snack-alert.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { map, startWith } from 'rxjs';
-
+import { GQLConfig } from '../../graphql.operations';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -335,8 +336,13 @@ export class SignupComponent {
     },
   ];
 
-  constructor(private _fb: FormBuilder, private _matDialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: SnackAlertService) {
+  userType: string = "lawyer";
+  userForm: FormGroup;
+  userImage: any;
+  emailOtpVerified: boolean = false;
+
+  constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: SnackAlertService, private _apolloService: ApolloService) {
     this.signupForm = this._fb.group(new SignUpModel());
     this.SignupFrmCtrl.mobile.setValidators([Validators.required, Validators.minLength(10)]);
     this.SignupFrmCtrl.otp.setValidators([Validators.required, Validators.minLength(6)]);
@@ -349,6 +355,8 @@ export class SignupComponent {
     this.lawyerForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword]);
 
     this.userForm = this._fb.group(new UserSignupModel);
+    this.userForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
+    this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword]);
     this.judgeForm = this._fb.group(new JudgeSignupModel);
   }
 
@@ -387,11 +395,6 @@ export class SignupComponent {
       return !passwordValid ? { passwordMatch: true } : null;
     }
   }
-
-  onOtpChange(e: any) {
-    console.log(e);
-  }
-
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -466,4 +469,123 @@ export class SignupComponent {
     return this.judgeForm.controls;
   }
 
+
+  //generateMobileOtpForSignup
+  generateOtp() {
+    let reqObj = {
+      mobile: this.signupForm.controls.mobile.value
+    }
+    this._apolloService.mutate(GQLConfig.sendOtp, reqObj).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.sendOtp.status == 200) {
+          this._toastMessage.message(data.data.sendOtp.message);
+          this.mobileNoEntered = !this.mobileNoEntered;
+        }
+        else {
+          this._toastMessage.error(data.data.sendOtp.message);
+        }
+      }
+    });
+  }
+
+  //verifyMobileOtpForSignup
+  verifyOtp() {
+    let reqObj: any = {
+      mobile: this.signupForm.controls.mobile.value,
+      otp: this.signupForm.controls.otp.value
+    };
+    this._apolloService.query(GQLConfig.verifyOtp, reqObj).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.verifyOtp.status == 200) {
+          this._toastMessage.message(data.data.verifyOtp.message);
+          this.otpVerified = !this.otpVerified;
+          this.lawyerForm.controls.phoneNumber.patchValue(this.SignupFrmCtrl.mobile.value);
+          this.userForm.controls.phoneNumber.patchValue(this.SignupFrmCtrl.mobile.value);
+          console.log(this.lawyerForm.value);
+          console.log(this.userForm.value);
+
+        }
+        else {
+          this._toastMessage.error(data.data.verifyOtp.message);
+        }
+      }
+    })
+  }
+
+  //resendOtpForSignup
+  resendOtp() {
+    let reqObj = {
+      mobile: this.signupForm.controls.mobile.value
+    }
+    this._apolloService.mutate(GQLConfig.sendOtp, reqObj).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.sendOtp.status == 200) {
+          this._toastMessage.message(data.data.sendOtp.message);
+        }
+        else {
+          this._toastMessage.error(data.data.sendOtp.message);
+        }
+      }
+    });
+  }
+
+  //sendOtpEmail
+  sendOtpForEmail() {
+    let data = {
+      email: this.userForm.controls.email.value,
+      mobile: this.userForm.controls.phoneNumber.value
+    };
+    this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
+      if (objEmailOtp.data != null) {
+        if (objEmailOtp.data.sendOtp.status == 200) {
+          let el = document.getElementById('otpModalButton') as HTMLElement;
+          el.click();
+          this._toastMessage.message(objEmailOtp.data.sendOtp.message);
+        }
+        else {
+          this._toastMessage.error(objEmailOtp.data.sendOtp.message);
+        }
+      }
+    })
+  }
+
+  onOtpChange(e: any) {
+    if (e.length == 6) {
+      let data = {
+        email: this.userForm.controls.email.value,
+        otp: e
+      };
+      this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
+        if (objEmailOtp.data != null) {
+          if (objEmailOtp.data.verifyOtp.status == 200) {
+            this.emailOtpVerified = true;
+            let el = document.getElementById('closeOtpModalButton') as HTMLElement;
+            el.click();
+            this._toastMessage.success(objEmailOtp.data.verifyOtp.message);
+          }
+          else {
+            this._toastMessage.error(objEmailOtp.data.verifyOtp.message)
+          }
+        }
+      })
+    }
+  }
+
+  resendEmailOtp() {
+    this.sendOtpForEmail();
+  }
+
+  userSignUp() {
+    this._apolloService.mutate(GQLConfig.createUser, this.userForm.value).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.createUser.status == 200) {
+          this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
+          setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
+        }
+        else {
+          this._toastMessage.error(data.data.createUser.error);
+        }
+      }
+    })
+  }
 }

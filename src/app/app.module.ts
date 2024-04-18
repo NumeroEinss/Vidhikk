@@ -13,16 +13,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateNewPasswordComponent } from './auth/create-new-password/create-new-password.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpIntterceptor } from './core/interceptors/http.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { AuthGuard } from './core/guard/auth.guard';
 import { AuthService } from './shared/services/auth.service';
-import { HttpService } from './shared/services/http.service';
+import { ApolloService } from './shared/services/apollo.service';
 import { SnackAlertService } from './shared/services/snack-alert.service';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { UserLayoutComponent } from './user-layout/user-layout.component';
+import { GraphQLModule } from './graphql.module';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -46,15 +48,18 @@ import { UserLayoutComponent } from './user-layout/user-layout.component';
     MaterialModule,
     BrowserAnimationsModule,
     NgOtpInputModule,
+    HttpClientModule,
+    GraphQLModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [
     AuthGuard,
     AuthService,
-    HttpService,
+    ApolloService,
     SnackAlertService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
     { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpIntterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: HttpIntterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SnackAlertService } from './shared/services/snack-alert.service';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() {
+  title = 'Vidhik';
+  loaderType = ngxLoadingAnimationTypes;
+  constructor(public toastMessage: SnackAlertService) {
   }
 
-  title = 'Vidhik';
 }

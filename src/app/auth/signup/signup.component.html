@@ -16,10 +16,10 @@
         <span matPrefix><mat-icon><img src="../../../assets/images/icons/phone-icon.svg" /></mat-icon></span>
         <input type="text" matInput placeholder="9875642535" formControlName="mobile" required maxlength="10"
           (keypress)="isNumber($event)" />
-        <mat-error *ngIf="signupForm.controls['mobile'].hasError('required')">Mobile No. is Required</mat-error>
+        <mat-error *ngIf="signupForm.controls.mobile.hasError('required')">Mobile No. is Required</mat-error>
         <mat-error *ngIf="
-            !signupForm.controls['mobile'].hasError('required') &&
-            signupForm.controls['mobile'].invalid
+            !signupForm.controls.mobile.hasError('required') &&
+            signupForm.controls.mobile.invalid
           ">Mobile No. invalid</mat-error>
       </mat-form-field>
 
@@ -28,10 +28,10 @@
           (keypress)="isNumber($event)" />
         <span matSuffix style="cursor: pointer"><a (click)=" resendOtp()" class="resend-otp f-12">Resend
             OTP</a></span>
-        <mat-error *ngIf="signupForm.controls['otp'].hasError('required')">OTP is Required</mat-error>
+        <mat-error *ngIf="signupForm.controls.otp.hasError('required')">OTP is Required</mat-error>
         <mat-error *ngIf="
-            !signupForm.controls['otp'].hasError('required') &&
-            signupForm.controls['otp'].invalid
+            !signupForm.controls.otp.hasError('required') &&
+            signupForm.controls.otp.invalid
           ">OTP is invalid</mat-error>
       </mat-form-field>
 
@@ -41,12 +41,12 @@
           <a data-bs-toggle="modal" data-bs-target="#privacyPolicyModal">Privacy Policy</a></span>
       </div>
       <div class="text-center mt-3">
-        <button *ngIf="!mobileNoEntered" mat-raised-button color="primary w-100"
-          (click)="mobileNoEntered = !mobileNoEntered" [disabled]="!signupForm.controls.mobile.valid">
+        <button type="button" *ngIf="!mobileNoEntered" mat-raised-button color="primary w-100" (click)="generateOtp()"
+          [disabled]="!signupForm.controls.mobile.valid">
           Next</button><br />
 
-        <button *ngIf="mobileNoEntered" [disabled]="!signupForm.valid" mat-raised-button color="primary w-100"
-          (click)="otpVerified = !otpVerified; onSubmitOtp()">
+        <button type="button" *ngIf="mobileNoEntered" [disabled]="!signupForm.valid" mat-raised-button
+          color="primary w-100" (click)="verifyOtp()">
           Continue</button><br />
       </div>
     </form>
@@ -72,20 +72,20 @@
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
           <input type="text" matInput placeholder="Name of orgainization" formControlName="orgainization" />
-          <mat-error *ngIf="lawyerForm.controls['orgainization'].hasError('required')">Name of Orgainization is
+          <mat-error *ngIf="lawyerForm.controls.orgainization.hasError('required')">Name of Orgainization is
             Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/people-icon.svg" alt="" /></mat-icon></span>
-          <input type="text" matInput placeholder="Enter your full name" formControlName="fullName" required />
-          <mat-error *ngIf="lawyerForm.controls['fullName'].hasError('required')">Full name is Required</mat-error>
+          <input type="text" matInput placeholder="Enter your full name" formControlName="name" required />
+          <mat-error *ngIf="lawyerForm.controls.name.hasError('required')">Full name is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/people-icon.svg" alt="" /></mat-icon></span>
           <input type="text" matInput placeholder="Enter Your Father's name" formControlName="fatherName" required />
-          <mat-error *ngIf="lawyerForm.controls['fatherName'].hasError('required')">Father name is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.fatherName.hasError('required')">Father name is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="textArea">
@@ -93,15 +93,15 @@
                 alt="" /></mat-icon></span>
           <textarea id="text-area" type="text" matInput placeholder="Enter Your Core Competency"
             formControlName="coreCompetency" required rows="3" maxlength="200"></textarea>
-          <mat-error *ngIf="lawyerForm.controls['coreCompetency'].hasError('required')">Core Competency is
+          <mat-error *ngIf="lawyerForm.controls.coreCompetency.hasError('required')">Core Competency is
             Required</mat-error>
-          <!-- <mat-error *ngIf="!lawyerForm.controls['coreCompetency'].hasError('required') &&
-                         lawyerForm.controls['coreCompetency'].hasError('minlength')">Minimum 150 Characters
+          <!-- <mat-error *ngIf="!lawyerForm.controls.coreCompetency'].hasError('required') &&
+                         lawyerForm.controls.coreCompetency'].hasError('minlength')">Minimum 150 Characters
                         Required</mat-error> -->
 
           <mat-error *ngIf="
-              !lawyerForm.controls['coreCompetency'].hasError('required') &&
-              lawyerForm.controls['coreCompetency'].hasError('maxlength')
+              !lawyerForm.controls.coreCompetency.hasError('required') &&
+              lawyerForm.controls.coreCompetency.hasError('maxlength')
             ">Max Charaters Limit Reached</mat-error>
         </mat-form-field>
 
@@ -111,7 +111,7 @@
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/location-icon.svg"
                 alt="" /></mat-icon></span>
           <input type="text" matInput placeholder="Enter your Address" formControlName="address" required />
-          <mat-error *ngIf="lawyerForm.controls['address'].hasError('required')">Address is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.address.hasError('required')">Address is Required</mat-error>
         </mat-form-field>
 
         <mat-checkbox formControlName="isAddressVisible" [color]="'primary'">
@@ -125,7 +125,7 @@
               {{ state.viewValue }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="lawyerForm.controls['state'].hasError('required')">State is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.state.hasError('required')">State is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -135,17 +135,19 @@
               {{ city.viewValue }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="lawyerForm.controls['city'].hasError('required')">City is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.city.hasError('required')">City is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/phone-icon.svg" alt="" /></mat-icon></span>
-          <input type="text" matInput placeholder="Enter mobile number" formControlName="mobile" maxlength="10"
+          <input type="text" matInput placeholder="Enter mobile number" formControlName="phoneNumber" maxlength="10"
             [readonly]="true" />
-          <mat-error *ngIf="lawyerForm.controls['mobile'].hasError('required')">Mobile No. is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.phoneNumber.hasError('required')">Mobile No.
+            is
+            Required</mat-error>
           <mat-error *ngIf="
-              !lawyerForm.controls['mobile'].hasError('required') &&
-              lawyerForm.controls['mobile'].invalid
+              !lawyerForm.controls.phoneNumber.hasError('required') &&
+              lawyerForm.controls.phoneNumber.invalid
             ">Mobile No. invalid</mat-error>
         </mat-form-field>
 
@@ -162,7 +164,8 @@
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/phone-icon.svg" alt="" /></mat-icon></span>
           <input type="text" matInput placeholder="Enter Secondary Mobile number" formControlName="secondaryContact"
             maxlength="10" (keypress)="isNumber($event)" />
-          <mat-error *ngIf="lawyerForm.controls['secondaryContact'].invalid">No. invalid</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.secondaryContact.invalid">No.
+            invalid</mat-error>
         </mat-form-field>
 
         <div class="d-flex">
@@ -177,20 +180,20 @@
         <mat-form-field appearance="outline">
           <input matInput placeholder="Enter your email" formControlName="email" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
-          <mat-error *ngIf="lawyerForm.controls['email'].hasError('required')">Email is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.email.hasError('required')">Email is Required</mat-error>
           <mat-error *ngIf="
-              !lawyerForm.controls['email'].hasError('required') &&
-              lawyerForm.controls['email'].invalid
+              !lawyerForm.controls.email.hasError('required') &&
+              lawyerForm.controls.email.invalid
             ">Email is invalid</mat-error>
         </mat-form-field>
 
         <div class="row mb-2" style="font-size: 10px; font-family: Poppins">
           <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
             purpose</span>
-          <button type="button" class="float-right col-lg-4 col-md-4 red-font" mat-button
-            [disabled]="this.lawyerForm.controls.email.value == ''" data-bs-toggle="modal"
-            data-bs-target="#emailOtpModal">
-            (Not Verified)
+          <button type="button" class="float-right col-lg-4 col-md-4"
+            [ngClass]="emailOtpVerified?'green-font':'red-font'" mat-button
+            [disabled]="this.lawyerForm.controls.email.value == ''" (click)="emailOtpVerified?'':sendOtpForEmail()">
+            {{emailOtpVerified?'(Verified)':'(Not Verified)'}}
           </button>
         </div>
 
@@ -208,9 +211,9 @@
               hidePassword ? "visibility_off" : "visibility"
               }}</mat-icon>
           </button>
-          <mat-error *ngIf="lawyerForm.controls['password'].errors?.['required']">Password is Required !!</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.password.errors?.['required']">Password is Required !!</mat-error>
           <mat-error
-            *ngIf="!lawyerForm.controls['password'].errors?.['required'] && lawyerForm.controls['password'].invalid">Enter
+            *ngIf="!lawyerForm.controls.password.errors?.['required'] && lawyerForm.controls.password.invalid">Enter
             atleast 10 characters !!</mat-error>
         </mat-form-field>
 
@@ -224,10 +227,10 @@
               hideConfirmPassword ? "visibility_off" : "visibility"
               }}</mat-icon>
           </button>
-          <mat-error *ngIf="lawyerForm.controls['confirmPassword'].errors?.['required']">Confirm Password is Required
+          <mat-error *ngIf="lawyerForm.controls.confirmPassword.errors?.['required']">Confirm Password is Required
             !!</mat-error>
           <mat-error *ngIf="
-              lawyerForm.controls['confirmPassword'].errors?.passwordMatch
+              lawyerForm.controls.confirmPassword.errors?.passwordMatch
             ">Password does not match</mat-error>
         </mat-form-field>
 
@@ -235,14 +238,14 @@
           <input matInput placeholder="Name of practising Court" formControlName="courtName" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/stateBar-icon.svg"
                 alt="" /></mat-icon></span>
-          <mat-error *ngIf="lawyerForm.controls['courtName'].hasError('required')">Court Name is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.courtName.hasError('required')">Court Name is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <input matInput placeholder="Name of state bar" formControlName="stateBar" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/document-icon.svg"
                 alt="" /></mat-icon></span>
-          <mat-error *ngIf="lawyerForm.controls['stateBar'].hasError('required')">State Bar is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.stateBar.hasError('required')">State Bar is Required</mat-error>
         </mat-form-field>
 
         <!-- <mat-grid-list cols="2" rowHeight="2:1">
@@ -251,7 +254,7 @@
           <input matInput placeholder="Bar license no." formControlName="licenseNo" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/barLicense-icon.svg"
                 alt="" /></mat-icon></span>
-          <mat-error *ngIf="lawyerForm.controls['licenseNo'].hasError('required')">License No. is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.licenseNo.hasError('required')">License No. is Required</mat-error>
         </mat-form-field>
         <!-- </mat-grid-tile>
                     <mat-grid-tile> -->
@@ -260,7 +263,7 @@
             formControlName="practiceYear" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/calendar-icon.svg"
                 alt="" /></mat-icon></span>
-          <mat-error *ngIf="lawyerForm.controls['practiceYear'].hasError('required')">Practice year is
+          <mat-error *ngIf="lawyerForm.controls.practiceYear.hasError('required')">Practice year is
             Required</mat-error>
         </mat-form-field>
 
@@ -281,7 +284,7 @@
               }}</mat-option>
           </mat-autocomplete>
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/field-icon.svg" alt="" /></mat-icon></span>
-          <mat-error *ngIf="lawyerForm.controls['practiceField'].hasError('required')">Practice Field is
+          <mat-error *ngIf="lawyerForm.controls.practiceField.hasError('required')">Practice Field is
             Required</mat-error>
         </mat-form-field>
 
@@ -292,14 +295,14 @@
                     </mat-option>
                 </mat-select>
                 <span matPrefix><mat-icon>receipt_long</mat-icon></span>
-                <mat-error *ngIf="lawyerForm.controls['question'].hasError('required')">Question is
+                <mat-error *ngIf="lawyerForm.controls.question.hasError('required')">Question is
                     Required</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <input matInput placeholder="Enter your answer" formControlName="answer" required />
                 <span matPrefix><mat-icon>message</mat-icon></span>
-                <mat-error *ngIf="lawyerForm.controls['answer'].hasError('required')">Answer is Required</mat-error>
+                <mat-error *ngIf="lawyerForm.controls.answer.hasError('required')">Answer is Required</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-select placeholder="Select security question" formControlName="question2" required>
@@ -308,19 +311,19 @@
                     </mat-option>
                 </mat-select>
                 <span matPrefix><mat-icon>receipt_long</mat-icon></span>
-                <mat-error *ngIf="lawyerForm.controls['question2'].hasError('required')">Question is
+                <mat-error *ngIf="lawyerForm.controls.question2.hasError('required')">Question is
                     Required</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <input matInput placeholder="Enter your answer" formControlName="answer2" required />
                 <span matPrefix><mat-icon>message</mat-icon></span>
-                <mat-error *ngIf="lawyerForm.controls['answer2'].hasError('required')">Answer is Required</mat-error>
+                <mat-error *ngIf="lawyerForm.controls.answer2.hasError('required')">Answer is Required</mat-error>
             </mat-form-field> -->
 
         <div class="mt-3">
           <button mat-raised-button color="primary w-100" data-bs-toggle="modal" data-bs-target="#accVerificationModal"
-            [disabled]="!lawyerForm.valid">
+            [disabled]="!lawyerForm.valid && !emailOtpVerified">
             Continue</button><br />
         </div>
       </form>
@@ -336,15 +339,15 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/people-icon.svg" alt="" /></mat-icon></span>
-          <input type="text" matInput placeholder="Enter your full name" formControlName="fullName" required />
-          <mat-error *ngIf="userForm.controls['fullName'].hasError('required')">Full name is Required</mat-error>
+          <input type="text" matInput placeholder="Enter your full name" formControlName="name" required />
+          <mat-error *ngIf="userForm.controls.name.hasError('required')">Full name is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/location-icon.svg"
                 alt="" /></mat-icon></span>
           <input type="text" matInput placeholder="Enter your Address" formControlName="address" required />
-          <mat-error *ngIf="userForm.controls['address'].hasError('required')">Address is Required</mat-error>
+          <mat-error *ngIf="userForm.controls.address.hasError('required')">Address is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -354,7 +357,7 @@
               {{ state.viewValue }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="userForm.controls['state'].hasError('required')">State is Required</mat-error>
+          <mat-error *ngIf="userForm.controls.state.hasError('required')">State is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -364,18 +367,19 @@
               {{ city.viewValue }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="userForm.controls['city'].hasError('required')">City is Required</mat-error>
+          <mat-error *ngIf="userForm.controls.city.hasError('required')">City is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/phone-icon.svg" alt="" /></mat-icon></span>
-          <input type="text" matInput placeholder="Enter mobile number" formControlName="mobile" maxlength="10"
+          <input type="text" matInput placeholder="Enter mobile number" formControlName="phoneNumber" maxlength="10"
             [readonly]="true" />
-          <mat-error *ngIf="userForm.controls['mobile'].hasError('required')">Mobile No. is Required</mat-error>
+          <mat-error *ngIf="userForm.controls.phoneNumber.hasError('required')">Mobile
+            No. is Required</mat-error>
           <mat-error *ngIf="
-              !userForm.controls['mobile'].hasError('required') &&
-              userForm.controls['mobile'].invalid
-            ">Mobile No. invalid</mat-error>
+                !userForm.controls.phoneNumber.hasError('required') &&
+                userForm.controls.phoneNumber.invalid
+              ">Mobile No. invalid</mat-error>
         </mat-form-field>
 
         <div class="d-flex">
@@ -388,7 +392,8 @@
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/phone-icon.svg" alt="" /></mat-icon></span>
           <input type="text" matInput placeholder="Enter Secondary Mobile number" formControlName="secondaryContact"
             maxlength="10" (keypress)="isNumber($event)" />
-          <mat-error *ngIf="userForm.controls['secondaryContact'].invalid">No. invalid</mat-error>
+          <mat-error *ngIf="userForm.controls.secondaryContact.invalid">No.
+            invalid</mat-error>
         </mat-form-field>
 
         <div class="d-flex">
@@ -400,20 +405,20 @@
         <mat-form-field appearance="outline">
           <input matInput placeholder="Enter your email" formControlName="email" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
-          <mat-error *ngIf="userForm.controls['email'].hasError('required')">Email is Required</mat-error>
+          <mat-error *ngIf="userForm.controls.email.hasError('required')">Email is Required</mat-error>
           <mat-error *ngIf="
-              !userForm.controls['email'].hasError('required') &&
-              userForm.controls['email'].invalid
+              !userForm.controls.email.hasError('required') &&
+              userForm.controls.email.invalid
             ">Email is invalid</mat-error>
         </mat-form-field>
 
         <div class="row mb-2" style="font-size: 10px; font-family: Poppins">
           <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
             purpose</span>
-          <button type="button" class="float-right col-lg-4 col-md-4 red-font" mat-button
-            [disabled]="this.userForm.controls.email.value == ''" data-bs-toggle="modal"
-            data-bs-target="#emailOtpModal">
-            (Not Verified)
+          <button type="button" class="float-right col-lg-4 col-md-4"
+            [ngClass]="emailOtpVerified?'green-font':'red-font'" mat-button
+            [disabled]="this.userForm.controls.email.value == ''" (click)="emailOtpVerified?'':sendOtpForEmail()">
+            {{emailOtpVerified?'(Verified)':'(Not Verified)'}}
           </button>
         </div>
 
@@ -427,9 +432,9 @@
               hidePassword ? "visibility_off" : "visibility"
               }}</mat-icon>
           </button>
-          <mat-error *ngIf="userForm.controls['password'].errors?.['required']">Password is Required !!</mat-error>
+          <mat-error *ngIf="userForm.controls.password.errors?.['required']">Password is Required !!</mat-error>
           <mat-error
-            *ngIf="!userForm.controls['password'].errors?.['required'] && userForm.controls['password'].invalid">Enter
+            *ngIf="!userForm.controls.password.errors?.['required'] && userForm.controls.password.invalid">Enter
             atleast 10 characters !!</mat-error>
         </mat-form-field>
 
@@ -443,15 +448,16 @@
               hideConfirmPassword ? "visibility_off" : "visibility"
               }}</mat-icon>
           </button>
-          <mat-error *ngIf="userForm.controls['confirmPassword'].errors?.['required']">Confirm Password is Required
+          <mat-error *ngIf="userForm.controls.confirmPassword.errors?.['required']">Confirm Password is Required
             !!</mat-error>
           <mat-error *ngIf="
-              userForm.controls['confirmPassword'].errors?.passwordMatch
+              userForm.controls.confirmPassword.errors?.passwordMatch
             ">Password does not match</mat-error>
         </mat-form-field>
 
         <div class="mt-3">
-          <button mat-raised-button color="primary w-100" routerLink="/auth/login" [disabled]="!userForm.valid">
+          <button mat-raised-button color="primary w-100" [disabled]="!userForm.valid && !emailOtpVerified"
+            (click)="userSignUp()">
             Continue</button><br />
         </div>
       </form>
@@ -706,12 +712,14 @@
 </div>
 
 <!-- Email Otp Verification Modal -->
+<button id="otpModalButton" data-bs-toggle="modal" data-bs-target="#emailOtpModal" style="display: none;"></button>
 <div class="modal fade" id="emailOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered email-modal">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="otpModalLabel">Email Verification</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" id="closeOtpModalButton" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="head-text">Enter Verification Code</div>

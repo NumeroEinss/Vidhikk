@@ -1,56 +1,81 @@
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+
 export class SignUpModel {
-    mobile: string = "";
-    otp: string = "";
+    mobile = new FormControl("", [Validators.required]);
+    otp = new FormControl("", [Validators.required]);
 }
 
 export class LawyerSignupModel {
-    userType: string = "lawyer";
-    orgainization: string = "";
-    fullName: string = "";
-    fatherName: string = "";
-    address: string = "";
-    state: string = "";
-    city: string = "";
-    mobile: string = "";
-    email: string = "";
-    stateBar: string = "";
-    courtName: string = "";
-    licenseNo: string = "";
-    practiceYear: string = "";
-    practiceField: string = "";
-    question: string = '';
-    answer: string = '';
-    question2: string = '';
-    answer2: string = '';
-    coreCompetency: string = "";
-    isAddressVisible: boolean = false;
-    isPrimaryContactVisible: boolean = false;
+    fatherName = new FormControl("", [Validators.required]);
+    userType = new FormControl("lawyer", [Validators.required]);
+    name = new FormControl("", [Validators.required]);
+    address = new FormControl("", [Validators.required]);
+    city = new FormControl("", [Validators.required]);
+    state = new FormControl("", [Validators.required]);
+    email = new FormControl("", [Validators.required]);
+    password = new FormControl("", [Validators.required]);
+    confirmPassword = new FormControl("", [Validators.required]);
+    question = new FormControl("", [Validators.required]);
+    answer = new FormControl("", [Validators.required]);
+    question2 = new FormControl("", [Validators.required]);
+    answer2 = new FormControl("", [Validators.required]);
+    phoneNumber = new FormControl("", [Validators.required]);
     isPrimaryContactWhatsapp: boolean = false;
-    isSecondaryContactVisible: boolean = false;
+    isPrimaryContactVisible: boolean = false;
+    secondaryContact = new FormControl("", [Validators.required]);
     isSecondaryContactWhatsapp: boolean = false;
+    isSecondaryContactVisible: boolean = false;
     isEmailVisible: boolean = false;
-    password: string = "";
-    confirmPassword: string = "";
-    secondaryContact: string = "";
+    isAddressVisible: boolean = false;
+    stateBar = new FormControl("", [Validators.required]);
+    courtName = new FormControl("", [Validators.required]);
+    licenseNo = new FormControl("", [Validators.required]);
+    practiceYear = new FormControl("", [Validators.required]);
+    practiceField = new FormControl("", [Validators.required]);
+    orgainization = new FormControl("", [Validators.required]);
+    coreCompetency = new FormControl("", [Validators.required]);
 }
 
 export class UserSignupModel {
-    userType: string = "user";
-    fullName: string = "";
+    userType = new FormControl("lawyer", [Validators.required]);
+    name = new FormControl("", [Validators.required]);
+    phoneNumber = new FormControl("", [Validators.required]);
+    isPrimaryContactWhatsapp: boolean = false;
+    secondaryContact = new FormControl("", [Validators.required]);
+    isSecondaryContactWhatsapp: boolean = false;
+    address = new FormControl("", [Validators.required]);
+    city = new FormControl("", [Validators.required]);
+    state = new FormControl("", [Validators.required]);
+    email = new FormControl("", [Validators.required]);
+    password = new FormControl("", [Validators.required]);
+    confirmPassword = new FormControl("", [Validators.required]);
+}
+
+
+export class JudgeSignupModel{
+    userType: string = "judge";
+    fullName:string = "";
     address: string = "";
     state: string = "";
     city: string = "";
+    district: string = "";
     mobile: string = "";
     email: string = "";
+    currentState: string = "";
+    currentDistrict: string = "";
+    courtType: string = "";
+    courtName: string = "";
+    registrationNo: string = "";
+    password: string = "";
+    confirmPassword: string = "";
     question: string = '';
     answer: string = '';
     question2: string = '';
     answer2: string = '';
     isPrimaryContactWhatsapp: boolean = false;
     isSecondaryContactWhatsapp: boolean = false;
-    password: string = "";
-    confirmPassword: string = "";
     secondaryContact: string = "";
+    isEmailVisible: boolean = false;
 }
 
 
