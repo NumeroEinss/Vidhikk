@@ -20,13 +20,13 @@ export class LawyerSignupModel {
     question2 = new FormControl("", [Validators.required]);
     answer2 = new FormControl("", [Validators.required]);
     phoneNumber = new FormControl("", [Validators.required]);
-    isPrimaryContactWhatsapp: boolean = false;
-    isPrimaryContactVisible: boolean = false;
+    isPrimaryContactWhatsapp = new FormControl(false, [Validators.required]);
+    isPrimaryContactVisible = new FormControl(false, [Validators.required]);
     secondaryContact = new FormControl("", [Validators.required]);
-    isSecondaryContactWhatsapp: boolean = false;
-    isSecondaryContactVisible: boolean = false;
-    isEmailVisible: boolean = false;
-    isAddressVisible: boolean = false;
+    isSecondaryContactWhatsapp = new FormControl(false, [Validators.required]);
+    isSecondaryContactVisible = new FormControl(false, [Validators.required]);
+    isEmailVisible = new FormControl(false, [Validators.required]);
+    isAddressVisible = new FormControl(false, [Validators.required]);
     stateBar = new FormControl("", [Validators.required]);
     courtName = new FormControl("", [Validators.required]);
     licenseNo = new FormControl("", [Validators.required]);
@@ -40,9 +40,9 @@ export class UserSignupModel {
     userType = new FormControl("lawyer", [Validators.required]);
     name = new FormControl("", [Validators.required]);
     phoneNumber = new FormControl("", [Validators.required]);
-    isPrimaryContactWhatsapp: boolean = false;
+    isPrimaryContactWhatsapp = new FormControl(false, [Validators.required]);
     secondaryContact = new FormControl("", [Validators.required]);
-    isSecondaryContactWhatsapp: boolean = false;
+    isSecondaryContactWhatsapp = new FormControl(false, [Validators.required]);
     address = new FormControl("", [Validators.required]);
     city = new FormControl("", [Validators.required]);
     state = new FormControl("", [Validators.required]);
@@ -51,56 +51,28 @@ export class UserSignupModel {
     confirmPassword = new FormControl("", [Validators.required]);
 }
 
-
-export class JudgeSignupModel{
-    userType: string = "judge";
-    fullName:string = "";
-    address: string = "";
-    state: string = "";
-    city: string = "";
-    district: string = "";
-    mobile: string = "";
-    email: string = "";
-    currentState: string = "";
-    currentDistrict: string = "";
-    courtType: string = "";
-    courtName: string = "";
-    registrationNo: string = "";
-    password: string = "";
-    confirmPassword: string = "";
-    question: string = '';
-    answer: string = '';
-    question2: string = '';
-    answer2: string = '';
-    isPrimaryContactWhatsapp: boolean = false;
-    isSecondaryContactWhatsapp: boolean = false;
-    secondaryContact: string = "";
-    isEmailVisible: boolean = false;
-}
-
-
-export class JudgeSignupModel{
-    userType: string = "judge";
-    fullName:string = "";
-    address: string = "";
-    state: string = "";
-    city: string = "";
-    district: string = "";
-    mobile: string = "";
-    email: string = "";
-    currentState: string = "";
-    currentDistrict: string = "";
-    courtType: string = "";
-    courtName: string = "";
-    registrationNo: string = "";
-    password: string = "";
-    confirmPassword: string = "";
-    question: string = '';
-    answer: string = '';
-    question2: string = '';
-    answer2: string = '';
-    isPrimaryContactWhatsapp: boolean = false;
-    isSecondaryContactWhatsapp: boolean = false;
-    secondaryContact: string = "";
-    isEmailVisible: boolean = false;
+export class JudgeSignupModel {
+    userType = new FormControl("judge", [Validators.required]);
+    fullName = new FormControl("", [Validators.required]);
+    address = new FormControl("", [Validators.required]);
+    state = new FormControl("", [Validators.required]);
+    city = new FormControl("", [Validators.required]);
+    district = new FormControl("", [Validators.required]);
+    mobile = new FormControl("", [Validators.required]);
+    email = new FormControl("", [Validators.required]);
+    currentState = new FormControl("", [Validators.required]);
+    currentDistrict = new FormControl("", [Validators.required]);
+    courtType = new FormControl("", [Validators.required]);
+    courtName = new FormControl("", [Validators.required]);
+    registrationNo = new FormControl("", [Validators.required]);
+    password = new FormControl("", [Validators.required]);
+    confirmPassword = new FormControl("", [Validators.required]);
+    question = new FormControl("", [Validators.required]);
+    answer = new FormControl("", [Validators.required]);
+    question2 = new FormControl("", [Validators.required]);
+    answer2 = new FormControl("", [Validators.required]);
+    isPrimaryContactWhatsapp = new FormControl(false);
+    isSecondaryContactWhatsapp = new FormControl(false);
+    secondaryContact = new FormControl("");
+    isEmailVisible = new FormControl(false);
 }
