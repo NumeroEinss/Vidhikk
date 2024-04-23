@@ -8,6 +8,8 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 })
 export class AuthService {
 
+  mobileNumber: string='';
+
   private currentUserSubject: BehaviorSubject<any> | undefined;
 
   constructor(private _http: HttpClient, private _router: Router) {

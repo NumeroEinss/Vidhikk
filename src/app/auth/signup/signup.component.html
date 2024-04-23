@@ -725,7 +725,7 @@
         <div class="head-text">Enter Verification Code</div>
         <div class="sub-text mt-2 mb-4">
           We sent a 6-digit code to<br />
-          <span class="email mt-2">{{ lawyerForm.controls.email.value }}</span>
+          <span class="email mt-2">{{ userForm.controls.email.value }}</span>
         </div>
         <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }" class="mt-2"></ng-otp-input>
         <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">

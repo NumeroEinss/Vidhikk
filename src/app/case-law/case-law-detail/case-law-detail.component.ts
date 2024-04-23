@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, ViewChild, ElementRef, Input, Renderer2} from '@angular/core';
 import jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import { SnackAlertService } from '../../shared/services/snack-alert.service';
 
 @Component({
   selector: 'app-case-law-detail',
@@ -15,8 +16,8 @@ export class CaseLawDetailComponent {
 
   // vidhikLogoUrl = '../../../../assets/images/icons/vidhiklogo.svg';
 
-  constructor(private _location: Location, private renderer: Renderer2) { }
-
+  constructor(private _location: Location, private renderer: Renderer2, private _toastMessage: SnackAlertService) { }
+ 
   routeBack() {
     this._location.back();
   }
@@ -32,6 +33,7 @@ export class CaseLawDetailComponent {
   }
 
   exportAsPDF(printableArea: string) {
+    this._toastMessage.message('Pdf is downloading');
     if (window.innerWidth > 1023) {
       let element = document.getElementById(printableArea) as HTMLElement;
       html2canvas(element).then(canvas => {

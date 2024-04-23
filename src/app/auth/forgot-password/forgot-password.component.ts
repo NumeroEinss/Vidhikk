@@ -7,6 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { SnackAlertService } from '../../shared/services/snack-alert.service';
+import { GQLConfig } from '../../graphql.operations';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 
 export interface City {
   value: string;
@@ -35,9 +39,10 @@ export class ForgotPasswordComponent {
   isMobileNoEntered: boolean = false;
   isEmailEntered: boolean = false;
   isVerified: boolean = false;
+  isUser: boolean = false;
 
-
-  constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService) {
+  constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService, private _router: Router,
+     private _apolloService: ApolloService,  private AuthService: AuthService) {
     this.forgotPasswordForm = this._formBuilder.group(new forgotModel());
     this.forgotFrmCtrl['mobile'].setValidators([
       Validators.required,
@@ -107,7 +112,95 @@ export class ForgotPasswordComponent {
     return event.charCode >= 48 && event.charCode <= 57;
   }
 
-  resendOtp() {
-    this._toastMessage.success('OTP Sent Successfully !!');
+  resendOtpOnMobile() {
+    let reqBody = {
+      mobile: this.forgotPasswordForm.controls.mobile.value
+    }
+    this._apolloService.mutate(GQLConfig.forgotPasswordMobile, reqBody).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.forgotPassword.status == 200) {
+          this._toastMessage.message(data.data.forgotPassword.message);
+        }
+        else {
+          this._toastMessage.error(data.data.forgotPassword.message);
+        }
+      }
+    })
+  }
+
+  resendOtpOnEmail(){
+    let reqBody = {
+      email: this.forgotPasswordForm1.controls.email.value
+    }
+    console.log(reqBody.email)
+    this._apolloService.mutate(GQLConfig.forgotPasswordEmail, reqBody).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.forgotPassword.status == 200) {
+          this._toastMessage.message(data.data.forgotPassword.message)
+        }
+        else {
+          this._toastMessage.error(data.data.forgotPassword.message)
+        }
+      }
+    })
+  }
+
+  mobileForgotPassword() {
+    let reqBody = {
+      mobile: this.forgotPasswordForm.controls.mobile.value
+    }
+    this._apolloService.mutate(GQLConfig.forgotPasswordMobile, reqBody).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.forgotPassword.status == 200) {
+          this._toastMessage.message(data.data.forgotPassword.message);
+        }
+        else {
+          this._toastMessage.error(data.data.forgotPassword.message);
+        }
+      }
+    })
+  }
+
+  verifyMobileOtp() {
+    this.AuthService.mobileNumber = this.forgotPasswordForm.controls.mobile.value;
+    let reqBody = {
+      mobile: this.forgotPasswordForm.controls.mobile.value,
+      otp: this.forgotPasswordForm.controls.otp.value
+    }
+    this._apolloService.mutate(GQLConfig.forgotPasswordVerifyOtpMobile, reqBody).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.forgotPasswordVerifyOtp.status == 200) {
+          this._toastMessage.message(data.data.forgotPasswordVerifyOtp.message);
+          this._router.navigate(['/auth/createPassword']);
+        }
+        else {
+          this._toastMessage.error(data.data.forgotPasswordVerifyOtp.message);
+        }
+      }
+    })
+  }
+
+  emailForgotPassword() {
+    let reqBody = {
+      email: this.forgotPasswordForm1.controls.email.value
+    }
+    console.log(reqBody.email)
+    this._apolloService.mutate(GQLConfig.forgotPasswordEmail, reqBody).subscribe(data => {
+      if (data.data != null) {
+        console.log(data.data)
+        if (data.data.forgotPassword.status == 200) {
+          console.log(data.data.forgotPassword.status)
+          this._toastMessage.message(data.data.forgotPassword.message)
+        }
+        else {
+          console.log(data.data.forgotPassword.status)
+          this._toastMessage.error(data.data.forgotPassword.message)
+        }
+      }
+    })
+  }
+
+  verifyEmailOtp(){
+    
   }
 }

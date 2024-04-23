@@ -34,6 +34,7 @@ export class SignupComponent {
   userForm: FormGroup;
   judgeForm: FormGroup;
   userImage: any;
+  emailOtpVerified: boolean = false;
 
   cities: any[] = [
     { value: 'indore', viewValue: 'Indore' },
@@ -335,8 +336,6 @@ export class SignupComponent {
     },
   ];
 
-  emailOtpVerified: boolean = false;
-
   constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: SnackAlertService, private _apolloService: ApolloService) {
     this.signupForm = this._fb.group(new SignUpModel());
@@ -548,6 +547,7 @@ export class SignupComponent {
         otp: e
       };
       this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
+        console.log(objEmailOtp, objEmailOtp)
         if (objEmailOtp.data != null) {
           if (objEmailOtp.data.verifyOtp.status == 200) {
             this.emailOtpVerified = true;

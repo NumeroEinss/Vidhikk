@@ -764,8 +764,50 @@
             margin-bottom: 80px;
           }
 
+          .description {
+            white-space: normal;
+          }
+
+          .user-details {
+            flex-wrap: wrap;
+
+            .user-details-heading {
+              margin: 0px 0px 0 15px;
+            }
+
+            .user-details-detail {
+              margin: 0 10px 30px 15px;
+              word-break: break-word;
+            }
+          }
+
+        }
+      }
+    }
+    .user-profile-root {
+      margin: 15px;
+
+      .basic-information{
+        .details-container{
+          min-width: 250px;
+        }
+      }
+
+      .password-security{
+        .description{
+          padding-right:50px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1299px) {
+  .root {
+    .profile-container {
+      .main-content {
+        .section-info {
           padding: 20px;
-          margin-right: 0px;
 
           &:last-child {
             margin-bottom: 80px;
@@ -791,22 +833,21 @@
         }
       }
     }
+  }
+}
 
-
-    .user-profile-root {
-      margin: 15px;
-
-      .basic-information{
-        .details-container{
-          min-width: 250px;
-        }
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
+  .subscription-modal {
+    .modal-body {
+      gap: 30px;
+     
+      .plan-name, .limit{
+        white-space: nowrap;
       }
 
-      .password-security{
-        .description{
-          padding-right:50px;
-        }
+      .silver-plan, .gold-plan, .platinum-plan {
+        width: 230px; 
+      }
       }
     }
-  }
 }

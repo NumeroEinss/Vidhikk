@@ -33,6 +33,6 @@ export class AdvocateComponent {
   }
 
   viewRating(){
-    this._router.navigate(['/user/advocates/gfdyfvayfd/advocate-rating'])
+    this._router.navigate(['/user/advocates/gfdyfvayfd/advocate-rating']);
   }
 }

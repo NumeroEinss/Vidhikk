@@ -12,6 +12,7 @@ export class ResetPasswordComponent {
   hide: boolean = true;
   hideConfirmPassword: boolean = true;
   hideOldPassword: boolean = true;
+  isUser: boolean = false;
 
   question: any[] = [
     {
