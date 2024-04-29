@@ -170,7 +170,6 @@
       }
 
       .chat-area {
-        margin-top: 20px;
         padding: 10px;
 
         .sender-container {
@@ -322,12 +321,31 @@
     }
   }
 
-  mat-radio-group {
-    mat-radio-button {
-      background: #2E5BFF0D !important;
-      padding: 20px 20px 20px 0px !important;
-      border-radius: 12px;
-    }
+  // mat-radio-group {
+  //   mat-radio-button {
+  //     background: #2E5BFF0D !important;
+  //     padding: 20px 20px 20px 0px !important;
+  //     border-radius: 12px;
+  //   }
+  // }
+}
+
+.user-payment-modal{
+  .modal-body{
+    .payment {
+      background-color: #053bff0d;
+      border-color: #7d818e0d !important;
+      border-radius: 24px;
+      padding: 5px 20px 10px 0px;
+      margin-top: 10px;
+
+      .duration {
+          font-size: 12px;
+          padding-left: 44px;
+          color: #000000cc;
+          margin-top: -10px;
+      }
+  }
   }
 }
 

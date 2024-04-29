@@ -190,7 +190,6 @@ body .modal-dialog .modal-header {
 .upgrade-modal {
   .modal-body {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 50px;
     margin: 40px 0;
@@ -284,14 +283,9 @@ body .modal-dialog .modal-header {
       position: relative;
 
       .active-plan {
-        // background-color: #2e5bff;
-        // color: white;
-        // padding: 8px 10px;
         position: absolute;
         top: 0px;
         left: -22px;
-        // border-top-right-radius: 12px;
-        // border-bottom-right-radius: 12px;
         margin-top: 10px;
       }
 
@@ -450,14 +444,25 @@ body .modal-dialog .modal-header {
     }
   }
 
+  .upgrade-modal{
+    .modal-body{
+      flex-wrap: wrap;
+    }
+  }
+}
 
-  // .upgrade-modal {
-  //   .modal-body {
-  //     .silver-plan{
-  //       .active-plan{
-  //         left: 95px;
-  //       }
-  //     }
-  //   }
-  // }
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
+  .upgrade-modal {
+    .modal-body {
+      gap: 30px;
+     
+      .plan-name, .limit{
+        white-space: nowrap;
+      }
+
+      .silver-plan, .gold-plan, .platinum-plan {
+        width: 230px; 
+      }
+      }
+    }
 }

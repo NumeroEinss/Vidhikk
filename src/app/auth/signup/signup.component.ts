@@ -34,6 +34,7 @@ export class SignupComponent {
   userForm: FormGroup;
   judgeForm: FormGroup;
   userImage: any;
+  emailOtpVerified: boolean = false;
 
   cities: any[] = [
     { value: 'indore', viewValue: 'Indore' },
@@ -335,8 +336,6 @@ export class SignupComponent {
     },
   ];
 
-  emailOtpVerified: boolean = false;
-
   constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: SnackAlertService, private _apolloService: ApolloService) {
     this.signupForm = this._fb.group(new SignUpModel());
@@ -548,6 +547,7 @@ export class SignupComponent {
         otp: e
       };
       this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
+        console.log(objEmailOtp, objEmailOtp)
         if (objEmailOtp.data != null) {
           if (objEmailOtp.data.verifyOtp.status == 200) {
             this.emailOtpVerified = true;
@@ -568,14 +568,29 @@ export class SignupComponent {
   }
 
   userSignUp() {
-    this._apolloService.mutate(GQLConfig.createUser, this.userForm.value).subscribe(data => {
+    let reqObj={
+      userType :this.userType,
+      name : this.userForm.controls.name.value,
+      mobile : this.userForm.controls.phoneNumber.value,
+      isPrimaryContactWhatsapp : this.userForm.controls.isPrimaryContactWhatsapp.value,
+      secondaryContact : this.userForm.controls.secondaryContact.value,
+      isSecondaryContactWhatsapp : this.userForm.controls.isSecondaryContactWhatsapp.value,
+      address : this.userForm.controls.address.value,
+      city : this.userForm.controls.city.value,
+      state : this.userForm.controls.state.value,
+      email : this.userForm.controls.email.value,
+      password : this.userForm.controls.password.value,
+      confirmPassword : this.userForm.controls.confirmPassword.value,
+    }
+    this._apolloService.mutate(GQLConfig.createUser, reqObj).subscribe(data => {
       if (data.data != null) {
-        if (data.data.createUser.status == 200) {
+        if (data.data.createUser.status == 200 ||201) {
           this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
+          // this._router.navigate(['/auth/login']);
           setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
         }
         else {
-          this._toastMessage.error(data.data.createUser.error);
+          this._toastMessage.error(data.data.createUser.message);
         }
       }
     })

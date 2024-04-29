@@ -5,11 +5,10 @@ export abstract class GQLConfig {
     //forMobile
     static sendOtp = gql`mutation 
         SendOtp($mobile:String!){
-            sendOtp(input:{phoneNumber:$mobile})
-                {
-                    status
-                    message
-                }
+            sendOtp(input: { method: "phone", phoneNumber: $mobile }) {
+                status
+                message
+              }
         }`;
 
     //forMobile
@@ -27,7 +26,7 @@ export abstract class GQLConfig {
     //forEmail
     static sendOtpEmail = gql`mutation
         SendOtpEmail($email: String!,$mobile:String!) {
-            sendOtp(input: { phoneNumber:$mobile,email:$email })
+            sendOtp(input: {method:"email", phoneNumber:$mobile, email:$email })
             {
                 status
                 message
@@ -128,10 +127,26 @@ export abstract class GQLConfig {
 
     //createUser
     static createUser = gql`mutation
-        CreateUser($User: Object!){
-            createUser(input:$User){
+        CreateUser($userType: String!, $name: String!, $mobile: String!, $isPrimaryContactWhatsapp: Boolean!, $secondaryContact: String!, 
+            $isSecondaryContactWhatsapp: Boolean!, $address: String!, $city: String!, $state: String!, $email: String!, $password: String!, $confirmPassword: String! ){
+            createUser(input: {
+                userType: $userType,
+                name: $name,
+                phoneNumber: $mobile,
+                isPrimaryContactWhatsapp: $isPrimaryContactWhatsapp,
+                secondaryContact: $secondaryContact,
+                isSecondaryContactWhatsapp:  $isSecondaryContactWhatsapp,
+                address: $address,
+                city:$city,
+                state: $state,
+                email: $email,
+                password: $password,
+                confirmPassword: $confirmPassword
+              })
+              {
                 status
                 message
-            }
+                data
+              }
         } `;
 }

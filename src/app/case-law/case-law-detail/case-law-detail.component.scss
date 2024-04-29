@@ -1,16 +1,8 @@
-@media print {
-    body {
-        display: none !important;
-    }
-
-    // #section-to-print {
-    //     display: block;
-    //     position: absolute;
-    //     left: 0;
-    //     top: 0;
-    // }
-}
-
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+  }
+  
 .filter-bar {
     background-color: #F6F6F6;
     width: 100%;
@@ -61,12 +53,15 @@
                 margin: 2px;
                 font-size: 14px;
             }
+            ::placeholder {
+                color: #868585 !important;
+              }
 
             .cancel {
                 position: absolute;
-                right: 0;
-                width: 30px;
-                height: 30px;
+                right: 1px;
+                width: 18px;
+                height: 18px;
             }
 
             .search {

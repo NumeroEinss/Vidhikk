@@ -167,7 +167,6 @@
         hr {
             margin-top: 25px;
         }
-
     }
 }
 
@@ -189,6 +188,9 @@
         .rating-list{
             margin: 15px;
         }
+        &:last-child {
+            margin-bottom: 50px;
+          }
     }
 }
 
@@ -211,5 +213,8 @@
         .rating-list{
             margin: 30px;
         }
+        &:last-child {
+            margin-bottom: 50px;
+          }
     }
 }

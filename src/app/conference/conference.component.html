@@ -208,7 +208,7 @@
   data-bs-target="#userConferencePaymentModal" class="d-none"></button> -->
 <div class="modal fade" id="userConferencePaymentModal" tabindex="-1" aria-labelledby="userConferencePaymentModalLabel"
   aria-hidden="true" style="width: 100%;">
-  <div class="modal-dialog modal-md modal-dialog-centered">
+  <div class="modal-dialog modal-md modal-dialog-centered user-payment-modal">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title" id="userConferencePaymentModalLabel">Payment</div>
@@ -220,7 +220,7 @@
             Please select the time you want to extend the meeting for as per your requirement.
           </p>
         </div>
-        <div class="mt-4 mb-4">
+        <!-- <div class="mt-4 mb-4">
           <div class="d-flex justify-content-center">
             <mat-radio-group aria-label="Extension-slot" class="mb-2">
               <mat-radio-button value="49" class="me-2" checked>49 Rs<br><span>5 mins</span></mat-radio-button>
@@ -228,7 +228,25 @@
               <mat-radio-button value="99">99 Rs<br><span>15 mins</span></mat-radio-button>
             </mat-radio-group>
           </div>
-        </div>
+        </div> -->
+
+        <mat-radio-group aria-label="payment-slot" class="mb-2">
+          <div class="d-flex justify-content-center" style="gap: 10px;">
+              <div class="payment"><mat-radio-button value="100" checked>100 Rs</mat-radio-button>
+                  <div class="duration">15 Mins</div>
+              </div>
+
+              <div class="payment"><mat-radio-button value="200">200
+                      Rs</mat-radio-button>
+                  <div class="duration">30 Mins</div>
+              </div>
+
+              <div class="payment"><mat-radio-button value="500">500
+                      Rs</mat-radio-button>
+                  <div class="duration">60 Mins</div>
+              </div>
+          </div>
+      </mat-radio-group>
         <div class="text-center mt-4 mb-4">
           <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-toggle="modal"
             data-bs-target="#qrModal">
@@ -255,7 +273,7 @@
         <div class="mt-2 mb-2 d-flex justify-content-center" (click)="timer=2; timeInSecond=(timer * 60);"
           data-bs-toggle="modal" data-bs-target="#conferenceModal">
           <p
-            style="background:#2E5BFF0D; max-width: 360px; padding: 20px 122px;font-size: 16px;border-radius: 12px;cursor: pointer;">
+            style="background:#2E5BFF0D; max-width: 360px; padding: 10px 122px;font-size: 16px;border-radius: 12px;cursor: pointer;">
             Scan QR Code
           </p>
         </div>

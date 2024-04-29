@@ -93,7 +93,7 @@ export class ContactUsComponent {
       ticketTitle: this.ticketForm.controls.ticketTitle.value,
       ticketType: this.ticketForm.controls.ticketType.value,
       description: this.ticketForm.controls.description.value,
-      created: new Date().toLocaleDateString(),
+      created: new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric', day: 'numeric' }),
       status: 'inProcess',
     }
     this.ticketList.push(newTicket);
@@ -101,13 +101,12 @@ export class ContactUsComponent {
   }
 
   editTicket(ticket: any) {
-    this.selectedEditTicket = { ...ticket }
+    this.selectedEditTicket = { ...ticket };
     this.ticketForm.patchValue({
       ticketTitle: ticket.ticketTitle,
       ticketType: ticket.ticketType,
       description: ticket.description
-    })
-    this.selectedEditTicket = {};
+    }) 
   }
 
   saveChanges() {

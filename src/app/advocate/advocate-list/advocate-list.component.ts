@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class AdvocateListComponent {
 
   advocateTypeList: any = [
-    { value: 'all', viewValue: "All Advocates" }, { value: 'civil', viewValue: "Civil Advocate" },
+    { value: 'all', viewValue: "All Advocates" },
+    { value: 'civil', viewValue: "Civil Advocate" },
     { value: 'taxation', viewValue: "Taxation Advocate" }
   ];
   selectedAdvocateType: string = "all";
