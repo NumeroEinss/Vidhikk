@@ -568,14 +568,29 @@ export class SignupComponent {
   }
 
   userSignUp() {
-    this._apolloService.mutate(GQLConfig.createUser, this.userForm.value).subscribe(data => {
+    let reqObj={
+      userType :this.userType,
+      name : this.userForm.controls.name.value,
+      mobile : this.userForm.controls.phoneNumber.value,
+      isPrimaryContactWhatsapp : this.userForm.controls.isPrimaryContactWhatsapp.value,
+      secondaryContact : this.userForm.controls.secondaryContact.value,
+      isSecondaryContactWhatsapp : this.userForm.controls.isSecondaryContactWhatsapp.value,
+      address : this.userForm.controls.address.value,
+      city : this.userForm.controls.city.value,
+      state : this.userForm.controls.state.value,
+      email : this.userForm.controls.email.value,
+      password : this.userForm.controls.password.value,
+      confirmPassword : this.userForm.controls.confirmPassword.value,
+    }
+    this._apolloService.mutate(GQLConfig.createUser, reqObj).subscribe(data => {
       if (data.data != null) {
-        if (data.data.createUser.status == 200) {
+        if (data.data.createUser.status == 200 ||201) {
           this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
+          // this._router.navigate(['/auth/login']);
           setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
         }
         else {
-          this._toastMessage.error(data.data.createUser.error);
+          this._toastMessage.error(data.data.createUser.message);
         }
       }
     })

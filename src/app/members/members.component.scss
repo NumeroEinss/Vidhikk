@@ -290,3 +290,28 @@
     }
   }
 }
+
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
+  .root {
+    margin: 30px;
+    margin-right: 0;
+
+    .add-member-btn{
+      margin-right: 30px;
+    }
+
+    .add-member-list {
+      overflow-x: scroll;
+      width: calc(100vw - 278px);
+      white-space: nowrap;
+
+      .member-list-header {
+        min-width: 1000px;
+      }
+
+      .member-list-data {
+        min-width: 1000px;
+      }
+    }
+  }
+}

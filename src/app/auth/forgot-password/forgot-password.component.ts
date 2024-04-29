@@ -42,7 +42,7 @@ export class ForgotPasswordComponent {
   isUser: boolean = false;
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService, private _router: Router,
-     private _apolloService: ApolloService,  private AuthService: AuthService) {
+     private _apolloService: ApolloService,  private _authService: AuthService) {
     this.forgotPasswordForm = this._formBuilder.group(new forgotModel());
     this.forgotFrmCtrl['mobile'].setValidators([
       Validators.required,
@@ -162,7 +162,7 @@ export class ForgotPasswordComponent {
   }
 
   verifyMobileOtp() {
-    this.AuthService.mobileNumber = this.forgotPasswordForm.controls.mobile.value;
+    // this._authService.mobileNumber = this.forgotPasswordForm.controls.mobile.value;
     let reqBody = {
       mobile: this.forgotPasswordForm.controls.mobile.value,
       otp: this.forgotPasswordForm.controls.otp.value
@@ -201,6 +201,22 @@ export class ForgotPasswordComponent {
   }
 
   verifyEmailOtp(){
-    
+    // this.AuthService.email = this.forgotPasswordForm1.controls.email.value;
+    let reqBody = {
+      email: this.forgotPasswordForm1.controls.email.value,
+      otp: this.forgotPasswordForm1.controls.otp.value
+    }
+    console.log(reqBody)
+    this._apolloService.mutate(GQLConfig.forgotPasswordVerifyOtpEmail, reqBody).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.forgotPasswordVerifyOtp.status == 200) {
+          this._toastMessage.message(data.data.forgotPasswordVerifyOtp.status, data.data.forgotPasswordVerifyOtp.message);
+          this._router.navigate(['/auth/createPassword']);
+        }
+        else {
+          this._toastMessage.error(data.data.forgotPasswordVerifyOtp.message);
+        }
+      }
+    })
   }
 }

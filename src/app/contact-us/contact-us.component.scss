@@ -34,7 +34,7 @@
 
       .add-ticket {
         width: 215px !important;
-        margin-right: 15px;
+        // margin-right: 15px;
 
         button {
           width: 215px !important;
@@ -212,6 +212,57 @@
         white-space: nowrap;
         margin-right: 15px;
 
+        .ticket-header {
+          min-width: 1000px;
+        }
+
+        .ticket-data {
+          min-width: 1000px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1399px) {
+  .root {
+    margin: 30px;
+    margin-right: 0;
+
+    .contact-us-container {
+      .header{
+        margin-right: 30px;
+      }
+      .header-menu {
+        margin-right: 30px;
+
+        .filter-section {
+          margin-right: 15px;
+
+          .mat-mdc-form-field {
+            width: 180px !important;
+          }
+        }
+
+        .search-bar {
+          margin-right: 15px;
+        }
+
+        .add-ticket {
+          width: 180px !important;
+          margin-right: 0;
+
+          button {
+            width: 180px !important;
+          }
+        }
+      }
+
+      .ticket-list {
+        overflow-x: scroll;
+        width: calc(100vw - 280px);
+        margin-right: 0;
+       
         .ticket-header {
           min-width: 1000px;
         }

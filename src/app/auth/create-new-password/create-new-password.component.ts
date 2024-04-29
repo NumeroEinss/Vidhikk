@@ -29,15 +29,9 @@ export class CreateNewPasswordComponent {
     return this.setNewPasswordForm.controls;
   }
 
-  ngOnInit() {
-    this.setNewPasswordForm.patchValue({
-      mobile: this.AuthService.mobileNumber
-    });
-    console.log( this.AuthService.mobileNumber)
-  }
+  
   resetPassword(){
     let reqBody = {
-      mobile:this.AuthService.mobileNumber,
       password : this.setNewPasswordForm.controls.setPassword.value,
       confirmPassword : this.setNewPasswordForm.controls.confirmPassword.value
     }
