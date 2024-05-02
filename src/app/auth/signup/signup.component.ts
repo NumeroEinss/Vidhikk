@@ -586,7 +586,6 @@ export class SignupComponent {
       if (data.data != null) {
         if (data.data.createUser.status == 200 ||201) {
           this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
-          // this._router.navigate(['/auth/login']);
           setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
         }
         else {

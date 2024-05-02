@@ -152,6 +152,28 @@
 }
 
 
+//  advocate-filter-popup styling start
+.advocate-filter-popup {
+    width: 420px !important;
+  
+    .modal-body {
+      padding: 24px 40px;
+  
+      .mat-label {
+        text-align: left;
+        font-size: 14px;
+        font-family: Poppins;
+        font-weight: 500 !important;
+        color: #000000;
+      }
+  
+      .mat-mdc-radio-group {
+        text-align: left !important;
+      }
+    }
+  }
+
+
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
     .root {
         margin: 15px;

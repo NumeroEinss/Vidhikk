@@ -190,7 +190,7 @@
         <div class="row mb-2" style="font-size: 10px; font-family: Poppins">
           <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
             purpose</span>
-          <button type="button" class="float-right col-lg-4 col-md-4"
+          <button type="button" class="float-right verify-btn col-lg-4 col-md-4"
             [ngClass]="emailOtpVerified?'green-font':'red-font'" mat-button
             [disabled]="this.lawyerForm.controls.email.value == ''" (click)="emailOtpVerified?'':sendOtpForEmail()">
             {{emailOtpVerified?'(Verified)':'(Not Verified)'}}
@@ -415,7 +415,7 @@
         <div class="row mb-2" style="font-size: 10px; font-family: Poppins">
           <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
             purpose</span>
-          <button type="button" class="float-right col-lg-4 col-md-4"
+          <button type="button" class="float-right verify-btn col-lg-4 col-md-4"
             [ngClass]="emailOtpVerified?'green-font':'red-font'" mat-button
             [disabled]="this.userForm.controls.email.value == ''" (click)="emailOtpVerified?'':sendOtpForEmail()">
             {{emailOtpVerified?'(Verified)':'(Not Verified)'}}
@@ -547,7 +547,7 @@
         <div class="row mb-2" style="font-size: 10px; font-family: Poppins">
           <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
             purpose</span>
-          <button type="button" class="float-right col-lg-4 col-md-4 red-font" mat-button
+          <button type="button" class="float-right verify-btn col-lg-4 col-md-4 red-font" mat-button
             [disabled]="this.judgeForm.controls.email.value == ''" data-bs-toggle="modal"
             data-bs-target="#emailOtpModal">
             (Not Verified)
@@ -560,28 +560,34 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select Current State" formControlName="currentState" (selectionChange)="onStateChange($event.value)"  required>
-            <mat-option *ngFor="let state of states" [value]="state.value" >
+          <mat-select placeholder="Select Current State" formControlName="currentState"
+            (selectionChange)="onStateChange($event.value)" required>
+            <mat-option *ngFor="let state of states" [value]="state.value">
               {{ state.viewValue }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="judgeForm.controls['currentState'].hasError('required')">Current State is Required</mat-error>
+          <mat-error *ngIf="judgeForm.controls['currentState'].hasError('required')">Current State is
+            Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select Current District" formControlName="currentDistrict" (selectionChange)="onDistrictChange($event.value)" required>
-            <mat-option *ngFor="let district of filteredDistricts" [value]="district.value" >
+          <mat-select placeholder="Select Current District" formControlName="currentDistrict"
+            (selectionChange)="onDistrictChange($event.value)" required>
+            <mat-option *ngFor="let district of filteredDistricts" [value]="district.value">
               {{ district.viewValue }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="judgeForm.controls['currentDistrict'].hasError('required')">Current District is Required</mat-error>
+          <mat-error *ngIf="judgeForm.controls['currentDistrict'].hasError('required')">Current District is
+            Required</mat-error>
         </mat-form-field>
 
 
         <mat-form-field appearance="outline">
-          <span matPrefix><mat-icon><img src="../../../assets/images/icons/stateBar-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select Court Type" formControlName="courtType"  (selectionChange)="onCourtTypeChange($event.value)" required>
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/stateBar-icon.svg"
+                alt="" /></mat-icon></span>
+          <mat-select placeholder="Select Court Type" formControlName="courtType"
+            (selectionChange)="onCourtTypeChange($event.value)" required>
             <mat-option *ngFor="let type of filteredCourtTypes" [value]="type.value">
               {{ type.viewValue }}
             </mat-option>
@@ -591,7 +597,8 @@
 
 
         <mat-form-field appearance="outline">
-          <span matPrefix><mat-icon><img src="../../../assets/images/icons/stateBar-icon.svg" alt="" /></mat-icon></span>
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/stateBar-icon.svg"
+                alt="" /></mat-icon></span>
           <mat-select placeholder="Select Court Name" formControlName="courtName" required>
             <mat-option *ngFor="let name of filteredCourtNames" [value]="name.value">
               {{ name.viewValue }}
@@ -634,38 +641,38 @@
         </mat-form-field>
 
 
-           <mat-form-field appearance="outline">
-                <mat-select placeholder="Select Security Question" formControlName="question" required>
-                    <mat-option *ngFor="let qus of queries" [value]="qus.value">
-                        {{ qus.viewValue }}
-                    </mat-option>
-                </mat-select>
-                <span matPrefix><mat-icon>receipt_long</mat-icon></span>
-                <mat-error *ngIf="judgeForm.controls['question'].hasError('required')">Question is
-                    Required</mat-error>
-            </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select Security Question" formControlName="question" required>
+            <mat-option *ngFor="let qus of queries" [value]="qus.value">
+              {{ qus.viewValue }}
+            </mat-option>
+          </mat-select>
+          <span matPrefix><mat-icon>receipt_long</mat-icon></span>
+          <mat-error *ngIf="judgeForm.controls['question'].hasError('required')">Question is
+            Required</mat-error>
+        </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <input matInput placeholder="Enter Your Answer" formControlName="answer" required />
-                <span matPrefix><mat-icon>message</mat-icon></span>
-                <mat-error *ngIf="judgeForm.controls['answer'].hasError('required')">Answer is Required</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-select placeholder="Select Security Question" formControlName="question2" required>
-                    <mat-option *ngFor="let qus of queries" [value]="qus.value">
-                        {{ qus.viewValue }}
-                    </mat-option>
-                </mat-select>
-                <span matPrefix><mat-icon>receipt_long</mat-icon></span>
-                <mat-error *ngIf="judgeForm.controls['question2'].hasError('required')">Question is
-                    Required</mat-error>
-            </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Enter Your Answer" formControlName="answer" required />
+          <span matPrefix><mat-icon>message</mat-icon></span>
+          <mat-error *ngIf="judgeForm.controls['answer'].hasError('required')">Answer is Required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select Security Question" formControlName="question2" required>
+            <mat-option *ngFor="let qus of queries" [value]="qus.value">
+              {{ qus.viewValue }}
+            </mat-option>
+          </mat-select>
+          <span matPrefix><mat-icon>receipt_long</mat-icon></span>
+          <mat-error *ngIf="judgeForm.controls['question2'].hasError('required')">Question is
+            Required</mat-error>
+        </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <input matInput placeholder="Enter Your Answer" formControlName="answer2" required />
-                <span matPrefix><mat-icon>message</mat-icon></span>
-                <mat-error *ngIf="judgeForm.controls['answer2'].hasError('required')">Answer is Required</mat-error>
-            </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Enter Your Answer" formControlName="answer2" required />
+          <span matPrefix><mat-icon>message</mat-icon></span>
+          <mat-error *ngIf="judgeForm.controls['answer2'].hasError('required')">Answer is Required</mat-error>
+        </mat-form-field>
 
         <div class="mt-3">
           <button mat-raised-button color="primary w-100" routerLink="/auth/login" [disabled]="!judgeForm.valid">

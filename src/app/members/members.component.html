@@ -188,7 +188,7 @@
   <!-- filter popup  start-->
   <div>
     <div class="modal fade filterPopup" id="addMemberModalToggle2" aria-hidden="true"
-      aria-labelledby="addMemberModalToggleLabel2" tabindex="-1">
+      aria-labelledby="addMemberModalToggleLabel2" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
       <div class="modal-dialog modal-dialog-centered add-member-popup">
         <div class="modal-content">
           <div class="modal-header">
@@ -226,13 +226,13 @@
               <mat-radio-group aria-label="Select an option">
                 <div class="row mb-3">
                   <div class="col-lg-6" style="padding-left: unset">
-                    <mat-radio-button value="1">Popularity</mat-radio-button>
-                    <mat-radio-button value="2">Start Rating</mat-radio-button>
+                    <mat-radio-button value="popularity" checked>Popularity</mat-radio-button>
+                    <mat-radio-button value="starRating">Start Rating</mat-radio-button>
                   </div>
 
                   <div class="col-lg-6">
-                    <mat-radio-button value="1">Best Review</mat-radio-button>
-                    <mat-radio-button value="2">Most Review First</mat-radio-button>
+                    <mat-radio-button value="bestReview">Best Review</mat-radio-button>
+                    <mat-radio-button value="mostReviewFirst">Most Review First</mat-radio-button>
                   </div>
                 </div>
               </mat-radio-group>
@@ -241,13 +241,13 @@
               <mat-radio-group aria-label="Select an option">
                 <div class="row mb-3">
                   <div class="col-lg-6" style="padding-left: unset">
-                    <mat-radio-button value="1">Any Experience</mat-radio-button>
-                    <mat-radio-button value="2">5-10 Years</mat-radio-button>
+                    <mat-radio-button value="any" checked>Any Experience</mat-radio-button>
+                    <mat-radio-button value="intermediate">5-10 Years</mat-radio-button>
                   </div>
 
                   <div class="col-lg-6">
-                    <mat-radio-button value="1">2-5 Years</mat-radio-button>
-                    <mat-radio-button value="2">10+ Experience</mat-radio-button>
+                    <mat-radio-button value="beginner">2-5 Years</mat-radio-button>
+                    <mat-radio-button value="expert">10+ Experience</mat-radio-button>
                   </div>
                 </div>
               </mat-radio-group>
@@ -256,11 +256,11 @@
               <mat-radio-group aria-label="Select an option">
                 <div class="row mb-3">
                   <div class="col-lg-6" style="padding-left: unset">
-                    <mat-radio-button value="1">Male</mat-radio-button>
+                    <mat-radio-button value="male" checked>Male</mat-radio-button>
                   </div>
 
                   <div class="col-lg-6">
-                    <mat-radio-button value="1">Female</mat-radio-button>
+                    <mat-radio-button value="female">Female</mat-radio-button>
                   </div>
                 </div>
               </mat-radio-group>
@@ -280,7 +280,6 @@
         </div>
       </div>
     </div>
-    <!-- filter popup  ends-->
   </div>
   <!-- add-member-popup ends -->
 </div>

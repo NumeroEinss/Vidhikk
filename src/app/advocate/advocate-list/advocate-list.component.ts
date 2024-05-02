@@ -125,6 +125,18 @@ export class AdvocateListComponent {
     }
   ];
 
+  places = [
+    { value: 'indore', viewValue: 'Indore' },
+    { value: 'bhopal', viewValue: 'Bhopal' },
+    { value: 'mumbai', viewValue: 'Mumbai' },
+  ];
+
+  practiseField = [
+    { value: 'civil', viewValue: 'Civil' },
+    { value: 'finance', viewValue: 'Finance' },
+    { value: 'civil', viewValue: 'Civil' },
+  ];
+
   constructor(private _router: Router) { }
 
   viewLawyerDetails() {

@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackAlertService } from '../../shared/services/snack-alert.service';
+import { GQLConfig } from '../../graphql.operations';
+import { ApolloService } from '../../shared/services/apollo.service';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +21,13 @@ export class LoginComponent {
   hide: boolean = true;
   selectedIndex: number = 0;
 
+  selectedUserType: any;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _router: Router,
-    private _toastMessage: SnackAlertService
+    private _toastMessage: SnackAlertService,
+    private _apolloService: ApolloService
   ) {
     this.loginForm = this._formBuilder.group({
       userType: new FormControl('', [Validators.required]),
@@ -94,45 +99,73 @@ export class LoginComponent {
   }
 
   login(formType: string) {
-    if (formType == 'form') {
-      if (this.loginForm.valid) {
-        if (this.loginFrmCtrl.userType.value == "user") {
-          this._router.navigate(['/user/activity-feed']);
+    if (formType == 'form2') {
+      if (this.loginForm2.valid) {
+        let reqBody = {
+          mobile: this.loginForm2.controls.mobile.value,
+          password: this.loginForm2.controls.password.value,
+          userType: this.selectedUserType
         }
-        else if (this.loginFrmCtrl.userType.value == "lawyer") {
-          this._router.navigate(['/lawyer/activity-feed']);
-        }
-        else if (this.loginFrmCtrl.userType.value == "seller") {
-          // this._router.navigate(['/user/activity-feed']);
-          this._toastMessage.message('Please select different user !!');
-        }
-        else if (this.loginFrmCtrl.userType.value == "judge") {
-          this._router.navigate(['/judge/activity-feed']);
-        }
+        this._apolloService.mutate(GQLConfig.loginToMobile, reqBody).subscribe(data => {
+          if (data.data != null) {
+            console.log(data.data)
+            if (data.data.login.status == 200) {
+              this._toastMessage.message(data.data.login.message);
+              if (this.loginFrmCtrl2.userType.value == "USER") {
+                this._router.navigate(['/user/activity-feed']);
+              }
+              else if (this.loginFrmCtrl2.userType.value == "LAWYER") {
+                this._router.navigate(['/lawyer/activity-feed']);
+              }
+              else if (this.loginFrmCtrl2.userType.value == "SELLER") {
+                // this._router.navigate(['/user/activity-feed']);
+                this._toastMessage.message('Please select different user !!');
+              }
+              else if (this.loginFrmCtrl2.userType.value == "JUDGE") {
+                this._router.navigate(['/judge/activity-feed']);
+              }
+            }
+            else {
+              this._toastMessage.error(data.data.login.message);
+            }
+          }
+        })
+
       }
       else {
         this._toastMessage.error('Please Fill All Fields Properly!!');
       }
     }
-    else if (formType == 'form2') {
-      if (this.loginForm2.valid) {
-
-        if (this.loginFrmCtrl2.userType.value == "user") {
-          this._router.navigate(['/user/activity-feed']);
+    else if (formType == 'form') {
+      if (this.loginForm.valid) {
+        let reqBody = {
+          email: this.loginForm.controls.email.value,
+          password: this.loginForm.controls.password.value,
+          userType: this.selectedUserType
         }
-
-        else if (this.loginFrmCtrl2.userType.value == "lawyer") {
-          this._router.navigate(['/lawyer/activity-feed']); ''
-        }
-
-        else if (this.loginFrmCtrl2.userType.value == "seller") {
-          // this._router.navigate(['/user/activity-feed']);
-          this._toastMessage.message('Please select different user !!');
-        }
-
-        else if (this.loginFrmCtrl2.userType.value == "judge") {
-          this._router.navigate(['/judge/activity-feed']);
-        }
+        this._apolloService.mutate(GQLConfig.loginToEmail, reqBody).subscribe(data => {
+          if (data.data != null) {
+            if (data.data.login.status == 200) {
+              this._toastMessage.message(data.data.login.message);
+              if (this.loginFrmCtrl.userType.value == "USER") {
+                this._router.navigate(['/user/activity-feed']);
+              }
+              else if (this.loginFrmCtrl.userType.value == "LAWYER") {
+                this._router.navigate(['/lawyer/activity-feed']);
+              }
+              else if (this.loginFrmCtrl.userType.value == "SELLER") {
+                // this._router.navigate(['/user/activity-feed']);
+                this._toastMessage.message('Please select different user !!');
+              }
+              else if (this.loginFrmCtrl.userType.value == "JUDGE") {
+                this._router.navigate(['/judge/activity-feed']);
+              }
+            }
+            else {
+              this._toastMessage.error(data.data.login.message);
+            }
+          }
+        })
       }
       else {
         this._toastMessage.error('Please Fill All Fields Properly!!');
@@ -141,5 +174,9 @@ export class LoginComponent {
     else {
       this._toastMessage.error('Please Fill All Fields Properly!!');
     }
+  }
+
+  redirectToForgot() {
+    this._router.navigateByUrl('/auth/forgotPassword');
   }
 }
