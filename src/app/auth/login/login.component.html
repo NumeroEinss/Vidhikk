@@ -17,10 +17,10 @@
           <mat-form-field appearance="outline" class="mt-3">
             <span matPrefix><img src="../../../assets/images/icons/people-icon.svg" alt="" srcset="" /></span>
             <mat-select placeholder=" I am what ?" formControlName="userType">
-              <mat-option value="judge">Judge</mat-option>
-              <mat-option value="lawyer" selected>Lawyer</mat-option>
-              <mat-option value="user">User</mat-option>
-              <mat-option value="seller">Seller</mat-option>
+              <mat-option value="JUDGE">Judge</mat-option>
+              <mat-option value="LAWYER" selected>Lawyer</mat-option>
+              <mat-option value="USER">User</mat-option>
+              <mat-option value="SELLER">Seller</mat-option>
             </mat-select>
             <mat-error *ngIf="loginForm2.controls['userType'].hasError('required')">User Type is Required</mat-error>
           </mat-form-field>
@@ -52,7 +52,8 @@
           </mat-form-field>
 
           <div class="row">
-            <a class="text-align-right forgot-password" routerLink="/auth/forgotPassword">Forgot Password?</a>
+            <a class="text-align-right forgot-password" (click)="forgotPassword('form2')" style="cursor:pointer">Forgot
+              Password?</a>
           </div>
           <div class="text-center mt-3">
             <button mat-raised-button color="primary w-100" (click)="login('form2')">
@@ -72,10 +73,10 @@
           <mat-form-field appearance="outline" class="mt-3">
             <span matPrefix><img src="../../../assets/images/icons/people-icon.svg" alt="" /></span>
             <mat-select placeholder=" I am what ?" formControlName="userType">
-              <mat-option value="judge">Judge</mat-option>
-              <mat-option value="lawyer" selected>Lawyer</mat-option>
-              <mat-option value="user">User</mat-option>
-              <mat-option value="seller">Seller</mat-option>
+              <mat-option value="JUDGE">Judge</mat-option>
+              <mat-option value="LAWYER" selected>Lawyer</mat-option>
+              <mat-option value="USER">User</mat-option>
+              <mat-option value="SELLER">Seller</mat-option>
             </mat-select>
             <mat-error *ngIf="loginForm.controls['userType'].hasError('required')">User Type is Required</mat-error>
           </mat-form-field>
@@ -102,7 +103,8 @@
           </mat-form-field>
 
           <div class="row">
-            <a class="text-align-right forgot-password" [routerLink]="'/auth/forgotPassword'">Forgot Password?</a>
+            <a class="text-align-right forgot-password" (click)="forgotPassword('form')" style="cursor:pointer">Forgot
+              Password?</a>
           </div>
 
           <div class="mt-3">

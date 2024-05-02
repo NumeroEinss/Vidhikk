@@ -30,7 +30,7 @@ export class SignupComponent {
   filteredField: any = [];
   displayField: any = [];
 
-  userType: string = "lawyer";
+  userType: string = "LAWYER";
   userForm: FormGroup;
   judgeForm: FormGroup;
   userImage: any;
@@ -347,11 +347,11 @@ export class SignupComponent {
     this.lawyerForm.controls.email.setValidators([Validators.email]);
     this.lawyerForm.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
     this.lawyerForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
-    this.lawyerForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword]);
+    this.lawyerForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword()]);
 
     this.userForm = this._fb.group(new UserSignupModel);
     this.userForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
-    this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword]);
+    this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateUserConfirmPassword()]);
     this.judgeForm = this._fb.group(new JudgeSignupModel);
   }
 
@@ -378,11 +378,20 @@ export class SignupComponent {
 
   validateConfirmPassword(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      if (!value) {
+      if (!control.value) {
         return null;
       }
-      const passwordValid = control.value == this.lawyerForm.controls.password.value;
+      const passwordValid = (control.value == this.lawyerForm.controls.password.value);
+      return !passwordValid ? { passwordMatch: true } : null;
+    }
+  }
+
+  validateUserConfirmPassword(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const passwordValid = (control.value == this.userForm.controls.password.value);
       return !passwordValid ? { passwordMatch: true } : null;
     }
   }
@@ -456,7 +465,7 @@ export class SignupComponent {
     this.judgeFrmCtrl.courtName.setValue('');
   }
 
-  get judgeFrmCtrl(){
+  get judgeFrmCtrl() {
     return this.judgeForm.controls;
   }
 
@@ -554,6 +563,7 @@ export class SignupComponent {
             let el = document.getElementById('closeOtpModalButton') as HTMLElement;
             el.click();
             this._toastMessage.success(objEmailOtp.data.verifyOtp.message);
+            e = '';
           }
           else {
             this._toastMessage.error(objEmailOtp.data.verifyOtp.message)
@@ -568,23 +578,23 @@ export class SignupComponent {
   }
 
   userSignUp() {
-    let reqObj={
-      userType :this.userType,
-      name : this.userForm.controls.name.value,
-      mobile : this.userForm.controls.phoneNumber.value,
-      isPrimaryContactWhatsapp : this.userForm.controls.isPrimaryContactWhatsapp.value,
-      secondaryContact : this.userForm.controls.secondaryContact.value,
-      isSecondaryContactWhatsapp : this.userForm.controls.isSecondaryContactWhatsapp.value,
-      address : this.userForm.controls.address.value,
-      city : this.userForm.controls.city.value,
-      state : this.userForm.controls.state.value,
-      email : this.userForm.controls.email.value,
-      password : this.userForm.controls.password.value,
-      confirmPassword : this.userForm.controls.confirmPassword.value,
+    let reqObj = {
+      userType: this.userType,
+      name: this.userForm.controls.name.value,
+      mobile: this.userForm.controls.phoneNumber.value,
+      isPrimaryContactWhatsapp: this.userForm.controls.isPrimaryContactWhatsapp.value,
+      secondaryContact: this.userForm.controls.secondaryContact.value,
+      isSecondaryContactWhatsapp: this.userForm.controls.isSecondaryContactWhatsapp.value,
+      address: this.userForm.controls.address.value,
+      city: this.userForm.controls.city.value,
+      state: this.userForm.controls.state.value,
+      email: this.userForm.controls.email.value,
+      password: this.userForm.controls.password.value,
+      confirmPassword: this.userForm.controls.confirmPassword.value,
     }
     this._apolloService.mutate(GQLConfig.createUser, reqObj).subscribe(data => {
       if (data.data != null) {
-        if (data.data.createUser.status == 200 ||201) {
+        if (data.data.createUser.status == 200 || 201) {
           this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
           // this._router.navigate(['/auth/login']);
           setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);

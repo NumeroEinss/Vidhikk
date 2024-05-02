@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { forgotModel2 } from '../../common/forgot-password.model';
 import { SnackAlertService } from '../../shared/services/snack-alert.service';
 import { GQLConfig } from '../../graphql.operations';
@@ -17,34 +17,63 @@ export class CreateNewPasswordComponent {
   setNewPasswordForm: FormGroup;
   hide: boolean = true;
   hideConfirmPassword: boolean = true;
+  routerState: any;
 
-  constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService, private _router: Router, 
-     private _apolloService: ApolloService, private AuthService: AuthService) {
+  constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService, private _router: Router,
+    private _apolloService: ApolloService, private AuthService: AuthService,) {
     this.setNewPasswordForm = this._formBuilder.group(new forgotModel2());
-    this.forgotFrmCtrl2['setPassword'].setValidators([Validators.required]);
-    this.forgotFrmCtrl2['confirmPassword'].setValidators([Validators.required]);
+    this.setNewPasswordFrmCtrl.setPassword.setValidators([Validators.required,Validators.minLength(10)]);
+    this.setNewPasswordFrmCtrl.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword()]);
+    this.routerState = this._router.getCurrentNavigation()?.extras.state;
+    if (this.routerState == undefined) {
+      this._router.navigateByUrl('auth/forgotPassword');
+    }
   }
 
-  get forgotFrmCtrl2() {
+  get setNewPasswordFrmCtrl() {
     return this.setNewPasswordForm.controls;
   }
 
-  
-  resetPassword(){
-    let reqBody = {
-      password : this.setNewPasswordForm.controls.setPassword.value,
-      confirmPassword : this.setNewPasswordForm.controls.confirmPassword.value
+
+  resetPassword() {
+    let reqBody = {};
+    let query: any;
+    if (this.routerState.method == "mobile") {
+      reqBody = {
+        password: this.setNewPasswordForm.controls.setPassword.value,
+        confirmPassword: this.setNewPasswordForm.controls.confirmPassword.value,
+        mobile: this.routerState.mobile
+      }
+      query = GQLConfig.resetPasswordMobile;
     }
-    this._apolloService.mutate(GQLConfig.resetPasswordMobile, reqBody).subscribe(data=>{
-      if(data.data !=null){
-        if(data.data.resetPassword.status == 200){
+    else if (this.routerState.method == "email") {
+      reqBody = {
+        password: this.setNewPasswordForm.controls.setPassword.value,
+        confirmPassword: this.setNewPasswordForm.controls.confirmPassword.value,
+        email: this.routerState.email
+      }
+      query = GQLConfig.resetPasswordEmail;
+    }
+    this._apolloService.mutate(query, reqBody).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.resetPassword.status == 200) {
           this._toastMessage.message(data.data.resetPassword.message);
-          this._router.navigate(['/auth/resetPassword']);
+          this._router.navigate(['/auth/login']);
         }
-        else{
+        else {
           this._toastMessage.message(data.data.resetPassword.message)
         }
       }
     })
+  }
+
+  validateConfirmPassword(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const passwordValid = (control.value == this.setNewPasswordForm.controls.setPassword.value);
+      return !passwordValid ? { passwordMatch: true } : null;
+    }
   }
 }

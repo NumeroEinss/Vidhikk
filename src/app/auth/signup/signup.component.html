@@ -55,13 +55,13 @@
       <div class="d-flex" style="flex-direction: column;" *ngIf="otpVerified">
         <mat-label style="color:#8798AD">User Type</mat-label>
         <mat-radio-group aria-label="User Type" class="mb-2" [(ngModel)]="userType">
-          <mat-radio-button value="judge">Judge</mat-radio-button>
-          <mat-radio-button value="lawyer" checked>Lawyer</mat-radio-button>
-          <mat-radio-button value="user">User</mat-radio-button>
-          <mat-radio-button value="seller">Seller</mat-radio-button>
+          <mat-radio-button value="JUDGE">Judge</mat-radio-button>
+          <mat-radio-button value="LAWYER" checked>Lawyer</mat-radio-button>
+          <mat-radio-button value="USER">User</mat-radio-button>
+          <mat-radio-button value="SELLER">Seller</mat-radio-button>
         </mat-radio-group>
       </div>
-      <form [formGroup]="lawyerForm" class="col mt-3" *ngIf="otpVerified && userType =='lawyer'" class="register-form">
+      <form [formGroup]="lawyerForm" class="col mt-3" *ngIf="otpVerified && userType =='LAWYER'" class="register-form">
         <div class="profile-container">
           <img class="profile" [src]="userImage" />
           <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
@@ -227,7 +227,7 @@
               hideConfirmPassword ? "visibility_off" : "visibility"
               }}</mat-icon>
           </button>
-          <mat-error *ngIf="lawyerForm.controls.confirmPassword.errors?.['required']">Confirm Password is Required
+          <mat-error *ngIf="lawyerForm.controls.confirmPassword.errors?.required">Confirm Password is Required
             !!</mat-error>
           <mat-error *ngIf="
               lawyerForm.controls.confirmPassword.errors?.passwordMatch
@@ -323,15 +323,15 @@
 
         <div class="mt-3">
           <button mat-raised-button color="primary w-100" data-bs-toggle="modal" data-bs-target="#accVerificationModal"
-            [disabled]="!lawyerForm.valid && !emailOtpVerified">
+            *ngIf="lawyerForm.valid && emailOtpVerified">
             Continue</button><br />
         </div>
       </form>
 
-      <form [formGroup]="userForm" class="col mt-3" *ngIf="otpVerified && userType =='user'" class="register-form">
+      <form [formGroup]="userForm" class="col mt-3" *ngIf="otpVerified && userType =='USER'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="" />
-          <input type="file" #file accept="image/png, image/jpeg" />
+          <img class="profile" [src]="userImage" />
+          <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
           </div>
@@ -456,16 +456,16 @@
         </mat-form-field>
 
         <div class="mt-3">
-          <button mat-raised-button color="primary w-100" [disabled]="!userForm.valid && !emailOtpVerified"
+          <button mat-raised-button color="primary w-100" *ngIf="userForm.valid && emailOtpVerified"
             (click)="userSignUp()">
             Continue</button><br />
         </div>
       </form>
 
-      <form [formGroup]="judgeForm" class="col mt-3" *ngIf="otpVerified && userType =='judge'" class="register-form">
+      <form [formGroup]="judgeForm" class="col mt-3" *ngIf="otpVerified && userType =='JUDGE'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="" />
-          <input type="file" #file accept="image/png, image/jpeg" />
+          <img class="profile" [src]="userImage" />
+          <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
           </div>
@@ -560,28 +560,34 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select Current State" formControlName="currentState" (selectionChange)="onStateChange($event.value)"  required>
-            <mat-option *ngFor="let state of states" [value]="state.value" >
+          <mat-select placeholder="Select Current State" formControlName="currentState"
+            (selectionChange)="onStateChange($event.value)" required>
+            <mat-option *ngFor="let state of states" [value]="state.value">
               {{ state.viewValue }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="judgeForm.controls['currentState'].hasError('required')">Current State is Required</mat-error>
+          <mat-error *ngIf="judgeForm.controls['currentState'].hasError('required')">Current State is
+            Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select Current District" formControlName="currentDistrict" (selectionChange)="onDistrictChange($event.value)" required>
-            <mat-option *ngFor="let district of filteredDistricts" [value]="district.value" >
+          <mat-select placeholder="Select Current District" formControlName="currentDistrict"
+            (selectionChange)="onDistrictChange($event.value)" required>
+            <mat-option *ngFor="let district of filteredDistricts" [value]="district.value">
               {{ district.viewValue }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="judgeForm.controls['currentDistrict'].hasError('required')">Current District is Required</mat-error>
+          <mat-error *ngIf="judgeForm.controls['currentDistrict'].hasError('required')">Current District is
+            Required</mat-error>
         </mat-form-field>
 
 
         <mat-form-field appearance="outline">
-          <span matPrefix><mat-icon><img src="../../../assets/images/icons/stateBar-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select Court Type" formControlName="courtType"  (selectionChange)="onCourtTypeChange($event.value)" required>
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/stateBar-icon.svg"
+                alt="" /></mat-icon></span>
+          <mat-select placeholder="Select Court Type" formControlName="courtType"
+            (selectionChange)="onCourtTypeChange($event.value)" required>
             <mat-option *ngFor="let type of filteredCourtTypes" [value]="type.value">
               {{ type.viewValue }}
             </mat-option>
@@ -591,7 +597,8 @@
 
 
         <mat-form-field appearance="outline">
-          <span matPrefix><mat-icon><img src="../../../assets/images/icons/stateBar-icon.svg" alt="" /></mat-icon></span>
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/stateBar-icon.svg"
+                alt="" /></mat-icon></span>
           <mat-select placeholder="Select Court Name" formControlName="courtName" required>
             <mat-option *ngFor="let name of filteredCourtNames" [value]="name.value">
               {{ name.viewValue }}
@@ -634,41 +641,41 @@
         </mat-form-field>
 
 
-           <mat-form-field appearance="outline">
-                <mat-select placeholder="Select Security Question" formControlName="question" required>
-                    <mat-option *ngFor="let qus of queries" [value]="qus.value">
-                        {{ qus.viewValue }}
-                    </mat-option>
-                </mat-select>
-                <span matPrefix><mat-icon>receipt_long</mat-icon></span>
-                <mat-error *ngIf="judgeForm.controls['question'].hasError('required')">Question is
-                    Required</mat-error>
-            </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select Security Question" formControlName="question" required>
+            <mat-option *ngFor="let qus of queries" [value]="qus.value">
+              {{ qus.viewValue }}
+            </mat-option>
+          </mat-select>
+          <span matPrefix><mat-icon>receipt_long</mat-icon></span>
+          <mat-error *ngIf="judgeForm.controls['question'].hasError('required')">Question is
+            Required</mat-error>
+        </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <input matInput placeholder="Enter Your Answer" formControlName="answer" required />
-                <span matPrefix><mat-icon>message</mat-icon></span>
-                <mat-error *ngIf="judgeForm.controls['answer'].hasError('required')">Answer is Required</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-select placeholder="Select Security Question" formControlName="question2" required>
-                    <mat-option *ngFor="let qus of queries" [value]="qus.value">
-                        {{ qus.viewValue }}
-                    </mat-option>
-                </mat-select>
-                <span matPrefix><mat-icon>receipt_long</mat-icon></span>
-                <mat-error *ngIf="judgeForm.controls['question2'].hasError('required')">Question is
-                    Required</mat-error>
-            </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Enter Your Answer" formControlName="answer" required />
+          <span matPrefix><mat-icon>message</mat-icon></span>
+          <mat-error *ngIf="judgeForm.controls['answer'].hasError('required')">Answer is Required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select Security Question" formControlName="question2" required>
+            <mat-option *ngFor="let qus of queries" [value]="qus.value">
+              {{ qus.viewValue }}
+            </mat-option>
+          </mat-select>
+          <span matPrefix><mat-icon>receipt_long</mat-icon></span>
+          <mat-error *ngIf="judgeForm.controls['question2'].hasError('required')">Question is
+            Required</mat-error>
+        </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <input matInput placeholder="Enter Your Answer" formControlName="answer2" required />
-                <span matPrefix><mat-icon>message</mat-icon></span>
-                <mat-error *ngIf="judgeForm.controls['answer2'].hasError('required')">Answer is Required</mat-error>
-            </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Enter Your Answer" formControlName="answer2" required />
+          <span matPrefix><mat-icon>message</mat-icon></span>
+          <mat-error *ngIf="judgeForm.controls['answer2'].hasError('required')">Answer is Required</mat-error>
+        </mat-form-field>
 
         <div class="mt-3">
-          <button mat-raised-button color="primary w-100" routerLink="/auth/login" [disabled]="!judgeForm.valid">
+          <button mat-raised-button color="primary w-100" routerLink="/auth/login" *ngIf="judgeForm.valid">
             Continue</button><br />
         </div>
       </form>

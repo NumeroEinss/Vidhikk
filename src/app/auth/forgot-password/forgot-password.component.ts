@@ -42,7 +42,7 @@ export class ForgotPasswordComponent {
   isUser: boolean = false;
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService, private _router: Router,
-     private _apolloService: ApolloService,  private _authService: AuthService) {
+    private _apolloService: ApolloService) {
     this.forgotPasswordForm = this._formBuilder.group(new forgotModel());
     this.forgotFrmCtrl['mobile'].setValidators([
       Validators.required,
@@ -128,7 +128,7 @@ export class ForgotPasswordComponent {
     })
   }
 
-  resendOtpOnEmail(){
+  resendOtpOnEmail() {
     let reqBody = {
       email: this.forgotPasswordForm1.controls.email.value
     }
@@ -171,7 +171,11 @@ export class ForgotPasswordComponent {
       if (data.data != null) {
         if (data.data.forgotPasswordVerifyOtp.status == 200) {
           this._toastMessage.message(data.data.forgotPasswordVerifyOtp.message);
-          this._router.navigate(['/auth/createPassword']);
+          const extras = {
+            mobile: this.forgotPasswordForm.controls.mobile.value,
+            method: "mobile"
+          }
+          this._router.navigate(['/auth/createPassword'],{state:extras});
         }
         else {
           this._toastMessage.error(data.data.forgotPasswordVerifyOtp.message);
@@ -200,7 +204,7 @@ export class ForgotPasswordComponent {
     })
   }
 
-  verifyEmailOtp(){
+  verifyEmailOtp() {
     // this.AuthService.email = this.forgotPasswordForm1.controls.email.value;
     let reqBody = {
       email: this.forgotPasswordForm1.controls.email.value,
@@ -211,7 +215,11 @@ export class ForgotPasswordComponent {
       if (data.data != null) {
         if (data.data.forgotPasswordVerifyOtp.status == 200) {
           this._toastMessage.message(data.data.forgotPasswordVerifyOtp.status, data.data.forgotPasswordVerifyOtp.message);
-          this._router.navigate(['/auth/createPassword']);
+          const extras = {
+            email: this.forgotPasswordForm1.controls.email.value,
+            method: "email"
+          }
+          this._router.navigate(['/auth/createPassword'], { state: extras });
         }
         else {
           this._toastMessage.error(data.data.forgotPasswordVerifyOtp.message);

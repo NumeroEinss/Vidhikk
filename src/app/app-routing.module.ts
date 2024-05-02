@@ -41,13 +41,13 @@ const routes: Routes = [
     path: 'lawyer',
     component: LawyerLayoutComponent,
     loadChildren: () => import('./lawyer-layout/lawyer-layout.module').then(m => m.LawyerLayoutModule),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'user',
     component: UserLayoutComponent,
     loadChildren: () => import('./user-layout/user-layout.module').then(m => m.UserLayoutModule),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   // {
   //   path: 'seller',
@@ -59,7 +59,7 @@ const routes: Routes = [
     path: 'judge',
     component: JudgeLayoutComponent,
     loadChildren: () => import('./judge-layout/judge-layout.module').then(m => m.JudgeLayoutModule),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
