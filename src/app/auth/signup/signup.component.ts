@@ -9,6 +9,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { Router } from '@angular/router';
+import { NgOtpInputComponent } from 'ng-otp-input';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
 export class SignupComponent {
 
   @ViewChild('otpDialog', { static: false }) otpDialog!: TemplateRef<any>;
-  // @ViewChild('fieldInput') fieldInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('ngOtpInput', { static: false }) ngOtpInput!: NgOtpInputComponent;
   signupForm: FormGroup;
   lawyerForm: FormGroup;
   otpVerified: boolean = false;
@@ -35,6 +36,7 @@ export class SignupComponent {
   judgeForm: FormGroup;
   userImage: any;
   emailOtpVerified: boolean = false;
+  otp: string = "";
 
   cities: any[] = [
     { value: 'indore', viewValue: 'Indore' },
@@ -501,9 +503,6 @@ export class SignupComponent {
           this.otpVerified = !this.otpVerified;
           this.lawyerForm.controls.phoneNumber.patchValue(this.SignupFrmCtrl.mobile.value);
           this.userForm.controls.phoneNumber.patchValue(this.SignupFrmCtrl.mobile.value);
-          console.log(this.lawyerForm.value);
-          console.log(this.userForm.value);
-
         }
         else {
           this._toastMessage.error(data.data.verifyOtp.message);
@@ -531,16 +530,26 @@ export class SignupComponent {
 
   //sendOtpEmail
   sendOtpForEmail() {
-    let data = {
-      email: this.userForm.controls.email.value,
-      mobile: this.userForm.controls.phoneNumber.value
-    };
+    let data = {}
+    if (this.userType == "USER") {
+      data = {
+        email: this.userForm.controls.email.value,
+        mobile: this.userForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "LAWYER") {
+      data = {
+        email: this.lawyerForm.controls.email.value,
+        mobile: this.lawyerForm.controls.phoneNumber.value
+      };
+    }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
       if (objEmailOtp.data != null) {
         if (objEmailOtp.data.sendOtp.status == 200) {
           let el = document.getElementById('otpModalButton') as HTMLElement;
           el.click();
           this._toastMessage.message(objEmailOtp.data.sendOtp.message);
+          this.ngOtpInput.setValue('');
         }
         else {
           this._toastMessage.error(objEmailOtp.data.sendOtp.message);
@@ -550,20 +559,30 @@ export class SignupComponent {
   }
 
   onOtpChange(e: any) {
-    if (e.length == 6) {
-      let data = {
-        email: this.userForm.controls.email.value,
-        otp: e
-      };
+    if (e.length == 6 && !this.emailOtpVerified) {
+      let data = {};
+      if (this.userType == "USER") {
+        data = {
+          email: this.userForm.controls.email.value,
+          otp: e
+        };
+      }
+      else if (this.userType == "LAWYER") {
+        data = {
+          email: this.lawyerForm.controls.email.value,
+          otp: e
+        };
+      }
       this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
-        console.log(objEmailOtp, objEmailOtp)
         if (objEmailOtp.data != null) {
+
+          console.log(objEmailOtp);
           if (objEmailOtp.data.verifyOtp.status == 200) {
             this.emailOtpVerified = true;
             let el = document.getElementById('closeOtpModalButton') as HTMLElement;
             el.click();
             this._toastMessage.success(objEmailOtp.data.verifyOtp.message);
-            e = '';
+            this.ngOtpInput.setValue('');
           }
           else {
             this._toastMessage.error(objEmailOtp.data.verifyOtp.message)
@@ -594,13 +613,63 @@ export class SignupComponent {
     }
     this._apolloService.mutate(GQLConfig.createUser, reqObj).subscribe(data => {
       if (data.data != null) {
-        if (data.data.createUser.status == 200 || 201) {
+        if (data.data.createUser.status == 200) {
           this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
           // this._router.navigate(['/auth/login']);
           setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
         }
         else {
           this._toastMessage.error(data.data.createUser.message);
+        }
+      }
+    })
+  }
+
+  lawyerSignup() {
+    // accountVerificationButton
+    let reqObj = {
+      fatherName: this.lawyerForm.controls.fatherName.value,
+      userType: this.userType,
+      lawyerName: this.lawyerForm.controls.name.value,
+      city: this.lawyerForm.controls.city.value,
+      state: this.lawyerForm.controls.state.value,
+      email: this.lawyerForm.controls.email.value,
+      password: this.lawyerForm.controls.password.value,
+      confirmPassword: this.lawyerForm.controls.confirmPassword.value,
+      // question: this.lawyerForm.controls.question.value,
+      // answer: this.lawyerForm.controls.answer.value,
+      // question2: this.lawyerForm.controls.question2.value,
+      // answer2: this.lawyerForm.controls.answer2.value,
+      primaryContact: this.lawyerForm.controls.phoneNumber.value,
+      isPrimaryContactWhatsapp: this.lawyerForm.controls.isPrimaryContactWhatsapp.value,
+      isPrimaryContactVisible: this.lawyerForm.controls.isPrimaryContactVisible.value,
+      secondaryContact: this.lawyerForm.controls.secondaryContact.value,
+      isSecondaryContactWhatsapp: this.lawyerForm.controls.isSecondaryContactWhatsapp.value,
+      isSecondaryContactVisible: this.lawyerForm.controls.isSecondaryContactVisible.value,
+      isEmailDisplay: this.lawyerForm.controls.isEmailVisible.value,
+      isAddressVisible: this.lawyerForm.controls.isAddressVisible.value,
+      stateBar: this.lawyerForm.controls.stateBar.value,
+      practicingCourt: this.lawyerForm.controls.courtName.value,
+      barLicenseNumber: this.lawyerForm.controls.licenseNo.value,
+      practiceYear: this.lawyerForm.controls.practiceYear.value,
+      practicingField: this.lawyerForm.controls.practiceField.value,
+      orgainization: this.lawyerForm.controls.orgainization.value,
+      coreCompetency: this.lawyerForm.controls.coreCompetency.value,
+      barAddress: this.lawyerForm.controls.barAddress.value,
+      isBarAddressDisplay: this.lawyerForm.controls.isAddressVisible.value,
+      isPrimaryMobileDisplay: this.lawyerForm.controls.isPrimaryContactVisible.value,
+      isSecondaryMobileDisplay: this.lawyerForm.controls.isSecondaryContactVisible.value
+    };
+    this._apolloService.mutate(GQLConfig.createLawyer, reqObj).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.createLawyers.status == 200) {
+          this._toastMessage.success(data.data.createLawyers.message + '. Login to proceed further');
+          // this._router.navigate(['/auth/login']);
+          let btn = document.getElementById('accountVerificationButton') as HTMLElement;
+          btn.click();
+        }
+        else {
+          this._toastMessage.error(data.data.createLawyers.message);
         }
       }
     })

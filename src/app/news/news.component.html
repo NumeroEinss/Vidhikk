@@ -22,13 +22,14 @@
       <div>
         <div class="news-feed-container">
           <div class="d-flex news-feed-section" *ngFor="let news of newsList">
-            <div class="news-image"><img [src]="news.image" alt="noImage" /></div>
+            <div class="news-image"><img [src]="news.image_url" alt="noImage" /></div>
             <div class="news-details">
-              <div class="news-heading">{{ news.heading.substr(0,
-                getHeadingLength())}} {{news.heading.length>getHeadingLength()?'...':''}}</div>
-              <div class="news-description mt-1">{{ news.description.substr(0,getCharLength())}} {{news.description.length>getCharLength()? '...': ''}}</div>
+              <div class="news-heading">{{ news.title?.substr(0,
+                getHeadingLength())}} {{news.title?.length>getHeadingLength()?'...':''}}</div>
+              <div class="news-description mt-1">{{ news.description?.substr(0,getCharLength())}}
+                {{news.description?.length>getCharLength()? '...': ''}}</div>
               <div class="read-more mt-1">
-                <a target="_blank" href="https://sanantonioreport.org/">Read More</a>
+                <a target="_blank" [href]="news.source_url">Read More</a>
               </div>
             </div>
           </div>

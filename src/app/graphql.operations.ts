@@ -164,4 +164,70 @@ export abstract class GQLConfig {
             data
         }
     }`;
+
+
+    static createLawyer = gql`mutation CreateLawyer($userType: String!, $lawyerName: String!, $fatherName: String!, $primaryContact: String!,
+        $isPrimaryContactWhatsapp: Boolean!, $isPrimaryMobileDisplay: Boolean!, $secondaryContact: String!, $isSecondaryContactWhatsapp: Boolean!, $isEmailDisplay: Boolean!,
+        $isSecondaryMobileDisplay: Boolean!, $barAddress: String!, $city: String!, $state: String!, $email: String!, $password: String!, $confirmPassword: String!, $barLicenseNumber: String!,
+        $stateBar: String!, $practiceYear: String!, $coreCompetency: String!, $practicingCourt: String!, $practicingField: [String!]!, $isBarAddressDisplay: Boolean!, $orgainization: String) {
+        createLawyers(input: {
+            userType: $userType,
+            lawyerName: $lawyerName,
+            fatherName: $fatherName,
+            primaryContact: $primaryContact,
+            isPrimaryContactWhatsapp: $isPrimaryContactWhatsapp,
+            isPrimaryMobileDisplay: $isPrimaryMobileDisplay,
+            secondaryContact: $secondaryContact,
+            isSecondaryContactWhatsapp: $isSecondaryContactWhatsapp,
+            isSecondaryMobileDisplay: $isSecondaryMobileDisplay,
+            city: $city,
+            state: $state,
+            email: $email,
+            password: $password,
+            confirmPassword: $confirmPassword,
+            barLicenseNumber: $barLicenseNumber,
+            stateBar: $stateBar,
+            practiceYear: $practiceYear,
+            coreCompetency: $coreCompetency,
+            practicingCourt: $practicingCourt,
+            practicingField: $practicingField,
+            barAddress: $barAddress,
+            isBarAddressDisplay: $isBarAddressDisplay,
+            isEmailDisplay: $isEmailDisplay
+            orgainization: $orgainization
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static addPost = gql`mutation PostLawyerActivity($lawyerId: String!, $title: String!, $description: String!, $likeCount: String!) {
+        postLawyerActivity(input: {
+            lawyerId: $lawyerId,
+            title: $title,
+            description: $description,
+            likeCount: $likeCount
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static getActivityFeed = gql`query {
+        getpostList {
+          status
+          message
+          data
+        }
+    }`;
+
+    static getNewsFeed = gql`query {
+        getNewsFeed {
+          status
+          message
+          data
+        }
+    }`;
 }

@@ -16,6 +16,7 @@ export class UserProfileComponent {
   signupForm2: FormGroup;
   userEditProfileForm: FormGroup;
   userType: string = "";
+  userData: any;
 
   cities: any[] = [
     { value: 'indore', viewValue: 'Indore' },
@@ -70,6 +71,8 @@ export class UserProfileComponent {
     this.userEditFrmCtrl.district.setValidators([Validators.required]);
     this.userEditFrmCtrl.courtType.setValidators([Validators.required]);
     this.userEditFrmCtrl.courtName.setValidators([Validators.required]);
+
+    this.userData = JSON.parse(localStorage.getItem('userData')!);
   }
 
 
@@ -163,7 +166,6 @@ export class UserProfileComponent {
   }
 
   onOtpChange(e: any) {
-    console.log(e);
   }
 
   logout() {

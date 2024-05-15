@@ -46,9 +46,15 @@ export class LoginComponent {
         Validators.minLength(10),
       ]),
     });
-    if (localStorage.getItem('token')) {
-      const userData = JSON.parse(localStorage.getItem('userData') || '');
-      if (userData == '') { }
+    if (localStorage.getItem('vidhikToken')) {
+      let userDataString = localStorage.getItem('userData');
+      let userData: any;
+      if (userDataString !== null) {
+        userData = JSON.parse(userDataString);
+      }
+      if (userData == '' || userData == undefined) {
+        this._router.navigate(['/auth/login']);
+      }
       else if (userData.userType == "USER") {
         this._router.navigate(['/user/activity-feed']);
       }

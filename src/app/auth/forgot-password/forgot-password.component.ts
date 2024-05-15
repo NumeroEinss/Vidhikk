@@ -132,7 +132,6 @@ export class ForgotPasswordComponent {
     let reqBody = {
       email: this.forgotPasswordForm1.controls.email.value
     }
-    console.log(reqBody.email)
     this._apolloService.mutate(GQLConfig.forgotPasswordEmail, reqBody).subscribe(data => {
       if (data.data != null) {
         if (data.data.forgotPassword.status == 200) {
@@ -188,16 +187,12 @@ export class ForgotPasswordComponent {
     let reqBody = {
       email: this.forgotPasswordForm1.controls.email.value
     }
-    console.log(reqBody.email)
     this._apolloService.mutate(GQLConfig.forgotPasswordEmail, reqBody).subscribe(data => {
       if (data.data != null) {
-        console.log(data.data)
         if (data.data.forgotPassword.status == 200) {
-          console.log(data.data.forgotPassword.status)
           this._toastMessage.message(data.data.forgotPassword.message)
         }
         else {
-          console.log(data.data.forgotPassword.status)
           this._toastMessage.error(data.data.forgotPassword.message)
         }
       }
@@ -210,7 +205,6 @@ export class ForgotPasswordComponent {
       email: this.forgotPasswordForm1.controls.email.value,
       otp: this.forgotPasswordForm1.controls.otp.value
     }
-    console.log(reqBody)
     this._apolloService.mutate(GQLConfig.forgotPasswordVerifyOtpEmail, reqBody).subscribe(data => {
       if (data.data != null) {
         if (data.data.forgotPasswordVerifyOtp.status == 200) {

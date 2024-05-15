@@ -24,13 +24,11 @@ export class AuthService {
   login(query: any, variables: any, userType: string) {
     this._apolloService.mutate(query, variables).subscribe(respObj => {
       if (respObj != null) {
-        console.log(respObj.data.login)
         if (respObj.data.login.status == 200) {
           this._toastMessage.success(respObj.data.login.message); //notify the success
           localStorage.setItem('userData', JSON.stringify(respObj.data.login.data)); //set the data to Local Storage
-          localStorage.setItem('token', respObj.data.login.data.accessToken)
+          localStorage.setItem('vidhikToken', respObj.data.login.data.accessToken)
           this.currentUserSubject?.next(respObj.data.login.data);
-          console.log(respObj);
 
           //redirect the user as per the selected type
           if (userType == "USER") {

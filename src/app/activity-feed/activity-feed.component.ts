@@ -5,6 +5,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApolloService } from '../shared/services/apollo.service';
+import { SnackAlertService } from '../shared/services/snack-alert.service';
+import { GQLConfig } from '../graphql.operations';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-activity-feed',
@@ -17,73 +21,15 @@ export class ActivityFeedComponent {
   comment: string = '';
   userType: string = "";
 
-  feedList = [
-    {
-      name: 'Amit Sharma',
-      location: 'Indore, MP',
-      postDate: '4 days ago',
-      heading:
-        'Congratulations to Hamoya Data Science Intership Stage C Winners!',
-      comment:
-        'The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.',
-      likesCount: 'Santosh and 2k others',
-      commentsCount: '21 Comments',
-      comments: [
-        {
-          name: 'lavkush Mishra',
-          location: 'Bhopal, MP',
-          postDate: '2 days ago',
-          comment:
-            'The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.',
-          likesCount: 'Raj and 11 others',
-          commentsCount: '1 Comments',
-        },
-        {
-          name: 'lavkush Mishra',
-          location: 'Bhopal, MP',
-          postDate: '2 days ago',
-          comment:
-            'The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.',
-          likesCount: 'Raj and 11 others',
-          commentsCount: '1 Comments',
-        },
-      ],
-    },
-    {
-      name: 'Amit Sharma',
-      location: 'Indore, MP',
-      postDate: '4 days ago',
-      heading:
-        'Congratulations to Hamoya Data Science Intership Stage C Winners!',
-      comment:
-        'The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.',
-      likesCount: 'Santosh and 2k others',
-      commentsCount: '21 Comments',
-      comments: [
-        {
-          name: 'lavkush Mishra',
-          location: 'Bhopal, MP',
-          postDate: '2 days ago',
-          comment:
-            'The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.',
-          likesCount: 'Raj and 11 others',
-          commentsCount: '1 Comments',
-        },
-        {
-          name: 'lavkush Mishra',
-          location: 'Bhopal, MP',
-          postDate: '2 days ago',
-          comment:
-            'The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.The collapse of the online-advertising market in 2001 made marketing on the Internet seem even less compelling. Website usability, press releases.',
-          likesCount: 'Raj and 11 others',
-          commentsCount: '1 Comments',
-        },
-      ],
-    },
-  ];
+  feedList: any = [];
 
-  constructor(private _activatedRoute: ActivatedRoute, private _router: Router) {
+  post: any = { title: "", description: "" };
+
+  constructor(private _activatedRoute: ActivatedRoute, private _router: Router, private _apolloService: ApolloService,
+    private _toastMessage: SnackAlertService
+  ) {
     this.userType = _router.url.split('/')[1];
+    this.getActivityFeeds();
   }
 
   addComment() {
@@ -98,5 +44,61 @@ export class ActivityFeedComponent {
     this.comment = '';
     let element = document.getElementById('comment-section') as HTMLElement;
     element.scrollTo(0, 1000);
+  }
+
+  addPost() {
+    if (this.post.title == "") {
+      this._toastMessage.error("Post Title is required !!");
+    }
+    else if (this.post.description == "") {
+      this._toastMessage.error("Post Description is required !!");
+    }
+    else {
+      let userData = JSON.parse(localStorage.getItem('userData')!);
+      let reqObj = {
+        lawyerId: userData._id,
+        title: this.post.title,
+        description: this.post.description,
+        likeCount: ""
+      };
+      // setTimeout(() => {
+      this._apolloService.mutate(GQLConfig.addPost, reqObj).subscribe(data => {
+        if (data.data != null) {
+          console.log(data.data)
+          if (data.data.postLawyerActivity.status == 200) {
+            this._toastMessage.success(data.data.postLawyerActivity.message);
+            this.post.title = "";
+            this.post.description = "";
+            this.getActivityFeeds();
+          }
+          else {
+            this._toastMessage.success(data.data.postLawyerActivity.message);
+          }
+        }
+      })
+      // }, 2000)
+    }
+  }
+
+  getActivityFeeds() {
+    console.log('dataBefore')
+    this._apolloService.query(GQLConfig.getActivityFeed).subscribe(data => {
+      console.log(data, 'data')
+      if (data.data != null) {
+        if (data.data.getpostList.status == 200) {
+          this.feedList = data.data.getpostList.data.postList;
+          console.log(data.data.getpostList.data.postList);
+        }
+        else {
+          this._toastMessage.success(data.data.getpostList.message);
+        }
+      }
+    })
+  }
+
+  getDaysAgo(date: Date) {
+    let today: Date = new Date();
+    let daysAgo = Math.floor((today.getTime() - new Date(date).getTime()) / (1000 * 60 * 60 * 24))
+    return daysAgo;
   }
 }

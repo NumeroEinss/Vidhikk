@@ -271,7 +271,6 @@ export class CalendarComponent {
 
   constructor(private _toastMessage: SnackAlertService, _fb: FormBuilder) {
     this.calendarForm = _fb.group(new CalendarModel);
-    console.log(addDays(new Date(), 2), new Date())
   }
 
   editEvent(event: CalendarEvent, selectedEvent: any) {
@@ -305,7 +304,6 @@ export class CalendarComponent {
     slot.timeSlot.forEach((element: any) => {
       this.slot.push(element.slot);
     });
-    console.log(this.slot)
     this.slotDate = {
       _d: slot.date
     };

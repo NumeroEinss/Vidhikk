@@ -219,7 +219,6 @@ export class MembersComponent implements AfterViewInit {
   }
 
   addMember(member: any) {
-    console.log(member)
     this.memberList.unshift(member)
   }
 
