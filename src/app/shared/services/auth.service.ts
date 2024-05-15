@@ -27,7 +27,7 @@ export class AuthService {
         if (respObj.data.login.status == 200) {
           this._toastMessage.success(respObj.data.login.message); //notify the success
           localStorage.setItem('userData', JSON.stringify(respObj.data.login.data)); //set the data to Local Storage
-          localStorage.setItem('token', respObj.data.login.data.accessToken)
+          localStorage.setItem('vidhikToken', respObj.data.login.data.accessToken)
           this.currentUserSubject?.next(respObj.data.login.data);
 
           //redirect the user as per the selected type

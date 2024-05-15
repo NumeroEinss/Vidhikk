@@ -6,7 +6,6 @@ import { PageNotFoundComponent } from './shared/component/page-not-found/page-no
 import { LawyerLayoutComponent } from './lawyer-layout/lawyer-layout.component';
 import { CreateNewPasswordComponent } from './auth/create-new-password/create-new-password.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { UserLayoutComponent } from './user-layout/user-layout.component';
 import { JudgeLayoutComponent } from './judge-layout/judge-layout.component';
@@ -32,10 +31,6 @@ const routes: Routes = [
   {
     path: 'auth/createPassword',
     component: CreateNewPasswordComponent,
-  },
-  {
-    path: 'auth/resetPassword',
-    component: ResetPasswordComponent
   },
   {
     path: 'lawyer',

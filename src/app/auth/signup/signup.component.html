@@ -111,7 +111,7 @@
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/location-icon.svg"
                 alt="" /></mat-icon></span>
           <input type="text" matInput placeholder="Enter your Bar Address" formControlName="barAddress" required />
-          <mat-error *ngIf="lawyerForm.controls.barAddress.hasError('required')">Bar address is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.barAddress.hasError('required')">Address is Required</mat-error>
         </mat-form-field>
 
         <mat-checkbox formControlName="isAddressVisible" [color]="'primary'">
@@ -180,6 +180,8 @@
         <mat-form-field appearance="outline">
           <input matInput placeholder="Enter your email" formControlName="email" (change)="emailOtpVerified=false"
             required />
+          <input matInput placeholder="Enter your email" formControlName="email" (change)="emailOtpVerified=false"
+            required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="lawyerForm.controls.email.hasError('required')">Email is Required</mat-error>
           <mat-error *ngIf="
@@ -198,6 +200,7 @@
           </button>
         </div>
 
+
         <mat-checkbox formControlName="isEmailVisible" [color]="'primary'">
           Display on Profile
         </mat-checkbox>
@@ -205,6 +208,7 @@
         <mat-form-field appearance="outline" class="password">
           <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
             placeholder="Enter Password" (change)="lawyerForm.controls.confirmPassword.patchValue('')" required />
+          placeholder="Enter Password" (change)="lawyerForm.controls.confirmPassword.patchValue('')" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
           <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
@@ -269,21 +273,21 @@
         </mat-form-field>
 
         <mat-form-field class="example-chip-list" appearance="outline">
-          <mat-chip-grid #chipGrid formControlName="practiceField" required>
+          <mat-chip-grid #chipGrid required formControlName="practiceField">
             <mat-chip-row (removed)="remove(field)" *ngFor="let field of displayField">
               {{ field }}
               <button type="button" matChipRemove [attr.aria-label]="'remove ' + field">
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>
-            <input placeholder="" #fieldInput [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+            <input #fieldInput [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes" placeholder="Practising Field" />
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option [value]="item" *ngFor="let item of fields">{{
+                item.viewValue
+                }}</mat-option>
+            </mat-autocomplete>
           </mat-chip-grid>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option [value]="item" *ngFor="let item of fields">{{
-              item.viewValue
-              }}</mat-option>
-          </mat-autocomplete>
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/field-icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="lawyerForm.controls.practiceField.hasError('required')">Practice Field is
             Required</mat-error>
@@ -404,7 +408,8 @@
         </div>
 
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Enter your email" formControlName="email" required />
+          <input matInput placeholder="Enter your email" formControlName="email" (change)="emailOtpVerified=false"
+            required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="userForm.controls.email.hasError('required')">Email is Required</mat-error>
           <mat-error *ngIf="
@@ -425,7 +430,7 @@
 
         <mat-form-field appearance="outline" class="password">
           <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
-            placeholder="Enter Password" required />
+            placeholder="Enter Password" (change)="userForm.controls.confirmPassword.patchValue('')" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
           <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
@@ -536,7 +541,8 @@
         </div>
 
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Enter Email Address" formControlName="email" required />
+          <input matInput placeholder="Enter Email Address" formControlName="email" (change)="emailOtpVerified=false"
+            required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="judgeForm.controls['email'].hasError('required')">Email is Required</mat-error>
           <mat-error *ngIf="
@@ -610,7 +616,7 @@
 
         <mat-form-field appearance="outline" class="password">
           <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
-            placeholder="Enter Password" required />
+            placeholder="Enter Password" required (change)="judgeFrmCtrl.confirmPassword.patchValue('')" />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
           <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
@@ -689,15 +695,18 @@
 </div>
 
 <!--Account Verification Modal -->
+<button id="accountVerificationButton" data-bs-toggle="modal" data-bs-target="#accVerificationModal"
+  class="d-none"></button>
 <div class="modal fade" id="accVerificationModal" tabindex="-1" aria-labelledby="accVerificationModalLabel"
-  aria-hidden="true">
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="accVerificationModalLabel">
           Verify Your Account
         </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          routerLink="/auth/login"></button>
       </div>
       <div class="modal-body">
         <p>
@@ -733,9 +742,10 @@
         <div class="head-text">Enter Verification Code</div>
         <div class="sub-text mt-2 mb-4">
           We sent a 6-digit code to<br />
-          <span class="email mt-2" > {{ userForm.controls.email.value }}</span>
+          <span class="email mt-2"> {{ userForm.controls.email.value }}</span>
         </div>
-        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }" class="mt-2"></ng-otp-input>
+        <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"
+          class="mt-2"></ng-otp-input>
         <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
           <button mat-button color="primary" style="font-size: 12px" class="request-btn" (click)="resendEmailOtp()">
             Request a new Code
@@ -748,7 +758,7 @@
 
 
 <!-- Terms And Services Modal Start -->
-<div class="modal fade" id="termsConditionsModal" tabindex="-1" aria-labelledby="termsConditionsModalLabel"
+<div class=" modal fade" id="termsConditionsModal" tabindex="-1" aria-labelledby="termsConditionsModalLabel"
   aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
     <div class="modal-content">
@@ -760,9 +770,11 @@
         <div style="height: calc(100vh - 153px); margin-bottom: 10px;">
           <ng-scrollbar>
             <div class="policy-container">
-              <div>Welcome to Vidhik. These Terms and Conditions govern your use of the Website, including all features,
+              <div>Welcome to Vidhik. These Terms and Conditions govern your use of the Website, including all
+                features,
                 content, and services provided by Vidhik.<br><br>
-                By accessing or using the Website, you agree to be bound by these Terms. If you do not agree with any
+                By accessing or using the Website, you agree to be bound by these Terms. If you do not agree
+                with any
                 part of these Terms, you may not use the Website.</div>
               <div *ngFor="let terms of termsCondition">
                 <div class="sub-heading">{{terms.subHeading}}</div>
@@ -791,7 +803,8 @@
           <ng-scrollbar>
             <div class="policy-container">
               <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects, uses,
-                maintains, and discloses information collected from users ("you" or "your") of the Vidhik website.</div>
+                maintains, and discloses information collected from users ("you" or "your") of the Vidhik
+                website.</div>
               <div *ngFor="let policy of privacyPolicy">
                 <div class="sub-heading">{{policy.subHeading}}</div>
                 <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
@@ -832,7 +845,8 @@
             </span>
           </li>
           <li class="mb-3">
-            <span class="list-heading">Accuracy of Information: </span><span class="list-description">While we strive to
+            <span class="list-heading">Accuracy of Information: </span><span class="list-description">While we
+              strive to
               provide accurate and
               up-to-date information,
               we make no representations or warranties of any kind, express or
@@ -870,7 +884,8 @@
               <div class="heading">Terms and Conditions</div>
               <div>Welcome to Vidhik. These Terms and Conditions govern your use of the Website, including all
                 features, content, and services provided by Vidhik.<br><br>
-                By accessing or using the Website, you agree to be bound by these Terms. If you do not agree with any
+                By accessing or using the Website, you agree to be bound by these Terms. If you do not agree
+                with any
                 part of these Terms, you may not use the Website.</div>
               <div *ngFor="let terms of termsCondition">
                 <div class="sub-heading">{{terms.subHeading}}</div>
@@ -882,7 +897,8 @@
             <div class="policy-container" id="section2">
               <div class="heading">Privacy Policy</div>
               <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects, uses,
-                maintains, and discloses information collected from users ("you" or "your") of the Vidhik website.
+                maintains, and discloses information collected from users ("you" or "your") of the Vidhik
+                website.
               </div>
               <div *ngFor="let policy of privacyPolicy">
                 <div class="sub-heading">{{policy.subHeading}}</div>
@@ -894,7 +910,8 @@
             <div class="policy-container" id="section3">
               <div class="heading">Cookies Policy</div>
               <div>This Cookies Policy explains how Vidhik ("we", "us", or "our") uses cookies and similar
-                technologies on our website (the "Website"). By using the Website, you consent to the use of cookies
+                technologies on our website (the "Website"). By using the Website, you consent to the use of
+                cookies
                 in accordance with this policy.</div>
               <div *ngFor="let policy of cookiesPolicy ">
                 <div class="sub-heading">{{policy.subHeading}}</div>
@@ -905,7 +922,8 @@
             <!-- Copyrights Section Start -->
             <div class="policy-container" id="section4">
               <div class="heading">Copyrights</div>
-              <div>Welcome to the Copyrights Page of Vidhik ("we", "us", or "our"). This page outlines the copyright
+              <div>Welcome to the Copyrights Page of Vidhik ("we", "us", or "our"). This page outlines the
+                copyright
                 policies and procedures regarding the content available on our website (the "Website").</div>
               <div *ngFor="let rights of copyrights">
                 <div class="sub-heading">{{rights.subHeading}}</div>
@@ -927,8 +945,10 @@
             <!-- Community Standard Section Start -->
             <div class="policy-container" id="section6">
               <div class="heading">Community Standard</div>
-              <div>Welcome to the Community Standards Page of Vidhik ("we", "us", or "our"). This page outlines the
-                standards of behavior and content that govern our online community on our website (the "Website").
+              <div>Welcome to the Community Standards Page of Vidhik ("we", "us", or "our"). This page outlines
+                the
+                standards of behavior and content that govern our online community on our website (the
+                "Website").
               </div>
               <div *ngFor="let policy of communityStandard">
                 <div class="sub-heading">{{policy.subHeading}}</div>
@@ -939,7 +959,8 @@
         </div>
 
 
-        <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I have read and agree to the
+        <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I have read and agree
+            to the
             terms and conditions and
             privacy policy outlined above.</mat-checkbox></div>
 

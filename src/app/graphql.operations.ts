@@ -164,26 +164,21 @@ export abstract class GQLConfig {
         }
     }`;
 
-    // create Lawyer
-    static createLawyer = gql`mutation
-     CreateLawyer($userType: String!, $orgainization:String, $lawyerName: String!, $fatherName: String!, $primaryContact: String!,
-        $isPrimaryContactWhatsapp: Boolean!, $isPrimaryMobileDisplay:Boolean!,  $secondaryContact: String!, $isSecondaryContactWhatsapp: Boolean!,
-        $isSecondaryMobileDisplay: Boolean!, $barAddress: String!, $isBarAddressDisplay:Boolean!, $city: String!,
-        $state: String!, $email: String!, $password: String!, $confirmPassword: String!, $barLicenseNumber: String!, $stateBar: String!,
-        $practiceYear: String!, $coreCompetency: String!, $practicingCourt: String!, $practicingField: [String!]!, $isEmailDisplay: Boolean!) {
+
+    static createLawyer = gql`mutation CreateLawyer($userType: String!, $lawyerName: String!, $fatherName: String!, $primaryContact: String!,
+        $isPrimaryContactWhatsapp: Boolean!, $isPrimaryMobileDisplay: Boolean!, $secondaryContact: String!, $isSecondaryContactWhatsapp: Boolean!, $isEmailDisplay: Boolean!,
+        $isSecondaryMobileDisplay: Boolean!, $barAddress: String!, $city: String!, $state: String!, $email: String!, $password: String!, $confirmPassword: String!, $barLicenseNumber: String!,
+        $stateBar: String!, $practiceYear: String!, $coreCompetency: String!, $practicingCourt: String!, $practicingField: [String!]!, $isBarAddressDisplay: Boolean!, $orgainization: String) {
         createLawyers(input: {
             userType: $userType,
-            orgainization:$orgainization,
             lawyerName: $lawyerName,
             fatherName: $fatherName,
             primaryContact: $primaryContact,
             isPrimaryContactWhatsapp: $isPrimaryContactWhatsapp,
-            isPrimaryMobileDisplay:$isPrimaryMobileDisplay,
+            isPrimaryMobileDisplay: $isPrimaryMobileDisplay,
             secondaryContact: $secondaryContact,
             isSecondaryContactWhatsapp: $isSecondaryContactWhatsapp,
             isSecondaryMobileDisplay: $isSecondaryMobileDisplay,
-            barAddress: $barAddress,
-            isBarAddressDisplay:$isBarAddressDisplay,
             city: $city,
             state: $state,
             email: $email,
@@ -195,22 +190,43 @@ export abstract class GQLConfig {
             coreCompetency: $coreCompetency,
             practicingCourt: $practicingCourt,
             practicingField: $practicingField,
-            isEmailDisplay:$isEmailDisplay
-        }) 
-        {
+            barAddress: $barAddress,
+            isBarAddressDisplay: $isBarAddressDisplay,
+            isEmailDisplay: $isEmailDisplay
+            orgainization: $orgainization
+        }) {
             status
             message
             data
         }
     }`;
 
-    // login by lawyer
-    static LawyerLoginWithMobile = gql`mutation 
-    Login($mobile: String!, $password: String!, $userType: String!) {
-        login(input: { phoneNumber: $mobile, password: $password, userType: $userType }){
+    static addPost = gql`mutation PostLawyerActivity($lawyerId: String!, $title: String!, $description: String!, $likeCount: String!) {
+        postLawyerActivity(input: {
+            lawyerId: $lawyerId,
+            title: $title,
+            description: $description,
+            likeCount: $likeCount
+        }) {
             status
             message
             data
+        }
+    }`;
+
+    static getActivityFeed = gql`query {
+        getpostList {
+          status
+          message
+          data
+        }
+    }`;
+
+    static getNewsFeed = gql`query {
+        getNewsFeed {
+          status
+          message
+          data
         }
     }`;
 }

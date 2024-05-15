@@ -271,7 +271,6 @@ export class CalendarComponent {
 
   constructor(private _toastMessage: SnackAlertService, _fb: FormBuilder) {
     this.calendarForm = _fb.group(new CalendarModel);
-    console.log(addDays(new Date(), 2), new Date())
   }
 
   editEvent(event: CalendarEvent, selectedEvent: any) {

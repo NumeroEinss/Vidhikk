@@ -13,7 +13,7 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   }));
 
   const auth = setContext((operation, context) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('vidhikToken');
 
     if (token === null) {
       return {};

@@ -1,7 +1,5 @@
 export abstract class ApiResourceConfig {
 
-    static baseUrl = "localhost:3002/api/"
-
     static loginWithMobile = "lawyer/addContact";
     static loginWithEmail = "lawyer/loginViaEmail";
     static addContact = "lawyer/addContact";

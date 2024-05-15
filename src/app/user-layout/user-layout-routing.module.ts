@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GlobalSearchComponent } from '../shared/component/global-search/global-search.component';
 import { PageNotFoundComponent } from '../shared/component/page-not-found/page-not-found.component';
+import { ResetPasswordComponent } from '../auth/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
         path: 'transactions',
         loadChildren: () =>
           import('../transactions/transactions.module').then((m) => m.TransactionsModule),
+      },
+      {
+        path: 'resetPassword',
+        component: ResetPasswordComponent
       },
       {
         path: '**',

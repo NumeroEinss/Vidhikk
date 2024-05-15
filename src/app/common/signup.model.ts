@@ -7,7 +7,7 @@ export class SignUpModel {
 
 export class LawyerSignupModel {
     fatherName = new FormControl("", [Validators.required]);
-    userType = new FormControl("lawyer", [Validators.required]);
+    userType = new FormControl("LAWYER", [Validators.required]);
     name = new FormControl("", [Validators.required]);
     barAddress = new FormControl("", [Validators.required]);
     city = new FormControl("", [Validators.required]);
@@ -37,11 +37,11 @@ export class LawyerSignupModel {
 }
 
 export class UserSignupModel {
-    userType = new FormControl("lawyer", [Validators.required]);
+    userType = new FormControl("USER", [Validators.required]);
     name = new FormControl("", [Validators.required]);
     phoneNumber = new FormControl("", [Validators.required]);
     isPrimaryContactWhatsapp = new FormControl(false, [Validators.required]);
-    secondaryContact = new FormControl("", [Validators.required]);
+    secondaryContact = new FormControl("");
     isSecondaryContactWhatsapp = new FormControl(false, [Validators.required]);
     address = new FormControl("", [Validators.required]);
     city = new FormControl("", [Validators.required]);
@@ -52,7 +52,7 @@ export class UserSignupModel {
 }
 
 export class JudgeSignupModel {
-    userType = new FormControl("judge", [Validators.required]);
+    userType = new FormControl("JUDGE", [Validators.required]);
     fullName = new FormControl("", [Validators.required]);
     address = new FormControl("", [Validators.required]);
     state = new FormControl("", [Validators.required]);

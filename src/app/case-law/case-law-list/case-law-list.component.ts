@@ -308,13 +308,11 @@ export class CaseLawListComponent {
   }
 
   closed(e: any) {
-    console.log(e);
   }
 
   updateAllComplete() {}
 
   sort(sortValue: string) {
-    console.log(sortValue);
   }
 
   filterJournal(e: any) {
