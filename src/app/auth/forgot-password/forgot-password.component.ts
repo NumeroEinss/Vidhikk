@@ -38,10 +38,10 @@ export class ForgotPasswordComponent {
   isMobileNoEntered: boolean = false;
   isEmailEntered: boolean = false;
   isVerified: boolean = false;
-  userType : string = 'user';
+  isUser:boolean = false;
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService, private _router: Router,
-     private _apolloService: ApolloService) {
+    private _apolloService: ApolloService) {
     this.forgotPasswordForm = this._formBuilder.group(new forgotModel());
     this.forgotFrmCtrl['mobile'].setValidators([
       Validators.required,
@@ -127,11 +127,10 @@ export class ForgotPasswordComponent {
     })
   }
 
-  resendOtpOnEmail(){
+  resendOtpOnEmail() {
     let reqBody = {
       email: this.forgotPasswordForm1.controls.email.value
     }
-    console.log(reqBody.email)
     this._apolloService.mutate(GQLConfig.forgotPasswordEmail, reqBody).subscribe(data => {
       if (data.data != null) {
         if (data.data.forgotPassword.status == 200) {
@@ -169,7 +168,11 @@ export class ForgotPasswordComponent {
       if (data.data != null) {
         if (data.data.forgotPasswordVerifyOtp.status == 200) {
           this._toastMessage.message(data.data.forgotPasswordVerifyOtp.message);
-          this._router.navigate(['/auth/createPassword'], { queryParams: { mobile: reqBody.mobile }, skipLocationChange: true});
+          const extras = {
+            mobile: this.forgotPasswordForm.controls.mobile.value,
+            method: "mobile"
+          }
+          this._router.navigate(['/auth/createPassword'],{state:extras});
         }
         else {
           this._toastMessage.error(data.data.forgotPasswordVerifyOtp.message);
@@ -194,7 +197,7 @@ export class ForgotPasswordComponent {
     })
   }
 
-  verifyEmailOtp(){
+  verifyEmailOtp() {
     let reqBody = {
       email: this.forgotPasswordForm1.controls.email.value,
       otp: this.forgotPasswordForm1.controls.otp.value
@@ -203,7 +206,11 @@ export class ForgotPasswordComponent {
       if (data.data != null) {
         if (data.data.forgotPasswordVerifyOtp.status == 200) {
           this._toastMessage.message(data.data.forgotPasswordVerifyOtp.message);
-          this._router.navigate(['/auth/createPassword'], { queryParams: { email: reqBody.email }, skipLocationChange:true });
+          const extras = {
+            email: this.forgotPasswordForm1.controls.email.value,
+            method: "email"
+          }
+          this._router.navigate(['/auth/createPassword'], { state: extras });
         }
         else {
           this._toastMessage.error(data.data.forgotPasswordVerifyOtp.message);

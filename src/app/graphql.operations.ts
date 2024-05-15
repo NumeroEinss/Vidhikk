@@ -5,7 +5,7 @@ export abstract class GQLConfig {
     //forMobile
     static sendOtp = gql`mutation 
         SendOtp($mobile:String!){
-            sendOtp(input: { method: "phone", phoneNumber: $mobile }) {
+            sendOtp(input: { method:"phone",phoneNumber: $mobile }) {
                 status
                 message
               }
@@ -14,7 +14,7 @@ export abstract class GQLConfig {
     //forMobile
     static verifyOtp = gql`query 
         VerifyOTP($mobile:String!,$otp:String!){
-            verifyOtp(input:{method: "phone", phoneNumber:$mobile,otp:$otp})
+            verifyOtp(input:{method:"phone",phoneNumber:$mobile,otp:$otp})
                 {
                     status
                     message
@@ -35,11 +35,10 @@ export abstract class GQLConfig {
 
     static verifyOtpEmail = gql`query
         VerifyOtpEmail($email: String!, $otp: String!) {
-            verifyOtp(input: {method:"email", email: $email, otp: $otp })
+            verifyOtp(input: {method: "email", email: $email, otp: $otp })
             {
                 status
                 message
-
             }
         }`;
 
@@ -67,7 +66,7 @@ export abstract class GQLConfig {
 
     static forgotPasswordVerifyOtpMobile = gql`mutation
         ForgotPasswordVerifyOtpMobile($mobile: String!, $otp: String!) {
-            forgotPasswordVerifyOtp(input: {method:"phone", phoneNumber: $mobile, otp: $otp })
+            forgotPasswordVerifyOtp(input: { method:"phone",phoneNumber: $mobile, otp: $otp })
             {
                 status
                 message
@@ -75,13 +74,12 @@ export abstract class GQLConfig {
             }
         } `;
 
-
     // --------------------------------------------------------------------
 
     // forEmail
     static forgotPasswordEmail = gql`mutation
         ForgotPasswordEmail($email: String!) {
-            forgotPassword(input: {method:"email", email: $email })
+            forgotPassword(input: {method:"email",  email: $email })
             {
                 status
                 message
@@ -104,7 +102,7 @@ export abstract class GQLConfig {
     // forResetPasswordMobile
     static resetPasswordMobile = gql`mutation
         ResetPasswordMobile($mobile: String!, $password: String!, $confirmPassword: String!){
-            resetPassword(input: { phoneNumber: $mobile, password: $password, confirmPassword: $confirmPassword })
+            resetPassword(input: {phoneNumber: $mobile, password: $password, confirmPassword: $confirmPassword })
             {
                 status
                 message
@@ -115,7 +113,7 @@ export abstract class GQLConfig {
     // forResetPasswordEmail
     static resetPasswordEmail = gql`mutation
         ResetPasswordEmail($email: String!, $password: String!, $confirmPassword: String!){
-            resetPassword(input: { email: $email, password: $password, confirmPassword: $confirmPassword })
+            resetPassword(input: {email: $email, password: $password, confirmPassword: $confirmPassword })
             {
                 status
                 message
@@ -150,25 +148,69 @@ export abstract class GQLConfig {
               }
         } `;
 
-        // login as mobile
-        static loginToMobile = gql`mutation
-        LoginToMobile($mobile:String!, $password:String!, $userType:String!){
-            login(input:{phoneNumber:$mobile, password:$password, userType:$userType})
-            {
-                status
-                message
-                data
-            }
-        }`
+    static loginWithEmail = gql`mutation Login($email: String!, $password: String!, $userType: String!) {
+        login(input: { email: $email, password: $password, userType: $userType }){
+            status
+            message
+            data
+        }
+    }`;
 
-         // login as email
-         static loginToEmail = gql`mutation
-         LoginToMobile($email:String!, $password:String!, $userType:String!){
-             login(input:{email:$email, password:$password, userType:$userType})
-             {
-                 status
-                 message
-                 data
-             }
-         }`
+    static loginWithMobile = gql`mutation Login($mobile: String!, $password: String!, $userType: String!) {
+        login(input: { phoneNumber: $mobile, password: $password, userType: $userType }){
+            status
+            message
+            data
+        }
+    }`;
+
+    // create Lawyer
+    static createLawyer = gql`mutation
+     CreateLawyer($userType: String!, $orgainization:String, $lawyerName: String!, $fatherName: String!, $primaryContact: String!,
+        $isPrimaryContactWhatsapp: Boolean!, $isPrimaryMobileDisplay:Boolean!,  $secondaryContact: String!, $isSecondaryContactWhatsapp: Boolean!,
+        $isSecondaryMobileDisplay: Boolean!, $barAddress: String!, $isBarAddressDisplay:Boolean!, $city: String!,
+        $state: String!, $email: String!, $password: String!, $confirmPassword: String!, $barLicenseNumber: String!, $stateBar: String!,
+        $practiceYear: String!, $coreCompetency: String!, $practicingCourt: String!, $practicingField: [String!]!, $isEmailDisplay: Boolean!) {
+        createLawyers(input: {
+            userType: $userType,
+            orgainization:$orgainization,
+            lawyerName: $lawyerName,
+            fatherName: $fatherName,
+            primaryContact: $primaryContact,
+            isPrimaryContactWhatsapp: $isPrimaryContactWhatsapp,
+            isPrimaryMobileDisplay:$isPrimaryMobileDisplay,
+            secondaryContact: $secondaryContact,
+            isSecondaryContactWhatsapp: $isSecondaryContactWhatsapp,
+            isSecondaryMobileDisplay: $isSecondaryMobileDisplay,
+            barAddress: $barAddress,
+            isBarAddressDisplay:$isBarAddressDisplay,
+            city: $city,
+            state: $state,
+            email: $email,
+            password: $password,
+            confirmPassword: $confirmPassword,
+            barLicenseNumber: $barLicenseNumber,
+            stateBar: $stateBar,
+            practiceYear: $practiceYear,
+            coreCompetency: $coreCompetency,
+            practicingCourt: $practicingCourt,
+            practicingField: $practicingField,
+            isEmailDisplay:$isEmailDisplay
+        }) 
+        {
+            status
+            message
+            data
+        }
+    }`;
+
+    // login by lawyer
+    static LawyerLoginWithMobile = gql`mutation 
+    Login($mobile: String!, $password: String!, $userType: String!) {
+        login(input: { phoneNumber: $mobile, password: $password, userType: $userType }){
+            status
+            message
+            data
+        }
+    }`;
 }

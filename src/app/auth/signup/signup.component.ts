@@ -30,7 +30,7 @@ export class SignupComponent {
   filteredField: any = [];
   displayField: any = [];
 
-  userType: string = "lawyer";
+  userType: string = "LAWYER";
   userForm: FormGroup;
   judgeForm: FormGroup;
   userImage: any;
@@ -347,11 +347,11 @@ export class SignupComponent {
     this.lawyerForm.controls.email.setValidators([Validators.email]);
     this.lawyerForm.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
     this.lawyerForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
-    this.lawyerForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword]);
+    this.lawyerForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword()]);
 
     this.userForm = this._fb.group(new UserSignupModel);
     this.userForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
-    this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword]);
+    this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateUserConfirmPassword()]);
     this.judgeForm = this._fb.group(new JudgeSignupModel);
   }
 
@@ -378,11 +378,20 @@ export class SignupComponent {
 
   validateConfirmPassword(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      if (!value) {
+      if (!control.value) {
         return null;
       }
-      const passwordValid = control.value == this.lawyerForm.controls.password.value;
+      const passwordValid = (control.value == this.lawyerForm.controls.password.value);
+      return !passwordValid ? { passwordMatch: true } : null;
+    }
+  }
+
+  validateUserConfirmPassword(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const passwordValid = (control.value == this.userForm.controls.password.value);
       return !passwordValid ? { passwordMatch: true } : null;
     }
   }
@@ -456,7 +465,7 @@ export class SignupComponent {
     this.judgeFrmCtrl.courtName.setValue('');
   }
 
-  get judgeFrmCtrl(){
+  get judgeFrmCtrl() {
     return this.judgeForm.controls;
   }
 
@@ -492,9 +501,6 @@ export class SignupComponent {
           this.otpVerified = !this.otpVerified;
           this.lawyerForm.controls.phoneNumber.patchValue(this.SignupFrmCtrl.mobile.value);
           this.userForm.controls.phoneNumber.patchValue(this.SignupFrmCtrl.mobile.value);
-          console.log(this.lawyerForm.value);
-          console.log(this.userForm.value);
-
         }
         else {
           this._toastMessage.error(data.data.verifyOtp.message);
@@ -520,13 +526,28 @@ export class SignupComponent {
     });
   }
 
+
   //sendOtpEmail
   sendOtpForEmail() {
-    let data = {
-      email: this.userForm.controls.email.value,
-      mobile: this.userForm.controls.phoneNumber.value
-    };
-    this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
+    let reqBody = {};
+    let query: any;
+    if (this.userType == 'LAWYER') {
+      reqBody = {
+        email: this.lawyerForm.controls.email.value,
+        mobile: this.lawyerForm.controls.phoneNumber.value
+      };
+      query = GQLConfig.sendOtpEmail;
+    }
+
+    if (this.userType == 'USER') {
+      reqBody = {
+        email: this.userForm.controls.email.value,
+        mobile: this.userForm.controls.phoneNumber.value
+      };
+      query = GQLConfig.sendOtpEmail;
+    }
+
+    this._apolloService.mutate(query, reqBody).subscribe(objEmailOtp => {
       if (objEmailOtp.data != null) {
         if (objEmailOtp.data.sendOtp.status == 200) {
           let el = document.getElementById('otpModalButton') as HTMLElement;
@@ -541,55 +562,129 @@ export class SignupComponent {
   }
 
   onOtpChange(e: any) {
-    if (e.length == 6) {
-      let data = {
+    let data = {};
+    let query: any;
+    if (this.userType == 'USER' && e.length == 6) {
+      data =
+      {
         email: this.userForm.controls.email.value,
         otp: e
       };
-      this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
-        console.log(objEmailOtp, objEmailOtp)
-        if (objEmailOtp.data != null) {
-          if (objEmailOtp.data.verifyOtp.status == 200) {
-            this.emailOtpVerified = true;
-            let el = document.getElementById('closeOtpModalButton') as HTMLElement;
-            el.click();
-            this._toastMessage.success(objEmailOtp.data.verifyOtp.message);
-          }
-          else {
-            this._toastMessage.error(objEmailOtp.data.verifyOtp.message)
-          }
-        }
-      })
+      query = GQLConfig.verifyOtpEmail
     }
+
+    if (this.userType == 'LAWYER' && e.length == 6) {
+      data =
+      {
+        email: this.lawyerForm.controls.email.value,
+        otp: e
+      };
+      query = GQLConfig.verifyOtpEmail
+    }
+    this._apolloService.mutate(query, data).subscribe(objEmailOtp => {
+      if (objEmailOtp.data != null) {
+        if (objEmailOtp.data.verifyOtp.status == 200) {
+          this.emailOtpVerified = true;
+          let el = document.getElementById('closeOtpModalButton') as HTMLElement;
+          el.click();
+          this._toastMessage.success(objEmailOtp.data.verifyOtp.message);
+          e = '';
+        }
+        else {
+          this._toastMessage.error(objEmailOtp.data.verifyOtp.message)
+        }
+      }
+    })
   }
 
   resendEmailOtp() {
-    this.sendOtpForEmail();
+    let data = {
+      email: this.userForm.controls.email.value,
+      mobile: this.userForm.controls.phoneNumber.value
+    };
+    this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
+      if (objEmailOtp.data != null) {
+        if (objEmailOtp.data.sendOtp.status == 200) {
+          // let el = document.getElementById('otpModalButton') as HTMLElement;
+          // el.click();
+          this._toastMessage.message(objEmailOtp.data.sendOtp.message);
+        }
+        else {
+          this._toastMessage.error(objEmailOtp.data.sendOtp.message);
+        }
+      }
+    })
   }
 
   userSignUp() {
-    let reqObj={
-      userType :this.userType,
-      name : this.userForm.controls.name.value,
-      mobile : this.userForm.controls.phoneNumber.value,
-      isPrimaryContactWhatsapp : this.userForm.controls.isPrimaryContactWhatsapp.value,
-      secondaryContact : this.userForm.controls.secondaryContact.value,
-      isSecondaryContactWhatsapp : this.userForm.controls.isSecondaryContactWhatsapp.value,
-      address : this.userForm.controls.address.value,
-      city : this.userForm.controls.city.value,
-      state : this.userForm.controls.state.value,
-      email : this.userForm.controls.email.value,
-      password : this.userForm.controls.password.value,
-      confirmPassword : this.userForm.controls.confirmPassword.value,
+    let reqObj = {
+      userType: this.userType,
+      name: this.userForm.controls.name.value,
+      mobile: this.userForm.controls.phoneNumber.value,
+      isPrimaryContactWhatsapp: this.userForm.controls.isPrimaryContactWhatsapp.value,
+      secondaryContact: this.userForm.controls.secondaryContact.value,
+      isSecondaryContactWhatsapp: this.userForm.controls.isSecondaryContactWhatsapp.value,
+      address: this.userForm.controls.address.value,
+      city: this.userForm.controls.city.value,
+      state: this.userForm.controls.state.value,
+      email: this.userForm.controls.email.value,
+      password: this.userForm.controls.password.value,
+      confirmPassword: this.userForm.controls.confirmPassword.value,
     }
     this._apolloService.mutate(GQLConfig.createUser, reqObj).subscribe(data => {
       if (data.data != null) {
-        if (data.data.createUser.status == 200 ||201) {
+        if (data.data.createUser.status == 200 || 201) {
           this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
           setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
         }
         else {
           this._toastMessage.error(data.data.createUser.message);
+        }
+      }
+    })
+  }
+
+  lawyerSignup() {
+    // accountVerificationButton
+    let reqObj = {
+      userType: this.userType,
+      orgainization: this.lawyerForm.controls.orgainization.value,
+      lawyerName: this.lawyerForm.controls.name.value,
+      fatherName: this.lawyerForm.controls.fatherName.value,
+      coreCompetency: this.lawyerForm.controls.coreCompetency.value,
+      barAddress: this.lawyerForm.controls.barAddress.value,
+      isBarAddressDisplay: this.lawyerForm.controls.isAddressVisible.value,
+      state: this.lawyerForm.controls.state.value,
+      city: this.lawyerForm.controls.city.value,
+      primaryContact: this.lawyerForm.controls.phoneNumber.value,
+      isPrimaryMobileDisplay: this.lawyerForm.controls.isPrimaryContactVisible.value,
+      isPrimaryContactWhatsapp: this.lawyerForm.controls.isPrimaryContactWhatsapp.value,
+      secondaryContact: this.lawyerForm.controls.secondaryContact.value,
+      isSecondaryMobileDisplay: this.lawyerForm.controls.isSecondaryContactVisible.value,
+      isSecondaryContactWhatsapp: this.lawyerForm.controls.isSecondaryContactWhatsapp.value,
+      email: this.lawyerForm.controls.email.value,
+      isEmailDisplay: this.lawyerForm.controls.isEmailVisible.value,
+      password: this.lawyerForm.controls.password.value,
+      confirmPassword: this.lawyerForm.controls.confirmPassword.value,
+      practicingCourt: this.lawyerForm.controls.courtName.value,
+      stateBar: this.lawyerForm.controls.stateBar.value,
+      barLicenseNumber: this.lawyerForm.controls.licenseNo.value,
+      practiceYear: this.lawyerForm.controls.practiceYear.value,
+      practicingField: this.lawyerForm.controls.practiceField.value,
+      // question: this.lawyerForm.controls.question.value,
+      // answer: this.lawyerForm.controls.answer.value,
+      // question2: this.lawyerForm.controls.question2.value,
+      // answer2: this.lawyerForm.controls.answer2.value,
+    };
+    this._apolloService.mutate(GQLConfig.createLawyer, reqObj).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.createLawyers.status == 200) {
+          this._toastMessage.success(data.data.createLawyers.message + '. Login to proceed further');
+          // this._router.navigate(['/auth/login']);
+          setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
+        }
+        else {
+          this._toastMessage.error(data.data.createLawyers.message);
         }
       }
     })

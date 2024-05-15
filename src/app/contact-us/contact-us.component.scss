@@ -55,7 +55,7 @@
 
       .ticket-header {
         display: grid;
-        grid-template-columns: 10% 25% 20% 20% 15% 10%;
+        grid-template-columns: 17% 18% 20% 20% 15% 10%;
         margin-bottom: 5px;
         align-items: center;
         padding: 0px 15px 0px 15px;
@@ -67,7 +67,7 @@
 
       .ticket-data {
         display: grid;
-        grid-template-columns: 10% 25% 20% 20% 15% 10%;
+        grid-template-columns: 17% 18% 20% 20% 15% 10%;
         height: 80px;
         border: 1px solid #f5f5f5;
         border-radius: 12px;
@@ -76,10 +76,7 @@
         padding: 0px 15px;
         font-size: 14px;
         width: 100%;
-
-        .id {
-          padding-left: 15px;
-        }
+        cursor: pointer;
 
         .grid-item2 {
          display: flex;
@@ -168,11 +165,45 @@
       font-style: normal;
       color: #000000;
     }
+
+    .file-container{
+      background-color: #FBFBFB;
+      border: 2px dashed #E1E1E1;
+      border-radius: 4px;
+      padding: 20px;
+
+      .or-option{
+        color: #C4C4C4;
+        margin-top: 5px;
+      }
+
+      .choose-file-btn{
+        width: fit-content !important;
+        margin-top: 5px; 
+        padding: 10px 25px; 
+        border: 1px solid black; 
+        border-radius: 50px; 
+        color: black;
+        background-color: transparent;
+      }:hover{
+        background-color: unset;
+      }
+      
+      .selected-files{
+        font-family: Poppins;
+        span{
+          font-weight: 500;
+        }
+      }
+    }
   }
 }
-
 // add ticket popup styling ends
 
+// delete-popup
+.delete-modal{
+  width: 429px;
+}
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

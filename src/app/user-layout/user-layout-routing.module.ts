@@ -47,6 +47,11 @@ const routes: Routes = [
           import('../advocate/advocate.module').then((m) => m.AdvocateModule),
       },
       {
+        path: 'transactions',
+        loadChildren: () =>
+          import('../transactions/transactions.module').then((m) => m.TransactionsModule),
+      },
+      {
         path: '**',
         component: PageNotFoundComponent,
       }

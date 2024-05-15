@@ -55,13 +55,13 @@
       <div class="d-flex" style="flex-direction: column;" *ngIf="otpVerified">
         <mat-label style="color:#8798AD">User Type</mat-label>
         <mat-radio-group aria-label="User Type" class="mb-2" [(ngModel)]="userType">
-          <mat-radio-button value="judge">Judge</mat-radio-button>
-          <mat-radio-button value="lawyer" checked>Lawyer</mat-radio-button>
-          <mat-radio-button value="user">User</mat-radio-button>
-          <mat-radio-button value="seller">Seller</mat-radio-button>
+          <mat-radio-button value="JUDGE">Judge</mat-radio-button>
+          <mat-radio-button value="LAWYER" checked>Lawyer</mat-radio-button>
+          <mat-radio-button value="USER">User</mat-radio-button>
+          <mat-radio-button value="SELLER">Seller</mat-radio-button>
         </mat-radio-group>
       </div>
-      <form [formGroup]="lawyerForm" class="col mt-3" *ngIf="otpVerified && userType =='lawyer'" class="register-form">
+      <form [formGroup]="lawyerForm" class="col mt-3" *ngIf="otpVerified && userType =='LAWYER'" class="register-form">
         <div class="profile-container">
           <img class="profile" [src]="userImage" />
           <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
@@ -110,8 +110,8 @@
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/location-icon.svg"
                 alt="" /></mat-icon></span>
-          <input type="text" matInput placeholder="Enter your Address" formControlName="address" required />
-          <mat-error *ngIf="lawyerForm.controls.address.hasError('required')">Address is Required</mat-error>
+          <input type="text" matInput placeholder="Enter your Bar Address" formControlName="barAddress" required />
+          <mat-error *ngIf="lawyerForm.controls.barAddress.hasError('required')">Bar address is Required</mat-error>
         </mat-form-field>
 
         <mat-checkbox formControlName="isAddressVisible" [color]="'primary'">
@@ -178,7 +178,8 @@
         </div>
 
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Enter your email" formControlName="email" required />
+          <input matInput placeholder="Enter your email" formControlName="email" (change)="emailOtpVerified=false"
+            required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="lawyerForm.controls.email.hasError('required')">Email is Required</mat-error>
           <mat-error *ngIf="
@@ -203,7 +204,7 @@
 
         <mat-form-field appearance="outline" class="password">
           <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
-            placeholder="Enter Password" required />
+            placeholder="Enter Password" (change)="lawyerForm.controls.confirmPassword.patchValue('')" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
           <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
@@ -227,7 +228,7 @@
               hideConfirmPassword ? "visibility_off" : "visibility"
               }}</mat-icon>
           </button>
-          <mat-error *ngIf="lawyerForm.controls.confirmPassword.errors?.['required']">Confirm Password is Required
+          <mat-error *ngIf="lawyerForm.controls.confirmPassword.errors?.required">Confirm Password is Required
             !!</mat-error>
           <mat-error *ngIf="
               lawyerForm.controls.confirmPassword.errors?.passwordMatch
@@ -322,16 +323,16 @@
             </mat-form-field> -->
 
         <div class="mt-3">
-          <button mat-raised-button color="primary w-100" data-bs-toggle="modal" data-bs-target="#accVerificationModal"
-            [disabled]="!lawyerForm.valid && !emailOtpVerified">
+          <button mat-raised-button color="primary w-100" (click)="lawyerSignup()"
+            *ngIf="lawyerForm.valid && emailOtpVerified">
             Continue</button><br />
         </div>
       </form>
 
-      <form [formGroup]="userForm" class="col mt-3" *ngIf="otpVerified && userType =='user'" class="register-form">
+      <form [formGroup]="userForm" class="col mt-3" *ngIf="otpVerified && userType =='USER'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="" />
-          <input type="file" #file accept="image/png, image/jpeg" />
+          <img class="profile" [src]="userImage" />
+          <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
           </div>
@@ -456,16 +457,16 @@
         </mat-form-field>
 
         <div class="mt-3">
-          <button mat-raised-button color="primary w-100" [disabled]="!userForm.valid && !emailOtpVerified"
+          <button mat-raised-button color="primary w-100" *ngIf="userForm.valid && emailOtpVerified"
             (click)="userSignUp()">
             Continue</button><br />
         </div>
       </form>
 
-      <form [formGroup]="judgeForm" class="col mt-3" *ngIf="otpVerified && userType =='judge'" class="register-form">
+      <form [formGroup]="judgeForm" class="col mt-3" *ngIf="otpVerified && userType =='JUDGE'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="" />
-          <input type="file" #file accept="image/png, image/jpeg" />
+          <img class="profile" [src]="userImage" />
+          <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
           </div>
@@ -675,7 +676,7 @@
         </mat-form-field>
 
         <div class="mt-3">
-          <button mat-raised-button color="primary w-100" routerLink="/auth/login" [disabled]="!judgeForm.valid">
+          <button mat-raised-button color="primary w-100" routerLink="/auth/login" *ngIf="judgeForm.valid">
             Continue</button><br />
         </div>
       </form>
@@ -732,11 +733,11 @@
         <div class="head-text">Enter Verification Code</div>
         <div class="sub-text mt-2 mb-4">
           We sent a 6-digit code to<br />
-          <span class="email mt-2">{{ userForm.controls.email.value }}</span>
+          <span class="email mt-2" > {{ userForm.controls.email.value }}</span>
         </div>
         <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }" class="mt-2"></ng-otp-input>
         <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
-          <button mat-button color="primary" style="font-size: 12px" class="request-btn">
+          <button mat-button color="primary" style="font-size: 12px" class="request-btn" (click)="resendEmailOtp()">
             Request a new Code
           </button>
         </div>

@@ -305,7 +305,6 @@ export class CalendarComponent {
     slot.timeSlot.forEach((element: any) => {
       this.slot.push(element.slot);
     });
-    console.log(this.slot)
     this.slotDate = {
       _d: slot.date
     };

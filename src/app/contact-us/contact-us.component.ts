@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SnackAlertService } from '../shared/services/snack-alert.service';
 import { TicketModel } from '../common/ticket.model';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-contact-us',
@@ -14,58 +18,81 @@ export class ContactUsComponent {
   selectedMemberTicket: any = {};
   selectedEditTicket: any;
 
+  files: File[] = [];
+  fileUploaded: boolean = false;
+
+  @ViewChild('fileInput') fileInput: any;
+
   tickets: any[] = [
     { value: 'allTickets', viewValue: 'All Tickets' },
   ];
 
   ticketList = [
     {
-      serialNo: 1,
+      ticketId: 'Ticket# 2024-1',
       ticketTitle: 'Family Law',
       ticketType: 'Payment Issue',
       created: '12 Mar 2023',
+      day: 'Mon',
+      time: '12:00 AM',
       status: 'Close',
-      description: 'I have family issue...',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur ad',
+      screenshot: ['../../assets/images/image/screenshot.jpg']
     },
     {
-      serialNo: 2,
+      ticketId: 'Ticket# 2024-2',
       ticketTitle: 'Criminal Law',
       ticketType: 'Subscription Issue',
       created: '11 Dec 2023',
-      status: 'inProcess',
+      day: 'Tues',
+      time: '12:00 AM',
+      status: 'InProcess',
       description: 'I have criminal issue...',
+      screenshot: ['../../assets/images/image/screenshot.jpg']
     },
     {
-      serialNo: 3,
+      ticketId: 'Ticket# 2024-3',
       ticketTitle: 'Property and Real Estate',
       ticketType: 'Payment Issue',
       created: '09 Mar 2023',
+      day: 'Wed',
+      time: '06:09 PM',
       status: 'Pending',
       description: 'I have family issue...',
+      screenshot: ['../../assets/images/image/screenshot.jpg']
     },
     {
-      serialNo: 4,
+      ticketId: 'Ticket# 2024-4',
       ticketTitle: 'Divorce Law',
       ticketType: 'Chat Support',
       created: '23 Nov 2023',
+      day: 'Mon',
+      time: '12:00 AM',
       status: 'Close',
       description: 'I have subscription issue...',
+      screenshot: ['../../assets/images/image/screenshot.jpg']
     },
     {
-      serialNo: 5,
+      ticketId: 'Ticket# 2024-5',
       ticketTitle: 'Family Law',
       ticketType: 'Payment Issue',
       created: '11 Aug 2022',
+      day: 'Fri',
+      time: '12:45 PM',
       status: 'Pending',
       description: 'I have payment issue...',
+      screenshot: ['../../assets/images/image/screenshot.jpg']
     },
     {
-      serialNo: 6,
+      ticketId: 'Ticket# 2024-6',
       ticketTitle: 'Divorce Law',
       ticketType: 'Chat Support',
       created: '22 March 2023',
-      status: 'inProcess',
+      day: 'Sat',
+      time: '03:00 PM',
+      status: 'InProcess',
       description: 'I have subscription issue...',
+      screenshot: ['../../assets/images/image/screenshot.jpg']
     },
   ];
 
@@ -76,11 +103,29 @@ export class ContactUsComponent {
     { value: 'Subscription Issue', viewValue: 'Subscription Issue' },
   ];
 
-  constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService) {
+  constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService,
+    private _router: Router, private _snackBar: MatSnackBar, public dialog: MatDialog, private http: HttpClient) {
     this.ticketForm = this._formBuilder.group(new TicketModel());
     this.ticketFrmCtrl['ticketTitle'].setValidators([Validators.required,]);
     this.ticketFrmCtrl['ticketType'].setValidators([Validators.required,]);
-    this.ticketFrmCtrl['description'].setValidators([Validators.required,Validators.minLength(10), Validators.maxLength(100)]);
+    this.ticketFrmCtrl['description'].setValidators([Validators.required, Validators.minLength(10)]);
+  }
+
+  onFileSelected(event: any): void {
+    this.files = event.target.files;
+    this.fileUploaded = true;
+  }
+
+  onDrop(event: any): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.files = Array.from(event.dataTransfer.files);
+    this.fileUploaded = true;
+  }
+
+  onDragOver(event: any): void {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   get ticketFrmCtrl() {
@@ -88,13 +133,18 @@ export class ContactUsComponent {
   }
 
   createTicket() {
-    const newTicket = {
-      serialNo: this.ticketList.length + 1,
+    const filesArray = Array.from(this.files);
+    const screenshotUrls = filesArray.map(file => URL.createObjectURL(file));
+    const newTicket: any = {
+      ticketId: 'Ticket# 2024-1',
       ticketTitle: this.ticketForm.controls.ticketTitle.value,
       ticketType: this.ticketForm.controls.ticketType.value,
       description: this.ticketForm.controls.description.value,
       created: new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric', day: 'numeric' }),
-      status: 'inProcess',
+      day: new Date().toLocaleDateString('en-GB', { weekday: "short" }),
+      time: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true }),
+      status: 'InProcess',
+      screenshot: screenshotUrls
     }
     this.ticketList.push(newTicket);
     this.resetForm();
@@ -105,19 +155,22 @@ export class ContactUsComponent {
     this.ticketForm.patchValue({
       ticketTitle: ticket.ticketTitle,
       ticketType: ticket.ticketType,
-      description: ticket.description
-    }) 
+      description: ticket.description,
+    })
   }
 
   saveChanges() {
-    let index = this.ticketList.map(ticket => ticket.serialNo).indexOf(this.selectedEditTicket.serialNo);
+    let index = this.ticketList.map(ticket => ticket.ticketId).indexOf(this.selectedEditTicket.ticketId);
     this.ticketList[index] = {
-      serialNo: this.selectedEditTicket.serialNo,
+      ticketId: this.selectedEditTicket.ticketId,
       ticketTitle: this.ticketForm.controls.ticketTitle.value,
       ticketType: this.ticketForm.controls.ticketType.value,
       created: this.selectedEditTicket.created,
+      day: this.selectedEditTicket.day,
+      time: this.selectedEditTicket.time,
       status: this.selectedEditTicket.status,
       description: this.ticketForm.controls.description.value,
+      screenshot: this.selectedEditTicket.screenshot
     };
     this.selectedEditTicket = {};
     this.resetForm();
@@ -125,19 +178,19 @@ export class ContactUsComponent {
 
   deleteTicket() {
     this.ticketList.forEach((ticket: any, index: any) => {
-      if (ticket.serialNo == this.selectedMemberTicket.serialNo) {
+      if (ticket.ticketId == this.selectedMemberTicket.ticketId) {
         this.ticketList.splice(index, 1)
       }
     })
-    this.ticketList.forEach((ticket: any, index: number) => {
-      ticket.serialNo = index + 1;
-    })
-
     this._toastMessage.message('Ticket Deleted Successfully!!');
   }
 
   resetForm() {
     this.ticketForm.reset();
     this.ticketForm.patchValue(new TicketModel);
+  }
+
+  redirectToContactDetail(ticket: any) {
+    this._router.navigate(['/user/contact-us/contact-us-detail'], { state: ticket })
   }
 }

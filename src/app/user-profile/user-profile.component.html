@@ -19,7 +19,7 @@
         <a>Password & Security</a>
       </li>
       <li class="logout" routerLink="/auth/login">
-        <a>Logout</a>
+        <a (click)="logout()">Logout</a>
       </li>
     </div>
 
@@ -225,6 +225,7 @@
       </div>
       <div class="user-details">
         <a routerLink="/auth/resetPassword">Change Password </a>
+        <a (click)="logout()">Logout</a>
         <a data-bs-toggle="modal" data-bs-target="#userAccountDeleteModal">Delete Your Account</a>
       </div>
     </div>

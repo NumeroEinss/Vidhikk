@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { JudgeSignupModel, LawyerSignupModel } from '../../app/common/signup.model';
 import { userProfileModel } from '../common/user-profile.model';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
 
 
 @Component({
@@ -52,7 +53,7 @@ export class UserProfileComponent {
     },
   ];
 
-  constructor(private _fb: FormBuilder, private _router: Router,) {
+  constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService) {
     this.userType = this._router.url.split('/')[1];
 
     this.signupForm2 = this._fb.group(new LawyerSignupModel);
@@ -82,7 +83,7 @@ export class UserProfileComponent {
     }
   }
 
-  get userEditFrmCtrl(){
+  get userEditFrmCtrl() {
     return this.userEditProfileForm.controls;
   }
 
@@ -163,5 +164,9 @@ export class UserProfileComponent {
 
   onOtpChange(e: any) {
     console.log(e);
+  }
+
+  logout() {
+    this._authService.logout();
   }
 }
