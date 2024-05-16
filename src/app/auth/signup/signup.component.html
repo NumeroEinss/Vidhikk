@@ -180,13 +180,10 @@
         <mat-form-field appearance="outline">
           <input matInput placeholder="Enter your email" formControlName="email" (change)="emailOtpVerified=false"
             required />
-          <input matInput placeholder="Enter your email" formControlName="email" (change)="emailOtpVerified=false"
-            required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="lawyerForm.controls.email.hasError('required')">Email is Required</mat-error>
           <mat-error *ngIf="
-              !lawyerForm.controls.email.hasError('required') &&
-              lawyerForm.controls.email.invalid
+              !lawyerForm.controls.email.hasError('required') && lawyerForm.controls.email.invalid
             ">Email is invalid</mat-error>
         </mat-form-field>
 
@@ -208,7 +205,6 @@
         <mat-form-field appearance="outline" class="password">
           <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
             placeholder="Enter Password" (change)="lawyerForm.controls.confirmPassword.patchValue('')" required />
-          placeholder="Enter Password" (change)="lawyerForm.controls.confirmPassword.patchValue('')" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
           <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
@@ -742,7 +738,9 @@
         <div class="head-text">Enter Verification Code</div>
         <div class="sub-text mt-2 mb-4">
           We sent a 6-digit code to<br />
-          <span class="email mt-2"> {{ userForm.controls.email.value }}</span>
+          <span class="email mt-2" *ngIf="userType == 'JUDGE'"> {{ judgeForm.controls.email.value }}</span>
+          <span class="email mt-2" *ngIf="userType == 'LAWYER'"> {{ lawyerForm.controls.email.value }}</span>
+          <span class="email mt-2" *ngIf="userType == 'USER'"> {{ userForm.controls.email.value }}</span>
         </div>
         <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"
           class="mt-2"></ng-otp-input>

@@ -576,8 +576,6 @@ export class SignupComponent {
       }
       this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
         if (objEmailOtp.data != null) {
-
-          console.log(objEmailOtp);
           if (objEmailOtp.data.verifyOtp.status == 200) {
             this.emailOtpVerified = true;
             let el = document.getElementById('closeOtpModalButton') as HTMLElement;
@@ -594,16 +592,24 @@ export class SignupComponent {
   }
 
   resendEmailOtp() {
-    let data = {
-      email: this.userForm.controls.email.value,
-      mobile: this.userForm.controls.phoneNumber.value
-    };
+    let data = {}
+    if (this.userType == "USER") {
+      data = {
+        email: this.userForm.controls.email.value,
+        mobile: this.userForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "LAWYER") {
+      data = {
+        email: this.lawyerForm.controls.email.value,
+        mobile: this.lawyerForm.controls.phoneNumber.value
+      };
+    }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
       if (objEmailOtp.data != null) {
         if (objEmailOtp.data.sendOtp.status == 200) {
-          // let el = document.getElementById('otpModalButton') as HTMLElement;
-          // el.click();
           this._toastMessage.message(objEmailOtp.data.sendOtp.message);
+          this.ngOtpInput.setValue('');
         }
         else {
           this._toastMessage.error(objEmailOtp.data.sendOtp.message);

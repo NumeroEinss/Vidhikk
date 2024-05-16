@@ -33,8 +33,7 @@ export class ContactUsComponent {
       ticketTitle: 'Family Law',
       ticketType: 'Payment Issue',
       created: '12 Mar 2023',
-      day: 'Mon',
-      time: '12:00 AM',
+      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
       status: 'Close',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur ad',
       screenshot: ['../../assets/images/image/screenshot.jpg']
@@ -44,8 +43,7 @@ export class ContactUsComponent {
       ticketTitle: 'Criminal Law',
       ticketType: 'Subscription Issue',
       created: '11 Dec 2023',
-      day: 'Tues',
-      time: '12:00 AM',
+      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
       status: 'InProcess',
       description: 'I have criminal issue...',
       screenshot: ['../../assets/images/image/screenshot.jpg']
@@ -55,8 +53,7 @@ export class ContactUsComponent {
       ticketTitle: 'Property and Real Estate',
       ticketType: 'Payment Issue',
       created: '09 Mar 2023',
-      day: 'Wed',
-      time: '06:09 PM',
+      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
       status: 'Pending',
       description: 'I have family issue...',
       screenshot: ['../../assets/images/image/screenshot.jpg']
@@ -66,8 +63,7 @@ export class ContactUsComponent {
       ticketTitle: 'Divorce Law',
       ticketType: 'Chat Support',
       created: '23 Nov 2023',
-      day: 'Mon',
-      time: '12:00 AM',
+      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
       status: 'Close',
       description: 'I have subscription issue...',
       screenshot: ['../../assets/images/image/screenshot.jpg']
@@ -77,8 +73,7 @@ export class ContactUsComponent {
       ticketTitle: 'Family Law',
       ticketType: 'Payment Issue',
       created: '11 Aug 2022',
-      day: 'Fri',
-      time: '12:45 PM',
+      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
       status: 'Pending',
       description: 'I have payment issue...',
       screenshot: ['../../assets/images/image/screenshot.jpg']
@@ -88,8 +83,7 @@ export class ContactUsComponent {
       ticketTitle: 'Divorce Law',
       ticketType: 'Chat Support',
       created: '22 March 2023',
-      day: 'Sat',
-      time: '03:00 PM',
+      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
       status: 'InProcess',
       description: 'I have subscription issue...',
       screenshot: ['../../assets/images/image/screenshot.jpg']
@@ -141,8 +135,7 @@ export class ContactUsComponent {
       ticketType: this.ticketForm.controls.ticketType.value,
       description: this.ticketForm.controls.description.value,
       created: new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric', day: 'numeric' }),
-      day: new Date().toLocaleDateString('en-GB', { weekday: "short" }),
-      time: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true }),
+      dayTime: new Date().toLocaleDateString('en-GB', { weekday: "short",  month: 'long', year: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true  }).replace('pm', 'PM'),
       status: 'InProcess',
       screenshot: screenshotUrls
     }
@@ -166,8 +159,7 @@ export class ContactUsComponent {
       ticketTitle: this.ticketForm.controls.ticketTitle.value,
       ticketType: this.ticketForm.controls.ticketType.value,
       created: this.selectedEditTicket.created,
-      day: this.selectedEditTicket.day,
-      time: this.selectedEditTicket.time,
+      dayTime: this.selectedEditTicket.dayTime,
       status: this.selectedEditTicket.status,
       description: this.ticketForm.controls.description.value,
       screenshot: this.selectedEditTicket.screenshot

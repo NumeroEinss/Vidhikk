@@ -64,7 +64,6 @@ export class ActivityFeedComponent {
       // setTimeout(() => {
       this._apolloService.mutate(GQLConfig.addPost, reqObj).subscribe(data => {
         if (data.data != null) {
-          console.log(data.data)
           if (data.data.postLawyerActivity.status == 200) {
             this._toastMessage.success(data.data.postLawyerActivity.message);
             this.post.title = "";
