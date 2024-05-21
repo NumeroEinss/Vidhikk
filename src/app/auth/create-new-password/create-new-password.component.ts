@@ -40,7 +40,8 @@ export class CreateNewPasswordComponent {
       reqBody = {
         password: this.setNewPasswordForm.controls.setPassword.value,
         confirmPassword: this.setNewPasswordForm.controls.confirmPassword.value,
-        mobile: this.routerState.mobile
+        mobile: this.routerState.mobile,
+        userType: this.routerState.userType
       }
       query = GQLConfig.resetPasswordMobile;
     }
@@ -48,7 +49,8 @@ export class CreateNewPasswordComponent {
       reqBody = {
         password: this.setNewPasswordForm.controls.setPassword.value,
         confirmPassword: this.setNewPasswordForm.controls.confirmPassword.value,
-        email: this.routerState.email
+        email: this.routerState.email,
+        userType: this.routerState.userType
       }
       query = GQLConfig.resetPasswordEmail;
     }

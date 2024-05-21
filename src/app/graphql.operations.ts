@@ -55,8 +55,8 @@ export abstract class GQLConfig {
 
     //forMobile
     static forgotPasswordMobile = gql`mutation
-        ForgotPasswordMobile($mobile: String!) {
-            forgotPassword(input: {method:"phone", phoneNumber: $mobile })
+        ForgotPasswordMobile($mobile: String!, $userType: String!) {
+            forgotPassword(input: {method:"phone", phoneNumber: $mobile, userType:$userType })
             {
                 status
                 message
@@ -65,8 +65,8 @@ export abstract class GQLConfig {
         } `;
 
     static forgotPasswordVerifyOtpMobile = gql`mutation
-        ForgotPasswordVerifyOtpMobile($mobile: String!, $otp: String!) {
-            forgotPasswordVerifyOtp(input: { method:"phone",phoneNumber: $mobile, otp: $otp })
+        ForgotPasswordVerifyOtpMobile($mobile: String!, $otp: String!, $userType: String!) {
+            forgotPasswordVerifyOtp(input: { method:"phone",phoneNumber: $mobile, otp: $otp, userType:$userType })
             {
                 status
                 message
@@ -78,8 +78,8 @@ export abstract class GQLConfig {
 
     // forEmail
     static forgotPasswordEmail = gql`mutation
-        ForgotPasswordEmail($email: String!) {
-            forgotPassword(input: {method:"email",  email: $email })
+        ForgotPasswordEmail($email: String!, $userType: String!) {
+            forgotPassword(input: {method:"email",  email: $email, userType:$userType})
             {
                 status
                 message
@@ -88,8 +88,8 @@ export abstract class GQLConfig {
         } `;
 
     static forgotPasswordVerifyOtpEmail = gql`mutation
-        ForgotPasswordVerifyOtpEmail($email: String!, $otp: String!) {
-            forgotPasswordVerifyOtp(input: {method:"email", email: $email, otp: $otp })
+        ForgotPasswordVerifyOtpEmail($email: String!, $otp: String!, $userType: String!) {
+            forgotPasswordVerifyOtp(input: {method:"email", email: $email, otp: $otp, userType:$userType })
             {
                 status
                 message
@@ -101,8 +101,8 @@ export abstract class GQLConfig {
 
     // forResetPasswordMobile
     static resetPasswordMobile = gql`mutation
-        ResetPasswordMobile($mobile: String!, $password: String!, $confirmPassword: String!){
-            resetPassword(input: {phoneNumber: $mobile, password: $password, confirmPassword: $confirmPassword })
+        ResetPasswordMobile($mobile: String!, $password: String!, $confirmPassword: String!, $userType: String! ){
+            resetPassword(input: {phoneNumber: $mobile, password: $password, confirmPassword: $confirmPassword, userType:$userType })
             {
                 status
                 message
@@ -112,8 +112,8 @@ export abstract class GQLConfig {
 
     // forResetPasswordEmail
     static resetPasswordEmail = gql`mutation
-        ResetPasswordEmail($email: String!, $password: String!, $confirmPassword: String!){
-            resetPassword(input: {email: $email, password: $password, confirmPassword: $confirmPassword })
+        ResetPasswordEmail($email: String!, $password: String!, $confirmPassword: String!, $userType: String!){
+            resetPassword(input: {email: $email, password: $password, confirmPassword: $confirmPassword, userType:$userType })
             {
                 status
                 message
@@ -214,7 +214,7 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static getActivityFeed = gql`query {
+    static getActivityFeed = gql`mutation {
         getpostList {
           status
           message

@@ -39,6 +39,8 @@ export class ForgotPasswordComponent {
   isEmailEntered: boolean = false;
   isVerified: boolean = false;
   isUser:boolean = false;
+  routerState:any
+
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService, private _router: Router,
     private _apolloService: ApolloService) {
@@ -62,6 +64,10 @@ export class ForgotPasswordComponent {
       Validators.minLength(6),
     ]);
 
+    this.routerState = this._router.getCurrentNavigation()?.extras.state;
+    if (this.routerState == undefined) {
+      this._router.navigateByUrl('auth/forgotPassword');
+    }
   }
 
   getErrorMessage() {
@@ -113,7 +119,8 @@ export class ForgotPasswordComponent {
 
   resendOtpOnMobile() {
     let reqBody = {
-      mobile: this.forgotPasswordForm.controls.mobile.value
+      mobile: this.forgotPasswordForm.controls.mobile.value,
+      userType: this.routerState.userType
     }
     this._apolloService.mutate(GQLConfig.forgotPasswordMobile, reqBody).subscribe(data => {
       if (data.data != null) {
@@ -129,7 +136,8 @@ export class ForgotPasswordComponent {
 
   resendOtpOnEmail() {
     let reqBody = {
-      email: this.forgotPasswordForm1.controls.email.value
+      email: this.forgotPasswordForm1.controls.email.value,
+      userType: this.routerState.userType
     }
     this._apolloService.mutate(GQLConfig.forgotPasswordEmail, reqBody).subscribe(data => {
       if (data.data != null) {
@@ -145,7 +153,8 @@ export class ForgotPasswordComponent {
 
   mobileForgotPassword() {
     let reqBody = {
-      mobile: this.forgotPasswordForm.controls.mobile.value
+      mobile: this.forgotPasswordForm.controls.mobile.value,
+      userType: this.routerState.userType
     }
     this._apolloService.mutate(GQLConfig.forgotPasswordMobile, reqBody).subscribe(data => {
       if (data.data != null) {
@@ -162,7 +171,8 @@ export class ForgotPasswordComponent {
   verifyMobileOtp() {
     let reqBody = {
       mobile: this.forgotPasswordForm.controls.mobile.value,
-      otp: this.forgotPasswordForm.controls.otp.value
+      otp: this.forgotPasswordForm.controls.otp.value,
+      userType: this.routerState.userType
     }
     this._apolloService.mutate(GQLConfig.forgotPasswordVerifyOtpMobile, reqBody).subscribe(data => {
       if (data.data != null) {
@@ -170,7 +180,8 @@ export class ForgotPasswordComponent {
           this._toastMessage.message(data.data.forgotPasswordVerifyOtp.message);
           const extras = {
             mobile: this.forgotPasswordForm.controls.mobile.value,
-            method: "mobile"
+            method: "mobile",
+            userType: this.routerState.userType
           }
           this._router.navigate(['/auth/createPassword'],{state:extras});
         }
@@ -183,7 +194,8 @@ export class ForgotPasswordComponent {
 
   emailForgotPassword() {
     let reqBody = {
-      email: this.forgotPasswordForm1.controls.email.value
+      email: this.forgotPasswordForm1.controls.email.value,
+      userType:this.routerState.userType
     }
     this._apolloService.mutate(GQLConfig.forgotPasswordEmail, reqBody).subscribe(data => {
       if (data.data != null) {
@@ -200,7 +212,8 @@ export class ForgotPasswordComponent {
   verifyEmailOtp() {
     let reqBody = {
       email: this.forgotPasswordForm1.controls.email.value,
-      otp: this.forgotPasswordForm1.controls.otp.value
+      otp: this.forgotPasswordForm1.controls.otp.value,
+      userType: this.routerState.userType
     }
     this._apolloService.mutate(GQLConfig.forgotPasswordVerifyOtpEmail, reqBody).subscribe(data => {
       if (data.data != null) {
@@ -208,7 +221,8 @@ export class ForgotPasswordComponent {
           this._toastMessage.message(data.data.forgotPasswordVerifyOtp.message);
           const extras = {
             email: this.forgotPasswordForm1.controls.email.value,
-            method: "email"
+            method: "email",
+            userType: this.routerState.userType
           }
           this._router.navigate(['/auth/createPassword'], { state: extras });
         }
