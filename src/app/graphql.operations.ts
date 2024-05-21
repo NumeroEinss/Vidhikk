@@ -202,16 +202,16 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static addPost = gql`mutation PostLawyerActivity($lawyerId: String!, $title: String!, $description: String!, $likeCount: String!) {
+    static addPost = gql`mutation PostLawyerActivity($lawyerId: String!, $title: String!, $description: String!, $likeCount: Float,$commentCount:Float) {
         postLawyerActivity(input: {
             lawyerId: $lawyerId,
             title: $title,
             description: $description,
-            likeCount: $likeCount
+            likeCount: $likeCount,
+            commentCount: $commentCount
         }) {
             status
             message
-            data
         }
     }`;
 
@@ -230,4 +230,15 @@ export abstract class GQLConfig {
           data
         }
     }`;
+
+    static likeUnlikePost = gql`mutation LikeUnlikePost($postId: String!, $isLiked: Boolean!, $userId: String!) {
+        postLike(input: {
+            postId: $postId,
+            isLiked: $isLiked,
+            userId: $userId
+        }) {
+            status
+            message
+        }
+    }`
 }

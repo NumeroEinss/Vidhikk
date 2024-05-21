@@ -96,7 +96,7 @@
                     </div>
                     <div class="d-flex mt-1 like-comment">
                       <div class="like-icon">
-                        <img src="../../../../assets/images/icons/like.svg" alt="" />{{ comment.likesCount }}
+                        <img src="../../../../assets/images/icons/like.svg" alt="" />{{ item.likesCount }}
                       </div>
                       <div class="mx-3 like-icon">
                         <img src="../../../../assets/images/icons/comment.svg" alt="" />
@@ -124,7 +124,9 @@
             <div class="activity-feed-bottom">
               <div class="like-comment-share-buttons">
                 <button class="activity-feed-bottom-btn">
-                  <img src="../../../../assets/images/icons/like_icon.svg" class="me-1" />Like
+                  <img
+                    [src]="item.isLiked?'../../assets/images/icons/like.svg':'../../assets/images/icons/like_icon.svg'"
+                    style="width: 18px;height: 18px;" class="me-1" (click)="likePost(item)" />Like
                 </button>
                 <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen"
                   *ngIf="userType === 'lawyer'">
