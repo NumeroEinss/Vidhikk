@@ -13,12 +13,12 @@
           <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Case Name</mat-label>
             <mat-form-field appearance="outline">
-              <mat-select placeholder="Select case" formControlName="caseName" required>
-                <mat-option *ngFor="let case of caseList" [value]="case.value">
-                  {{ case.viewValue }}
+              <mat-select placeholder="Select case" formControlName="caseDiaryId" required>
+                <mat-option *ngFor="let case of caseList" [value]="case._id">
+                  {{ case.caseName }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="createSubDiaryForm.controls['caseName'].errors?.['required']">Case name
+              <mat-error *ngIf="createSubDiaryForm.controls['caseDiaryId'].errors?.['required']">Case name
                 is Required !!</mat-error>
             </mat-form-field>
           </div>
@@ -26,12 +26,12 @@
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label">Members Name</mat-label>
             <mat-form-field appearance="outline">
-              <mat-select placeholder="Select member" formControlName="memberName" required>
-                <mat-option *ngFor="let member of memberList" [value]="member.value">
-                  {{ member.viewValue }}
+              <mat-select placeholder="Select member" formControlName="memberId" required>
+                <mat-option *ngFor="let member of memberList" [value]="member.memberId">
+                  {{ member.memberName }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="createSubDiaryForm.controls['memberName'].errors?.['required']">Member name is
+              <mat-error *ngIf="createSubDiaryForm.controls['memberId'].errors?.['required']">Member name is
                 Required !!</mat-error>
             </mat-form-field>
           </div>
@@ -41,7 +41,7 @@
 
     <div class="lower-div">
       <button mat-raised-button color="primary" type="button"
-        style="font-size: 14px !important; width: 124px !important" routerLink="/lawyer/case-diary/cases">
+        style="font-size: 14px !important; width: 124px !important" (click)="createSubDiary()">
         <img src="../../../../assets/images/icons/create-case-diary.svg" />Create
       </button>
 

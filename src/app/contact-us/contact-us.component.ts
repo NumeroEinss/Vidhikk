@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { SnackAlertService } from '../shared/services/snack-alert.service';
+import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { TicketModel } from '../common/ticket.model';
 
 @Component({
@@ -76,7 +76,7 @@ export class ContactUsComponent {
     { value: 'Subscription Issue', viewValue: 'Subscription Issue' },
   ];
 
-  constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService) {
+  constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService) {
     this.ticketForm = this._formBuilder.group(new TicketModel());
     this.ticketFrmCtrl['ticketTitle'].setValidators([Validators.required,]);
     this.ticketFrmCtrl['ticketType'].setValidators([Validators.required,]);

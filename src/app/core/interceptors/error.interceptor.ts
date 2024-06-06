@@ -9,12 +9,12 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { SnackAlertService } from '../../shared/services/snack-alert.service';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private _router: Router, private _toastMessage: SnackAlertService) { }
+  constructor(private _router: Router, private _toastMessage: ToastMessageService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this._toastMessage.showLoader = true;

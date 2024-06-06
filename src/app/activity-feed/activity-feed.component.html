@@ -9,13 +9,19 @@
 
 <!-- root section & feed section start-->
 <div class="root">
+  <div id="fab-container" class="fab-container" [ngStyle]="refreshVisible?{'display':'block'}:{'display':'none'}">
+    <button class="fab" (click)="getActivityFeeds()">
+      <span>&#x21bb;</span>
+    </button>
+  </div>
+
   <div style="height: calc(100vh - 196px)">
     <ng-scrollbar autoHeightDisabled="false" appearance="standard">
       <div class="feed-section">
         <div class="d-flex w-100">
           <div class="up-section-1 w-100" [ngClass]="userType != 'lawyer'?'up-section':''">
 
-            <div *ngIf="userType === 'lawyer'">
+            <div class="d-flex w-100" *ngIf="userType === 'lawyer'">
               <div class="profile-container">
                 <img src="../../assets/images/image/anurag_goyal.jpg" />
               </div>
@@ -55,7 +61,8 @@
                   </div>
                 </div>
               </div>
-              <div class="post-date">{{ getDaysAgo(item.createdAt) }} days ago</div>
+              <div class="post-date">{{ getDaysAgo(item.createdAt)>0?getDaysAgo(item.createdAt) + ' days ago':'Today' }}
+              </div>
             </div>
             <hr />
             <div class="activity-feed">
@@ -72,7 +79,8 @@
               </div>
             </div>
 
-            <div id="comment-section" *ngIf="isCommentBoxOpen || isPost" class="comment-section">
+            <div id="comment-section" *ngIf="item.isCommentExpanded || isPost" class="comment-section"
+              [ngStyle]="item.comments.length == 0?{'height':'0px'}:{'height':'300px'}">
               <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                 <div *ngFor="let comment of item.comments" class="comment">
                   <div class="down-section-1a">
@@ -80,21 +88,22 @@
                       <div class="profile-container1">
                         <img src="../../../../assets/images/image/anurag_goyal.jpg" />
                       </div>
-                      <div class="down-section-2">
-                        <div class="name">{{ comment.name }}</div>
+                      <div class="down-section-2 d-flex">
+                        <div class="name">{{ comment.lawyerName }}</div>
                         <div class="location">
-                          <img src="../../../../assets/images/icons/location.svg" alt="" />{{ comment.location }}
+                          <img src="../../../../assets/images/icons/location.svg" alt="" />{{comment.location}}
                         </div>
                       </div>
                     </div>
-                    <div class="post-date">{{ comment.postDate }}</div>
+                    <div class="post-date">{{getDaysAgo(comment.createdAt)>0?getDaysAgo(comment.createdAt) + ' days
+                      ago':'Today' }}</div>
                   </div>
                   <hr class="hr-line" />
                   <div class="activity-feed1">
                     <div class="activity-feed-comment">
-                      {{ comment.comment }}
+                      {{ comment.commentText }}
                     </div>
-                    <div class="d-flex mt-1 like-comment">
+                    <!-- <div class="d-flex mt-1 like-comment">
                       <div class="like-icon">
                         <img src="../../../../assets/images/icons/like.svg" alt="" />{{ item.likesCount }}
                       </div>
@@ -102,21 +111,21 @@
                         <img src="../../../../assets/images/icons/comment.svg" alt="" />
                         {{ comment.commentsCount }}
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </ng-scrollbar>
             </div>
 
-            <div class="comment-box" *ngIf="isCommentBoxOpen">
+            <div class="comment-box" *ngIf="item.isCommentExpanded">
               <div class="profile-container2">
                 <img src="../../../../assets/images/image/anurag_goyal.jpg" />
               </div>
               <div class="comment-box-textarea">
-                <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="comment"></textarea>
+                <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="item.comment"></textarea>
               </div>
               <div>
-                <button type="button" class="btn btn-primary comment-btn" (click)="addComment()">
+                <button type="button" class="btn btn-primary comment-btn" (click)="addComment(item)">
                   <img src="../../assets/images/icons/post.svg" alt="" />Post
                 </button>
               </div>
@@ -128,8 +137,7 @@
                     [src]="item.isLiked?'../../assets/images/icons/like.svg':'../../assets/images/icons/like_icon.svg'"
                     style="width: 18px;height: 18px;" class="me-1" (click)="likePost(item)" />Like
                 </button>
-                <button class="activity-feed-bottom-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen"
-                  *ngIf="userType === 'lawyer'">
+                <button class="activity-feed-bottom-btn" (click)="openCommentBox(item)" *ngIf="userType === 'lawyer'">
                   <img src="../../../../assets/images/icons/comment_icon.svg" class="me-1" />Comment
                 </button>
                 <button class="activity-feed-bottom-btn" [matMenuTriggerFor]="shareMenu">
@@ -138,10 +146,12 @@
               </div>
             </div>
             <mat-menu #shareMenu="matMenu">
-              <button mat-menu-item><span><img src="../../assets/images/icons/facebook_share.svg" alt=""
-                    class="me-2" /></span>Share on Facebook</button>
-              <button mat-menu-item><span><img src="../../assets/images/icons/whatsapp_share.svg" alt=""
-                    class="me-2" /></span>Share on Whatsapp</button>
+              <a mat-menu-item target="_blank" href="https://www.facebook.com"><span><img
+                    src="../../assets/images/icons/facebook_share.svg" alt="" class="me-2" /></span>Share on
+                Facebook</a>
+              <a mat-menu-item target="_blank" href="https://www.whatsapp.com"><span><img
+                    src="../../assets/images/icons/whatsapp_share.svg" alt="" class="me-2" /></span>Share on
+                Whatsapp</a>
             </mat-menu>
           </div>
           <!-- comment-box section end-->

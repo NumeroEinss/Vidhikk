@@ -8,6 +8,8 @@ import { CaseDiaryListComponent } from './case-diary-list/case-diary-list.compon
 import { CreateCaseDiaryComponent } from './create-case-diary/create-case-diary.component';
 import { CreateSubDiaryComponent } from './create-sub-diary/create-sub-diary.component';
 import { ViewApplicationComponent } from './view-application/view-application.component';
+import { caseDiaryGuard } from '../core/guard/case-diary.guard';
+import { EditCaseDiaryComponent } from './edit-case-diary/edit-case-diary.component';
 
 const routes: Routes = [
   {
@@ -34,18 +36,27 @@ const routes: Routes = [
   {
     path: 'cases',
     component: CaseDiaryListComponent,
+    canActivate: [caseDiaryGuard]
   },
   {
     path: 'create',
     component: CreateCaseDiaryComponent,
+    canActivate: [caseDiaryGuard]
+  },
+  {
+    path: 'edit',
+    component: EditCaseDiaryComponent,
+    canActivate: [caseDiaryGuard]
   },
   {
     path: 'create-sub-diary',
     component: CreateSubDiaryComponent,
+    canActivate: [caseDiaryGuard]
   },
   {
     path: 'view-application/:id',
     component: ViewApplicationComponent,
+    canActivate: [caseDiaryGuard]
   },
 ];
 
@@ -53,4 +64,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CaseDiaryRoutingModule {}
+export class CaseDiaryRoutingModule { }

@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root',
 })
-export class SnackAlertService {
+export class ToastMessageService {
 
   public showLoader: boolean = false;
 

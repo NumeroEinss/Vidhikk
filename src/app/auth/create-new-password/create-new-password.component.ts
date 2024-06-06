@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { forgotModel2 } from '../../common/forgot-password.model';
-import { SnackAlertService } from '../../shared/services/snack-alert.service';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { AuthService } from '../../shared/services/auth.service';
@@ -19,10 +19,10 @@ export class CreateNewPasswordComponent {
   hideConfirmPassword: boolean = true;
   routerState: any;
 
-  constructor(private _formBuilder: FormBuilder, private _toastMessage: SnackAlertService, private _router: Router,
+  constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _router: Router,
     private _apolloService: ApolloService, private AuthService: AuthService,) {
     this.setNewPasswordForm = this._formBuilder.group(new forgotModel2());
-    this.setNewPasswordFrmCtrl.setPassword.setValidators([Validators.required,Validators.minLength(10)]);
+    this.setNewPasswordFrmCtrl.setPassword.setValidators([Validators.required, Validators.minLength(10)]);
     this.setNewPasswordFrmCtrl.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword()]);
     this.routerState = this._router.getCurrentNavigation()?.extras.state;
     if (this.routerState == undefined) {
@@ -42,7 +42,8 @@ export class CreateNewPasswordComponent {
       reqBody = {
         password: this.setNewPasswordForm.controls.setPassword.value,
         confirmPassword: this.setNewPasswordForm.controls.confirmPassword.value,
-        mobile: this.routerState.mobile
+        mobile: this.routerState.mobile,
+        userType: this.routerState.userType
       }
       query = GQLConfig.resetPasswordMobile;
     }
@@ -50,7 +51,8 @@ export class CreateNewPasswordComponent {
       reqBody = {
         password: this.setNewPasswordForm.controls.setPassword.value,
         confirmPassword: this.setNewPasswordForm.controls.confirmPassword.value,
-        email: this.routerState.email
+        email: this.routerState.email,
+        userType: this.routerState.userType
       }
       query = GQLConfig.resetPasswordEmail;
     }

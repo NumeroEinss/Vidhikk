@@ -10,7 +10,7 @@ import {
 } from '@angular/material/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
 import { addDays } from 'date-fns';
-import { SnackAlertService } from '../shared/services/snack-alert.service';
+import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CalendarModel } from '../common/calendarModel';
 
@@ -269,7 +269,7 @@ export class CalendarComponent {
 
   isEditMode: boolean = false;
 
-  constructor(private _toastMessage: SnackAlertService, _fb: FormBuilder) {
+  constructor(private _toastMessage: ToastMessageService, _fb: FormBuilder) {
     this.calendarForm = _fb.group(new CalendarModel);
   }
 

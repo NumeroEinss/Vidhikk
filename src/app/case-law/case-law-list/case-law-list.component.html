@@ -109,14 +109,15 @@
             <mat-select placeholder="Select Judge" required>
               <a (click)="$event.stopPropagation()" style="text-decoration: none">
                 <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                  <input #search matInput (keyup)="filterJudge($event)" placeholder="By Judge Name" />
-                  <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
+                  <input #search matInput placeholder="By Judge Name" [(ngModel)]="judgeSearch" />
+                  <span matSuffix (click)="filterJudge(judgeSearch)"><img class="me-2"
+                      src="../../../assets/images/icons/search-blue.svg" /></span>
                 </mat-form-field>
               </a>
               <div style="height: 190px">
                 <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                   <mat-option>Select</mat-option>
-                  <mat-option *ngFor="let judge of filteredJudgeList" [value]="judge.value">
+                  <mat-option *ngFor="let judge of filteredJudgeList" [value]="judge.name">
                     {{ judge.name }}
                   </mat-option>
                 </ng-scrollbar>
@@ -380,8 +381,9 @@
               <mat-select placeholder="Select Judge" required>
                 <a (click)="$event.stopPropagation()" style="text-decoration: none">
                   <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                    <input #search matInput (keyup)="filterJudge($event)" placeholder="By Judge Name" />
-                    <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
+                    <input #search matInput placeholder="By Judge Name" />
+                    <span matSuffix (click)="filterJudge(judgeSearch)" [(ngModel)]="judgeSearch"><img class="me-2"
+                        src="../../../assets/images/icons/search-blue.svg" /></span>
                   </mat-form-field>
                 </a>
                 <div style="height: 190px">

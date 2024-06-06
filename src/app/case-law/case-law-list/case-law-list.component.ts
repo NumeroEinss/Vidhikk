@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
@@ -6,6 +7,10 @@ import {
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { SearchService } from '../../shared/services/search.service';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -35,7 +40,7 @@ const MY_DATE_FORMAT = {
 export class CaseLawListComponent {
   selectedIndex: number = 0;
   recordCount: number = 2134;
-  
+
   caseList = [
     {
       caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
@@ -165,38 +170,38 @@ export class CaseLawListComponent {
     },
   ];
   judgeList: any = [
-    {
-      name: 'Anoop Chitkara',
-      value: 'nij',
-    },
-    {
-      name: 'Puneet Gupta',
-      value: 'ocr',
-    },
-    {
-      name: 'Sunil Awasthi',
-      value: 'olr',
-    },
-    {
-      name: 'Satyan Vaida',
-      value: 'pccr',
-    },
-    {
-      name: 'A Ali',
-      value: 'plj',
-    },
-    {
-      name: 'Jyotsana Dua',
-      value: 'gcd',
-    },
-    {
-      name: 'Ajay Goel',
-      value: 'gjh',
-    },
-    {
-      name: 'Anil Choudhary',
-      value: 'ocr',
-    },
+    // {
+    //   name: 'Anoop Chitkara',
+    //   value: 'nij',
+    // },
+    // {
+    //   name: 'Puneet Gupta',
+    //   value: 'ocr',
+    // },
+    // {
+    //   name: 'Sunil Awasthi',
+    //   value: 'olr',
+    // },
+    // {
+    //   name: 'Satyan Vaida',
+    //   value: 'pccr',
+    // },
+    // {
+    //   name: 'A Ali',
+    //   value: 'plj',
+    // },
+    // {
+    //   name: 'Jyotsana Dua',
+    //   value: 'gcd',
+    // },
+    // {
+    //   name: 'Ajay Goel',
+    //   value: 'gjh',
+    // },
+    // {
+    //   name: 'Anil Choudhary',
+    //   value: 'ocr',
+    // },
   ];
   filteredJudgeList: any = [];
   actList = [
@@ -284,17 +289,30 @@ export class CaseLawListComponent {
   ];
   filteredVolumeList: any = [];
 
-  constructor(private _router: Router) {
+  private searchTerms = new Subject<string>();
+
+  judgeSearch: string = "";
+
+  constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
+    private _searchService: SearchService) {
     this.searchList = this.courtList;
     this.filteredJournalsList = this.journalList;
-    this.filteredJudgeList = this.judgeList;
+    // this.filteredJudgeList = this.judgeList;
+    this.getJudgeList();
     this.filteredActList = this.actList;
     this.filteredActTypeList = this.actTypeList;
     this.filteredYearList = this.yearList;
     this.filteredVolumeList = this.volumeList;
   }
 
-  tabSelectionChange(e: any) {}
+  ngOnInit() {
+    this.searchTerms.pipe(
+      debounceTime(300),        // Wait for 300ms pause in events
+      distinctUntilChanged(),   // Ignore if next search term is same as previous
+      switchMap((term: string) => this._searchService.search(term))
+    ).subscribe(results => this.filteredJudgeList = results);
+  }
+  tabSelectionChange(e: any) { }
 
   onKey(e: any = { target: { value: '' } }) {
     this.searchList = this.search(e.target.value);
@@ -310,7 +328,7 @@ export class CaseLawListComponent {
   closed(e: any) {
   }
 
-  updateAllComplete() {}
+  updateAllComplete() { }
 
   sort(sortValue: string) {
   }
@@ -330,12 +348,16 @@ export class CaseLawListComponent {
     this._router.navigate([`lawyer/case-law/bare-acts/view/${caseId}`]);
   }
 
-  filterJudge(e: any) {
-    let filter = e.target.value.toLowerCase();
-    this.filteredJudgeList = this.judgeList.filter((key: any) =>
-      key.name.toLowerCase().startsWith(filter)
-    );
+  // filterJudge(e: any) {
+  //   let filter = e.target.value.toLowerCase();
+  //   this.filteredJudgeList = this.judgeList.filter((key: any) =>
+  //     key.name.toLowerCase().startsWith(filter)
+  //   );
+  // }
+  filterJudge(value: string) {
+    this.searchTerms.next(value);
   }
+
   filterAct(e: any) {
     let filter = e.target.value.toLowerCase();
     this.filteredActList = this.actList.filter((key: any) =>
@@ -350,5 +372,14 @@ export class CaseLawListComponent {
     this.filteredActTypeList = this.actList.filter((key: any) =>
       key.name.toLowerCase().startsWith(filter)
     );
+  }
+
+  getJudgeList() {
+    this._apolloService.get('/judge').subscribe(resObj => {
+      if (resObj.status == "success") {
+        this.judgeList = resObj.data;
+        this.filteredJudgeList = this.judgeList;
+      }
+    })
   }
 }

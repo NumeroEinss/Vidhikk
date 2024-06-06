@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SnackAlertService } from '../shared/services/snack-alert.service';
+import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -242,7 +242,7 @@ export class ChatRoomComponent {
     },
   ];
 
-  constructor(private _router: Router, private _toastMessage: SnackAlertService, private formBuilder: FormBuilder) {
+  constructor(private _router: Router, private _toastMessage: ToastMessageService, private formBuilder: FormBuilder) {
     this.chatRoomForm = new FormGroup({
       participant: new FormControl('', [Validators.required]),
       roomName: new FormControl('', [Validators.required]),

@@ -19,7 +19,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { AuthGuard } from './core/guard/auth.guard';
 import { AuthService } from './shared/services/auth.service';
 import { ApolloService } from './shared/services/apollo.service';
-import { SnackAlertService } from './shared/services/snack-alert.service';
+import { ToastMessageService } from './shared/services/snack-alert.service';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { UserLayoutComponent } from './user-layout/user-layout.component';
@@ -56,7 +56,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     AuthGuard,
     AuthService,
     ApolloService,
-    SnackAlertService,
+    ToastMessageService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
     { provide: MAT_DIALOG_DATA, useValue: {} },
     // { provide: HTTP_INTERCEPTORS, useClass: HttpIntterceptor, multi: true },

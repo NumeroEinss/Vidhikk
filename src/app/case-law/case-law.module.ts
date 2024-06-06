@@ -9,6 +9,7 @@ import { CaseLawDetailComponent } from './case-law-detail/case-law-detail.compon
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BareActsDetailComponent } from './bare-acts-detail/bare-acts-detail.component';
 import { HighlighterPipe } from './highlighter.pipe';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HighlighterPipe } from './highlighter.pipe';
     CaseLawRoutingModule,
     SharedModule,
     MaterialModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatPaginatorModule
   ]
 })
 export class CaseLawModule { }

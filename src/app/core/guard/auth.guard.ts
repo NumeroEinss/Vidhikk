@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
-import { SnackAlertService } from '../../shared/services/snack-alert.service';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
 
 @Injectable()
 export class AuthGuard {
 
-  constructor(private router: Router, private _toastMessage: SnackAlertService) { }
+  constructor(private router: Router, private _toastMessage: ToastMessageService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const userData: any = JSON.parse(localStorage.getItem("userData")!);

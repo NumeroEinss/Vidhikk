@@ -12,6 +12,10 @@ import { CaseDiaryListComponent } from './case-diary-list/case-diary-list.compon
 import { CreateCaseDiaryComponent } from './create-case-diary/create-case-diary.component';
 import { CreateSubDiaryComponent } from './create-sub-diary/create-sub-diary.component';
 import { ViewApplicationComponent } from './view-application/view-application.component';
+import { caseDiaryGuard } from '../core/guard/case-diary.guard';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { EditCaseDiaryComponent } from './edit-case-diary/edit-case-diary.component';
 
 
 @NgModule({
@@ -23,7 +27,8 @@ import { ViewApplicationComponent } from './view-application/view-application.co
     CaseDiaryListComponent,
     CreateCaseDiaryComponent,
     CreateSubDiaryComponent,
-    ViewApplicationComponent],
+    ViewApplicationComponent,
+    EditCaseDiaryComponent],
 
   imports: [
     CommonModule,
@@ -31,7 +36,9 @@ import { ViewApplicationComponent } from './view-application/view-application.co
     SharedModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    MatDatepickerModule
+  ],
+  providers: [caseDiaryGuard,provideNativeDateAdapter()]
 })
 export class CaseDiaryModule { }

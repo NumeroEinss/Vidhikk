@@ -12,13 +12,13 @@
       <form class="col mt-3" [formGroup]="caseDiarySignUpForm">
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/people-icon.svg" alt="" /></mat-icon></span>
-          <input type="text" matInput placeholder="Enter Username" formControlName="username" required />
+          <input type="text" matInput placeholder="Enter Username" formControlName="userName" required />
           <mat-error *ngIf="
-              caseDiarySignUpForm.controls['username'].hasError('required')
+              caseDiarySignUpForm.controls['userName'].hasError('required')
             ">Username is Required</mat-error>
           <mat-error *ngIf="
-              !caseDiarySignUpForm.controls['username'].hasError('required') &&
-              caseDiarySignUpForm.controls['username'].invalid
+              !caseDiarySignUpForm.controls['userName'].hasError('required') &&
+              caseDiarySignUpForm.controls['userName'].invalid
             ">Username invalid</mat-error>
         </mat-form-field>
 
@@ -55,7 +55,7 @@
         </mat-form-field>
 
         <div class="text-center mt-3">
-          <button mat-raised-button color="primary w-100">Sign up</button><br />
+          <button type="button" mat-raised-button color="primary w-100" (click)="register()">Sign up</button><br />
 
           <button mat-stroked-button class="w-100" color="primary" routerLink="/lawyer//case-diary/login"
             style="margin-top: 12px;">

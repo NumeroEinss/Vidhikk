@@ -1,4 +1,4 @@
-.root { 
+.root {
 
 
   marquee {
@@ -74,12 +74,12 @@
 
       .news-image {
         width: 180px;
-        height: 121px;
 
         img {
           width: 180px;
-          height: 121px;
+          height: 100%;
           object-fit: cover;
+          border-radius: 10px 0px 0px 10px;
         }
       }
 
@@ -137,7 +137,7 @@
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
   .root {
     .feed-section {
-      margin:30px 15px 15px 15px;
+      margin: 30px 15px 15px 15px;
 
       .news {
         margin-right: unset;
@@ -151,7 +151,6 @@
         .news-feed-section {
           .news-image {
             width: 180px;
-            height: 100%;
 
             img {
               width: 180px;

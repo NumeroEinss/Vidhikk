@@ -1,5 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { SnackAlertService } from '../shared/services/snack-alert.service';
+import { ToastMessageService } from '../shared/services/snack-alert.service';
+import { ApolloService } from '../shared/services/apollo.service';
+import { GQLConfig } from '../graphql.operations';
 
 @Component({
   selector: 'app-members',
@@ -8,196 +10,9 @@ import { SnackAlertService } from '../shared/services/snack-alert.service';
 })
 export class MembersComponent implements AfterViewInit {
   selectedMember: any = {};
-
-  memberList = [
-    {
-      id: 1,
-      image: '../../assets/images/image/anurag_goyal.jpg',
-      memberName: 'Anil Pandey',
-      icon: '../../assets/images/icons/lock_member.svg',
-      contactNo: 'Profile Lock',
-      emailIcon: '../../assets/images/icons/lock_member.svg',
-      emailDetails: 'Profile Lock',
-      designation: 'Corporate Lawyer',
-      branch: 'Pune',
-    },
-    {
-      id: 2,
-      image: '../../assets/images/image/add_member2.png',
-      memberName: 'Bhushan Singh',
-      icon: '../../assets/images/icons/call_member.svg',
-      contactNo: '+91-456-789-4560',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'bhushansingh1@gmail.com',
-      designation: 'Civil Lawyer',
-      branch: 'Goa',
-    },
-    {
-      id: 3,
-      image: '../../assets/images/image/add_member.png',
-      memberName: 'Kunal Thakre',
-      icon: '../../assets/images/icons/call_member.svg',
-      contactNo: '+91-456-789-4560',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'kunalthakre1@gmail.com',
-      designation: 'Employement Lawyer',
-      branch: 'Mumbai',
-    },
-    {
-      id: 4,
-      image: '../../assets/images/image/anurag_goyal.jpg',
-      memberName: 'Vinit Upadhyaya',
-      icon: '../../assets/images/icons/lock_member.svg',
-      contactNo: 'Profile Lock',
-      emailIcon: '../../assets/images/icons/lock_member.svg',
-      emailDetails: 'Profile Lock',
-      designation: 'Criminal Lawyer',
-      branch: 'Pune',
-    },
-    {
-      id: 5,
-      image: '../../assets/images/image/add_member.png',
-      memberName: 'Manika Da',
-      icon: '../../assets/images/icons/lock_member.svg',
-      contactNo: 'Profile Lock',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'manikada32@gmail.com',
-      designation: 'Civil Lawyer',
-      branch: 'Pune',
-    },
-    {
-      id: 6,
-      image: '../../assets/images/image/add_member2.png',
-      memberName: 'Kunal Thakre',
-      icon: '../../assets/images/icons/call_member.svg',
-      contactNo: '+91-456-789-4560',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'kunalthakre1@gmail.com',
-      designation: 'Employement Lawyer',
-      branch: 'Mumbai',
-    },
-    {
-      id: 7,
-      image: '../../assets/images/image/anurag_goyal.jpg',
-      memberName: 'Kunal Thakre',
-      icon: '../../assets/images/icons/call_member.svg',
-      contactNo: '+91-456-789-4560',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'kunalthakre1@gmail.com',
-      designation: 'Employement Lawyer',
-      branch: 'Mumbai',
-    },
-    {
-      id: 8,
-      image: '../../assets/images/image/add_member.png',
-      memberName: 'Kunal Thakre',
-      icon: '../../assets/images/icons/call_member.svg',
-      contactNo: '+91-456-789-4560',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'kunalthakre1@gmail.com',
-      designation: 'Employement Lawyer',
-      branch: 'Mumbai',
-    },
-  ];
-
-  memberDetails = [
-    {
-      image: '../../assets/images/image/add_member.png',
-      memberName: 'Harish Salve',
-      lawyerTypeImg: '../../assets/images/icons/lawyer_type.svg',
-      lawyerType: 'Criminal Lawyer',
-      experienceImg: '../../assets/images/icons/member_experience.svg',
-      experience: '10+ Experience',
-      ratingStar: '../../assets/images/icons/yellow_star.svg',
-      rating: '(4.5)',
-      icon: '../../assets/images/icons/lock_member.svg',
-      contactNo: 'Profile Lock',
-      emailIcon: '../../assets/images/icons/lock_member.svg',
-      emailDetails: 'Profile Lock',
-      designation: 'Corporate Lawyer',
-      branch: 'Pune',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      memberName: 'Mukul Rohatagi',
-      lawyerTypeImg: '../../assets/images/icons/lawyer_type.svg',
-      lawyerType: 'Diverse Lawyer',
-      experienceImg: '../../assets/images/icons/member_experience.svg',
-      experience: '10+ Experience',
-      ratingStar: '../../assets/images/icons/yellow_star.svg',
-      rating: '(4.0)',
-      icon: '../../assets/images/icons/call_member.svg',
-      contactNo: '+91-456-789-4560',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'kunalthakre1@gmail.com',
-      designation: 'Employement Lawyer',
-      branch: 'Mumbai',
-    },
-    {
-      image: '../../assets/images/image/add_member.png',
-      memberName: 'Amit Sharma',
-      lawyerTypeImg: '../../assets/images/icons/lawyer_type.svg',
-      lawyerType: 'Criminal Lawyer',
-      experienceImg: '../../assets/images/icons/member_experience.svg',
-      experience: '10+ Experience',
-      ratingStar: '../../assets/images/icons/yellow_star.svg',
-      rating: '(4.3)',
-      icon: '../../assets/images/icons/lock_member.svg',
-      contactNo: 'Profile Lock',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'manikada32@gmail.com',
-      designation: 'Civil Lawyer',
-      branch: 'Pune',
-    },
-    {
-      image: '../../assets/images/image/add_member2.png',
-      memberName: 'Shashank Rawal',
-      lawyerTypeImg: '../../assets/images/icons/lawyer_type.svg',
-      lawyerType: 'Divorce Lawyer',
-      experienceImg: '../../assets/images/icons/member_experience.svg',
-      experience: '10+ Experience',
-      ratingStar: '../../assets/images/icons/yellow_star.svg',
-      rating: '(4.5)',
-      icon: '../../assets/images/icons/lock_member.svg',
-      contactNo: 'Profile Lock',
-      emailIcon: '../../assets/images/icons/lock_member.svg',
-      emailDetails: 'Profile Lock',
-      designation: 'Corporate Lawyer',
-      branch: 'Pune',
-    },
-    {
-      image: '../../assets/images/image/add_member.png',
-      memberName: 'kapil Sibal',
-      lawyerTypeImg: '../../assets/images/icons/lawyer_type.svg',
-      lawyerType: 'Criminal Lawyer',
-      experienceImg: '../../assets/images/icons/member_experience.svg',
-      experience: '10+ Experience',
-      ratingStar: '../../assets/images/icons/yellow_star.svg',
-      rating: '(4.8)',
-      icon: '../../assets/images/icons/call_member.svg',
-      contactNo: '+91-456-789-4560',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'kunalthakre1@gmail.com',
-      designation: 'Employement Lawyer',
-      branch: 'Mumbai',
-    },
-    {
-      image: '../../assets/images/image/add_member.png',
-      memberName: 'kapil Sibal',
-      lawyerTypeImg: '../../assets/images/icons/lawyer_type.svg',
-      lawyerType: 'Criminal Lawyer',
-      experienceImg: '../../assets/images/icons/member_experience.svg',
-      experience: '10+ Experience',
-      ratingStar: '../../assets/images/icons/yellow_star.svg',
-      rating: '(4.8)',
-      icon: '../../assets/images/icons/lock_member.svg',
-      contactNo: 'Profile Lock',
-      emailIcon: '../../assets/images/icons/mail_member.svg',
-      emailDetails: 'manikada32@gmail.com',
-      designation: 'Civil Lawyer',
-      branch: 'Pune',
-    },
-  ];
+  memberList: any = [];
+  filteredLawyerList: any = [];
+  lawyerList: any = [];
 
   places = [
     { value: 'indore', viewValue: 'Indore' },
@@ -211,7 +26,10 @@ export class MembersComponent implements AfterViewInit {
     { value: 'civil', viewValue: 'Civil' },
   ];
 
-  constructor(private _toastMessage: SnackAlertService,) { }
+  constructor(private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
+    this.getAllLawyersList();
+    this.getMembersList();
+  }
 
   ngAfterViewInit() {
     let element = document.getElementById('modalButton1') as HTMLElement;
@@ -219,15 +37,88 @@ export class MembersComponent implements AfterViewInit {
   }
 
   addMember(member: any) {
-    this.memberList.unshift(member)
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {}
+    let data = {
+      lawyerId: parsedData._id,
+      memberId: member.lawyerId
+    };
+    this._apolloService.mutate(GQLConfig.addMember, data).subscribe((resObj) => {
+      if (resObj.data != null) {
+        if (resObj.data.addMember.status == 200) {
+          this._toastMessage.success(resObj.data.addMember.message);
+          this.getMembersList();
+        }
+        else {
+          this._toastMessage.error(resObj.data.addMember.message);
+        }
+      }
+    })
   }
 
-  deleteMember() {
-    this.memberList.forEach((x: any, index: any) => {
-      if (x.id == this.selectedMember.id) {
-        this.memberList.splice(index, 1)
+  deleteMember(member: any) {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {}
+    let data = {
+      lawyerId: parsedData._id,
+      memberId: member.memberId
+    };
+    this._apolloService.mutate(GQLConfig.deleteMember, data).subscribe(resObj => {
+      if (resObj.data != null) {
+        if (resObj.data.deleteMember.status == 200) {
+          this._toastMessage.success(resObj.data.deleteMember.message);
+          this.getMembersList();
+        }
+        else {
+          this._toastMessage.error(resObj.data.deleteMember.message);
+        }
       }
-      this._toastMessage.message('Member Deleted Successfully!!');
     })
+  }
+
+  filterLawyers(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.filteredLawyerList = this.lawyerList.filter((key: any) =>
+      key.memberName.toLowerCase().startsWith(filter)
+    );
+  }
+
+  getAllLawyersList() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {}
+    this._apolloService.mutate(GQLConfig.getLawyersList, { lawyerId: parsedData._id }).subscribe(resObj => {
+      if (resObj.data != null) {
+        if (resObj.data.lawyersList.status == 200) {
+          this.lawyerList = resObj.data.lawyersList.data.lawyerList;
+          this.lawyerList.forEach((element: any) => {
+            element.image = '../../assets/images/image/add_member.png';
+            element.experience = 0;
+          });
+          this.filteredLawyerList = this.lawyerList;
+        }
+        else {
+          this._toastMessage.error(resObj.data.lawyersList.message);
+        }
+      }
+    })
+  }
+
+  getMembersList() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {}
+    this._apolloService.mutate(GQLConfig.getMemberList, { lawyerId: parsedData._id }).subscribe(resObj => {
+      if (resObj.data != null) {
+        if (resObj.data.getListMember.status == 200) {
+          this.memberList = resObj.data.getListMember.data.memberList;
+        }
+        else {
+          this._toastMessage.error(resObj.data.getListMember.message);
+        }
+      }
+    })
+  }
+
+  trackById(index: number, member: any) {
+    return member.memberId;
   }
 }

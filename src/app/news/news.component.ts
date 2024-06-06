@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApolloService } from '../shared/services/apollo.service';
-import { SnackAlertService } from '../shared/services/snack-alert.service';
+import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { GQLConfig } from '../graphql.operations';
 
 @Component({
@@ -17,12 +17,12 @@ export class NewsComponent {
     // }
   ];
 
-  constructor(private _apolloService: ApolloService, private _toastMessage: SnackAlertService) {
+  constructor(private _apolloService: ApolloService, private _toastMessage: ToastMessageService) {
     this.getNewsFeed();
   }
 
   getHeadingLength(): number {
-    return (window.innerWidth > 1199) ? 120 : 35;
+    return (window.innerWidth > 1199) ? 120 : 30;
   }
 
   getCharLength(): number {

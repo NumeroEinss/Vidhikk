@@ -22,7 +22,8 @@
       <div>
         <div class="news-feed-container">
           <div class="d-flex news-feed-section" *ngFor="let news of newsList">
-            <div class="news-image"><img [src]="news.image_url" alt="noImage" /></div>
+            <div class="news-image"><img [src]="news.image_url" onerror="this.onerror=null;
+                this.src='../../assets/images/image/no-image.png'" /></div>
             <div class="news-details">
               <div class="news-heading">{{ news.title?.substr(0,
                 getHeadingLength())}} {{news.title?.length>getHeadingLength()?'...':''}}</div>

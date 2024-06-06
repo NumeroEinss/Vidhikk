@@ -2,7 +2,7 @@ import { Component, ElementRef, Inject, TemplateRef, ViewChild } from '@angular/
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators, FormControl } from '@angular/forms';
 import { SignUpModel, LawyerSignupModel, UserSignupModel, JudgeSignupModel } from '../../common/signup.model';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { SnackAlertService } from '../../shared/services/snack-alert.service';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -37,6 +37,8 @@ export class SignupComponent {
   userImage: any;
   emailOtpVerified: boolean = false;
   otp: string = "";
+
+  private otpChangeTimeout: any;
 
   cities: any[] = [
     { value: 'indore', viewValue: 'Indore' },
@@ -339,7 +341,7 @@ export class SignupComponent {
   ];
 
   constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router,
-    @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: SnackAlertService, private _apolloService: ApolloService) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
     this.signupForm = this._fb.group(new SignUpModel());
     this.SignupFrmCtrl.mobile.setValidators([Validators.required, Validators.minLength(10)]);
     this.SignupFrmCtrl.otp.setValidators([Validators.required, Validators.minLength(6)]);
@@ -559,41 +561,64 @@ export class SignupComponent {
   }
 
   onOtpChange(e: any) {
-    if (e.length == 6 && !this.emailOtpVerified) {
-      let data = {};
-      if (this.userType == "USER") {
-        data = {
-          email: this.userForm.controls.email.value,
-          otp: e
-        };
-      }
-      else if (this.userType == "LAWYER") {
-        data = {
-          email: this.lawyerForm.controls.email.value,
-          otp: e
-        };
-      }
-      this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
-        if (objEmailOtp.data != null) {
-
-          console.log(objEmailOtp);
-          if (objEmailOtp.data.verifyOtp.status == 200) {
-            this.emailOtpVerified = true;
-            let el = document.getElementById('closeOtpModalButton') as HTMLElement;
-            el.click();
-            this._toastMessage.success(objEmailOtp.data.verifyOtp.message);
-            this.ngOtpInput.setValue('');
-          }
-          else {
-            this._toastMessage.error(objEmailOtp.data.verifyOtp.message)
-          }
+    clearTimeout(this.otpChangeTimeout);
+    this.otpChangeTimeout = setTimeout(() => {
+      if (e.length == 6 && !this.emailOtpVerified) {
+        let data = {};
+        if (this.userType == "USER") {
+          data = {
+            email: this.userForm.controls.email.value,
+            otp: e
+          };
+        } else if (this.userType == "LAWYER") {
+          data = {
+            email: this.lawyerForm.controls.email.value,
+            otp: e
+          };
         }
-      })
-    }
+        this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
+          if (objEmailOtp.data != null) {
+            console.log(objEmailOtp);
+            if (objEmailOtp.data.verifyOtp.status == 200) {
+              this.emailOtpVerified = true;
+              let el = document.getElementById('closeOtpModalButton') as HTMLElement;
+              el.click();
+              this._toastMessage.success(objEmailOtp.data.verifyOtp.message);
+              this.ngOtpInput.setValue('');
+            } else {
+              this._toastMessage.error(objEmailOtp.data.verifyOtp.message);
+            }
+          }
+        });
+      }
+    }, 300); // 300ms delay
   }
 
   resendEmailOtp() {
-    this.sendOtpForEmail();
+    let data = {}
+    if (this.userType == "USER") {
+      data = {
+        email: this.userForm.controls.email.value,
+        mobile: this.userForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "LAWYER") {
+      data = {
+        email: this.lawyerForm.controls.email.value,
+        mobile: this.lawyerForm.controls.phoneNumber.value
+      };
+    }
+    this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
+      if (objEmailOtp.data != null) {
+        if (objEmailOtp.data.sendOtp.status == 200) {
+          this._toastMessage.message(objEmailOtp.data.sendOtp.message);
+          this.ngOtpInput.setValue('');
+        }
+        else {
+          this._toastMessage.error(objEmailOtp.data.sendOtp.message);
+        }
+      }
+    })
   }
 
   userSignUp() {
@@ -651,7 +676,7 @@ export class SignupComponent {
       stateBar: this.lawyerForm.controls.stateBar.value,
       practicingCourt: this.lawyerForm.controls.courtName.value,
       barLicenseNumber: this.lawyerForm.controls.licenseNo.value,
-      practiceYear: this.lawyerForm.controls.practiceYear.value,
+      practiceYear: parseInt(this.lawyerForm.controls.practiceYear.value),
       practicingField: this.lawyerForm.controls.practiceField.value,
       orgainization: this.lawyerForm.controls.orgainization.value,
       coreCompetency: this.lawyerForm.controls.coreCompetency.value,

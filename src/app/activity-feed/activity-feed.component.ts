@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApolloService } from '../shared/services/apollo.service';
-import { SnackAlertService } from '../shared/services/snack-alert.service';
+import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { GQLConfig } from '../graphql.operations';
 
 @Component({
@@ -19,30 +19,16 @@ export class ActivityFeedComponent {
   isPost: boolean = false;
   comment: string = '';
   userType: string = "";
-
   feedList: any = [];
-
   post: any = { title: "", description: "" };
+  refreshVisible: boolean = false;
 
   constructor(private _router: Router, private _apolloService: ApolloService,
-    private _toastMessage: SnackAlertService
+    private _toastMessage: ToastMessageService
   ) {
     this.userType = _router.url.split('/')[1];
     this.getActivityFeeds();
-  }
-
-  addComment() {
-    this.feedList[0].comments.push({
-      name: 'Lavkush Mishra',
-      location: 'Bhopal, MP',
-      postDate: '2 days ago',
-      comment: this.comment,
-      likesCount: 'Raj and 11 others',
-      commentsCount: '1 Comments',
-    });
-    this.comment = '';
-    let element = document.getElementById('comment-section') as HTMLElement;
-    element.scrollTo(0, 1000);
+    setInterval(() => { this.refreshVisible = true }, 10000)
   }
 
   addPost() {
@@ -53,7 +39,6 @@ export class ActivityFeedComponent {
       this._toastMessage.error("Post Description is required !!");
     }
     else {
-      console.log('Post Api Called !!');
       let userData = JSON.parse(localStorage.getItem('userData')!);
       let reqObj = {
         lawyerId: userData._id,
@@ -68,7 +53,7 @@ export class ActivityFeedComponent {
             this._toastMessage.success(data.data.postLawyerActivity.message);
             this.post.title = "";
             this.post.description = "";
-            setTimeout(() => { this.getActivityFeeds() }, 2000);
+            this.getActivityFeeds();
           }
           else {
             this._toastMessage.success(data.data.postLawyerActivity.message);
@@ -79,12 +64,11 @@ export class ActivityFeedComponent {
   }
 
   getActivityFeeds() {
-    console.log('Get Api Called !!');
-    this._apolloService.query(GQLConfig.getActivityFeed).subscribe(data => {
+    this._apolloService.mutate(GQLConfig.getActivityFeed).subscribe(data => {
       if (data.data != null) {
-        console.log(data.data)
         if (data.data.getpostList.status == 200) {
           this.feedList = data.data.getpostList.data.postList;
+          this.feedList.forEach((x: any) => { x.isCommentExpanded = false; x.comment = ""; });
         }
         else {
           this._toastMessage.success(data.data.getpostList.message);
@@ -96,11 +80,10 @@ export class ActivityFeedComponent {
   getDaysAgo(date: Date) {
     let today: Date = new Date();
     let daysAgo = Math.floor((today.getTime() - new Date(date).getTime()) / (1000 * 60 * 60 * 24))
-    return daysAgo;
+    return daysAgo > 0 ? daysAgo : daysAgo * (-1);
   }
 
   likePost(post: any) {
-    console.log('Like Api Called !!');
     const userData: any = localStorage.getItem('userData');
     let userId = JSON.parse(userData)._id;
     let data = {
@@ -116,6 +99,50 @@ export class ActivityFeedComponent {
         }
         else {
           this._toastMessage.error(data.data.postLike.message);
+        }
+      }
+    })
+  }
+
+  addComment(post: any) {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    if (post.comment == "") {
+      this._toastMessage.error('Comment is required !!');
+    }
+    else {
+      let reqObj = {
+        postId: post._id,
+        lawyerId: parsedData._id,
+        comment: post.comment
+      }
+      this._apolloService.mutate(GQLConfig.sendComment, reqObj).subscribe(data => {
+        if (data.data != null) {
+          if (data.data.postComment.status == 200) {
+            this._toastMessage.success(data.data.postComment.message);
+            this.getPostComment(post);
+          }
+          else {
+            this._toastMessage.error(data.data.postComment.message);
+          }
+        }
+      })
+    }
+  }
+
+  openCommentBox(post: any) {
+    post.isCommentExpanded = !post.isCommentExpanded;
+  }
+
+  getPostComment(post: any) {
+    this._apolloService.mutate(GQLConfig.getPostComment, { postId: post._id }).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.getPostComment.status == 200) {
+          post.comments = data.data.getPostComment.data.commentList;
+          post.comment = "";
+        }
+        else {
+          this._toastMessage.error(data.data.getPostComment.message);
         }
       }
     })

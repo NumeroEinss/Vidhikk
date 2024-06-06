@@ -1,0 +1,78 @@
+.root {
+    .edit-case-diary {
+        margin: 30px;
+
+        .edit-case-diary-heading {
+            flex-grow: 0;
+            margin: 0 0 23px 0;
+            font-family: Poppins;
+            font-size: 24px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: #000;
+        }
+
+        .edit-case-diary-fields {
+            .case-diary-col {
+                display: flex;
+                flex-wrap: wrap;
+
+                .mat-label {
+                    margin-bottom: 4px;
+                    height: 21px;
+                    flex-grow: 0;
+                    font-family: Poppins;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #000000;
+                }
+
+                input [type="file"] {
+                    font-family: Poppins;
+                }
+            }
+        }
+
+        .lower-div {
+            display: flex;
+            margin: 35px 0 35px 0;
+
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 12px;
+                font-size: 14px;
+            }
+
+            img {
+                margin-right: 10px;
+            }
+
+            .mat-mdc-outlined-button:not(:disabled) {
+                width: unset !important;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .root {
+        .edit-case-diary {
+            margin: 15px;
+
+            .lower-div {
+                margin: 25px 0 70px 0;
+            }
+        }
+    }
+}

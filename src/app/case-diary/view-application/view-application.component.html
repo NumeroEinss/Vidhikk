@@ -37,44 +37,32 @@
     <!-- case-diary details start-->
     <div style="height: calc(100vh - 175px)">
       <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-        <div class="description" #printableContent id="printableArea">
-          <div>IN THE COURT OF <span class="bold">XII ADJ, Indore</span></div>
+        <div class="description" *ngIf="!templateContent"> Loading ...</div>
+        <div class="description" #printableContent id="printableArea" *ngIf="templateContent">
+          <div><span class="bold">{{this.templateContent.court}}</span></div>
           <div class="mt-3 print-content">
-            Case No: <span class="bold">2341</span><br />
-            Hearing Date: <span class="bold">15-01-24</span><br />
-            Case Title: <span class="bold">Criminal</span>
+            Case No: <span class="bold">{{applicationData.caseNumber}}</span><br />
+            Hearing Date: <span class="bold">{{applicationData.nextHearingDate | date:'dd/MM/yyyy'}}</span><br />
+            Case Title: <span class="bold">{{applicationData.caseName}}</span>
           </div>
-          <div class="mt-3 print-content"><span class="bold">Karan Singh</span> Applicant</div>
+          <div class="mt-3 print-content"><span class="bold">{{applicationData.applicantName}}</span> Applicant</div>
           <div class="mt-3 print-content">Versus</div>
-          <div class="mt-3 print-content"><span class="bold">Ram Kumar</span> Respondent</div>
+          <div class="mt-3 print-content"><span class="bold">{{applicationData.respondentName}}</span> Respondent</div>
           <div class="mt-3 print-content">
-            Application u/s <span class="bold">318</span> Cr.P.C.
+            <span class="bold">
+              {{templateContent.application_type}}
+            </span>
           </div>
-          <div class="mt-3 print-content">Bail application pending hearing of appeal</div>
-          <div class="mt-3 print-content">Most respectfully showeth:-</div>
-          <div class="mt-3 print-content">
-            1. That petitioner has been convicted by the Hon'ble court for the
-            offence under Section 318 and passed an order to undergo sentence
-            RI with fine in default to suffer
-          </div>
-          <div class="mt-3 print-content">
-            2. Applicant responded is
-            <span class="bold">Out of Station </span>Today.
-          </div>
-          <div class="mt-3 print-content">
-            It is most respectfully prayed that petitioner convict may please be
-            granted bail (Short bail) in order to
-            enable to lodge appeal against the conviction and sentence.
-          </div>
-          <div class="mt-3 print-content">It is prayed accordingly.</div>
-          <div class="mt-3 print-content">Convict/Accused.</div>
-          <div class="mt-3 print-content">Date:<br />Through Counsel</div>
-          <div class="mt-3 print-content">
-            Place:<span class="bold">Indore</span><br />U/s. 389 (3) Cr. P. C. short
-            bail can be obtained for filing appeal to High Court/ Sessions Court.
-          </div>
-          <!-- case-diary details ends-->
+          <div class="mt-3 print-content">{{templateContent.content.paragraphTitle}}</div>
+          @for (item of templateContent.content.paragraphs; track $index) {
+          <div class="mt-3 print-content">{{item}}</div>
+          }
+          <div class="mt-3 print-content">Place : <span class="bold">{{applicationData.city}}</span></div>
+          <div class="mt-3 print-content">Date : {{applicationData.nextHearingDate |date:'dd/MM/yyyy'}}</div>
+          <div class="mt-3 print-content">{{templateContent.counsel}}</div>
         </div>
+
+        <!-- -- case-diary details ends-- -->
       </ng-scrollbar>
     </div>
     <!-- feed-section-ends -->

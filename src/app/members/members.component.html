@@ -2,24 +2,7 @@
 <app-header [menuName]="'Member'"></app-header>
 
 <!-- root section start -->
-<div class="root" style="height: calc(100vh - 250px)">
-  <!-- member directory section start -->
-  <!-- <div class="member-directory">
-    <div class="member-directory-repo">Member Directory</div>
-    <div class="member-directory-heading">
-      Connect with our Diverse Community of Member
-    </div>
-    <div class="member-directory-img">
-      <img src="../../../assets/images/icons/member_directory.svg" alt="" />
-    </div>
-    <div>
-      <button type="button" class="btn btn-primary" data-bs-target="#addMemberModalToggle" data-bs-toggle="modal">
-        <img src="../../../assets/images/icons/create-case-diary.svg" alt="" class="me-2" />Add Member
-      </button>
-    </div>
-  </div> -->
-  <!-- member directory section ends-->
-
+<div class="root">
   <!-- add member list start -->
   <div class="add-member-btn mb-2">
     <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-target="#addMemberModalToggle"
@@ -28,41 +11,52 @@
       Member
     </button>
   </div>
-  
-  <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-    <div class="add-member-list">
-      <div>
-        <div class="member-list-header">
-          <div class="grid-item-name">NAME</div>
-          <div class="grid-item1">CONTACT NO. DETAILS</div>
-          <div class="grid-item1">EMAIL DETAILS</div>
-          <div class="grid-item1">DESIGNATION</div>
-          <div class="grid-item1">BRANCH</div>
-          <div class="grid-item1">ACTIONS</div>
-        </div>
 
-        <div *ngFor="let member of memberList" class="member-list-data">
+  <div class="add-member-list">
+    <div style="height: calc(100vh - 280px);">
+      <div class="member-list-header">
+        <div class="grid-item-name">NAME</div>
+        <div class="grid-item1">CONTACT NO. DETAILS</div>
+        <div class="grid-item1">EMAIL DETAILS</div>
+        <div class="grid-item1">PRACTISING FIELD</div>
+        <div class="grid-item1">CITY</div>
+        <div class="grid-item1">ACTIONS</div>
+      </div>
+
+      <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+        @for (member of memberList;track member) {
+        <div class="member-list-data">
           <div class="grid-item2">
-            <span><img [src]="member.image" class="member-img me-2" /></span>{{ member.memberName }}
+            <span><img src="../../assets/images/image/add_member.png" class="member-img me-2" /></span>{{
+            member.memberName }}
           </div>
           <div class="grid-item2">
-            <span><img [src]="member.icon" class="icon me-2" /></span>{{ member.contactNo }}
+            <span><img
+                [src]="member['iscontactDisplay']?'../../assets/images/icons/call_member.svg':'../../assets/images/icons/lock_member.svg'"
+                class="icon me-2" /></span>{{
+            member.iscontactDisplay?
+            member.memberContactNumber:"Contact Locked" }}
           </div>
           <div class="grid-item2">
-            <span><img [src]="member.emailIcon" class="icon me-2" /></span>{{ member.emailDetails }}
+            <span><img
+                [src]="member['isEmailDisplay']?'../../assets/images/icons/mail_member.svg':'../../assets/images/icons/lock_member.svg'"
+                class="icon me-2" /></span>{{
+            member.isEmailDisplay?member.email:"Email Locked" }}
           </div>
-          <div class="grid-item2">{{ member.designation }}</div>
+          <div class="grid-item2">{{ member.practicingField.toSpliced(2) }}</div>
           <div class="grid-item2">{{ member.branch }}</div>
           <div class="grid-item2">
-            <button mat-icon-button data-bs-toggle="modal" data-bs-target="#deleteMemberModal" (click)="selectedMember=member">
+            <button mat-icon-button data-bs-toggle="modal" data-bs-target="#deleteMemberModal"
+              (click)="selectedMember=member">
               <mat-icon style="color: #2e5bff">delete</mat-icon>
             </button>
           </div>
         </div>
-      </div>
-      <!-- add member list ends -->
+        }
+      </ng-scrollbar>
     </div>
-  </ng-scrollbar>
+    <!-- add member list ends -->
+  </div>
   <!-- root section ends -->
 
   <!-- member initial popup start -->
@@ -93,7 +87,8 @@
   <!-- member initial popup ends -->
 
   <!-- delete popup start -->
-  <div class="modal fade" id="deleteMemberModal" tabindex="-1" aria-labelledby="deleteMemberModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteMemberModal" tabindex="-1" aria-labelledby="deleteMemberModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered delete-modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -103,7 +98,8 @@
         <div class="modal-body">
           <div class="mt-3">Are you sure you want to delete member?</div>
           <div class="text-center mt-3 mb-3">
-            <button mat-raised-button color="primary" style="width: fit-content !important" (click)="deleteMember()" data-bs-dismiss="modal"> 
+            <button mat-raised-button color="primary" style="width: fit-content !important"
+              (click)="deleteMember(selectedMember)" data-bs-dismiss="modal">
               Confirm
             </button>
             <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
@@ -132,7 +128,7 @@
           <div class="add-member-body">
             <div class="d-flex">
               <mat-form-field class="search-input" appearance="outline">
-                <input matInput placeholder="Search Member" />
+                <input matInput placeholder="Search Member" (keyup)="filterLawyers($event)" />
                 <span matSuffix><img src="../../../assets/images/icons/search-blue.svg"
                     style="margin-right: 15px" /></span>
               </mat-form-field>
@@ -144,24 +140,25 @@
             </div>
 
             <ng-scrollbar style="height: 400px">
-              <div class="add-member-details" *ngFor="let member of memberDetails">
+              <div class="add-member-details" *ngFor="let lawyer of filteredLawyerList">
                 <div class="d-flex align-items-center">
                   <div>
-                    <img [src]="member.image" alt="noImage" class="member-img" />
+                    <img [src]="lawyer.image" alt="noImage" class="member-img" />
                   </div>
 
                   <div class="member-detail ms-2">
-                    <div class="member-name">{{ member.memberName }}</div>
+                    <div class="member-name">{{ lawyer.lawyerName }}</div>
                     <div class="d-flex">
-                      <img [src]="member.lawyerTypeImg" alt="" class="me-1" />
+                      <img src="../../assets/images/icons/lawyer_type.svg" alt="" class="me-1" />
                       <div class="member-lawyer-type">
-                        {{ member.lawyerType }}
+                        {{ lawyer.practicingField[0] + '...' }}
                       </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-left">
-                      <img [src]="member.experienceImg" width="16" height="23.8" alt="" class="me-1" />
+                      <img src="../../assets/images/icons/member_experience.svg" width="16" height="23.8" alt=""
+                        class="me-1" />
                       <div class="member-experience">
-                        {{ member.experience }}
+                        {{ lawyer.yearOfExperience }} Yrs
                       </div>
                     </div>
                   </div>
@@ -169,10 +166,10 @@
 
                 <div class="member-rating-btn">
                   <div class="star">
-                    <img [src]="member.ratingStar" alt="" class="me-1" />(4.5)
+                    <img src="../../assets/images/icons/yellow_star.svg" alt="" class="me-1" />{{(lawyer.rating)}}
                   </div>
                   <div>
-                    <button mat-stroked-button color="primary" (click)="addMember(member)" data-bs-dismiss="modal">
+                    <button mat-stroked-button color="primary" (click)="addMember(lawyer)" data-bs-dismiss="modal">
                       Add Member
                     </button>
                   </div>

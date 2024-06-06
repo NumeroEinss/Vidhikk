@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { ApolloService } from './apollo.service';
-import { SnackAlertService } from './snack-alert.service';
+import { ToastMessageService } from './snack-alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class AuthService {
 
   private currentUserSubject: BehaviorSubject<any> | undefined;
 
-  constructor(private _apolloService: ApolloService, private _router: Router, private _toastMessage: SnackAlertService,
+  constructor(private _apolloService: ApolloService, private _router: Router, private _toastMessage: ToastMessageService,
     private _activatedRoute: ActivatedRoute) {
 
   }
@@ -27,6 +27,7 @@ export class AuthService {
         if (respObj.data.login.status == 200) {
           this._toastMessage.success(respObj.data.login.message); //notify the success
           localStorage.setItem('userData', JSON.stringify(respObj.data.login.data)); //set the data to Local Storage
+          localStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
           localStorage.setItem('vidhikToken', respObj.data.login.data.accessToken)
           this.currentUserSubject?.next(respObj.data.login.data);
 
@@ -60,7 +61,8 @@ export class AuthService {
   logout() {
     localStorage.removeItem('userData');
     this.currentUserSubject?.next(null);
-    localStorage.removeItem('token');
+    localStorage.removeItem('vidhikToken');
+    localStorage.removeItem('isCaseDiaryLogin');
     this._router.navigateByUrl('auth/login');
   }
 
