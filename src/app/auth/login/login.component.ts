@@ -8,7 +8,9 @@ import {
 import { Router } from '@angular/router';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { GQLConfig } from '../../graphql.operations';
+import { ApolloService } from '../../shared/services/apollo.service';
 import { AuthService } from '../../shared/services/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,8 @@ export class LoginComponent {
   loginForm2: FormGroup;
   hide: boolean = true;
   selectedIndex: number = 0;
+
+  selectedUserType: any;
 
   constructor(
     private _formBuilder: FormBuilder,

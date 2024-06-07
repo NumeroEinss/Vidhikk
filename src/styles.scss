@@ -152,6 +152,7 @@ body {
   .forgot-password:hover {
     color: #2e5bff;
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
   }
 
   .mat-mdc-raised-button:not(:disabled) {

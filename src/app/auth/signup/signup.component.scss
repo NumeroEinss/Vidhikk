@@ -72,6 +72,10 @@
       display: flex;
       justify-content: space-between;
     }
+
+    .verify-btn{
+      width: 112px;
+    }
   }
 
   .profile-container {
@@ -297,6 +301,10 @@
 
     .register-form {
       width: 320px;
+
+      .verify-btn{
+        width: 90px;
+      }
     }
 
     ng-scrollbar {

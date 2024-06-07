@@ -4,7 +4,6 @@ import { forgotModel2 } from '../../common/forgot-password.model';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
-import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
 
 
@@ -20,7 +19,7 @@ export class CreateNewPasswordComponent {
   routerState: any;
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _router: Router,
-    private _apolloService: ApolloService, private AuthService: AuthService,) {
+    private _apolloService: ApolloService) {
     this.setNewPasswordForm = this._formBuilder.group(new forgotModel2());
     this.setNewPasswordFrmCtrl.setPassword.setValidators([Validators.required, Validators.minLength(10)]);
     this.setNewPasswordFrmCtrl.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword()]);
@@ -33,7 +32,6 @@ export class CreateNewPasswordComponent {
   get setNewPasswordFrmCtrl() {
     return this.setNewPasswordForm.controls;
   }
-
 
   resetPassword() {
     let reqBody = {};

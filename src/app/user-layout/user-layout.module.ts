@@ -4,10 +4,11 @@ import { UserLayoutRoutingModule } from './user-layout-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { UserLayoutComponent } from './user-layout.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [UserLayoutComponent],
   imports: [
     CommonModule,
     UserLayoutRoutingModule,

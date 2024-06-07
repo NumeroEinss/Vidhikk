@@ -1,6 +1,4 @@
 .root {
-
-
   marquee {
     color: #2e5bff;
     background-color: #053bff0d;
@@ -134,7 +132,7 @@
 }
 
 
-@media only screen and (min-width: 768px) and (max-width: 1199px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
   .root {
     .feed-section {
       margin: 30px 15px 15px 15px;
@@ -158,6 +156,22 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
+  .root {
+    .feed-section {
+      margin:30px 0 15px 30px;
+
+      .news {
+        margin-right: unset;
+      }
+
+      .advertisement {
+        display: none;
       }
     }
   }

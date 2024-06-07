@@ -22,10 +22,8 @@ import { ApolloService } from './shared/services/apollo.service';
 import { ToastMessageService } from './shared/services/snack-alert.service';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-import { UserLayoutComponent } from './user-layout/user-layout.component';
 import { GraphQLModule } from './graphql.module';
 import { NgxLoadingModule } from 'ngx-loading';
-
 
 @NgModule({
   declarations: [
@@ -36,7 +34,6 @@ import { NgxLoadingModule } from 'ngx-loading';
     CreateNewPasswordComponent,
     ResetPasswordComponent,
     ContactUsComponent,
-    UserLayoutComponent
   ],
 
   imports: [

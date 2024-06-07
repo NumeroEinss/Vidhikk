@@ -183,15 +183,14 @@
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="lawyerForm.controls.email.hasError('required')">Email is Required</mat-error>
           <mat-error *ngIf="
-              !lawyerForm.controls.email.hasError('required') &&
-              lawyerForm.controls.email.invalid
+              !lawyerForm.controls.email.hasError('required') && lawyerForm.controls.email.invalid
             ">Email is invalid</mat-error>
         </mat-form-field>
 
         <div class="row mb-2" style="font-size: 10px; font-family: Poppins">
           <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
             purpose</span>
-          <button type="button" class="float-right col-lg-4 col-md-4"
+          <button type="button" class="float-right verify-btn col-lg-4 col-md-4"
             [ngClass]="emailOtpVerified?'green-font':'red-font'" mat-button
             [disabled]="this.lawyerForm.controls.email.value == ''" (click)="emailOtpVerified?'':sendOtpForEmail()">
             {{emailOtpVerified?'(Verified)':'(Not Verified)'}}
@@ -418,7 +417,7 @@
         <div class="row mb-2" style="font-size: 10px; font-family: Poppins">
           <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
             purpose</span>
-          <button type="button" class="float-right col-lg-4 col-md-4"
+          <button type="button" class="float-right verify-btn col-lg-4 col-md-4"
             [ngClass]="emailOtpVerified?'green-font':'red-font'" mat-button
             [disabled]="this.userForm.controls.email.value == ''" (click)="emailOtpVerified?'':sendOtpForEmail()">
             {{emailOtpVerified?'(Verified)':'(Not Verified)'}}
@@ -551,7 +550,7 @@
         <div class="row mb-2" style="font-size: 10px; font-family: Poppins">
           <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
             purpose</span>
-          <button type="button" class="float-right col-lg-4 col-md-4 red-font" mat-button
+          <button type="button" class="float-right verify-btn col-lg-4 col-md-4 red-font" mat-button
             [disabled]="this.judgeForm.controls.email.value == ''" data-bs-toggle="modal"
             data-bs-target="#emailOtpModal">
             (Not Verified)
@@ -739,7 +738,9 @@
         <div class="head-text">Enter Verification Code</div>
         <div class="sub-text mt-2 mb-4">
           We sent a 6-digit code to<br />
-          <span class="email mt-2">{{ userForm.controls.email.value }}</span>
+          <span class="email mt-2" *ngIf="userType == 'JUDGE'"> {{ judgeForm.controls.email.value }}</span>
+          <span class="email mt-2" *ngIf="userType == 'LAWYER'"> {{ lawyerForm.controls.email.value }}</span>
+          <span class="email mt-2" *ngIf="userType == 'USER'"> {{ userForm.controls.email.value }}</span>
         </div>
         <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"
           class="mt-2"></ng-otp-input>

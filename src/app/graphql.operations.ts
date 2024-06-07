@@ -39,7 +39,6 @@ export abstract class GQLConfig {
             {
                 status
                 message
-
             }
         }`;
 
@@ -70,8 +69,8 @@ export abstract class GQLConfig {
 
     // forEmail
     static forgotPasswordEmail = gql`mutation
-        ForgotPasswordEmail($email: String!) {
-            forgotPassword(input: {method:"email",  email: $email })
+        ForgotPasswordEmail($email: String!, $userType: String!) {
+            forgotPassword(input: {method:"email",  email: $email, userType:$userType})
             {
                 status
                 message
@@ -80,8 +79,8 @@ export abstract class GQLConfig {
         } `;
 
     static forgotPasswordVerifyOtpEmail = gql`mutation
-        ForgotPasswordVerifyOtpEmail($email: String!, $otp: String!) {
-            forgotPasswordVerifyOtp(input: {method:"email", email: $email, otp: $otp })
+        ForgotPasswordVerifyOtpEmail($email: String!, $otp: String!, $userType: String!) {
+            forgotPasswordVerifyOtp(input: {method:"email", email: $email, otp: $otp, userType:$userType })
             {
                 status
                 message

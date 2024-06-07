@@ -10,7 +10,6 @@ import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/services/auth.service';
 
 export interface City {
   value: string;
@@ -133,7 +132,8 @@ export class ForgotPasswordComponent {
 
   resendOtpOnEmail() {
     let reqBody = {
-      email: this.forgotPasswordForm1.controls.email.value
+      email: this.forgotPasswordForm1.controls.email.value,
+      userType: this.userType.userType
     }
     this._apolloService.mutate(GQLConfig.forgotPasswordEmail, reqBody).subscribe(data => {
       if (data.data != null) {
@@ -165,7 +165,6 @@ export class ForgotPasswordComponent {
   }
 
   verifyMobileOtp() {
-    // this._authService.mobileNumber = this.forgotPasswordForm.controls.mobile.value;
     let reqBody = {
       mobile: this.forgotPasswordForm.controls.mobile.value,
       otp: this.forgotPasswordForm.controls.otp.value,
@@ -191,7 +190,8 @@ export class ForgotPasswordComponent {
 
   emailForgotPassword() {
     let reqBody = {
-      email: this.forgotPasswordForm1.controls.email.value
+      email: this.forgotPasswordForm1.controls.email.value,
+      userType: this.userType.userType
     }
     this._apolloService.mutate(GQLConfig.forgotPasswordEmail, reqBody).subscribe(data => {
       if (data.data != null) {
@@ -206,15 +206,15 @@ export class ForgotPasswordComponent {
   }
 
   verifyEmailOtp() {
-    // this.AuthService.email = this.forgotPasswordForm1.controls.email.value;
     let reqBody = {
       email: this.forgotPasswordForm1.controls.email.value,
-      otp: this.forgotPasswordForm1.controls.otp.value
+      otp: this.forgotPasswordForm1.controls.otp.value,
+      userType: this.userType.userType
     }
     this._apolloService.mutate(GQLConfig.forgotPasswordVerifyOtpEmail, reqBody).subscribe(data => {
       if (data.data != null) {
         if (data.data.forgotPasswordVerifyOtp.status == 200) {
-          this._toastMessage.message(data.data.forgotPasswordVerifyOtp.status, data.data.forgotPasswordVerifyOtp.message);
+          this._toastMessage.message(data.data.forgotPasswordVerifyOtp.message);
           const extras = {
             email: this.forgotPasswordForm1.controls.email.value,
             method: "email",
