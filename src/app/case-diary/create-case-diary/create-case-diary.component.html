@@ -68,6 +68,19 @@
           </div>
 
           <div class="d-flex mat-input-white" style="flex-direction: column">
+            <mat-label class="mat-label">Representing</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select stage" formControlName="representing" required>
+                <mat-option *ngFor="let representing of representingList" [value]="representing.value">
+                  {{ representing.viewValue }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="createCaseDiaryForm.controls['representing'].errors?.['required']">
+                Representing is Required !!</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label">Case No.</mat-label>
             <mat-form-field appearance="outline">
               <input matInput placeholder="Type case number" formControlName="caseNumber" required />
@@ -75,10 +88,10 @@
                 Required
                 !!</mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
         </div>
 
-        <div class="case-diary-col row">
+        <!-- <div class="case-diary-col row">
           <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Next Hearing Date</mat-label>
             <mat-form-field appearance="outline">
@@ -104,10 +117,10 @@
                 Case Stage is Required !!</mat-error>
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
 
         <div class="case-diary-col row">
-          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+          <!-- <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Application Type</mat-label>
             <mat-form-field appearance="outline">
               <mat-select placeholder="Select application type" formControlName="applicationType" required>
@@ -119,7 +132,7 @@
                 Type is
                 Required !!</mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
 
           <div class="d-flex mat-input-white " style="flex-direction: column">
             <mat-label class="mat-label">City</mat-label>
@@ -137,7 +150,7 @@
           </div>
         </div>
 
-        <div class="case-diary-col row">
+        <!-- <div class="case-diary-col row">
           <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Application Section</mat-label>
             <mat-form-field appearance="outline">
@@ -159,7 +172,7 @@
                 Reason for Absent is Required !!</mat-error>
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
       </form>
     </div>
 

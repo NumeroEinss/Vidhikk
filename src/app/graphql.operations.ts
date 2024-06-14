@@ -25,8 +25,8 @@ export abstract class GQLConfig {
 
     //forEmail
     static sendOtpEmail = gql`mutation
-        SendOtpEmail($email: String!,$mobile:String!) {
-            sendOtp(input: {method:"email", phoneNumber:$mobile, email:$email })
+        SendOtpEmail($email: String!) {
+            sendOtp(input: {method:"email", email:$email })
             {
                 status
                 message
@@ -114,10 +114,27 @@ export abstract class GQLConfig {
 
     // --------------------------------------------------------------------------------
 
+    static resetLoginPassword = gql`mutation($phoneNumber: String!, $password: String!, $oldPassword: String!, $confirmPassword: String!,
+     $userType: String!) {
+        resetLoginPassword(input: {
+            phoneNumber: $phoneNumber,
+            oldPassword:$oldPassword,
+            password: $password,
+            confirmPassword: $confirmPassword,
+            userType: $userType
+        })
+        {
+            status
+            message
+            data
+        }
+    }`;
+
     //createUser
     static createUser = gql`mutation
         CreateUser($userType: String!, $name: String!, $mobile: String!, $isPrimaryContactWhatsapp: Boolean!, $secondaryContact: String!, 
-            $isSecondaryContactWhatsapp: Boolean!, $address: String!, $city: String!, $state: String!, $email: String!, $password: String!, $confirmPassword: String! ){
+            $isSecondaryContactWhatsapp: Boolean!, $address: String!, $city: String!, $state: String!, $email: String!, $password: String!,
+             $confirmPassword: String! ){
             createUser(input: {
                 userType: $userType,
                 name: $name,
@@ -262,10 +279,11 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static caseDiaryLogin = gql`mutation($userName: String!, $password: String!) {
+    static caseDiaryLogin = gql`mutation($userName: String!, $password: String!,$lawyerId:String!) {
         signIn(input: {
             userName: $userName,
-            password: $password
+            password: $password,
+            lawyerId: $lawyerId
         }) {
             status
             message
@@ -446,6 +464,19 @@ export abstract class GQLConfig {
           status
           message
           data
+        }
+    }`;
+
+    static getFilteredList = gql`mutation($lawyerId: String!, $experience: String!, $place: String!, $practicingField: String!){
+        filterLawyerList(input: {
+            lawyerId: $lawyerId
+            experience: $experience
+            place: $place
+            practicingField: $practicingField
+        }){
+            status
+            message
+            data
         }
     }`;
 }

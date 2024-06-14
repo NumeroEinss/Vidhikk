@@ -26,6 +26,11 @@ export class MembersComponent implements AfterViewInit {
     { value: 'civil', viewValue: 'Civil' },
   ];
 
+  place: string = "";
+  practisingField: string = "";
+  popularity: string = "";
+  experience: string = "";
+
   constructor(private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
     this.getAllLawyersList();
     this.getMembersList();
@@ -91,7 +96,6 @@ export class MembersComponent implements AfterViewInit {
         if (resObj.data.lawyersList.status == 200) {
           this.lawyerList = resObj.data.lawyersList.data.lawyerList;
           this.lawyerList.forEach((element: any) => {
-            element.image = '../../assets/images/image/add_member.png';
             element.experience = 0;
           });
           this.filteredLawyerList = this.lawyerList;
@@ -120,5 +124,25 @@ export class MembersComponent implements AfterViewInit {
 
   trackById(index: number, member: any) {
     return member.memberId;
+  }
+
+  getFilteredLawyerList() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    let data = {
+      lawyerId: parsedData._id,
+      experience: this.experience,
+      place: this.place,
+      practicingField: this.practisingField
+    }
+    this._apolloService.mutate(GQLConfig.getFilteredList, data).subscribe(resObj => {
+      if (resObj.data != null) {
+        if (resObj.data.filterLawyerList.status == 200) {
+          this.filteredLawyerList = resObj.data.filterLawyerList.data.lawyerList;
+          let button = document.getElementById('modalButton') as HTMLElement;
+          button.click();
+        }
+      }
+    })
   }
 }

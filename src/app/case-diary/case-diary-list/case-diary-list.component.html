@@ -21,8 +21,7 @@
       <div class="filter-section">
         <mat-form-field appearance="outline">
           <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
-          <mat-select placeholder="Case Diary" required [(value)]="selectedDiary"
-            (selectionChange)="diaryChange($event)">
+          <mat-select placeholder="Case Diary" [(value)]="selectedDiary" (selectionChange)="diaryChange($event)">
             <mat-option *ngFor="let case of caseDiary" [value]="case.value" class="mat-options">
               {{ case.viewValue }}
             </mat-option>
@@ -34,7 +33,7 @@
       <!-- search-bar start -->
       <div class="search-bar">
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Search Case Diary" required />
+          <input matInput placeholder="Search Case Diary" />
           <div matSuffix>
             <img src="../../../assets/images/icons/search-blue.svg" style="margin-right: 20px; cursor: pointer" />
           </div>
@@ -67,7 +66,7 @@
     <div *ngIf="selectedDiary == 'caseDiary'" class="case-diary-list">
       <div class="case-diary-header">
         <div class="grid-item-name">REG. DATE</div>
-        <div class="grid-item1">CASE NO.</div>
+        <!-- <div class="grid-item1">CASE NO.</div> -->
         <div class="grid-item1">CASE TITLE</div>
         <div class="grid-item1">COURT NAME</div>
         <div class="grid-item1">APPLICANT</div>
@@ -76,27 +75,52 @@
         <div class="grid-item1">NEXT HEARING</div>
         <div class="grid-item1">APPLICATION</div>
         <div class="grid-item1">OWNER</div>
-        <div class="grid-item1">CITY</div>
+        <!-- <div class="grid-item1">CITY</div> -->
         <div class="grid-item1">ACTIONS</div>
       </div>
 
       @for (item of caseDiaryList; track item) {
       <div class="case-diary-data">
         <div class="grid-item2">{{ item.registrationDate | date:'shortDate'}}</div>
-        <div class="grid-item2">{{ item.caseNumber }}</div>
+        <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
         <div class="grid-item2">{{ item.caseName }}</div>
         <div class="grid-item2">{{ item.courtName }}</div>
         <div class="grid-item2">{{ item.applicantName }}</div>
         <div class="grid-item2">{{ item.respondentName }}</div>
-        <div class="grid-item2">{{ item.caseStage }}</div>
-        <div class="grid-item2">{{ item.nextHearingDate | date:'shortDate' }}</div>
-        <div class="grid-item2">{{ item.applicationType }}</div>
-        <div class="grid-item2">{{ item?.ownerName }}</div>
-        <div class="grid-item2">{{ item.city }}</div>
         <div class="grid-item2">
-          <button mat-icon-button [matMenuTriggerFor]="caseDiaryMenu">
-            <mat-icon class="action-icon">more_vert</mat-icon>
+          <mat-form-field appearance="outline" class="stage-input">
+            <input matInput placeholder="Enter Case Stage" [(ngModel)]="item.caseStage" />
+          </mat-form-field>
+        </div>
+        <div class="grid-item2">
+          <mat-form-field appearance="outline" class="date-input">
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="item.nextHearingDate"
+              placeholder="Select Next Hearing Date">
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="grid-item2">
+          <mat-form-field appearance="outline" class="application-input">
+            <mat-select placeholder="Select application type" [(ngModel)]="item.applicationType"
+              (selectionChange)="applicationTypeChange($event,item._id,item,'caseDiary')">
+              <mat-option *ngFor="let type of applicationTypeList" [value]="type.value">
+                {{ type.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="grid-item2">{{ item?.ownerName }}</div>
+        <!-- <div class="grid-item2">{{ item.city }}</div> -->
+        <div class="grid-item2">
+          <button mat-menu-item (click)="editCaseDiary(item._id)">
+            <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
+              style="width: 22px; height: 22px" />
+            <!-- <span class="mat-menu-list">Edit</span> -->
           </button>
+          <!-- <button mat-icon-button [matMenuTriggerFor]="caseDiaryMenu">
+            <mat-icon class="action-icon">more_vert</mat-icon>
+          </button> -->
         </div>
         <mat-menu #caseDiaryMenu="matMenu">
           <button mat-menu-item (click)="editCaseDiary(item._id)">
@@ -121,14 +145,15 @@
     <div *ngIf="selectedDiary == 'subDiary'" class="sub-diary-list">
       <div class="sub-diary-header">
         <div class="grid-item1">REG. DATE</div>
+        <div class="grid-item1">CASE TITLE</div>
         <div class="grid-item1">COURT NAME</div>
-        <div class="grid-item1">CASE NO.</div>
+        <!-- <div class="grid-item1">CASE NO.</div> -->
         <div class="grid-item1">APPLICANT</div>
         <div class="grid-item1">RESPONDENT</div>
         <div class="grid-item1">CASE STAGE</div>
         <div class="grid-item1">NEXT HEARING</div>
         <div class="grid-item1">APPLICATION</div>
-        <div class="grid-item1">CITY</div>
+        <!-- <div class="grid-item1">CITY</div> -->
         <div class="grid-item1">ASSIGNED TO</div>
         <div class="grid-item1">ACTIONS</div>
       </div>
@@ -136,14 +161,38 @@
       @for (item of subDiaryList; track item) {
       <div class="sub-diary-data">
         <div class="grid-item2">{{ item.registrationDate| date:'shortDate' }}</div>
+        <div class="grid-item2">{{ item.caseName }}</div>
         <div class="grid-item2">{{ item.courtName }}</div>
-        <div class="grid-item2">{{ item.caseNumber }}</div>
+        <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
         <div class="grid-item2">{{ item.applicantName }}</div>
         <div class="grid-item2">{{ item.respondentName }}</div>
-        <div class="grid-item2">{{ item.caseStage }}</div>
-        <div class="grid-item2">{{ item.nextHearingDate| date:'shortDate' }}</div>
-        <div class="grid-item2">{{ item.applicationType }}</div>
-        <div class="grid-item2">{{ item.city }}</div>
+        <div class="grid-item2">
+          <!-- <mat-form-field appearance="outline">
+            <input matInput placeholder="Enter Case Stage" [(ngModel)]="item.caseStage" />
+          </mat-form-field> -->
+          {{item.caseStage}}
+        </div>
+        <div class="grid-item2">
+          <!-- <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="item.nextHearingDate"
+              placeholder="Select Next Hearing Date">
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field> -->
+          {{item.nextHearingDate | date:'shortDate'}}
+        </div>
+        <div class="grid-item2">
+          <!-- <mat-form-field appearance="outline">
+            <mat-select placeholder="Select application type" [(ngModel)]="item.applicationType"
+              (selectionChange)="applicationTypeChange($event,item.subDiary_id,item,'subDiary')">
+              <mat-option *ngFor="let type of applicationTypeList" [value]="type.value">
+                {{ type.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+          {{item.applicationType}}
+        </div>
+        <!-- <div class="grid-item2">{{ item.city }}</div> -->
         <div class="grid-item2">{{ item.assignedTo }}</div>
         <div class="grid-item2">
           <button mat-icon-button [matMenuTriggerFor]="subDiaryMenu">
@@ -151,11 +200,11 @@
           </button>
         </div>
         <mat-menu #subDiaryMenu="matMenu">
-          <div mat-menu-item routerLink="/lawyer/case-diary/create-sub-diary">
+          <!-- <div mat-menu-item routerLink="/lawyer/case-diary/create-sub-diary">
             <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
               style="width: 22px; height: 22px" />
             <span class="mat-menu-list">Edit</span>
-          </div>
+          </div> -->
 
           <div mat-menu-item>
             <img src="../../../assets/images/icons/view_application.svg" alt="" class="me-2"

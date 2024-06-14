@@ -17,10 +17,16 @@ export class CaseDiaryLoginComponent {
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _router: Router) {
+    let userData = JSON.parse(localStorage.getItem('userData')!);
     this.caseDiaryForm = this._formBuilder.group({
       userName: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(10)])
+      password: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      lawyerId: new FormControl(userData._id)
     });
+    let isCaseDiaryLogin = JSON.parse(localStorage.getItem('isCaseDiaryLogin')!);
+    if (isCaseDiaryLogin) {
+      this._router.navigate(['lawyer/case-diary/cases']);
+    }
   }
 
   login() {

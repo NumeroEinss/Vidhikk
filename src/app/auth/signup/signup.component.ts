@@ -10,6 +10,7 @@ import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { Router } from '@angular/router';
 import { NgOtpInputComponent } from 'ng-otp-input';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -40,19 +41,7 @@ export class SignupComponent {
 
   private otpChangeTimeout: any;
 
-  cities: any[] = [
-    { value: 'indore', viewValue: 'Indore' },
-    { value: 'bhopal', viewValue: 'Bhopal' },
-    { value: 'surat', viewValue: 'Surat' },
-  ];
-
-  states: any[] = [
-    { value: 'mp', viewValue: 'Madhya Pradesh' },
-    { value: 'up', viewValue: 'Uttar Pradesh' },
-    { value: 'gujrat', viewValue: 'Gujrat' },
-    { value: 'punjab', viewValue: 'Punjab' },
-    { value: 'maharashtra', viewValue: 'Maharashtra' },
-  ];
+  cityList: any[] = [];
 
   allDistricts: any[] = [
     { state: 'mp', value: 'indore', viewValue: 'Indore' },
@@ -340,7 +329,7 @@ export class SignupComponent {
     },
   ];
 
-  constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router,
+  constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router, private _http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
     this.signupForm = this._fb.group(new SignUpModel());
     this.SignupFrmCtrl.mobile.setValidators([Validators.required, Validators.minLength(10)]);
@@ -357,6 +346,8 @@ export class SignupComponent {
     this.userForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
     this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateUserConfirmPassword()]);
     this.judgeForm = this._fb.group(new JudgeSignupModel);
+
+    this.getCitiesList();
   }
 
   opacityStyling = { opacity: 0.1 };
@@ -543,7 +534,6 @@ export class SignupComponent {
     else if (this.userType == "LAWYER") {
       data = {
         email: this.lawyerForm.controls.email.value,
-        mobile: this.lawyerForm.controls.phoneNumber.value
       };
     }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
@@ -600,13 +590,11 @@ export class SignupComponent {
     if (this.userType == "USER") {
       data = {
         email: this.userForm.controls.email.value,
-        mobile: this.userForm.controls.phoneNumber.value
       };
     }
     else if (this.userType == "LAWYER") {
       data = {
         email: this.lawyerForm.controls.email.value,
-        mobile: this.lawyerForm.controls.phoneNumber.value
       };
     }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
@@ -697,6 +685,29 @@ export class SignupComponent {
           this._toastMessage.error(data.data.createLawyers.message);
         }
       }
+    })
+  }
+
+  citySelectionChange(e: any, formName: string) {
+    let stateObj = this.cityList.find(x => x.name == e.value);
+    switch (formName) {
+      case 'userForm':
+        this.userForm.controls.state.patchValue(stateObj.state);
+        break;
+      case 'lawyerForm':
+        this.lawyerForm.controls.state.patchValue(stateObj.state);
+        break;
+      case 'judgeForm':
+        this.judgeForm.controls.state.patchValue(stateObj.state);
+        break;
+      default:
+        break;
+    }
+  }
+
+  getCitiesList() {
+    this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
+      this.cityList = data;
     })
   }
 }

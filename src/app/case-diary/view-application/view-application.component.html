@@ -42,7 +42,7 @@
           <div><span class="bold">{{this.templateContent.court}}</span></div>
           <div class="mt-3 print-content">
             Case No: <span class="bold">{{applicationData.caseNumber}}</span><br />
-            Hearing Date: <span class="bold">{{applicationData.nextHearingDate | date:'dd/MM/yyyy'}}</span><br />
+            Hearing Date: <span class="bold">{{today | date:'dd/MM/yyyy'}}</span><br />
             Case Title: <span class="bold">{{applicationData.caseName}}</span>
           </div>
           <div class="mt-3 print-content"><span class="bold">{{applicationData.applicantName}}</span> Applicant</div>
@@ -58,7 +58,7 @@
           <div class="mt-3 print-content">{{item}}</div>
           }
           <div class="mt-3 print-content">Place : <span class="bold">{{applicationData.city}}</span></div>
-          <div class="mt-3 print-content">Date : {{applicationData.nextHearingDate |date:'dd/MM/yyyy'}}</div>
+          <div class="mt-3 print-content">Date : {{today |date:'dd/MM/yyyy'}}</div> 
           <div class="mt-3 print-content">{{templateContent.counsel}}</div>
         </div>
 

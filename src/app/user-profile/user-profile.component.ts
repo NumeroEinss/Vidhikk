@@ -79,7 +79,7 @@ export class UserProfileComponent {
   ngAfterViewInit() {
     if (this.userType == 'lawyer') {
       const element = document.getElementById("basic-info") as HTMLElement
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      // element.scrollIntoView({ behavior: "smooth", block: "end" });
       element.classList.add('box-shadow');
       const element2 = document.getElementById("basic-nav") as HTMLElement
       element2.classList.add('active-nav');

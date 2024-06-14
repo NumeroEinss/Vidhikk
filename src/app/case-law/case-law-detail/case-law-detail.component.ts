@@ -1,8 +1,10 @@
 import { Location } from '@angular/common';
-import { Component, ViewChild, ElementRef, Input, Renderer2} from '@angular/core';
+import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { Router } from '@angular/router';
+import { ApolloService } from '../../shared/services/apollo.service';
 
 @Component({
   selector: 'app-case-law-detail',
@@ -15,9 +17,17 @@ export class CaseLawDetailComponent {
   @Input() searchIcon = { width: 'auto', display: 'block' };
 
   // vidhikLogoUrl = '../../../../assets/images/icons/vidhiklogo.svg';
+  caseId: any;
+  caseDiaryDetail: any;
+  userName: any
 
-  constructor(private _location: Location, private renderer: Renderer2, private _toastMessage: ToastMessageService) { }
- 
+  constructor(private _location: Location, private _router: Router,
+    private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
+    this.caseId = this._router.url.split('/').pop();
+    this.getCaseDiaryDetail();
+    this.userName = JSON.parse(localStorage.getItem('userData')!);
+  }
+
   routeBack() {
     this._location.back();
   }
@@ -162,5 +172,13 @@ export class CaseLawDetailComponent {
     } else {
       console.error('Failed to open print window.');
     }
+  }
+
+  getCaseDiaryDetail() {
+    this._apolloService.get(`/judgement/details/${this.caseId}`).subscribe(data => {
+      if (data.status == "success") {
+        this.caseDiaryDetail = data.data;
+      }
+    })
   }
 }

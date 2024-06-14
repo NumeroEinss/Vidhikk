@@ -8,6 +8,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { GlobalSearchComponent } from './component/global-search/global-search.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { TableComponent } from './component/table/table.component';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { TableComponent } from './component/table/table.component';
     HeaderComponent,
     FooterComponent,
     NgScrollbarModule
-  ]
+  ],
+  providers: [AuthService]
 })
 export class SharedModule { }

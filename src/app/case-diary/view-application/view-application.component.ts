@@ -21,6 +21,7 @@ export class ViewApplicationComponent {
   caseDiaryId: string = "";
   applicationData: any;
   cityList: any = [];
+  today: Date = new Date();
 
   constructor(private _router: Router, private _templateService: TemplateService, private _http: HttpClient,
     private _apolloService: ApolloService, private _toastMessage: ToastMessageService) {

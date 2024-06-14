@@ -9,7 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { ApolloService } from '../../shared/services/apollo.service';
-import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs';
 import { SearchService } from '../../shared/services/search.service';
 
 const MY_DATE_FORMAT = {
@@ -39,58 +39,58 @@ const MY_DATE_FORMAT = {
 })
 export class CaseLawListComponent {
   selectedIndex: number = 0;
-  recordCount: number = 2134;
+  recordCount: number = 0;
 
-  caseList = [
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
+  caseList: any = [
+    // {
+    //   caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
+    //   caseDesc:
+    //     'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
+    //   court: 'Supreme Court',
+    //   bench: 'FB',
+    //   cited: 0,
+    //   acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
+    // },
+    // {
+    //   caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
+    //   caseDesc:
+    //     'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
+    //   court: 'Supreme Court',
+    //   bench: 'FB',
+    //   cited: 0,
+    //   acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
+    // },
+    // {
+    //   caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
+    //   caseDesc:
+    //     'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
+    //   court: 'Supreme Court',
+    //   bench: 'FB',
+    //   cited: 0,
+    //   acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
+    // },
+    // {
+    //   caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
+    //   caseDesc:
+    //     'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
+    //   court: 'Supreme Court',
+    //   bench: 'FB',
+    //   cited: 0,
+    //   acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
+    // },
   ];
   courtList: any = [
-    { name: 'Supreme Court', checked: false },
-    { name: 'Madhya Pradesh', checked: false },
-    { name: 'Andhra Pradesh', checked: false },
-    { name: 'Karnataka', checked: false },
-    { name: 'Maharashtra', checked: false },
-    { name: 'Gujrat', checked: false },
-    { name: 'Delhi', checked: false },
-    { name: 'Uttar Pradesh', checked: false },
+    // { name: 'Supreme Court', checked: false },
+    // { name: 'Madhya Pradesh', checked: false },
+    // { name: 'Andhra Pradesh', checked: false },
+    // { name: 'Karnataka', checked: false },
+    // { name: 'Maharashtra', checked: false },
+    // { name: 'Gujrat', checked: false },
+    // { name: 'Delhi', checked: false },
+    // { name: 'Uttar Pradesh', checked: false },
   ];
-  courtFilter: string = '';
-  searchList: any = [];
+  filteredCourtList: any = [];
+
   journalList: any = [
     {
       name: 'NIJ',
@@ -293,12 +293,24 @@ export class CaseLawListComponent {
 
   judgeSearch: string = "";
 
+  showAppSearch: boolean = true;
+  resAppList: Array<any> = [];
+
+  showRespSearch: boolean = true;
+  resRespList: Array<any> = [];
+
+  showJudgeSearch: boolean = true;
+  respJudgeList: Array<any> = [];
+
+  hasMore = true;
+  page: number = 1;
+
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _searchService: SearchService) {
-    this.searchList = this.courtList;
     this.filteredJournalsList = this.journalList;
-    // this.filteredJudgeList = this.judgeList;
     this.getJudgeList();
+    this.getCourtList();
+    this.getCaseLaws();
     this.filteredActList = this.actList;
     this.filteredActTypeList = this.actTypeList;
     this.filteredYearList = this.yearList;
@@ -306,24 +318,30 @@ export class CaseLawListComponent {
   }
 
   ngOnInit() {
-    this.searchTerms.pipe(
-      debounceTime(300),        // Wait for 300ms pause in events
-      distinctUntilChanged(),   // Ignore if next search term is same as previous
-      switchMap((term: string) => this._searchService.search(term))
-    ).subscribe(results => this.filteredJudgeList = results);
-  }
-  tabSelectionChange(e: any) { }
-
-  onKey(e: any = { target: { value: '' } }) {
-    this.searchList = this.search(e.target.value);
+    // this.searchTerms.pipe(
+    //   debounceTime(300),        // Wait for 300ms pause in events
+    //   distinctUntilChanged(),   // Ignore if next search term is same as previous
+    //   switchMap((term: string) => this._searchService.search(term))
+    // ).subscribe(results => {
+    //   this.filteredJudgeList = results
+    //   this.hasMore = results.length > 1000; // Assuming page size is 10
+    // });
   }
 
-  search(value: string) {
-    let filter = value.toLowerCase();
-    return this.courtList.filter((option: any) =>
-      option.name.toLowerCase().startsWith(filter)
-    );
+  tabSelectionChange(e: any) {
+    console.log(e, 'Tab Event');
   }
+
+  // onKey(e: any = { target: { value: '' } }) {
+  //   this.searchList = this.search(e.target.value);
+  // }
+
+  // search(value: string) {
+  //   let filter = value.toLowerCase();
+  //   return this.courtList.filter((option: any) =>
+  //     option.name.toLowerCase().startsWith(filter)
+  //   );
+  // }
 
   closed(e: any) {
   }
@@ -348,14 +366,28 @@ export class CaseLawListComponent {
     this._router.navigate([`lawyer/case-law/bare-acts/view/${caseId}`]);
   }
 
-  // filterJudge(e: any) {
-  //   let filter = e.target.value.toLowerCase();
-  //   this.filteredJudgeList = this.judgeList.filter((key: any) =>
-  //     key.name.toLowerCase().startsWith(filter)
-  //   );
+  filterJudge(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.filteredJudgeList = this.judgeList.filter((key: any) =>
+      key.name.toLowerCase().startsWith(filter)
+    );
+  }
+  // filterJudge(value: any) {
+  //   this.searchTerms.next(value.target.value);
   // }
-  filterJudge(value: string) {
-    this.searchTerms.next(value);
+
+  loadMore(keyWord: any): void {
+    this.page++;
+    this._apolloService.get(`/judge?page=${this.page}&pageSize=1000`).subscribe(resObj => {
+      if (resObj.status == "success") {
+        this.judgeList = [...this.filteredJudgeList, ...resObj.data];
+        this.filteredJudgeList = this.judgeList;
+      }
+    })
+    // this._searchService.search(keyWord).subscribe(items => {
+    //   this.filteredJudgeList = [...this.filteredJudgeList, ...items];
+    //   this.hasMore = items.length > 1000;
+    // });
   }
 
   filterAct(e: any) {
@@ -375,10 +407,76 @@ export class CaseLawListComponent {
   }
 
   getJudgeList() {
-    this._apolloService.get('/judge').subscribe(resObj => {
+    this._apolloService.get('/judge?page=1&pageSize=1000').subscribe(resObj => {
       if (resObj.status == "success") {
         this.judgeList = resObj.data;
         this.filteredJudgeList = this.judgeList;
+      }
+    })
+  }
+
+  getCourtList() {
+    this._apolloService.get('/court?page=1&pageSize=2000').subscribe(resObj => {
+      if (resObj.status == "success") {
+        this.courtList = resObj.data;
+        this.courtList.forEach((x: any) => x.checked = false)
+        this.filteredCourtList = this.courtList;
+      }
+    })
+  }
+
+  filterCourt(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.filteredCourtList = this.courtList.filter((key: any) =>
+      key.name.toLowerCase().startsWith(filter)
+    );
+  }
+
+  getCaseLaws() {
+    this._apolloService.get(`/judgement/latest`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.caseList = objRes.data;
+        this.recordCount = this.caseList.length;
+      }
+    })
+  }
+
+  getFilteredCaseLaw() {
+    let selectedCourt = this.filteredCourtList.find((x: any) => x.checked == true);
+    this._apolloService.get(`/article/search/${selectedCourt.name}?page=1&pageSize=10`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.caseList = objRes.data;
+        // this.caseList.article.replace('\n', '')
+      }
+    })
+  }
+
+  getCaseLawByApplicant(keyWord: string) {
+    this._apolloService.get(`/judgement/search/appellant/${keyWord}`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.resAppList = objRes.data;
+        this.recordCount = this.resAppList.length;
+        this.showAppSearch = !this.showAppSearch;
+      }
+    })
+  }
+
+  getCaseLawByRespondant(keyWord: string) {
+    this._apolloService.get(`/judgement/search/respondents/${keyWord}`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.resRespList = objRes.data;
+        this.recordCount = this.resRespList.length;
+        this.showRespSearch = !this.showRespSearch;
+      }
+    })
+  }
+
+  getCaseLawByJudges(keyWord: string) {
+    this._apolloService.get(`/judgement/search/judges/${keyWord}`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.respJudgeList = objRes.data;
+        this.recordCount = this.respJudgeList.length;
+        this.showJudgeSearch = !this.showJudgeSearch;
       }
     })
   }

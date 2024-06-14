@@ -2,41 +2,47 @@
 <app-header [menuName]="'News'"></app-header>
 
 <!-- root section start -->
-<div class="root" style="height: calc(100vh - 172px)">
+<div class="root">
   <marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any legal
     advertising regulations in your jurisdiction and
     ensure that your messages dhere to professional and ethical
     standards</marquee>
 
-  <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-    <div class="feed-section">
-      <div class="d-flex mb-4">
+  <div class="feed-section">
+    <div class="d-flex mb-4">
+      <div>
+        <div class="w-100" style="height: calc(100vh - 370px);margin-bottom: 10px;">
+          <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+            <div class="news-feed-container">
+              <div class="d-flex news-feed-section" *ngFor="let news of newsList">
+                <div class="news-image"><img [src]="news.image_url" onerror="this.onerror=null;
+                    this.src='../../assets/images/image/no-image.png'" /></div>
+                <div class="news-details">
+                  <div class="news-heading">{{ news.title?.substr(0,
+                    getHeadingLength())}} {{news.title?.length>getHeadingLength()?'...':''}}</div>
+                  <div class="news-description mt-1">{{ news.description?.substr(0,getCharLength())}}
+                    {{news.description?.length>getCharLength()? '...': ''}}</div>
+                  <div class="read-more mt-1">
+                    <a target="_blank" [href]="news.source_url">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-scrollbar>
+        </div>
+
         <div class="news w-100">
           <img src="../../assets/images/image/mcdonald.jpg" alt="noImage" />
         </div>
-        <div class="advertisement">
-          <img src="../../assets/images/image/lawyer_2.jpg" [width]="300" alt="noImage" />
-        </div>
       </div>
 
-      <div>
-        <div class="news-feed-container">
-          <div class="d-flex news-feed-section" *ngFor="let news of newsList">
-            <div class="news-image"><img [src]="news.image_url" onerror="this.onerror=null;
-                this.src='../../assets/images/image/no-image.png'" /></div>
-            <div class="news-details">
-              <div class="news-heading">{{ news.title?.substr(0,
-                getHeadingLength())}} {{news.title?.length>getHeadingLength()?'...':''}}</div>
-              <div class="news-description mt-1">{{ news.description?.substr(0,getCharLength())}}
-                {{news.description?.length>getCharLength()? '...': ''}}</div>
-              <div class="read-more mt-1">
-                <a target="_blank" [href]="news.source_url">Read More</a>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="advertisement">
+        <img class="img1 mb-1" src="../../assets/images/image/lawyer_2.jpg" [width]="300" alt="noImage" />
+        <img class="img2 mb-1" src="../../assets/images/image/advertisement_2.png" alt="noImage" />
       </div>
     </div>
-  </ng-scrollbar>
+
+
+  </div>
   <!-- root section ends-->
 </div>

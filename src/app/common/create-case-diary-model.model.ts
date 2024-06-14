@@ -12,4 +12,5 @@ export class CreateCaseDiaryModel {
     city: string = "";
     applicationSection: string = "";
     lawyreasonForAbsent: string = "";
+    representing: string = "";
 }

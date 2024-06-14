@@ -120,22 +120,23 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select State" formControlName="state" required>
-            <mat-option *ngFor="let state of states" [value]="state.value">
-              {{ state.viewValue }}
+          <mat-select placeholder="Select City" formControlName="city"
+            (selectionChange)="citySelectionChange($event,'lawyerForm')" required>
+            <mat-option *ngFor="let city of cityList" [value]="city.name">
+              {{ city.name }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="lawyerForm.controls.state.hasError('required')">State is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.city.hasError('required')">City is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select City" formControlName="city" required>
-            <mat-option *ngFor="let city of cities" [value]="city.value">
-              {{ city.viewValue }}
+          <mat-select placeholder="Select State" formControlName="state" [disabled]="true" required>
+            <mat-option *ngFor="let state of cityList" [value]="state.state">
+              {{ state.state }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="lawyerForm.controls.city.hasError('required')">City is Required</mat-error>
+          <mat-error *ngIf="lawyerForm.controls.state.hasError('required')">State is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -353,22 +354,23 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select State" formControlName="state" required>
-            <mat-option *ngFor="let state of states" [value]="state.value">
-              {{ state.viewValue }}
+          <mat-select placeholder="Select City" formControlName="city"
+            (selectionChange)="citySelectionChange($event,'userForm')" required>
+            <mat-option *ngFor="let city of cityList" [value]="city.name">
+              {{ city.name }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="userForm.controls.state.hasError('required')">State is Required</mat-error>
+          <mat-error *ngIf="userForm.controls.city.hasError('required')">City is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select City" formControlName="city" required>
-            <mat-option *ngFor="let city of cities" [value]="city.value">
-              {{ city.viewValue }}
+          <mat-select placeholder="Select State" formControlName="state" [disabled]="true" required>
+            <mat-option *ngFor="let state of cityList" [value]="state.state">
+              {{ state.state }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="userForm.controls.city.hasError('required')">City is Required</mat-error>
+          <mat-error *ngIf="userForm.controls.state.hasError('required')">State is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -488,22 +490,23 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select State" formControlName="state" required>
-            <mat-option *ngFor="let state of states" [value]="state.value">
-              {{ state.viewValue }}
+          <mat-select placeholder="Select City" formControlName="city"
+            (selectionChange)="citySelectionChange($event,'judgeForm')" required>
+            <mat-option *ngFor="let city of cityList" [value]="city.name">
+              {{ city.name }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="judgeForm.controls['state'].hasError('required')">State is Required</mat-error>
+          <mat-error *ngIf="judgeForm.controls.city.hasError('required')">City is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select City" formControlName="city" required>
-            <mat-option *ngFor="let city of cities" [value]="city.value">
-              {{ city.viewValue }}
+          <mat-select placeholder="Select State" formControlName="state" [disabled]="true" required>
+            <mat-option *ngFor="let state of cityList" [value]="state.state">
+              {{ state.state }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="judgeForm.controls['city'].hasError('required')">City is Required</mat-error>
+          <mat-error *ngIf="judgeForm.controls.state.hasError('required')">State is Required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -565,8 +568,8 @@
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
           <mat-select placeholder="Select Current State" formControlName="currentState"
             (selectionChange)="onStateChange($event.value)" required>
-            <mat-option *ngFor="let state of states" [value]="state.value">
-              {{ state.viewValue }}
+            <mat-option *ngFor="let state of cityList" [value]="state.state">
+              {{ state.state }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="judgeForm.controls['currentState'].hasError('required')">Current State is

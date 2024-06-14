@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { ApolloService } from './apollo.service';
 import { ToastMessageService } from './snack-alert.service';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
 
   private currentUserSubject: BehaviorSubject<any> | undefined;
 
-  constructor(private _apolloService: ApolloService, private _router: Router, private _toastMessage: ToastMessageService,
+  constructor(private _apollo: Apollo, private _router: Router, private _toastMessage: ToastMessageService,
     private _activatedRoute: ActivatedRoute) {
 
   }
@@ -22,7 +23,7 @@ export class AuthService {
   }
 
   login(query: any, variables: any, userType: string) {
-    this._apolloService.mutate(query, variables).subscribe(respObj => {
+    this._apollo.mutate({ mutation: query, variables: variables, errorPolicy: 'all' }).subscribe((respObj: any) => {
       if (respObj != null) {
         if (respObj.data.login.status == 200) {
           this._toastMessage.success(respObj.data.login.message); //notify the success

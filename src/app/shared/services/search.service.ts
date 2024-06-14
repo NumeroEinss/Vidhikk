@@ -11,7 +11,7 @@ export class SearchService {
 
   constructor(private _apolloService: ApolloService) { }
 
-  search(query: string): Observable<any> {
+  search(query: string, page: number, pageSize: number): Observable<any> {
     return this._apolloService.get(`/judge/search/${query}`).pipe(
       map(response => response.data) // Adjust based on API response structure
     );
