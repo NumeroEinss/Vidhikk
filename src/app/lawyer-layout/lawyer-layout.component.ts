@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class LawyerLayoutComponent {
 
+  logoutCaseDiary() {
+    localStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
+  }
 }

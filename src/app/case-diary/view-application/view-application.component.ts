@@ -136,7 +136,6 @@ export class ViewApplicationComponent {
     this._toastMessage.showLoader = true;
     this._templateService.getTemplate().subscribe({
       next: (data: any) => {
-        console.log(data)
         this.templateContent = data.find((x: any) => x.application_type == templateName);
         this._toastMessage.showLoader = false;
       },

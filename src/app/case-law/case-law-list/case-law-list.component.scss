@@ -1,4 +1,8 @@
 .root {
+  .highlighted-text {
+    background: yellow;
+  }
+
   .mat-label {
     flex-grow: 0;
     font-family: Poppins;
@@ -93,6 +97,8 @@
         font-size: 14px;
         font-weight: 700;
         color: black;
+        border-left: 1px solid #96A5B7;
+        padding-left: 4px;
       }
 
       .cited {
@@ -296,7 +302,7 @@
       letter-spacing: normal;
       text-align: left;
       color: #000;
-    } 
+    }
 
     img {
       margin-right: 10px;

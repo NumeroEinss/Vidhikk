@@ -81,7 +81,7 @@
 
       @for (item of caseDiaryList; track item) {
       <div class="case-diary-data">
-        <div class="grid-item2">{{ item.registrationDate | date:'shortDate'}}</div>
+        <div class="grid-item2">{{ item.registrationDate | date:'dd/MM/yyyy'}}</div>
         <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
         <div class="grid-item2">{{ item.caseName }}</div>
         <div class="grid-item2">{{ item.courtName }}</div>
@@ -95,7 +95,7 @@
         <div class="grid-item2">
           <mat-form-field appearance="outline" class="date-input">
             <input matInput [matDatepicker]="picker2" [(ngModel)]="item.nextHearingDate"
-              placeholder="Select Next Hearing Date">
+              placeholder="Select Next Hearing Date" [min]="today">
             <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>

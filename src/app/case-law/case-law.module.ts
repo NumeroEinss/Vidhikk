@@ -8,15 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { CaseLawDetailComponent } from './case-law-detail/case-law-detail.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BareActsDetailComponent } from './bare-acts-detail/bare-acts-detail.component';
-import { HighlighterPipe } from './highlighter.pipe';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { HighlighterPipe } from '../shared/pipe/highlighter.pipe';
 
 @NgModule({
   declarations: [
     CaseLawListComponent,
     CaseLawDetailComponent,
-    BareActsDetailComponent,
-    HighlighterPipe  
+    BareActsDetailComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +25,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MaterialModule,
     MatDatepickerModule,
     MatPaginatorModule
-  ]
+  ],
+  providers: [HighlighterPipe]
 })
 export class CaseLawModule { }

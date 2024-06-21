@@ -1,0 +1,23 @@
+<app-header [menuName]="'Bare Acts'"></app-header>
+<div class="root">
+    <div class="filter-bar mt-2">
+        <div class="pretext col-lg-6 col-md-6">
+            <!-- <img src="../../../assets/images/icons/arrow-left.svg" /> -->
+            <div class="records">Found {{ recordCount }} Acts</div>
+        </div>
+        <div class="posttext col-lg-6 col-md-6">
+            <img src="../../../assets/images/icons/search-blue.svg" />
+        </div>
+    </div>
+    <div style="height: calc(100vh - 243px)">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+            <div class="bare-acts">
+                @for (acts of bareActsList; track acts) {
+                <div class="acts" (click)="viewBareActs(acts._id)">
+                    {{ acts.title }}
+                </div>
+                }
+            </div>
+        </ng-scrollbar>
+    </div>
+</div>

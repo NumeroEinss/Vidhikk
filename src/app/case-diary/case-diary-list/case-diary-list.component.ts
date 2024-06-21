@@ -27,6 +27,8 @@ export class CaseDiaryListComponent {
 
   applicationSubscription: Subscription;
 
+  today: Date = new Date();
+
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
     private _templateService: TemplateService) {
     let extras = this._router.getCurrentNavigation()?.extras.state;
@@ -43,7 +45,6 @@ export class CaseDiaryListComponent {
   }
 
   getCaseDiaryList() {
-    console.log("Case Diary");
     let userData = localStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getCaseDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
@@ -76,13 +77,12 @@ export class CaseDiaryListComponent {
   }
 
   getSubDiaryList() {
-    console.log("Sub Diary");
     let userData = localStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getSubDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
         if (data.data.subDiaryList.status == 200) {
-          this.subDiaryList = data.data.subDiaryList.data.data;
+          this.subDiaryList = data.data.subDiaryList.data.resultData;
         }
         else {
           this._toastMessage.error(data.data.subDiaryList.message);
@@ -113,7 +113,8 @@ export class CaseDiaryListComponent {
       applicationType: caseDiaryData.applicationType,
       applicationSection: caseDiaryData.applicationSection,
       nextHearingDate: caseDiaryData.nextHearingDate,
-      lawyreasonForAbsent: caseDiaryData.lawyreasonForAbsent
+      lawyreasonForAbsent: caseDiaryData.lawyreasonForAbsent,
+      representing: caseDiaryData.representing
     }
     this._apolloService.mutate(GQLConfig.updateCaseDiary, data).subscribe((objRes) => {
       if (objRes.data != null) {

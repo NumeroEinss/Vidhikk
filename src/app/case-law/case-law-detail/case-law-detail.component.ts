@@ -18,14 +18,16 @@ export class CaseLawDetailComponent {
 
   // vidhikLogoUrl = '../../../../assets/images/icons/vidhiklogo.svg';
   caseId: any;
-  caseDiaryDetail: any;
-  userName: any
+  caseLawDetail: any = { title: "", document: "" };
+  userName: any;
+  keyWord: any = "";
 
   constructor(private _location: Location, private _router: Router,
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
     this.caseId = this._router.url.split('/').pop();
-    this.getCaseDiaryDetail();
+    this.getCaseLawDetail();
     this.userName = JSON.parse(localStorage.getItem('userData')!);
+    this.keyWord = this._router.getCurrentNavigation()?.extras.state || "";
   }
 
   routeBack() {
@@ -66,7 +68,7 @@ export class CaseLawDetailComponent {
 
   print() {
     const content = this.printableContent.nativeElement.innerHTML;
-    const printWindow = window.open('', '_blank');
+    const printWindow = window.open('case-law/print', '_blank');
     if (printWindow) {
       printWindow.document.open();
       printWindow.document.write(`
@@ -174,10 +176,10 @@ export class CaseLawDetailComponent {
     }
   }
 
-  getCaseDiaryDetail() {
+  getCaseLawDetail() {
     this._apolloService.get(`/judgement/details/${this.caseId}`).subscribe(data => {
       if (data.status == "success") {
-        this.caseDiaryDetail = data.data;
+        this.caseLawDetail = data.data;
       }
     })
   }

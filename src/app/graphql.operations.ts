@@ -301,7 +301,7 @@ export abstract class GQLConfig {
 
     static createCaseDiary = gql` mutation($lawyerId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: Float!,
             $caseName:String!,$caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
-            $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String) {
+            $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String,$representing:String!) {
         createCaseDiary(input: {
             lawyerId: $lawyerId,
             registrationDate: $registrationDate,
@@ -315,7 +315,8 @@ export abstract class GQLConfig {
             applicationType: $applicationType,
             applicationSection: $applicationSection,
             nextHearingDate: $nextHearingDate,
-            lawyreasonForAbsent: $lawyreasonForAbsent
+            lawyreasonForAbsent: $lawyreasonForAbsent,
+            representing:$representing
         }) {
             status
             message
@@ -335,7 +336,7 @@ export abstract class GQLConfig {
 
     static updateCaseDiary = gql`mutation($caseDiaryId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: Float!,
         $caseName:String!,$caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
-        $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String) {
+        $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String,$representing:String!) {
         caseDiaryUpdate(input: {
             caseDiaryId: $caseDiaryId,
             registrationDate: $registrationDate,
@@ -349,7 +350,8 @@ export abstract class GQLConfig {
             applicationType: $applicationType,
             applicationSection: $applicationSection,
             nextHearingDate: $nextHearingDate,
-            lawyreasonForAbsent: $lawyreasonForAbsent
+            lawyreasonForAbsent: $lawyreasonForAbsent,
+            representing:$representing
         }){
             status
             message

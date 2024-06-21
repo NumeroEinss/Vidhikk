@@ -1,4 +1,8 @@
 .root {
+  .highlighted-text {
+    background-color: yellow;
+  }
+
   .filter-bar {
     background-color: #f6f6f6;
     width: 100%;
@@ -89,11 +93,12 @@
         margin: 20px 15px;
       }
 
-      .bare-acts-section{
-        .title{
+      .bare-acts-section {
+        .title {
           margin: 0 15px 0 15px;
         }
-        .detail{
+
+        .detail {
           margin: 0 15px 0 15px;
         }
       }

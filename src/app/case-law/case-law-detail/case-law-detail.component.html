@@ -38,10 +38,14 @@
           {{userName.email}}, {{userName.city}}
         </p>
         <div class="title mt-4">
-          {{caseDiaryDetail.title}}<br />
+          {{caseLawDetail.title}}<br />
         </div>
-        <div class="description mt-4">
-          <div class="desc-body mt-4" [innerHTML]="caseDiaryDetail.document"></div>
+        <!-- <div class="description mt-4">
+          <div class="desc-body mt-4" [innerHTML]="caseLawDetail.document"></div>
+        </div> -->
+        <div *ngIf="keyWord.keyWord" class="mt-4" [innerHTML]="caseLawDetail.document|highlighter:keyWord.keyWord">
+        </div>
+        <div *ngIf="!keyWord.keyWord" class="mt-4" [innerHTML]="caseLawDetail.document">
         </div>
       </div>
     </ng-scrollbar>

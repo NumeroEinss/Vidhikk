@@ -9,14 +9,14 @@
 
   <div class="bare-acts-container">
     <div class="bare-acts-content">
-      <div class="act-heading">The Indian Panel Code, 1860</div>
+      <div class="act-heading">{{bareActData.title}}</div>
       <div class="d-flex mat-input-white mt-3" style="flex-direction: column">
-        <mat-label class="mat-label mb-1">Section</mat-label>
+        <!-- <mat-label class="mat-label mb-1">Section</mat-label>
         <mat-form-field appearance="outline">
           <mat-select placeholder="Select section" [(value)]="value">
             <a (click)="$event.stopPropagation()" style="text-decoration: none">
               <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                <input  matInput (keyup)="filterSection($event)" placeholder="By section" />
+                <input matInput (keyup)="filterSection($event)" placeholder="By section" />
                 <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
               </mat-form-field>
             </a>
@@ -29,19 +29,22 @@
               </ng-scrollbar>
             </div>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field> -->
       </div>
     </div>
 
     <div style="height: calc(100vh - 330px); margin-top: 15px">
       <ng-scrollbar appearance="standard">
-        <div class="bare-acts-section" *ngFor="let list of bareActList; index as i" [id]="(i + 1).toString()">
+        <div class="bare-acts-section">
           <div class="title">
-            <span>{{ list.section }}</span> : {{ list.title }}
+            <!-- <span>
+              {{ list.section }}
+            </span> : {{ list.title }} -->
           </div>
           <div class="detail">
-            <div>{{ list.detailHeader }}</div>
-            <div *ngFor="let item of list.details">{{ item }}</div>
+            <div [innerHTML]="bareActData.contents"></div>
+            <!-- <div>{{ list.detailHeader }}</div>
+            <div *ngFor="let item of list.details">{{ item }}</div> -->
           </div>
         </div>
       </ng-scrollbar>

@@ -9,6 +9,7 @@ import { GlobalSearchComponent } from './component/global-search/global-search.c
 import { MatChipsModule } from '@angular/material/chips';
 import { TableComponent } from './component/table/table.component';
 import { AuthService } from './services/auth.service';
+import { HighlighterPipe } from './pipe/highlighter.pipe';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AuthService } from './services/auth.service';
     HeaderComponent,
     FooterComponent,
     GlobalSearchComponent,
-    TableComponent
+    TableComponent,
+    HighlighterPipe
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { AuthService } from './services/auth.service';
   exports: [
     HeaderComponent,
     FooterComponent,
-    NgScrollbarModule
+    NgScrollbarModule,
+    HighlighterPipe
   ],
   providers: [AuthService]
 })

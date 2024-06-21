@@ -28,29 +28,12 @@ export class EditCaseDiaryComponent {
     },
   ];
 
-  // stages: any[] = [
-  //   { value: 'Civil', viewValue: 'Civil' },
-  //   { value: 'Finance', viewValue: 'Finance' },
-  //   { value: 'Taxation', viewValue: 'Taxation' },
-  // ];
+  cityList: any[] = [];
 
-  cityList: any[] = [
-    // { value: 'Indore', viewValue: 'Indore' },
-    // { value: 'Bhopal', viewValue: 'Bhopal' },
-    // { value: 'Mumbai', viewValue: 'Mumbai' },
+  representingList = [
+    { value: 'Applicant', viewValue: 'Applicant' },
+    { value: 'Respondent ', viewValue: 'Respondent ' },
   ];
-
-  // applicationType: any[] = [
-  //   { value: 'Civil', viewValue: 'Civil' },
-  //   { value: 'Finance', viewValue: 'Finance' },
-  //   { value: 'Taxation', viewValue: 'Taxation' },
-  // ];
-
-  // applicationSection: any[] = [
-  //   { value: 'Civil', viewValue: 'Civil' },
-  //   { value: 'Finance', viewValue: 'Finance' },
-  //   { value: 'Taxation', viewValue: 'Taxation' },
-  // ];
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _router: Router, private _http: HttpClient) {
@@ -67,9 +50,6 @@ export class EditCaseDiaryComponent {
       Validators.required,
     ]);
     this.editCaseDiaryFrmCtrl['respondentName'].setValidators([
-      Validators.required,
-    ]);
-    this.editCaseDiaryFrmCtrl['nextHearingDate'].setValidators([
       Validators.required,
     ]);
     this.editCaseDiaryFrmCtrl['caseName'].setValidators([Validators.required]);
@@ -117,7 +97,8 @@ export class EditCaseDiaryComponent {
         applicationType: this.editCaseDiaryForm.controls.applicationType.value,
         applicationSection: this.editCaseDiaryForm.controls.applicationSection.value,
         nextHearingDate: this.editCaseDiaryForm.controls.nextHearingDate.value,
-        lawyreasonForAbsent: this.editCaseDiaryForm.controls.lawyreasonForAbsent.value
+        lawyreasonForAbsent: this.editCaseDiaryForm.controls.lawyreasonForAbsent.value,
+        representing:this.editCaseDiaryForm.controls.representing.value
       }
       this._apolloService.mutate(GQLConfig.updateCaseDiary, data).subscribe((objRes) => {
         if (objRes.data != null) {

@@ -32,7 +32,6 @@ export class NewsComponent {
   getNewsFeed() {
     this._apolloService.query(GQLConfig.getNewsFeed).subscribe(data => {
       if (data.data != null) {
-        console.log(data.data);
         if (data.data.getNewsFeed.status == 200) {
           this._toastMessage.success(data.data.getNewsFeed.message);
           this.newsList = data.data.getNewsFeed.data.results;
@@ -41,7 +40,6 @@ export class NewsComponent {
           this._toastMessage.error(data.data.getNewsFeed.message);
         }
       }
-      console.log(data)
     })
   }
 }

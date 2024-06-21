@@ -569,7 +569,6 @@ export class SignupComponent {
         }
         this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
           if (objEmailOtp.data != null) {
-            console.log(objEmailOtp);
             if (objEmailOtp.data.verifyOtp.status == 200) {
               this.emailOtpVerified = true;
               let el = document.getElementById('closeOtpModalButton') as HTMLElement;

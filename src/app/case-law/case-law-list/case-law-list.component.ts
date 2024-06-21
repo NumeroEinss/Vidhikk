@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
   DateAdapter,
@@ -38,6 +38,11 @@ const MY_DATE_FORMAT = {
   ],
 })
 export class CaseLawListComponent {
+
+  @ViewChild('appInput') appInputRef!: ElementRef;
+  @ViewChild('respInput') respInputRef!: ElementRef;
+  @ViewChild('judgSearch') judgeSearchRef!: ElementRef;
+
   selectedIndex: number = 0;
   recordCount: number = 0;
 
@@ -126,23 +131,6 @@ export class CaseLawListComponent {
     },
   ];
   filteredJournalsList: any = [];
-  actsList: any = [
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Code of Criminal Procedure, 1973x' },
-    { name: 'The Goods and Services Tax (Compensation to States) Act, 2017' },
-    {
-      name: 'The Juvenile Justice (Care and Protection of Children) Act, 2015',
-    },
-    { name: 'The Environmental Protection Act, 1986' },
-    { name: 'The Trademarks Act, 1999' },
-    { name: 'The Hindu Marriage Act, 1955' },
-    { name: 'TThe Maternity Benefit Act, 19610' },
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Indian Penal Code, 1860' },
-  ];
   overruledList = [
     {
       previousAttorney: 'Karan Singh Vs Bhagwan Singh',
@@ -305,12 +293,18 @@ export class CaseLawListComponent {
   hasMore = true;
   page: number = 1;
 
+  selectedCourt: string = "";
+
+  showCitationSearch: boolean = true;
+  citationList: Array<any> = [];
+
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
-    private _searchService: SearchService) {
+    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>) {
+    this._dateAdapter.setLocale('en-GB');
     this.filteredJournalsList = this.journalList;
+    this.getCaseLaws();
     this.getJudgeList();
     this.getCourtList();
-    this.getCaseLaws();
     this.filteredActList = this.actList;
     this.filteredActTypeList = this.actTypeList;
     this.filteredYearList = this.yearList;
@@ -329,41 +323,39 @@ export class CaseLawListComponent {
   }
 
   tabSelectionChange(e: any) {
-    console.log(e, 'Tab Event');
+    switch (e.index) {
+      case 0:
+        this.getCaseLaws();
+        break;
+      case 1:
+        this.showAppSearch = true;
+        break;
+      case 2:
+        this.showRespSearch = true;
+        break;
+      case 3:
+        this.showJudgeSearch = true;
+        break;
+      case 4:
+        this.showCitationSearch = true;
+        break;
+      case 5:
+        break;
+      case 6:
+        break;
+      case 7:
+        break;
+      case 8:
+        break;
+    }
   }
-
-  // onKey(e: any = { target: { value: '' } }) {
-  //   this.searchList = this.search(e.target.value);
-  // }
-
-  // search(value: string) {
-  //   let filter = value.toLowerCase();
-  //   return this.courtList.filter((option: any) =>
-  //     option.name.toLowerCase().startsWith(filter)
-  //   );
-  // }
-
-  closed(e: any) {
-  }
-
-  updateAllComplete() { }
 
   sort(sortValue: string) {
   }
 
-  filterJournal(e: any) {
-    let filter = e.target.value.toLowerCase();
-    this.filteredJournalsList = this.journalList.filter((key: any) =>
-      key.name.toLowerCase().startsWith(filter)
-    );
-  }
-
-  viewCase(caseId: any) {
-    this._router.navigate([`lawyer/case-law/cases/view/${caseId}`]);
-  }
-
-  viewBareActs(caseId: any) {
-    this._router.navigate([`lawyer/case-law/bare-acts/view/${caseId}`]);
+  viewCase(caseId: any, keyWord: string = "") {
+    const extras = { keyWord: keyWord }
+    this._router.navigate([`lawyer/case-law/cases/view/${caseId}`], { state: extras });
   }
 
   filterJudge(e: any) {
@@ -378,12 +370,24 @@ export class CaseLawListComponent {
 
   loadMore(keyWord: any): void {
     this.page++;
-    this._apolloService.get(`/judge?page=${this.page}&pageSize=1000`).subscribe(resObj => {
-      if (resObj.status == "success") {
-        this.judgeList = [...this.filteredJudgeList, ...resObj.data];
-        this.filteredJudgeList = this.judgeList;
-      }
-    })
+    if (this.judgeSearch == "") {
+      this._apolloService.get(`/judge?page=${this.page}&pageSize=1000`).subscribe(resObj => {
+        if (resObj.status == "success") {
+          this.judgeList = [...this.filteredJudgeList, ...resObj.data];
+          this.judgeList = [...new Set(this.judgeList)];
+          this.filteredJudgeList = this.judgeList;
+        }
+      })
+    }
+    else {
+      this._apolloService.get(`/judge/search/${this.judgeSearch}?page=1&pageSize=1000`).subscribe(resObj => {
+        if (resObj.status == "success") {
+          this.judgeList = [...this.filteredJudgeList, ...resObj.data];
+          this.judgeList = [...new Set(this.judgeList)];
+          this.filteredJudgeList = this.judgeList;
+        }
+      })
+    }
     // this._searchService.search(keyWord).subscribe(items => {
     //   this.filteredJudgeList = [...this.filteredJudgeList, ...items];
     //   this.hasMore = items.length > 1000;
@@ -401,7 +405,7 @@ export class CaseLawListComponent {
   }
   filterActType(e: any) {
     let filter = e.target.value.toLowerCase();
-    this.filteredActTypeList = this.actList.filter((key: any) =>
+    this.filteredActTypeList = this.actTypeList.filter((key: any) =>
       key.name.toLowerCase().startsWith(filter)
     );
   }
@@ -415,11 +419,24 @@ export class CaseLawListComponent {
     })
   }
 
+  getJudgeByName() {
+    if (this.judgeSearch == "") {
+      this.getJudgeList();
+    }
+    else {
+      this._apolloService.get(`/judge/search/${this.judgeSearch}?page=1&pageSize=1000`).subscribe(resObj => {
+        if (resObj.status == "success") {
+          this.judgeList = resObj.data;
+          this.filteredJudgeList = this.judgeList;
+        }
+      })
+    }
+  }
+
   getCourtList() {
     this._apolloService.get('/court?page=1&pageSize=2000').subscribe(resObj => {
       if (resObj.status == "success") {
         this.courtList = resObj.data;
-        this.courtList.forEach((x: any) => x.checked = false)
         this.filteredCourtList = this.courtList;
       }
     })
@@ -432,6 +449,11 @@ export class CaseLawListComponent {
     );
   }
 
+  clearCourtFilter() {
+    this.filteredCourtList = this.courtList;
+    this.selectedCourt = "";
+  }
+
   getCaseLaws() {
     this._apolloService.get(`/judgement/latest`).subscribe(objRes => {
       if (objRes.status == "success") {
@@ -441,42 +463,88 @@ export class CaseLawListComponent {
     })
   }
 
-  getFilteredCaseLaw() {
-    let selectedCourt = this.filteredCourtList.find((x: any) => x.checked == true);
-    this._apolloService.get(`/article/search/${selectedCourt.name}?page=1&pageSize=10`).subscribe(objRes => {
-      if (objRes.status == "success") {
-        this.caseList = objRes.data;
-        // this.caseList.article.replace('\n', '')
-      }
-    })
+  getCaseLawByCourt() {
+    let selectedCourt = this.filteredCourtList.find((x: any) => x.name == this.selectedCourt);
+    if (selectedCourt == undefined) {
+      this.getCaseLaws();
+    }
+    else {
+      this._apolloService.get(`/judgement/search/court/${selectedCourt.name}?page=1&pageSize=10`).subscribe(objRes => {
+        if (objRes.status == "success") {
+          this.caseList = objRes.data;
+          this.recordCount = this.caseList.length;
+        }
+      })
+    }
   }
 
   getCaseLawByApplicant(keyWord: string) {
-    this._apolloService.get(`/judgement/search/appellant/${keyWord}`).subscribe(objRes => {
-      if (objRes.status == "success") {
-        this.resAppList = objRes.data;
-        this.recordCount = this.resAppList.length;
-        this.showAppSearch = !this.showAppSearch;
-      }
-    })
+    if (keyWord == undefined) {
+      this._toastMessage.error('Applicant name is required !!');
+    }
+    else if (keyWord == "") {
+      this._toastMessage.error('Applicant name is required !!');
+    }
+    else {
+      this._apolloService.get(`/judgement/search/appellant/${keyWord}`).subscribe(objRes => {
+        if (objRes.status == "success") {
+          this.resAppList = objRes.data;
+          this.recordCount = this.resAppList.length;
+          this.showAppSearch = !this.showAppSearch;
+        }
+      })
+    }
   }
 
-  getCaseLawByRespondant(keyWord: string) {
-    this._apolloService.get(`/judgement/search/respondents/${keyWord}`).subscribe(objRes => {
-      if (objRes.status == "success") {
-        this.resRespList = objRes.data;
-        this.recordCount = this.resRespList.length;
-        this.showRespSearch = !this.showRespSearch;
-      }
-    })
+  getCaseLawByRespondent(keyWord: string) {
+    if (keyWord == undefined) {
+      this._toastMessage.error('Respondent name is required !!');
+    }
+    else if (keyWord == "") {
+      this._toastMessage.error('Respondent name is required !!');
+    }
+    else {
+      this._apolloService.get(`/judgement/search/respondents/${keyWord}`).subscribe(objRes => {
+        if (objRes.status == "success") {
+          this.resRespList = objRes.data;
+          this.recordCount = this.resRespList.length;
+          this.showRespSearch = !this.showRespSearch;
+        }
+      })
+    }
   }
 
   getCaseLawByJudges(keyWord: string) {
-    this._apolloService.get(`/judgement/search/judges/${keyWord}`).subscribe(objRes => {
+    if (keyWord == undefined) {
+      this._toastMessage.error('Judge name is required !!');
+    }
+    else if (keyWord == "") {
+      this._toastMessage.error('Judge name is required !!');
+    }
+    else {
+      this._apolloService.get(`/judgement/search/judges/${keyWord}`).subscribe(objRes => {
+        if (objRes.status == "success") {
+          this.respJudgeList = objRes.data;
+          this.recordCount = this.respJudgeList.length;
+          this.showJudgeSearch = !this.showJudgeSearch;
+        }
+      })
+    }
+  }
+
+  eleminateWhiteSpace(e: any) {
+    let value = e.target.value;
+    const regex = /^\s/;
+    return regex.test(value);
+  }
+
+  getCitations(keyWord: string = "") {
+    let data = { name: keyWord }
+    this._apolloService.post(`/citation/search`, data).subscribe(objRes => {
       if (objRes.status == "success") {
-        this.respJudgeList = objRes.data;
-        this.recordCount = this.respJudgeList.length;
-        this.showJudgeSearch = !this.showJudgeSearch;
+        this.citationList = objRes.data;
+        this.recordCount = this.citationList.length;
+        this.showCitationSearch = !this.showCitationSearch;
       }
     })
   }

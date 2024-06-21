@@ -43,8 +43,10 @@ export class CreateCaseDiaryComponent {
 
   representingList = [
     { value: 'Applicant', viewValue: 'Applicant' },
-    { value: 'Respondant', viewValue: 'Respondant' },
-  ]
+    { value: 'Respondent ', viewValue: 'Respondent ' },
+  ];
+
+  today: Date = new Date();
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _router: Router, private _http: HttpClient, private _templateService: TemplateService) {
@@ -99,7 +101,8 @@ export class CreateCaseDiaryComponent {
         applicationType: this.createCaseDiaryForm.controls.applicationType.value,
         applicationSection: this.createCaseDiaryForm.controls.applicationSection.value,
         nextHearingDate: this.createCaseDiaryForm.controls.nextHearingDate.value,
-        lawyreasonForAbsent: this.createCaseDiaryForm.controls.lawyreasonForAbsent.value
+        lawyreasonForAbsent: this.createCaseDiaryForm.controls.lawyreasonForAbsent.value,
+        representing:this.createCaseDiaryForm.controls.representing.value
       }
       this._apolloService.mutate(GQLConfig.createCaseDiary, data).subscribe((objRes) => {
         if (objRes.data != null) {

@@ -78,6 +78,19 @@
                         </mat-form-field>
                     </div>
 
+                    <div class="d-flex mat-input-white" style="flex-direction: column">
+                        <mat-label class="mat-label">Representing</mat-label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Select stage" formControlName="representing" required>
+                                <mat-option *ngFor="let representing of representingList" [value]="representing.value">
+                                    {{ representing.viewValue }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="editCaseDiaryForm.controls['representing'].errors?.['required']">
+                                Representing is Required !!</mat-error>
+                        </mat-form-field>
+                    </div>
+
                     <!-- <div class="d-flex mat-input-white me-4" style="flex-direction: column">
                         <mat-label class="mat-label">Case No.</mat-label>
                         <mat-form-field appearance="outline">
