@@ -4,10 +4,17 @@
     <div class="diary-container">
       <div>
         <div class="login-text">Login</div>
-        <div class="sub-text mt-3 mb-1">
+        <p class="sub-text mt-3 mb-1">
           Vidhik is dedicated to ensuring the security of your personal data. Your information will be inaccessible to
-          unauthorized parties and protected with end-to-end encryption.
-        </div>
+          unauthorized parties and protected with end-to-end encryption.<br><br>
+
+          Declaration: I hereby declare that, as a user of this case diary, I understand that all data and information I
+          enter is end-to-end encrypted and protected from third-party access. I acknowledge that if any loss of data
+          occurs in the future, it will be entirely my responsibility. I will not hold Vidhik or its proprietary company
+          liable for such losses.
+        </p>
+        <div class="terms-service-checkbox" style="padding-left: unset;margin-top:unset;color:#8798ad"><mat-checkbox
+            [color]="'primary'" [(ngModel)]="agreement">Agree</mat-checkbox></div>
       </div>
 
       <form class="col mt-3" [formGroup]="caseDiaryForm">
@@ -40,7 +47,7 @@
             Password?</a>
         </div>
         <div class="text-center mt-3">
-          <button mat-raised-button color="primary w-100" (click)="login()">
+          <button mat-raised-button color="primary w-100" (click)="login()" [disabled]="!agreement">
             Sign In</button><br />
 
           <button routerLink="/lawyer/case-diary/signup" mat-stroked-button class="w-100" color="primary"

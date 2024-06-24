@@ -56,6 +56,22 @@
             -webkit-transition: color 0.3s ease-in-out;
         }
     }
+
+    .paginator{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        padding: 0px 30px;
+        margin-top: 20px;
+    }
+
+    .no-data{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        height: 100px;
+    }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

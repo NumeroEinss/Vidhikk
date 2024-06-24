@@ -13,4 +13,7 @@ export class CreateCaseDiaryModel {
     applicationSection: string = "";
     lawyreasonForAbsent: string = "";
     representing: string = "";
+    FIRNumber: string = "";
+    FIRDate: string = "";
+    sectionIPC: string = "";
 }

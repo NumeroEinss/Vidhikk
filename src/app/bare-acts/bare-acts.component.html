@@ -9,15 +9,23 @@
             <img src="../../../assets/images/icons/search-blue.svg" />
         </div>
     </div>
-    <div style="height: calc(100vh - 243px)">
+    <div style="height: calc(100vh - 263px)">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-            <div class="bare-acts">
+            <div class="bare-acts" *ngIf="bareActsList.length">
                 @for (acts of bareActsList; track acts) {
                 <div class="acts" (click)="viewBareActs(acts._id)">
                     {{ acts.title }}
                 </div>
                 }
             </div>
+            <div *ngIf="bareActsList.length == 0" class="no-data"> No Data....</div>
         </ng-scrollbar>
+        <div class="paginator">
+            <button mat-raised-button color="primary" (click)="previousPage()" [disabled]="currentPage === 1"
+                style="width: max-content !important;margin-right: 10px;">Previous</button>
+            <span style="margin-right: 10px;">Page {{ currentPage }}</span>
+            <button mat-raised-button color="primary" (click)="nextPage()"
+                style="width: max-content !important;">Next</button>
+        </div>
     </div>
 </div>

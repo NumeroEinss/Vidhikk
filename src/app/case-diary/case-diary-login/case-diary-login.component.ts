@@ -14,6 +14,7 @@ export class CaseDiaryLoginComponent {
 
   caseDiaryForm: FormGroup;
   hide: boolean = true;
+  agreement: boolean = false;
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _router: Router) {

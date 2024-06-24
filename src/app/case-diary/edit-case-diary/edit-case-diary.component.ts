@@ -35,6 +35,8 @@ export class EditCaseDiaryComponent {
     { value: 'Respondent ', viewValue: 'Respondent ' },
   ];
 
+  today: Date = new Date();
+
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _router: Router, private _http: HttpClient) {
     this.editCaseDiaryForm = this._formBuilder.group(
@@ -98,7 +100,7 @@ export class EditCaseDiaryComponent {
         applicationSection: this.editCaseDiaryForm.controls.applicationSection.value,
         nextHearingDate: this.editCaseDiaryForm.controls.nextHearingDate.value,
         lawyreasonForAbsent: this.editCaseDiaryForm.controls.lawyreasonForAbsent.value,
-        representing:this.editCaseDiaryForm.controls.representing.value
+        representing: this.editCaseDiaryForm.controls.representing.value
       }
       this._apolloService.mutate(GQLConfig.updateCaseDiary, data).subscribe((objRes) => {
         if (objRes.data != null) {
