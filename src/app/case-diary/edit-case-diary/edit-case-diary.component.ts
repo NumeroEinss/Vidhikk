@@ -100,7 +100,10 @@ export class EditCaseDiaryComponent {
         applicationSection: this.editCaseDiaryForm.controls.applicationSection.value,
         nextHearingDate: this.editCaseDiaryForm.controls.nextHearingDate.value,
         lawyreasonForAbsent: this.editCaseDiaryForm.controls.lawyreasonForAbsent.value,
-        representing: this.editCaseDiaryForm.controls.representing.value
+        representing: this.editCaseDiaryForm.controls.representing.value,
+        FIRNumber: this.editCaseDiaryForm.controls.FIRNumber.value,
+        FIRDate: this.editCaseDiaryForm.controls.FIRDate.value,
+        sectionIPC: this.editCaseDiaryForm.controls.sectionIPC.value
       }
       this._apolloService.mutate(GQLConfig.updateCaseDiary, data).subscribe((objRes) => {
         if (objRes.data != null) {

@@ -10,6 +10,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { TableComponent } from './component/table/table.component';
 import { AuthService } from './services/auth.service';
 import { HighlighterPipe } from './pipe/highlighter.pipe';
+import { PaginatorComponent } from './component/paginator/paginator.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { HighlighterPipe } from './pipe/highlighter.pipe';
     FooterComponent,
     GlobalSearchComponent,
     TableComponent,
-    HighlighterPipe
+    HighlighterPipe,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { HighlighterPipe } from './pipe/highlighter.pipe';
     HeaderComponent,
     FooterComponent,
     NgScrollbarModule,
-    HighlighterPipe
+    HighlighterPipe,
+    PaginatorComponent
   ],
   providers: [AuthService]
 })

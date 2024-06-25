@@ -55,7 +55,7 @@
         </mat-menu>
       </div>
       <!-- Case Law List -->
-      <div style="height: calc(100vh - 243px)">
+      <div style="height: calc(100vh - 320px)">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           @for (case of caseList; track case) {
           <div class="case-container" (click)="viewCase(case._id)">
@@ -78,6 +78,8 @@
           }
         </ng-scrollbar>
       </div>
+      <app-paginator [currentPage]="caseLawCurrentPage" (nextPageEvent)="caseLawNextPage()"
+        (previousPageEvent)="caseLawPrevEvent()"></app-paginator>
     </mat-tab>
     <!-- Lates Cases Ends -->
 

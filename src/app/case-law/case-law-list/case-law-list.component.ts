@@ -46,6 +46,8 @@ export class CaseLawListComponent {
   selectedIndex: number = 0;
   recordCount: number = 0;
 
+  caseLawCurrentPage: number = 1;
+
   caseList: any = [
     // {
     //   caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
@@ -302,7 +304,7 @@ export class CaseLawListComponent {
     private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>) {
     this._dateAdapter.setLocale('en-GB');
     this.filteredJournalsList = this.journalList;
-    this.getCaseLaws();
+    this.getCaseLaws(1);
     this.getJudgeList();
     this.getCourtList();
     this.filteredActList = this.actList;
@@ -325,7 +327,7 @@ export class CaseLawListComponent {
   tabSelectionChange(e: any) {
     switch (e.index) {
       case 0:
-        this.getCaseLaws();
+        this.getCaseLaws(1);
         break;
       case 1:
         this.showAppSearch = true;
@@ -454,8 +456,8 @@ export class CaseLawListComponent {
     this.selectedCourt = "";
   }
 
-  getCaseLaws() {
-    this._apolloService.get(`/judgement/latest`).subscribe(objRes => {
+  getCaseLaws(page: number) {
+    this._apolloService.get(`/judgement/latest?page=${page}&pageSize=50`).subscribe(objRes => {
       if (objRes.status == "success") {
         this.caseList = objRes.data;
         this.recordCount = this.caseList.length;
@@ -466,7 +468,7 @@ export class CaseLawListComponent {
   getCaseLawByCourt() {
     let selectedCourt = this.filteredCourtList.find((x: any) => x.name == this.selectedCourt);
     if (selectedCourt == undefined) {
-      this.getCaseLaws();
+      this.getCaseLaws(1);
     }
     else {
       this._apolloService.get(`/judgement/search/court/${selectedCourt.name}?page=1&pageSize=10`).subscribe(objRes => {
@@ -547,5 +549,17 @@ export class CaseLawListComponent {
         this.showCitationSearch = !this.showCitationSearch;
       }
     })
+  }
+
+  caseLawPrevEvent() {
+    if (this.caseLawCurrentPage > 1) {
+      let val = this.caseLawCurrentPage -= 1;
+      this.getCaseLaws(val);
+    }
+  }
+
+  caseLawNextPage() {
+    let val = this.caseLawCurrentPage += 1;
+    this.getCaseLaws(val);
   }
 }

@@ -20,12 +20,7 @@
             </div>
             <div *ngIf="bareActsList.length == 0" class="no-data"> No Data....</div>
         </ng-scrollbar>
-        <div class="paginator">
-            <button mat-raised-button color="primary" (click)="previousPage()" [disabled]="currentPage === 1"
-                style="width: max-content !important;margin-right: 10px;">Previous</button>
-            <span style="margin-right: 10px;">Page {{ currentPage }}</span>
-            <button mat-raised-button color="primary" (click)="nextPage()"
-                style="width: max-content !important;">Next</button>
-        </div>
+        <app-paginator [currentPage]="currentPage" (previousPageEvent)="previousPage()"
+            (nextPageEvent)="nextPage()"></app-paginator>
     </div>
 </div>

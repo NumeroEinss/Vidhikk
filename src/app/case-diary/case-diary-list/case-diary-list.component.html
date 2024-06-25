@@ -195,23 +195,23 @@
         <!-- <div class="grid-item2">{{ item.city }}</div> -->
         <div class="grid-item2">{{ item.assignedTo }}</div>
         <div class="grid-item2">
-          <button mat-icon-button [matMenuTriggerFor]="subDiaryMenu">
+          <button mat-icon-button (click)="deleteSubDiary(item.subDiary_id)">
             <mat-icon class="action-icon">more_vert</mat-icon>
           </button>
         </div>
-        <mat-menu #subDiaryMenu="matMenu">
+        <!-- <mat-menu #subDiaryMenu="matMenu">
           <!-- <div mat-menu-item routerLink="/lawyer/case-diary/create-sub-diary">
             <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
               style="width: 22px; height: 22px" />
             <span class="mat-menu-list">Edit</span>
-          </div> -->
+          </div> --
 
           <div mat-menu-item>
             <img src="../../../assets/images/icons/view_application.svg" alt="" class="me-2"
               style="width: 20px; height: 20px" />
             <span class="mat-menu-list">View Application</span>
           </div>
-        </mat-menu>
+        </mat-menu> -->
       </div>
       }
       <!-- case-diary list ends-->

@@ -114,7 +114,10 @@ export class CaseDiaryListComponent {
       applicationSection: caseDiaryData.applicationSection,
       nextHearingDate: caseDiaryData.nextHearingDate,
       lawyreasonForAbsent: caseDiaryData.lawyreasonForAbsent,
-      representing: caseDiaryData.representing
+      representing: caseDiaryData.representing,
+      FIRNumber: caseDiaryData.FIRNumber,
+      FIRDate: caseDiaryData.FIRDate,
+      sectionIPC: caseDiaryData.sectionIPC
     }
     this._apolloService.mutate(GQLConfig.updateCaseDiary, data).subscribe((objRes) => {
       if (objRes.data != null) {
@@ -124,6 +127,20 @@ export class CaseDiaryListComponent {
         }
         else {
           this._toastMessage.error(objRes.data.caseDiaryUpdate.message);
+        }
+      }
+    })
+  }
+
+  deleteSubDiary(subDiaryId: any) {
+    this._apolloService.mutate(GQLConfig.deleteSubDiary, { subDiaryId: subDiaryId }).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.deleteSubDiary.status == 200) {
+          this._toastMessage.success(objRes.data.deleteSubDiary.message);
+          this.getSubDiaryList();
+        }
+        else {
+          this._toastMessage.error(objRes.data.deleteSubDiary.message);
         }
       }
     })

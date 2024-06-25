@@ -299,15 +299,16 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static createCaseDiary = gql` mutation($lawyerId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: Float!,
-            $caseName:String!,$caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
-            $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String,$representing:String!) {
+    static createCaseDiary = gql` mutation($lawyerId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: String,
+        $caseName: String!, $caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
+        $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String, $representing: String!, $FIRNumber: String, $FIRDate: String,
+        $sectionIPC: String) {
         createCaseDiary(input: {
             lawyerId: $lawyerId,
             registrationDate: $registrationDate,
             courtName: $courtName,
             caseNumber: $caseNumber,
-            caseName:$caseName,
+            caseName: $caseName,
             caseStage: $caseStage,
             city: $city,
             applicantName: $applicantName,
@@ -316,7 +317,10 @@ export abstract class GQLConfig {
             applicationSection: $applicationSection,
             nextHearingDate: $nextHearingDate,
             lawyreasonForAbsent: $lawyreasonForAbsent,
-            representing:$representing
+            representing: $representing,
+            FIRNumber: $FIRNumber,
+            FIRDate: $FIRDate,
+            sectionIPC: $sectionIPC
         }) {
             status
             message
@@ -334,9 +338,10 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static updateCaseDiary = gql`mutation($caseDiaryId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: Float!,
+    static updateCaseDiary = gql`mutation($caseDiaryId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: String,
         $caseName:String!,$caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
-        $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String,$representing:String!) {
+        $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String,$representing:String!, $FIRNumber: String, $FIRDate: String,
+        $sectionIPC: String) {
         caseDiaryUpdate(input: {
             caseDiaryId: $caseDiaryId,
             registrationDate: $registrationDate,
@@ -351,7 +356,10 @@ export abstract class GQLConfig {
             applicationSection: $applicationSection,
             nextHearingDate: $nextHearingDate,
             lawyreasonForAbsent: $lawyreasonForAbsent,
-            representing:$representing
+            representing:$representing,
+            FIRNumber: $FIRNumber,
+            FIRDate: $FIRDate,
+            sectionIPC: $sectionIPC
         }){
             status
             message
@@ -476,6 +484,17 @@ export abstract class GQLConfig {
             place: $place
             practicingField: $practicingField
         }){
+            status
+            message
+            data
+        }
+    }`;
+
+    static deleteSubDiary = gql`mutation($subDiaryId: String!) {
+        deleteSubDiary(input: {
+
+            subDiaryId: $subDiaryId
+        }) {
             status
             message
             data

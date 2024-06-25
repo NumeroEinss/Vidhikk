@@ -92,7 +92,7 @@ export class CreateCaseDiaryComponent {
         lawyerId: parsedData._id,
         registrationDate: this.createCaseDiaryForm.controls.registrationDate.value,
         courtName: this.createCaseDiaryForm.controls.courtName.value,
-        caseNumber: parseInt(this.createCaseDiaryForm.controls.caseNumber.value),
+        caseNumber: this.createCaseDiaryForm.controls.caseNumber.value,
         caseName: this.createCaseDiaryForm.controls.caseName.value,
         caseStage: this.createCaseDiaryForm.controls.caseStage.value,
         city: this.createCaseDiaryForm.controls.city.value,
