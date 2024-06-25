@@ -5,8 +5,8 @@ import { ApolloClientOptions, ApolloLink, InMemoryCache } from '@apollo/client/c
 import { setContext } from '@apollo/client/link/context'
 
 // const uri = 'http://192.168.29.74:3000/graphql'; // <-- add the URL of the GraphQL server here
-const uri = 'http://192.168.29.114:3000/graphql'; //aditya
-// const uri = 'http://84.247.151.137:4000/graphql' // server url
+// const uri = 'http://192.168.29.114:3000/graphql'; //aditya
+const uri = 'http://84.247.151.137:4000/graphql' // server url
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   const basic = setContext((operation, context) => ({
     headers: {
