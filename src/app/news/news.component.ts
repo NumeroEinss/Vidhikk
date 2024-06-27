@@ -16,6 +16,7 @@ export class NewsComponent {
     //   description: 'Since advertisements come in different shapes and sizes, an average viewer gets Since advertisements come in different shapes and sizes, an average viewer gets..',
     // }
   ];
+  selectedIndex: any;
 
   constructor(private _apolloService: ApolloService, private _toastMessage: ToastMessageService) {
     this.getNewsFeed();
@@ -41,5 +42,9 @@ export class NewsComponent {
         }
       }
     })
+  }
+
+  tabSelectionChange(e: any) {
+    console.log(e);
   }
 }

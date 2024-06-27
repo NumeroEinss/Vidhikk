@@ -375,18 +375,16 @@ export class CaseLawListComponent {
     if (this.judgeSearch == "") {
       this._apolloService.get(`/judge?page=${this.page}&pageSize=1000`).subscribe(resObj => {
         if (resObj.status == "success") {
-          this.judgeList = [...this.filteredJudgeList, ...resObj.data];
-          this.judgeList = [...new Set(this.judgeList)];
-          this.filteredJudgeList = this.judgeList;
+          this.filteredJudgeList = [...this.filteredJudgeList, ...resObj.data];
+          this.filteredJudgeList = [...new Set(this.filteredJudgeList)];
         }
       })
     }
     else {
       this._apolloService.get(`/judge/search/${this.judgeSearch}?page=1&pageSize=1000`).subscribe(resObj => {
         if (resObj.status == "success") {
-          this.judgeList = [...this.filteredJudgeList, ...resObj.data];
-          this.judgeList = [...new Set(this.judgeList)];
-          this.filteredJudgeList = this.judgeList;
+          this.filteredJudgeList = [...this.filteredJudgeList, ...resObj.data];
+          this.filteredJudgeList = [...new Set(this.filteredJudgeList)];
         }
       })
     }

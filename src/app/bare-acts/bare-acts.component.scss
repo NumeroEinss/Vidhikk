@@ -32,11 +32,11 @@
 
     .bare-acts {
         .acts {
-            height: 59px;
+            height: 40px;
             width: -webkit-fill-available;
             width: -moz-available;
             flex-grow: 0;
-            padding: 20px 30px;
+            padding: 10px 30px;
             font-family: Poppins;
             font-size: 14px;
             font-weight: normal;
@@ -57,7 +57,7 @@
         }
     }
 
-    .no-data{
+    .no-data {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -79,7 +79,7 @@
 
     .bare-acts {
         .acts {
-            padding: 20px 15px;
+            padding: 10px 15px;
         }
     }
 }

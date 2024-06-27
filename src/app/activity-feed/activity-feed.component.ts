@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApolloService } from '../shared/services/apollo.service';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { GQLConfig } from '../graphql.operations';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-activity-feed',
@@ -15,6 +16,9 @@ import { GQLConfig } from '../graphql.operations';
   styleUrl: './activity-feed.component.scss',
 })
 export class ActivityFeedComponent {
+
+  @ViewChild('commentScroll') commentScroll!: NgScrollbar;
+
   isCommentBoxOpen: boolean = false;
   isPost: boolean = false;
   comment: string = '';
@@ -54,6 +58,7 @@ export class ActivityFeedComponent {
             this.post.title = "";
             this.post.description = "";
             this.getActivityFeeds();
+            this.commentScroll.scrollTo({bottom:100})
           }
           else {
             this._toastMessage.success(data.data.postLawyerActivity.message);

@@ -2,9 +2,9 @@
 <app-header [menuName]="'Activity feed'"></app-header>
 
 <!--marquee -->
-<marquee behavior="'smooth'" direction="rtl" onmouseover="this.stop()" onmouseout="this.start()">comply with any
-  legal advertising regulations in your jurisdiction and
-  ensure that your messages dhere to professional and ethical
+<marquee behavior="'smooth'" direction="rtl" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop()"
+  OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" scrollamount="2">To comply with any
+  legal advertising regulations in your jurisdiction and ensure that your messages adhere to professional and ethical
   standards</marquee>
 
 <!-- root section & feed section start-->
@@ -82,7 +82,7 @@
 
             <div id="comment-section" *ngIf="item.isCommentExpanded || isPost" class="comment-section"
               [ngStyle]="item.comments.length == 0?{'height':'0px'}:{'height':'300px'}">
-              <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+              <ng-scrollbar #commentScroll autoHeightDisabled="false" appearance="standard">
                 @for (comment of item.comments; track comment) {
                 <div class="comment">
                   <div class="down-section-1a">
@@ -128,7 +128,7 @@
                 <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="item.comment"></textarea>
               </div>
               <div>
-                <button type="button" class="btn btn-primary comment-btn" (click)="addComment(item)">
+                <button type="button" class="btn btn-primary comment-btn" (click)="addComment(item);">
                   <img src="../../assets/images/icons/post.svg" alt="" />Post
                 </button>
               </div>
