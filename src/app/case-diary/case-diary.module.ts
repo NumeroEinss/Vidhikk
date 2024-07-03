@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { EditCaseDiaryComponent } from './edit-case-diary/edit-case-diary.component';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -49,7 +50,8 @@ const MY_DATE_FORMAT = {
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatTooltipModule
   ],
   providers: [caseDiaryGuard,
     provideNativeDateAdapter(),

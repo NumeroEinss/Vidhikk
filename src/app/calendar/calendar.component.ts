@@ -1,18 +1,17 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
 import {
   MAT_DATE_LOCALE,
   MAT_DATE_FORMATS,
   DateAdapter,
 } from '@angular/material/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
-import { addDays } from 'date-fns';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CalendarModel } from '../common/calendarModel';
+import { ApolloService } from '../shared/services/apollo.service';
+import { GQLConfig } from '../graphql.operations';
 
 export const colors: any = {
   red: {
@@ -66,38 +65,39 @@ export class CalendarComponent {
   selectedTimes: any = { A: '', B: '' };
 
   events: CalendarEvent[] = [
-    {
-      title: 'Editable event',
-      color: colors.yellow,
-      start: new Date(),
-      actions: [
-        {
-          label: 'Edit',
-          onClick: ({ event }: { event: CalendarEvent }) => { console.log(event); },
-        },
-        {
-          label: 'Delete Event ',
-          onClick: ({ event }: { event: CalendarEvent }): void => { this.handleDelete(), this.eventToBeDeleted = event },
-        },
-      ],
-    },
-    {
-      title: 'Deletable eventssss',
-      color: colors.blue,
-      start: addDays(new Date(), 2),
-      actions: [
-        {
-          label: 'Delete Event ',
-          onClick: ({ event }: { event: CalendarEvent }): void => { this.handleDelete(), this.eventToBeDeleted = event },
-        },
-      ],
-    },
-    {
-      title: 'Non editable and deletable event',
-      color: colors.red,
-      start: new Date(),
-    },
-  ];
+    // {
+    //   title: 'Editable event',
+    //   color: colors.red,
+    //   start: new Date(),
+    //   end: this.addHours(new Date(), 1),
+    //   actions: [
+    //     {
+    //       label: 'Edit',
+    //       onClick: ({ event }: { event: CalendarEvent }) => { console.log(event); },
+    //     },
+    //     {
+    //       label: 'Delete Event ',
+    //       onClick: ({ event }: { event: CalendarEvent }): void => { this.handleDelete(), this.eventToBeDeleted = event },
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: 'Deletable eventssss',
+    //   color: colors.blue,
+    //   start: addDays(new Date(), 2),
+    //   actions: [
+    //     {
+    //       label: 'Delete Event ',
+    //       onClick: ({ event }: { event: CalendarEvent }): void => { this.handleDelete(), this.eventToBeDeleted = event },
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: 'Non editable and deletable event',
+    //   color: colors.red,
+    //   start: new Date(),
+    // },
+    ];
 
   eventTypeList = [
     { name: 'All Events', value: 'allEvent' },
@@ -206,44 +206,7 @@ export class CalendarComponent {
 
   reminder: any = "";
 
-  caseList = [
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-  ];
+  caseList: any = [];
 
   displaySlot: any = [];
 
@@ -269,8 +232,9 @@ export class CalendarComponent {
 
   isEditMode: boolean = false;
 
-  constructor(private _toastMessage: ToastMessageService, _fb: FormBuilder) {
-    this.calendarForm = _fb.group(new CalendarModel);
+  constructor(private _toastMessage: ToastMessageService, private _fb: FormBuilder, private _apolloService: ApolloService) {
+    this.calendarForm = this._fb.group(new CalendarModel());
+    this.getCaseDiaryList();
   }
 
   editEvent(event: CalendarEvent, selectedEvent: any) {
@@ -290,7 +254,7 @@ export class CalendarComponent {
 
   handleDeleteAvailability() {
     let deleteAvailabilityHandler = document.getElementById('deleteAvailabilityButton') as HTMLElement;
-    deleteAvailabilityHandler.click();  
+    deleteAvailabilityHandler.click();
   }
 
   deleteAvailability() {
@@ -344,5 +308,45 @@ export class CalendarComponent {
         _d: new Date()
       }
     }
+  }
+
+  addHours(date: Date, hours: number) {
+    const hoursToAdd = hours * 60 * 60 * 1000;
+    date.setTime(date.getTime() + hoursToAdd);
+    return date;
+  }
+
+  addEvents() {
+    if (this.calendarForm.valid) {
+      this._apolloService.mutate(GQLConfig.addEvents, this.calendarForm.value).subscribe(objRes => {
+        if (objRes.data != null) {
+          if (objRes.data.createEvents.status == 200) {
+            this._toastMessage.success(objRes.data.createEvents.message);
+          }
+          else {
+            this._toastMessage.error(objRes.data.createEvents.message);
+          }
+        }
+      })
+    }
+    else {
+      this._toastMessage.error("All Fields are Required !!");
+    }
+  }
+
+  getCaseDiaryList() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this._apolloService.mutate(GQLConfig.getCaseDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.getCaseDiaryList.status == 200) {
+          this.caseList = data.data.getCaseDiaryList.data.caseDiaryList.result;
+          this.caseList.unshift({ caseName: "Select", _id: "" });
+        }
+        else {
+          this._toastMessage.error(data.data.getCaseDiaryList.message);
+        }
+      }
+    });
   }
 }

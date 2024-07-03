@@ -768,6 +768,10 @@ body {
         }
       }
     }
+
+    mat-form-field {
+      max-width: 265px;
+    }
   }
 
   .mat-mdc-menu-content {
@@ -1078,7 +1082,7 @@ body {
     }
   }
 
-  mark{
+  mark {
     background-color: #e6e60bee;
   }
 }

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
@@ -9,8 +8,10 @@ import {
 import { Router } from '@angular/router';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { ApolloService } from '../../shared/services/apollo.service';
-import { Subject, debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs';
+import { Subject, debounceTime, switchMap } from 'rxjs';
 import { SearchService } from '../../shared/services/search.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AdvanceSearchModel } from '../../common/advanceSearch.model';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -300,8 +301,20 @@ export class CaseLawListComponent {
   showCitationSearch: boolean = true;
   citationList: Array<any> = [];
 
+  judgeControl = new FormControl();
+
+  advanceSearchForm: FormGroup;
+  decisionDate = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
+
+  showRespAdvanceSearch: boolean = true;
+  respAdvanceSearchList: any = [];
+  advanceSearchCurrentPage: number = 1;
+
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
-    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>) {
+    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder) {
     this._dateAdapter.setLocale('en-GB');
     this.filteredJournalsList = this.journalList;
     this.getCaseLaws(1);
@@ -311,17 +324,23 @@ export class CaseLawListComponent {
     this.filteredActTypeList = this.actTypeList;
     this.filteredYearList = this.yearList;
     this.filteredVolumeList = this.volumeList;
+    this.advanceSearchForm = this._formBuilder.group(new AdvanceSearchModel)
   }
 
   ngOnInit() {
-    // this.searchTerms.pipe(
-    //   debounceTime(300),        // Wait for 300ms pause in events
-    //   distinctUntilChanged(),   // Ignore if next search term is same as previous
-    //   switchMap((term: string) => this._searchService.search(term))
-    // ).subscribe(results => {
-    //   this.filteredJudgeList = results
-    //   this.hasMore = results.length > 1000; // Assuming page size is 10
-    // });
+    this.judgeControl.valueChanges.pipe(
+      debounceTime(300), // Add a debounce to limit the number of API calls
+      switchMap(value => this._searchService.search(value))
+    ).subscribe(data => {
+      this.filteredJudgeList = data;
+    });
+
+    this.advanceSearchForm.controls.judge.valueChanges.pipe(
+      debounceTime(300), // Add a debounce to limit the number of API calls
+      switchMap(value => this._searchService.search(value))
+    ).subscribe(data => {
+      this.filteredJudgeList = data;
+    });
   }
 
   tabSelectionChange(e: any) {
@@ -360,40 +379,6 @@ export class CaseLawListComponent {
     this._router.navigate([`lawyer/case-law/cases/view/${caseId}`], { state: extras });
   }
 
-  filterJudge(e: any) {
-    let filter = e.target.value.toLowerCase();
-    this.filteredJudgeList = this.judgeList.filter((key: any) =>
-      key.name.toLowerCase().startsWith(filter)
-    );
-  }
-  // filterJudge(value: any) {
-  //   this.searchTerms.next(value.target.value);
-  // }
-
-  loadMore(keyWord: any): void {
-    this.page++;
-    if (this.judgeSearch == "") {
-      this._apolloService.get(`/judge?page=${this.page}&pageSize=1000`).subscribe(resObj => {
-        if (resObj.status == "success") {
-          this.filteredJudgeList = [...this.filteredJudgeList, ...resObj.data];
-          this.filteredJudgeList = [...new Set(this.filteredJudgeList)];
-        }
-      })
-    }
-    else {
-      this._apolloService.get(`/judge/search/${this.judgeSearch}?page=1&pageSize=1000`).subscribe(resObj => {
-        if (resObj.status == "success") {
-          this.filteredJudgeList = [...this.filteredJudgeList, ...resObj.data];
-          this.filteredJudgeList = [...new Set(this.filteredJudgeList)];
-        }
-      })
-    }
-    // this._searchService.search(keyWord).subscribe(items => {
-    //   this.filteredJudgeList = [...this.filteredJudgeList, ...items];
-    //   this.hasMore = items.length > 1000;
-    // });
-  }
-
   filterAct(e: any) {
     let filter = e.target.value.toLowerCase();
     this.filteredActList = this.actList.filter((key: any) =>
@@ -411,7 +396,7 @@ export class CaseLawListComponent {
   }
 
   getJudgeList() {
-    this._apolloService.get('/judge?page=1&pageSize=1000').subscribe(resObj => {
+    this._apolloService.get('/judge?page=1&pageSize=50').subscribe(resObj => {
       if (resObj.status == "success") {
         this.judgeList = resObj.data;
         this.filteredJudgeList = this.judgeList;
@@ -419,22 +404,8 @@ export class CaseLawListComponent {
     })
   }
 
-  getJudgeByName() {
-    if (this.judgeSearch == "") {
-      this.getJudgeList();
-    }
-    else {
-      this._apolloService.get(`/judge/search/${this.judgeSearch}?page=1&pageSize=1000`).subscribe(resObj => {
-        if (resObj.status == "success") {
-          this.judgeList = resObj.data;
-          this.filteredJudgeList = this.judgeList;
-        }
-      })
-    }
-  }
-
   getCourtList() {
-    this._apolloService.get('/court?page=1&pageSize=2000').subscribe(resObj => {
+    this._apolloService.get('/court').subscribe(resObj => {
       if (resObj.status == "success") {
         this.courtList = resObj.data;
         this.filteredCourtList = this.courtList;
@@ -559,5 +530,33 @@ export class CaseLawListComponent {
   caseLawNextPage() {
     let val = this.caseLawCurrentPage += 1;
     this.getCaseLaws(val);
+  }
+
+  getCaseLawByAdvanceSearch(page: number) {
+    this.advanceSearchForm.controls.decisionDate.patchValue(this.decisionDate.value);
+    console.log(this.advanceSearchForm.value);
+    this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=50`, this.advanceSearchForm.value).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.respAdvanceSearchList = objRes.data;
+        this.recordCount = this.respAdvanceSearchList.length;
+      }
+    })
+  }
+
+  advanceSearchNextPage() {
+    let val = this.advanceSearchCurrentPage += 1;
+    this.getCaseLawByAdvanceSearch(val);
+  }
+
+  advanceSearchPrevPage() {
+    if (this.advanceSearchCurrentPage > 1) {
+      let val = this.advanceSearchCurrentPage -= 1;
+      this.getCaseLawByAdvanceSearch(val);
+    }
+  }
+
+  resetAdvanceSearchForm() {
+    this.advanceSearchForm.reset();
+    this.advanceSearchForm.patchValue(new AdvanceSearchModel());
   }
 }

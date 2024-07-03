@@ -38,7 +38,8 @@
               </ng-scrollbar>
             </div>
             <div class="d-flex">
-              <button mat-raised-button color="primary" class="m-2" (click)="sortMenu.close;getCaseLawByCourt()">
+              <button mat-raised-button color="primary" class="m-2"
+                (click)="sortMenuTrigger.closeMenu();getCaseLawByCourt()">
                 Done</button><br />
               <button mat-stroked-button color="primary" class="m-2" (click)="search.value = '';clearCourtFilter()">
                 Clear
@@ -56,7 +57,7 @@
       </div>
       <!-- Case Law List -->
       <div style="height: calc(100vh - 320px)">
-        <ng-scrollbar #latestCaseScroll autoHeightDisabled="false" appearance="standard">
+        <ng-scrollbar #latestCaseScroll autoHeightDisabled="false" appearance="standard" [hidden]="caseList.length==0">
           @for (case of caseList; track case) {
           <div class="case-container" (click)="viewCase(case._id)">
             <div class="title">
@@ -76,6 +77,7 @@
             </div>
           </div>
           }
+          <div *ngIf="caseList.length == 0" class="no-data"> No Data....</div>
         </ng-scrollbar>
       </div>
       <app-paginator [currentPage]="caseLawCurrentPage"
@@ -203,39 +205,21 @@
         <div class="d-flex mat-input-white" style="flex-direction: column">
           <mat-label class="mat-label">Select by Name List</mat-label>
           <mat-form-field appearance="outline">
-            <mat-select #judgeSelectInput placeholder="Select Judge" required>
-              <a (click)="$event.stopPropagation()" style="text-decoration: none">
-                <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                  <input #judgSearch matInput placeholder="By Judge Name" (keyup)="filterJudge($event)"
-                    [(ngModel)]="judgeSearch" />
-                  <span matSuffix (click)="getJudgeByName()"><img class="me-2"
-                      src="../../../assets/images/icons/search-blue.svg" /></span>
-                </mat-form-field>
-              </a>
-              <div style="height: 190px">
-                <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-                  <mat-option>Select</mat-option>
-                  @for (judge of filteredJudgeList; track judge) {
-                  <mat-option [value]="judge.name">
-                    {{ judge.name }}
-                  </mat-option>
-                  }
-                  <div class="d-flex justify-content-center align-item-center">
-                    <button mat-button color="primary" (click)="loadMore(judgSearch.value)"
-                      class="text-center">&#8635;Load
-                      More</button>
-                  </div>
-                </ng-scrollbar>
-              </div>
-            </mat-select>
+            <input type="text" placeholder="Select a judge" matInput [formControl]="judgeControl"
+              [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let judge of filteredJudgeList" [value]="judge.name">
+                {{ judge.name }}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
         </div>
         <div class="d-flex mt-4">
           <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex"
-            (click)="getCaseLawByJudges(judgeSelectInput.value)">
+            (click)="getCaseLawByJudges(judgeControl.value)">
             <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
           <button mat-stroked-button color="primary" style="width: 124px !important; display: flex"
-            (click)="judgeSelectInput.value=''">
+            (click)="judgeControl.patchValue('');">
             <img src="../../../assets/images/icons/reset.svg" />Reset
           </button>
         </div>
@@ -251,7 +235,7 @@
       <div style="height: calc(100vh - 243px)" [hidden]="showJudgeSearch">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           @for (case of respJudgeList; track case) {
-          <div class="case-container" (click)="viewCase(case._id,judgeSearchRef.nativeElement.value)">
+          <div class="case-container" (click)="viewCase(case._id,judgeControl.value)">
             <div class="title">
               {{ case.title }}
             </div>
@@ -335,51 +319,6 @@
     </mat-tab>
     <!-- Citation Wise Ends -->
 
-    <!-- Act & Section Wise -->
-    <mat-tab label="Act & Section Wises">
-      <div class="act-section">
-        <div class="title">Act & Section Wise</div>
-        <div class="d-flex mat-input-white" style="flex-direction: column">
-          <mat-label class="mat-label">Act Title</mat-label>
-          <mat-form-field appearance="outline">
-            <mat-select placeholder="Select Act Title" required>
-              <div style="height: 190px">
-                <ng-scrollbar>
-                  <mat-option>Select</mat-option>
-                  @for (act of actList; track act) {
-                  <mat-option value="item.value">{{act.name}}</mat-option>
-                  }
-                </ng-scrollbar>
-              </div>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="d-flex mat-input-white" style="flex-direction: column">
-          <mat-label class="mat-label">Act Type</mat-label>
-          <mat-form-field appearance="outline">
-            <mat-select placeholder="Select Act Type" required>
-              <div style="height: 190px">
-                <ng-scrollbar>
-                  <mat-option>Select</mat-option>
-                  @for (act of actTypeList; track act) {
-                  <mat-option value="item.value">{{ act.name }}</mat-option>
-                  }
-                </ng-scrollbar>
-              </div>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="d-flex mt-4">
-          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
-            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
-          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
-            <img src="../../../assets/images/icons/reset.svg" />Reset
-          </button>
-        </div>
-      </div>
-    </mat-tab>
-    <!-- Act & Section Wise Ends -->
-
     <!-- Words & Phrase -->
     <mat-tab label="Words & Phrases">
       <div class="judge-wise">
@@ -408,239 +347,207 @@
     </mat-tab>
     <!--Words & Phrase Ends -->
 
-    <!-- Overruled -->
-    <!-- <mat-tab label="Overruled">
-      <div class="filter-bar mt-2">
-        <div class="pretext col-lg-6 col-md-6">
-          <div class="records">Found {{ recordCount }} Cases</div>
-        </div>
-        <div class="posttext col-lg-6 col-md-6">
-          <img src="../../../assets/images/icons/search-blue.svg" />
-        </div>
-      </div>
-      <div style="height: calc(100vh - 243px)">
-        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-          <div class="overruledby">
-            @for (case of overruledList; track case) {
-            <div class="acts" (click)="viewCase('dfasd23Eddf112sdnb2')">
-              <div class="previous-attorney">{{ case.previousAttorney }}</div>
-              <div class="overruled">Overruled By</div>
-              <div class="current-attorney">{{ case.currentAttorney }}</div>
-            </div>
-            }
-          </div>
-        </ng-scrollbar>
-      </div>
-    </mat-tab> -->
-    <!--Overruled Ends -->
-
-    <!-- Universal Search -->
-    <!-- <mat-tab label="Universal Search">
-      <div class="citation-wise">
-        <div class="title">Universal Search</div>
-        <div class="d-flex mat-input-white" style="flex-direction: column">
-          <mat-label class="mat-label">All these words or phrase</mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="All these words in quotes dying" />
-          </mat-form-field>
-        </div>
-        <div class="d-flex mat-input-white" style="flex-direction: column">
-          <mat-label class="mat-label">Search Within</mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="50" />
-          </mat-form-field>
-        </div>
-        <div class="d-flex mat-input-white" style="flex-direction: column">
-          <mat-label class="mat-label">Any of these words</mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Type All the words you want" />
-          </mat-form-field>
-        </div>
-        <div class="d-flex mat-input-white" style="flex-direction: column">
-          <mat-label class="mat-label">None of these words</mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Type All the words you don't want" />
-          </mat-form-field>
-        </div>
-        <div class="d-flex mat-input-white" style="flex-direction: column">
-          <mat-radio-group aria-label="Select an option" class="mb-2">
-            <mat-radio-button value="1" class="me-3" checked>Judgement</mat-radio-button>
-            <mat-radio-button value="2">HeadNote</mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <div class="d-flex mt-4">
-          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
-            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
-          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
-            <img src="../../../assets/images/icons/reset.svg" />Reset
-          </button>
-        </div>
-      </div>
-    </mat-tab> -->
-    <!--Universal Ends -->
-
     <!-- Advance Search -->
     <mat-tab label="Advance Search">
-      <div class="advance-search">
+      <div class="advance-search" [hidden]="!showRespAdvanceSearch">
         <div class="title">Advance Search</div>
-        <div class="advance-search-col">
-          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-            <mat-label class="mat-label">Enter Text</mat-label>
-            <mat-form-field appearance="outline">
-              <input matInput placeholder="All these words in quotes dying" />
-            </mat-form-field>
-          </div>
-          <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Applicant Respondent Name</mat-label>
-            <mat-form-field appearance="outline">
-              <input matInput placeholder="Type Application Name" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="advance-search-col">
-          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-            <mat-label class="mat-label">Judge Name</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select Judge" required>
-                <a (click)="$event.stopPropagation()" style="text-decoration: none">
-                  <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                    <input #search matInput placeholder="By Judge Name" (keyup)="filterJudge($event)"
-                      [(ngModel)]="judgeSearch" />
-                    <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
-                  </mat-form-field>
-                </a>
-                <div style="height: 190px">
-                  <ng-scrollbar>
-                    <mat-option>Select</mat-option>
-                    @for (judge of filteredJudgeList; track judge) {
-                    <mat-option [value]="judge.name">
-                      {{ judge.name }}
-                    </mat-option>
-                    }
-                  </ng-scrollbar>
-                </div>
-                <button (click)="loadMore(search.value)">Load More</button>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Decision Date</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Start date" />
-                <input matEndDate placeholder="End date" />
-              </mat-date-range-input>
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
-          </div>
-        </div>
+        <form [formGroup]="advanceSearchForm">
 
-        <div class="advance-search-col">
-          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-            <mat-label class="mat-label">Case No.</mat-label>
-            <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Case No." />
-            </mat-form-field>
-          </div>
-          <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Act Title</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select Act Title" required>
-                <a (click)="$event.stopPropagation()" style="text-decoration: none">
-                  <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                    <input #search matInput (keyup)="filterAct($event)" />
-                    <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
-                  </mat-form-field>
-                </a>
-                <div style="height: 190px">
-                  <ng-scrollbar>
-                    <mat-option>Select</mat-option>
-                    @for (act of filteredActList; track act) {
-                    <mat-option [value]="act.value">
-                      {{ act.name }}
-                    </mat-option>
-                    }
-                  </ng-scrollbar>
-                </div>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
+          <div class="advance-search-col">
+            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+              <mat-label class="mat-label">Enter Text</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="All these words in quotes dying" formControlName="text" />
+              </mat-form-field>
+            </div>
 
-        <div class="advance-search-col">
-          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-            <mat-label class="mat-label">Case Year</mat-label>
-            <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Case Year" (keypress)="isNumber($event)" maxlength="4" />
-            </mat-form-field>
-          </div>
-          <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Act Type</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select Act Type" required>
-                <a (click)="$event.stopPropagation()" style="text-decoration: none">
-                  <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                    <input #search matInput (keyup)="filterActType($event)" />
-                    <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
-                  </mat-form-field>
-                </a>
-                <div style="height: 190px">
-                  <ng-scrollbar>
-                    <mat-option>Select</mat-option>
-                    @for (act of filteredActTypeList; track act) {
-                    <mat-option [value]="act.value">
-                      {{ act.name }}
-                    </mat-option>
-                    }
-                  </ng-scrollbar>
-                </div>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="advance-search-col">
-          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-            <mat-label class="mat-label">Advocates</mat-label>
-            <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Advocate Name" />
-            </mat-form-field>
+            <div class="d-flex mat-input-white" style="flex-direction: column">
+              <mat-label class="mat-label">Respondent Name</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Type Application Name" formControlName="respondent" />
+              </mat-form-field>
+            </div>
           </div>
 
-          <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Court</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select Court Name" required>
-                <a (click)="$event.stopPropagation()" style="text-decoration: none">
-                  <mat-form-field class="p-2 w-100 search-input" appearance="outline">
-                    <input #search matInput (keyup)="filterCourt($event)" />
-                    <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
-                  </mat-form-field>
-                </a>
-                <div style="height: 190px">
-                  <ng-scrollbar>
-                    <mat-option>Select</mat-option>
-                    @for (court of filteredCourtList; track court) {
-                    <mat-option [value]="court.name">
-                      {{ court.name }}
-                    </mat-option>
-                    }
-                  </ng-scrollbar>
-                </div>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
+          <div class="advance-search-col">
+            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+              <mat-label class="mat-label">Judge Name</mat-label>
+              <mat-form-field appearance="outline">
+                <input type="text" placeholder="Select a judge" matInput formControlName="judge"
+                  [matAutocomplete]="judgeAutoComplete">
+                <mat-autocomplete #judgeAutoComplete="matAutocomplete">
+                  <mat-option *ngFor="let judge of filteredJudgeList" [value]="judge.name">
+                    {{ judge.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
 
-        <div class="d-flex mt-4">
-          <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex">
-            <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
-          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
-            <img src="../../../assets/images/icons/reset.svg" />Reset
-          </button>
+            <div class="d-flex mat-input-white" style="flex-direction: column">
+              <mat-label class="mat-label">Descision Date</mat-label>
+              <mat-form-field appearance="outline">
+                <!-- <mat-date-range-input [rangePicker]="picker" [formGroup]="decisionDate">
+                  <input matStartDate placeholder="Start date" formControlName="start" />
+                  <input matEndDate placeholder="End date" formControlName="end" />
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker> -->
+                <input matInput [matDatepicker]="date" formControlName="decisionDate" />
+                <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+                <mat-datepicker #date></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="advance-search-col">
+            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+              <mat-label class="mat-label">Case No.</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Enter Case No." formControlName="caseNo" />
+              </mat-form-field>
+            </div>
+
+            <div class="d-flex mat-input-white" style="flex-direction: column">
+              <mat-label class="mat-label">Act Title</mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Select Act Title" required>
+                  <a (click)="$event.stopPropagation()" style="text-decoration: none">
+                    <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                      <input #search matInput (keyup)="filterAct($event)" formControlName="actTitle" />
+                      <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
+                    </mat-form-field>
+                  </a>
+                  <div style="height: 190px">
+                    <ng-scrollbar>
+                      <mat-option>Select</mat-option>
+                      @for (act of filteredActList; track act) {
+                      <mat-option [value]="act.value">
+                        {{ act.name }}
+                      </mat-option>
+                      }
+                    </ng-scrollbar>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="advance-search-col">
+            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+              <mat-label class="mat-label">Case Year</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Enter Case Year" (keypress)="isNumber($event)" maxlength="4"
+                  formControlName="caseYear" />
+              </mat-form-field>
+            </div>
+
+            <div class="d-flex mat-input-white" style="flex-direction: column">
+              <mat-label class="mat-label">Act Type</mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Select Act Type" required>
+                  <a (click)="$event.stopPropagation()" style="text-decoration: none">
+                    <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                      <input #search matInput (keyup)="filterActType($event)" formControlName="actType" />
+                      <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
+                    </mat-form-field>
+                  </a>
+                  <div style="height: 190px">
+                    <ng-scrollbar>
+                      <mat-option>Select</mat-option>
+                      @for (act of filteredActTypeList; track act) {
+                      <mat-option [value]="act.value">
+                        {{ act.name }}
+                      </mat-option>
+                      }
+                    </ng-scrollbar>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="advance-search-col">
+            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+              <mat-label class="mat-label">Advocates</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Enter Advocate Name" formControlName="advocate" />
+              </mat-form-field>
+            </div>
+
+            <div class="d-flex mat-input-white" style="flex-direction: column">
+              <mat-label class="mat-label">Court</mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Select Court Name" formControlName="court">
+                  <a (click)="$event.stopPropagation()" style="text-decoration: none">
+                    <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                      <input #search matInput (keyup)="filterCourt($event)" />
+                      <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
+                    </mat-form-field>
+                  </a>
+                  <div style="height: 190px">
+                    <ng-scrollbar>
+                      <mat-option>Select</mat-option>
+                      @for (court of filteredCourtList; track court) {
+                      <mat-option [value]="court.name">
+                        {{ court.name }}
+                      </mat-option>
+                      }
+                    </ng-scrollbar>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex mt-4">
+            <button type="button" mat-raised-button color="primary"
+              style="width: 124px !important; margin-right: 20px; display: flex"
+              (click)="getCaseLawByAdvanceSearch(1);this.showRespAdvanceSearch = !this.showRespAdvanceSearch;">
+              <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
+            <button type="button" mat-stroked-button color="primary" style="width: 124px !important; display: flex" (click)="resetAdvanceSearchForm()">
+              <img src="../../../assets/images/icons/reset.svg" />Reset
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="filter-bar mt-2 mb-2" [hidden]="showRespAdvanceSearch">
+        <!-- Header -->
+        <div class="pretext col-lg-6 col-md-6">
+          <img src="../../../assets/images/icons/arrow-left.svg"
+            (click)="showRespAdvanceSearch = !showRespAdvanceSearch" />
+          <div class="records">Found {{ recordCount }} Cases</div>
         </div>
       </div>
+
+      <div style="height: calc(100vh - 320px)" [hidden]="showRespAdvanceSearch">
+        <ng-scrollbar #advanceSearchScroll autoHeightDisabled="false" appearance="standard"
+          [hidden]="respAdvanceSearchList.length==0">
+          @for (case of respAdvanceSearchList; track case) {
+          <div class="case-container" (click)="viewCase(case._id)">
+            <div class="title">
+              {{ case.title }}
+            </div>
+            <div class="desc">
+              {{case.shortInfo}}
+            </div>
+            <div class="sub-desc">
+              <div class="court">{{ case.high_court }}</div>
+              <div class="bench">
+                Bench : {{ case.bench | uppercase }}
+              </div>
+              <!--    |
+              <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
+            <div class="acts">Acts : {{ case.acts }}</div> -->
+            </div>
+          </div>
+          }
+          <div *ngIf="respAdvanceSearchList.length == 0" class="no-data"> No Data....</div>
+        </ng-scrollbar>
+      </div>
+      <app-paginator [currentPage]="advanceSearchCurrentPage" [hidden]="showRespAdvanceSearch"
+        (nextPageEvent)="advanceSearchNextPage();advanceSearchScroll.scrollTo({top:0});"
+        (previousPageEvent)="advanceSearchPrevPage();advanceSearchScroll.scrollTo({top:0});"></app-paginator>
     </mat-tab>
     <!--Advance Search Ends -->
   </mat-tab-group>

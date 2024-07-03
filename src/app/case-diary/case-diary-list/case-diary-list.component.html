@@ -113,14 +113,9 @@
         <div class="grid-item2">{{ item?.ownerName }}</div>
         <!-- <div class="grid-item2">{{ item.city }}</div> -->
         <div class="grid-item2">
-          <button mat-menu-item (click)="editCaseDiary(item._id)">
-            <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
-              style="width: 22px; height: 22px" />
-            <!-- <span class="mat-menu-list">Edit</span> -->
+          <button mat-icon-button (click)="editCaseDiary(item._id)" matTooltip="Edit">
+            <mat-icon class="action-icon">edit</mat-icon>
           </button>
-          <!-- <button mat-icon-button [matMenuTriggerFor]="caseDiaryMenu">
-            <mat-icon class="action-icon">more_vert</mat-icon>
-          </button> -->
         </div>
         <mat-menu #caseDiaryMenu="matMenu">
           <button mat-menu-item (click)="editCaseDiary(item._id)">
@@ -167,51 +162,24 @@
         <div class="grid-item2">{{ item.applicantName }}</div>
         <div class="grid-item2">{{ item.respondentName }}</div>
         <div class="grid-item2">
-          <!-- <mat-form-field appearance="outline">
-            <input matInput placeholder="Enter Case Stage" [(ngModel)]="item.caseStage" />
-          </mat-form-field> -->
           {{item.caseStage}}
         </div>
         <div class="grid-item2">
-          <!-- <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="picker2" [(ngModel)]="item.nextHearingDate"
-              placeholder="Select Next Hearing Date">
-            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field> -->
+
           {{item.nextHearingDate | date:'shortDate'}}
         </div>
         <div class="grid-item2">
-          <!-- <mat-form-field appearance="outline">
-            <mat-select placeholder="Select application type" [(ngModel)]="item.applicationType"
-              (selectionChange)="applicationTypeChange($event,item.subDiary_id,item,'subDiary')">
-              <mat-option *ngFor="let type of applicationTypeList" [value]="type.value">
-                {{ type.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field> -->
+
           {{item.applicationType}}
         </div>
         <!-- <div class="grid-item2">{{ item.city }}</div> -->
         <div class="grid-item2">{{ item.assignedTo }}</div>
         <div class="grid-item2">
-          <button mat-icon-button (click)="deleteSubDiary(item.subDiary_id)">
-            <mat-icon class="action-icon">more_vert</mat-icon>
+          <button mat-icon-button matTooltip="Delete" data-bs-toggle="modal" data-bs-target="#deleteSubDiary"
+            (click)="selectedSubDiary=item">
+            <mat-icon class="action-icon">delete</mat-icon>
           </button>
         </div>
-        <!-- <mat-menu #subDiaryMenu="matMenu">
-          <!-- <div mat-menu-item routerLink="/lawyer/case-diary/create-sub-diary">
-            <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
-              style="width: 22px; height: 22px" />
-            <span class="mat-menu-list">Edit</span>
-          </div> --
-
-          <div mat-menu-item>
-            <img src="../../../assets/images/icons/view_application.svg" alt="" class="me-2"
-              style="width: 20px; height: 20px" />
-            <span class="mat-menu-list">View Application</span>
-          </div>
-        </mat-menu> -->
       </div>
       }
       <!-- case-diary list ends-->
@@ -221,3 +189,30 @@
   <!-- main section ends -->
 </div>
 <!-- root section ends -->
+
+
+<!-- delete popup start -->
+<div class="modal fade" id="deleteSubDiary" tabindex="-1" aria-labelledby="deleteSubDiaryLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered delete-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteSubDiaryLabel">Delete Sub Diary</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-3">Are you sure you want to delete Sub Diary?</div>
+        <div class="text-center mt-3 mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important" (click)="
+            deleteSubDiary(selectedSubDiary.subDiary_id)" data-bs-dismiss="modal">
+            Confirm
+          </button>
+          <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
+            data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- delete popup ends -->

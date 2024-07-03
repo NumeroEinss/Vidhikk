@@ -42,7 +42,12 @@ export class AuthService {
             }
           }
           else if (userType == "LAWYER") {
-            this._router.navigate(['/lawyer/activity-feed']);
+            if (this._router.url.includes('?')) {
+              this._router.navigate([this._activatedRoute.snapshot.queryParams.returnUrl]);
+            }
+            else {
+              this._router.navigate(['/lawyer/activity-feed']);
+            }
           }
           else if (userType == "SELLER") {
             // this._router.navigate(['/user/activity-feed']);

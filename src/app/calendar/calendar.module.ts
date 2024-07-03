@@ -24,11 +24,11 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
     SharedModule,
     MatDatepickerModule,
     MatButtonToggleModule,
+    NgxMatTimepickerModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    }),
-    NgxMatTimepickerModule
+    })
   ],
 })
 export class CalendarsModule { }

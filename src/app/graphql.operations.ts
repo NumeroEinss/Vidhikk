@@ -500,4 +500,27 @@ export abstract class GQLConfig {
             data
         }
     }`;
+
+    static addEvents = gql `mutation($lawyerId: String, $caseId: String, $eventName: String, $eventDescription: String,
+        $allDayCheck: Boolean, $color: String, $eventStartDate: String, $eventEndDate: String, $eventStartTime: String,
+        $eventEndTime: String, $repeat: String, $reminder: String) {
+        createEvents(input: {
+            lawyerId: $lawyerId
+          caseId: $caseId
+          eventName: $eventName
+          eventDescription: $eventDescription
+          allDayCheck: $allDayCheck
+          color: $color
+          eventStartDate: $eventStartDate
+          eventEndDate: $eventEndDate
+          eventStartTime: $eventStartTime
+          eventEndTime: $eventEndTime
+          repeat: $repeat
+          reminder: $reminder
+        }) {
+            status
+            message
+            data
+        }
+    }`;
 }

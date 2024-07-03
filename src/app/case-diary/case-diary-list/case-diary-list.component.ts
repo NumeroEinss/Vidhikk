@@ -29,6 +29,8 @@ export class CaseDiaryListComponent {
 
   today: Date = new Date();
 
+  selectedSubDiary: any;
+
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
     private _templateService: TemplateService) {
     let extras = this._router.getCurrentNavigation()?.extras.state;

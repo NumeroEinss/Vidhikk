@@ -135,23 +135,19 @@
         <form class="calendar-form" [formGroup]="calendarForm">
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label text-start">Select Case</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select case" required formControlName="case">
-                <mat-option *ngFor="let case of caseList" [value]="case.caseTitle">
-                  {{ case.caseTitle }}
+            <mat-form-field appearance="outline" required>
+              <mat-select placeholder="Select case" formControlName="caseId">
+                <mat-option *ngFor="let case of caseList" [value]="case._id">
+                  {{ case.caseName }}
                 </mat-option>
               </mat-select>
-              <!-- <mat-error
-                *ngIf="createSubDiaryForm.controls['caseName'].errors?.['required']"
-                >Case name is Required !!</mat-error
-              > -->
             </mat-form-field>
           </div>
 
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label text-start">Event Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput type="text" placeholder="Enter Event Name" formControlName="event" />
+              <input matInput type="text" placeholder="Enter Event Name" formControlName="eventName" required />
             </mat-form-field>
           </div>
 
@@ -159,12 +155,12 @@
             <mat-label class="mat-label text-start">Event Description</mat-label>
             <mat-form-field appearance="outline" class="textArea">
               <textarea id="text-area" type="text" matInput placeholder="Enter Event Description" required rows="3"
-                maxlength="200" formControlName="eventDescription"></textarea>
+                maxlength="200" formControlName="eventDescription" required></textarea>
             </mat-form-field>
           </div>
 
           <div class="text-start">
-            <mat-checkbox [color]="'primary'" formControlName="allDay"><span style="color: black;">All
+            <mat-checkbox [color]="'primary'" formControlName="allDayCheck" required><span style="color: black;">All
                 Day</span></mat-checkbox>
           </div>
 
@@ -173,7 +169,7 @@
               <mat-label class="mat-label">Select Color</mat-label>
             </div>
             <div class="col-lg-7 col-md-7 d-flex" style="justify-content: flex-end;">
-              <input type="color" formControlName="color" style="width: 35px;">
+              <input type="color" formControlName="color" style="width: 35px;" required>
             </div>
           </div>
 
@@ -183,7 +179,7 @@
             </div>
             <div class="col-lg-7 col-md-7">
               <mat-form-field appearance="outline" class="mat-input-white">
-                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="startDate" />
+                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="eventStartDate" required />
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -196,7 +192,7 @@
             </div>
             <div class="col-lg-7 col-md-7">
               <mat-form-field appearance="outline" class="mat-input-white">
-                <input matInput [matDatepicker]="picker2" [min]="minDate" formControlName="endDate" />
+                <input matInput [matDatepicker]="picker2" [min]="minDate" formControlName="eventEndDate" required />
                 <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
               </mat-form-field>
@@ -209,8 +205,8 @@
             </div>
             <div class="col-lg-7 col-md-7 d-flex">
               <mat-form-field appearance="outline" class="mat-input-white">
-                <input matInput name="selected_time_A" formControlName="startTime" [ngxMatTimepicker]="pickerA"
-                  placeholder="Start time" readonly />
+                <input matInput name="selected_time_A" formControlName="eventStartTime" [ngxMatTimepicker]="pickerA"
+                  placeholder="Start time" readonly required />
                 <div matSuffix>
                   <img width="20" height="20" src="../../assets/images/icons/clock.svg" (click)="pickerA.open()">
                 </div>
@@ -225,8 +221,8 @@
               <mat-label class="mat-label" style="position: absolute; top: 8px">End Time</mat-label>
             </div>
             <div class="col-lg-7 col-md-7  d-flex">
-              <mat-form-field appearance="outline" class="mat-input-white">
-                <input matInput name="selected_time_A" formControlName="endTime" [ngxMatTimepicker]="pickerB"
+              <mat-form-field appearance="outline" class="mat-input-white" required>
+                <input matInput name="selected_time_A" formControlName="eventEndTime" [ngxMatTimepicker]="pickerB"
                   placeholder="End Time" readonly />
                 <div matSuffix>
                   <img width="20" height="20" src="../../assets/images/icons/clock.svg" (click)="pickerB.open()">
@@ -243,7 +239,7 @@
             </div>
             <div class="col-lg-7 col-md-7">
               <mat-form-field appearance="outline" class="mat-input-white w-100">
-                <mat-select placeholder="Select Event" required [(value)]="repeat" formControlName="repeat">
+                <mat-select placeholder="Select Event" formControlName="repeat" required>
                   <mat-option *ngFor="let repeat of repeatList" [value]="repeat.value">
                     {{ repeat.name }}
                   </mat-option>
@@ -258,7 +254,7 @@
             </div>
             <div class="col-lg-7 col-md-7">
               <mat-form-field appearance="outline" class="mat-input-white w-100">
-                <mat-select placeholder="Select Event" required [(value)]="reminder" formControlName="reminder">
+                <mat-select placeholder="Select Event" formControlName="reminder" required>
                   <mat-option *ngFor="let reminder of reminderList" [value]="reminder.value">
                     {{ reminder.name }}
                   </mat-option>
@@ -268,7 +264,7 @@
           </div>
 
           <button mat-raised-button color="primary" class="me-2" style="width: fit-content !important;"
-            data-bs-dismiss="modal">
+            (click)="addEvents()">
             Add
           </button>
 
