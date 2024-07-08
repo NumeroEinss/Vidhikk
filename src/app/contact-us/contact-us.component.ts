@@ -182,6 +182,13 @@ export class ContactUsComponent {
   }
 
   redirectToContactDetail(ticket: any) {
-    this._router.navigate(['/user/contact-us/contact-us-detail'], { state: ticket })
+    let userData = localStorage.getItem('userData');
+    let parsedData = JSON.parse(userData!)
+    if (parsedData.userType == "LAWYER") {
+      this._router.navigate(['/lawyer/contact-us/contact-us-detail'], { state: ticket });
+    }
+    else if (parsedData.userType == "USER") {
+      this._router.navigate(['/user/contact-us/contact-us-detail'], { state: ticket })
+    }
   }
 }

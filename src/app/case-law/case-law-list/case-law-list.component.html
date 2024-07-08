@@ -61,10 +61,10 @@
           @for (case of caseList; track case) {
           <div class="case-container" (click)="viewCase(case._id)">
             <div class="title">
-              {{ case.title }}
+              {{ case.title?.substr(0,getHeadingLength()) }}...
             </div>
             <div class="desc">
-              {{case.shortInfo}}
+              {{case.shortInfo?.substr(0,getCharLength())}}.....
             </div>
             <div class="sub-desc">
               <div class="court">{{ case.high_court }}</div>
@@ -120,16 +120,19 @@
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           @for (case of resAppList; track case) {
           <div class="case-container" (click)="viewCase(case._id,appInputRef.nativeElement.value)">
-            <div class="title" [innerHTML]="case.title|highlighter:this.appInputRef.nativeElement.value">
-              <!-- {{ case.title }} -->
+            <div class="title"
+              [innerHTML]="case.title?.substr(0,getHeadingLength())+'...'|highlighter:this.appInputRef.nativeElement.value">
+              <!-- {{ case.title?.substr(0,getHeadingLength()) }} -->
             </div>
-            <div class="desc" [innerHTML]="case.shortInfo|highlighter:this.appInputRef.nativeElement.value">
-              <!-- {{case.shortInfo}} -->
+            <div class="desc"
+              [innerHTML]="case.shortInfo?.substr(0,getCharLength())+'...'|highlighter:this.appInputRef.nativeElement.value">
+              <!-- {{case.shortInfo?.substr(0,getCharLength())}} -->
             </div>
             <div class="sub-desc">
               <div class="court" [innerHTML]="case.high_court|highlighter:this.appInputRef.nativeElement.value">
               </div>
-              <div class="bench" [innerHTML]="case.bench|highlighter:this.appInputRef.nativeElement.value">
+              <div class="bench"
+                [innerHTML]="case.bench | uppercase | highlighter:this.appInputRef.nativeElement.value">
                 <!-- &nbsp;Bench : {{ case.bench | uppercase }}&nbsp; -->
               </div>
               <!--    |
@@ -176,16 +179,16 @@
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           @for (case of resRespList; track case) {
           <div class="case-container" (click)="viewCase(case._id,respInputRef.nativeElement.value)">
-            <div class="title">
-              {{ case.title }}
+            <div class="title"
+              [innerHTML]="case.title?.substr(0,getHeadingLength())+'...'|highlighter:respInputRef.nativeElement.value">
             </div>
-            <div class="desc">
-              {{case.shortInfo}}
+            <div class="desc"
+              [innerHTML]="case.shortInfo?.substr(0,getCharLength())+'...'|highlighter:respInputRef.nativeElement.value">
             </div>
             <div class="sub-desc">
-              <div class="court">{{ case.high_court }}</div>
+              <div class="court" [innerHTML]="case.high_court|highlighter:respInputRef.nativeElement.value"></div>
               <div class="bench">
-                Bench : {{ case.bench | uppercase }}
+                Bench : {{ case.bench | uppercase |highlighter:respInputRef.nativeElement.value}}
               </div>
               <!--    |
               <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
@@ -231,21 +234,23 @@
           <div class="records">Found {{ recordCount }} Cases</div>
         </div>
       </div>
-      <!-- Case Law List -->
+      <!-- Judge Wise List -->
       <div style="height: calc(100vh - 243px)" [hidden]="showJudgeSearch">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           @for (case of respJudgeList; track case) {
           <div class="case-container" (click)="viewCase(case._id,judgeControl.value)">
-            <div class="title">
-              {{ case.title }}
+            <div class="title"
+              [innerHTML]="case.title?.substr(0,getHeadingLength())+'...' | highlighter:judgeControl.value">
             </div>
-            <div class="desc">
-              {{case.shortInfo}}
+            <div class="desc"
+              [innerHTML]="case.shortInfo?.substr(0,getCharLength())+'...' | highlighter:judgeControl.value">
             </div>
             <div class="sub-desc">
-              <div class="court">{{ case.high_court }}</div>
-              <div class="bench">
-                Bench : {{ case.bench | uppercase }}
+              <div class="court" [innerHTML]="case.high_court | highlighter:judgeControl.value">
+              </div>
+              <div class="bench" [innerHTML]="'Bench : ' + case.bench | highlighter:judgeControl.value">
+              </div>
+              <div class="bench" [innerHTML]="'Judges : ' + case.judges | highlighter:judgeControl.value">
               </div>
               <!--    |
               <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
@@ -291,22 +296,18 @@
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           @for (case of citationList; track case) {
           <div class="case-container">
-            <div class="title">
-              {{ case.name }}
+            <div class="title" [innerHTML]="case.name | highlighter:citationInput.value">
             </div>
-            <div class="desc">
-              {{case.headNote}}
+            <div class="desc"
+              [innerHTML]="case.headNote?.substr(0,getCharLength())+'...' | highlighter:citationInput.value">
             </div>
-            <div class="desc">
-              <b>Advocates : </b>{{case.advocates}}
+            <div class="desc" [innerHTML]="'Advocates : ' + case.advocates | highlighter:citationInput.value">
             </div>
-            <div class="desc">
-              <b>Judges : </b>{{case.judges}}
+            <div class="desc" [innerHTML]="'Judges : ' + case.judges | highlighter:citationInput.value">
             </div>
             <div class="sub-desc">
-              <div class="court">{{ case.court }}</div>
-              <div class="bench">
-                Parties : {{ case.parties }}
+              <div class="court" [innerHTML]="case.court | highlighter:citationInput.value"></div>
+              <div class="bench" [innerHTML]="'Parties : ' + case.parties | highlighter:citationInput.value">
               </div>
               <!--    |
               <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
@@ -321,29 +322,62 @@
 
     <!-- Words & Phrase -->
     <mat-tab label="Words & Phrases">
-      <div class="judge-wise">
+      <div class="judge-wise" [hidden]="!showWordsSearch">
         <div class="title">Words & Phrases</div>
         <div class="d-flex" style="flex-direction: column;">
-          <mat-radio-group>
-            <mat-radio-button class="example-margin" value="exact" checked>Exact</mat-radio-button>
-            <mat-radio-button class="example-margin" value="nearAbout">Near About</mat-radio-button>
+          <mat-radio-group [(ngModel)]="wordsPhraseRadioModel">
+            <mat-radio-button class="example-margin" [value]="1" checked>Exact</mat-radio-button>
+            <mat-radio-button class="example-margin" [value]="0">Near About</mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="d-flex mat-input-white" style="flex-direction: column">
           <mat-label class="mat-label">Words & Phrases</mat-label>
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Enter any Word or Phrase" />
+            <input matInput placeholder="Enter any Word or Phrase" [(ngModel)]="searchedWord" />
           </mat-form-field>
         </div>
         <div class="d-flex mt-4">
           <button mat-raised-button color="primary" style="width: 124px !important; margin-right: 20px; display: flex"
-            data-bs-toggle="modal" data-bs-target="#definationModal">
+            (click)="showWordsSearch = !showWordsSearch;getCaseLawsByWords(1);wordsPhraseCurrentPage=1">
+            <!-- data-bs-toggle="modal" data-bs-target="#definationModal"> -->
             <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
-          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex">
+          <button mat-stroked-button color="primary" style="width: 124px !important; display: flex"
+            (click)="this.searchedWord = ''">
             <img src="../../../assets/images/icons/reset.svg" />Reset
           </button>
         </div>
       </div>
+      <div class="filter-bar mt-2 mb-2" [hidden]="showWordsSearch">
+        <!-- Header -->
+        <div class="pretext col-lg-6 col-md-6">
+          <img src="../../../assets/images/icons/arrow-left.svg" (click)="showWordsSearch = !showWordsSearch" />
+          <div class="records">Found {{ recordCount }} Cases</div>
+        </div>
+      </div>
+      <!-- Words List -->
+      <div style="height: calc(100vh - 320px)" [hidden]="showWordsSearch">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+          @for (case of respWordsPhraseList; track case) {
+          <div class="case-container" (click)="viewCase(case._id,searchedWord)">
+            <div class="title" [innerHTML]="case.title?.substr(0,getHeadingLength())+'...' | highlighter:searchedWord">
+            </div>
+            <div class="desc" [innerHTML]="case.shortInfo?.substr(0,getCharLength())+'...' | highlighter:searchedWord">
+            </div>
+            <div class="sub-desc">
+              <div class="court" [innerHTML]="case.high_court | highlighter:searchedWord"></div>
+              <div class="bench" [innerHTML]="'Bench : ' + case.bench | highlighter:searchedWord">
+              </div>
+              <!--    |
+              <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
+            <div class="acts">Acts : {{ case.acts }}</div> -->
+            </div>
+          </div>
+          }
+        </ng-scrollbar>
+      </div>
+      <app-paginator [currentPage]="wordsPhraseCurrentPage" [hidden]="showWordsSearch"
+        (nextPageEvent)="wordsNextEvent();latestCaseScroll.scrollTo({top:0});"
+        (previousPageEvent)="wordsPrevEvent();latestCaseScroll.scrollTo({top:0});"></app-paginator>
     </mat-tab>
     <!--Words & Phrase Ends -->
 
@@ -386,12 +420,6 @@
             <div class="d-flex mat-input-white" style="flex-direction: column">
               <mat-label class="mat-label">Descision Date</mat-label>
               <mat-form-field appearance="outline">
-                <!-- <mat-date-range-input [rangePicker]="picker" [formGroup]="decisionDate">
-                  <input matStartDate placeholder="Start date" formControlName="start" />
-                  <input matEndDate placeholder="End date" formControlName="end" />
-                </mat-date-range-input>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker> -->
                 <input matInput [matDatepicker]="date" formControlName="decisionDate" />
                 <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
                 <mat-datepicker #date></mat-datepicker>
@@ -502,9 +530,10 @@
           <div class="d-flex mt-4">
             <button type="button" mat-raised-button color="primary"
               style="width: 124px !important; margin-right: 20px; display: flex"
-              (click)="getCaseLawByAdvanceSearch(1);this.showRespAdvanceSearch = !this.showRespAdvanceSearch;">
+              (click)="getCaseLawByAdvanceSearch(1);this.showRespAdvanceSearch = !this.showRespAdvanceSearch;advanceSearchCurrentPage=1">
               <img src="../../../assets/images/icons/search-white.svg" />Search</button><br />
-            <button type="button" mat-stroked-button color="primary" style="width: 124px !important; display: flex" (click)="resetAdvanceSearchForm()">
+            <button type="button" mat-stroked-button color="primary" style="width: 124px !important; display: flex"
+              (click)="resetAdvanceSearchForm()">
               <img src="../../../assets/images/icons/reset.svg" />Reset
             </button>
           </div>
@@ -526,10 +555,10 @@
           @for (case of respAdvanceSearchList; track case) {
           <div class="case-container" (click)="viewCase(case._id)">
             <div class="title">
-              {{ case.title }}
+              {{ case.title?.substr(0,getHeadingLength()) }}...
             </div>
             <div class="desc">
-              {{case.shortInfo}}
+              {{case.shortInfo?.substr(0,getCharLength())}}.....
             </div>
             <div class="sub-desc">
               <div class="court">{{ case.high_court }}</div>

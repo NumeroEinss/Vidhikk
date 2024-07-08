@@ -1,5 +1,5 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
   MAT_DATE_LOCALE,
@@ -8,10 +8,11 @@ import {
 } from '@angular/material/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CalendarModel } from '../common/calendarModel';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AvailabilityModel, EventModel } from '../common/calendarModel';
 import { ApolloService } from '../shared/services/apollo.service';
 import { GQLConfig } from '../graphql.operations';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 export const colors: any = {
   red: {
@@ -54,50 +55,21 @@ const MY_DATE_FORMAT = {
   ],
 })
 export class CalendarComponent {
+
+  @ViewChild('calendarScroll') calendarScroll!: NgScrollbar;
+
   view: CalendarView = CalendarView.Month;
 
   viewDate: Date = new Date();
 
-  eventToBeDeleted: CalendarEvent | undefined;
+  eventToBeDeleted: any;
+  eventToBeEdited: any;
 
   deleteSlotIndex: number = 0;
 
   selectedTimes: any = { A: '', B: '' };
 
-  events: CalendarEvent[] = [
-    // {
-    //   title: 'Editable event',
-    //   color: colors.red,
-    //   start: new Date(),
-    //   end: this.addHours(new Date(), 1),
-    //   actions: [
-    //     {
-    //       label: 'Edit',
-    //       onClick: ({ event }: { event: CalendarEvent }) => { console.log(event); },
-    //     },
-    //     {
-    //       label: 'Delete Event ',
-    //       onClick: ({ event }: { event: CalendarEvent }): void => { this.handleDelete(), this.eventToBeDeleted = event },
-    //     },
-    //   ],
-    // },
-    // {
-    //   title: 'Deletable eventssss',
-    //   color: colors.blue,
-    //   start: addDays(new Date(), 2),
-    //   actions: [
-    //     {
-    //       label: 'Delete Event ',
-    //       onClick: ({ event }: { event: CalendarEvent }): void => { this.handleDelete(), this.eventToBeDeleted = event },
-    //     },
-    //   ],
-    // },
-    // {
-    //   title: 'Non editable and deletable event',
-    //   color: colors.red,
-    //   start: new Date(),
-    // },
-    ];
+  events: CalendarEvent[] = [];
 
   eventTypeList = [
     { name: 'All Events', value: 'allEvent' },
@@ -120,84 +92,84 @@ export class CalendarComponent {
   eventType: string = 'allEvent';
 
   availabilityList: any = [ // Only slots from current date and after will fall under this.
-    {
-      id: 'fasdljasdfa',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'fasdasdfljasdfa',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'ewrewrewrx',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
+    // {
+    //   id: 'fasdljasdfa',
+    //   date: new Date(),
+    //   timeSlot: [
+    //     {
+    //       slot: '5pm-6pm',
+    //       status: 'booked',
+    //     },
+    //     {
+    //       slot: '6pm-7pm',
+    //       status: 'available',
+    //     },
+    //     {
+    //       slot: '7pm-8pm',
+    //       status: 'booked',
+    //     },
+    //     {
+    //       slot: '8pm-9pm',
+    //       status: 'booked',
+    //     },
+    //     {
+    //       slot: '9pm-10pm',
+    //       status: 'available',
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: 'fasdasdfljasdfa',
+    //   date: new Date(),
+    //   timeSlot: [
+    //     {
+    //       slot: '5pm-6pm',
+    //       status: 'booked',
+    //     },
+    //     {
+    //       slot: '6pm-7pm',
+    //       status: 'available',
+    //     },
+    //     {
+    //       slot: '7pm-8pm',
+    //       status: 'booked',
+    //     },
+    //     {
+    //       slot: '8pm-9pm',
+    //       status: 'booked',
+    //     },
+    //     {
+    //       slot: '9pm-10pm',
+    //       status: 'available',
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: 'ewrewrewrx',
+    //   date: new Date(),
+    //   timeSlot: [
+    //     {
+    //       slot: '5pm-6pm',
+    //       status: 'booked',
+    //     },
+    //     {
+    //       slot: '6pm-7pm',
+    //       status: 'available',
+    //     },
+    //     {
+    //       slot: '7pm-8pm',
+    //       status: 'booked',
+    //     },
+    //     {
+    //       slot: '8pm-9pm',
+    //       status: 'booked',
+    //     },
+    //     {
+    //       slot: '9pm-10pm',
+    //       status: 'available',
+    //     },
+    //   ],
+    // },
   ];
 
   today: Date = new Date();
@@ -228,19 +200,33 @@ export class CalendarComponent {
 
   slot: any = [];
 
-  calendarForm: FormGroup;
+  eventForm!: FormGroup;
+
+  editEventForm!: FormGroup;
 
   isEditMode: boolean = false;
 
+  availabilityForm!: FormGroup;
+
+  colors: string[] = ['#2E5BFF', '#00D34F', '#EF7E15', '#FFDE68', '#FF2E2E'];
+  selectedColor: string = this.colors[0];
+
   constructor(private _toastMessage: ToastMessageService, private _fb: FormBuilder, private _apolloService: ApolloService) {
-    this.calendarForm = this._fb.group(new CalendarModel());
+    this.getLawyerEvents();
     this.getCaseDiaryList();
+    this.getAvailabilityList();
+  }
+
+  ngOnInit() {
+    this.eventForm = this._fb.group(new EventModel());
+    this.editEventForm = this._fb.group(new EventModel());
+    this.availabilityForm = this._fb.group(new AvailabilityModel());
   }
 
   editEvent(event: CalendarEvent, selectedEvent: any) {
     let elemement = document.getElementById('addEventButton') as HTMLElement;
     elemement.click();
-    this.calendarForm.patchValue(selectedEvent);
+    this.eventForm.patchValue(selectedEvent);
   }
 
   handleDelete() {
@@ -249,7 +235,17 @@ export class CalendarComponent {
   }
 
   deleteEvent() {
-    this.events = this.events.filter((iEvent) => iEvent !== this.eventToBeDeleted);
+    this._apolloService.mutate(GQLConfig.deleteEvent, { eventId: this.eventToBeDeleted.eventId }).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.deleteEvent.status == 200) {
+          this._toastMessage.success(objRes.data.deleteEvent.message);
+          this.getLawyerEvents();
+        }
+        else {
+          this._toastMessage.error(objRes.data.deleteEvent.message);
+        }
+      }
+    })
   }
 
   handleDeleteAvailability() {
@@ -262,52 +258,8 @@ export class CalendarComponent {
     this._toastMessage.message('Availability Deleted Successfully!!');
   }
 
-  editAvailability(slot: any) {
-    this.isEditMode = true;
-    this.slot = [];
-    slot.timeSlot.forEach((element: any) => {
-      this.slot.push(element.slot);
-    });
-    this.slotDate = {
-      _d: slot.date
-    };
-    let element = document.getElementById('addAvailabilityButton') as HTMLElement;
-    element.click();
-  }
-
   onTimeSet(e: any) {
 
-  }
-
-  addAvailabilitySlot(e: any) {
-    if (this.slotDate == null) {
-      this._toastMessage.error('Date is Required !!')
-    }
-    if (this.slot.length == 0) {
-      this._toastMessage.error('Select a slot to Add !!');
-    }
-    else {
-      let slot: any = [];
-      this.slot.forEach((item: any) => {
-        slot.push({
-          slot: item,
-          status: 'available',
-        },)
-      });
-      this.availabilityList.push(
-        {
-          id: 'seradadfasd' + Math.random().toFixed(1).toString(),
-          date: this.slotDate._d,
-          timeSlot: slot,
-        }
-      )
-      let element = document.getElementById('cancelSlotButton') as HTMLElement;
-      element.click();
-      this.slot = [];
-      this.slotDate = {
-        _d: new Date()
-      }
-    }
   }
 
   addHours(date: Date, hours: number) {
@@ -317,11 +269,17 @@ export class CalendarComponent {
   }
 
   addEvents() {
-    if (this.calendarForm.valid) {
-      this._apolloService.mutate(GQLConfig.addEvents, this.calendarForm.value).subscribe(objRes => {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this.eventForm.controls.lawyerId.patchValue(parsedData._id);
+    if (this.eventForm.valid) {
+      this._apolloService.mutate(GQLConfig.addEvents, this.eventForm.value).subscribe(objRes => {
         if (objRes.data != null) {
           if (objRes.data.createEvents.status == 200) {
             this._toastMessage.success(objRes.data.createEvents.message);
+            let closeEventButton = document.getElementById('closeEventModal') as HTMLElement;
+            closeEventButton.click();
+            this.getLawyerEvents();
           }
           else {
             this._toastMessage.error(objRes.data.createEvents.message);
@@ -349,4 +307,186 @@ export class CalendarComponent {
       }
     });
   }
+
+  getLawyerEvents() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this._apolloService.mutate(GQLConfig.getLawyerEvents, { lawyerId: parsedData._id }).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.getLawyerEvent.status == 200) {
+          let res = data.data.getLawyerEvent.data.resultList;
+          res.map((event: any) => {
+            event.title = event.eventName;
+            event.start = new Date(event.eventStartDate);
+            event.end = new Date(event.eventEndDate);
+            event.color = {
+              primary: event.color
+            };
+            event.meta = {
+              description: event.eventDescription,
+              repeat: event.repeat,
+              reminder: event.reminder,
+            };
+            event.allDay = event.allDayCheck;
+            event.actions = [
+              {
+                label: '<i class="fas fa-fw fa-pencil-alt"></i>Delete',
+                onClick: (event: any): void => { this.handleDelete(), this.eventToBeDeleted = event.event },
+              },
+              {
+                label: '<i class="fas fa-fw fa-trash-alt"></i>&nbsp;Edit',
+                onClick: (event: any): void => { this.handleEdit(event.event), this.eventToBeEdited = event.event },
+              }
+            ];
+          })
+          this.events = res;
+        }
+        else {
+          this._toastMessage.error(data.data.getLawyerEvent.message);
+        }
+      }
+    });
+  }
+
+  handleEventClick(e: CalendarEvent) {
+    console.log(e);
+  }
+
+  handleEdit(event: any) {
+    console.log(event);
+    this.editEventForm.patchValue(event);
+    this.editEventForm.controls.color.patchValue(this.editEventForm.controls.color.value.primary);
+    console.log(this.editEventForm.value);
+    let editEventButton = document.getElementById('editEventButton') as HTMLElement;
+    editEventButton.click();
+  }
+
+  updateEvent() {
+    if (this.editEventForm.valid) {
+      this._apolloService.mutate(GQLConfig.editEvents, this.editEventForm.value).subscribe(objRes => {
+        if (objRes.data != null) {
+          if (objRes.data.editEvent.status == 200) {
+            this._toastMessage.success(objRes.data.editEvent.message);
+            let closeEditEventButton = document.getElementById('closeEditEventModal') as HTMLElement;
+            closeEditEventButton.click();
+            this.getLawyerEvents();
+          }
+          else {
+            this._toastMessage.error(objRes.data.editEvent.message);
+          }
+        }
+      })
+    }
+    else {
+      this._toastMessage.error("All Fields are Required !!");
+    }
+  }
+
+  allDayEventChange() {
+    if (this.eventForm.controls.allDayCheck.value == false) {
+      this.eventForm.controls.eventStartTime.setValidators([Validators.required]);
+      this.eventForm.controls.eventEndTime.setValidators([Validators.required]);
+    }
+    if (this.eventForm.controls.allDayCheck.value == true) {
+      this.eventForm.controls.eventStartTime.removeValidators([Validators.required]);
+      this.eventForm.controls.eventEndTime.removeValidators([Validators.required]);
+    }
+  }
+
+  allDayEventEditChange() {
+    if (this.editEventForm.controls.allDayCheck.value == false) {
+      this.editEventForm.controls.eventStartTime.setValidators([Validators.required]);
+      this.editEventForm.controls.eventEndTime.setValidators([Validators.required]);
+    }
+    if (this.editEventForm.controls.allDayCheck.value == true) {
+      this.editEventForm.controls.eventStartTime.removeValidators([Validators.required]);
+      this.editEventForm.controls.eventEndTime.removeValidators([Validators.required]);
+    }
+  }
+
+  onColorChange(color: string) {
+    this.selectedColor = color;
+    console.log('Selected color:', this.selectedColor);
+  }
+
+  addAvaliability() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this.availabilityForm.controls.lawyerId.patchValue(parsedData._id);
+    if (this.availabilityForm.valid) {
+      this._apolloService.mutate(GQLConfig.addAvailability, this.availabilityForm.value).subscribe(objRes => {
+        if (objRes.data != null) {
+          if (objRes.data.addAvailabilty.status == 200) {
+            this._toastMessage.success(objRes.data.addAvailabilty.message);
+            let closeEventButton = document.getElementById('closeAvailabilityButton') as HTMLElement;
+            closeEventButton.click();
+            this.getAvailabilityList();
+            this.calendarScroll.scrollTo({ bottom: 0, end: 0 });
+          }
+          else {
+            this._toastMessage.error(objRes.data.addAvailabilty.message);
+          }
+        }
+      })
+    }
+    else {
+      this._toastMessage.error("All Fields are Required !!");
+    }
+  }
+
+  getAvailabilityList() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this._apolloService.mutate(GQLConfig.getAvailabilityList, { lawyerId: parsedData._id }).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.getAvailabilityList.status == 200) {
+          this.availabilityList = data.data.getAvailabilityList.data.availabilities;
+        }
+        else {
+          this._toastMessage.error(data.data.getAvailabilityList.message);
+        }
+      }
+    });
+  }
+
+  editAvailability(slot: any) {
+    this.isEditMode = true;
+    this.slot = [];
+    this.slot = slot.timeSlot;
+    this.slotDate = slot.date
+    let element = document.getElementById('addAvailabilityButton') as HTMLElement;
+    element.click();
+  }
+
+
+  // addAvailabilitySlot(e: any) {
+  //   if (this.slotDate == null) {
+  //     this._toastMessage.error('Date is Required !!')
+  //   }
+  //   if (this.slot.length == 0) {
+  //     this._toastMessage.error('Select a slot to Add !!');
+  //   }
+  //   else {
+  //     let slot: any = [];
+  //     this.slot.forEach((item: any) => {
+  //       slot.push({
+  //         slot: item,
+  //         status: 'available',
+  //       },)
+  //     });
+  //     this.availabilityList.push(
+  //       {
+  //         id: 'seradadfasd' + Math.random().toFixed(1).toString(),
+  //         date: this.slotDate._d,
+  //         timeSlot: slot,
+  //       }
+  //     )
+  //     let element = document.getElementById('cancelSlotButton') as HTMLElement;
+  //     element.click();
+  //     this.slot = [];
+  //     this.slotDate = {
+  //       _d: new Date()
+  //     }
+  //   }
+  // }
 }

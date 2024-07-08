@@ -20,8 +20,8 @@ export class BareActsComponent {
   getBareActs(page: number) {
     this._apolloService.get(`/act?page=${page}&pageSize=50`).subscribe(objRes => {
       if (objRes.status == "success") {
-        this.bareActsList = objRes.data;
-        this.recordCount = this.bareActsList.length;
+        this.bareActsList = objRes.data.acts;
+        this.recordCount = objRes.data.totalCount;
       }
     })
   }

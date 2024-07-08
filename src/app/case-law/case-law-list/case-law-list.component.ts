@@ -313,6 +313,12 @@ export class CaseLawListComponent {
   respAdvanceSearchList: any = [];
   advanceSearchCurrentPage: number = 1;
 
+  showWordsSearch: boolean = true;
+  respWordsPhraseList: any = [];
+  wordsPhraseCurrentPage: number = 1;
+  searchedWord: string = "";
+  wordsPhraseRadioModel: number = 1;
+
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder) {
     this._dateAdapter.setLocale('en-GB');
@@ -332,21 +338,21 @@ export class CaseLawListComponent {
       debounceTime(300), // Add a debounce to limit the number of API calls
       switchMap(value => this._searchService.search(value))
     ).subscribe(data => {
-      this.filteredJudgeList = data;
+      this.filteredJudgeList = data.judges;
     });
 
     this.advanceSearchForm.controls.judge.valueChanges.pipe(
       debounceTime(300), // Add a debounce to limit the number of API calls
       switchMap(value => this._searchService.search(value))
     ).subscribe(data => {
-      this.filteredJudgeList = data;
+      this.filteredJudgeList = data.judges;
     });
   }
 
   tabSelectionChange(e: any) {
     switch (e.index) {
       case 0:
-        this.getCaseLaws(1);
+        this.getCaseLaws(this.caseLawCurrentPage);
         break;
       case 1:
         this.showAppSearch = true;
@@ -398,7 +404,7 @@ export class CaseLawListComponent {
   getJudgeList() {
     this._apolloService.get('/judge?page=1&pageSize=50').subscribe(resObj => {
       if (resObj.status == "success") {
-        this.judgeList = resObj.data;
+        this.judgeList = resObj.data.judges;
         this.filteredJudgeList = this.judgeList;
       }
     })
@@ -407,7 +413,7 @@ export class CaseLawListComponent {
   getCourtList() {
     this._apolloService.get('/court').subscribe(resObj => {
       if (resObj.status == "success") {
-        this.courtList = resObj.data;
+        this.courtList = resObj.data.courts;
         this.filteredCourtList = this.courtList;
       }
     })
@@ -428,8 +434,8 @@ export class CaseLawListComponent {
   getCaseLaws(page: number) {
     this._apolloService.get(`/judgement/latest?page=${page}&pageSize=50`).subscribe(objRes => {
       if (objRes.status == "success") {
-        this.caseList = objRes.data;
-        this.recordCount = this.caseList.length;
+        this.caseList = objRes.data.items;
+        this.recordCount = objRes.data.totalCount;
       }
     })
   }
@@ -442,8 +448,8 @@ export class CaseLawListComponent {
     else {
       this._apolloService.get(`/judgement/search/court/${selectedCourt.name}?page=1&pageSize=10`).subscribe(objRes => {
         if (objRes.status == "success") {
-          this.caseList = objRes.data;
-          this.recordCount = this.caseList.length;
+          this.caseList = objRes.data.court;
+          this.recordCount = objRes.data.totalCount;
         }
       })
     }
@@ -459,8 +465,8 @@ export class CaseLawListComponent {
     else {
       this._apolloService.get(`/judgement/search/appellant/${keyWord}`).subscribe(objRes => {
         if (objRes.status == "success") {
-          this.resAppList = objRes.data;
-          this.recordCount = this.resAppList.length;
+          this.resAppList = objRes.data.items;
+          this.recordCount = objRes.data.totalCount;
           this.showAppSearch = !this.showAppSearch;
         }
       })
@@ -477,8 +483,8 @@ export class CaseLawListComponent {
     else {
       this._apolloService.get(`/judgement/search/respondents/${keyWord}`).subscribe(objRes => {
         if (objRes.status == "success") {
-          this.resRespList = objRes.data;
-          this.recordCount = this.resRespList.length;
+          this.resRespList = objRes.data.items;
+          this.recordCount = objRes.data.totalCount;
           this.showRespSearch = !this.showRespSearch;
         }
       })
@@ -495,8 +501,8 @@ export class CaseLawListComponent {
     else {
       this._apolloService.get(`/judgement/search/judges/${keyWord}`).subscribe(objRes => {
         if (objRes.status == "success") {
-          this.respJudgeList = objRes.data;
-          this.recordCount = this.respJudgeList.length;
+          this.respJudgeList = objRes.data.items;
+          this.recordCount = objRes.data.totalCount;
           this.showJudgeSearch = !this.showJudgeSearch;
         }
       })
@@ -533,12 +539,10 @@ export class CaseLawListComponent {
   }
 
   getCaseLawByAdvanceSearch(page: number) {
-    this.advanceSearchForm.controls.decisionDate.patchValue(this.decisionDate.value);
-    console.log(this.advanceSearchForm.value);
     this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=50`, this.advanceSearchForm.value).subscribe(objRes => {
       if (objRes.status == "success") {
-        this.respAdvanceSearchList = objRes.data;
-        this.recordCount = this.respAdvanceSearchList.length;
+        this.respAdvanceSearchList = objRes.data.items;
+        this.recordCount = objRes.data.totalCount;
       }
     })
   }
@@ -558,5 +562,45 @@ export class CaseLawListComponent {
   resetAdvanceSearchForm() {
     this.advanceSearchForm.reset();
     this.advanceSearchForm.patchValue(new AdvanceSearchModel());
+  }
+
+  getCaseLawsByWords(page: number) {
+    if (this.searchedWord == '') {
+      this._toastMessage.error('Please Enter any text !!');
+      this.showWordsSearch = !this.showWordsSearch;
+    }
+    else {
+      let data = {
+        text: this.searchedWord,
+        exact: this.wordsPhraseRadioModel
+      }
+      console.log(data, 'data')
+      this._apolloService.post(`/judgement/search/words?page=${page}&pageSize=50`, data).subscribe(objRes => {
+        if (objRes.status == "success") {
+          this.respWordsPhraseList = objRes.data.items;
+          this.recordCount = objRes.data.totalCount;
+        }
+      })
+    }
+  }
+
+  wordsPrevEvent() {
+    if (this.wordsPhraseCurrentPage > 1) {
+      let val = this.wordsPhraseCurrentPage -= 1;
+      this.getCaseLawsByWords(val);
+    }
+  }
+
+  wordsNextEvent() {
+    let val = this.wordsPhraseCurrentPage += 1;
+    this.getCaseLawsByWords(val);
+  }
+
+  getHeadingLength(): number {
+    return (window.innerWidth > 1199) ? 90 : 30;
+  }
+
+  getCharLength(): number {
+    return (window.innerWidth > 1199) ? 440 : 200;
   }
 }

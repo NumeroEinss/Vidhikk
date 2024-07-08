@@ -4,14 +4,14 @@ import { ContactUsComponent } from './contact-us.component';
 import { ContactUsDetailComponent } from './contact-us-detail/contact-us-detail.component';
 
 const routes: Routes = [
-  // {
-  //   path:'',
-  //   component:ContactUsComponent,
-  // },
-  // {
-  //   path:'contact-us-detail',
-  //   component:ContactUsDetailComponent,
-  // }
+  {
+    path: '',
+    component: ContactUsComponent,
+  },
+  {
+    path: 'contact-us-detail',
+    component: ContactUsDetailComponent,
+  }
 ];
 
 @NgModule({

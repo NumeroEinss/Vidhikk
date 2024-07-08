@@ -59,16 +59,16 @@ const routes: Routes = [
         path: 'global-search',
         component: GlobalSearchComponent,
       },
-      // {
-      //   path: 'calendar',
-      //   loadChildren: () =>
-      //     import('../calendar/calendar.module').then((m) => m.CalendarsModule),
-      // },
-      // {
-      //   path: 'contact-us',
-      //   loadChildren: () =>
-      //     import('../contact-us/contact-us.module').then((m) => m.ContactUsModule),
-      // },
+      {
+        path: 'calendar',
+        loadChildren: () =>
+          import('../calendar/calendar.module').then((m) => m.CalendarsModule),
+      },
+      {
+        path: 'contact-us',
+        loadChildren: () =>
+          import('../contact-us/contact-us.module').then((m) => m.ContactUsModule),
+      },
       {
         path: 'resetPassword',
         component: ResetPasswordComponent

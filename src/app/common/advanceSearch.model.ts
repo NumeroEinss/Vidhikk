@@ -7,7 +7,7 @@ export class AdvanceSearchModel {
     caseYear: string = "";
     advocate: string = "";
     respondent: string = "";
-    decisionDate: Object = {};
+    decisionDate: any = "";
     actType: string = "";
     actTitle: string = "";
     court: string = "";

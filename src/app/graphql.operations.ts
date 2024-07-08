@@ -501,7 +501,7 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static addEvents = gql `mutation($lawyerId: String, $caseId: String, $eventName: String, $eventDescription: String,
+    static addEvents = gql`mutation($lawyerId: String!, $caseId: String, $eventName: String, $eventDescription: String,
         $allDayCheck: Boolean, $color: String, $eventStartDate: String, $eventEndDate: String, $eventStartTime: String,
         $eventEndTime: String, $repeat: String, $reminder: String) {
         createEvents(input: {
@@ -517,6 +517,73 @@ export abstract class GQLConfig {
           eventEndTime: $eventEndTime
           repeat: $repeat
           reminder: $reminder
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static getLawyerEvents = gql`mutation($lawyerId:String!) {
+        getLawyerEvent(input: {
+          lawyerId: $lawyerId
+        }) {
+          status
+          message
+          data
+        }
+      }`;
+
+    static editEvents = gql`mutation($eventId: String!, $eventName: String, $eventDescription: String,
+        $allDayCheck: Boolean, $color: String, $eventStartDate: String, $eventEndDate: String, $eventStartTime: String,
+        $eventEndTime: String, $repeat: String, $reminder: String
+    ) {
+        editEvent(input: {
+            eventId: $eventId
+          eventName: $eventName
+          eventDescription: $eventDescription
+          allDayCheck: $allDayCheck
+          color: $color
+          eventStartDate: $eventStartDate
+          eventEndDate: $eventEndDate
+          eventStartTime: $eventStartTime
+          eventEndTime: $eventEndTime
+          repeat: $repeat
+          reminder: $reminder
+
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static deleteEvent = gql`mutation($eventId: String!) {
+        deleteEvent(input: {
+            eventId: $eventId
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static addAvailability = gql`mutation($lawyerId: String!, $date: String!, $timeSlot: [String!]) {
+        addAvailabilty(input: {
+            lawyerId: $lawyerId
+          date: $date
+          timeSlot: $timeSlot
+
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static getAvailabilityList = gql`mutation($lawyerId: String!) {
+        getAvailabilityList(input: {
+            lawyerId: $lawyerId
         }) {
             status
             message
