@@ -91,86 +91,7 @@ export class CalendarComponent {
 
   eventType: string = 'allEvent';
 
-  availabilityList: any = [ // Only slots from current date and after will fall under this.
-    // {
-    //   id: 'fasdljasdfa',
-    //   date: new Date(),
-    //   timeSlot: [
-    //     {
-    //       slot: '5pm-6pm',
-    //       status: 'booked',
-    //     },
-    //     {
-    //       slot: '6pm-7pm',
-    //       status: 'available',
-    //     },
-    //     {
-    //       slot: '7pm-8pm',
-    //       status: 'booked',
-    //     },
-    //     {
-    //       slot: '8pm-9pm',
-    //       status: 'booked',
-    //     },
-    //     {
-    //       slot: '9pm-10pm',
-    //       status: 'available',
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 'fasdasdfljasdfa',
-    //   date: new Date(),
-    //   timeSlot: [
-    //     {
-    //       slot: '5pm-6pm',
-    //       status: 'booked',
-    //     },
-    //     {
-    //       slot: '6pm-7pm',
-    //       status: 'available',
-    //     },
-    //     {
-    //       slot: '7pm-8pm',
-    //       status: 'booked',
-    //     },
-    //     {
-    //       slot: '8pm-9pm',
-    //       status: 'booked',
-    //     },
-    //     {
-    //       slot: '9pm-10pm',
-    //       status: 'available',
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 'ewrewrewrx',
-    //   date: new Date(),
-    //   timeSlot: [
-    //     {
-    //       slot: '5pm-6pm',
-    //       status: 'booked',
-    //     },
-    //     {
-    //       slot: '6pm-7pm',
-    //       status: 'available',
-    //     },
-    //     {
-    //       slot: '7pm-8pm',
-    //       status: 'booked',
-    //     },
-    //     {
-    //       slot: '8pm-9pm',
-    //       status: 'booked',
-    //     },
-    //     {
-    //       slot: '9pm-10pm',
-    //       status: 'available',
-    //     },
-    //   ],
-    // },
-  ];
+  availabilityList: any = [];
 
   today: Date = new Date();
 
@@ -183,13 +104,13 @@ export class CalendarComponent {
   displaySlot: any = [];
 
   slots: any = [
-    { value: '11am - 12pm', viewValue: '11am - 12pm' },
-    { value: '12:30pm - 01:30pm', viewValue: '12:30pm - 01:30pm' },
-    { value: '2pm - 3pm', viewValue: '2pm - 3pm' },
-    { value: '5pm-6pm', viewValue: '5pm-6pm' },
-    { value: '6pm-7pm', viewValue: '6pm-7pm' },
-    { value: '7pm-8pm', viewValue: '7pm-8pm' },
-    { value: '8pm-9pm', viewValue: '8pm-9pm' },
+    { value: { timeSlot: '11am - 12pm', status: "available" }, viewValue: '11am - 12pm' },
+    { value: { timeSlot: '12:30pm - 01:30pm', status: "available" }, viewValue: '12:30pm - 01:30pm' },
+    { value: { timeSlot: '2pm - 3pm', status: "available" }, viewValue: '2pm - 3pm' },
+    { value: { timeSlot: '5pm-6pm', status: "available" }, viewValue: '5pm-6pm' },
+    { value: { timeSlot: '6pm-7pm', status: "available" }, viewValue: '6pm-7pm' },
+    { value: { timeSlot: '7pm-8pm', status: "available" }, viewValue: '7pm-8pm' },
+    { value: { timeSlot: '8pm-9pm', status: "available" }, viewValue: '8pm-9pm' },
   ];
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -199,6 +120,10 @@ export class CalendarComponent {
   slotDate: any = { _d: new Date() };
 
   slot: any = [];
+
+  slotId: string = "";
+
+  deleteAvailabilitySlotId: string = "";
 
   eventForm!: FormGroup;
 
@@ -246,16 +171,6 @@ export class CalendarComponent {
         }
       }
     })
-  }
-
-  handleDeleteAvailability() {
-    let deleteAvailabilityHandler = document.getElementById('deleteAvailabilityButton') as HTMLElement;
-    deleteAvailabilityHandler.click();
-  }
-
-  deleteAvailability() {
-    this.availabilityList.splice(this.deleteSlotIndex, 1);
-    this._toastMessage.message('Availability Deleted Successfully!!');
   }
 
   onTimeSet(e: any) {
@@ -416,15 +331,15 @@ export class CalendarComponent {
     if (this.availabilityForm.valid) {
       this._apolloService.mutate(GQLConfig.addAvailability, this.availabilityForm.value).subscribe(objRes => {
         if (objRes.data != null) {
-          if (objRes.data.addAvailabilty.status == 200) {
-            this._toastMessage.success(objRes.data.addAvailabilty.message);
+          if (objRes.data.addAvailability.status == 200) {
+            this._toastMessage.success(objRes.data.addAvailability.message);
             let closeEventButton = document.getElementById('closeAvailabilityButton') as HTMLElement;
             closeEventButton.click();
             this.getAvailabilityList();
             this.calendarScroll.scrollTo({ bottom: 0, end: 0 });
           }
           else {
-            this._toastMessage.error(objRes.data.addAvailabilty.message);
+            this._toastMessage.error(objRes.data.addAvailability.message);
           }
         }
       })
@@ -451,42 +366,55 @@ export class CalendarComponent {
 
   editAvailability(slot: any) {
     this.isEditMode = true;
-    this.slot = [];
-    this.slot = slot.timeSlot;
-    this.slotDate = slot.date
+    // this.slot = [];
+    // this.slot = slot.timeSlots;
+    // this.slotDate = slot.date;
+    // this.slotId = slot._id;
+    this.availabilityForm.reset();
+    this.availabilityForm.patchValue(new AvailabilityModel);
+    console.log(slot,"editSlot")
+    console.log(this.slots,"allSLot");
+    this.availabilityForm.patchValue(slot);
     let element = document.getElementById('addAvailabilityButton') as HTMLElement;
     element.click();
   }
 
+  updateAvailability() {
+    // let data = {
+    //   avability_id: this.availabilityForm.controls._id.value,
+    //   date: this.availabilityForm.controls.date.value,
+    //   timeSlots: this.availabilityForm.controls.timeSlots.value
+    // }
+    this._apolloService.mutate(GQLConfig.editAvailability, this.availabilityForm.value).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.editAvailability.status == 200) {
+          this._toastMessage.success(data.data.editAvailability.message);
+          this.getAvailabilityList();
+        }
+        else {
+          this._toastMessage.error(data.data.editAvailability.message);
+        }
+      }
+    });
+  }
 
-  // addAvailabilitySlot(e: any) {
-  //   if (this.slotDate == null) {
-  //     this._toastMessage.error('Date is Required !!')
-  //   }
-  //   if (this.slot.length == 0) {
-  //     this._toastMessage.error('Select a slot to Add !!');
-  //   }
-  //   else {
-  //     let slot: any = [];
-  //     this.slot.forEach((item: any) => {
-  //       slot.push({
-  //         slot: item,
-  //         status: 'available',
-  //       },)
-  //     });
-  //     this.availabilityList.push(
-  //       {
-  //         id: 'seradadfasd' + Math.random().toFixed(1).toString(),
-  //         date: this.slotDate._d,
-  //         timeSlot: slot,
-  //       }
-  //     )
-  //     let element = document.getElementById('cancelSlotButton') as HTMLElement;
-  //     element.click();
-  //     this.slot = [];
-  //     this.slotDate = {
-  //       _d: new Date()
-  //     }
-  //   }
-  // }
+  handleDeleteAvailability(slot: any) {
+    this.deleteAvailabilitySlotId = slot._id
+    let deleteAvailabilityHandler = document.getElementById('deleteAvailabilityButton') as HTMLElement;
+    deleteAvailabilityHandler.click();
+  }
+
+  deleteAvailability() {
+    this._apolloService.mutate(GQLConfig.deleteAvailability, { id: this.deleteAvailabilitySlotId }).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.deleteAvailability.status == 200) {
+          this._toastMessage.success(data.data.deleteAvailability.message);
+          this.getAvailabilityList();
+        }
+        else {
+          this._toastMessage.error(data.data.deleteAvailability.message);
+        }
+      }
+    });
+  }
 }

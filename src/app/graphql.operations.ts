@@ -568,11 +568,11 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static addAvailability = gql`mutation($lawyerId: String!, $date: String!, $timeSlot: [String!]) {
-        addAvailabilty(input: {
+    static addAvailability = gql`mutation($lawyerId: String!, $date: String!, $timeSlot: [TimeSlotInput!]) {
+        addAvailability(input: {
             lawyerId: $lawyerId
           date: $date
-          timeSlot: $timeSlot
+          timeSlots: $timeSlot
 
         }) {
             status
@@ -584,6 +584,28 @@ export abstract class GQLConfig {
     static getAvailabilityList = gql`mutation($lawyerId: String!) {
         getAvailabilityList(input: {
             lawyerId: $lawyerId
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static editAvailability = gql`mutation($_id: String!, $date: String!, $timeSlots: [TimeSlotInput!]) {
+        editAvailability(input: {
+            avability_id: $_id
+            date: $date
+            timeSlots: $timeSlots
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static deleteAvailability = gql`mutation($id: String!) {
+        deleteAvailability(input: {
+            avability_id: $id
         }) {
             status
             message

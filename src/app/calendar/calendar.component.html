@@ -81,16 +81,13 @@
             <div *ngFor="let availability of availabilityList; index as i" class="availability-list-data">
               <div class="grid-item2">{{ availability.date | date:'dd/MM/yyyy' }}</div>
               <div class="grid-item2 slots d-flex">
-                <div *ngFor="let slot of availability.timeSlot">
-                  <div class="available">
-                    {{slot}}
-                  </div>
-                  <!-- <div class="available" *ngIf="slot.status == 'available'">
-                    {{ slot.slot }}
+                <div *ngFor="let slot of availability.timeSlots">
+                  <div class="available" *ngIf="slot.status == 'available'">
+                    {{ slot.timeSlot }}
                   </div>
                   <div class="booked" *ngIf="slot.status == 'booked'">
-                    {{ slot.slot }}
-                  </div> -->
+                    {{ slot.timeSlot }}
+                  </div>
                 </div>
               </div>
               <div class="grid-item2">
@@ -104,7 +101,7 @@
                   <span class="mat-menu-list">Edit</span>
                 </div>
 
-                <div mat-menu-item (click)="this.deleteSlotIndex = i; handleDeleteAvailability();">
+                <div mat-menu-item (click)="this.deleteSlotIndex = i; handleDeleteAvailability(availability);">
                   <mat-icon>delete</mat-icon>
                   <span class="mat-menu-list">Delete</span>
                 </div>
@@ -120,11 +117,11 @@
   <button id="deleteEventButton" data-bs-target="#deleteEvent" data-bs-toggle="modal" style="display: none;"
     class="delete-event">Delete
     Event</button>
-  <!-- <button id="deleteAvailabilityButton" data-bs-target="#deleteAvailability" data-bs-toggle="modal"
+  <button id="deleteAvailabilityButton" data-bs-target="#deleteAvailability" data-bs-toggle="modal"
     style="display: none;">Delete
-    Event</button> -->
+    Event</button>
   <button id="editEventButton" data-bs-toggle="modal" data-bs-target="#editEventModal" style="display: none;"
-    class="delete-event">Delete
+    class="delete-event">Edit
     Event</button>
 
 </div>
@@ -461,51 +458,6 @@
   </div>
 </div>
 
-<!-- Add Avalability Modal -->
-<div class="modal modal-sm fade" id="addSlotModal" tabindex="-1" aria-labelledby="addSlotLabel" aria-hidden="true"
-  data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addSlotLabel">{{isEditMode?'Edit':'Add'}} Availability Slot</h1>
-        <button id="closeAvailabilityButton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          data-bs-keyboard="false"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="availabilityForm">
-          <div class="d-flex" style="flex-direction: column;">
-            <mat-label class="mat-label text-start">Date</mat-label>
-            <mat-form-field appearance="outline">
-              <input matInput [matDatepicker]="date" [min]="minDate" formControlName="date" />
-              <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
-              <mat-datepicker #date></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <div class="d-flex" style="flex-direction: column;">
-            <mat-label class="mat-label text-start">Time Slot</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select multiple formControlName="timeSlot">
-                <mat-option *ngFor="let slot of slots" [value]="slot.value">{{slot.viewValue}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </form>
-
-        <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 20px"
-          (click)="addAvaliability()">
-          {{isEditMode?'Update':'Save'}}
-        </button>
-
-        <button id="cancelSlotButton" mat-stroked-button color="primary"
-          style="width: fit-content !important; margin-left: 20px" data-bs-dismiss="modal">
-          Cancel
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!--Delete Event popup start -->
 <div class=" modal fade" id="deleteEvent" tabindex="-1" aria-labelledby="deleteEvent" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered delete-modal">
@@ -534,12 +486,61 @@
 </div>
 <!-- Delete Event popup ends -->
 
-<!--Delete Event popup start -->
+<!-- Add Avalability Modal -->
+<div class="modal modal-sm fade" id="addSlotModal" tabindex="-1" aria-labelledby="addSlotLabel" aria-hidden="true"
+  data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addSlotLabel">{{isEditMode?'Edit':'Add'}} Availability Slot</h1>
+        <button id="closeAvailabilityButton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          data-bs-keyboard="false"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="availabilityForm">
+          <div class="d-flex" style="flex-direction: column;">
+            <mat-label class="mat-label text-start">Date</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="date" [min]="minDate" formControlName="date" required />
+              <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+              <mat-datepicker #date></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex" style="flex-direction: column;">
+            <mat-label class="mat-label text-start">Time Slot</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select multiple formControlName="timeSlots" required>
+                <mat-option *ngFor="let slot of slots" [value]="slot.value">{{slot.viewValue}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+
+        <button mat-raised-button color="primary" *ngIf="!isEditMode"
+          style="width: fit-content !important; margin-left: 20px" (click)="addAvaliability()">
+          Save
+        </button>
+        <button mat-raised-button color="primary" *ngIf="isEditMode"
+          style="width: fit-content !important; margin-left: 20px" (click)="updateAvailability()">
+          Update
+        </button>
+
+        <button id="cancelSlotButton" mat-stroked-button color="primary"
+          style="width: fit-content !important; margin-left: 20px" data-bs-dismiss="modal">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete Availability popup start -->
 <div class="modal fade" id="deleteAvailability" tabindex="-1" aria-labelledby="deleteAvailability" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered delete-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="deleteAvailability">Delete Availability</h1>
+        <h1 class="modal-title fs-5">Delete Availability</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

@@ -15,7 +15,13 @@ export class EventModel {
 }
 
 export class AvailabilityModel {
+    _id: string = "";
     lawyerId: string = "";
     date: Date = new Date();
-    timeSlot: Array<any> = [];
+    timeSlots: Array<TimeSlot> = [];
+}
+
+export class TimeSlot {
+    timeSlot: string = "";
+    status: string = "available";
 }

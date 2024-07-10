@@ -23,6 +23,9 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { GraphQLModule } from './graphql.module';
 import { NgxLoadingModule } from 'ngx-loading';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { fireBaseConfig } from '../config';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,9 @@ import { NgxLoadingModule } from 'ngx-loading';
     NgOtpInputModule,
     HttpClientModule,
     GraphQLModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    AngularFireModule.initializeApp(fireBaseConfig),
+    AngularFireMessagingModule
   ],
   providers: [
     AuthGuard,
