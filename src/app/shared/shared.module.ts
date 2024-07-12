@@ -11,6 +11,7 @@ import { TableComponent } from './component/table/table.component';
 import { AuthService } from './services/auth.service';
 import { HighlighterPipe } from './pipe/highlighter.pipe';
 import { PaginatorComponent } from './component/paginator/paginator.component';
+import { SafeHTMLPipe } from './pipe/safe-html.pipe';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PaginatorComponent } from './component/paginator/paginator.component';
     GlobalSearchComponent,
     TableComponent,
     HighlighterPipe,
-    PaginatorComponent
+    PaginatorComponent,
+    SafeHTMLPipe
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { PaginatorComponent } from './component/paginator/paginator.component';
     FooterComponent,
     NgScrollbarModule,
     HighlighterPipe,
-    PaginatorComponent
+    PaginatorComponent,
+    SafeHTMLPipe
   ],
   providers: [AuthService]
 })

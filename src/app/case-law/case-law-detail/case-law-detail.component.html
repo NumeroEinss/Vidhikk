@@ -43,9 +43,10 @@
         <!-- <div class="description mt-4">
           <div class="desc-body mt-4" [innerHTML]="caseLawDetail.document"></div>
         </div> -->
-        <div *ngIf="keyWord.keyWord" class="mt-4" [innerHTML]="caseLawDetail.document|highlighter:keyWord.keyWord">
+        <div *ngIf="keyWord.keyWord" class="mt-4"
+          [innerHTML]="caseLawDetail.document|highlighter:keyWord.keyWord|safeHTML">
         </div>
-        <div *ngIf="!keyWord.keyWord" class="mt-4" [innerHTML]="caseLawDetail.document">
+        <div *ngIf="!keyWord.keyWord" class="mt-4" [innerHTML]="caseLawDetail.document|safeHTML">
         </div>
       </div>
     </ng-scrollbar>

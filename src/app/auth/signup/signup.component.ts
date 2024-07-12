@@ -432,9 +432,16 @@ export class SignupComponent {
   userImageChange(event: any) {
     const reader = new FileReader();
     reader.onload = (e) => {
-      this.userImage = e.target?.result;
+      if (this.userType == "LAWYER") {
+        this.lawyerForm.controls.profileImage.patchValue(e.target?.result);
+      }
+      else if (this.userType == "USER") {
+        this.userForm.controls.profileImage.patchValue(e.target?.result);
+      }
+      else if (this.userType == "JUDGE") {
+        this.judgeForm.controls.profileImage.patchValue(e.target?.result);
+      }
     }
-
     reader.readAsDataURL(event.target.files[0]);
   }
 
@@ -670,7 +677,8 @@ export class SignupComponent {
       barAddress: this.lawyerForm.controls.barAddress.value,
       isBarAddressDisplay: this.lawyerForm.controls.isAddressVisible.value,
       isPrimaryMobileDisplay: this.lawyerForm.controls.isPrimaryContactVisible.value,
-      isSecondaryMobileDisplay: this.lawyerForm.controls.isSecondaryContactVisible.value
+      isSecondaryMobileDisplay: this.lawyerForm.controls.isSecondaryContactVisible.value,
+      
     };
     this._apolloService.mutate(GQLConfig.createLawyer, reqObj).subscribe(data => {
       if (data.data != null) {

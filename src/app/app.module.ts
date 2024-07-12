@@ -25,7 +25,7 @@ import { GraphQLModule } from './graphql.module';
 import { NgxLoadingModule } from 'ngx-loading';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
-import { fireBaseConfig } from '../config';
+import { environment } from '../enviroments/enviroment';
 
 @NgModule({
   declarations: [
@@ -50,8 +50,8 @@ import { fireBaseConfig } from '../config';
     HttpClientModule,
     GraphQLModule,
     NgxLoadingModule.forRoot({}),
-    AngularFireModule.initializeApp(fireBaseConfig),
-    AngularFireMessagingModule
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
     AuthGuard,

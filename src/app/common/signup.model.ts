@@ -34,6 +34,8 @@ export class LawyerSignupModel {
     practiceField = new FormControl("", [Validators.required]);
     orgainization = new FormControl("");
     coreCompetency = new FormControl("", [Validators.required]);
+    profileImage = new FormControl("");
+    notificationToken = new FormControl("");
 }
 
 export class UserSignupModel {
@@ -49,6 +51,8 @@ export class UserSignupModel {
     email = new FormControl("", [Validators.required]);
     password = new FormControl("", [Validators.required]);
     confirmPassword = new FormControl("", [Validators.required]);
+    profileImage = new FormControl("");
+    notificationToken = new FormControl("");
 }
 
 export class JudgeSignupModel {
@@ -75,4 +79,6 @@ export class JudgeSignupModel {
     isSecondaryContactWhatsapp = new FormControl(false);
     secondaryContact = new FormControl("");
     isEmailVisible = new FormControl(false);
+    profileImage = new FormControl("");
+    notificationToken = new FormControl("");
 }

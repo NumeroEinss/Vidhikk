@@ -1,4 +1,4 @@
-<app-header [menuName]="'Case Law'"></app-header>
+<app-header [menuName]="'Bare Acts Detail'"></app-header>
 
 <div class="root">
   <div class="filter-bar">
@@ -42,7 +42,7 @@
             </span> : {{ list.title }} -->
           </div>
           <div class="detail">
-            <div [innerHTML]="bareActData.contents"></div>
+            <div [innerHTML]="bareActData.contents|safeHTML"></div>
             <!-- <div>{{ list.detailHeader }}</div>
             <div *ngFor="let item of list.details">{{ item }}</div> -->
           </div>

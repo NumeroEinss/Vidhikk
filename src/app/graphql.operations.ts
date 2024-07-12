@@ -156,16 +156,16 @@ export abstract class GQLConfig {
               }
         } `;
 
-    static loginWithEmail = gql`mutation Login($email: String!, $password: String!, $userType: String!) {
-        login(input: { email: $email, password: $password, userType: $userType }){
+    static loginWithEmail = gql`mutation Login($email: String!, $password: String!, $userType: String!,$notificationToken:String!) {
+        login(input: { email: $email, password: $password, userType: $userType,notificationToken:$notificationToken }){
             status
             message
             data
         }
     }`;
 
-    static loginWithMobile = gql`mutation Login($mobile: String!, $password: String!, $userType: String!) {
-        login(input: { phoneNumber: $mobile, password: $password, userType: $userType }){
+    static loginWithMobile = gql`mutation Login($mobile: String!, $password: String!, $userType: String!,$notificationToken:String!) {
+        login(input: { phoneNumber: $mobile, password: $password, userType: $userType,notificationToken:$notificationToken }){
             status
             message
             data
@@ -176,7 +176,8 @@ export abstract class GQLConfig {
     static createLawyer = gql`mutation CreateLawyer($userType: String!, $lawyerName: String!, $fatherName: String!, $primaryContact: String!,
         $isPrimaryContactWhatsapp: Boolean!, $isPrimaryMobileDisplay: Boolean!, $secondaryContact: String!, $isSecondaryContactWhatsapp: Boolean!, $isEmailDisplay: Boolean!,
         $isSecondaryMobileDisplay: Boolean!, $barAddress: String!, $city: String!, $state: String!, $email: String!, $password: String!, $confirmPassword: String!, $barLicenseNumber: String!,
-        $stateBar: String!, $practiceYear: Float!, $coreCompetency: String!, $practicingCourt: String!, $practicingField: [String!]!, $isBarAddressDisplay: Boolean!, $orgainization: String) {
+        $stateBar: String!, $practiceYear: Float!, $coreCompetency: String!, $practicingCourt: String!, $practicingField: [String!]!, $isBarAddressDisplay: Boolean!, $orgainization: String,
+        $profileImage:Upload) {
         createLawyers(input: {
             userType: $userType,
             lawyerName: $lawyerName,
@@ -202,7 +203,8 @@ export abstract class GQLConfig {
             isBarAddressDisplay: $isBarAddressDisplay,
             isEmailDisplay: $isEmailDisplay
             orgainization: $orgainization
-        }) {
+        },
+        file:$profileImage) {
             status
             message
             data

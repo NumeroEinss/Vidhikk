@@ -98,7 +98,7 @@ body {
   }
 
   .mdc-text-field__input {
-    padding: 8px 10px;
+    padding: 8px 4px;
   }
 
   .mat-mdc-form-field-flex {
@@ -259,6 +259,20 @@ body {
     /* Edge 12-18 */
     color: #e1e1e1 !important;
     font-family: Poppins;
+  }
+
+  .up-section-1 {
+    ::placeholder {
+      color: unset !important;
+      font-family: Poppins;
+      font-size: 14px;
+    }
+
+    ::-ms-input-placeholder {
+      /* Edge 12-18 */
+      color: unset !important;
+      font-family: Poppins;
+    }
   }
 
   .mat-mdc-form-field-error-wrapper {

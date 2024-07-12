@@ -1,3 +1,4 @@
+// Import the functions you need from the SDKs you need
 importScripts('https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.3/firebase-messaging.js');
 
@@ -11,4 +12,16 @@ firebase.initializeApp({
     measurementId: "G-FYWM2J8GPM"
 });
 
-export const messaging = firebase.messaging();
+const messaging = firebase.messaging();
+
+// messaging.onBackgroundMessage(function (payload) {
+//     console.log('Received background message ', payload);
+
+//     const notificationTitle = payload.notification.title;
+//     const notificationOptions = {
+//         body: payload.notification.body,
+//         icon: '/firebase-logo.png'
+//     };
+
+//     self.registration.showNotification(notificationTitle, notificationOptions);
+// });
