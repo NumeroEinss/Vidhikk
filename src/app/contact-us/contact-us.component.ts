@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
+import { GQLConfig } from '../graphql.operations';
+import { ApolloService } from '../shared/services/apollo.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -27,68 +29,7 @@ export class ContactUsComponent {
     { value: 'allTickets', viewValue: 'All Tickets' },
   ];
 
-  ticketList = [
-    {
-      ticketId: 'Ticket# 2024-1',
-      ticketTitle: 'Family Law',
-      ticketType: 'Payment Issue',
-      created: '12 Mar 2023',
-      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
-      status: 'Close',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur ad',
-      screenshot: ['../../assets/images/image/screenshot.jpg']
-    },
-    {
-      ticketId: 'Ticket# 2024-2',
-      ticketTitle: 'Criminal Law',
-      ticketType: 'Subscription Issue',
-      created: '11 Dec 2023',
-      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
-      status: 'InProcess',
-      description: 'I have criminal issue...',
-      screenshot: ['../../assets/images/image/screenshot.jpg']
-    },
-    {
-      ticketId: 'Ticket# 2024-3',
-      ticketTitle: 'Property and Real Estate',
-      ticketType: 'Payment Issue',
-      created: '09 Mar 2023',
-      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
-      status: 'Pending',
-      description: 'I have family issue...',
-      screenshot: ['../../assets/images/image/screenshot.jpg']
-    },
-    {
-      ticketId: 'Ticket# 2024-4',
-      ticketTitle: 'Divorce Law',
-      ticketType: 'Chat Support',
-      created: '23 Nov 2023',
-      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
-      status: 'Close',
-      description: 'I have subscription issue...',
-      screenshot: ['../../assets/images/image/screenshot.jpg']
-    },
-    {
-      ticketId: 'Ticket# 2024-5',
-      ticketTitle: 'Family Law',
-      ticketType: 'Payment Issue',
-      created: '11 Aug 2022',
-      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
-      status: 'Pending',
-      description: 'I have payment issue...',
-      screenshot: ['../../assets/images/image/screenshot.jpg']
-    },
-    {
-      ticketId: 'Ticket# 2024-6',
-      ticketTitle: 'Divorce Law',
-      ticketType: 'Chat Support',
-      created: '22 March 2023',
-      dayTime: 'Mon, 12 Mar 2023, 04:00 PM',
-      status: 'InProcess',
-      description: 'I have subscription issue...',
-      screenshot: ['../../assets/images/image/screenshot.jpg']
-    },
-  ];
+  ticketList: any = [];
 
   supportList = [
     { value: 'Payment Issue', viewValue: 'Payment Issue' },
@@ -97,22 +38,24 @@ export class ContactUsComponent {
     { value: 'Subscription Issue', viewValue: 'Subscription Issue' },
   ];
 
-  constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _router: Router) {
+  constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _router: Router,
+    private _apolloService: ApolloService) {
     this.ticketForm = this._formBuilder.group(new TicketModel());
     this.ticketFrmCtrl['ticketTitle'].setValidators([Validators.required,]);
     this.ticketFrmCtrl['ticketType'].setValidators([Validators.required,]);
-    this.ticketFrmCtrl['description'].setValidators([Validators.required, Validators.minLength(10)]);
+    this.ticketFrmCtrl['ticketDescription'].setValidators([Validators.required, Validators.minLength(10)]);
+    this.getTicketList();
   }
 
   onFileSelected(event: any): void {
-    this.files = event.target.files;
+    this.files = event.target.files[0];
     this.fileUploaded = true;
   }
 
   onDrop(event: any): void {
     event.preventDefault();
     event.stopPropagation();
-    this.files = Array.from(event.dataTransfer.files);
+    this.files = Array.from(event.dataTransfer.files[0]);
     this.fileUploaded = true;
   }
 
@@ -128,43 +71,42 @@ export class ContactUsComponent {
   createTicket() {
     const filesArray = Array.from(this.files);
     const screenshotUrls = filesArray.map(file => URL.createObjectURL(file));
-    const newTicket: any = {
-      ticketId: 'Ticket# 2024-1',
-      ticketTitle: this.ticketForm.controls.ticketTitle.value,
-      ticketType: this.ticketForm.controls.ticketType.value,
-      description: this.ticketForm.controls.description.value,
-      created: new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric', day: 'numeric' }),
-      dayTime: new Date().toLocaleDateString('en-GB', { weekday: "short", month: 'long', year: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true }).replace('pm', 'PM'),
-      status: 'InProcess',
-      screenshot: screenshotUrls
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+
+    const mutation = {
+      "query": "mutation createTicket($input: lawyerSupportInput!, $file: Upload) { createTicket(input: $input, file: $file) { status, message, data } }",
+      "variables": {
+        "input": {
+          "lawyerId": parsedData._id,
+          "ticketType": this.ticketForm.controls.ticketType.value,
+          "ticketTitle": this.ticketForm.controls.ticketTitle.value,
+          "ticketDescription": this.ticketForm.controls.ticketDescription.value
+        }
+      }
     }
-    this.ticketList.push(newTicket);
+
+    this._apolloService.upload(mutation, this.files, "file").subscribe(objRes => {
+      if (objRes.data != null) {
+        this._toastMessage.success(objRes.data.createTicket.message);
+        this.getTicketList();
+      }
+      else {
+        this._toastMessage.error(objRes.data.createTicket.message);
+      }
+    })
+    // this.ticketList.push(newTicket);
     this.resetForm();
+
   }
 
   editTicket(ticket: any) {
     this.selectedEditTicket = { ...ticket };
-    this.ticketForm.patchValue({
-      ticketTitle: ticket.ticketTitle,
-      ticketType: ticket.ticketType,
-      description: ticket.description,
-    })
+    this.ticketForm.patchValue(ticket);
   }
 
   saveChanges() {
-    let index = this.ticketList.map(ticket => ticket.ticketId).indexOf(this.selectedEditTicket.ticketId);
-    this.ticketList[index] = {
-      ticketId: this.selectedEditTicket.ticketId,
-      ticketTitle: this.ticketForm.controls.ticketTitle.value,
-      ticketType: this.ticketForm.controls.ticketType.value,
-      created: this.selectedEditTicket.created,
-      dayTime: this.selectedEditTicket.dayTime,
-      status: this.selectedEditTicket.status,
-      description: this.ticketForm.controls.description.value,
-      screenshot: this.selectedEditTicket.screenshot
-    };
-    this.selectedEditTicket = {};
-    this.resetForm();
+    
   }
 
   deleteTicket() {
@@ -190,5 +132,21 @@ export class ContactUsComponent {
     else if (parsedData.userType == "USER") {
       this._router.navigate(['/user/contact-us/contact-us-detail'], { state: ticket })
     }
+  }
+
+  getTicketList() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this._apolloService.mutate(GQLConfig.getTicketList, { lawyerId: parsedData._id }).subscribe(data => {
+      if (data.data !== null) {
+        if (data.data.getTicketList.status = 200) {
+          this._toastMessage.success(data.data.getTicketList.message);
+          this.ticketList = data.data.getTicketList.data.ticketList;
+        }
+        else {
+          this._toastMessage.error(data.data.getTicketList.message);
+        }
+      }
+    })
   }
 }

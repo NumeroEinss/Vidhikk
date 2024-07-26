@@ -5,6 +5,7 @@ export class EventModel {
     eventName: string = "";
     eventDescription: string = "";
     allDayCheck: boolean = false;
+    colors: string = "green";
     color: string = "";
     eventStartDate: Date = new Date();
     eventEndDate: Date = new Date();

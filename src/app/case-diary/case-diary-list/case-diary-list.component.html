@@ -2,7 +2,7 @@
 <app-header [menuName]="'Case Diary'"></app-header>
 
 <!-- root section start-->
-<div class="root">
+<div class="root" appPreventKeyboardEvents>
   <!-- case repository section start -->
   <!-- <div class="case-diary">
           <div class="case-diary-repo">Legal Cases Repository</div>
@@ -95,7 +95,7 @@
         <div class="grid-item2">
           <mat-form-field appearance="outline" class="date-input">
             <input matInput [matDatepicker]="picker2" [(ngModel)]="item.nextHearingDate"
-              placeholder="Select Next Hearing Date" [min]="today">
+              placeholder="Select Next Hearing Date" [min]="today" [readonly]="true">
             <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>

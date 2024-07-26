@@ -19,12 +19,17 @@ export class AuthService {
   constructor(private _apollo: Apollo, private _router: Router, private _toastMessage: ToastMessageService,
     private _activatedRoute: ActivatedRoute, private _messagingService: MessagingService) {
     this.subscription$ = this._messagingService.accessToken.subscribe(data => {
-      console.log('Token Recieved !!');
-      this.fireBaseToken = data;
+      if (data) {
+        // console.log(data, 'Subscription for token !!');
+        this.fireBaseToken = data;
+        localStorage.setItem('messageToken', data);
+      } else {
+        // console.error('Access token is empty.');
+      }
     });
     this.messageSubscription$ = this._messagingService.currentMessage.subscribe((data: any) => {
       if (data) {
-        console.log(data, 'Message Received!!');
+        // console.log(data, 'messageSubscription')
         this.message = data;
         this._toastMessage.showMessage(data.notification.title, data.notification.body);
       }
@@ -37,12 +42,10 @@ export class AuthService {
 
   login(query: any, variables: any, userType: string) {
     if (this.fireBaseToken === "") {
-      console.log('Requesting permission for notifications...');
       this._messagingService.requestPermission();
     };
     setTimeout(() => {
       variables.notificationToken = this.fireBaseToken;
-      console.log(this.fireBaseToken,'fireToken');
       this._apollo.mutate({ mutation: query, variables: variables, errorPolicy: 'all' }).subscribe((respObj: any) => {
         if (respObj != null) {
           if (respObj.data.login.status == 200) {
@@ -89,6 +92,7 @@ export class AuthService {
     localStorage.removeItem('userData');
     this.currentUserSubject?.next(null);
     localStorage.removeItem('vidhikToken');
+    localStorage.removeItem('messageToken');
     localStorage.removeItem('isCaseDiaryLogin');
     this._router.navigateByUrl('auth/login');
     this.subscription$.unsubscribe();

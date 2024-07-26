@@ -1,5 +1,5 @@
 <app-header [menuName]="'Case Diary'"></app-header>
-<div class="root">
+<div class="root" appPreventKeyboardEvents>
   <div class="case-diary">
     <div class="diary-container">
       <div>
@@ -14,7 +14,7 @@
           liable for such losses.
         </p>
         <div class="terms-service-checkbox" style="padding-left: unset;margin-top:unset;color:#8798ad"><mat-checkbox
-            [color]="'primary'" [(ngModel)]="agreement">Agree</mat-checkbox></div>
+            [color]="'primary'" [(ngModel)]="agreement">I Agree</mat-checkbox></div>
       </div>
 
       <form class="col mt-3" [formGroup]="caseDiaryForm">
@@ -47,7 +47,7 @@
             Password?</a>
         </div>
         <div class="text-center mt-3">
-          <button mat-raised-button color="primary w-100" (click)="login()" [disabled]="!agreement">
+          <button mat-raised-button color="primary w-100" (click)="login()">
             Sign In</button><br />
 
           <button routerLink="/lawyer/case-diary/signup" mat-stroked-button class="w-100" color="primary"

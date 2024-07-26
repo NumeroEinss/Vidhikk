@@ -56,6 +56,7 @@ export class CreateCaseDiaryComponent {
     this.createCaseDiaryFrmCtrl['registrationDate'].setValidators([
       Validators.required,
     ]);
+    this.createCaseDiaryFrmCtrl['registrationDate'].disabled;
     this.createCaseDiaryFrmCtrl['applicantName'].setValidators([
       Validators.required,
     ]);

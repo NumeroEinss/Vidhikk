@@ -23,15 +23,16 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
   <script type="js">
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('../firebase-messaging-sw.js')
-        .then(function (registration) {
-          console.log('Registration successful, scope is:', registration.scope);
-        }).catch(function (err) {
-          console.log('Service worker registration failed, error:', err);
-        });
-    }
-  </script>
+      document.addEventListener('click', () => {
+        Notification.requestPermission().then(function (status) {
+        if (status === 'denied') {
+            //
+        } else if (status === 'granted') {
+            //
+        }
+    });
+  })
+    </script>
   <app-root></app-root>
 </body>
 

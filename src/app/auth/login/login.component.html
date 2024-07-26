@@ -11,7 +11,7 @@
     </div>
 
     <mat-tab-group class="mt-3" mat-stretch-tabs="false" mat-align-tabs="left" [(selectedIndex)]="selectedIndex"
-      (selectedTabChange)="tabSelectionChange($event)" animationDuration="0ms">
+      (selectedTabChange)="tabSelectionChange($event)" animationDuration="0ms" appPreventKeyboardEvents>
       <mat-tab label="Using Phone Number">
         <form [formGroup]="loginForm2" class="col">
           <mat-form-field appearance="outline" class="mt-3">

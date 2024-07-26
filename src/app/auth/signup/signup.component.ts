@@ -10,7 +10,7 @@ import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { Router } from '@angular/router';
 import { NgOtpInputComponent } from 'ng-otp-input';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -433,13 +433,13 @@ export class SignupComponent {
     const reader = new FileReader();
     reader.onload = (e) => {
       if (this.userType == "LAWYER") {
-        this.lawyerForm.controls.profileImage.patchValue(e.target?.result);
+        this.lawyerForm.controls.file.patchValue(event.target.files[0]);
       }
       else if (this.userType == "USER") {
-        this.userForm.controls.profileImage.patchValue(e.target?.result);
+        this.userForm.controls.file.patchValue(event.target.files[0]);
       }
       else if (this.userType == "JUDGE") {
-        this.judgeForm.controls.profileImage.patchValue(e.target?.result);
+        this.judgeForm.controls.file.patchValue(event.target.files[0]);
       }
     }
     reader.readAsDataURL(event.target.files[0]);
@@ -535,12 +535,13 @@ export class SignupComponent {
     if (this.userType == "USER") {
       data = {
         email: this.userForm.controls.email.value,
-        mobile: this.userForm.controls.phoneNumber.value
+        phoneNumber: this.userForm.controls.phoneNumber.value
       };
     }
     else if (this.userType == "LAWYER") {
       data = {
         email: this.lawyerForm.controls.email.value,
+        phoneNumber: this.lawyerForm.controls.phoneNumber.value
       };
     }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
@@ -566,11 +567,13 @@ export class SignupComponent {
         if (this.userType == "USER") {
           data = {
             email: this.userForm.controls.email.value,
+            mobile: this.userForm.controls.phoneNumber.value,
             otp: e
           };
         } else if (this.userType == "LAWYER") {
           data = {
             email: this.lawyerForm.controls.email.value,
+            mobile: this.lawyerForm.controls.phoneNumber.value,
             otp: e
           };
         }
@@ -596,11 +599,13 @@ export class SignupComponent {
     if (this.userType == "USER") {
       data = {
         email: this.userForm.controls.email.value,
+        phoneNumber: this.userForm.controls.phoneNumber.value
       };
     }
     else if (this.userType == "LAWYER") {
       data = {
         email: this.lawyerForm.controls.email.value,
+        phoneNumber: this.lawyerForm.controls.phoneNumber.value
       };
     }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
@@ -678,7 +683,7 @@ export class SignupComponent {
       isBarAddressDisplay: this.lawyerForm.controls.isAddressVisible.value,
       isPrimaryMobileDisplay: this.lawyerForm.controls.isPrimaryContactVisible.value,
       isSecondaryMobileDisplay: this.lawyerForm.controls.isSecondaryContactVisible.value,
-      
+      // file: this.lawyerForm.controls.file.value
     };
     this._apolloService.mutate(GQLConfig.createLawyer, reqObj).subscribe(data => {
       if (data.data != null) {

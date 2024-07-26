@@ -8,7 +8,7 @@
   standards</marquee>
 
 <!-- root section & feed section start-->
-<div class="root">
+<div class="root" appPreventKeyboardEvents>
   <div id="fab-container" class="fab-container" [ngStyle]="refreshVisible?{'display':'block'}:{'display':'none'}">
     <button class="fab" (click)="getActivityFeeds()">
       <span>&#x21bb;</span>

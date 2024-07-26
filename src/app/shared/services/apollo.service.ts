@@ -4,6 +4,7 @@ import { ToastMessageService } from './snack-alert.service';
 import { Apollo, TypedDocumentNode } from 'apollo-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { getBaseUrl } from '../../graphql.module';
 
 @Injectable({
   providedIn: 'root'
@@ -91,5 +92,25 @@ export class ApolloService {
       this._toastMessage.error("Access Denied !! Login Again");
       this._authService.logout();
     }
+  }
+
+  upload(mutation: any, file: any, mapName: string): Observable<any> {
+    const operations = JSON.stringify(mutation);
+
+    const map = JSON.stringify({
+      [mapName]: ["variables.file"]
+    });
+
+    const formData = new FormData();
+    formData.append('operations', operations);
+    formData.append('map', map);
+    formData.append(mapName, file);
+
+    return this._http.post(getBaseUrl(), formData, {
+      headers: {
+        'x-apollo-operation-name': 'CreateTicket',
+        "apollo-require-preflight": "true"
+      }
+    });
   }
 }

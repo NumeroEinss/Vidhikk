@@ -42,7 +42,6 @@ const MY_DATE_FORMAT = {
     CreateSubDiaryComponent,
     ViewApplicationComponent,
     EditCaseDiaryComponent],
-
   imports: [
     CommonModule,
     CaseDiaryRoutingModule,

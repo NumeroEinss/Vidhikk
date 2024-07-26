@@ -5,11 +5,13 @@ import { BareActsRoutingModule } from './bare-acts-routing.module';
 import { BareActsComponent } from './bare-acts.component';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { BareActsDetailComponent } from './bare-acts-detail/bare-acts-detail.component';
 
 
 @NgModule({
   declarations: [
-    BareActsComponent
+    BareActsComponent,
+    BareActsDetailComponent
   ],
   imports: [
     CommonModule,

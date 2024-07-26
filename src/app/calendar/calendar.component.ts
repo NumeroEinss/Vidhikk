@@ -133,8 +133,9 @@ export class CalendarComponent {
 
   availabilityForm!: FormGroup;
 
-  colors: string[] = ['#2E5BFF', '#00D34F', '#EF7E15', '#FFDE68', '#FF2E2E'];
-  selectedColor: string = this.colors[0];
+  colors: any[] = [{ value: 'blue', color: '#2E5BFF' }, { value: 'green', color: '#00D34F' }, { value: 'orange', color: '#EF7E15' }, { value: 'yellow', color: '#FFDE68' }, { value: 'red', color: '#FF2E2E' }];
+
+  timepickerEnabled: boolean = false;
 
   constructor(private _toastMessage: ToastMessageService, private _fb: FormBuilder, private _apolloService: ApolloService) {
     this.getLawyerEvents();
@@ -214,7 +215,7 @@ export class CalendarComponent {
       if (data.data != null) {
         if (data.data.getCaseDiaryList.status == 200) {
           this.caseList = data.data.getCaseDiaryList.data.caseDiaryList.result;
-          this.caseList.unshift({ caseName: "Select", _id: "" });
+          this.caseList.unshift({ caseName: "Select", _id: " " });
         }
         else {
           this._toastMessage.error(data.data.getCaseDiaryList.message);
@@ -235,7 +236,7 @@ export class CalendarComponent {
             event.start = new Date(event.eventStartDate);
             event.end = new Date(event.eventEndDate);
             event.color = {
-              primary: event.color
+              primary: event.colors
             };
             event.meta = {
               description: event.eventDescription,
@@ -243,16 +244,18 @@ export class CalendarComponent {
               reminder: event.reminder,
             };
             event.allDay = event.allDayCheck;
-            event.actions = [
-              {
-                label: '<i class="fas fa-fw fa-pencil-alt"></i>Delete',
-                onClick: (event: any): void => { this.handleDelete(), this.eventToBeDeleted = event.event },
-              },
-              {
-                label: '<i class="fas fa-fw fa-trash-alt"></i>&nbsp;Edit',
-                onClick: (event: any): void => { this.handleEdit(event.event), this.eventToBeEdited = event.event },
-              }
-            ];
+            if (event._id != "") {
+              event.actions = [
+                {
+                  label: '<i class="fas fa-fw fa-pencil-alt"></i>Delete',
+                  onClick: (event: any): void => { this.handleDelete(), this.eventToBeDeleted = event.event },
+                },
+                {
+                  label: '<i class="fas fa-fw fa-trash-alt"></i>&nbsp;Edit',
+                  onClick: (event: any): void => { this.handleEdit(event.event), this.eventToBeEdited = event.event },
+                }
+              ];
+            }
           })
           this.events = res;
         }
@@ -264,14 +267,13 @@ export class CalendarComponent {
   }
 
   handleEventClick(e: CalendarEvent) {
-    console.log(e);
   }
 
   handleEdit(event: any) {
-    console.log(event);
     this.editEventForm.patchValue(event);
+    this.timepickerEnabled = event.allDayCheck ? true : false;
     this.editEventForm.controls.color.patchValue(this.editEventForm.controls.color.value.primary);
-    console.log(this.editEventForm.value);
+    // this.editEventForm.controls.eventId.patchValue(event._id);
     let editEventButton = document.getElementById('editEventButton') as HTMLElement;
     editEventButton.click();
   }
@@ -301,10 +303,12 @@ export class CalendarComponent {
     if (this.eventForm.controls.allDayCheck.value == false) {
       this.eventForm.controls.eventStartTime.setValidators([Validators.required]);
       this.eventForm.controls.eventEndTime.setValidators([Validators.required]);
+      this.timepickerEnabled = !this.timepickerEnabled;
     }
     if (this.eventForm.controls.allDayCheck.value == true) {
       this.eventForm.controls.eventStartTime.removeValidators([Validators.required]);
       this.eventForm.controls.eventEndTime.removeValidators([Validators.required]);
+      this.timepickerEnabled = !this.timepickerEnabled;
     }
   }
 
@@ -312,16 +316,13 @@ export class CalendarComponent {
     if (this.editEventForm.controls.allDayCheck.value == false) {
       this.editEventForm.controls.eventStartTime.setValidators([Validators.required]);
       this.editEventForm.controls.eventEndTime.setValidators([Validators.required]);
+      this.timepickerEnabled = !this.timepickerEnabled;
     }
     if (this.editEventForm.controls.allDayCheck.value == true) {
       this.editEventForm.controls.eventStartTime.removeValidators([Validators.required]);
       this.editEventForm.controls.eventEndTime.removeValidators([Validators.required]);
+      this.timepickerEnabled = !this.timepickerEnabled;
     }
-  }
-
-  onColorChange(color: string) {
-    this.selectedColor = color;
-    console.log('Selected color:', this.selectedColor);
   }
 
   addAvaliability() {
@@ -366,25 +367,14 @@ export class CalendarComponent {
 
   editAvailability(slot: any) {
     this.isEditMode = true;
-    // this.slot = [];
-    // this.slot = slot.timeSlots;
-    // this.slotDate = slot.date;
-    // this.slotId = slot._id;
     this.availabilityForm.reset();
     this.availabilityForm.patchValue(new AvailabilityModel);
-    console.log(slot,"editSlot")
-    console.log(this.slots,"allSLot");
     this.availabilityForm.patchValue(slot);
     let element = document.getElementById('addAvailabilityButton') as HTMLElement;
     element.click();
   }
 
   updateAvailability() {
-    // let data = {
-    //   avability_id: this.availabilityForm.controls._id.value,
-    //   date: this.availabilityForm.controls.date.value,
-    //   timeSlots: this.availabilityForm.controls.timeSlots.value
-    // }
     this._apolloService.mutate(GQLConfig.editAvailability, this.availabilityForm.value).subscribe((data) => {
       if (data.data != null) {
         if (data.data.editAvailability.status == 200) {
@@ -416,5 +406,11 @@ export class CalendarComponent {
         }
       }
     });
+  }
+
+  resetEventForm() {
+    this.timepickerEnabled = false;
+    this.eventForm.reset();
+    this.eventForm.patchValue(new EventModel);
   }
 }

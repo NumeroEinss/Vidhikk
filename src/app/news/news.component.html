@@ -15,12 +15,55 @@
       <div class="feed-section">
         <div class="d-flex mb-4">
           <div class="w-100">
-            <div class="w-100" style="height: calc(100vh - 280px);margin-bottom: 10px;">
-              <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+            <div class="w-100" style="height: calc(100vh - 340px);margin-bottom: 10px;">
+              <ng-scrollbar #scroll autoHeightDisabled="false" appearance="standard">
                 <div class="news-feed-container">
                   <div class="news-feed-section" *ngFor="let news of newsList">
                     <!-- <div class="news-image"><img [src]="news.image_url" onerror="this.onerror=null;
                     this.src='../../assets/images/image/no-image.png'" /></div> -->
+                    <div class="news-details">
+                      <div class="news-heading d-flex"><img class="news-logo" [src]="news.thumbnail"
+                          onerror="this.onerror=null;this.src='../../assets/images/image/no-image.png'">
+                        <span>{{ news.title?.substr(0, getHeadingLength())}}
+                          {{news.title?.length>getHeadingLength()?'...':''}}</span>
+                      </div>
+                      <div class="news-description mt-1">{{ news?.description?.substr(0,getCharLength())}}&nbsp;<a
+                          target="_blank" [href]="getNewsUrl(news)">Read More..</a></div>
+                      <!-- <div class="publisher mt-1">
+                        Publisher: <a target="_blank" [href]="news?.publisher.href">{{news?.publisher.title}}</a>
+                      </div> -->
+                      <div class="timestamp mt-1">
+                        <div class="vector"></div> {{news.date}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-scrollbar>
+              <app-paginator [currentPage]="currentPage" (previousPageEvent)="previousPage();scroll.scrollTo({top:0});"
+                [recordCount]="recordCount" [pageSize]="pageSize"
+                (nextPageEvent)="nextPage();scroll.scrollTo({top:0});"></app-paginator>
+            </div>
+          </div>
+
+          <div class="advertisement">
+            <img class="img1 mb-1" src="../../assets/images/image/lawyer_2.jpg" [width]="300" alt="noImage" />
+            <img class="img2 mb-1" src="../../assets/images/image/advertisement_2.png" alt="noImage" />
+          </div>
+        </div>
+
+
+      </div>
+    </mat-tab>
+    <mat-tab label="Legal News">
+
+      <div class="feed-section legal-news">
+        <div class="d-flex mb-4">
+          <div class="w-100">
+            <div class="w-100" style="height: calc(100vh - 340px);margin-bottom: 10px;"
+              *ngIf="newsListLegal.length > 0">
+              <ng-scrollbar #scroll2 autoHeightDisabled="false" appearance="standard">
+                <div class="news-feed-container">
+                  <div class="news-feed-section" *ngFor="let news of newsListLegal">
                     <div class="news-details">
                       <div class="news-heading d-flex"><img class="news-logo"
                           src="https://akm-img-a-in.tosshub.com/aajtak/resource/img/icons/favicon.ico"
@@ -41,11 +84,14 @@
                   </div>
                 </div>
               </ng-scrollbar>
+              <app-paginator [currentPage]="currentPageLegal"
+                (previousPageEvent)="previousPageLegal();scroll2.scrollTo({top:0});" [recordCount]="recordCountLegal"
+                [pageSize]="pageSizeLegal" (nextPageEvent)="nextPageLegal();scroll2.scrollTo({top:0});"></app-paginator>
             </div>
 
-            <!-- <div class="news w-100">
+            <div class="news w-100" *ngIf="newsListLegal.length == 0">
               <img src="../../assets/images/image/mcdonald.jpg" alt="noImage" />
-            </div> -->
+            </div>
           </div>
 
           <div class="advertisement">
@@ -53,47 +99,6 @@
             <img class="img2 mb-1" src="../../assets/images/image/advertisement_2.png" alt="noImage" />
           </div>
         </div>
-
-
-      </div>
-    </mat-tab>
-    <mat-tab label="Legal News">
-
-      <div class="feed-section legal-news">
-        <img src="../../assets/images/image/No_Data.png" class="noDataImage" alt="">
-        <!-- <div class="d-flex mb-4">
-          <div class="w-100">
-            <div class="w-100" style="height: calc(100vh - 440px);margin-bottom: 10px;">
-              <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-                <div class="news-feed-container">
-                  <div class="d-flex news-feed-section" *ngFor="let news of newsList">
-                    <div class="news-image"><img [src]="news.image_url" onerror="this.onerror=null;
-                    this.src='../../assets/images/image/no-image.png'" /></div>
-                    <div class="news-details">
-                      <div class="news-heading">{{ news.title?.substr(0,
-                        getHeadingLength())}} {{news.title?.length>getHeadingLength()?'...':''}}</div>
-                      <div class="news-description mt-1">{{ news.description?.substr(0,getCharLength())}}
-                        {{news.description?.length>getCharLength()? '...': ''}}</div>
-                      <div class="read-more mt-1">
-                        Publisher: <a target="_blank" [href]="news.publisher.href">{{news.publisher.href}}</a> &nbsp;<a
-                          target="_blank" [href]="news.url">Read More..</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-scrollbar>
-            </div>
-
-            <div class="news w-100">
-              <img src="../../assets/images/image/mcdonald.jpg" alt="noImage" />
-            </div>
-          </div>
-
-          <div class="advertisement">
-            <img class="img1 mb-1" src="../../assets/images/image/lawyer_2.jpg" [width]="300" alt="noImage" />
-            <img class="img2 mb-1" src="../../assets/images/image/advertisement_2.png" alt="noImage" />
-          </div>
-        </div> -->
       </div>
     </mat-tab>
     <!-- root section ends-->

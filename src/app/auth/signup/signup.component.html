@@ -1,4 +1,4 @@
-<div class="d-flex h-100">
+<div class="d-flex h-100" appPreventKeyboardEvents>
   <div class="col-lg-5 col-md-6 d-flex signup-form" [ngStyle]="opacityStyling">
     <div class="header-text">
       <img src="../../../assets/images/icons/vidhiklogo.svg" alt="vidhik" />
@@ -63,7 +63,7 @@
       </div>
       <form [formGroup]="lawyerForm" class="col mt-3" *ngIf="otpVerified && userType =='LAWYER'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="lawyerForm.controls.profileImage.value" />
+          <img class="profile" [src]="lawyerForm.controls.file.value" />
           <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
@@ -131,8 +131,8 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select State" formControlName="state" [disabled]="true" required>
-            <mat-option *ngFor="let state of cityList" [value]="state.state">
+          <mat-select placeholder="Select State" formControlName="state" required>
+            <mat-option *ngFor="let state of cityList" [value]="state.state" disabled>
               {{ state.state }}
             </mat-option>
           </mat-select>
@@ -332,7 +332,7 @@
 
       <form [formGroup]="userForm" class="col mt-3" *ngIf="otpVerified && userType =='USER'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="userForm.controls.profileImage.value" />
+          <img class="profile" [src]="userForm.controls.file.value" />
           <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
@@ -365,8 +365,8 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select State" formControlName="state" [disabled]="true" required>
-            <mat-option *ngFor="let state of cityList" [value]="state.state">
+          <mat-select placeholder="Select State" formControlName="state" required>
+            <mat-option *ngFor="let state of cityList" [value]="state.state" disabled>
               {{ state.state }}
             </mat-option>
           </mat-select>
@@ -468,7 +468,7 @@
 
       <form [formGroup]="judgeForm" class="col mt-3" *ngIf="otpVerified && userType =='JUDGE'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="judgeForm.controls.profileImage.value" />
+          <img class="profile" [src]="judgeForm.controls.file.value" />
           <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
@@ -501,8 +501,8 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
-          <mat-select placeholder="Select State" formControlName="state" [disabled]="true" required>
-            <mat-option *ngFor="let state of cityList" [value]="state.state">
+          <mat-select placeholder="Select State" formControlName="state" required>
+            <mat-option *ngFor="let state of cityList" [value]="state.state" disabled>
               {{ state.state }}
             </mat-option>
           </mat-select>

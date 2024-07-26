@@ -12,10 +12,5 @@ export class AppComponent {
   title = 'Vidhik';
   loaderType = ngxLoadingAnimationTypes;
 
-  constructor(
-    private _messagingService: MessagingService,
-    public toastMessage: ToastMessageService
-  ) {
-
-  }
+  constructor(public toastMessage: ToastMessageService) { }
 }

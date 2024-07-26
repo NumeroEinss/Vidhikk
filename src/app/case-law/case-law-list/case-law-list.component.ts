@@ -319,6 +319,8 @@ export class CaseLawListComponent {
   searchedWord: string = "";
   wordsPhraseRadioModel: number = 1;
 
+  pageSize: number = 50;
+
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder) {
     this._dateAdapter.setLocale('en-GB');
@@ -432,7 +434,7 @@ export class CaseLawListComponent {
   }
 
   getCaseLaws(page: number) {
-    this._apolloService.get(`/judgement/latest?page=${page}&pageSize=50`).subscribe(objRes => {
+    this._apolloService.get(`/judgement/latest?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
       if (objRes.status == "success") {
         this.caseList = objRes.data.items;
         this.recordCount = objRes.data.totalCount;
@@ -539,7 +541,7 @@ export class CaseLawListComponent {
   }
 
   getCaseLawByAdvanceSearch(page: number) {
-    this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=50`, this.advanceSearchForm.value).subscribe(objRes => {
+    this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
       if (objRes.status == "success") {
         this.respAdvanceSearchList = objRes.data.items;
         this.recordCount = objRes.data.totalCount;
@@ -574,8 +576,7 @@ export class CaseLawListComponent {
         text: this.searchedWord,
         exact: this.wordsPhraseRadioModel
       }
-      console.log(data, 'data')
-      this._apolloService.post(`/judgement/search/words?page=${page}&pageSize=50`, data).subscribe(objRes => {
+      this._apolloService.post(`/judgement/search/words?page=${page}&pageSize=${this.pageSize}`, data).subscribe(objRes => {
         if (objRes.status == "success") {
           this.respWordsPhraseList = objRes.data.items;
           this.recordCount = objRes.data.totalCount;

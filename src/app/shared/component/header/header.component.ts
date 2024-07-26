@@ -12,19 +12,19 @@ export class HeaderComponent {
 
   notifications = [
     {
-      image: '../assets/images/notification_user.png',
+      image: '../assets/images/image/notification_user.png',
       name: 'Member Request',
       detail: 'You have new request. Get excited! click to view',
       days: '4 mins ago'
     },
     {
-      image: '../assets/images/notification_user.png',
+      image: '../assets/images/image/notification_user.png',
       name: 'Member Request',
       detail: 'Your Exotic Veggie Platter is on the menu. Get excited!',
       days: '2 days ago'
     },
     {
-      image: '../assets/images/notification_user.png',
+      image: '../assets/images/image/notification_user.png',
       name: 'Member Request',
       detail: 'You have new request. Get excited! click to view',
       days: '12 days ago'

@@ -73,15 +73,17 @@
                         @for (lawyer of allLawyerList; track lawyer) {
                         <div class="node" (click)="viewLawyerDetails()">
                             <div class="subnode d-flex justify-content-center">
-                                <img class="display-profile" [src]="lawyer.image" width="200" height="150" alt="">
+                                <img class="display-profile" [src]="getImageUrl(lawyer.profileImage)" width="200"
+                                    height="150"
+                                    onerror="this.onerror=null;this.src='../../../assets/images/image/no-image.png';">
                                 <div class="lawyer-details">
-                                    <div class="location">{{lawyer.location}}</div>
-                                    <div class="type">{{lawyer.type}}</div>
+                                    <div class="location">{{lawyer.city}}</div>
+                                    <div class="type">{{lawyer.practicingField[0]}}</div>
                                     <div class="d-flex">
-                                        <div class="experience">{{lawyer.experience}}</div>
+                                        <div class="experience">{{lawyer.experience}}8+ Experience</div>
                                         <div class="rating" (click)="viewRating()">
                                             <img src="../../../assets/images/icons/star.svg" alt="">
-                                            <div>({{lawyer.rating}})</div>
+                                            <div>({{lawyer.rating}}5)</div>
                                         </div>
                                     </div>
                                 </div>

@@ -16,18 +16,18 @@ export class MessagingService {
   requestPermission() {
     this._afMessaging.requestToken.subscribe(
       (token: any) => {
-        console.log(token, 'tokenGenerated!!');
-        console.log('Token Recieved !!');
+        // console.log(token, 'tokenGenerated!!');
+        // console.log('Token Recieved !!');
         this.accessToken.next(token);
       }
     );
   }
 
   receiveMessaging() {
-    console.log("Subscribing to messages...");
+    // console.log("Subscribing to messages...");
     this._afMessaging.messages.subscribe(
       (payload: any) => {
-        console.log("new message received", payload);
+        // console.log("new message received", payload);
         this.currentMessage.next(payload);
       }
     );
@@ -46,7 +46,7 @@ export class MessagingService {
       )
       .subscribe(
         data => {
-          console.log('Token deleted:', data);
+          // console.log('Token deleted:', data);
         }
       );
   }

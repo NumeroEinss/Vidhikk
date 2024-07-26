@@ -1,13 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
 import { TemplateService } from '../../shared/services/template.service';
 import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-view-application',

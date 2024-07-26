@@ -12,13 +12,14 @@ export class BareActsComponent {
   bareActsList: any = [];
   recordCount: number = 0;
   currentPage: number = 1;
+  pageSize: number = 50;
 
   constructor(private _apolloService: ApolloService, private _router: Router) {
     this.getBareActs(this.currentPage);
   }
 
   getBareActs(page: number) {
-    this._apolloService.get(`/act?page=${page}&pageSize=50`).subscribe(objRes => {
+    this._apolloService.get(`/act?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
       if (objRes.status == "success") {
         this.bareActsList = objRes.data.acts;
         this.recordCount = objRes.data.totalCount;
@@ -27,7 +28,7 @@ export class BareActsComponent {
   }
 
   viewBareActs(caseId: any) {
-    this._router.navigate([`lawyer/case-law/bare-acts/view/${caseId}`]);
+    this._router.navigate([`/lawyer/bare-acts/view/${caseId}`]);
   }
 
   nextPage(): void {

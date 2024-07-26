@@ -8,6 +8,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class PaginatorComponent {
 
   @Input() currentPage: number = 1;
+  @Input() recordCount: number = 0;
+  @Input() pageSize: number = 0;
   @Output() previousPageEvent: EventEmitter<number> = new EventEmitter();
   @Output() nextPageEvent: EventEmitter<number> = new EventEmitter();
 
@@ -19,5 +21,9 @@ export class PaginatorComponent {
 
   nextPage() {
     this.nextPageEvent.emit();
+  }
+
+  getPageCount(value: any) {
+    return Math.ceil(value);
   }
 }

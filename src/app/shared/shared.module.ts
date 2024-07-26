@@ -12,6 +12,7 @@ import { AuthService } from './services/auth.service';
 import { HighlighterPipe } from './pipe/highlighter.pipe';
 import { PaginatorComponent } from './component/paginator/paginator.component';
 import { SafeHTMLPipe } from './pipe/safe-html.pipe';
+import { PreventKeyboardEventsDirective } from './directives/prevent-keyboard-events.directive';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { SafeHTMLPipe } from './pipe/safe-html.pipe';
     TableComponent,
     HighlighterPipe,
     PaginatorComponent,
-    SafeHTMLPipe
+    SafeHTMLPipe,
+    PreventKeyboardEventsDirective
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { SafeHTMLPipe } from './pipe/safe-html.pipe';
     NgScrollbarModule,
     HighlighterPipe,
     PaginatorComponent,
-    SafeHTMLPipe
+    SafeHTMLPipe,
+    PreventKeyboardEventsDirective
   ],
   providers: [AuthService]
 })

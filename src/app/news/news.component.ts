@@ -17,13 +17,21 @@ export class NewsComponent {
     // }
   ];
   selectedIndex: any;
+  pageSize: number = 10;
+  currentPage: number = 1;
+  recordCount: number = 0;
+
+  currentPageLegal: number = 1;
+  recordCountLegal: number = 0;
+  pageSizeLegal: number = 10;
+  newsListLegal: any = [];
 
   constructor(private _apolloService: ApolloService, private _toastMessage: ToastMessageService) {
-    this.getNewsFeed();
+    this.getNewsFeed(1);
+    this.getLegalNews(1);
   }
 
   scrolled(e: any) {
-    console.log(e,'scrolled')
     let pos = e.target.scrollTop + e.target.clientHeight;
     let max = e.target.scrollHeight;
     if (pos >= max) {
@@ -39,17 +47,16 @@ export class NewsComponent {
     return (window.innerWidth > 1199) ? 160 : 90;
   }
 
-  getNewsFeed() {
-    this._apolloService.get('/news').subscribe(data => {
+  getNewsFeed(page: number) {
+    this._apolloService.get(`/news/latest?page=${page}&pageSize=${this.pageSize}`).subscribe(data => {
       if (data.status == 'success') {
         this.newsList = data.data.items;
-
+        this.recordCount = data.data.totalCount;
       }
     })
   }
 
   tabSelectionChange(e: any) {
-    console.log(e);
   }
 
   timeAgo(dateString: Date) {
@@ -76,6 +83,48 @@ export class NewsComponent {
   }
 
   onBottomReached(e: any) {
-    console.log(e,'Bottom Reached')
+    console.log(e, 'Bottom Reached')
+  }
+
+  nextPage(): void {
+    let val = this.currentPage += 1;
+    this.getNewsFeed(val);
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      let val = this.currentPage -= 1;
+      this.getNewsFeed(val);
+    }
+  }
+
+  getLegalNews(page: number) {
+    this._apolloService.get(`/news?page=${page}&pageSize=${this.pageSizeLegal}`).subscribe(data => {
+      if (data.status == 'success') {
+        this.newsListLegal = data.data.items;
+        this.recordCountLegal = data.data.totalCount;
+      }
+    })
+  }
+
+  previousPageLegal() {
+    if (this.currentPageLegal > 1) {
+      let val = this.currentPageLegal -= 1;
+      this.getLegalNews(val);
+    }
+  }
+
+  nextPageLegal() {
+    let val = this.currentPageLegal += 1;
+    this.getLegalNews(val);
+  }
+
+  getNewsUrl(news: any): string {
+    if (news.link.startsWith('/')) {
+      return 'https://' + news.source.replace('_', '') + '.com' + news.link;
+    }
+    else {
+      return news.link;
+    }
   }
 }

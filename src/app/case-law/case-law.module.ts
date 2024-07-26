@@ -7,15 +7,13 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaseLawDetailComponent } from './case-law-detail/case-law-detail.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { BareActsDetailComponent } from './bare-acts-detail/bare-acts-detail.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HighlighterPipe } from '../shared/pipe/highlighter.pipe';
 
 @NgModule({
   declarations: [
     CaseLawListComponent,
-    CaseLawDetailComponent,
-    BareActsDetailComponent
+    CaseLawDetailComponent
   ],
   imports: [
     CommonModule,
