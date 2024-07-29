@@ -73,7 +73,7 @@ export class AuthService {
               }
             }
             else if (userType == "SELLER") {
-              // this._router.navigate(['/user/activity-feed']);
+              // this._router.navigate(['/seller/activity-feed']);
               this._toastMessage.message('Please select different user !!');
             }
             else if (userType == "JUDGE") {

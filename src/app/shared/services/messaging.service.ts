@@ -14,24 +14,37 @@ export class MessagingService {
   }
 
   requestPermission() {
+    // console.log('Requesting permission for notifications');
     this._afMessaging.requestToken.subscribe(
-      (token: any) => {
-        // console.log(token, 'tokenGenerated!!');
-        // console.log('Token Recieved !!');
-        this.accessToken.next(token);
+      {
+        next: (token: any) => {
+          // console.log('Permission granted !!');
+          this.accessToken.next(token);
+          // console.log(token, 'Generated Token !!');
+        },
+        error: (error) => {
+          console.error('Permission denied or error occurred:', error);
+        }
       }
     );
   }
 
+
   receiveMessaging() {
-    // console.log("Subscribing to messages...");
+    // console.log('Setting up message receiver');
     this._afMessaging.messages.subscribe(
-      (payload: any) => {
-        // console.log("new message received", payload);
-        this.currentMessage.next(payload);
+      {
+        next: (payload: any) => {
+          // console.log('Message received', payload);
+          this.currentMessage.next(payload);
+        },
+        error: (error) => {
+          console.error('Error receiving messages:', error);
+        }
       }
     );
   }
+
 
   deleteToken() {
     this._afMessaging.getToken
@@ -46,7 +59,7 @@ export class MessagingService {
       )
       .subscribe(
         data => {
-          // console.log('Token deleted:', data);
+          console.log('Token deleted:', data);
         }
       );
   }

@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { GQLConfig } from '../../graphql.operations';
 import { AuthService } from '../../shared/services/auth.service';
-import { MessagingService } from '../../shared/services/messaging.service';
 
 
 @Component({
@@ -29,8 +28,7 @@ export class LoginComponent {
     private _formBuilder: FormBuilder,
     private _router: Router,
     private _toastMessage: ToastMessageService,
-    private _authService: AuthService,
-    private _messagingService: MessagingService
+    private _authService: AuthService
   ) {
     this.loginForm = this._formBuilder.group({
       userType: new FormControl('', [Validators.required]),
