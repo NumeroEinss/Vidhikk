@@ -11,11 +11,13 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { MessagingService } from '../../shared/services/messaging.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private _router: Router, private _toastMessage: ToastMessageService, private _authService: AuthService) { }
+  constructor(private _router: Router, private _toastMessage: ToastMessageService, private _authService: AuthService,
+    private _messagingService: MessagingService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this._toastMessage.showLoader = true;
@@ -30,6 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         else if (error.status == 401) {
           this._toastMessage.error('Unauthorized User !!');
           this._authService.logout();
+          this._messagingService.deleteToken();
         }
         else {
           // Server-side errors

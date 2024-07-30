@@ -82,8 +82,8 @@
       </div>
       <app-paginator [currentPage]="caseLawCurrentPage"
         (nextPageEvent)="caseLawNextPage();latestCaseScroll.scrollTo({top:0});"
-        (previousPageEvent)="caseLawPrevEvent();latestCaseScroll.scrollTo({top:0});" 
-        [pageSize]="pageSize" [recordCount]="recordCount"></app-paginator>
+        (previousPageEvent)="caseLawPrevEvent();latestCaseScroll.scrollTo({top:0});" [pageSize]="pageSize"
+        [recordCount]="recordCount"></app-paginator>
     </mat-tab>
     <!-- Lates Cases Ends -->
 
@@ -117,8 +117,8 @@
         </div>
       </div>
       <!-- Case Law List -->
-      <div style="height: calc(100vh - 243px)" [hidden]="showAppSearch">
-        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+      <div style="height: calc(100vh - 310px)" [hidden]="showAppSearch">
+        <ng-scrollbar #appScroll autoHeightDisabled="false" appearance="standard">
           @for (case of resAppList; track case) {
           <div class="case-container" (click)="viewCase(case._id,appInputRef.nativeElement.value)">
             <div class="title"
@@ -144,6 +144,10 @@
           }
         </ng-scrollbar>
       </div>
+      <app-paginator [hidden]="showAppSearch" [currentPage]="applicantCurrentPage"
+        (nextPageEvent)="applicantNextPage();appScroll.scrollTo({top:0});"
+        (previousPageEvent)="applicantPrevPage();appScroll.scrollTo({top:0});" [pageSize]="pageSize"
+        [recordCount]="recordCount"></app-paginator>
     </mat-tab>
     <!-- Applicant Ends -->
 
@@ -176,8 +180,8 @@
         </div>
       </div>
       <!-- Case Law List -->
-      <div style="height: calc(100vh - 243px)" [hidden]="showRespSearch">
-        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+      <div style="height: calc(100vh - 310px)" [hidden]="showRespSearch">
+        <ng-scrollbar #respScroll autoHeightDisabled="false" appearance="standard">
           @for (case of resRespList; track case) {
           <div class="case-container" (click)="viewCase(case._id,respInputRef.nativeElement.value)">
             <div class="title"
@@ -199,6 +203,10 @@
           }
         </ng-scrollbar>
       </div>
+      <app-paginator [hidden]="showRespSearch" [currentPage]="respondantCurrentPage"
+        (nextPageEvent)="respondantNextPage();respScroll.scrollTo({top:0});"
+        (previousPageEvent)="respondantPrevPage();respScroll.scrollTo({top:0});" [pageSize]="pageSize"
+        [recordCount]="recordCount"></app-paginator>
     </mat-tab>
     <!-- Respondent  Ends -->
 
@@ -378,8 +386,8 @@
       </div>
       <app-paginator [currentPage]="wordsPhraseCurrentPage" [hidden]="showWordsSearch"
         (nextPageEvent)="wordsNextEvent();latestCaseScroll.scrollTo({top:0});"
-        (previousPageEvent)="wordsPrevEvent();latestCaseScroll.scrollTo({top:0});"
-        [pageSize]="pageSize" [recordCount]="recordCount"></app-paginator>
+        (previousPageEvent)="wordsPrevEvent();latestCaseScroll.scrollTo({top:0});" [pageSize]="pageSize"
+        [recordCount]="recordCount"></app-paginator>
     </mat-tab>
     <!--Words & Phrase Ends -->
 
@@ -578,8 +586,8 @@
       </div>
       <app-paginator [currentPage]="advanceSearchCurrentPage" [hidden]="showRespAdvanceSearch"
         (nextPageEvent)="advanceSearchNextPage();advanceSearchScroll.scrollTo({top:0});"
-        (previousPageEvent)="advanceSearchPrevPage();advanceSearchScroll.scrollTo({top:0});"
-        [pageSize]="pageSize" [recordCount]="recordCount"></app-paginator>
+        (previousPageEvent)="advanceSearchPrevPage();advanceSearchScroll.scrollTo({top:0});" [pageSize]="pageSize"
+        [recordCount]="recordCount"></app-paginator>
     </mat-tab>
     <!--Advance Search Ends -->
   </mat-tab-group>

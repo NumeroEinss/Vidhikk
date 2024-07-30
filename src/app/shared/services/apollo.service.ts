@@ -5,6 +5,7 @@ import { Apollo, TypedDocumentNode } from 'apollo-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { getBaseUrl } from '../../graphql.module';
+import { MessagingService } from './messaging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ApolloService {
   private baseUrl: string = "http://84.247.151.137:3000";
 
   constructor(private _apollo: Apollo, private _toastMessage: ToastMessageService, private _http: HttpClient,
-    private _authService: AuthService) { }
+    private _authService: AuthService, private _messagingService: MessagingService) { }
 
   query(query: TypedDocumentNode<any>, variables?: Object): Observable<any> {
     return this._apollo.query({ query: query, variables: variables, errorPolicy: 'all' })
@@ -91,6 +92,7 @@ export class ApolloService {
     if (error[0].message == 'Forbidden') {
       this._toastMessage.error("Access Denied !! Login Again");
       this._authService.logout();
+      this._messagingService.deleteToken();
     }
   }
 

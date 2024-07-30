@@ -19,11 +19,10 @@
               <ng-scrollbar #scroll autoHeightDisabled="false" appearance="standard">
                 <div class="news-feed-container">
                   <div class="news-feed-section" *ngFor="let news of newsList">
-                    <!-- <div class="news-image"><img [src]="news.image_url" onerror="this.onerror=null;
-                    this.src='../../assets/images/image/no-image.png'" /></div> -->
+                    <div class="news-image"><img [src]="news.thumbnail" onerror="this.onerror=null;
+                    this.src='../../assets/images/image/no-image.png'" /></div>
                     <div class="news-details">
-                      <div class="news-heading d-flex"><img class="news-logo" [src]="news.thumbnail"
-                          onerror="this.onerror=null;this.src='../../assets/images/image/no-image.png'">
+                      <div class="news-heading d-flex">
                         <span>{{ news.title?.substr(0, getHeadingLength())}}
                           {{news.title?.length>getHeadingLength()?'...':''}}</span>
                       </div>

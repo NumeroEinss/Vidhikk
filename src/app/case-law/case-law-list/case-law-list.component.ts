@@ -321,6 +321,10 @@ export class CaseLawListComponent {
 
   pageSize: number = 50;
 
+  applicantCurrentPage: number = 1;
+
+  respondantCurrentPage: number = 1;
+
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder) {
     this._dateAdapter.setLocale('en-GB');
@@ -465,7 +469,7 @@ export class CaseLawListComponent {
       this._toastMessage.error('Applicant name is required !!');
     }
     else {
-      this._apolloService.get(`/judgement/search/appellant/${keyWord}`).subscribe(objRes => {
+      this._apolloService.get(`/judgement/search/appellant/${keyWord}?page=${this.applicantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
         if (objRes.status == "success") {
           this.resAppList = objRes.data.items;
           this.recordCount = objRes.data.totalCount;
@@ -603,5 +607,47 @@ export class CaseLawListComponent {
 
   getCharLength(): number {
     return (window.innerWidth > 1199) ? 440 : 200;
+  }
+
+  applicantNextPage() {
+    let val = this.applicantCurrentPage += 1;
+    this.getPaginatedCaseLawByApplicant(val);
+  }
+
+  applicantPrevPage() {
+    if (this.applicantCurrentPage > 1) {
+      let val = this.applicantCurrentPage -= 1;
+      this.getPaginatedCaseLawByApplicant(val);
+    }
+  }
+
+  getPaginatedCaseLawByApplicant(page: any) {
+    this._apolloService.get(`/judgement/search/appellant/${this.appInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.resAppList = objRes.data.items;
+        this.recordCount = objRes.data.totalCount;
+      }
+    })
+  }
+
+  respondantNextPage() {
+    let val = this.respondantCurrentPage += 1;
+    this.getPaginatedCaseLawByRespondant(val);
+  }
+
+  respondantPrevPage() {
+    if (this.respondantCurrentPage > 1) {
+      let val = this.respondantCurrentPage -= 1;
+      this.getPaginatedCaseLawByRespondant(val);
+    }
+  }
+
+  getPaginatedCaseLawByRespondant(page: any) {
+    this._apolloService.get(`/judgement/search/respondents/${this.respInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.resRespList = objRes.data.items;
+        this.recordCount = objRes.data.totalCount;
+      }
+    })
   }
 }

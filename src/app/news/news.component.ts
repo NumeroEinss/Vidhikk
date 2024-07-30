@@ -40,11 +40,11 @@ export class NewsComponent {
   }
 
   getHeadingLength(): number {
-    return (window.innerWidth > 1199) ? 90 : 30;
+    return (window.innerWidth > 1199) ? 90 : 50;
   }
 
   getCharLength(): number {
-    return (window.innerWidth > 1199) ? 160 : 90;
+    return (window.innerWidth > 1199) ? 200 : 90;
   }
 
   getNewsFeed(page: number) {

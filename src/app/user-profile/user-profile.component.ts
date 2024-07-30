@@ -4,6 +4,7 @@ import { JudgeSignupModel, LawyerSignupModel } from '../../app/common/signup.mod
 import { userProfileModel } from '../common/user-profile.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
+import { MessagingService } from '../shared/services/messaging.service';
 
 
 @Component({
@@ -54,7 +55,9 @@ export class UserProfileComponent {
     },
   ];
 
-  constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService) {
+  constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService,
+    private _messagingService: MessagingService
+  ) {
     this.userType = this._router.url.split('/')[1];
 
     this.signupForm2 = this._fb.group(new LawyerSignupModel);
@@ -170,5 +173,6 @@ export class UserProfileComponent {
 
   logout() {
     this._authService.logout();
+    this._messagingService.deleteToken();
   }
 }

@@ -79,10 +79,10 @@
 
 
       .news-image {
-        width: 180px;
+        width: 100px;
 
         img {
-          width: 180px;
+          width: 100px;
           height: 100%;
           object-fit: cover;
           border-radius: 10px 0px 0px 10px;
@@ -181,18 +181,18 @@
         display: none;
       }
 
-      .news-feed-container {
-        .news-feed-section {
-          .news-image {
-            width: 180px;
+      // .news-feed-container {
+      //   .news-feed-section {
+      //     // .news-image {
+      //     //   width: 100px;
 
-            img {
-              width: 180px;
-              height: 100%;
-            }
-          }
-        }
-      }
+      //     //   img {
+      //     //     width: 100px;
+      //     //     height: 100%;
+      //     //   }
+      //     // }
+      //   }
+      // }
     }
   }
 }

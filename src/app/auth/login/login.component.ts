@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { GQLConfig } from '../../graphql.operations';
 import { AuthService } from '../../shared/services/auth.service';
+import { MessagingService } from '../../shared/services/messaging.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class LoginComponent {
     private _formBuilder: FormBuilder,
     private _router: Router,
     private _toastMessage: ToastMessageService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _messagingService: MessagingService
   ) {
     this.loginForm = this._formBuilder.group({
       userType: new FormControl('', [Validators.required]),
@@ -125,7 +127,9 @@ export class LoginComponent {
   login(formType: string) {
     if (formType == 'form') {
       if (this.loginForm.valid) {
-        this._authService.login(GQLConfig.loginWithEmail, this.loginForm.value, this.loginFrmCtrl.userType.value);
+        this._messagingService.requestPermission(GQLConfig.loginWithEmail, this.loginForm.value, this.loginFrmCtrl.userType.value);
+        this._messagingService.receiveMessaging();
+        // this._authService.login(GQLConfig.loginWithEmail, this.loginForm.value, this.loginFrmCtrl.userType.value);
       }
       else {
         this._toastMessage.error('Please Fill All Fields Properly!!');
@@ -133,7 +137,9 @@ export class LoginComponent {
     }
     else if (formType == 'form2') {
       if (this.loginForm2.valid) {
-        this._authService.login(GQLConfig.loginWithMobile, this.loginForm2.value, this.loginFrmCtrl2.userType.value);
+        this._messagingService.requestPermission(GQLConfig.loginWithMobile, this.loginForm2.value, this.loginFrmCtrl2.userType.value);
+        this._messagingService.receiveMessaging();
+        // this._authService.login(GQLConfig.loginWithMobile, this.loginForm2.value, this.loginFrmCtrl2.userType.value);
       }
       else {
         this._toastMessage.error('Please Fill All Fields Properly!!');
