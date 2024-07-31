@@ -1095,6 +1095,20 @@ body {
   mark {
     background-color: #e6e60bee;
   }
+
+  .paginator-input {
+    .mat-mdc-text-field-wrapper {
+      height: 30px !important;
+    }
+
+    .mat-mdc-form-field.mat-form-field-invalid .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mat-mdc-form-field-bottom-align::before {
+      display: none;
+    }
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

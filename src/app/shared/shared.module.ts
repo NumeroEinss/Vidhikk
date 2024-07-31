@@ -13,6 +13,7 @@ import { HighlighterPipe } from './pipe/highlighter.pipe';
 import { PaginatorComponent } from './component/paginator/paginator.component';
 import { SafeHTMLPipe } from './pipe/safe-html.pipe';
 import { PreventKeyboardEventsDirective } from './directives/prevent-keyboard-events.directive';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PreventKeyboardEventsDirective } from './directives/prevent-keyboard-ev
     CommonModule,
     MaterialModule,
     NgScrollbarModule,
-    MatChipsModule
+    MatChipsModule,
+    FormsModule
   ],
   exports: [
     HeaderComponent,

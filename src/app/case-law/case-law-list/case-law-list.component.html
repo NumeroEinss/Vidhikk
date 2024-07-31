@@ -56,7 +56,7 @@
         </mat-menu>
       </div>
       <!-- Case Law List -->
-      <div style="height: calc(100vh - 320px)">
+      <div style="height: calc(100vh - 290px)">
         <ng-scrollbar #latestCaseScroll autoHeightDisabled="false" appearance="standard" [hidden]="caseList.length==0">
           @for (case of caseList; track case) {
           <div class="case-container" (click)="viewCase(case._id)">
@@ -83,7 +83,7 @@
       <app-paginator [currentPage]="caseLawCurrentPage"
         (nextPageEvent)="caseLawNextPage();latestCaseScroll.scrollTo({top:0});"
         (previousPageEvent)="caseLawPrevEvent();latestCaseScroll.scrollTo({top:0});" [pageSize]="pageSize"
-        [recordCount]="recordCount"></app-paginator>
+        [recordCount]="recordCount" (goToPageEvent)="goToPageLatest($event)"></app-paginator>
     </mat-tab>
     <!-- Lates Cases Ends -->
 
@@ -117,7 +117,7 @@
         </div>
       </div>
       <!-- Case Law List -->
-      <div style="height: calc(100vh - 310px)" [hidden]="showAppSearch">
+      <div style="height: calc(100vh - 290px)" [hidden]="showAppSearch">
         <ng-scrollbar #appScroll autoHeightDisabled="false" appearance="standard">
           @for (case of resAppList; track case) {
           <div class="case-container" (click)="viewCase(case._id,appInputRef.nativeElement.value)">
@@ -180,7 +180,7 @@
         </div>
       </div>
       <!-- Case Law List -->
-      <div style="height: calc(100vh - 310px)" [hidden]="showRespSearch">
+      <div style="height: calc(100vh - 290px)" [hidden]="showRespSearch">
         <ng-scrollbar #respScroll autoHeightDisabled="false" appearance="standard">
           @for (case of resRespList; track case) {
           <div class="case-container" (click)="viewCase(case._id,respInputRef.nativeElement.value)">
@@ -364,7 +364,7 @@
         </div>
       </div>
       <!-- Words List -->
-      <div style="height: calc(100vh - 320px)" [hidden]="showWordsSearch">
+      <div style="height: calc(100vh - 290px)" [hidden]="showWordsSearch">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
           @for (case of respWordsPhraseList; track case) {
           <div class="case-container" (click)="viewCase(case._id,searchedWord)">
@@ -559,7 +559,7 @@
         </div>
       </div>
 
-      <div style="height: calc(100vh - 320px)" [hidden]="showRespAdvanceSearch">
+      <div style="height: calc(100vh - 290px)" [hidden]="showRespAdvanceSearch">
         <ng-scrollbar #advanceSearchScroll autoHeightDisabled="false" appearance="standard"
           [hidden]="respAdvanceSearchList.length==0">
           @for (case of respAdvanceSearchList; track case) {

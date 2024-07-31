@@ -544,6 +544,12 @@ export class CaseLawListComponent {
     this.getCaseLaws(val);
   }
 
+  goToPageLatest(e: any) {
+    this.caseLawCurrentPage = e;
+    console.log(e)
+    this.getCaseLaws(this.caseLawCurrentPage);
+  }
+
   getCaseLawByAdvanceSearch(page: number) {
     this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
       if (objRes.status == "success") {

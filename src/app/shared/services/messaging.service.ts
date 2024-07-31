@@ -20,6 +20,7 @@ export class MessagingService {
           console.log('Permission granted !!');
           this.accessToken.next(token);
           console.log(token, 'Generated Token !!');
+          variables.notificationToken = token;
           this._authService.login(query, variables, userType);
         },
         error: (error) => {

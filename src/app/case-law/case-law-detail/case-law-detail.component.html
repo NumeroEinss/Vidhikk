@@ -44,9 +44,9 @@
           <div class="desc-body mt-4" [innerHTML]="caseLawDetail.document"></div>
         </div> -->
         <div *ngIf="keyWord.keyWord" class="mt-4"
-          [innerHTML]="caseLawDetail.document|highlighter:keyWord.keyWord|safeHTML">
+          [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|highlighter:keyWord.keyWord|safeHTML">
         </div>
-        <div *ngIf="!keyWord.keyWord" class="mt-4" [innerHTML]="caseLawDetail.document|safeHTML">
+        <div *ngIf="!keyWord.keyWord" class="mt-4" [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|safeHTML">
         </div>
       </div>
     </ng-scrollbar>

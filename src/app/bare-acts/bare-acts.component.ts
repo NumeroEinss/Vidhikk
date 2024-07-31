@@ -42,4 +42,9 @@ export class BareActsComponent {
       this.getBareActs(val);
     }
   }
+
+  goToPage(e: any) {
+    this.currentPage = e;
+    this.getBareActs(this.currentPage);
+  }
 }

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ToastMessageService } from '../../services/snack-alert.service';
 
 @Component({
   selector: 'app-paginator',
@@ -12,8 +13,10 @@ export class PaginatorComponent {
   @Input() pageSize: number = 0;
   @Output() previousPageEvent: EventEmitter<number> = new EventEmitter();
   @Output() nextPageEvent: EventEmitter<number> = new EventEmitter();
+  @Output() goToPageEvent: EventEmitter<number> = new EventEmitter();
+  pageInput!: number;
 
-  constructor() { }
+  constructor(private _toastMessage: ToastMessageService) { }
 
   previousPage() {
     this.previousPageEvent.emit();
@@ -25,5 +28,21 @@ export class PaginatorComponent {
 
   getPageCount(value: any) {
     return Math.ceil(value);
+  }
+
+  goToPage() {
+    if (this.pageInput > this.getPageCount(this.recordCount / this.pageSize)) {
+      this._toastMessage.error('Enter valid page !!');
+    }
+    else if (this.pageInput == undefined) {
+      this._toastMessage.error('Enter valid page !!');
+    }
+    else {
+      this.goToPageEvent.emit(this.pageInput);
+    }
+  }
+
+  isNumber(event: any) {
+    return event.charCode >= 48 && event.charCode <= 57;
   }
 }

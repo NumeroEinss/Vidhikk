@@ -78,11 +78,12 @@ export class CaseLawDetailComponent {
             <style>
             @media print {
               body{
-                font-family: Poppins;
                 font-stretch: normal;
                 font-style: normal;
                 line-height: normal;
                 letter-spacing: normal;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
               }
               .logo{
                 width:100%;
@@ -125,7 +126,6 @@ export class CaseLawDetailComponent {
                 letter-spacing: normal;
                 color: black;
                 width: 100%;
-                font-family:Poppins;
             }
 
             .description {
@@ -137,7 +137,6 @@ export class CaseLawDetailComponent {
               font-style: normal;
               line-height: 1.4;
               letter-spacing: normal;
-              font-family:Poppins;
               margin-top:30px;
               font-size: 16px;
       
@@ -182,5 +181,12 @@ export class CaseLawDetailComponent {
         this.caseLawDetail = data.data;
       }
     })
+  }
+
+  removeDocidAndLicense(input: string): string {
+    // Define the regex pattern
+    const combinedPattern = /<u> Docid # IndLawLib\/\d+<\/u>|<p style="text-align:center;margin-top:20px;margin-bottom:5px;font-size:120%;color:red;">.*?<\/p>/g;
+    // Replace the matched pattern with an empty string
+    return input.replace(combinedPattern, '');
   }
 }
