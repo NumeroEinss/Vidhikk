@@ -65,12 +65,12 @@
     <!-- case-diary table start -->
     <div *ngIf="selectedDiary == 'caseDiary'" class="case-diary-list">
       <div class="case-diary-header">
-        <div class="grid-item-name">REG. DATE</div>
+        <div class="grid-item1">DATE OF FILING</div>
         <!-- <div class="grid-item1">CASE NO.</div> -->
-        <div class="grid-item1">CASE TITLE</div>
+        <!-- <div class="grid-item1">CASE TITLE</div> -->
         <div class="grid-item1">COURT NAME</div>
-        <div class="grid-item1">APPLICANT</div>
-        <div class="grid-item1">RESPONDENT</div>
+        <div class="grid-item1">PLAINTIFF/ACCUSER</div>
+        <div class="grid-item1">DEFENDANT/SUSPECT</div>
         <div class="grid-item1">CASE STAGE</div>
         <div class="grid-item1">NEXT HEARING</div>
         <div class="grid-item1">APPLICATION</div>
@@ -83,17 +83,17 @@
       <div class="case-diary-data">
         <div class="grid-item2">{{ item.registrationDate | date:'dd/MM/yyyy'}}</div>
         <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
-        <div class="grid-item2">{{ item.caseName }}</div>
+        <!-- <div class="grid-item2">{{ item.caseName }}</div> -->
         <div class="grid-item2">{{ item.courtName }}</div>
         <div class="grid-item2">{{ item.applicantName }}</div>
         <div class="grid-item2">{{ item.respondentName }}</div>
         <div class="grid-item2">
-          <mat-form-field appearance="outline" class="stage-input">
+          <mat-form-field appearance="outline" class="stage-input list-input">
             <input matInput placeholder="Enter Case Stage" [(ngModel)]="item.caseStage" />
           </mat-form-field>
         </div>
         <div class="grid-item2">
-          <mat-form-field appearance="outline" class="date-input">
+          <mat-form-field appearance="outline" class="date-input list-input">
             <input matInput [matDatepicker]="picker2" [(ngModel)]="item.nextHearingDate"
               placeholder="Select Next Hearing Date" [min]="today" [readonly]="true">
             <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -101,7 +101,7 @@
           </mat-form-field>
         </div>
         <div class="grid-item2">
-          <mat-form-field appearance="outline" class="application-input">
+          <mat-form-field appearance="outline" class="application-input list-input">
             <mat-select placeholder="Select application type" [(ngModel)]="item.applicationType"
               (selectionChange)="applicationTypeChange($event,item._id,item,'caseDiary')">
               <mat-option *ngFor="let type of applicationTypeList" [value]="type.value">

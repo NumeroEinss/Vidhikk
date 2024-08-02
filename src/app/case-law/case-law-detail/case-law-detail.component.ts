@@ -5,6 +5,7 @@ import html2canvas from 'html2canvas';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { Router } from '@angular/router';
 import { ApolloService } from '../../shared/services/apollo.service';
+import { EncryptionService } from '../../shared/services/encryption.service';
 
 @Component({
   selector: 'app-case-law-detail',
@@ -22,9 +23,10 @@ export class CaseLawDetailComponent {
   userName: any;
   keyWord: any = "";
 
-  constructor(private _location: Location, private _router: Router,
+  constructor(private _location: Location, private _router: Router, private _encryptService: EncryptionService,
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
     this.caseId = this._router.url.split('/').pop();
+    this.caseId = this._encryptService.decryptData(this.caseId);
     this.getCaseLawDetail();
     this.userName = JSON.parse(localStorage.getItem('userData')!);
     this.keyWord = this._router.getCurrentNavigation()?.extras.state || "";

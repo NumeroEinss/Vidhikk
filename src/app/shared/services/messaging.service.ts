@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 import { BehaviorSubject, mergeMap } from 'rxjs';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +9,15 @@ export class MessagingService {
   currentMessage = new BehaviorSubject<any>(null);
   accessToken = new BehaviorSubject<string>("");
 
-  constructor(private _afMessaging: AngularFireMessaging, private _authService: AuthService) { }
+  constructor(private _afMessaging: AngularFireMessaging) { }
 
-  requestPermission(query: any, variables: any, userType: string) {
+  requestPermission() {
     console.log('Requesting permission for notifications');
     this._afMessaging.requestToken.subscribe(
       {
         next: (token: any) => {
           console.log('Permission granted !!');
           this.accessToken.next(token);
-          console.log(token, 'Generated Token !!');
-          variables.notificationToken = token;
-          this._authService.login(query, variables, userType);
         },
         error: (error) => {
           console.error('Permission denied or error occurred:', error);

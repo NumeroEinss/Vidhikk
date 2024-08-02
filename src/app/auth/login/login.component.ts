@@ -127,9 +127,9 @@ export class LoginComponent {
   login(formType: string) {
     if (formType == 'form') {
       if (this.loginForm.valid) {
-        this._messagingService.requestPermission(GQLConfig.loginWithEmail, this.loginForm.value, this.loginFrmCtrl.userType.value);
+        this._messagingService.requestPermission();
         this._messagingService.receiveMessaging();
-        // this._authService.login(GQLConfig.loginWithEmail, this.loginForm.value, this.loginFrmCtrl.userType.value);
+        this._authService.login(GQLConfig.loginWithEmail, this.loginForm.value, this.loginFrmCtrl.userType.value);
       }
       else {
         this._toastMessage.error('Please Fill All Fields Properly!!');
@@ -137,9 +137,9 @@ export class LoginComponent {
     }
     else if (formType == 'form2') {
       if (this.loginForm2.valid) {
-        this._messagingService.requestPermission(GQLConfig.loginWithMobile, this.loginForm2.value, this.loginFrmCtrl2.userType.value);
+        this._messagingService.requestPermission();
         this._messagingService.receiveMessaging();
-        // this._authService.login(GQLConfig.loginWithMobile, this.loginForm2.value, this.loginFrmCtrl2.userType.value);
+        this._authService.login(GQLConfig.loginWithMobile, this.loginForm2.value, this.loginFrmCtrl2.userType.value);
       }
       else {
         this._toastMessage.error('Please Fill All Fields Properly!!');

@@ -55,9 +55,7 @@ export class UserProfileComponent {
     },
   ];
 
-  constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService,
-    private _messagingService: MessagingService
-  ) {
+  constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService) {
     this.userType = this._router.url.split('/')[1];
 
     this.signupForm2 = this._fb.group(new LawyerSignupModel);
@@ -173,6 +171,5 @@ export class UserProfileComponent {
 
   logout() {
     this._authService.logout();
-    this._messagingService.deleteToken();
   }
 }

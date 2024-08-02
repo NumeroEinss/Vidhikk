@@ -12,6 +12,7 @@ import { Subject, debounceTime, switchMap } from 'rxjs';
 import { SearchService } from '../../shared/services/search.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AdvanceSearchModel } from '../../common/advanceSearch.model';
+import { EncryptionService } from '../../shared/services/encryption.service';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -49,54 +50,9 @@ export class CaseLawListComponent {
 
   caseLawCurrentPage: number = 1;
 
-  caseList: any = [
-    // {
-    //   caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-    //   caseDesc:
-    //     'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-    //   court: 'Supreme Court',
-    //   bench: 'FB',
-    //   cited: 0,
-    //   acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    // },
-    // {
-    //   caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-    //   caseDesc:
-    //     'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-    //   court: 'Supreme Court',
-    //   bench: 'FB',
-    //   cited: 0,
-    //   acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    // },
-    // {
-    //   caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-    //   caseDesc:
-    //     'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-    //   court: 'Supreme Court',
-    //   bench: 'FB',
-    //   cited: 0,
-    //   acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    // },
-    // {
-    //   caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-    //   caseDesc:
-    //     'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-    //   court: 'Supreme Court',
-    //   bench: 'FB',
-    //   cited: 0,
-    //   acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    // },
-  ];
-  courtList: any = [
-    // { name: 'Supreme Court', checked: false },
-    // { name: 'Madhya Pradesh', checked: false },
-    // { name: 'Andhra Pradesh', checked: false },
-    // { name: 'Karnataka', checked: false },
-    // { name: 'Maharashtra', checked: false },
-    // { name: 'Gujrat', checked: false },
-    // { name: 'Delhi', checked: false },
-    // { name: 'Uttar Pradesh', checked: false },
-  ];
+  caseList: any = [];
+
+  courtList: any = [];
   filteredCourtList: any = [];
 
   journalList: any = [
@@ -133,68 +89,14 @@ export class CaseLawListComponent {
       value: 'ocr',
     },
   ];
+
   filteredJournalsList: any = [];
-  overruledList = [
-    {
-      previousAttorney: 'Karan Singh Vs Bhagwan Singh',
-      currentAttorney: 'Shyam Sundar Vs Ram Kumar',
-    },
-    {
-      previousAttorney: 'Shubhashis Vs Medical Council',
-      currentAttorney: 'Medical Council Vs State of Rajasthan',
-    },
-    {
-      previousAttorney: 'Rajiram Vs Ghisaram',
-      currentAttorney: 'Shyam Sundar Vs Ram Kumar',
-    },
-    {
-      previousAttorney: 'Sub Division Inspector of Post Vs Joseph',
-      currentAttorney: 'AIR Vs Santosh Kumar',
-    },
-    {
-      previousAttorney: 'Shubhashis Vs Medical Council',
-      currentAttorney: 'Medical Council of India Vs State of Rajasthan',
-    },
-    {
-      previousAttorney: 'Rajiram Vs Ghisaram',
-      currentAttorney: 'Shyam Sundar Vs Ram Kumar',
-    },
-  ];
-  judgeList: any = [
-    // {
-    //   name: 'Anoop Chitkara',
-    //   value: 'nij',
-    // },
-    // {
-    //   name: 'Puneet Gupta',
-    //   value: 'ocr',
-    // },
-    // {
-    //   name: 'Sunil Awasthi',
-    //   value: 'olr',
-    // },
-    // {
-    //   name: 'Satyan Vaida',
-    //   value: 'pccr',
-    // },
-    // {
-    //   name: 'A Ali',
-    //   value: 'plj',
-    // },
-    // {
-    //   name: 'Jyotsana Dua',
-    //   value: 'gcd',
-    // },
-    // {
-    //   name: 'Ajay Goel',
-    //   value: 'gjh',
-    // },
-    // {
-    //   name: 'Anil Choudhary',
-    //   value: 'ocr',
-    // },
-  ];
+
+  overruledList = [];
+
+  judgeList: any = [];
   filteredJudgeList: any = [];
+
   actList = [
     {
       name: 'NIJ',
@@ -230,6 +132,7 @@ export class CaseLawListComponent {
     },
   ];
   filteredActList: any = [];
+
   actTypeList = [
     {
       name: '302',
@@ -309,7 +212,7 @@ export class CaseLawListComponent {
     end: new FormControl<Date | null>(null),
   });
 
-  showRespAdvanceSearch: boolean = true;
+  showAdvanceSearch: boolean = true;
   respAdvanceSearchList: any = [];
   advanceSearchCurrentPage: number = 1;
 
@@ -325,8 +228,12 @@ export class CaseLawListComponent {
 
   respondantCurrentPage: number = 1;
 
+  judgeWiseCurrentPage: number = 1;
+
+
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
-    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder) {
+    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder,
+    private _encryptService: EncryptionService) {
     this._dateAdapter.setLocale('en-GB');
     this.filteredJournalsList = this.journalList;
     this.getCaseLaws(1);
@@ -373,8 +280,10 @@ export class CaseLawListComponent {
         this.showCitationSearch = true;
         break;
       case 5:
+        this.showWordsSearch = true;
         break;
       case 6:
+        this.showAdvanceSearch = true;
         break;
       case 7:
         break;
@@ -388,7 +297,7 @@ export class CaseLawListComponent {
 
   viewCase(caseId: any, keyWord: string = "") {
     const extras = { keyWord: keyWord }
-    this._router.navigate([`lawyer/case-law/cases/view/${caseId}`], { state: extras });
+    this._router.navigate([`lawyer/case-law/cases/view/${this._encryptService.encryptData(caseId)}`], { state: extras });
   }
 
   filterAct(e: any) {
@@ -487,7 +396,7 @@ export class CaseLawListComponent {
       this._toastMessage.error('Respondent name is required !!');
     }
     else {
-      this._apolloService.get(`/judgement/search/respondents/${keyWord}`).subscribe(objRes => {
+      this._apolloService.get(`/judgement/search/respondents/${keyWord}?page=${this.respondantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
         if (objRes.status == "success") {
           this.resRespList = objRes.data.items;
           this.recordCount = objRes.data.totalCount;
@@ -505,7 +414,7 @@ export class CaseLawListComponent {
       this._toastMessage.error('Judge name is required !!');
     }
     else {
-      this._apolloService.get(`/judgement/search/judges/${keyWord}`).subscribe(objRes => {
+      this._apolloService.get(`/judgement/search/judges/${keyWord}?page=${this.judgeWiseCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
         if (objRes.status == "success") {
           this.respJudgeList = objRes.data.items;
           this.recordCount = objRes.data.totalCount;
@@ -532,24 +441,6 @@ export class CaseLawListComponent {
     })
   }
 
-  caseLawPrevEvent() {
-    if (this.caseLawCurrentPage > 1) {
-      let val = this.caseLawCurrentPage -= 1;
-      this.getCaseLaws(val);
-    }
-  }
-
-  caseLawNextPage() {
-    let val = this.caseLawCurrentPage += 1;
-    this.getCaseLaws(val);
-  }
-
-  goToPageLatest(e: any) {
-    this.caseLawCurrentPage = e;
-    console.log(e)
-    this.getCaseLaws(this.caseLawCurrentPage);
-  }
-
   getCaseLawByAdvanceSearch(page: number) {
     this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
       if (objRes.status == "success") {
@@ -557,18 +448,6 @@ export class CaseLawListComponent {
         this.recordCount = objRes.data.totalCount;
       }
     })
-  }
-
-  advanceSearchNextPage() {
-    let val = this.advanceSearchCurrentPage += 1;
-    this.getCaseLawByAdvanceSearch(val);
-  }
-
-  advanceSearchPrevPage() {
-    if (this.advanceSearchCurrentPage > 1) {
-      let val = this.advanceSearchCurrentPage -= 1;
-      this.getCaseLawByAdvanceSearch(val);
-    }
   }
 
   resetAdvanceSearchForm() {
@@ -595,18 +474,6 @@ export class CaseLawListComponent {
     }
   }
 
-  wordsPrevEvent() {
-    if (this.wordsPhraseCurrentPage > 1) {
-      let val = this.wordsPhraseCurrentPage -= 1;
-      this.getCaseLawsByWords(val);
-    }
-  }
-
-  wordsNextEvent() {
-    let val = this.wordsPhraseCurrentPage += 1;
-    this.getCaseLawsByWords(val);
-  }
-
   getHeadingLength(): number {
     return (window.innerWidth > 1199) ? 90 : 30;
   }
@@ -615,19 +482,7 @@ export class CaseLawListComponent {
     return (window.innerWidth > 1199) ? 440 : 200;
   }
 
-  applicantNextPage() {
-    let val = this.applicantCurrentPage += 1;
-    this.getPaginatedCaseLawByApplicant(val);
-  }
-
-  applicantPrevPage() {
-    if (this.applicantCurrentPage > 1) {
-      let val = this.applicantCurrentPage -= 1;
-      this.getPaginatedCaseLawByApplicant(val);
-    }
-  }
-
-  getPaginatedCaseLawByApplicant(page: any) {
+  getPaginatedCaseLawByApplicant(page: number) {
     this._apolloService.get(`/judgement/search/appellant/${this.appInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
       if (objRes.status == "success") {
         this.resAppList = objRes.data.items;
@@ -636,22 +491,124 @@ export class CaseLawListComponent {
     })
   }
 
-  respondantNextPage() {
-    let val = this.respondantCurrentPage += 1;
-    this.getPaginatedCaseLawByRespondant(val);
-  }
-
-  respondantPrevPage() {
-    if (this.respondantCurrentPage > 1) {
-      let val = this.respondantCurrentPage -= 1;
-      this.getPaginatedCaseLawByRespondant(val);
-    }
-  }
-
-  getPaginatedCaseLawByRespondant(page: any) {
+  getPaginatedCaseLawByRespondant(page: number) {
     this._apolloService.get(`/judgement/search/respondents/${this.respInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
       if (objRes.status == "success") {
         this.resRespList = objRes.data.items;
+        this.recordCount = objRes.data.totalCount;
+      }
+    })
+  }
+
+  nextPageEvent(type: string) {
+    switch (type) {
+      case 'Latest':
+        var val = this.caseLawCurrentPage += 1;
+        this.getCaseLaws(val);
+        break;
+      case 'Applicant':
+        var val = this.applicantCurrentPage += 1;
+        this.getPaginatedCaseLawByApplicant(val);
+        break;
+      case 'Respondant':
+        var val = this.respondantCurrentPage += 1;
+        this.getPaginatedCaseLawByRespondant(val);
+        break;
+      case 'Judge':
+        var val = this.judgeWiseCurrentPage += 1;
+        this.getPaginatedCaseLawByJudges(val);
+        break;
+      case 'Citation':
+        break;
+      case 'Words':
+        var val = this.wordsPhraseCurrentPage += 1;
+        this.getCaseLawsByWords(val);
+        break;
+      case 'Advance':
+        var val = this.advanceSearchCurrentPage += 1;
+        this.getCaseLawByAdvanceSearch(val);
+        break;
+    }
+  }
+
+  previousPageEvent(type: string) {
+    switch (type) {
+      case 'Latest':
+        if (this.caseLawCurrentPage > 1) {
+          let val = this.caseLawCurrentPage -= 1;
+          this.getCaseLaws(val);
+        }
+        break;
+      case 'Applicant':
+        if (this.applicantCurrentPage > 1) {
+          let val = this.applicantCurrentPage -= 1;
+          this.getPaginatedCaseLawByApplicant(val);
+        }
+        break;
+      case 'Respondant':
+        if (this.respondantCurrentPage > 1) {
+          let val = this.respondantCurrentPage -= 1;
+          this.getPaginatedCaseLawByRespondant(val);
+        }
+        break;
+      case 'Judge':
+        if (this.judgeWiseCurrentPage > 1) {
+          let val = this.judgeWiseCurrentPage -= 1;
+          this.getPaginatedCaseLawByJudges(val);
+        }
+        break;
+      case 'Citation':
+        break;
+      case 'Words':
+        if (this.wordsPhraseCurrentPage > 1) {
+          let val = this.wordsPhraseCurrentPage -= 1;
+          this.getCaseLawsByWords(val);
+        }
+        break;
+      case 'Advance':
+        if (this.advanceSearchCurrentPage > 1) {
+          let val = this.advanceSearchCurrentPage -= 1;
+          this.getCaseLawByAdvanceSearch(val);
+        }
+        break;
+    }
+  }
+
+  goToPageEvent(type: string, e: any) {
+    switch (type) {
+      case 'Latest':
+        this.caseLawCurrentPage = e;
+        this.getCaseLaws(this.caseLawCurrentPage);
+        break;
+      case 'Applicant':
+        this.applicantCurrentPage = e;
+        this.getPaginatedCaseLawByApplicant(this.applicantCurrentPage);
+        break;
+      case 'Respondant':
+        this.respondantCurrentPage = e;
+        this.getPaginatedCaseLawByRespondant(this.respondantCurrentPage);
+        break;
+      case 'Judge':
+        this.judgeWiseCurrentPage = e;
+        this.getPaginatedCaseLawByJudges(this.judgeWiseCurrentPage);
+        break;
+      case 'Citation':
+        break;
+      case 'Words':
+        this.wordsPhraseCurrentPage = e;
+        this.getCaseLawsByWords(this.wordsPhraseCurrentPage);
+        break;
+      case 'Advance':
+        this.advanceSearchCurrentPage = e;
+        this.getCaseLawByAdvanceSearch(this.advanceSearchCurrentPage);
+        break;
+    }
+  }
+
+  getPaginatedCaseLawByJudges(page: number) {
+    this._apolloService.get(`/judgement/search/judges/${this.judgeControl.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.respJudgeList = objRes.data.items;
         this.recordCount = objRes.data.totalCount;
       }
     })

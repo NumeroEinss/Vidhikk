@@ -722,4 +722,9 @@ export class SignupComponent {
       this.cityList = data;
     })
   }
+
+  ngOnDestroy(){
+    let element = document.getElementById('dismissModal') as HTMLElement;
+    element.click();
+  }
 }

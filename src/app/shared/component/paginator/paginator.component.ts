@@ -31,10 +31,13 @@ export class PaginatorComponent {
   }
 
   goToPage() {
-    if (this.pageInput > this.getPageCount(this.recordCount / this.pageSize)) {
+    if (this.pageInput == undefined) {
       this._toastMessage.error('Enter valid page !!');
     }
-    else if (this.pageInput == undefined) {
+    else if (this.pageInput == 0) {
+      this._toastMessage.error('Enter valid page !!');
+    }
+    else if (this.pageInput > this.getPageCount(this.recordCount / this.pageSize)) {
       this._toastMessage.error('Enter valid page !!');
     }
     else {

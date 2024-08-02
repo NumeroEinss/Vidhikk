@@ -32,7 +32,7 @@ export class ResetPasswordComponent {
   ];
 
   constructor(private _formBuilder: FormBuilder, private _apolloService: ApolloService,
-    private _toastMessage: ToastMessageService, private _authService: AuthService, private _messagingService: MessagingService) {
+    private _toastMessage: ToastMessageService, private _authService: AuthService) {
     this.resetPasswordForm = this._formBuilder.group(new resetModel());
     this.resetFrmCtrl['password'].setValidators([Validators.required]);
     this.resetFrmCtrl['newPassword'].setValidators([Validators.required]);
@@ -62,7 +62,6 @@ export class ResetPasswordComponent {
         if (resObj.data.resetLoginPassword.status == 200) {
           this._toastMessage.success(resObj.data.resetLoginPassword.message);
           this._authService.logout();
-          this._messagingService.deleteToken();
         }
         else {
           this._toastMessage.error(resObj.data.resetLoginPassword.message);

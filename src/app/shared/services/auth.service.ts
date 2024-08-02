@@ -10,43 +10,41 @@ import { MessagingService } from './messaging.service';
 })
 export class AuthService {
   message: any = null;
-  // private subscription$: Subscription;
-  // private messageSubscription$: Subscription;
+  private subscription$: Subscription;
+  private messageSubscription$: Subscription;
   fireBaseToken: string = "";
 
   private currentUserSubject: BehaviorSubject<any> | undefined;
 
   constructor(private _apollo: Apollo, private _router: Router, private _toastMessage: ToastMessageService,
-    private _activatedRoute: ActivatedRoute) {
-    // this.subscription$ = this._messagingService.accessToken.subscribe(data => {
-    //   if (data) {
-    //     // console.log(data, 'Subscription for token !!');
-    //     this.fireBaseToken = data;
-    //     localStorage.setItem('messageToken', data);
-    //   } else {
-    //     // console.error('Access token is empty.');
-    //   }
-    // });
-    // this.messageSubscription$ = this._messagingService.currentMessage.subscribe((data: any) => {
-    //   if (data) {
-    //     // console.log(data, 'messageSubscription')
-    //     this.message = data;
-    //     this._toastMessage.showMessage(data.notification.title, data.notification.body);
-    //   }
-    // });
+    private _activatedRoute: ActivatedRoute, private _messagingService: MessagingService) {
+    this._messagingService.requestPermission();
+    this.subscription$ = this._messagingService.accessToken.asObservable().subscribe(data => {
+      if (data) {
+        console.log('Subscription for token !!');
+        this.fireBaseToken = data;
+        localStorage.setItem('messageToken', data);
+      } else {
+        console.error('Access token is empty.');
+      }
+    });
+    this.messageSubscription$ = this._messagingService.currentMessage.subscribe((data: any) => {
+      if (data) {
+        // console.log(data, 'messageSubscription')
+        this.message = data;
+        this._toastMessage.showMessage(data.notification.title, data.notification.body);
+      }
+    });
   }
 
   get currentUserValue() {
     return this.currentUserSubject?.value;
   }
 
-  login(query: any, variables: any, userType: string) {
-    // if (this.fireBaseToken === "") {
-    // this._messagingService.requestPermission();
-    // };
+  async login(query: any, variables: any, userType: string) {
     setTimeout(() => {
-      // variables.notificationToken = this._messagingService.accessToken.value;
-      // console.log('Token Generated', variables.notificationToken)
+      variables.notificationToken = this._messagingService.accessToken.value;
+      console.log('Token Generated')
       this._apollo.mutate({ mutation: query, variables: variables, errorPolicy: 'all' }).subscribe((respObj: any) => {
         if (respObj != null) {
           if (respObj.data.login.status == 200) {
@@ -97,8 +95,8 @@ export class AuthService {
     localStorage.removeItem('isCaseDiaryLogin');
     this._router.navigateByUrl('auth/login');
     this.fireBaseToken = "";
-    // this.subscription$.unsubscribe();
-    // this.messageSubscription$.unsubscribe();
-    // this._messagingService.deleteToken();
+    this.subscription$.unsubscribe();
+    this.messageSubscription$.unsubscribe();
+    this._messagingService.deleteToken();
   }
 }
