@@ -140,7 +140,6 @@ export class AdvocateListComponent {
     { value: 'finance', viewValue: 'Finance' },
     { value: 'civil', viewValue: 'Civil' },
   ];
-  public url = inject(GraphQLModule);
 
   constructor(private _router: Router, private _apollo: ApolloService, private _toastMessage: ToastMessageService) {
     this.getAdvocateList();

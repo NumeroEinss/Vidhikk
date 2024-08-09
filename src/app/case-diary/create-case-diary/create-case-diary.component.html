@@ -36,8 +36,8 @@
             <mat-label class="mat-label">Court Name</mat-label>
             <mat-form-field appearance="outline">
               <mat-select placeholder="Select court" formControlName="courtName" required>
-                <mat-option *ngFor="let court of courtNameList" [value]="court.value">
-                  {{ court.viewValue }}
+                <mat-option *ngFor="let court of courtNameList" [value]="court.name">
+                  {{ court.name }}
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="createCaseDiaryForm.controls['courtName'].errors?.['required']">Court Name is Required

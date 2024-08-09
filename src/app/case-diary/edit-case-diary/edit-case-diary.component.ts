@@ -16,17 +16,7 @@ export class EditCaseDiaryComponent {
   editCaseDiaryForm: FormGroup;
   routerState: any;
 
-  courtNameList: any[] = [
-    {
-      value: 'District & Session Court INDORE',
-      viewValue: 'District & Session Court INDORE',
-    },
-    { value: 'Civil Court GOHAD', viewValue: 'Civil Court GOHAD' },
-    {
-      value: 'District & Session Court BHOPAL',
-      viewValue: 'District & Session Court BHOPAL',
-    },
-  ];
+  courtNameList: any[] = [];
 
   cityList: any[] = [];
 
@@ -39,6 +29,7 @@ export class EditCaseDiaryComponent {
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _router: Router, private _http: HttpClient) {
+    this.getCourtList();
     this.editCaseDiaryForm = this._formBuilder.group(
       new CreateCaseDiaryModel()
     );
@@ -90,7 +81,7 @@ export class EditCaseDiaryComponent {
         caseDiaryId: this.editCaseDiaryForm.controls._id.value,
         registrationDate: this.editCaseDiaryForm.controls.registrationDate.value,
         courtName: this.editCaseDiaryForm.controls.courtName.value,
-        caseNumber: parseInt(this.editCaseDiaryForm.controls.caseNumber.value),
+        caseNumber: this.editCaseDiaryForm.controls.caseNumber.value,
         caseName: this.editCaseDiaryForm.controls.caseName.value,
         caseStage: this.editCaseDiaryForm.controls.caseStage.value,
         city: this.editCaseDiaryForm.controls.city.value,
@@ -125,6 +116,14 @@ export class EditCaseDiaryComponent {
   getCitiesList() {
     this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
       this.cityList = data;
+    })
+  }
+
+  getCourtList() {
+    this._apolloService.get('/court').subscribe(resObj => {
+      if (resObj.status == "success") {
+        this.courtNameList = resObj.data.courts;
+      }
     })
   }
 }

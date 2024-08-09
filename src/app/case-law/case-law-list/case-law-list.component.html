@@ -8,7 +8,9 @@
         <!-- Header -->
         <div class="pretext col-lg-6 col-md-6">
           <!-- <img src="../../../assets/images/icons/arrow-left.svg" /> -->
-          <div class="records">Found {{ recordCount }} Cases</div>
+          <div class="records">Showing {{'('+ ((caseLawCurrentPage*pageSize) - pageSize + 1)+ ' - '
+            +(caseLawCurrentPage*pageSize) +')'+
+            ' of '+ recordCount }} Cases</div>
         </div>
         <div class="posttext col-lg-6 col-md-6">
           <div>
@@ -113,7 +115,9 @@
         <!-- Header -->
         <div class="pretext col-lg-6 col-md-6">
           <img src="../../../assets/images/icons/arrow-left.svg" (click)="showAppSearch = !showAppSearch" />
-          <div class="records">Found {{ recordCount }} Cases</div>
+          <div class="records">Showing {{'('+ ((applicantCurrentPage*pageSize) - pageSize+1) + ' - '
+            +(applicantCurrentPage*pageSize) +')'+
+            ' of '+ recordCount }} Cases</div>
         </div>
       </div>
       <!-- Case Law List -->
@@ -176,7 +180,9 @@
         <!-- Header -->
         <div class="pretext col-lg-6 col-md-6">
           <img src="../../../assets/images/icons/arrow-left.svg" (click)="showRespSearch = !showRespSearch" />
-          <div class="records">Found {{ recordCount }} Cases</div>
+          <div class="records">Showing {{'('+ ((respondantCurrentPage*pageSize) - pageSize + 1)+ ' - '
+            +(respondantCurrentPage*pageSize) +')'+
+            ' of '+ recordCount }} Cases</div>
         </div>
       </div>
       <!-- Case Law List -->
@@ -364,7 +370,9 @@
         <!-- Header -->
         <div class="pretext col-lg-6 col-md-6">
           <img src="../../../assets/images/icons/arrow-left.svg" (click)="showWordsSearch = !showWordsSearch" />
-          <div class="records">Found {{ recordCount }} Cases</div>
+          <div class="records">Showing {{'('+ ((wordsPhraseCurrentPage*pageSize) - pageSize +1)+ ' - '
+            +(wordsPhraseCurrentPage*pageSize) +')'+
+            ' of '+ recordCount }} Cases</div>
         </div>
       </div>
       <!-- Words List -->
@@ -384,7 +392,7 @@
               <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
             <div class="acts">Acts : {{ case.acts }}</div> -->
             </div>
-        </div>
+          </div>
           }
         </ng-scrollbar>
       </div>
@@ -541,6 +549,20 @@
             </div>
           </div>
 
+          <div class="advance-search-col">
+            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+              <mat-label class="mat-label">Year Range</mat-label>
+              <mat-form-field appearance="outline">
+                <mat-date-range-input [rangePicker]="picker" [formGroup]="decisionDate">
+                  <input matStartDate placeholder="Start date" formControlName="start" />
+                  <input matEndDate placeholder="End date" formControlName="end" />
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker startView="year" #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+          </div>
+
           <div class="d-flex mt-4">
             <button type="button" mat-raised-button color="primary"
               style="width: 124px !important; margin-right: 20px; display: flex"
@@ -558,7 +580,9 @@
         <!-- Header -->
         <div class="pretext col-lg-6 col-md-6">
           <img src="../../../assets/images/icons/arrow-left.svg" (click)="showAdvanceSearch = !showAdvanceSearch" />
-          <div class="records">Found {{ recordCount }} Cases</div>
+          <div class="records">Showing {{'('+ ((advanceSearchCurrentPage*pageSize) - pageSize +1)+ ' - '
+            +(advanceSearchCurrentPage*pageSize) +')'+
+            ' of '+ recordCount }} Cases</div>
         </div>
       </div>
 
@@ -593,6 +617,82 @@
         [recordCount]="recordCount" (goToPageEvent)="goToPageEvent('Advance',$event)"></app-paginator>
     </mat-tab>
     <!--Advance Search Ends -->
+
+    <mat-tab label="Saved Cases">
+      <div class="filter-bar mt-2 mb-2">
+        <!-- Header -->
+        <div class="pretext col-lg-6 col-md-6">
+          <div class="records">Showing {{recordCount}} Cases</div>
+        </div>
+      </div>
+
+      <div style="height: calc(100vh - 290px)">
+        <ng-scrollbar #savedScroll autoHeightDisabled="false" appearance="standard">
+          @for (case of savedList; track case) {
+          <div class="case-container" (click)="viewCase(case._id)">
+            <div class="title">
+              {{ case.title?.substr(0,getHeadingLength()) }}...
+            </div>
+            <div class="desc">
+              {{case.shortInfo?.substr(0,getCharLength())}}.....
+            </div>
+            <div class="sub-desc">
+              <div class="court">{{ case.high_court }}</div>
+              <div class="bench">
+                Bench : {{ case.bench | uppercase }}
+              </div>
+              <!--    |
+              <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
+            <div class="acts">Acts : {{ case.acts }}</div> -->
+            </div>
+          </div>
+          }
+          <div *ngIf="savedList.length == 0" class="no-data"> No Data....</div>
+        </ng-scrollbar>
+      </div>
+      <app-paginator [currentPage]="savedCurrentPage"
+        (nextPageEvent)="nextPageEvent('Saved');savedScroll.scrollTo({top:0});"
+        (previousPageEvent)="previousPageEvent('Saved');savedScroll.scrollTo({top:0});" [pageSize]="pageSize"
+        [recordCount]="recordCount" (goToPageEvent)="goToPageEvent('Saved',$event)"></app-paginator>
+    </mat-tab>
+
+    <mat-tab label="Shared">
+      <div class="filter-bar mt-2 mb-2">
+        <!-- Header -->
+        <div class="pretext col-lg-6 col-md-6">
+          <div class="records">Showing {{recordCount}} Cases</div>
+        </div>
+      </div>
+
+      <div style="height: calc(100vh - 290px)">
+        <ng-scrollbar #sharedScroll autoHeightDisabled="false" appearance="standard">
+          @for (case of sharedList; track case) {
+          <div class="case-container" (click)="viewCase(case._id)">
+            <div class="title">
+              {{ case.title?.substr(0,getHeadingLength()) }}...
+            </div>
+            <div class="desc">
+              {{case.shortInfo?.substr(0,getCharLength())}}.....
+            </div>
+            <div class="sub-desc">
+              <div class="court">{{ case.high_court }}</div>
+              <div class="bench">
+                Bench : {{ case.bench | uppercase }}
+              </div>
+              <!--    |
+              <div class="cited">&nbsp;Cited : {{ case.cited }}</div>
+            <div class="acts">Acts : {{ case.acts }}</div> -->
+            </div>
+          </div>
+          }
+          <div *ngIf="sharedList.length == 0" class="no-data"> No Data....</div>
+        </ng-scrollbar>
+      </div>
+      <app-paginator [currentPage]="sharedCurrentPage"
+        (nextPageEvent)="nextPageEvent('Shared');sharedScroll.scrollTo({top:0});"
+        (previousPageEvent)="previousPageEvent('Shared');sharedScroll.scrollTo({top:0});" [pageSize]="pageSize"
+        [recordCount]="recordCount" (goToPageEvent)="goToPageEvent('Shared',$event)"></app-paginator>
+    </mat-tab>
   </mat-tab-group>
 </div>
 

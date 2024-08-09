@@ -22,20 +22,7 @@ export class CreateCaseDiaryComponent {
   createCaseDiaryForm: FormGroup;
   routerState: any;
 
-  courtNameList: any[] = [
-    {
-      value: 'District & Session Court INDORE',
-      viewValue: 'District & Session Court INDORE',
-    },
-    {
-      value: 'Civil Court GOHAD',
-      viewValue: 'Civil Court GOHAD'
-    },
-    {
-      value: 'District & Session Court BHOPAL',
-      viewValue: 'District & Session Court BHOPAL',
-    },
-  ];
+  courtNameList: any[] = [];
 
   stages: any[] = [];
 
@@ -50,6 +37,7 @@ export class CreateCaseDiaryComponent {
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _router: Router, private _http: HttpClient, private _templateService: TemplateService) {
+    this.getCourtList();
     this.createCaseDiaryForm = this._formBuilder.group(
       new CreateCaseDiaryModel()
     );
@@ -130,5 +118,13 @@ export class CreateCaseDiaryComponent {
     this.createCaseDiaryForm = this._formBuilder.group(
       new CreateCaseDiaryModel()
     );
+  }
+
+  getCourtList() {
+    this._apolloService.get('/court').subscribe(resObj => {
+      if (resObj.status == "success") {
+        this.courtNameList = resObj.data.courts;
+      }
+    })
   }
 }

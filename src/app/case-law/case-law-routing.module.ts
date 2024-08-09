@@ -14,7 +14,7 @@ const routes: Routes = [
     component: CaseLawListComponent,
   },
   {
-    path: 'cases/view/:id',
+    path: 'cases/view',
     component: CaseLawDetailComponent,
   }
 ];
@@ -23,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CaseLawRoutingModule {}
+export class CaseLawRoutingModule { }

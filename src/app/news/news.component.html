@@ -39,8 +39,8 @@
                 </div>
               </ng-scrollbar>
               <app-paginator [currentPage]="currentPage" (previousPageEvent)="previousPage();scroll.scrollTo({top:0});"
-                [recordCount]="recordCount" [pageSize]="pageSize"
-                (nextPageEvent)="nextPage();scroll.scrollTo({top:0});"></app-paginator>
+                [recordCount]="recordCount" [pageSize]="pageSize" (nextPageEvent)="nextPage();scroll.scrollTo({top:0});"
+                (goToPageEvent)="goToPageEvent('Latest',$event)"></app-paginator>
             </div>
           </div>
 
@@ -54,7 +54,6 @@
       </div>
     </mat-tab>
     <mat-tab label="Legal News">
-
       <div class="feed-section legal-news">
         <div class="d-flex mb-4">
           <div class="w-100">
@@ -85,7 +84,8 @@
               </ng-scrollbar>
               <app-paginator [currentPage]="currentPageLegal"
                 (previousPageEvent)="previousPageLegal();scroll2.scrollTo({top:0});" [recordCount]="recordCountLegal"
-                [pageSize]="pageSizeLegal" (nextPageEvent)="nextPageLegal();scroll2.scrollTo({top:0});"></app-paginator>
+                [pageSize]="pageSizeLegal" (nextPageEvent)="nextPageLegal();scroll2.scrollTo({top:0});"
+                (goToPageEvent)="goToPageEvent('Legal',$event)"></app-paginator>
             </div>
 
             <div class="news w-100" *ngIf="newsListLegal.length == 0">

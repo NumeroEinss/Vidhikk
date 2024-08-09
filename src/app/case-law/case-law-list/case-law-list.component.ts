@@ -230,6 +230,11 @@ export class CaseLawListComponent {
 
   judgeWiseCurrentPage: number = 1;
 
+  savedList: any = [];
+  savedCurrentPage: number = 1;
+
+  sharedList: any = [];
+  sharedCurrentPage: number = 1;
 
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder,
@@ -286,8 +291,10 @@ export class CaseLawListComponent {
         this.showAdvanceSearch = true;
         break;
       case 7:
+        this.recordCount = 0;
         break;
       case 8:
+        this.recordCount = 0;
         break;
     }
   }
@@ -296,8 +303,8 @@ export class CaseLawListComponent {
   }
 
   viewCase(caseId: any, keyWord: string = "") {
-    const extras = { keyWord: keyWord }
-    this._router.navigate([`lawyer/case-law/cases/view/${this._encryptService.encryptData(caseId)}`], { state: extras });
+    const extras = { keyWord: keyWord, caseId: caseId }
+    this._router.navigate([`lawyer/case-law/cases/view`], { state: extras });
   }
 
   filterAct(e: any) {
@@ -528,6 +535,10 @@ export class CaseLawListComponent {
         var val = this.advanceSearchCurrentPage += 1;
         this.getCaseLawByAdvanceSearch(val);
         break;
+      case 'Saved':
+        break;
+      case 'Shared':
+        break;
     }
   }
 
@@ -571,6 +582,10 @@ export class CaseLawListComponent {
           this.getCaseLawByAdvanceSearch(val);
         }
         break;
+      case 'Saved':
+        break;
+      case 'Shared':
+        break;
     }
   }
 
@@ -601,6 +616,10 @@ export class CaseLawListComponent {
       case 'Advance':
         this.advanceSearchCurrentPage = e;
         this.getCaseLawByAdvanceSearch(this.advanceSearchCurrentPage);
+        break;
+      case 'Saved':
+        break;
+      case 'Shared':
         break;
     }
   }

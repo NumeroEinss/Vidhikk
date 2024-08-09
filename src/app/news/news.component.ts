@@ -127,4 +127,17 @@ export class NewsComponent {
       return news.link;
     }
   }
+
+  goToPageEvent(type: string, e: any) {
+    switch (type) {
+      case 'Latest':
+        this.currentPage = e;
+        this.getNewsFeed(this.currentPage);
+        break;
+      case 'Legal':
+        this.currentPageLegal = e;
+        this.getLegalNews(this.currentPageLegal);
+        break;
+    }
+  }
 }

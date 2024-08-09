@@ -1,4 +1,12 @@
 .root {
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100px;
+  }
+
   .highlighted-text {
     background: yellow;
   }

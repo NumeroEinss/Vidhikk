@@ -1,8 +1,8 @@
 .highlight {
     background-color: yellow;
     font-weight: bold;
-  }
-  
+}
+
 .filter-bar {
     background-color: #F6F6F6;
     width: 100%;
@@ -53,9 +53,10 @@
                 margin: 2px;
                 font-size: 14px;
             }
+
             ::placeholder {
                 color: #868585 !important;
-              }
+            }
 
             .cancel {
                 position: absolute;
@@ -80,7 +81,7 @@
 
 .matched-text {
     background-color: yellow;
-  }
+}
 
 
 .case-law-detail {
@@ -157,6 +158,11 @@
             }
         }
     }
+}
+
+.section-to-print {
+    margin: 10px;
+    text-align: justify;
 }
 
 
