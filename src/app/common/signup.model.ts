@@ -62,7 +62,7 @@ export class JudgeSignupModel {
     state = new FormControl("", [Validators.required]);
     city = new FormControl("", [Validators.required]);
     district = new FormControl("", [Validators.required]);
-    mobile = new FormControl("", [Validators.required]);
+    phoneNumber = new FormControl("", [Validators.required]);
     email = new FormControl("", [Validators.required]);
     currentState = new FormControl("", [Validators.required]);
     currentDistrict = new FormControl("", [Validators.required]);

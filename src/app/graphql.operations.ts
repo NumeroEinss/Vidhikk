@@ -631,4 +631,37 @@ export abstract class GQLConfig {
             data
         }
     }`;
+
+    static getTicketDetail = gql`mutation($ticketId: String, $lawyerId: String) {
+        getTicketDetail(input: {
+            ticketId: $ticketId
+          lawyerId: $lawyerId
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static replyTicket = gql`mutation($ticketId: String, $replyText: String, $replyType: String) {
+        replyTicket(input: {
+            ticketId: $ticketId,
+            replyText: $replyText,
+            replyType: $replyType
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static deleteTicket = gql`mutation($ticketId: String) {
+        deleteTicket(input: {
+            ticketId: $ticketId
+        }){
+            status
+            message
+            data
+        }
+    }`;
 }

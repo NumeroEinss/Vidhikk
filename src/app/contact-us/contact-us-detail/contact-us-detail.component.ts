@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { GQLConfig } from '../../graphql.operations';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { imageUrl } from '../../graphql.module';
 
 @Component({
   selector: 'app-contact-us-detail',
@@ -10,43 +14,19 @@ import { Router } from '@angular/router';
 export class ContactUsDetailComponent {
   routerState: any;
   comment: string = '';
-  isCommentBoxOpen: boolean = false
+  isCommentBoxOpen: boolean = true;
   isPost: boolean = false;
+  ticketDetail: any;
+  feedList = [];
 
-  feedList = [
-    {
-      type: 'notification',
-      name: 'Admin',
-      message: 'changed ticket status from Open to inProcess',
-      day: 'Mon',
-      postDate: '09 May 2024',
-      time: '01:00 PM',
-      // userType: 'admin'
-    },
-    {
-      userType: 'admin',
-      type: 'comment',
-      name: 'Admin',
-      day: 'Mon',
-      postDate: '09 May 2024',
-      time: '01:00 PM',
-      comment: 'The collapse of the online-advertising market in 2001 made marketing The collapse of the online-advertising market in 2001 made marketing The collapse of the online-advertising market in 2001 made marketing',
-    },
-    {
-      userType: 'user',
-      type: 'comment',
-      name: 'Anurag',
-      day: 'Mon',
-      postDate: '09 May 2024',
-      time: '01:00 PM',
-      comment: 'The collapse of the online-advertising market in 2001 made marketing The collapse of the online-advertising market in 2001 made marketing The collapse of the online-advertising market in 2001 made marketing',
-    },
-  ]
-
-  constructor(private _location: Location, private _router: Router) {
-    this.routerState = this._router.getCurrentNavigation()!.extras.state;
+  constructor(private _location: Location, private _router: Router, private _apolloService: ApolloService,
+    private _toastMessage: ToastMessageService) {
+    this.routerState = this._router.getCurrentNavigation()?.extras.state;
     if (this.routerState == undefined) {
-      this._router.navigateByUrl('user/contact-us');
+      this.routeBack();
+    }
+    else {
+      this.getTicketDetail();
     }
   }
 
@@ -54,21 +34,65 @@ export class ContactUsDetailComponent {
     this._location.back();
   }
 
+  getImageToDisplay(image: any) {
+    return imageUrl() + '/' + image;
+  }
+
   addComment() {
-    this.feedList.push({
-      userType: 'user',
-      type: 'comment',
-      name: 'Anurag',
-      day: new Date().toLocaleDateString('en-GB', { weekday: "short" }),
-      postDate: new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric', day: 'numeric' }),
-      time: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true }).replace('pm', 'PM'),
-      comment: this.comment,
-    })
-    this.comment = '';
-    this.isCommentBoxOpen = false;
+    if (this.comment == "") {
+      this._toastMessage.error('Enter Something to post !!');
+    }
+    else {
+      let userData = JSON.parse(localStorage.getItem('userData')!);
+      let data = {
+        ticketId: this.ticketDetail._id,
+        replyText: this.comment,
+        replyType: userData.userType == "ADMIN" ? 'admin' : 'user'
+      };
+      this._apolloService.mutate(GQLConfig.replyTicket, data).subscribe(objRes => {
+        if (objRes.data != null) {
+          if (objRes.data.replyTicket.status == 200) {
+            this._toastMessage.message(objRes.data.replyTicket.message);
+            this.ticketDetail = objRes.data.replyTicket.data;
+            this.comment = "";
+            this.getTicketDetail();
+          }
+          else {
+            this._toastMessage.error(objRes.data.replyTicket.message)
+          }
+        }
+      })
+    }
+  }
+
+  getDay(date: Date) {
+    return new Date(date).toLocaleDateString('en-GB', { weekday: "short" });
+  }
+
+  getDate(date: Date) {
+    return new Date(date).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', day: 'numeric' });
+  }
+
+  getTime(date: Date) {
+    return new Date(date).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true }).replace('pm', 'PM')
   }
 
   openImage(img: any) {
-    window.open(img, 'blank')
+    window.open(this.getImageToDisplay(img), 'blank')
+  }
+
+  getTicketDetail() {
+    let userData = JSON.parse(localStorage.getItem('userData')!);
+    this._apolloService.mutate(GQLConfig.getTicketDetail, { ticketId: this.routerState.ticket_id, lawyerId: userData._id }).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.getTicketDetail.status == 200) {
+          this._toastMessage.message(objRes.data.getTicketDetail.message);
+          this.ticketDetail = objRes.data.getTicketDetail.data;
+        }
+        else {
+          this._toastMessage.error(objRes.data.getTicketDetail.message)
+        }
+      }
+    })
   }
 }

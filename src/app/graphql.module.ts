@@ -4,9 +4,9 @@ import { NgModule } from '@angular/core';
 import { ApolloClientOptions, ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context'
 
-// const uri = 'http://localhost:3000/graphql'; // <-- add the URL of the GraphQL server here
+const uri = 'http://localhost:3000/graphql'; // <-- add the URL of the GraphQL server here
 // const uri = 'http://192.168.29.114:3000/graphql'; //aditya
-const uri = 'http://84.247.151.137:8005/graphql' // server url
+// const uri = 'http://84.247.151.137:8005/graphql' // server url
 
 export function imageUrl(): string {
   return uri.replace('/graphql', '');

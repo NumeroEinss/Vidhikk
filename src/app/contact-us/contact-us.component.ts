@@ -106,16 +106,21 @@ export class ContactUsComponent {
   }
 
   saveChanges() {
-    
+
   }
 
   deleteTicket() {
-    this.ticketList.forEach((ticket: any, index: any) => {
-      if (ticket.ticketId == this.selectedMemberTicket.ticketId) {
-        this.ticketList.splice(index, 1)
+    this._apolloService.mutate(GQLConfig.deleteTicket, { ticketId: this.selectedMemberTicket.ticket_id }).subscribe(data => {
+      if (data.data !== null) {
+        if (data.data.deleteTicket.status = 200) {
+          this._toastMessage.success(data.data.deleteTicket.message);
+          this.getTicketList();
+        }
+        else {
+          this._toastMessage.error(data.data.deleteTicket.message);
+        }
       }
     })
-    this._toastMessage.message('Ticket Deleted Successfully!!');
   }
 
   resetForm() {
