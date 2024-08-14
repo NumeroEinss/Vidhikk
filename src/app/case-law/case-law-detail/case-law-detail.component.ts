@@ -1,12 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { Router } from '@angular/router';
 import { ApolloService } from '../../shared/services/apollo.service';
-import { EncryptionService } from '../../shared/services/encryption.service';
 import { GQLConfig } from '../../graphql.operations';
+import { HighlighterPipe } from '../../shared/pipe/highlighter.pipe';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-case-law-detail',
@@ -18,7 +17,7 @@ export class CaseLawDetailComponent {
   @ViewChild('printableContent') printableContent!: ElementRef;
   @Input() searchStyle = { width: '0px', display: 'none' };
   @Input() searchIcon = { width: 'auto', display: 'block' };
-
+  @ViewChild('emailMenuTrigger') emailMenuTrigger!: MatMenuTrigger;
   // vidhikLogoUrl = '../../../../assets/images/icons/vidhiklogo.svg';
   caseId: any;
   caseLawDetail: any = { title: "", document: "" };
@@ -27,8 +26,10 @@ export class CaseLawDetailComponent {
   routerState: any;
   memberList: any = [];
   title: string = "";
+  sendersEmail: string = "";
+  mailToLink: string = "";
 
-  constructor(private _location: Location, private _router: Router, private _encryptService: EncryptionService,
+  constructor(private _location: Location, private _router: Router, private _highlighterPipe: HighlighterPipe,
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
     this.routerState = this._router.getCurrentNavigation()?.extras.state;
     this.userName = JSON.parse(localStorage.getItem('userData')!);
@@ -47,96 +48,29 @@ export class CaseLawDetailComponent {
     this._location.back();
   }
 
-  getMailtoLink() {
-    const emailAddress = this.userName.email;
-    const cc = '';
-    const bcc = '';
-    const subject = this.caseLawDetail.title;
-    let divId = 'section-to-print'
-    const divContent = document.getElementById(divId)?.innerHTML.replace(/<[^>]*>/g, '');
-    return `mailto:${emailAddress}?cc=${cc}&bcc=${bcc}&subject=${subject}&body=${divContent}`
+  validateEmail(email: any) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email.trim());
   }
 
-  async exportAsPDF(printableArea: string) {
-    this._toastMessage.message('Pdf is downloading');
-    let element = document.getElementById(printableArea) as HTMLElement;
-
-    // html2canvas(element, { scale: 1 }).then((canvas) => {
-    //   const imgData = canvas.toDataURL('image/jpeg', 0.8); // Compress image
-    //   const pdf = new jsPDF('p', 'mm', 'a4');
-    //   const margin = 10; // Define margin in mm
-    //   const imgWidth = 210 - margin * 2; // A4 width in mm minus margin
-    //   const pageHeight = 297 - margin * 2; // A4 height in mm minus margin
-    //   const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    //   let heightLeft = canvas.height;
-    //   let position = 0;
-    //   let page = 0;
-    //   while (heightLeft > 0) {
-    //     const canvasPart = document.createElement('canvas');
-    //     const context = canvasPart.getContext('2d');
-    //     canvasPart.width = canvas.width;
-    //     canvasPart.height = Math.min(pageHeight * canvas.width / imgWidth, heightLeft);
-    //     if (context) {
-    //       context.fillStyle = 'white';
-    //       context.fillRect(0, 0, canvasPart.width, canvasPart.height);
-    //       context.drawImage(canvas, 0, position, canvas.width, canvasPart.height, 0, 0, canvasPart.width, canvasPart.height);
-    //       const imgDataPart = canvasPart.toDataURL('image/jpeg', 0.8);
-    //       if (page > 0) {
-    //         pdf.addPage();
-    //       }
-    //       pdf.addImage(imgDataPart, 'JPEG', margin, margin, imgWidth, (canvasPart.height * imgWidth) / canvasPart.width);
-    //     }
-    //     position += canvasPart.height;
-    //     heightLeft -= canvasPart.height;
-    //     page++;
-    //   }
-    //   pdf.save('file.pdf');
-    // }).catch(error => {
-    //   console.error('Error generating canvas:', error);
-    // });
-
-
-    if (typeof (window as any).html2pdf === 'undefined') {
-      console.error('html2pdf.js is not loaded.');
+  sendEmail() {
+    console.log(this.validateEmail(this.sendersEmail));
+    if (this.validateEmail(this.sendersEmail)) {
+      const emailAddress = this.userName.email;
+      const cc = '';
+      const bcc = '';
+      const subject = this.caseLawDetail.title;
+      let divId = 'section-to-print'
+      const divContent = document.getElementById(divId) as HTMLElement;
+      let doc = divContent.innerHTML.replace(/<[^>]*>/g, '');
+      this.mailToLink = `mailto:${emailAddress}?cc=${cc}&bcc=${bcc}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(doc)}`;
+      let mail = document.getElementById('mail') as HTMLElement;
+      mail.click();
+      this.emailMenuTrigger.closeMenu();
     }
     else {
-      const options = {
-        margin: [8, 0, 5, 8], // Margins: top, left, bottom, right
-        filename: `${this.caseLawDetail.title}.pdf`,
-        image: { type: 'jpeg', quality: 0.5 },
-        html2canvas: { scale: 1 }, // Adjust scale for better quality
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        mode: 'legacy',
-        pagebreak: { mode: 'legacy' }
-      };
-      try {
-        (window as any).html2pdf().from(element).set(options).save().then(() => {
-          console.log('PDF generated and saved.');
-        }).catch((error: any) => {
-          console.error('Error generating PDF:', error);
-        });
-      } catch (error) {
-        console.error('Error in PDF generation process:', error);
-      }
+      this._toastMessage.error("Enter a valid email !!");
     }
-  }
-
-  getBase64ImageFromUrl(url: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      let img = new Image();
-      img.crossOrigin = 'Anonymous';
-      img.onload = () => {
-        let canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        let ctx = canvas.getContext('2d');
-        ctx?.drawImage(img, 0, 0);
-        let dataURL = canvas.toDataURL('image/svg+xml');
-        resolve(dataURL);
-      };
-      img.onerror = error => reject('Failed to load image :' + error);
-      img.src = url;
-    });
   }
 
   print() {
@@ -254,10 +188,20 @@ export class CaseLawDetailComponent {
     })
   }
 
-  share(member: any) { }
+  share(member: any) { console.log('Share Member Triggered !!'); }
 
   getPrintTitle(title: any) {
     return title.replaceAll(' ', '_');
+  }
+
+  highlightText() {
+    console.log(window.getSelection(),'selectionpro')
+    let selection: any = window.getSelection()?.toString();
+    console.log(selection, 'selection');
+    if (selection) {
+      let doc = document.getElementById('judgement') as HTMLElement;
+      doc.innerHTML = this._highlighterPipe.transformOne(doc.innerHTML, selection);
+    }
   }
 }
 

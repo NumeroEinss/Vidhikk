@@ -5,6 +5,7 @@ import { userProfileModel } from '../common/user-profile.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 import { MessagingService } from '../shared/services/messaging.service';
+import { imageUrl } from '../graphql.module';
 
 
 @Component({
@@ -171,5 +172,9 @@ export class UserProfileComponent {
 
   logout() {
     this._authService.logout();
+  }
+
+  getImageUrl(image: any) {
+    return imageUrl() + image;
   }
 }

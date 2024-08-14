@@ -90,14 +90,12 @@ export class ContactUsComponent {
       if (objRes.data != null) {
         this._toastMessage.success(objRes.data.createTicket.message);
         this.getTicketList();
+        this.resetForm();
       }
       else {
         this._toastMessage.error(objRes.data.createTicket.message);
       }
     })
-    // this.ticketList.push(newTicket);
-    this.resetForm();
-
   }
 
   editTicket(ticket: any) {

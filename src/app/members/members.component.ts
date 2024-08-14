@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { ApolloService } from '../shared/services/apollo.service';
 import { GQLConfig } from '../graphql.operations';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-members',
@@ -14,26 +15,21 @@ export class MembersComponent implements AfterViewInit {
   filteredLawyerList: any = [];
   lawyerList: any = [];
 
-  places = [
-    { value: 'indore', viewValue: 'Indore' },
-    { value: 'bhopal', viewValue: 'Bhopal' },
-    { value: 'mumbai', viewValue: 'Mumbai' },
-  ];
+  places: any = [];
 
-  practiseField = [
-    { value: 'civil', viewValue: 'Civil' },
-    { value: 'finance', viewValue: 'Finance' },
-    { value: 'civil', viewValue: 'Civil' },
-  ];
+  practiseField: any = [];
 
   place: string = "";
   practisingField: string = "";
   popularity: string = "";
   experience: string = "";
 
-  constructor(private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
+  constructor(private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
+    private _http: HttpClient) {
     this.getAllLawyersList();
     this.getMembersList();
+    this.getCityList();
+    this.getPractiscingField();
   }
 
   ngAfterViewInit() {
@@ -142,7 +138,28 @@ export class MembersComponent implements AfterViewInit {
           let button = document.getElementById('modalButton') as HTMLElement;
           button.click();
         }
+        else {
+          this._toastMessage.error(resObj.data.filterLawyerList.message)
+        }
       }
+    })
+  }
+
+  getCityList() {
+    this._http.get('assets/JSON/cities.json').subscribe({
+      next: (data) => {
+        this.places = data;
+      },
+      error: (error) => { this._toastMessage.error(error) }
+    })
+  }
+
+  getPractiscingField() {
+    this._http.get('assets/JSON/practiscing_field.json').subscribe({
+      next: (data) => {
+        this.practiseField = data;
+      },
+      error: (error) => { this._toastMessage.error(error) }
     })
   }
 }

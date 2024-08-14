@@ -19,34 +19,52 @@
         <img class="search" src="../../../../assets/images/icons/search_grey.svg" />
       </div>
 
-      <div><img src="../../../assets/images/icons/bookmark.svg" /></div>
-      <div><img src="../../../assets/images/icons/person.svg" /></div>
-      <!-- <div (click)="exportAsPDF('section-to-print')"><img src="../../../assets/images/icons/pdf.svg" /></div> -->
-      <div><a [href]="getMailtoLink()" style="color: black; text-decoration: none;">
-          <img src="../../../assets/images/icons/mailTo.svg" /></a></div>
-      <div (click)="print()"><img src="../../../assets/images/icons/print.svg" /></div>
+      <div matTooltip="Highlighter" (click)="highlightText()"><img src="../../../assets/images/icons/highlighter.svg" />
+      </div>
+      <div matTooltip="Save Case"><img src="../../../assets/images/icons/bookmark.svg" /></div>
+      <div matTooltip="Share with member" data-bs-target="#shareMemberPopup" data-bs-toggle="modal"><img
+          src="../../../assets/images/icons/person.svg" /></div>
+      <div matTooltip="Share via email" [matMenuTriggerFor]="emailMenu" #emailMenuTrigger="matMenuTrigger"><img
+          src="../../../assets/images/icons/mailTo.svg" /></div>
+      <div matTooltip="Print" (click)="print()"><img src="../../../assets/images/icons/print.svg" /></div>
+
+      <mat-menu #emailMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu ">
+        <a (click)="$event.stopPropagation()" style="text-decoration: none">
+          <mat-form-field class="p-2 w-100" appearance="outline">
+            <input #search matInput placeholder="Enter Recievers Email" [(ngModel)]="sendersEmail" />
+          </mat-form-field>
+          <div class="d-flex">
+            <button mat-raised-button color="primary" class="m-2" (click)="sendEmail()">
+              send</button><br />
+            <button mat-stroked-button color="primary" class="m-2" (click)="emailMenuTrigger.closeMenu();">
+              Cancel
+            </button>
+          </div>
+        </a>
+      </mat-menu>
+      <a id="mail" [href]="this.mailToLink" target="_blank" class="d-none"></a>
     </div>
   </div>
   <div style="height: calc(100vh - 175px)">
     <ng-scrollbar autoHeightDisabled="false" appearance="standard">
       <div id="section-to-print" #printableContent class="case-law-detail">
         <div class="logo">
-          <img [src]="getBase64ImageFromUrl('../../../assets/images/icons/vidhiklogo.svg')" alt="" />
+          <img src="../../../assets/images/icons/vidhiklogo.svg" alt="" />
         </div>
         <p class="header mt-4">
           This Product is licenced to {{userName.name}},
           {{userName.email}}, {{userName.city}}
         </p>
-        <div class="title mt-4">
-          {{caseLawDetail.title}}<br />
-        </div>
+        <div class="title mt-4" [innerHTML]="caseLawDetail.title|highlighter:keyWord|safeHTML">
+        </div><br />
         <!-- <div class="description mt-4">
           <div class="desc-body mt-4" [innerHTML]="caseLawDetail.document"></div>
         </div> -->
-        <div *ngIf="keyWord.keyWord" class="mt-4"
-          [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|highlighter:keyWord.keyWord|safeHTML">
+        <div id="judgement" *ngIf="keyWord" class="mt-4"
+          [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|highlighter:keyWord|safeHTML">
         </div>
-        <div *ngIf="!keyWord.keyWord" class="mt-4" [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|safeHTML">
+        <div id="judgement" *ngIf="!keyWord" class="mt-4"
+          [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|safeHTML">
         </div>
       </div>
     </ng-scrollbar>

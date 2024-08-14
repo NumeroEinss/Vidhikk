@@ -146,8 +146,8 @@
                         <mat-form-field appearance="outline" class="mt-1">
                             <mat-select placeholder="Select place" required>
                                 @for (place of places; track place) {
-                                <mat-option [value]="place.value">
-                                    {{ place.viewValue }}
+                                <mat-option [value]="place.state">
+                                    {{ place.state }}
                                 </mat-option>
                                 }
                             </mat-select>
@@ -160,7 +160,7 @@
                             <mat-select placeholder="Select place" required>
                                 @for (field of practiseField; track field) {
                                 <mat-option [value]="field.value">
-                                    {{ field.viewValue }}
+                                    {{ field.value }}
                                 </mat-option>
                                 }
                             </mat-select>

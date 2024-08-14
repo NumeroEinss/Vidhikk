@@ -36,6 +36,7 @@ export class LawyerSignupModel {
     coreCompetency = new FormControl("", [Validators.required]);
     file = new FormControl("");
     notificationToken = new FormControl("");
+    fileDisplay = new FormControl("");
 }
 
 export class UserSignupModel {
@@ -53,6 +54,7 @@ export class UserSignupModel {
     confirmPassword = new FormControl("", [Validators.required]);
     file = new FormControl("");
     notificationToken = new FormControl("");
+    fileDisplay = new FormControl("");
 }
 
 export class JudgeSignupModel {
@@ -81,4 +83,5 @@ export class JudgeSignupModel {
     isEmailVisible = new FormControl(false);
     file = new FormControl("");
     notificationToken = new FormControl("");
+    fileDisplay = new FormControl("");
 }

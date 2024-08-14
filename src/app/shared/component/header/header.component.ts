@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { P } from '@angular/cdk/keycodes';
+import { imageUrl } from '../../../graphql.module';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +12,7 @@ import { Location } from '@angular/common';
 })
 export class HeaderComponent {
   userType: string = "";
-
+  userImage: string = "";
   notifications = [
     {
       image: '../assets/images/image/notification_user.png',
@@ -36,8 +39,11 @@ export class HeaderComponent {
   @Input() searchIcon = { width: 'auto', display: 'block' };
   @Input() colConfig: string = "col-lg-8 col-md-8";
 
-  constructor(private _router: Router, private _location: Location) {
+  constructor(private _router: Router, private _location: Location, private _authService: AuthService) {
     this.userType = this._router.url.split('/')[1];
+    this._authService.profileImageSubject.subscribe(data => {
+      this.userImage = data; console.log(data, 'userImage')
+    })
   }
 
   redirectToProfile() {
@@ -72,5 +78,9 @@ export class HeaderComponent {
 
   routeBack() {
     this._location.back()
+  }
+
+  getImageUrl(image: any) {
+    return imageUrl() + image;
   }
 }

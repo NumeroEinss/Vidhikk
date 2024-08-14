@@ -27,14 +27,14 @@ export class ConferenceComponent {
       name: 'Anurag Goyal',
       time: '05:32 pm',
       message: 'I am fine...',
-      receiverImage: '../../assets/images/image/anurag_goyal.jpg',
+      receiverImage: '../../assets/images/image/person.jpg',
     },
     {
       type: 'receiver',
       name: 'Anurag Goyal',
       time: '05:33 pm',
       message: 'What about you..?',
-      receiverImage: '../../assets/images/image/anurag_goyal.jpg',
+      receiverImage: '../../assets/images/image/person.jpg',
     },
     {
       type: 'sender',

@@ -12,7 +12,6 @@ import { Subject, debounceTime, switchMap } from 'rxjs';
 import { SearchService } from '../../shared/services/search.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AdvanceSearchModel } from '../../common/advanceSearch.model';
-import { EncryptionService } from '../../shared/services/encryption.service';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -237,8 +236,7 @@ export class CaseLawListComponent {
   sharedCurrentPage: number = 1;
 
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
-    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder,
-    private _encryptService: EncryptionService) {
+    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder) {
     this._dateAdapter.setLocale('en-GB');
     this.filteredJournalsList = this.journalList;
     this.getCaseLaws(1);

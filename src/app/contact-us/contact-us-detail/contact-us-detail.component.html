@@ -3,7 +3,8 @@
 <div class="root">
     <div style="height: calc(100vh - 160px);">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-            <div><img src="../../../assets/images/icons/black_left_arrow.svg" (click)="routeBack()" class="me-2" />Back
+            <div><img src="../../../assets/images/icons/black_left_arrow.svg" (click)="routeBack()" class="me-2"
+                    style="cursor: pointer;" />Back
             </div>
 
             <div class="ticket-detail">
@@ -11,7 +12,9 @@
                     <div class="status me-2"></div>
                     <div style="font-weight: 500;">{{ticketDetail?.ticketNo}}</div>
                 </div>
-                <div class="created-date">Posted at {{ticketDetail?.createdAt}}
+                <div class="created-date">Posted at {{getDay(ticketDetail?.createdAt)}},
+                    {{getDate(ticketDetail?.createdAt)}},
+                    {{getTime(ticketDetail?.createdAt)}}
                 </div>
             </div>
 

@@ -9,6 +9,7 @@ import { CaseLawDetailComponent } from './case-law-detail/case-law-detail.compon
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HighlighterPipe } from '../shared/pipe/highlighter.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HighlighterPipe } from '../shared/pipe/highlighter.pipe';
     SharedModule,
     MaterialModule,
     MatDatepickerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTooltipModule
   ],
   providers: [HighlighterPipe]
 })

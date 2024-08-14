@@ -15,6 +15,7 @@ export class AuthService {
   fireBaseToken: string = "";
 
   private currentUserSubject: BehaviorSubject<any> | undefined;
+  profileImageSubject: BehaviorSubject<string> = new BehaviorSubject("");
 
   constructor(private _apollo: Apollo, private _router: Router, private _toastMessage: ToastMessageService,
     private _activatedRoute: ActivatedRoute, private _messagingService: MessagingService) {
@@ -35,6 +36,10 @@ export class AuthService {
         this._toastMessage.showMessage(data.notification.title, data.notification.body);
       }
     });
+    if (localStorage.getItem('userData')) {
+      const userData = JSON.parse(localStorage.getItem('userData')!);
+      this.profileImageSubject?.next(userData.profileImage)
+    }
   }
 
   get currentUserValue() {

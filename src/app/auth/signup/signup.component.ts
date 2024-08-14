@@ -68,11 +68,7 @@ export class SignupComponent {
     { type: 'supreme Court', value: 'Subordinate Court Ahmedabad', viewValue: 'Subordinate Court Ahmedabad' },
   ];
 
-  fields: any[] = [
-    { value: 'civil', viewValue: 'Civil' },
-    { value: 'finance', viewValue: 'Finance' },
-    { value: 'taxation', viewValue: 'Taxation' },
-  ];
+  fields: any = [];
 
   queries: any[] = [
     { value: 'What is your favorite color', viewValue: 'What is your favorite color' },
@@ -352,6 +348,7 @@ export class SignupComponent {
     this.judgeForm = this._fb.group(new JudgeSignupModel);
 
     this.getCitiesList();
+    this.getPractiscingField();
   }
 
   opacityStyling = { opacity: 0.1 };
@@ -425,7 +422,7 @@ export class SignupComponent {
 
   private _filter(value: any): string[] {
     const filterValue = value.value.toLowerCase();
-    return this.fields.filter(feilds => feilds.value.toLowerCase().includes(filterValue));
+    return this.fields.filter((feilds: { value: string; }) => feilds.value.toLowerCase().includes(filterValue));
   }
 
   selectedSection(id: string) {
@@ -438,12 +435,15 @@ export class SignupComponent {
     reader.onload = (e) => {
       if (this.userType == "LAWYER") {
         this.lawyerForm.controls.file.patchValue(event.target.files[0]);
+        this.lawyerForm.controls.fileDisplay.patchValue(e.target?.result);
       }
       else if (this.userType == "USER") {
         this.userForm.controls.file.patchValue(event.target.files[0]);
+        this.userForm.controls.fileDisplay.patchValue(e.target?.result);
       }
       else if (this.userType == "JUDGE") {
         this.judgeForm.controls.file.patchValue(event.target.files[0]);
+        this.judgeForm.controls.fileDisplay.patchValue(e.target?.result);
       }
     }
     reader.readAsDataURL(event.target.files[0]);
@@ -659,58 +659,57 @@ export class SignupComponent {
 
   lawyerSignup() {
     // accountVerificationButton
-    if (!this.lawyerForm.valid) {
+    if (this.lawyerForm.value.file == "") {
+      this._toastMessage.error("Please add profile image !!");
+    }
+    else if (!this.lawyerForm.valid) {
       this._toastMessage.error("Please Fill all the fields !!");
     }
     else if (!this.emailOtpVerified) {
       this._toastMessage.error("Please verify your email !!");
     }
     else {
-      let reqObj = {
-        fatherName: this.lawyerForm.controls.fatherName.value,
-        userType: this.userType,
-        lawyerName: this.lawyerForm.controls.name.value,
-        city: this.lawyerForm.controls.city.value,
-        state: this.lawyerForm.controls.state.value,
-        email: this.lawyerForm.controls.email.value,
-        password: this.lawyerForm.controls.password.value,
-        confirmPassword: this.lawyerForm.controls.confirmPassword.value,
-        // question: this.lawyerForm.controls.question.value,
-        // answer: this.lawyerForm.controls.answer.value,
-        // question2: this.lawyerForm.controls.question2.value,
-        // answer2: this.lawyerForm.controls.answer2.value,
-        primaryContact: this.lawyerForm.controls.phoneNumber.value,
-        isPrimaryContactWhatsapp: this.lawyerForm.controls.isPrimaryContactWhatsapp.value,
-        isPrimaryContactVisible: this.lawyerForm.controls.isPrimaryContactVisible.value,
-        secondaryContact: this.lawyerForm.controls.secondaryContact.value,
-        isSecondaryContactWhatsapp: this.lawyerForm.controls.isSecondaryContactWhatsapp.value,
-        isSecondaryContactVisible: this.lawyerForm.controls.isSecondaryContactVisible.value,
-        isEmailDisplay: this.lawyerForm.controls.isEmailVisible.value,
-        isAddressVisible: this.lawyerForm.controls.isAddressVisible.value,
-        stateBar: this.lawyerForm.controls.stateBar.value,
-        practicingCourt: this.lawyerForm.controls.courtName.value,
-        barLicenseNumber: this.lawyerForm.controls.licenseNo.value,
-        practiceYear: parseInt(this.lawyerForm.controls.practiceYear.value),
-        practicingField: this.lawyerForm.controls.practiceField.value,
-        orgainization: this.lawyerForm.controls.orgainization.value,
-        coreCompetency: this.lawyerForm.controls.coreCompetency.value,
-        barAddress: this.lawyerForm.controls.barAddress.value,
-        isBarAddressDisplay: this.lawyerForm.controls.isAddressVisible.value,
-        isPrimaryMobileDisplay: this.lawyerForm.controls.isPrimaryContactVisible.value,
-        isSecondaryMobileDisplay: this.lawyerForm.controls.isSecondaryContactVisible.value,
-        // file: this.lawyerForm.controls.file.value
-      };
-      this._apolloService.mutate(GQLConfig.createLawyer, reqObj).subscribe(data => {
-        if (data.data != null) {
-          if (data.data.createLawyers.status == 200) {
-            this._toastMessage.success(data.data.createLawyers.message + '. Login to proceed further');
-            // this._router.navigate(['/auth/login']);
-            let btn = document.getElementById('accountVerificationButton') as HTMLElement;
-            btn.click();
-          }
-          else {
-            this._toastMessage.error(data.data.createLawyers.message);
-          }
+      const mutation = {
+        "query": "mutation ($input: AdvocateProfile!, $file: Upload) { createLawyers(input: $input, file: $file) { status message data } }",
+        "variables": {
+          "input": {
+            "userType": this.userType,
+            "lawyerName": this.lawyerForm.controls.name.value,
+            "fatherName": this.lawyerForm.controls.fatherName.value,
+            "orgainization": this.lawyerForm.controls.orgainization.value,
+            "primaryContact": this.lawyerForm.controls.phoneNumber.value,
+            "isPrimaryContactWhatsapp": this.lawyerForm.controls.isPrimaryContactWhatsapp.value,
+            "isPrimaryMobileDisplay": this.lawyerForm.controls.isPrimaryContactVisible.value,
+            "secondaryContact": this.lawyerForm.controls.secondaryContact.value,
+            "isSecondaryContactWhatsapp": this.lawyerForm.controls.isSecondaryContactWhatsapp.value,
+            "isSecondaryMobileDisplay": this.lawyerForm.controls.isSecondaryContactVisible.value,
+            "city": this.lawyerForm.controls.city.value,
+            "state": this.lawyerForm.controls.state.value,
+            "email": this.lawyerForm.controls.email.value,
+            "password": this.lawyerForm.controls.password.value,
+            "confirmPassword": this.lawyerForm.controls.confirmPassword.value,
+            "barLicenseNumber": this.lawyerForm.controls.licenseNo.value,
+            "stateBar": this.lawyerForm.controls.stateBar.value,
+            "practiceYear": parseInt(this.lawyerForm.controls.practiceYear.value),
+            "coreCompetency": this.lawyerForm.controls.coreCompetency.value,
+            "practicingCourt": this.lawyerForm.controls.courtName.value,
+            "practicingField": this.lawyerForm.controls.practiceField.value,
+            "isEmailDisplay": false,
+            "barAddress": this.lawyerForm.controls.barAddress.value,
+            "isBarAddressDisplay": this.lawyerForm.controls.isAddressVisible.value
+          },
+          "file": null
+        }
+      }
+
+      this._apolloService.upload(mutation, this.lawyerForm.controls.file.value, "0").subscribe(objRes => {
+        if (objRes.data != null) {
+          this._toastMessage.success(objRes.data.createLawyers.message);
+          let btn = document.getElementById('accountVerificationButton') as HTMLElement;
+          btn.click();
+        }
+        else {
+          this._toastMessage.error(objRes.data.createLawyers.message);
         }
       })
     }
@@ -748,6 +747,20 @@ export class SignupComponent {
     this.judgeForm = this._fb.group(new JudgeSignupModel());
     this.emailOtpVerified = false;
     this.onSubmitOtp();
+  }
+
+  getPractiscingField() {
+    this._http.get('assets/JSON/practiscing_field.json').subscribe({
+      next: (data) => {
+        this.fields = data;
+      },
+      error: (error) => { this._toastMessage.error(error) }
+    })
+  }
+
+  getImage(image: any) {
+    console.log(window.location.host + image)
+    return window.location.host + image;
   }
 
   ngOnDestroy() {
