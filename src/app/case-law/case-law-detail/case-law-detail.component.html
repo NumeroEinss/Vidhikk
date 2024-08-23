@@ -19,14 +19,16 @@
         <img class="search" src="../../../../assets/images/icons/search_grey.svg" />
       </div>
 
-      <div matTooltip="Highlighter" (click)="highlightText()"><img src="../../../assets/images/icons/highlighter.svg" />
+      <div class="cursor-pointer" matTooltip="Highlighter" (click)="highlightText()"><img
+          src="../../../assets/images/icons/highlighter.svg" />
       </div>
-      <div matTooltip="Save Case"><img src="../../../assets/images/icons/bookmark.svg" /></div>
-      <div matTooltip="Share with member" data-bs-target="#shareMemberPopup" data-bs-toggle="modal"><img
-          src="../../../assets/images/icons/person.svg" /></div>
-      <div matTooltip="Share via email" [matMenuTriggerFor]="emailMenu" #emailMenuTrigger="matMenuTrigger"><img
-          src="../../../assets/images/icons/mailTo.svg" /></div>
-      <div matTooltip="Print" (click)="print()"><img src="../../../assets/images/icons/print.svg" /></div>
+      <div class="cursor-pointer" matTooltip="Save Case"><img src="../../../assets/images/icons/bookmark.svg" /></div>
+      <div class="cursor-pointer" matTooltip="Share with member" data-bs-target="#shareMemberPopup"
+        data-bs-toggle="modal"><img src="../../../assets/images/icons/person.svg" /></div>
+      <div class="cursor-pointer" matTooltip="Share via email" [matMenuTriggerFor]="emailMenu"
+        #emailMenuTrigger="matMenuTrigger"><img src="../../../assets/images/icons/mailTo.svg" /></div>
+      <div class="cursor-pointer" matTooltip="Print" (click)="print()"><img
+          src="../../../assets/images/icons/print.svg" /></div>
 
       <mat-menu #emailMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu ">
         <a (click)="$event.stopPropagation()" style="text-decoration: none">

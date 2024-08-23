@@ -28,27 +28,34 @@
 
     <div class="notification-container" [matMenuTriggerFor]="notificationMenu">
       <img src="../../../../assets/images/icons/notification.svg" />
-      <div class="notification-count">0</div>
+      <div class="notification-count">{{notifications.length}}</div>
     </div>
-    <!-- <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false"> -->
     <mat-menu #notificationMenu="matMenu">
-      <div mat-menu-item data-bs-toggle="modal" data-bs-target="#notificationModal"
-        *ngFor="let notification of notifications">
-        <div class="notification-content">
-          <div class="d-flex">
-            <div><img [src]="notification.image" alt="noImage" /></div>
+      <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false">
+        <div mat-menu-item *ngFor="let notification of notifications"
+          (click)="notification.notificationType == 'approvalRequest'?openNoification():''">
+          <div class="notification-content">
+            <div class="d-flex">
+              <div class="image-container">
+                <img [src]="notification.image"
+                  onerror="this.onerror = '',this.src='../../../../assets/images/image/no-image.png'" />
+              </div>
 
-            <div class="notification-detail ms-2">
-              <div class="member-request">{{ notification.name }}</div>
-              <div class="notification">{{ notification.detail }}</div>
+              <div class="notification-detail ms-2">
+                <div class="d-flex notification-header">
+                  <div class="member-request">{{ notification.title }}</div>
+                  <div class="days">{{getDaysAgo(notification.timestamp)>0?getDaysAgo(notification.timestamp) + ' days
+                    ago':'Today' }}</div>
+                </div>
+                <div class="notification">{{ notification.body }}</div>
+              </div>
             </div>
           </div>
-
-          <div class="days">{{ notification.days }}</div>
         </div>
-      </div>
+        <button id='openNotifications' class="d-none" data-bs-toggle="modal"
+          data-bs-target="#notificationModal"></button>
+      </ng-scrollbar>
     </mat-menu>
-    <!-- </ng-scrollbar> -->
     <!-- <div class="add-button">
       <img src="../../../../assets/images/icons/add_button.svg" />
     </div> -->

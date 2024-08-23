@@ -137,9 +137,20 @@
 // notification styling start
 .notification-content {
   display: flex;
-  padding: 12px 10px;
+  padding: 12px 0px;
   justify-content: space-between;
   width: 350px;
+
+  .image-container {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+  }
 
   .notification-detail {
     display: flex;
@@ -157,6 +168,10 @@
     .notification {
       color: #7c7c7c;
       line-height: 20px;
+    }
+
+    .notification-header{
+      justify-content: space-between;
     }
   }
 
@@ -444,8 +459,8 @@ body .modal-dialog .modal-header {
     }
   }
 
-  .upgrade-modal{
-    .modal-body{
+  .upgrade-modal {
+    .modal-body {
       flex-wrap: wrap;
     }
   }
@@ -455,14 +470,17 @@ body .modal-dialog .modal-header {
   .upgrade-modal {
     .modal-body {
       gap: 30px;
-     
-      .plan-name, .limit{
+
+      .plan-name,
+      .limit {
         white-space: nowrap;
       }
 
-      .silver-plan, .gold-plan, .platinum-plan {
-        width: 230px; 
-      }
+      .silver-plan,
+      .gold-plan,
+      .platinum-plan {
+        width: 230px;
       }
     }
+  }
 }
