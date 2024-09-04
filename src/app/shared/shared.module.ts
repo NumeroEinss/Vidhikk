@@ -15,6 +15,9 @@ import { SafeHTMLPipe } from './pipe/safe-html.pipe';
 import { PreventKeyboardEventsDirective } from './directives/prevent-keyboard-events.directive';
 import { FormsModule } from '@angular/forms';
 
+import { ShareButtons } from 'ngx-sharebuttons/buttons';
+import { shareIcons } from 'ngx-sharebuttons/icons';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     NgScrollbarModule,
     MatChipsModule,
-    FormsModule
+    FormsModule,
+    ShareButtons
   ],
   exports: [
     HeaderComponent,
@@ -42,8 +46,9 @@ import { FormsModule } from '@angular/forms';
     HighlighterPipe,
     PaginatorComponent,
     SafeHTMLPipe,
-    PreventKeyboardEventsDirective
+    PreventKeyboardEventsDirective,
+    ShareButtons
   ],
-  providers: [AuthService]
+  providers: [AuthService, shareIcons()]
 })
 export class SharedModule { }

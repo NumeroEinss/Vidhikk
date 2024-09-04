@@ -1121,6 +1121,11 @@ body {
       display: none;
     }
   }
+
+  .sb-circles-dark .sb-wrapper,
+  .sb-circles-light .sb-wrapper {
+    --sb-icon-size: 1em;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

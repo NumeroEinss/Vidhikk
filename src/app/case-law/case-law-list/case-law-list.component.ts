@@ -229,7 +229,7 @@ export class CaseLawListComponent {
 
   judgeWiseCurrentPage: number = 1;
 
-  savedList: any = [];
+  savedCasesList: any = [];
   savedCurrentPage: number = 1;
 
   sharedList: any = [];
@@ -242,6 +242,7 @@ export class CaseLawListComponent {
     this.getCaseLaws(1);
     this.getJudgeList();
     this.getCourtList();
+    this.getSavedCases();
     this.filteredActList = this.actList;
     this.filteredActTypeList = this.actTypeList;
     this.filteredYearList = this.yearList;
@@ -386,6 +387,7 @@ export class CaseLawListComponent {
       this._apolloService.get(`/judgement/search/appellant/${keyWord}?page=${this.applicantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
         if (objRes.status == "success") {
           this.resAppList = objRes.data.items;
+          this.applicantCurrentPage = 1;
           this.recordCount = objRes.data.totalCount;
           this.showAppSearch = !this.showAppSearch;
         }
@@ -404,6 +406,7 @@ export class CaseLawListComponent {
       this._apolloService.get(`/judgement/search/respondents/${keyWord}?page=${this.respondantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
         if (objRes.status == "success") {
           this.resRespList = objRes.data.items;
+          this.respondantCurrentPage = 1;
           this.recordCount = objRes.data.totalCount;
           this.showRespSearch = !this.showRespSearch;
         }
@@ -422,6 +425,7 @@ export class CaseLawListComponent {
       this._apolloService.get(`/judgement/search/judges/${keyWord}?page=${this.judgeWiseCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
         if (objRes.status == "success") {
           this.respJudgeList = objRes.data.items;
+          this.judgeWiseCurrentPage = 1;
           this.recordCount = objRes.data.totalCount;
           this.showJudgeSearch = !this.showJudgeSearch;
         }
@@ -450,6 +454,7 @@ export class CaseLawListComponent {
     this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
       if (objRes.status == "success") {
         this.respAdvanceSearchList = objRes.data.items;
+        this.advanceSearchCurrentPage = 1;
         this.recordCount = objRes.data.totalCount;
       }
     })
@@ -473,6 +478,7 @@ export class CaseLawListComponent {
       this._apolloService.post(`/judgement/search/words?page=${page}&pageSize=${this.pageSize}`, data).subscribe(objRes => {
         if (objRes.status == "success") {
           this.respWordsPhraseList = objRes.data.items;
+          this.wordsPhraseCurrentPage = 1;
           this.recordCount = objRes.data.totalCount;
         }
       })
@@ -627,6 +633,16 @@ export class CaseLawListComponent {
       if (objRes.status == "success") {
         this.respJudgeList = objRes.data.items;
         this.recordCount = objRes.data.totalCount;
+      }
+    })
+  }
+
+  getSavedCases() {
+    let userData = JSON.parse(localStorage.getItem('userData')!);
+    this._apolloService.get(`/saved-judgement/${userData._id}`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.savedCasesList = objRes.data;
+        this.recordCount = objRes.data.length;
       }
     })
   }

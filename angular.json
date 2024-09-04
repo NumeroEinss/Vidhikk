@@ -39,6 +39,10 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "node_modules/ngx-sharebuttons/themes/circles.scss",
+              "node_modules/ngx-sharebuttons/themes/modern.scss",
               "src/styles.scss"
             ],
             "scripts": []

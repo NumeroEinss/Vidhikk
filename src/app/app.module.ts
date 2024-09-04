@@ -27,7 +27,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { environment } from '../enviroments/enviroment';
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent,
         LoginComponent,
         SignupComponent,
@@ -36,7 +37,8 @@ import { environment } from '../enviroments/enviroment';
         ResetPasswordComponent,
         ContactUsComponent,
     ],
-    bootstrap: [AppComponent], imports: [FormsModule,
+    bootstrap: [AppComponent],
+    imports: [FormsModule,
         ReactiveFormsModule,
         BrowserModule,
         AppRoutingModule,
@@ -47,7 +49,8 @@ import { environment } from '../enviroments/enviroment';
         GraphQLModule,
         NgxLoadingModule.forRoot({}),
         AngularFireMessagingModule,
-        AngularFireModule.initializeApp(environment.firebase)], providers: [
+        AngularFireModule.initializeApp(environment.firebase)],
+    providers: [
         AuthGuard,
         AuthService,
         ApolloService,
@@ -56,5 +59,6 @@ import { environment } from '../enviroments/enviroment';
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         provideHttpClient(withInterceptorsFromDi()),
-    ] })
+    ]
+})
 export class AppModule { }

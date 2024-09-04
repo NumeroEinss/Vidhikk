@@ -759,7 +759,6 @@ export class SignupComponent {
   }
 
   getImage(image: any) {
-    console.log(window.location.host + image)
     return window.location.host + image;
   }
 

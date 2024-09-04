@@ -70,12 +70,14 @@ export class AdvocateListComponent {
     this.getPractiscingField();
   }
 
-  viewLawyerDetails() {
-    this._router.navigate(['/user/advocates/dflkasdksdfasde']);
+  viewLawyerDetails(lawyerId: any) {
+    const extras = lawyerId;
+    this._router.navigate([`/user/advocates/view`], { state: extras });
   }
 
-  viewRating() {
-    this._router.navigate(['/user/advocates/gfdyfvayfd/advocate-rating'])
+  viewRating(lawyerId: any) {
+    const extras = lawyerId;
+    this._router.navigate([`/user/advocates/view/advocate-rating`], { state: extras });
   }
 
   getAdvocateList() {
@@ -117,5 +119,9 @@ export class AdvocateListComponent {
       },
       error: (error) => { this._toastMessage.error(error) }
     })
+  }
+
+  getShortInfo(info: string) {
+    return info.slice(0, 15);
   }
 }

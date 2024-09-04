@@ -23,7 +23,8 @@
 
             <div class="d-flex w-100" *ngIf="userType === 'lawyer'">
               <div class="profile-container">
-                <img src="../../assets/images/image/person.jpg" />
+                <img [src]="this.userImage"
+                  onerror="this.onerror=null,this.src='../../../../assets/images/image/person.jpg'" />
               </div>
               <div class="section-2">
                 <input type="text" placeholder="Tittle" [(ngModel)]="post.title" />

@@ -15,6 +15,10 @@ export class ApolloService {
   constructor(private _apollo: Apollo, private _toastMessage: ToastMessageService, private _http: HttpClient,
     private _authService: AuthService) { }
 
+  get BaseUrl() {
+    return this.baseUrl;
+  }
+
   query(query: TypedDocumentNode<any>, variables?: Object): Observable<any> {
     return this._apollo.query({ query: query, variables: variables, errorPolicy: 'all' })
       .pipe(

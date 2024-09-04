@@ -9,6 +9,7 @@ import { ApolloService } from '../shared/services/apollo.service';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { GQLConfig } from '../graphql.operations';
 import { NgScrollbar } from 'ngx-scrollbar';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-activity-feed',
@@ -26,13 +27,17 @@ export class ActivityFeedComponent {
   feedList: any = [];
   post: any = { title: "", description: "" };
   refreshVisible: boolean = false;
+  userImage: string = "";
 
   constructor(private _router: Router, private _apolloService: ApolloService,
-    private _toastMessage: ToastMessageService
+    private _toastMessage: ToastMessageService, private _authService: AuthService
   ) {
     this.userType = _router.url.split('/')[1];
     this.getActivityFeeds();
-    setInterval(() => { this.refreshVisible = true }, 10000)
+    setInterval(() => { this.refreshVisible = true }, 10000);
+    this._authService.profileImageSubject.subscribe(data => {
+      this.userImage = data;
+    })
   }
 
   addPost() {
@@ -58,7 +63,7 @@ export class ActivityFeedComponent {
             this.post.title = "";
             this.post.description = "";
             this.getActivityFeeds();
-            this.commentScroll.scrollTo({bottom:100})
+            this.commentScroll.scrollTo({ bottom: 100 })
           }
           else {
             this._toastMessage.success(data.data.postLawyerActivity.message);

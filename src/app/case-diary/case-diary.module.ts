@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CaseDiaryRoutingModule } from './case-diary-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
@@ -59,6 +59,6 @@ const MY_DATE_FORMAT = {
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE],
     },
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT }]
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT }, DatePipe]
 })
 export class CaseDiaryModule { }

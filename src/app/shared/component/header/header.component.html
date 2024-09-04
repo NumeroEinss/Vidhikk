@@ -31,31 +31,34 @@
       <div class="notification-count">{{notifications.length}}</div>
     </div>
     <mat-menu #notificationMenu="matMenu">
-      <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false">
-        <div mat-menu-item *ngFor="let notification of notifications"
-          (click)="notification.notificationType == 'approvalRequest'?openNoification():''">
-          <div class="notification-content">
-            <div class="d-flex">
-              <div class="image-container">
-                <img [src]="notification.image"
-                  onerror="this.onerror = '',this.src='../../../../assets/images/image/no-image.png'" />
-              </div>
-
-              <div class="notification-detail ms-2">
-                <div class="d-flex notification-header">
-                  <div class="member-request">{{ notification.title }}</div>
-                  <div class="days">{{getDaysAgo(notification.timestamp)>0?getDaysAgo(notification.timestamp) + ' days
-                    ago':'Today' }}</div>
+      <div style="height: 200px; width: 400px;">
+        <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false" style="height: 100%; width: 100%;">
+          <div mat-menu-item *ngFor="let notification of notifications"
+            (click)="notification.notificationType == 'approvalRequest'?openNoification():''">
+            <div class="notification-content">
+              <div class="d-flex">
+                <div class="image-container">
+                  <img [src]="notification.image"
+                    onerror="this.onerror = '',this.src='../../../../assets/images/image/no-image.png'" />
                 </div>
-                <div class="notification">{{ notification.body }}</div>
+
+                <div class="notification-detail ms-2">
+                  <div class="d-flex notification-header">
+                    <div class="member-request">{{ notification.title }}</div>
+                    <div class="days">{{getDaysAgo(notification.timestamp)>0?getDaysAgo(notification.timestamp) +
+                      ' days ago':'Today' }}</div>
+                  </div>
+                  <div class="notification">{{ notification.body }}</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <button id='openNotifications' class="d-none" data-bs-toggle="modal"
-          data-bs-target="#notificationModal"></button>
-      </ng-scrollbar>
+          <button id='openNotifications' class="d-none" data-bs-toggle="modal"
+            data-bs-target="#notificationModal"></button>
+        </ng-scrollbar>
+      </div>
     </mat-menu>
+
     <!-- <div class="add-button">
       <img src="../../../../assets/images/icons/add_button.svg" />
     </div> -->

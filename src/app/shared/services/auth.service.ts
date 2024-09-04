@@ -31,7 +31,6 @@ export class AuthService {
     });
     this.messageSubscription$ = this._messagingService.currentMessage.subscribe((data: any) => {
       if (data) {
-        // console.log(data, 'messageSubscription')
         this.message = data;
         this._toastMessage.showMessage(data.notification.title, data.notification.body);
       }
@@ -58,6 +57,7 @@ export class AuthService {
             localStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
             localStorage.setItem('vidhikToken', respObj.data.login.data.accessToken)
             this.currentUserSubject?.next(respObj.data.login.data);
+            this.profileImageSubject?.next(respObj.data.login.data.profileImage)
 
             //redirect the user as per the selected type
             if (userType == "USER") {
@@ -95,6 +95,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('userData');
     this.currentUserSubject?.next(null);
+    this.profileImageSubject?.next("");
     localStorage.removeItem('vidhikToken');
     localStorage.removeItem('messageToken');
     localStorage.removeItem('isCaseDiaryLogin');

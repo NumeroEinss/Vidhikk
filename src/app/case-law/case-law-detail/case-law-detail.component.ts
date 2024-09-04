@@ -6,6 +6,9 @@ import { ApolloService } from '../../shared/services/apollo.service';
 import { GQLConfig } from '../../graphql.operations';
 import { HighlighterPipe } from '../../shared/pipe/highlighter.pipe';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { EmailService } from '../../shared/services/email.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-case-law-detail',
@@ -18,7 +21,6 @@ export class CaseLawDetailComponent {
   @Input() searchStyle = { width: '0px', display: 'none' };
   @Input() searchIcon = { width: 'auto', display: 'block' };
   @ViewChild('emailMenuTrigger') emailMenuTrigger!: MatMenuTrigger;
-  // vidhikLogoUrl = '../../../../assets/images/icons/vidhiklogo.svg';
   caseId: any;
   caseLawDetail: any = { title: "", document: "" };
   userName: any;
@@ -26,11 +28,14 @@ export class CaseLawDetailComponent {
   routerState: any;
   memberList: any = [];
   title: string = "";
-  sendersEmail: string = "";
+  recieversEmail: string = "";
   mailToLink: string = "";
+  isLimitReached: boolean = false;
+  isHighlighted: boolean = false;
 
   constructor(private _location: Location, private _router: Router, private _highlighterPipe: HighlighterPipe,
-    private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
+    private _toastMessage: ToastMessageService, private _apolloService: ApolloService, private _emailService: EmailService,
+    private _http: HttpClient) {
     this.routerState = this._router.getCurrentNavigation()?.extras.state;
     this.userName = JSON.parse(localStorage.getItem('userData')!);
     if (this.routerState != undefined) {
@@ -54,23 +59,30 @@ export class CaseLawDetailComponent {
   }
 
   sendEmail() {
-    console.log(this.validateEmail(this.sendersEmail));
-    if (this.validateEmail(this.sendersEmail)) {
-      const emailAddress = this.userName.email;
-      const cc = '';
-      const bcc = '';
-      const subject = this.caseLawDetail.title;
-      let divId = 'section-to-print'
-      const divContent = document.getElementById(divId) as HTMLElement;
-      let doc = divContent.innerHTML.replace(/<[^>]*>/g, '');
-      this.mailToLink = `mailto:${emailAddress}?cc=${cc}&bcc=${bcc}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(doc)}`;
-      let mail = document.getElementById('mail') as HTMLElement;
-      mail.click();
-      this.emailMenuTrigger.closeMenu();
-    }
-    else {
-      this._toastMessage.error("Enter a valid email !!");
-    }
+    // if (this.validateEmail(this.recieversEmail)) {
+    //   const emailAddress = this.recieversEmail;
+    //   const subject = this.caseLawDetail.title;
+    //   // const divId = 'section-to-print';
+    //   const divId = 'judgement';
+    //   const divContent = document.getElementById(divId) as HTMLElement;
+    //   let doc = divContent.innerHTML
+    //     .replace(/<br\s*\/?>/gi, '%0D%0A')            // Replace <br> with URL-encoded newlines
+    //     .replace(/<\/(p|div|h[1-6]|li)>/gi, '%0D%0A')  // Replace closing block-level tags with newlines
+    //     .replace(/<[^>]*>/g, '')                      // Strip remaining HTML tags
+    //     .trim();                                      // Trim leading/trailing whitespace
+    //   const bodyContent = `${this.getSharingContent(doc)}....%0D%0A%0D%0AThis is a Sample of one of the case laws, visit Vidhik at (http://84.247.151.137/auth/login) for accessing full case laws.`
+    //   const mailToLink = `mailto:${emailAddress}?subject=${subject}&body=${bodyContent}`;
+
+    //   // Open the mail client
+    //   setTimeout(() => {
+    //     window.open(mailToLink);
+    //   }, 0);
+
+    //   this.emailMenuTrigger.closeMenu();
+    // }
+    // else {
+    //   this._toastMessage.error("Enter a valid email !!");
+    // }
   }
 
   print() {
@@ -159,9 +171,18 @@ export class CaseLawDetailComponent {
   }
 
   getCaseLawDetail() {
-    this._apolloService.get(`/judgement/details/${this.caseId}`).subscribe(data => {
+    let userData = JSON.parse(localStorage.getItem('userData')!);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: '*/*',
+      user: JSON.stringify(userData._id)
+    })
+    this._http.get(this._apolloService.BaseUrl + `/judgement/details/${this.caseId}`, { headers }).subscribe((data: any) => {
       if (data.status == "success") {
         this.caseLawDetail = data.data;
+      }
+      if (data.status == "error" && data.error === "Your daily quota has reached.") {
+        this.isLimitReached = true;
       }
     })
   }
@@ -195,12 +216,59 @@ export class CaseLawDetailComponent {
   }
 
   highlightText() {
-    console.log(window.getSelection(),'selectionpro')
     let selection: any = window.getSelection()?.toString();
-    console.log(selection, 'selection');
     if (selection) {
       let doc = document.getElementById('judgement') as HTMLElement;
       doc.innerHTML = this._highlighterPipe.transformOne(doc.innerHTML, selection);
+      this.isHighlighted = true;
+    }
+  }
+
+  getUrl() {
+    return window.location.host;
+  }
+
+  getSharingContent(str: string) {
+    return str.slice(0, 4000);
+  }
+
+  sendmail() {
+    // if (this.validateEmail(this.recieversEmail)) {
+    //   const emailParams = {
+    //     reply_to: this.userName.email,
+    //     from_name: this.userName.name,
+    //     message: this.caseLawDetail.document.replace(/<br\s*\/?>/gi, '%0D%0A')            // Replace <br> with URL-encoded newlines
+    //       .replace(/<\/(p|div|h[1-6]|li)>/gi, '%0D%0A')  // Replace closing block-level tags with newlines
+    //       .replace(/<[^>]*>/g, '')                      // Strip remaining HTML tags
+    //       .trim(),
+    //     mail_to: this.recieversEmail
+    //   };
+    //   const sizeInBytes = new Blob([JSON.stringify(emailParams)]).size;
+    //   console.log('Approximate size of templateParams in bytes:', sizeInBytes);
+
+    //   this._emailService.sendEmail(emailParams)
+    // }
+    // else {
+    //   this._toastMessage.error("Enter a valid email !!");
+    // }
+  }
+
+  saveCaseLaw() {
+    if (this.isHighlighted) {
+      let userData = JSON.parse(localStorage.getItem('userData')!);
+      let data = {
+        judgementId: this.caseId,
+        judgement: this.caseLawDetail.document
+      };
+      this._apolloService.post(`/saved-judgement/${userData._id}`, data).subscribe(data => {
+        if (data.status == "success") {
+          this._toastMessage.success("Case Saved Successfully !!")
+          this.routeBack();
+        }
+      });
+    }
+    else {
+      this._toastMessage.error('Please Highlight any text to save !!');
     }
   }
 }

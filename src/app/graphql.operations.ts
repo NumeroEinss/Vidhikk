@@ -664,4 +664,24 @@ export abstract class GQLConfig {
             data
         }
     }`;
+
+    static getLawyerDetail = gql`mutation($lawyerId:String) {
+        lawyerProfile(input: {
+            lawyerId: $lawyerId
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static getLawyerRating = gql`mutation($lawyerId: String) {
+        getLawyerRatingList(input: {
+            lawyerId: $lawyerId,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
 }

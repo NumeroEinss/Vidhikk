@@ -2,14 +2,14 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
-import { P } from '@angular/cdk/keycodes';
 import { imageUrl } from '../../../graphql.module';
 import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   userType: string = "";
@@ -25,7 +25,7 @@ export class HeaderComponent {
     this.getNotificationList();
     this.userType = this._router.url.split('/')[1];
     this._authService.profileImageSubject.subscribe(data => {
-      this.userImage = data; console.log(data, 'userImage')
+      this.userImage = data;
     });
   }
 
