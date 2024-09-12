@@ -6,7 +6,6 @@ import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserLayoutComponent } from './user-layout.component';
 
-
 @NgModule({
   declarations: [UserLayoutComponent],
   imports: [

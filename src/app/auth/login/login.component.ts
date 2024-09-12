@@ -22,7 +22,6 @@ export class LoginComponent {
   loginForm2: FormGroup;
   hide: boolean = true;
   selectedIndex: number = 0;
-
   selectedUserType: any;
 
   constructor(

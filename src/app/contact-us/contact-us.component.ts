@@ -3,9 +3,6 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { TicketModel } from '../common/ticket.model';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-contact-us',

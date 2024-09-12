@@ -17,9 +17,9 @@ import { NgOtpInputComponent } from 'ng-otp-input';
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
-
   @ViewChild('otpDialog', { static: false }) otpDialog!: TemplateRef<any>;
   @ViewChild('ngOtpInput', { static: false }) ngOtpInput!: NgOtpInputComponent;
+
   signupForm: FormGroup;
   lawyerForm: FormGroup;
   otpVerified: boolean = false;
