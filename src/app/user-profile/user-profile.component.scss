@@ -183,6 +183,44 @@
             }
           }
         }
+
+        .profile-image {
+          width: 80px;
+          height: 80px;
+          border: 1px solid black;
+          border-radius: 50%;
+          position: relative;
+          margin-bottom: 15px;
+
+          input {
+            display: none;
+          }
+
+          .profile {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+          }
+
+          .profile-input {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: #2e5bff;
+            border-radius: 50%;
+            bottom: 0;
+            right: -8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .camera {
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
       }
 
       .box-shadow {
@@ -190,8 +228,6 @@
           -8px -8px 24px 0 rgba(5, 59, 255, 0.08);
       }
     }
-
-
   }
 
   .user-profile-root {
@@ -233,6 +269,7 @@
         display: flex;
         flex-direction: column;
         min-width: 300px;
+
         .heading {
           flex-grow: 0;
           font-family: Poppins;
@@ -357,6 +394,7 @@
     }
   }
 }
+
 // profile edit popup styling ends
 
 
@@ -384,6 +422,7 @@
     }
   }
 }
+
 // Mobile-verification popup styling ends
 
 
@@ -411,239 +450,20 @@
     }
   }
 }
+
 // Email-verification popup styling ends
 
 // Subscription Popup Styling Start
 .subscription-modal {
   .modal-body {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 50px;
-    margin: 40px 0;
 
-    .feature {
-      color: #8798ad;
-      margin-top: 12px;
-
-      img {
-        margin-right: 8px;
-      }
-    }
-
-    .plan-name {
-      font-family: Poppins;
-      font-size: 18px;
-      font-weight: bold;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: left;
-      color: var(--solid-black);
-      margin-top: 30px;
-    }
-
-    .limit {
-      margin-top: 20px;
-      font-family: Poppins;
-      font-size: 20px;
-      font-weight: 500;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      color: #8798ad;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .minus-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        border-radius: 4px;
-        background-color: #f5f5f5;
-        font-weight: 600;
-        color: #000000;
-        margin-left: 5px;
-      }
-
-      .number {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 31px;
-        height: 36px;
-        border: 1px solid #f5f5f5;
-        border-radius: 4px;
-        color: #000000;
-        font-weight: 600;
-        margin-left: 10px;
-        font-size: 14px;
-      }
-
-      .plus-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        border-radius: 4px;
-        background-color: #f5f5f5;
-        font-weight: 600;
-        color: #000000;
-        margin-left: 10px;
-      }
-    }
-
-    .silver-plan {
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border: 2px solid rgba(5, 59, 255, 0.05);
-      border-radius: 24px;
-      padding: 50px 48px;
-      position: relative;
-
-      .active-plan {
-        position: absolute;
-        top: 0px;
-        left: -22px;
-      }
-
-      .beginners {
-        font-weight: 500;
-        margin-top: 6px;
-      }
-
-      .free {
-        font-family: Poppins;
-        font-size: 50px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        text-align: left;
-        color: var(--solid-black);
-        margin-top: 20px;
-      }
-
-      .cancel-button {
-        margin-top: 20px;
-
-        .cancel-btn {
-          background-color: black;
-        }
-      }
-    }
-
-    .gold-plan {
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border: 2px solid rgba(5, 59, 255, 0.05);
-      border-radius: 24px;
-      padding: 50px 48px;
-
-      .individuals {
-        font-weight: 500;
-        margin-top: 6px;
-      }
-
-      .free {
-        display: flex;
-        align-items: baseline;
-        font-family: Poppins;
-        margin-top: 20px;
-        position: relative;
-
-        .rupee {
-          position: absolute;
-          top: 13px;
-          left: -8px;
-        }
-
-        .cost {
-          font-size: 50px;
-          font-weight: bold;
-          font-stretch: normal;
-          font-style: normal;
-          line-height: normal;
-          letter-spacing: normal;
-          text-align: left;
-          color: var(--solid-black);
-        }
-
-        .month {
-          color: #2e5bff;
-          white-space: nowrap;
-        }
-      }
-
-      .cancel-button {
-        margin-top: 20px;
-      }
-    }
-
-    .platinum-plan {
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border: 2px solid rgba(5, 59, 255, 0.05);
-      border-radius: 24px;
-      padding: 50px 48px;
-
-      .team {
-        font-weight: 500;
-        margin-top: 6px;
-      }
-
-      .free {
-        display: flex;
-        align-items: baseline;
-        font-family: Poppins;
-        margin-top: 20px;
-        position: relative;
-
-        .rupee {
-          position: absolute;
-          top: 13px;
-          left: -8px;
-        }
-
-        .cost {
-          font-size: 50px;
-          font-weight: bold;
-          font-stretch: normal;
-          font-style: normal;
-          line-height: normal;
-          letter-spacing: normal;
-          text-align: left;
-          color: var(--solid-black);
-        }
-
-        .month {
-          color: #2e5bff;
-          white-space: nowrap;
-        }
-      }
-
-      .cancel-button {
-        margin-top: 20px;
-      }
+    .plan-container {
+      overflow-x: scroll;
+      width: calc(100vh + 330px);
     }
   }
 }
+
 // Subscription Popup Styling Ends
 
 
@@ -666,11 +486,12 @@
     }
   }
 }
+
 //Account delete modal styling ends
 
 
 // user/user-profile edit profile styling start
-.user-edit-profile-popup{
+.user-edit-profile-popup {
   width: 400px;
 
   h1 {
@@ -683,17 +504,18 @@
   .modal-body {
     padding: 25px;
 
-    .picture{
+    .picture {
       width: 70px;
       height: 70px;
-      img{
+
+      img {
         width: 70px;
         height: 70px;
         border-radius: 50%;
       }
     }
 
-    .change-picture{
+    .change-picture {
       color: #2e5bff;
       margin-left: 10px;
       text-decoration: underline;
@@ -784,18 +606,19 @@
         }
       }
     }
+
     .user-profile-root {
       margin: 15px;
 
-      .basic-information{
-        .details-container{
+      .basic-information {
+        .details-container {
           min-width: 250px;
         }
       }
 
-      .password-security{
-        .description{
-          padding-right:50px;
+      .password-security {
+        .description {
+          padding-right: 50px;
         }
       }
     }
@@ -834,20 +657,4 @@
       }
     }
   }
-}
-
-@media only screen and (min-width: 1024px) and (max-width: 1199px) {
-  .subscription-modal {
-    .modal-body {
-      gap: 30px;
-     
-      .plan-name, .limit{
-        white-space: nowrap;
-      }
-
-      .silver-plan, .gold-plan, .platinum-plan {
-        width: 230px; 
-      }
-      }
-    }
 }

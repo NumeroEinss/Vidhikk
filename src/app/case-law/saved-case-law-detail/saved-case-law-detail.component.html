@@ -1,0 +1,37 @@
+<app-header [menuName]="'Saved Case Law'"></app-header>
+<div class="root" appPreventKeyboardEvents>
+    <div class="filter-bar">
+        <div class="pretext col-lg-6 col-md-6">
+            <img src="../../../assets/images/icons/arrow-left.svg" style="cursor: pointer;" (click)="routeBack()" />
+            <div class="records">Saved Case Law</div>
+        </div>
+        <div *ngIf="!isLimitReached" class="posttext col-lg-6 col-md-6">
+            <div class="cursor-pointer" matTooltip="Print" (click)="print()"><img
+                    src="../../../assets/images/icons/print.svg" /></div>
+        </div>
+    </div>
+    <div *ngIf="!isLimitReached" style="height: calc(100vh - 175px)">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+            <div #printableContent class="case-law-detail">
+                <div class="logo">
+                    <img src="../../../assets/images/icons/vidhiklogo.svg" alt="" />
+                </div>
+                <p class="header mt-4">
+                    This Product is licenced to {{userName.name}},
+                    {{userName.email}}, {{userName.city}}
+                </p>
+                <!-- <div class="title mt-4" [innerHTML]="caseLawDetail.title|safeHTML">
+                </div> -->
+                <br />
+                <div id="judgement" class="mt-4" [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|safeHTML">
+                </div>
+            </div>
+        </ng-scrollbar>
+    </div>
+    <div *ngIf="isLimitReached" class="upgrade-modal">
+        <div class="text-center p-2">You have reached your Daily Limit !!</div>
+        <app-subscription-plan></app-subscription-plan>
+    </div>
+</div>
+
+<app-qr-modal></app-qr-modal>

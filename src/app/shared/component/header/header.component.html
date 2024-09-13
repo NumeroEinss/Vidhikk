@@ -5,7 +5,7 @@
     </div>
   </div>
   <div [ngClass]="colConfig" class="sub-container">
-    <button class="btn-primary" [ngStyle]="searchIcon" data-bs-toggle="modal"
+    <button *ngIf="userType == 'lawyer'" class="btn-primary" [ngStyle]="searchIcon" data-bs-toggle="modal"
       data-bs-target="#upgradeModal">Upgrade</button>
 
     <div class="search" (click)="
@@ -110,103 +110,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="silver-plan">
-          <div class="active-plan">
-            <img src="../../assets/images/icons/active_plan_label.svg" alt="" />
-          </div>
-          <div class="plan-name">SILVER PLAN</div>
-          <div class="beginners">For Beginners</div>
-          <div class="free">FREE</div>
-          <div class="limit">Users : Unlimited</div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />1 Case Diary
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Blog
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top Listing
-          </div>
-
-          <div class="cancel-button">
-            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-              Cancel Plan
-            </button>
-          </div>
-        </div>
-
-        <div class="gold-plan">
-          <div class="plan-name">GOLD PLAN</div>
-          <div class="individuals">For Mediators</div>
-          <div class="free">
-            <div class="rupee">
-              <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-            </div>
-            <div class="cost">99</div>
-            <div class="month">
-              / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
-            </div>
-          </div>
-          <div class="limit">Users : Unlimited</div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />2 Case Diary
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top 100 Listing
-          </div>
-          <div class="cancel-button">
-            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-              Choose Plan
-            </button>
-          </div>
-        </div>
-        <div class="platinum-plan">
-          <div class="plan-name">PLATINUM PLAN</div>
-          <div class="team">For Experts</div>
-          <div class="free">
-            <div class="rupee">
-              <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-            </div>
-            <div class="cost">499</div>
-            <div class="month">
-              / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
-            </div>
-          </div>
-          <div class="limit">
-            Users :
-            <div class="minus-btn">-</div>
-            <div class="number">5</div>
-            <div class="plus-btn">+</div>
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />3 Case Diary
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Top 50 Listing
-          </div>
-          <div class="cancel-button">
-            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-              Choose Plan
-            </button>
-          </div>
-        </div>
+        <app-subscription-plan></app-subscription-plan>
       </div>
     </div>
   </div>
 </div>
 <!-- Upgrade Popup Ends  -->
+
+<app-qr-modal></app-qr-modal>

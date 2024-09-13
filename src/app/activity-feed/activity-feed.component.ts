@@ -10,6 +10,8 @@ import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { GQLConfig } from '../graphql.operations';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { AuthService } from '../shared/services/auth.service';
+import { imageUrl } from '../graphql.module';
+import { Subject, Subscription, takeUntil, timeout } from 'rxjs';
 
 @Component({
   selector: 'app-activity-feed',
@@ -28,6 +30,7 @@ export class ActivityFeedComponent {
   post: any = { title: "", description: "" };
   refreshVisible: boolean = false;
   userImage: string = "";
+  onDestroy$: Subject<void> = new Subject()
 
   constructor(private _router: Router, private _apolloService: ApolloService,
     private _toastMessage: ToastMessageService, private _authService: AuthService
@@ -35,9 +38,11 @@ export class ActivityFeedComponent {
     this.userType = _router.url.split('/')[1];
     this.getActivityFeeds();
     setInterval(() => { this.refreshVisible = true }, 10000);
-    this._authService.profileImageSubject.subscribe(data => {
-      this.userImage = data;
-    })
+    this._authService.profileImageSubject
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((data: any) => {
+          this.userImage = data;
+      })
   }
 
   addPost() {
@@ -156,5 +161,14 @@ export class ActivityFeedComponent {
         }
       }
     })
+  }
+
+  getImageUrl(image: any) {
+    return imageUrl() + image;
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }

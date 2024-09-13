@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, AfterViewInit } from '@angular/core';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { Router } from '@angular/router';
 import { ApolloService } from '../../shared/services/apollo.service';
@@ -32,17 +32,17 @@ export class CaseLawDetailComponent {
   mailToLink: string = "";
   isLimitReached: boolean = false;
   isHighlighted: boolean = false;
+  isHeaderGenerated: boolean = false;
 
   constructor(private _location: Location, private _router: Router, private _highlighterPipe: HighlighterPipe,
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService, private _emailService: EmailService,
-    private _http: HttpClient) {
+    private _http: HttpClient, private elementRef: ElementRef) {
     this.routerState = this._router.getCurrentNavigation()?.extras.state;
     this.userName = JSON.parse(localStorage.getItem('userData')!);
     if (this.routerState != undefined) {
       this.caseId = this.routerState.caseId || "";
       this.keyWord = this.routerState.keyWord || "";
       this.getCaseLawDetail();
-      this.getMembersList();
     }
     else {
       this._router.navigate(['lawyer/case-law/cases']);
@@ -187,29 +187,73 @@ export class CaseLawDetailComponent {
     })
   }
 
+  // removeDocidAndLicense(input: string): string {
+  //   // Define the regex pattern
+  //   const combinedPattern = /<u> Docid # IndLawLib\/\d+<\/u>|<p style="text-align:center;margin-top:20px;margin-bottom:5px;font-size:120%;color:red;">.*?<\/p>/g;
+  //   // Replace the matched pattern with an empty string
+  //   document.getElementById('judgement')?.querySelector('hr')?.remove();
+  //   const content = this.elementRef.nativeElement.querySelector('#judgement');
+  //   const paragraphs = content.querySelectorAll('p');
+  //   if (paragraphs.length) {
+  //     paragraphs[0].innerHTML = "";
+  //     let third = paragraphs[3];
+  //     console.log(third)
+  //     third.style.display = 'block ruby';
+  //     third.style.fontWeight = 'bolder';
+  //   }
+  //   return input.replace(combinedPattern, '');
+  // }
+
   removeDocidAndLicense(input: string): string {
-    // Define the regex pattern
+    // Define the regex pattern for 'Docid' and the red paragraph
     const combinedPattern = /<u> Docid # IndLawLib\/\d+<\/u>|<p style="text-align:center;margin-top:20px;margin-bottom:5px;font-size:120%;color:red;">.*?<\/p>/g;
-    // Replace the matched pattern with an empty string
-    return input.replace(combinedPattern, '');
+
+    // Replace the matched pattern in the input string
+    let modifiedInput = input.replace(combinedPattern, '');
+
+    this.generateCustomHeader();
+
+    // Return the modified input string
+    return modifiedInput;
   }
 
-  getMembersList() {
-    let userData = localStorage.getItem('userData');
-    let parsedData = userData ? JSON.parse(userData) : {}
-    this._apolloService.mutate(GQLConfig.getMemberList, { lawyerId: parsedData._id }).subscribe(resObj => {
-      if (resObj.data != null) {
-        if (resObj.data.getListMember.status == 200) {
-          this.memberList = resObj.data.getListMember.data.memberList;
-        }
-        else {
-          this._toastMessage.error(resObj.data.getListMember.message);
-        }
+  generateCustomHeader() {
+    // Remove the <hr> tag inside the element with ID 'judgement', if it exists
+    const judgementElement = document.getElementById('judgement');
+    judgementElement?.querySelector('hr')?.remove();
+
+    // Get the paragraphs inside 'judgement'
+    const content = this.elementRef.nativeElement.querySelector('#judgement');
+    const paragraphs = content?.querySelectorAll('p');
+
+    // Check if there are paragraphs to modify
+    if (paragraphs?.length) {
+      // Clear the content of the first paragraph
+      paragraphs[0].innerHTML = "";
+
+      // Modify the third paragraph (paragraph[3])
+      const third = paragraphs[3];
+      if (third) {
+        third.style = "";
+        third.innerHTML = "";
+        third.innerHTML = `
+        <div style="display:flex;justify-content:center;align-items:center;margin-top:10px;margin-bottom:10px">
+          <div style="display:flex;flex-direction:column; text-align: center; font-size: 135%;width:400px">
+            <span style="margin-bottom:10px">${this.caseLawDetail.appellants}</span>
+            <span style="margin-bottom:10px">(Applicant)</span>
+          </div>
+          <div style="text-align: center; font-size: 135%;">
+            <span> Vs. </span>
+          </div>
+          <div style="display:flex;flex-direction:column; text-align: center; font-size: 135%;;width:400px">
+            <span style="margin-bottom:10px">${this.caseLawDetail.respondents}</span>
+            <span style="margin-bottom:10px">(Respondent)</span>
+          </div>
+        </div>
+        `;
       }
-    })
+    };
   }
-
-  share(member: any) { console.log('Share Member Triggered !!'); }
 
   getPrintTitle(title: any) {
     return title.replaceAll(' ', '_');
@@ -228,9 +272,9 @@ export class CaseLawDetailComponent {
     return window.location.host;
   }
 
-  getSharingContent(str: string) {
-    return str.slice(0, 4000);
-  }
+  // getSharingContent(str: string) {
+  //   return str.slice(0, 4000);
+  // }
 
   sendmail() {
     // if (this.validateEmail(this.recieversEmail)) {
@@ -253,13 +297,14 @@ export class CaseLawDetailComponent {
     // }
   }
 
-  saveCaseLaw() {
+  async saveCaseLaw() {
     if (this.isHighlighted) {
       let userData = JSON.parse(localStorage.getItem('userData')!);
       let data = {
         judgementId: this.caseId,
-        judgement: this.caseLawDetail.document
+        judgement: await this.fetchMarkedText()
       };
+      console.log(data)
       this._apolloService.post(`/saved-judgement/${userData._id}`, data).subscribe(data => {
         if (data.status == "success") {
           this._toastMessage.success("Case Saved Successfully !!")
@@ -267,9 +312,27 @@ export class CaseLawDetailComponent {
         }
       });
     }
+
     else {
       this._toastMessage.error('Please Highlight any text to save !!');
     }
+  }
+
+  async fetchMarkedText(): Promise<string[]> {
+    let markedArray: string[] = [];
+    // Access the div container using ElementRef
+    const contentContainer = this.elementRef.nativeElement.querySelector('#judgement');
+
+    // Select all <mark> elements inside the content container
+    const markedElements = contentContainer.querySelectorAll('mark');
+
+    // Extract the outer HTML of each <mark> tag including the tag itself
+    markedElements.forEach((markElement: HTMLElement) => {
+      console.log(markElement)
+      markedArray.push(markElement.outerHTML); // Logs the <mark> content including the tags
+    });
+
+    return contentContainer.outerHTML;
   }
 }
 

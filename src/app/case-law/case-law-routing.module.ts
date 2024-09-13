@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CaseLawListComponent } from './case-law-list/case-law-list.component';
 import { CaseLawDetailComponent } from './case-law-detail/case-law-detail.component';
+import { SavedCaseLawDetailComponent } from './saved-case-law-detail/saved-case-law-detail.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'cases/view',
     component: CaseLawDetailComponent,
+  },
+  {
+    path: 'savedCases/view',
+    component: SavedCaseLawDetailComponent
   }
 ];
 

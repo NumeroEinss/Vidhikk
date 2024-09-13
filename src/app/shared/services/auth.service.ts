@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Subscription } from 'rxjs';
 import { ToastMessageService } from './snack-alert.service';
 import { Apollo } from 'apollo-angular';
 import { MessagingService } from './messaging.service';
@@ -46,50 +46,57 @@ export class AuthService {
   }
 
   async login(query: any, variables: any, userType: string) {
-    setTimeout(() => {
-      variables.notificationToken = this._messagingService.accessToken.value;
-      console.log('Token Generated')
-      this._apollo.mutate({ mutation: query, variables: variables, errorPolicy: 'all' }).subscribe((respObj: any) => {
-        if (respObj != null) {
-          if (respObj.data.login.status == 200) {
-            this._toastMessage.success(respObj.data.login.message); //notify the success
-            localStorage.setItem('userData', JSON.stringify(respObj.data.login.data)); //set the data to Local Storage
-            localStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
-            localStorage.setItem('vidhikToken', respObj.data.login.data.accessToken)
-            this.currentUserSubject?.next(respObj.data.login.data);
-            this.profileImageSubject?.next(respObj.data.login.data.profileImage)
+    // setTimeout(() => {
+    variables.notificationToken = this._messagingService.accessToken.value;
+    console.log('Token Generated')
+    let sub: any = this._apollo.mutate({ mutation: query, variables: variables, errorPolicy: 'all' })
+    let respObj: any = await lastValueFrom(sub);
+    if (respObj != null) {
+      if (respObj.data.login.status == 200) {
+        this._toastMessage.success(respObj.data.login.message); //notify the success
+        localStorage.setItem('userData', JSON.stringify(respObj.data.login.data)); //set the data to Local Storage
+        localStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
+        localStorage.setItem('vidhikToken', respObj.data.login.data.accessToken)
+        this.currentUserSubject?.next(respObj.data.login.data);
+        this.profileImageSubject.next(respObj.data.login.data.profileImage)
 
-            //redirect the user as per the selected type
-            if (userType == "USER") {
-              if (this._router.url.includes('?')) {
-                this._router.navigate([this._activatedRoute.snapshot.queryParams.returnUrl]);
-              }
-              else {
-                this._router.navigate(['/user/activity-feed']);
-              }
-            }
-            else if (userType == "LAWYER") {
-              if (this._router.url.includes('?')) {
-                this._router.navigate([this._activatedRoute.snapshot.queryParams.returnUrl]);
-              }
-              else {
-                this._router.navigate(['/lawyer/activity-feed']);
-              }
-            }
-            else if (userType == "SELLER") {
-              // this._router.navigate(['/seller/activity-feed']);
-              this._toastMessage.message('Please select different user !!');
-            }
-            else if (userType == "JUDGE") {
-              this._router.navigate(['/judge/activity-feed']);
-            }
+        //redirect the user as per the selected type
+        if (userType == "USER") {
+          if (this._router.url.includes('?')) {
+            this._router.navigate([this._activatedRoute.snapshot.queryParams.returnUrl]);
           }
           else {
-            this._toastMessage.error(respObj.data.login.message);
+            this._router.navigate(['/user/activity-feed']);
           }
         }
-      })
-    }, 200);
+        else if (userType == "LAWYER") {
+          if (this._router.url.includes('?')) {
+            this._router.navigate([this._activatedRoute.snapshot.queryParams.returnUrl]);
+          }
+          else {
+            this._router.navigate(['/lawyer/activity-feed']);
+          }
+        }
+        else if (userType == "SELLER") {
+          // this._router.navigate(['/seller/activity-feed']);
+          this._toastMessage.message('Please select different user !!');
+        }
+        else if (userType == "JUDGE") {
+          this._router.navigate(['/judge/activity-feed']);
+        }
+      }
+      else {
+        this._toastMessage.error(respObj.data.login.message);
+      }
+    }
+    // }, 200);
+  }
+
+  updateProfile(data: any) {
+    this.currentUserSubject?.next(data);
+    this.profileImageSubject.next('');
+    this.profileImageSubject.next(data.profileImage);
+    localStorage.setItem('userData', JSON.stringify(data));
   }
 
   logout() {

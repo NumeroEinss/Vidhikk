@@ -1,155 +1,38 @@
 [
     {
-        "value": "Property Law"
+        "value": "Civil"
     },
     {
-        "value": "Contract Law"
+        "value": "Criminal"
     },
     {
-        "value": "Family Law"
+        "value": "Corporate"
     },
     {
-        "value": "Succession and Inheritance"
-    },
-    {
-        "value": "Criminal Defense"
-    },
-    {
-        "value": "Prosecution"
+        "value": "Hindu Marriage Act"
     },
     {
         "value": "Company Law"
     },
     {
-        "value": "Mergers and Acquisitions"
+        "value": "Taxation"
     },
     {
-        "value": "Corporate Governance"
+        "value": "IPR"
     },
     {
-        "value": "Contracts and Commercial Transactions"
-    },
-    {
-        "value": "Fundamental Rights"
-    },
-    {
-        "value": "Writ Jurisdiction"
-    },
-    {
-        "value": "Constitutional Challenges"
-    },
-    {
-        "value": "Trademarks"
-    },
-    {
-        "value": "Patents"
-    },
-    {
-        "value": "Copyrights"
-    },
-    {
-        "value": "Trade Secrets"
-    },
-    {
-        "value": "Direct Taxation"
-    },
-    {
-        "value": "Indirect Taxation (GST)"
-    },
-    {
-        "value": "Tax Planning and Consultancy"
-    },
-    {
-        "value": "Employment Contracts"
-    },
-    {
-        "value": "Industrial Disputes"
-    },
-    {
-        "value": "Labor Welfare"
-    },
-    {
-        "value": "Land Acquisition"
-    },
-    {
-        "value": "Property Disputes"
-    },
-    {
-        "value": "Real Estate Development"
-    },
-    {
-        "value": "Banking Regulations"
-    },
-    {
-        "value": "Finance and Securities"
-    },
-    {
-        "value": "Debt Recovery"
-    },
-    {
-        "value": "Pollution Control"
-    },
-    {
-        "value": "Conservation and Biodiversity"
-    },
-    {
-        "value": "Environmental Impact Assessment"
-    },
-    {
-        "value": "Marriage and Divorce"
-    },
-    {
-        "value": "Child Custody"
-    },
-    {
-        "value": "Adoption"
-    },
-    {
-        "value": "Visa and Work Permits"
-    },
-    {
-        "value": "Citizenship"
-    },
-    {
-        "value": "Deportation and Asylum"
-    },
-    {
-        "value": "Data Protection and Privacy"
-    },
-    {
-        "value": "Cybercrime"
+        "value": "Labour Laws"
     },
     {
         "value": "Consumer Disputes"
     },
     {
-        "value": "Product Liability"
-    },
-    {
         "value": "Arbitration"
     },
     {
-        "value": "Mediation"
+        "value": "Banking and Insurance"
     },
     {
-        "value": "Conciliation"
-    },
-    {
-        "value": "Protection of Human Rights"
-    },
-    {
-        "value": "Civil Liberties"
-    },
-    {
-        "value": "Insurance Claims"
-    },
-    {
-        "value": "Regulatory Compliance"
-    },
-    {
-        "value": "Medical Malpractice"
-    },
-    {
-        "value": "Healthcare Regulations"
+        "value": "Cyber & IT Act Laws"
     }
 ]

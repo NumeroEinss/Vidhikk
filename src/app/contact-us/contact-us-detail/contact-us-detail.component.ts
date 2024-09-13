@@ -47,7 +47,8 @@ export class ContactUsDetailComponent {
       let data = {
         ticketId: this.ticketDetail._id,
         replyText: this.comment,
-        replyType: userData.userType == "ADMIN" ? 'admin' : 'user'
+        replyType: userData.userType,
+        replyFrom: userData._id
       };
       this._apolloService.mutate(GQLConfig.replyTicket, data).subscribe(objRes => {
         if (objRes.data != null) {

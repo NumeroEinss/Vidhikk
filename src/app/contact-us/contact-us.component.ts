@@ -20,7 +20,7 @@ export class ContactUsComponent {
   selectedMemberTicket: any = {};
   selectedEditTicket: any;
 
-  files: File[] = [];
+  files: any = { name: "No Files Selected" };
   fileUploaded: boolean = false;
 
   @ViewChild('fileInput') fileInput: any;
@@ -36,6 +36,7 @@ export class ContactUsComponent {
     { value: 'Chat Support', viewValue: 'Chat Support' },
     { value: 'Conferencing', viewValue: 'Conferencing' },
     { value: 'Subscription Issue', viewValue: 'Subscription Issue' },
+    { value: 'Other', viewValue: 'Other' }
   ];
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _router: Router,
@@ -55,7 +56,7 @@ export class ContactUsComponent {
   onDrop(event: any): void {
     event.preventDefault();
     event.stopPropagation();
-    this.files = Array.from(event.dataTransfer.files[0]);
+    this.files = event.dataTransfer.files[0];
     this.fileUploaded = true;
   }
 
@@ -69,19 +70,20 @@ export class ContactUsComponent {
   }
 
   createTicket() {
-    const filesArray = Array.from(this.files);
-    const screenshotUrls = filesArray.map(file => URL.createObjectURL(file));
+    // const filesArray = this.files;
+    // const screenshotUrls = filesArray.map((file: Blob | MediaSource) => URL.createObjectURL(file));
     let userData = localStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
 
     const mutation = {
-      "query": "mutation createTicket($input: lawyerSupportInput!, $file: Upload) { createTicket(input: $input, file: $file) { status, message, data } }",
+      "query": "mutation createTicket($input: supportServiceInput!, $file: Upload) { createTicket(input: $input, file: $file) { status, message, data } }",
       "variables": {
         "input": {
-          "lawyerId": parsedData._id,
+          "Id": parsedData._id,
           "ticketType": this.ticketForm.controls.ticketType.value,
           "ticketTitle": this.ticketForm.controls.ticketTitle.value,
-          "ticketDescription": this.ticketForm.controls.ticketDescription.value
+          "ticketDescription": this.ticketForm.controls.ticketDescription.value,
+          "userType": parsedData.userType
         }
       }
     }
@@ -124,9 +126,11 @@ export class ContactUsComponent {
   resetForm() {
     this.ticketForm.reset();
     this.ticketForm.patchValue(new TicketModel);
+    this.files = { name: "No Files Selected" };
   }
 
   redirectToContactDetail(ticket: any) {
+    console.log(ticket, 'ticket')
     let userData = localStorage.getItem('userData');
     let parsedData = JSON.parse(userData!)
     if (parsedData.userType == "LAWYER") {
@@ -140,7 +144,7 @@ export class ContactUsComponent {
   getTicketList() {
     let userData = localStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
-    this._apolloService.mutate(GQLConfig.getTicketList, { lawyerId: parsedData._id }).subscribe(data => {
+    this._apolloService.mutate(GQLConfig.getTicketList, { Id: parsedData._id, userType: parsedData.userType }).subscribe(data => {
       if (data.data !== null) {
         if (data.data.getTicketList.status = 200) {
           this._toastMessage.success(data.data.getTicketList.message);

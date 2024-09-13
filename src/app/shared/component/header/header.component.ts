@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { imageUrl } from '../../../graphql.module';
 import { HttpClient } from '@angular/common/http';
+import { Subject, Subscription, takeUntil, timeout } from 'rxjs';
 
 
 @Component({
@@ -15,18 +16,22 @@ export class HeaderComponent {
   userType: string = "";
   userImage: string = "";
   notifications: any = [];
+  sub$: Subscription;
 
   @Input() menuName: string = "";
   @Input() searchStyle = { width: '0px', display: 'none' };
   @Input() searchIcon = { width: 'auto', display: 'block' };
   @Input() colConfig: string = "col-lg-8 col-md-8";
+  onDestroy$: Subject<void> = new Subject();
 
   constructor(private _router: Router, private _location: Location, private _authService: AuthService, private _http: HttpClient) {
+    this.sub$ = this._authService.profileImageSubject.asObservable()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((data: any) => {
+        this.userImage = data;
+      });
     this.getNotificationList();
     this.userType = this._router.url.split('/')[1];
-    this._authService.profileImageSubject.subscribe(data => {
-      this.userImage = data;
-    });
   }
 
   redirectToProfile() {
@@ -94,5 +99,10 @@ export class HeaderComponent {
   openNoification() {
     let el = document.getElementById('openNotifications') as HTMLElement;
     el.click();
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }

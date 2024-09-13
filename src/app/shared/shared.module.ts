@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 
 import { ShareButtons } from 'ngx-sharebuttons/buttons';
 import { shareIcons } from 'ngx-sharebuttons/icons';
+import { SubscriptionPlanComponent } from './component/subscription-plan/subscription-plan.component';
+import { QrModalComponent } from './component/qr-modal/qr-modal.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { shareIcons } from 'ngx-sharebuttons/icons';
     HighlighterPipe,
     PaginatorComponent,
     SafeHTMLPipe,
-    PreventKeyboardEventsDirective
+    PreventKeyboardEventsDirective,
+    SubscriptionPlanComponent,
+    QrModalComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +51,9 @@ import { shareIcons } from 'ngx-sharebuttons/icons';
     PaginatorComponent,
     SafeHTMLPipe,
     PreventKeyboardEventsDirective,
-    ShareButtons
+    ShareButtons,
+    SubscriptionPlanComponent,
+    QrModalComponent
   ],
   providers: [AuthService, shareIcons()]
 })

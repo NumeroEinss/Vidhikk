@@ -161,7 +161,7 @@ export class CaseDiaryListComponent {
     Case Stage: ${cases.caseStage}
     Court Name: ${cases.courtName}
     Hearing Date: ${this._datePipe.transform(new Date(), 'dd/MM/yyyy')}
-    Next Hearing Date: ${this._datePipe.transform(new Date(cases.nextHearingDate), 'dd/MM/yyyy')}
+    Next Hearing Date: ${this._datePipe.transform(new Date(cases.nextHearingDate || null), 'dd/MM/yyyy')}
     Filing Date: ${this._datePipe.transform(new Date(cases.registrationDate), 'dd/MM/yyyy')}
     
     Summary of Today's Proceedings:

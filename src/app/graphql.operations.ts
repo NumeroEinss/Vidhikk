@@ -622,9 +622,10 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static getTicketList = gql`mutation($lawyerId: String!) {
+    static getTicketList = gql`mutation($Id: String!,$userType:String!) {
         getTicketList(input: {
-            lawyerId: $lawyerId
+            Id: $Id
+            userType:$userType
         }) {
             status
             message
@@ -632,10 +633,9 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static getTicketDetail = gql`mutation($ticketId: String, $lawyerId: String) {
+    static getTicketDetail = gql`mutation($ticketId: String) {
         getTicketDetail(input: {
             ticketId: $ticketId
-          lawyerId: $lawyerId
         }) {
             status
             message
@@ -643,11 +643,12 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static replyTicket = gql`mutation($ticketId: String, $replyText: String, $replyType: String) {
+    static replyTicket = gql`mutation($ticketId: String, $replyText: String, $replyType: String, $replyFrom: String) {
         replyTicket(input: {
             ticketId: $ticketId,
             replyText: $replyText,
-            replyType: $replyType
+            replyType: $replyType,
+            replyFrom: $replyFrom
         }) {
             status
             message
@@ -678,6 +679,19 @@ export abstract class GQLConfig {
     static getLawyerRating = gql`mutation($lawyerId: String) {
         getLawyerRatingList(input: {
             lawyerId: $lawyerId,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static updateLawyerProfile = gql`mutation($lawyerId: String, $email: String, $primaryContact: String, $coreCompetency: String) {
+        updateProfile(input: {
+         lawyerId: $lawyerId
+         email: $email
+         primaryContact: $primaryContact
+         coreCompetency: $coreCompetency
         }) {
             status
             message

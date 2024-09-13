@@ -10,11 +10,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HighlighterPipe } from '../shared/pipe/highlighter.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SavedCaseLawDetailComponent } from './saved-case-law-detail/saved-case-law-detail.component';
 
 @NgModule({
   declarations: [
     CaseLawListComponent,
-    CaseLawDetailComponent
+    CaseLawDetailComponent,
+    SavedCaseLawDetailComponent
   ],
   imports: [
     CommonModule,
