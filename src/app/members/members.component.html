@@ -32,6 +32,7 @@
 
   <div class="add-member-list" *ngIf="memberList.length >0">
     <div style="height: calc(100vh - 280px);">
+
       <div class="member-list-header">
         <div class="grid-item-name">NAME</div>
         <div class="grid-item1">CONTACT NO. DETAILS</div>
@@ -40,7 +41,6 @@
         <div class="grid-item1">CITY</div>
         <div class="grid-item1">ACTIONS</div>
       </div>
-
       <ng-scrollbar autoHeightDisabled="false" appearance="standard">
         @for (member of memberList;track member) {
         <div class="member-list-data">

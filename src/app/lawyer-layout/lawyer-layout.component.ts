@@ -11,7 +11,7 @@ export class LawyerLayoutComponent {
   constructor(private _authService: AuthService) { }
 
   logoutCaseDiary() {
-    localStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
+    sessionStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
   }
 
   logout() {

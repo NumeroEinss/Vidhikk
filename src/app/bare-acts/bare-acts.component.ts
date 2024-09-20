@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApolloService } from '../shared/services/apollo.service';
 import { Router } from '@angular/router';
 
@@ -8,11 +8,14 @@ import { Router } from '@angular/router';
   styleUrl: './bare-acts.component.scss'
 })
 export class BareActsComponent {
-
+  @Input() searchStyle = { width: '0px', display: 'none' };
+  @Input() searchIcon = { width: 'auto', display: 'block' };
   bareActsList: any = [];
+  filteredBareActsList: any = [];
   recordCount: number = 0;
   currentPage: number = 1;
   pageSize: number = 50;
+  searchInput: string = "";
 
   constructor(private _apolloService: ApolloService, private _router: Router) {
     this.getBareActs(this.currentPage);
@@ -22,6 +25,7 @@ export class BareActsComponent {
     this._apolloService.get(`/act?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
       if (objRes.status == "success") {
         this.bareActsList = objRes.data.acts;
+        this.filteredBareActsList = this.bareActsList;
         this.recordCount = objRes.data.totalCount;
       }
     })
@@ -46,5 +50,18 @@ export class BareActsComponent {
   goToPage(e: any) {
     this.currentPage = e;
     this.getBareActs(this.currentPage);
+  }
+
+  filterBareActs(e: any) {
+    let filter = e.target.value.toLowerCase();
+    if (filter == "") {
+      this.currentPage = 1;
+      this.getBareActs(this.currentPage);
+    }
+    else {
+      this.filteredBareActsList = this.bareActsList.filter((key: any) =>
+        key.title.toLowerCase().startsWith(filter)
+      );
+    }
   }
 }

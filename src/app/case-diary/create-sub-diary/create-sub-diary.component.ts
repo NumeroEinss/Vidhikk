@@ -42,7 +42,7 @@ export class CreateSubDiaryComponent {
   }
 
   createSubDiary() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     let data = {
       lawyerId: parsedData._id,
@@ -68,7 +68,7 @@ export class CreateSubDiaryComponent {
   }
 
   getCaseDiaryList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getCaseDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
@@ -83,7 +83,7 @@ export class CreateSubDiaryComponent {
   }
 
   getMembersList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {}
     this._apolloService.mutate(GQLConfig.getMemberList, { lawyerId: parsedData._id }).subscribe(resObj => {
       if (resObj.data != null) {

@@ -659,12 +659,24 @@ body {
         .mdc-radio__outer-circle {
           border-color: #2e5bff;
         }
+
+        .mdc-radio__inner-circle {
+          border-color: #2e5bff;
+          background-color: #2e5bff;
+        }
       }
 
       .mdc-radio__native-control:enabled+.mdc-radio__background {
         .mdc-radio__inner-circle {
           border-color: #2e5bff;
+          background-color: #2e5bff;
         }
+      }
+    }
+
+    .mdc-radio__native-control:enabled:focus:checked+.mdc-radio__background {
+      .mdc-radio__inner-circle {
+        border-color: #2e5bff;
       }
     }
   }

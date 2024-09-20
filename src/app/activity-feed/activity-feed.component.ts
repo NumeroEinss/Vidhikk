@@ -53,7 +53,7 @@ export class ActivityFeedComponent {
       this._toastMessage.error("Post Description is required !!");
     }
     else {
-      let userData = JSON.parse(localStorage.getItem('userData')!);
+      let userData = JSON.parse(sessionStorage.getItem('userData')!);
       let reqObj = {
         lawyerId: userData._id,
         title: this.post.title,
@@ -99,7 +99,7 @@ export class ActivityFeedComponent {
   }
 
   likePost(post: any) {
-    const userData: any = localStorage.getItem('userData');
+    const userData: any = sessionStorage.getItem('userData');
     let userId = JSON.parse(userData)._id;
     let data = {
       postId: post._id,
@@ -120,7 +120,7 @@ export class ActivityFeedComponent {
   }
 
   addComment(post: any) {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     if (post.comment == "") {
       this._toastMessage.error('Comment is required !!');

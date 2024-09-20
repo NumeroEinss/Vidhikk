@@ -48,7 +48,7 @@ export class CaseDiaryListComponent {
   }
 
   getCaseDiaryList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getCaseDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
@@ -80,7 +80,7 @@ export class CaseDiaryListComponent {
   }
 
   getSubDiaryList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getSubDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
@@ -150,7 +150,7 @@ export class CaseDiaryListComponent {
   }
 
   getSharingContent(cases: any) {
-    const userData = JSON.parse(localStorage.getItem('userData')!);
+    const userData = JSON.parse(sessionStorage.getItem('userData')!);
     const statement = `Subject: Update on Today's Hearing - ${cases.caseName}
 
     Dear ${cases.representing == 'Applicant' ? cases.applicantName : cases.respondentName},

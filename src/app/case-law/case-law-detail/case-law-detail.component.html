@@ -19,10 +19,10 @@
         <img class="search" src="../../../../assets/images/icons/search_grey.svg" />
       </div>
 
-      <div class="cursor-pointer" matTooltip="Highlighter" (click)="highlightText()"><img
+      <div class="cursor-pointer" matTooltip="Highlighter" *ngIf="!isHighlighted" (click)="highlightText()"><img
           src="../../../assets/images/icons/highlighter.svg" />
       </div>
-      <div class="cursor-pointer" (click)="saveCaseLaw()" matTooltip="Save Case"><img
+      <div class="cursor-pointer" (click)="saveCaseLaw()" *ngIf="isHighlighted" matTooltip="Save Case"><img
           src="../../../assets/images/icons/bookmark.svg" /></div>
       <!-- <div class="cursor-pointer" matTooltip="Share with member" data-bs-target="#shareMemberPopup"
         data-bs-toggle="modal"><img src="../../../assets/images/icons/person.svg" /></div> -->
@@ -69,10 +69,10 @@
           <div class="desc-body mt-4" [innerHTML]="caseLawDetail.document"></div>
         </div> -->
         <div id="judgement" *ngIf="keyWord" class="mt-4"
-          [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|highlighter:keyWord|safeHTML">
+          [innerHTML]="caseLawDetail.document|highlighter:keyWord|safeHTML">
         </div>
         <div id="judgement" *ngIf="!keyWord" class="mt-4"
-          [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|safeHTML">
+          [innerHTML]="caseLawDetail.document|safeHTML">
         </div>
       </div>
     </ng-scrollbar>

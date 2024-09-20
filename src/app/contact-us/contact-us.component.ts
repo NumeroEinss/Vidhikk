@@ -72,7 +72,7 @@ export class ContactUsComponent {
   createTicket() {
     // const filesArray = this.files;
     // const screenshotUrls = filesArray.map((file: Blob | MediaSource) => URL.createObjectURL(file));
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
 
     const mutation = {
@@ -131,7 +131,7 @@ export class ContactUsComponent {
 
   redirectToContactDetail(ticket: any) {
     console.log(ticket, 'ticket')
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = JSON.parse(userData!)
     if (parsedData.userType == "LAWYER") {
       this._router.navigate(['/lawyer/contact-us/contact-us-detail'], { state: ticket });
@@ -142,7 +142,7 @@ export class ContactUsComponent {
   }
 
   getTicketList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getTicketList, { Id: parsedData._id, userType: parsedData.userType }).subscribe(data => {
       if (data.data !== null) {

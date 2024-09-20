@@ -24,7 +24,7 @@ export function createApollo(httpLink: HttpLink, url: string = ""): ApolloClient
   }));
 
   const auth = setContext((operation, context) => {
-    const token = localStorage.getItem('vidhikToken');
+    const token = sessionStorage.getItem('vidhikToken');
 
     if (token == null) {
       return { headers: { Authorization: '' } };

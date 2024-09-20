@@ -6,6 +6,11 @@
             <div class="records">Saved Case Law</div>
         </div>
         <div *ngIf="!isLimitReached" class="posttext col-lg-6 col-md-6">
+            <div class="cursor-pointer" matTooltip="Highlighter" *ngIf="!isHighlighted" (click)="highlightText()"><img
+                    src="../../../assets/images/icons/highlighter.svg" />
+            </div>
+            <div class="cursor-pointer" (click)="saveCaseLaw()" *ngIf="isHighlighted" matTooltip="Save Case"><img
+                    src="../../../assets/images/icons/bookmark.svg" /></div>
             <div class="cursor-pointer" matTooltip="Print" (click)="print()"><img
                     src="../../../assets/images/icons/print.svg" /></div>
         </div>
@@ -23,7 +28,7 @@
                 <!-- <div class="title mt-4" [innerHTML]="caseLawDetail.title|safeHTML">
                 </div> -->
                 <br />
-                <div id="judgement" class="mt-4" [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|safeHTML">
+                <div id="judgement" class="mt-4" [innerHTML]="savedCaseLaw.judgement|safeHTML">
                 </div>
             </div>
         </ng-scrollbar>

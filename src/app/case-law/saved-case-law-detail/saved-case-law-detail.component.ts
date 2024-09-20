@@ -24,16 +24,16 @@ export class SavedCaseLawDetailComponent {
   userName: any;
   routerState: any;
   isLimitReached: boolean = false;
+  isHighlighted: boolean = false;
 
   constructor(private _location: Location, private _router: Router, private _highlighterPipe: HighlighterPipe,
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService, private _emailService: EmailService,
-    private _http: HttpClient) {
+    private _http: HttpClient, private elementRef: ElementRef) {
     this.routerState = this._router.getCurrentNavigation()?.extras.state;
-    this.userName = JSON.parse(localStorage.getItem('userData')!);
+    this.userName = JSON.parse(sessionStorage.getItem('userData')!);
     if (this.routerState != undefined) {
       this.savedCaseId = this.routerState.savedCaseId || "";
       this.caseId = this.routerState.caseId || "";
-      this.getCaseLawDetail();
       this.getSavedCaseLaw();
     }
     else {
@@ -45,40 +45,16 @@ export class SavedCaseLawDetailComponent {
     this._location.back();
   }
 
-  getCaseLawDetail() {
-    let userData = JSON.parse(localStorage.getItem('userData')!);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-      user: JSON.stringify(userData._id)
-    })
-    this._http.get(this._apolloService.BaseUrl + `/judgement/details/${this.caseId}`, { headers }).subscribe((data: any) => {
-      if (data.status == "success") {
-        this.caseLawDetail = data.data;
-      }
-      if (data.status == "error" && data.error === "Your daily quota has reached.") {
-        this.isLimitReached = true;
-      }
-    })
-  }
-
   getSavedCaseLaw() {
     this._apolloService.get(`/saved-judgement/judgement/${this.savedCaseId}`).subscribe(data => {
       if (data.status == "success") {
         this.savedCaseLaw = data.data;
-        this.highlightText();
+        this.showHighlightedText();
       }
       if (data.status == "error") {
         this._toastMessage.error(data.error);
       }
     })
-  }
-
-  removeDocidAndLicense(input: string): string {
-    // Define the regex pattern
-    const combinedPattern = /<u> Docid # IndLawLib\/\d+<\/u>|<p style="text-align:center;margin-top:20px;margin-bottom:5px;font-size:120%;color:red;">.*?<\/p>/g;
-    // Replace the matched pattern with an empty string
-    return input.replace(combinedPattern, '');
   }
 
   getUrl() {
@@ -173,8 +149,46 @@ export class SavedCaseLawDetailComponent {
     return title.replaceAll(' ', '_');
   }
 
-  highlightText() {
+  showHighlightedText() {
     let doc = document.getElementById('judgement') as HTMLElement;
-    doc.innerHTML = this._highlighterPipe.transformOne(doc.innerHTML, this.savedCaseLaw.judgement);
+    doc.innerHTML = this._highlighterPipe.transform(doc.innerHTML, this.savedCaseLaw.judgement);
+  }
+
+  highlightText() {
+    let selection: any = window.getSelection()?.toString();
+    if (selection) {
+      let doc = document.getElementById('judgement') as HTMLElement;
+      doc.innerHTML = this._highlighterPipe.transformOne(doc.innerHTML, selection);
+      this.isHighlighted = true;
+    }
+  }
+
+  async saveCaseLaw() {
+    if (this.isHighlighted) {
+      let userData = JSON.parse(sessionStorage.getItem('userData')!);
+      let data = {
+        judgementId: this.caseId,
+        judgement: await this.fetchMarkedText()
+      };
+      console.log(data)
+      this._apolloService.post(`/saved-judgement/${userData._id}`, data).subscribe(data => {
+        if (data.status == "success") {
+          this._toastMessage.success("Case Saved Successfully !!")
+          this.isHighlighted = false;
+          // this.routeBack();
+        }
+      });
+    }
+
+    else {
+      this._toastMessage.error('Please Highlight any text to save !!');
+    }
+  }
+
+  async fetchMarkedText(): Promise<string[]> {
+    let markedArray: string[] = [];
+    // Access the div container using ElementRef
+    const contentContainer = this.elementRef.nativeElement.querySelector('#judgement');
+    return contentContainer.outerHTML;
   }
 }

@@ -73,17 +73,17 @@ export class HeaderComponent {
   }
 
   getNotificationList() {
-    let userData = JSON.parse(localStorage.getItem('userData')!);
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
     this._http.get(imageUrl() + `/notifications/${userData._id}/${userData.userType.toLowerCase()}`).subscribe((data: any) => {
       if (data != null) {
         if (data.status == 200) {
           this.notifications = data.data;
-        }
-        else {
-          this.notifications = {
-            title: "No Notifications",
-            notificationType: "noData",
-            body: "No Notifications found !!",
+          if (this.notifications.length == 0) {
+            this.notifications = [{
+              title: "No Notifications",
+              notificationType: "noData",
+              body: "No Notifications found !!",
+            }]
           }
         }
       }

@@ -53,7 +53,7 @@ export class CaseDiaryForgotComponent {
   }
 
   sendOtp() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     let data = {
       lawyerId: parsedData._id,
@@ -96,7 +96,7 @@ export class CaseDiaryForgotComponent {
   }
 
   setNewCaseDiaryPassword() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     let data = {
       lawyerId: parsedData._id,

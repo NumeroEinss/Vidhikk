@@ -52,4 +52,8 @@ export class AdvocateComponent {
   getImage(image: any) {
     return imageUrl() + image;
   }
+
+  showDetails() {
+    this.isNameVisible = true;
+  }
 }

@@ -638,7 +638,7 @@ export class CaseLawListComponent {
   }
 
   getSavedCases() {
-    let userData = JSON.parse(localStorage.getItem('userData')!);
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
     this._apolloService.get(`/saved-judgement/user/${userData._id}`).subscribe(objRes => {
       if (objRes.status == "success") {
         this.savedCasesList = objRes.data;

@@ -51,8 +51,8 @@ export class LoginComponent {
         Validators.minLength(10),
       ]),
     });
-    if (localStorage.getItem('vidhikToken')) {
-      let userDataString = localStorage.getItem('userData');
+    if (sessionStorage.getItem('vidhikToken')) {
+      let userDataString = sessionStorage.getItem('userData');
       let userData: any;
       if (userDataString !== null) {
         userData = JSON.parse(userDataString);

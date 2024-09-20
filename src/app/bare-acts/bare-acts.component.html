@@ -6,22 +6,35 @@
             <div class="records">Found {{ recordCount }} Acts</div>
         </div>
         <div class="posttext col-lg-6 col-md-6">
-            <img src="../../../assets/images/icons/search-blue.svg" />
+            <div class="search"
+                (click)="searchStyle = { width: '100%', display: 'flex' };searchIcon = { width: '0px', display: 'none' };"
+                [ngStyle]="searchIcon">
+                <img src="../../../assets/images/icons/search-blue.svg" />
+            </div>
+
+            <div class="searchBox" [ngStyle]="searchStyle">
+                <input type="search" placeholder="Search Here..." [(ngModel)]="searchInput"
+                    (keyup)="filterBareActs($event)" />
+                <img class="cancel" (click)="
+            searchStyle = { width: '0px', display: 'none' };
+            searchIcon = { width: 'auto', display: 'block' };" src="../../../../assets/images/icons/cancel.svg" />
+                <img class="search" src="../../../../assets/images/icons/search_grey.svg" />
+            </div>
         </div>
     </div>
     <div style="height: calc(100vh - 230px)">
         <ng-scrollbar #scroll autoHeightDisabled="false" appearance="standard" [scrollTop]="'Top'">
-            <div class="bare-acts" *ngIf="bareActsList.length">
-                @for (acts of bareActsList; track acts) {
+            <div class="bare-acts" *ngIf="filteredBareActsList.length">
+                @for (acts of filteredBareActsList; track acts) {
                 <div class="acts" (click)="viewBareActs(acts._id)">
                     {{ acts.title }}
                 </div>
                 }
             </div>
-            <div *ngIf="bareActsList.length == 0" class="no-data"> No Data....</div>
+            <div *ngIf="filteredBareActsList.length == 0" class="no-data"> No Data....</div>
         </ng-scrollbar>
         <app-paginator [currentPage]="currentPage" (previousPageEvent)="previousPage();scroll.scrollTo({top:0});"
-            (nextPageEvent)="nextPage();scroll.scrollTo({top:0});" [pageSize]="pageSize"
-            [recordCount]="recordCount" (goToPageEvent)="goToPage($event)"></app-paginator>
+            (nextPageEvent)="nextPage();scroll.scrollTo({top:0});" [pageSize]="pageSize" [recordCount]="recordCount"
+            (goToPageEvent)="goToPage($event)"></app-paginator>
     </div>
 </div>

@@ -36,7 +36,7 @@ export class AdvocateRatingComponent {
   }
 
   addReviews() {
-    const userData = JSON.parse(localStorage.getItem('userData')!)
+    const userData = JSON.parse(sessionStorage.getItem('userData')!)
     const rating = {
       image: '../../../assets/images/image/add_member.png',
       name: userData.name,

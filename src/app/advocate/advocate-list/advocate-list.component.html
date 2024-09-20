@@ -29,7 +29,7 @@
             <!-- search-bar start -->
             <div class="search-bar">
                 <mat-form-field appearance="outline" class="mat-input-white">
-                    <input matInput placeholder="Search Advocates" required />
+                    <input matInput placeholder="Search Advocates" (keyup)="filterLawyers($event)" required />
                     <div matSuffix>
                         <img src="../../../assets/images/icons/search-blue.svg"
                             style="margin-right: 20px; cursor: pointer" />
@@ -70,7 +70,7 @@
                 <div class="all-lawyer">
                     <div class="heading">All Lawyers</div>
                     <div class="list">
-                        @for (lawyer of allLawyerList; track lawyer) {
+                        @for (lawyer of filteredLawyerList; track lawyer) {
                         <div class="node" (click)="viewLawyerDetails(lawyer._id)">
                             <div class="subnode d-flex justify-content-center">
                                 <img class="display-profile" [src]="getImageUrl(lawyer.profileImage)" width="200"

@@ -633,15 +633,15 @@
           @for (case of savedCasesList; track case) {
           <div class="case-container" (click)="viewSavedCase(case)">
             <div class="title">
-              {{ case.judgementId.title?.substr(0,getHeadingLength()) }}...
+              {{ case.judgementId?.title?.substr(0,getHeadingLength()) }}...
             </div>
             <div class="desc">
-              {{case.judgementId.shortInfo?.substr(0,getCharLength())}}.....
+              {{case.judgementId?.shortInfo?.substr(0,getCharLength())}}.....
             </div>
             <div class="sub-desc">
-              <div class="court">{{ case.judgementId.high_court }}</div>
+              <div class="court">{{ case.judgementId?.high_court }}</div>
               <div class="bench">
-                Bench : {{ case.judgementId.bench | uppercase }}
+                Bench : {{ case.judgementId?.bench | uppercase }}
               </div>
               <!--    |
               <div class="cited">&nbsp;Cited : {{ case.cited }}</div>

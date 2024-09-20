@@ -24,7 +24,7 @@ export class AuthService {
       if (data) {
         console.log('Subscription for token !!');
         this.fireBaseToken = data;
-        localStorage.setItem('messageToken', data);
+        // sessionStorage.setItem('messageToken', data);
       } else {
         console.error('Access token is empty.');
       }
@@ -35,8 +35,8 @@ export class AuthService {
         this._toastMessage.showMessage(data.notification.title, data.notification.body);
       }
     });
-    if (localStorage.getItem('userData')) {
-      const userData = JSON.parse(localStorage.getItem('userData')!);
+    if (sessionStorage.getItem('userData')) {
+      const userData = JSON.parse(sessionStorage.getItem('userData')!);
       this.profileImageSubject?.next(userData.profileImage)
     }
   }
@@ -54,9 +54,9 @@ export class AuthService {
     if (respObj != null) {
       if (respObj.data.login.status == 200) {
         this._toastMessage.success(respObj.data.login.message); //notify the success
-        localStorage.setItem('userData', JSON.stringify(respObj.data.login.data)); //set the data to Local Storage
-        localStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
-        localStorage.setItem('vidhikToken', respObj.data.login.data.accessToken)
+        sessionStorage.setItem('userData', JSON.stringify(respObj.data.login.data)); //set the data to Local Storage
+        sessionStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
+        sessionStorage.setItem('vidhikToken', respObj.data.login.data.accessToken)
         this.currentUserSubject?.next(respObj.data.login.data);
         this.profileImageSubject.next(respObj.data.login.data.profileImage)
 
@@ -96,16 +96,16 @@ export class AuthService {
     this.currentUserSubject?.next(data);
     this.profileImageSubject.next('');
     this.profileImageSubject.next(data.profileImage);
-    localStorage.setItem('userData', JSON.stringify(data));
+    sessionStorage.setItem('userData', JSON.stringify(data));
   }
 
   logout() {
-    localStorage.removeItem('userData');
+    sessionStorage.removeItem('userData');
     this.currentUserSubject?.next(null);
     this.profileImageSubject?.next("");
-    localStorage.removeItem('vidhikToken');
-    localStorage.removeItem('messageToken');
-    localStorage.removeItem('isCaseDiaryLogin');
+    sessionStorage.removeItem('vidhikToken');
+    // sessionStorage.removeItem('messageToken');
+    sessionStorage.removeItem('isCaseDiaryLogin');
     this._router.navigateByUrl('auth/login');
     this.fireBaseToken = "";
     this.subscription$.unsubscribe();

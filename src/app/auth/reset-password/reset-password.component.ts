@@ -48,7 +48,7 @@ export class ResetPasswordComponent {
   }
 
   resetPassword() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     let data = {
       phoneNumber: parsedData.primaryPhoneNumber,

@@ -42,7 +42,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   addMember(member: any) {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {}
     let data = {
       lawyerId: parsedData._id,
@@ -62,7 +62,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   deleteMember(member: any) {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {}
     let data = {
       lawyerId: parsedData._id,
@@ -89,7 +89,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   getAllLawyersList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {}
     this._apolloService.mutate(GQLConfig.getLawyersList, { lawyerId: parsedData._id }).subscribe(resObj => {
       if (resObj.data != null) {
@@ -105,7 +105,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   getMembersList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {}
     this._apolloService.mutate(GQLConfig.getMemberList, { lawyerId: parsedData._id }).subscribe(resObj => {
       if (resObj.data != null) {
@@ -124,7 +124,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   getFilteredLawyerList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     let data = {
       lawyerId: parsedData._id,

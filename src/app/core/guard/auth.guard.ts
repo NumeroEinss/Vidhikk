@@ -9,8 +9,8 @@ export class AuthGuard {
   constructor(private router: Router, private _toastMessage: ToastMessageService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const userData: any = JSON.parse(localStorage.getItem("userData")!);
-    if (localStorage.getItem('vidhikToken')) {
+    const userData: any = JSON.parse(sessionStorage.getItem("userData")!);
+    if (sessionStorage.getItem('vidhikToken')) {
       // Check if user type matches the allowed type for this route
       if (userData.userType === 'USER' && state.url.startsWith('/user')) {
         return true; // Admin accessing admin route

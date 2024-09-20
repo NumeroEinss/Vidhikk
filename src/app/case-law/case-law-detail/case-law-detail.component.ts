@@ -38,7 +38,7 @@ export class CaseLawDetailComponent {
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService, private _emailService: EmailService,
     private _http: HttpClient, private elementRef: ElementRef) {
     this.routerState = this._router.getCurrentNavigation()?.extras.state;
-    this.userName = JSON.parse(localStorage.getItem('userData')!);
+    this.userName = JSON.parse(sessionStorage.getItem('userData')!);
     if (this.routerState != undefined) {
       this.caseId = this.routerState.caseId || "";
       this.keyWord = this.routerState.keyWord || "";
@@ -121,6 +121,7 @@ export class CaseLawDetailComponent {
                   color: #2E5BFF;
                   width: 100%;
                   margin-top: 38px;
+                  background-color: #e6e60bee;
                 }
                 .title {
                   font-size: 18px;
@@ -154,6 +155,10 @@ export class CaseLawDetailComponent {
                 .bold {
                   font-weight: bold;
                 }
+                mark{
+                background-color: #e6e60bee;
+                padding: unset;
+                }
               }
               </style>
              </head>
@@ -171,7 +176,7 @@ export class CaseLawDetailComponent {
   }
 
   getCaseLawDetail() {
-    let userData = JSON.parse(localStorage.getItem('userData')!);
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: '*/*',
@@ -180,6 +185,7 @@ export class CaseLawDetailComponent {
     this._http.get(this._apolloService.BaseUrl + `/judgement/details/${this.caseId}`, { headers }).subscribe((data: any) => {
       if (data.status == "success") {
         this.caseLawDetail = data.data;
+        this.caseLawDetail.document = this.removeDocidAndLicense(this.caseLawDetail.document);
       }
       if (data.status == "error" && data.error === "Your daily quota has reached.") {
         this.isLimitReached = true;
@@ -218,6 +224,11 @@ export class CaseLawDetailComponent {
   }
 
   generateCustomHeader() {
+    // Check if the header has already been generated
+    // if (this.isHeaderGenerated) {
+    //   return;
+    // }
+
     // Remove the <hr> tag inside the element with ID 'judgement', if it exists
     const judgementElement = document.getElementById('judgement');
     judgementElement?.querySelector('hr')?.remove();
@@ -237,23 +248,27 @@ export class CaseLawDetailComponent {
         third.style = "";
         third.innerHTML = "";
         third.innerHTML = `
-        <div style="display:flex;justify-content:center;align-items:center;margin-top:10px;margin-bottom:10px">
-          <div style="display:flex;flex-direction:column; text-align: center; font-size: 135%;width:400px">
-            <span style="margin-bottom:10px">${this.caseLawDetail.appellants}</span>
-            <span style="margin-bottom:10px">(Applicant)</span>
-          </div>
-          <div style="text-align: center; font-size: 135%;">
-            <span> Vs. </span>
-          </div>
-          <div style="display:flex;flex-direction:column; text-align: center; font-size: 135%;;width:400px">
-            <span style="margin-bottom:10px">${this.caseLawDetail.respondents}</span>
-            <span style="margin-bottom:10px">(Respondent)</span>
-          </div>
+      <div style="display:flex;justify-content:center;align-items:center;margin-top:10px;margin-bottom:10px">
+        <div style="display:flex;flex-direction:column; text-align: center; font-size: 135%;width:400px">
+          <span style="margin-bottom:10px">${this.caseLawDetail.appellants}</span>
+          <span style="margin-bottom:10px">(Applicant)</span>
         </div>
-        `;
+        <div style="text-align: center; font-size: 135%;">
+          <span> Vs. </span>
+        </div>
+        <div style="display:flex;flex-direction:column; text-align: center; font-size: 135%;;width:400px">
+          <span style="margin-bottom:10px">${this.caseLawDetail.respondents}</span>
+          <span style="margin-bottom:10px">(Respondent)</span>
+        </div>
+      </div>
+      `;
       }
-    };
+    }
+
+    // Mark the header as generated
+    // this.isHeaderGenerated = true;
   }
+
 
   getPrintTitle(title: any) {
     return title.replaceAll(' ', '_');
@@ -299,7 +314,7 @@ export class CaseLawDetailComponent {
 
   async saveCaseLaw() {
     if (this.isHighlighted) {
-      let userData = JSON.parse(localStorage.getItem('userData')!);
+      let userData = JSON.parse(sessionStorage.getItem('userData')!);
       let data = {
         judgementId: this.caseId,
         judgement: await this.fetchMarkedText()

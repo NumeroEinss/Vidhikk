@@ -66,7 +66,7 @@ export class UserProfileComponent {
     this.userEditFrmCtrl.courtType.setValidators([Validators.required]);
     this.userEditFrmCtrl.courtName.setValidators([Validators.required]);
 
-    this.userData = JSON.parse(localStorage.getItem('userData')!);
+    this.userData = JSON.parse(sessionStorage.getItem('userData')!);
     this._authService.profileImageSubject.asObservable()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(data => {
@@ -226,7 +226,7 @@ export class UserProfileComponent {
   }
 
   patchUserDetail() {
-    let userData = JSON.parse(localStorage.getItem('userData')!);
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
     this.lawyerEditProfileForm.controls.email.patchValue(userData.email);
     this.lawyerEditProfileForm.controls.coreCompetency.patchValue(userData.coreCompetency);
     this.lawyerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
