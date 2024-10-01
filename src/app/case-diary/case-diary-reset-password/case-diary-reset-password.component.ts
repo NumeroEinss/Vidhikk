@@ -43,7 +43,7 @@ export class CaseDiaryResetPasswordComponent {
   }
 
   resetPassword() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     let data = {
       lawyerId: parsedData._id,

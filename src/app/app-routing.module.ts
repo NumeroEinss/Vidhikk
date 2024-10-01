@@ -9,12 +9,17 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { AuthGuard } from './core/guard/auth.guard';
 import { UserLayoutComponent } from './user-layout/user-layout.component';
 import { JudgeLayoutComponent } from './judge-layout/judge-layout.component';
+import { LandingPageComponent } from './shared/component/landing-page/landing-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth/login',
+    redirectTo: 'vidhik',
     pathMatch: 'full'
+  },
+  {
+    path: 'vidhik',
+    component: LandingPageComponent
   },
   {
     path: 'auth/login',

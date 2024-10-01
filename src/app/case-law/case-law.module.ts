@@ -10,11 +10,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HighlighterPipe } from '../shared/pipe/highlighter.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SavedCaseLawDetailComponent } from './saved-case-law-detail/saved-case-law-detail.component';
+import { HighlightOnSearchPipe } from '../shared/pipe/highlight-on-search.pipe';
 
 @NgModule({
   declarations: [
     CaseLawListComponent,
-    CaseLawDetailComponent
+    CaseLawDetailComponent,
+    SavedCaseLawDetailComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatPaginatorModule,
     MatTooltipModule
   ],
-  providers: [HighlighterPipe]
+  providers: [HighlighterPipe, HighlightOnSearchPipe]
 })
 export class CaseLawModule { }

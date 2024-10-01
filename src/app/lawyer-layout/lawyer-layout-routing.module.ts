@@ -46,15 +46,19 @@ const routes: Routes = [
         loadChildren: () =>
           import('../members/members.module').then((m) => m.MembersModule),
       },
-      // {
-      //   path: 'chat-room',
-      //   loadChildren: () =>
-      //     import('../chat-room/chat-room.module').then((m) => m.ChatRoomModule),
-      // },
-      // {
-      //   path: 'conference',
-      //   loadChildren: () => import('../conference/conference.module').then(m => m.ConferenceModule)
-      // },
+      {
+        path: 'chat-room',
+        loadChildren: () =>
+          import('../chat-room/chat-room.module').then((m) => m.ChatRoomModule),
+      },
+      {
+        path: 'conference',
+        loadChildren: () => import('../conference/conference.module').then(m => m.ConferenceModule)
+      },
+      {
+        path: 'transaction',
+        loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule)
+      },
       {
         path: 'global-search',
         component: GlobalSearchComponent,

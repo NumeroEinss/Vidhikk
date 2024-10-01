@@ -220,6 +220,10 @@
       .member-experience {
         font-size: 12px;
       }
+
+      .lawyer-type {
+        width: 15px;
+      }
     }
 
     .member-rating-btn {
@@ -305,8 +309,8 @@
 
     .add-member-list {
       overflow-x: scroll;
-      width: calc(100vw - 278px);
-      white-space: nowrap;
+      width: 100vw;
+      white-space: normal;
 
       .member-list-header {
         min-width: 1000px;

@@ -1,0 +1,126 @@
+.plan-container {
+    // min-width: 1000px;
+    // display: flex;
+    // justify-content: center;
+    // gap: 50px;
+    // margin: 40px 0;
+    overflow-x: scroll;
+    // min-width: calc(100vh + 390px);
+
+    .plan {
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid rgba(5, 59, 255, 0.05);
+        border-radius: 24px;
+        padding: 20px 20px;
+        position: relative;
+        margin-left: 20px;
+
+        .active-plan {
+            position: absolute;
+            top: 0px;
+            left: -22px;
+            margin-top: 10px;
+        }
+
+        .plan-name {
+            font-family: Poppins;
+            font-size: 18px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: var(--solid-black);
+            margin-top: 50px;
+        }
+
+        .beginners {
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .free {
+            display: flex;
+            align-items: baseline;
+            font-family: Poppins;
+            margin-top: 20px;
+            position: relative;
+
+            .rupee {
+                position: absolute;
+                top: 13px;
+                left: -12px;
+            }
+
+            .cost {
+                font-size: 50px;
+                font-weight: bold;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: left;
+                color: var(--solid-black);
+            }
+
+            .month {
+                color: #2e5bff;
+                white-space: nowrap;
+            }
+        }
+
+        .feature {
+            color: #8798ad;
+            margin-top: 12px;
+            width: 100%;
+            display: flex;
+            text-align: left;
+            font-size: 14px;
+
+            img {
+                margin-right: 8px;
+                width: 16px;
+            }
+        }
+
+        .cancel-button {
+            margin-top: 20px;
+        }
+
+        .editPlan {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+    .plan-container {
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
+
+    .plan-container {
+        gap: 30px;
+
+        .plan-name,
+        .limit {
+            white-space: nowrap;
+        }
+
+        .silver-plan,
+        .gold-plan,
+        .platinum-plan {
+            width: 230px;
+        }
+    }
+}

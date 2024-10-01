@@ -1,0 +1,39 @@
+<div class="plan-container" *ngIf="planList.length > 0">
+    <ng-scrollbar autoHeightDisabled="false" appearance="standard" orientation="horizontal" style="margin: 30px 0px;
+    ;height: 466px;" [ngStyle]="{'min-width':((planList.length*300)+'px')}">
+        <div class="d-flex" style="gap: 30px;flex-wrap: nowrap">
+            @for (item of planList; track $index) {
+            <div class="plan">
+                <div class="active-plan">
+                    <img src="../../assets/images/icons/active_plan_label.svg" alt="" />
+                </div>
+                <div class="plan-name">{{item.planHeading}}</div>
+                <div class="beginners">{{item.duration}}</div>
+                <div class="free">
+                    <div class="rupee">
+                        <img src="../../assets/images/icons/repey.svg" alt="noImage" />
+                    </div>
+                    <div class="cost">{{item.planPrice}}</div>
+                </div>
+                @for (element of item.features; track $index) {
+                <div class="feature">
+                    <img [src]="element.isAvailable?'../../assets/images/icons/available_subscription.svg':
+                    '../../assets/images/icons/not_available_subscription.svg'"
+                        alt="noImage" />{{element.featureHeading}}
+                </div>
+                }
+                <div class="cancel-button">
+                    <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
+                        data-bs-toggle="modal" [attr.data-bs-target]="toggleId?toggleId:'#qrModal'">
+                        Choose Plan
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+    </ng-scrollbar>
+</div>
+
+<div class="no-data" *ngIf="planList.length == 0">
+    <img src="../../../assets/images/image/No_Data.png" alt="">
+</div>

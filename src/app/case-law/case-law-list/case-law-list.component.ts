@@ -186,11 +186,11 @@ export class CaseLawListComponent {
 
   judgeSearch: string = "";
 
-  showAppSearch: boolean = true;
-  resAppList: Array<any> = [];
+  // showAppSearch: boolean = true;
+  // resAppList: Array<any> = [];
 
-  showRespSearch: boolean = true;
-  resRespList: Array<any> = [];
+  // showRespSearch: boolean = true;
+  // resRespList: Array<any> = [];
 
   showJudgeSearch: boolean = true;
   respJudgeList: Array<any> = [];
@@ -200,8 +200,8 @@ export class CaseLawListComponent {
 
   selectedCourt: string = "";
 
-  showCitationSearch: boolean = true;
-  citationList: Array<any> = [];
+  // showCitationSearch: boolean = true;
+  // citationList: Array<any> = [];
 
   judgeControl = new FormControl();
 
@@ -223,17 +223,17 @@ export class CaseLawListComponent {
 
   pageSize: number = 50;
 
-  applicantCurrentPage: number = 1;
+  // applicantCurrentPage: number = 1;
 
-  respondantCurrentPage: number = 1;
+  // respondantCurrentPage: number = 1;
 
   judgeWiseCurrentPage: number = 1;
 
-  savedList: any = [];
+  savedCasesList: any = [];
   savedCurrentPage: number = 1;
 
-  sharedList: any = [];
-  sharedCurrentPage: number = 1;
+  // sharedList: any = [];
+  // sharedCurrentPage: number = 1;
 
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder) {
@@ -242,6 +242,7 @@ export class CaseLawListComponent {
     this.getCaseLaws(1);
     this.getJudgeList();
     this.getCourtList();
+    this.getSavedCases();
     this.filteredActList = this.actList;
     this.filteredActTypeList = this.actTypeList;
     this.filteredYearList = this.yearList;
@@ -271,16 +272,16 @@ export class CaseLawListComponent {
         this.getCaseLaws(this.caseLawCurrentPage);
         break;
       case 1:
-        this.showAppSearch = true;
+        // this.showAppSearch = true;
         break;
       case 2:
-        this.showRespSearch = true;
+        // this.showRespSearch = true;
         break;
       case 3:
         this.showJudgeSearch = true;
         break;
       case 4:
-        this.showCitationSearch = true;
+        // this.showCitationSearch = true;
         break;
       case 5:
         this.showWordsSearch = true;
@@ -375,41 +376,43 @@ export class CaseLawListComponent {
     }
   }
 
-  getCaseLawByApplicant(keyWord: string) {
-    if (keyWord == undefined) {
-      this._toastMessage.error('Applicant name is required !!');
-    }
-    else if (keyWord == "") {
-      this._toastMessage.error('Applicant name is required !!');
-    }
-    else {
-      this._apolloService.get(`/judgement/search/appellant/${keyWord}?page=${this.applicantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
-        if (objRes.status == "success") {
-          this.resAppList = objRes.data.items;
-          this.recordCount = objRes.data.totalCount;
-          this.showAppSearch = !this.showAppSearch;
-        }
-      })
-    }
-  }
+  // getCaseLawByApplicant(keyWord: string) {
+  //   if (keyWord == undefined) {
+  //     this._toastMessage.error('Applicant name is required !!');
+  //   }
+  //   else if (keyWord == "") {
+  //     this._toastMessage.error('Applicant name is required !!');
+  //   }
+  //   else {
+  //     this._apolloService.get(`/judgement/search/appellant/${keyWord}?page=${this.applicantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
+  //       if (objRes.status == "success") {
+  //         this.resAppList = objRes.data.items;
+  //         this.applicantCurrentPage = 1;
+  //         this.recordCount = objRes.data.totalCount;
+  //         this.showAppSearch = !this.showAppSearch;
+  //       }
+  //     })
+  //   }
+  // }
 
-  getCaseLawByRespondent(keyWord: string) {
-    if (keyWord == undefined) {
-      this._toastMessage.error('Respondent name is required !!');
-    }
-    else if (keyWord == "") {
-      this._toastMessage.error('Respondent name is required !!');
-    }
-    else {
-      this._apolloService.get(`/judgement/search/respondents/${keyWord}?page=${this.respondantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
-        if (objRes.status == "success") {
-          this.resRespList = objRes.data.items;
-          this.recordCount = objRes.data.totalCount;
-          this.showRespSearch = !this.showRespSearch;
-        }
-      })
-    }
-  }
+  // getCaseLawByRespondent(keyWord: string) {
+  //   if (keyWord == undefined) {
+  //     this._toastMessage.error('Respondent name is required !!');
+  //   }
+  //   else if (keyWord == "") {
+  //     this._toastMessage.error('Respondent name is required !!');
+  //   }
+  //   else {
+  //     this._apolloService.get(`/judgement/search/respondents/${keyWord}?page=${this.respondantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
+  //       if (objRes.status == "success") {
+  //         this.resRespList = objRes.data.items;
+  //         this.respondantCurrentPage = 1;
+  //         this.recordCount = objRes.data.totalCount;
+  //         this.showRespSearch = !this.showRespSearch;
+  //       }
+  //     })
+  //   }
+  // }
 
   getCaseLawByJudges(keyWord: string) {
     if (keyWord == undefined) {
@@ -422,6 +425,7 @@ export class CaseLawListComponent {
       this._apolloService.get(`/judgement/search/judges/${keyWord}?page=${this.judgeWiseCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
         if (objRes.status == "success") {
           this.respJudgeList = objRes.data.items;
+          this.judgeWiseCurrentPage = 1;
           this.recordCount = objRes.data.totalCount;
           this.showJudgeSearch = !this.showJudgeSearch;
         }
@@ -435,21 +439,22 @@ export class CaseLawListComponent {
     return regex.test(value);
   }
 
-  getCitations(keyWord: string = "") {
-    let data = { name: keyWord }
-    this._apolloService.post(`/citation/search`, data).subscribe(objRes => {
-      if (objRes.status == "success") {
-        this.citationList = objRes.data;
-        this.recordCount = this.citationList.length;
-        this.showCitationSearch = !this.showCitationSearch;
-      }
-    })
-  }
+  // getCitations(keyWord: string = "") {
+  //   let data = { name: keyWord }
+  //   this._apolloService.post(`/citation/search`, data).subscribe(objRes => {
+  //     if (objRes.status == "success") {
+  //       this.citationList = objRes.data;
+  //       this.recordCount = this.citationList.length;
+  //       this.showCitationSearch = !this.showCitationSearch;
+  //     }
+  //   })
+  // }
 
   getCaseLawByAdvanceSearch(page: number) {
     this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
       if (objRes.status == "success") {
         this.respAdvanceSearchList = objRes.data.items;
+        this.advanceSearchCurrentPage = 1;
         this.recordCount = objRes.data.totalCount;
       }
     })
@@ -473,6 +478,7 @@ export class CaseLawListComponent {
       this._apolloService.post(`/judgement/search/words?page=${page}&pageSize=${this.pageSize}`, data).subscribe(objRes => {
         if (objRes.status == "success") {
           this.respWordsPhraseList = objRes.data.items;
+          this.wordsPhraseCurrentPage = 1;
           this.recordCount = objRes.data.totalCount;
         }
       })
@@ -487,23 +493,23 @@ export class CaseLawListComponent {
     return (window.innerWidth > 1199) ? 440 : 200;
   }
 
-  getPaginatedCaseLawByApplicant(page: number) {
-    this._apolloService.get(`/judgement/search/appellant/${this.appInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
-      if (objRes.status == "success") {
-        this.resAppList = objRes.data.items;
-        this.recordCount = objRes.data.totalCount;
-      }
-    })
-  }
+  // getPaginatedCaseLawByApplicant(page: number) {
+  //   this._apolloService.get(`/judgement/search/appellant/${this.appInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
+  //     if (objRes.status == "success") {
+  //       this.resAppList = objRes.data.items;
+  //       this.recordCount = objRes.data.totalCount;
+  //     }
+  //   })
+  // }
 
-  getPaginatedCaseLawByRespondant(page: number) {
-    this._apolloService.get(`/judgement/search/respondents/${this.respInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
-      if (objRes.status == "success") {
-        this.resRespList = objRes.data.items;
-        this.recordCount = objRes.data.totalCount;
-      }
-    })
-  }
+  // getPaginatedCaseLawByRespondant(page: number) {
+  //   this._apolloService.get(`/judgement/search/respondents/${this.respInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
+  //     if (objRes.status == "success") {
+  //       this.resRespList = objRes.data.items;
+  //       this.recordCount = objRes.data.totalCount;
+  //     }
+  //   })
+  // }
 
   nextPageEvent(type: string) {
     switch (type) {
@@ -512,12 +518,12 @@ export class CaseLawListComponent {
         this.getCaseLaws(val);
         break;
       case 'Applicant':
-        var val = this.applicantCurrentPage += 1;
-        this.getPaginatedCaseLawByApplicant(val);
+        // var val = this.applicantCurrentPage += 1;
+        // this.getPaginatedCaseLawByApplicant(val);
         break;
       case 'Respondant':
-        var val = this.respondantCurrentPage += 1;
-        this.getPaginatedCaseLawByRespondant(val);
+        // var val = this.respondantCurrentPage += 1;
+        // this.getPaginatedCaseLawByRespondant(val);
         break;
       case 'Judge':
         var val = this.judgeWiseCurrentPage += 1;
@@ -549,16 +555,16 @@ export class CaseLawListComponent {
         }
         break;
       case 'Applicant':
-        if (this.applicantCurrentPage > 1) {
-          let val = this.applicantCurrentPage -= 1;
-          this.getPaginatedCaseLawByApplicant(val);
-        }
+        // if (this.applicantCurrentPage > 1) {
+        //   let val = this.applicantCurrentPage -= 1;
+        //   this.getPaginatedCaseLawByApplicant(val);
+        // }
         break;
       case 'Respondant':
-        if (this.respondantCurrentPage > 1) {
-          let val = this.respondantCurrentPage -= 1;
-          this.getPaginatedCaseLawByRespondant(val);
-        }
+        // if (this.respondantCurrentPage > 1) {
+        //   let val = this.respondantCurrentPage -= 1;
+        //   this.getPaginatedCaseLawByRespondant(val);
+        // }
         break;
       case 'Judge':
         if (this.judgeWiseCurrentPage > 1) {
@@ -594,12 +600,12 @@ export class CaseLawListComponent {
         this.getCaseLaws(this.caseLawCurrentPage);
         break;
       case 'Applicant':
-        this.applicantCurrentPage = e;
-        this.getPaginatedCaseLawByApplicant(this.applicantCurrentPage);
+        // this.applicantCurrentPage = e;
+        // this.getPaginatedCaseLawByApplicant(this.applicantCurrentPage);
         break;
       case 'Respondant':
-        this.respondantCurrentPage = e;
-        this.getPaginatedCaseLawByRespondant(this.respondantCurrentPage);
+        // this.respondantCurrentPage = e;
+        // this.getPaginatedCaseLawByRespondant(this.respondantCurrentPage);
         break;
       case 'Judge':
         this.judgeWiseCurrentPage = e;
@@ -629,5 +635,20 @@ export class CaseLawListComponent {
         this.recordCount = objRes.data.totalCount;
       }
     })
+  }
+
+  getSavedCases() {
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
+    this._apolloService.get(`/saved-judgement/user/${userData._id}`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.savedCasesList = objRes.data;
+        this.recordCount = objRes.data.length;
+      }
+    })
+  }
+
+  viewSavedCase(cases: any) {
+    const extras = { savedCaseId: cases._id, caseId: cases.judgementId._id }
+    this._router.navigate([`lawyer/case-law/savedCases/view`], { state: extras });
   }
 }

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdvocateComponent } from './advocate.component';
 import { AdvocateListComponent } from './advocate-list/advocate-list.component';
 import { AdvocateSchedulingComponent } from './advocate-scheduling/advocate-scheduling.component';
-import {AdvocateRatingComponent} from './advocate-rating/advocate-rating.component'
+import { AdvocateRatingComponent } from './advocate-rating/advocate-rating.component'
 
 const routes: Routes = [
   {
@@ -11,16 +11,16 @@ const routes: Routes = [
     component: AdvocateListComponent
   },
   {
-    path: ':id',
+    path: 'view',
     component: AdvocateComponent
   },
   {
-    path: ':id/hire',
+    path: 'view/hire',
     component: AdvocateSchedulingComponent
   },
   {
-    path:':id/advocate-rating',
-    component:AdvocateRatingComponent
+    path: 'view/advocate-rating',
+    component: AdvocateRatingComponent
   }
 ];
 

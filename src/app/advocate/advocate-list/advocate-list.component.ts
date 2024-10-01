@@ -57,7 +57,9 @@ export class AdvocateListComponent {
       rating: 4
     }
   ];
-  allLawyerList: any = [];
+  lawyerList: any = [];
+
+  filteredLawyerList: any = [];
 
   places: any = [];
 
@@ -70,12 +72,14 @@ export class AdvocateListComponent {
     this.getPractiscingField();
   }
 
-  viewLawyerDetails() {
-    this._router.navigate(['/user/advocates/dflkasdksdfasde']);
+  viewLawyerDetails(lawyerId: any) {
+    const extras = lawyerId;
+    this._router.navigate([`/user/advocates/view`], { state: extras });
   }
 
-  viewRating() {
-    this._router.navigate(['/user/advocates/gfdyfvayfd/advocate-rating'])
+  viewRating(lawyerId: any) {
+    const extras = lawyerId;
+    this._router.navigate([`/user/advocates/view/advocate-rating`], { state: extras });
   }
 
   getAdvocateList() {
@@ -83,7 +87,8 @@ export class AdvocateListComponent {
       if (data.data != null) {
         if (data.data.getLawyerList.status == 200) {
           this._toastMessage.message(data.data.getLawyerList.message);
-          this.allLawyerList = data.data.getLawyerList.data.lawyerList;
+          this.lawyerList = data.data.getLawyerList.data.lawyerList;
+          this.filteredLawyerList = this.lawyerList;
         }
         else {
           this._toastMessage.error(data.data.getLawyerList.message);
@@ -117,5 +122,16 @@ export class AdvocateListComponent {
       },
       error: (error) => { this._toastMessage.error(error) }
     })
+  }
+
+  getShortInfo(info: string) {
+    return info.slice(0, 15);
+  }
+
+  filterLawyers(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.filteredLawyerList = this.lawyerList.filter((key: any) =>
+      key.city.toLowerCase().startsWith(filter)
+    );
   }
 }

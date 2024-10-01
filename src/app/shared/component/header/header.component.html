@@ -5,7 +5,7 @@
     </div>
   </div>
   <div [ngClass]="colConfig" class="sub-container">
-    <button class="btn-primary" [ngStyle]="searchIcon" data-bs-toggle="modal"
+    <button *ngIf="userType == 'lawyer'" class="btn-primary" [ngStyle]="searchIcon" data-bs-toggle="modal"
       data-bs-target="#upgradeModal">Upgrade</button>
 
     <div class="search" (click)="
@@ -31,31 +31,49 @@
       <div class="notification-count">{{notifications.length}}</div>
     </div>
     <mat-menu #notificationMenu="matMenu">
-      <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false">
-        <div mat-menu-item *ngFor="let notification of notifications"
-          (click)="notification.notificationType == 'approvalRequest'?openNoification():''">
-          <div class="notification-content">
-            <div class="d-flex">
-              <div class="image-container">
-                <img [src]="notification.image"
-                  onerror="this.onerror = '',this.src='../../../../assets/images/image/no-image.png'" />
-              </div>
-
-              <div class="notification-detail ms-2">
-                <div class="d-flex notification-header">
-                  <div class="member-request">{{ notification.title }}</div>
-                  <div class="days">{{getDaysAgo(notification.timestamp)>0?getDaysAgo(notification.timestamp) + ' days
-                    ago':'Today' }}</div>
+      <div style="height: 200px; width: 400px;">
+        <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false" style="height: 100%; width: 100%;">
+          <div mat-menu-item *ngFor="let notification of notifications"
+            (click)="notification.notificationType == 'approvalRequest'?openNoification():''">
+            <div class="notification-content">
+              <div class="d-flex w-100" *ngIf="notification.notificationType!='noData'">
+                <div class="image-container">
+                  <img [src]="notification.image"
+                    onerror="this.onerror = '',this.src='../../../../assets/images/image/no-image.png'" />
                 </div>
-                <div class="notification">{{ notification.body }}</div>
+
+                <div class="notification-detail ms-2">
+                  <div class="d-flex notification-header">
+                    <div class="member-request">{{ notification.title }}</div>
+                    <div class="days">{{getDaysAgo(notification.timestamp)>0?getDaysAgo(notification.timestamp) +
+                      ' days ago':'Today' }}</div>
+                  </div>
+                  <div class="notification">{{ notification.body }}</div>
+                </div>
+              </div>
+              <div class="d-flex w-100" *ngIf="notification.notificationType == 'noData'">
+                <div class=" image-container">
+                  <img [src]="notification.image"
+                    onerror="this.onerror = '',this.src='../../../../assets/images/image/no-image.png'" />
+                </div>
+
+                <div class="notification-detail ms-2">
+                  <div class="d-flex notification-header">
+                    <div class="member-request">{{ notification.title }}</div>
+                    <div class="days">{{getDaysAgo(notification.timestamp)>0?getDaysAgo(notification.timestamp) +
+                      ' days ago':'Today' }}</div>
+                  </div>
+                  <div class="notification">{{ notification.body }}</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <button id='openNotifications' class="d-none" data-bs-toggle="modal"
-          data-bs-target="#notificationModal"></button>
-      </ng-scrollbar>
+          <button id='openNotifications' class="d-none" data-bs-toggle="modal"
+            data-bs-target="#notificationModal"></button>
+        </ng-scrollbar>
+      </div>
     </mat-menu>
+
     <!-- <div class="add-button">
       <img src="../../../../assets/images/icons/add_button.svg" />
     </div> -->
@@ -107,103 +125,105 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="silver-plan">
-          <div class="active-plan">
-            <img src="../../assets/images/icons/active_plan_label.svg" alt="" />
-          </div>
-          <div class="plan-name">SILVER PLAN</div>
-          <div class="beginners">For Beginners</div>
-          <div class="free">FREE</div>
-          <div class="limit">Users : Unlimited</div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />1 Case Diary
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Blog
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top Listing
-          </div>
+        <app-subscription-plan [toggleId]="'#scannerModal'"></app-subscription-plan>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Upgrade Popup Ends  -->
 
-          <div class="cancel-button">
-            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-              Cancel Plan
-            </button>
-          </div>
+<!-- QR payment popup start -->
+<!-- <button id="scannerModalButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
+  data-bs-target="#scannerModal" class="d-none"></button> -->
+<div class="modal fade" id="scannerModal" tabindex="-1" aria-labelledby="scannerModalLabel" aria-hidden="true"
+  style="width: 100%;">
+  <div class="modal-dialog modal-md modal-dialog-centered" style="width: 430px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="scannerModalLabel">Scan QR Code</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mt-4 mb-4" style="color: #8798AD;">
+          All the details of the lawyer upon successful payment. For this you will be charged INR 500.
+        </p>
+        <div class="mt-2 mb-2 d-flex justify-content-center">
+          <p style="background:#2E5BFF0D; max-width: 360px; padding: 10px 122px;font-size: 16px;border-radius: 12px;cursor: pointer;"
+            data-bs-toggle="modal" data-bs-target="#paymentSuccessModal">
+            Scan QR Code
+          </p>
         </div>
+        <div class="mt-4 mb-4">
+          <img src="../../assets/images/image/QRtiger.png" width="236" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div class="gold-plan">
-          <div class="plan-name">GOLD PLAN</div>
-          <div class="individuals">For Mediators</div>
-          <div class="free">
-            <div class="rupee">
-              <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-            </div>
-            <div class="cost">99</div>
-            <div class="month">
-              / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
-            </div>
-          </div>
-          <div class="limit">Users : Unlimited</div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />2 Case Diary
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top 100 Listing
-          </div>
-          <div class="cancel-button">
-            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-              Choose Plan
-            </button>
-          </div>
+<!-- Payment Successful popup start -->
+<!-- <button id="paymentSuccessfullPopupButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
+data-bs-target="#paymentSuccessModal" class="d-none"></button> -->
+<div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalLabel"
+  aria-hidden="true" style="width: 100%;">
+  <div class="modal-dialog modal-md modal-dialog-centered" style="width: 430px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="paymentSuccessModalLabel">Payment Successfull</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-3 mb-3">
+          <img src="../../assets/images/image/payment_successful.png" alt="">
         </div>
-        <div class="platinum-plan">
-          <div class="plan-name">PLATINUM PLAN</div>
-          <div class="team">For Experts</div>
-          <div class="free">
-            <div class="rupee">
-              <img src="../../assets/images/icons/repey.svg" alt="noImage" />
+        <p class="mb-4">
+          Payment Successfull
+        </p>
+        <p class="m-4" style="color:#8798AD">
+          You have successfully paid to see the details of the lawyer.<br><br> These details will be shown to
+          you only 48 hours after the payment is completed.
+        </p>
+        <div class="mt-4 mb-4 px-4 py-3" style="border:1px solid #0000001A;border-radius: 12px;">
+          <div class="payment-detail">
+            Payment Details
+          </div>
+          <div class="transaction-detail">
+            <div class="d-flex mt-2">
+              <div class="col-lg-6 col-md-6 label">Client</div>
+              <div class="col-lg-6 col-md-6 detail">Kapil Sibbal</div>
             </div>
-            <div class="cost">499</div>
-            <div class="month">
-              / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
+
+            <div class="d-flex mt-1">
+              <div class="col-lg-6 col-md-6 label">Transaction ID</div>
+              <div class="col-lg-6 col-md-6 detail">TTCNI022000800594</div>
             </div>
-          </div>
-          <div class="limit">
-            Users :
-            <div class="minus-btn">-</div>
-            <div class="number">5</div>
-            <div class="plus-btn">+</div>
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />3 Case Diary
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Top 50 Listing
-          </div>
-          <div class="cancel-button">
-            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-              Choose Plan
-            </button>
+
+            <div class="d-flex mt-1">
+              <div class="col-lg-6 col-md-6 label">Payment Date</div>
+              <div class="col-lg-6 col-md-6 detail">Feb 15 2024, 4:35 PM</div>
+            </div>
+
+            <div class="d-flex mt-1">
+              <div class="col-lg-6 col-md-6 label">Payment Method</div>
+              <div class="col-lg-6 col-md-6 detail">Bank Account</div>
+            </div>
+
+            <div class="d-flex mt-1">
+              <div class="col-lg-6 col-md-6 label">Confirmation</div>
+              <div class="col-lg-6 col-md-6 detail">Successful</div>
+            </div>
+
+            <hr>
+
+            <div>
+              <button mat-raised-button color="primary" class="m-2" data-bs-dismiss="modal">Done</button><br />
+              <button mat-stroked-button color=" primary" class="m-2">
+                Download Receipt
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- Upgrade Popup Ends  -->

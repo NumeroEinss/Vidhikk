@@ -123,6 +123,7 @@
 
                             .type {
                                 color: #8798ad;
+                                font-size: 12px;
                             }
 
                             .d-flex {
@@ -155,23 +156,23 @@
 //  advocate-filter-popup styling start
 .advocate-filter-popup {
     width: 420px;
-  
+
     .modal-body {
-      padding: 24px 50px;
-  
-      .mat-label {
-        text-align: left;
-        font-size: 14px;
-        font-family: Poppins;
-        font-weight: 500 !important;
-        color: #000000;
-      }
-  
-      .mat-mdc-radio-group {
-        text-align: left !important;
-      }
+        padding: 24px 50px;
+
+        .mat-label {
+            text-align: left;
+            font-size: 14px;
+            font-family: Poppins;
+            font-weight: 500 !important;
+            color: #000000;
+        }
+
+        .mat-mdc-radio-group {
+            text-align: left !important;
+        }
     }
-  }
+}
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

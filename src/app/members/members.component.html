@@ -14,7 +14,7 @@
     </div>
     <div>
       <button type="button" class="btn btn-primary" data-bs-target="#addMemberModalToggle" data-bs-toggle="modal"
-        (click)="this.filteredLawyerList = this.lawyerList;">
+        (click)="resetMemberPopup()">
         <img src="../../../assets/images/icons/create-case-diary.svg" alt="" class="me-2" />Add Member
       </button>
     </div>
@@ -24,7 +24,7 @@
   <!-- add member list start -->
   <div class="add-member-btn mb-2" *ngIf="memberList.length >0">
     <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-target="#addMemberModalToggle"
-      data-bs-toggle="modal">
+      data-bs-toggle="modal" (click)="resetMemberPopup()">
       <img class="me-2" src="../../../assets/images/icons/add_member_plus.svg" /><span style="color: #2e5bff"></span>Add
       Member
     </button>
@@ -32,6 +32,7 @@
 
   <div class="add-member-list" *ngIf="memberList.length >0">
     <div style="height: calc(100vh - 280px);">
+
       <div class="member-list-header">
         <div class="grid-item-name">NAME</div>
         <div class="grid-item1">CONTACT NO. DETAILS</div>
@@ -40,7 +41,6 @@
         <div class="grid-item1">CITY</div>
         <div class="grid-item1">ACTIONS</div>
       </div>
-
       <ng-scrollbar autoHeightDisabled="false" appearance="standard">
         @for (member of memberList;track member) {
         <div class="member-list-data">
@@ -146,7 +146,7 @@
           <div class="add-member-body">
             <div class="d-flex">
               <mat-form-field class="search-input" appearance="outline">
-                <input matInput placeholder="Search Member" (keyup)="filterLawyers($event)" />
+                <input #searchInput matInput placeholder="Search Member" (keyup)="filterLawyers($event)" />
                 <span matSuffix><img src="../../../assets/images/icons/search-blue.svg"
                     style="margin-right: 15px" /></span>
               </mat-form-field>
@@ -165,11 +165,11 @@
                   </div>
 
                   <div class="member-detail ms-2">
-                    <div class="member-name">{{ lawyer.lawyerName }}</div>
+                    <div class="member-name">{{ getShortInfo(lawyer.lawyerName) }}</div>
                     <div class="d-flex">
-                      <img src="../../assets/images/icons/lawyer_type.svg" alt="" class="me-1" />
+                      <img src="../../assets/images/icons/lawyer_type.svg" alt="" class="me-1 lawyer-type" />
                       <div class="member-lawyer-type">
-                        {{ lawyer.practicingField[0] + '...' }}
+                        {{ getShortInfo(lawyer.practicingField[0]) + '...' }}
                       </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-left">
@@ -184,7 +184,7 @@
 
                 <div class="member-rating-btn">
                   <div class="star">
-                    <img src="../../assets/images/icons/yellow_star.svg" alt="" class="me-1" />{{(lawyer.rating)}}
+                    <img src="../../assets/images/icons/yellow_star.svg" alt="" class="me-1" />({{lawyer.rating}})
                   </div>
                   <div>
                     <button mat-stroked-button color="primary" (click)="addMember(lawyer)" data-bs-dismiss="modal">
@@ -218,8 +218,8 @@
               <mat-label class="mat-label">Select Place</mat-label>
               <mat-form-field appearance="outline" class="mt-1">
                 <mat-select placeholder="Select place" required [(ngModel)]="place">
-                  <mat-option *ngFor="let place of places" [value]="place.state">
-                    {{ place.state }}
+                  <mat-option *ngFor="let place of places" [value]="place.name">
+                    {{ place.name }}
                   </mat-option>
                 </mat-select>
                 <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is

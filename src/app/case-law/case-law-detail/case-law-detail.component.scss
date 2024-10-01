@@ -60,7 +60,7 @@
 
             .cancel {
                 position: absolute;
-                right: 1px;
+                right: 15px;
                 width: 18px;
                 height: 18px;
             }
@@ -267,6 +267,16 @@
 .section-to-print {
     margin: 10px;
     text-align: justify;
+}
+
+// Upgrade Popup Styling Start
+.upgrade-modal {
+    .modal-body {
+        .plan-container {
+            overflow-x: scroll;
+            width: calc(100vh + 445px);
+        }
+    }
 }
 
 

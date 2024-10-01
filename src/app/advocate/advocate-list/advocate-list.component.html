@@ -29,7 +29,7 @@
             <!-- search-bar start -->
             <div class="search-bar">
                 <mat-form-field appearance="outline" class="mat-input-white">
-                    <input matInput placeholder="Search Advocates" required />
+                    <input matInput placeholder="Search Advocates" (keyup)="filterLawyers($event)" required />
                     <div matSuffix>
                         <img src="../../../assets/images/icons/search-blue.svg"
                             style="margin-right: 20px; cursor: pointer" />
@@ -45,7 +45,7 @@
                     <div class="heading">Popular Lawyers</div>
                     <div class="list">
                         @for (lawyer of popularLawyerList; track lawyer) {
-                        <div class="node" (click)="viewLawyerDetails()">
+                        <div class="node" (click)="viewLawyerDetails(lawyer._id)">
                             <div class="subnode d-flex justify-content-center">
                                 <img class="display-profile" [src]="lawyer.image" width="200" height="150" alt="">
                                 <div class="lawyer-details">
@@ -53,7 +53,7 @@
                                     <div class="type">{{lawyer.type}}</div>
                                     <div class="d-flex">
                                         <div class="experience">{{lawyer.experience}}</div>
-                                        <div class="rating" (click)="viewRating()">
+                                        <div class="rating" (click)="viewRating(lawyer._id)">
                                             <img src="../../../assets/images/icons/star.svg" alt="">
                                             <div>({{lawyer.rating}})</div>
                                         </div>
@@ -70,20 +70,20 @@
                 <div class="all-lawyer">
                     <div class="heading">All Lawyers</div>
                     <div class="list">
-                        @for (lawyer of allLawyerList; track lawyer) {
-                        <div class="node" (click)="viewLawyerDetails()">
+                        @for (lawyer of filteredLawyerList; track lawyer) {
+                        <div class="node" (click)="viewLawyerDetails(lawyer._id)">
                             <div class="subnode d-flex justify-content-center">
                                 <img class="display-profile" [src]="getImageUrl(lawyer.profileImage)" width="200"
                                     height="150"
                                     onerror="this.onerror=null;this.src='../../../assets/images/image/no-image.png';">
                                 <div class="lawyer-details">
                                     <div class="location">{{lawyer.city}}</div>
-                                    <div class="type">{{lawyer.practicingField[0]}}</div>
+                                    <div class="type">{{getShortInfo(lawyer.practicingField[0])}}</div>
                                     <div class="d-flex">
-                                        <div class="experience">{{lawyer.experience}}8+ Experience</div>
-                                        <div class="rating" (click)="viewRating()">
+                                        <div class="experience">{{lawyer.practiceYear}} Years</div>
+                                        <div class="rating" (click)="viewRating(lawyer._id)">
                                             <img src="../../../assets/images/icons/star.svg" alt="">
-                                            <div>({{lawyer.rating}}5)</div>
+                                            <div>({{lawyer.rating}})</div>
                                         </div>
                                     </div>
                                 </div>

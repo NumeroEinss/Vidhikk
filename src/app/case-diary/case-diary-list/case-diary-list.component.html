@@ -65,28 +65,29 @@
     <!-- case-diary table start -->
     <div *ngIf="selectedDiary == 'caseDiary'" class="case-diary-list">
       <div class="case-diary-header">
-        <div class="grid-item1">FILING DATE</div>
         <!-- <div class="grid-item1">CASE NO.</div> -->
-        <!-- <div class="grid-item1">CASE TITLE</div> -->
+        <!-- <div class="grid-item1">PLAINTIFF/ACCUSER</div> -->
+        <!-- <div class="grid-item1">DEFENDANT/SUSPECT</div> -->
+        <!-- <div class="grid-item1">CITY</div> -->
+        <div class="grid-item1">FILING DATE</div>
+        <div class="grid-item1">CASE TITLE</div>
         <div class="grid-item1">COURT NAME</div>
-        <div class="grid-item1">PLAINTIFF/ACCUSER</div>
-        <div class="grid-item1">DEFENDANT/SUSPECT</div>
         <div class="grid-item1">CASE STAGE</div>
         <div class="grid-item1">NEXT HEARING</div>
         <div class="grid-item1">APPLICATION</div>
         <div class="grid-item1">OWNER</div>
-        <!-- <div class="grid-item1">CITY</div> -->
         <div class="grid-item1">ACTIONS</div>
       </div>
 
       @for (item of caseDiaryList; track item) {
       <div class="case-diary-data">
-        <div class="grid-item2">{{ item.registrationDate | date:'dd/MM/yyyy'}}</div>
         <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
-        <!-- <div class="grid-item2">{{ item.caseName }}</div> -->
+        <!-- <div class="grid-item2">{{ item.applicantName }}</div> -->
+        <!-- <div class="grid-item2">{{ item.respondentName }}</div> -->
+        <!-- <div class="grid-item2">{{ item.city }}</div> -->
+        <div class="grid-item2">{{ item.registrationDate | date:'dd/MM/yyyy'}}</div>
+        <div class="grid-item2">{{ item.caseName }}</div>
         <div class="grid-item2">{{ item.courtName }}</div>
-        <div class="grid-item2">{{ item.applicantName }}</div>
-        <div class="grid-item2">{{ item.respondentName }}</div>
         <div class="grid-item2">
           <mat-form-field appearance="outline" class="stage-input list-input">
             <input matInput placeholder="Enter Case Stage" [(ngModel)]="item.caseStage" />
@@ -111,13 +112,17 @@
           </mat-form-field>
         </div>
         <div class="grid-item2">{{ item?.ownerName }}</div>
-        <!-- <div class="grid-item2">{{ item.city }}</div> -->
-        <div class="grid-item2">
-          <button mat-icon-button (click)="editCaseDiary(item._id)" matTooltip="Edit">
+        <div class="grid-item2 d-flex">
+          <share-buttons theme="circles-dark" [include]="['email','whatsapp']" [showIcon]="true" [showText]="false"
+            [description]="getSharingContent(item)" url="https://84.247.151.137" class="ms-1">
+          </share-buttons>
+          <!-- </div>
+        <div class="grid-item2"> -->
+          <button mat-icon-button (click)="editCaseDiary(item._id)" matTooltip="Edit" class="p-1 pb-2">
             <mat-icon class="action-icon">edit</mat-icon>
           </button>
         </div>
-        <mat-menu #caseDiaryMenu="matMenu">
+        <!-- <mat-menu #caseDiaryMenu="matMenu">
           <button mat-menu-item (click)="editCaseDiary(item._id)">
             <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
               style="width: 22px; height: 22px" />
@@ -129,7 +134,7 @@
               style="width: 20px; height: 20px" />
             <span class="mat-menu-list">View Application</span>
           </button>
-        </mat-menu>
+        </mat-menu> -->
       </div>
       }
       <!-- case-diary list ends-->
@@ -139,12 +144,12 @@
     <!-- sub-diary list start -->
     <div *ngIf="selectedDiary == 'subDiary'" class="sub-diary-list">
       <div class="sub-diary-header">
-        <div class="grid-item1">REG. DATE</div>
+        <div class="grid-item1">FILING DATE</div>
         <div class="grid-item1">CASE TITLE</div>
         <div class="grid-item1">COURT NAME</div>
         <!-- <div class="grid-item1">CASE NO.</div> -->
-        <div class="grid-item1">APPLICANT</div>
-        <div class="grid-item1">RESPONDENT</div>
+        <!-- <div class="grid-item1">APPLICANT</div>
+        <div class="grid-item1">RESPONDENT</div>-->
         <div class="grid-item1">CASE STAGE</div>
         <div class="grid-item1">NEXT HEARING</div>
         <div class="grid-item1">APPLICATION</div>
@@ -159,8 +164,8 @@
         <div class="grid-item2">{{ item.caseName }}</div>
         <div class="grid-item2">{{ item.courtName }}</div>
         <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
-        <div class="grid-item2">{{ item.applicantName }}</div>
-        <div class="grid-item2">{{ item.respondentName }}</div>
+        <!-- <div class="grid-item2">{{ item.applicantName }}</div>
+        <div class="grid-item2">{{ item.respondentName }}</div> -->
         <div class="grid-item2">
           {{item.caseStage}}
         </div>

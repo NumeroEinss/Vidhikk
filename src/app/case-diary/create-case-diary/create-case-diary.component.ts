@@ -75,7 +75,7 @@ export class CreateCaseDiaryComponent {
 
   createCaseDiary() {
     if (this.createCaseDiaryForm.valid) {
-      const userData = localStorage.getItem('userData');
+      const userData = sessionStorage.getItem('userData');
       let parsedData = userData ? JSON.parse(userData) : {};
       let data = {
         lawyerId: parsedData._id,

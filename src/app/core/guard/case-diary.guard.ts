@@ -7,7 +7,7 @@ export class caseDiaryGuard {
   constructor(private _router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const isCaseDiaryLogin: any = JSON.parse(localStorage.getItem("isCaseDiaryLogin")!);
+    const isCaseDiaryLogin: any = JSON.parse(sessionStorage.getItem("isCaseDiaryLogin")!);
     if (isCaseDiaryLogin == true) {
       return true;
     }

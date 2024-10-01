@@ -5,6 +5,7 @@ import { ApolloService } from '../../shared/services/apollo.service';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { TemplateService } from '../../shared/services/template.service';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-case-diary-list',
@@ -32,7 +33,7 @@ export class CaseDiaryListComponent {
   selectedSubDiary: any;
 
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
-    private _templateService: TemplateService) {
+    private _templateService: TemplateService, private _datePipe: DatePipe) {
     let extras = this._router.getCurrentNavigation()?.extras.state;
     this.selectedDiary = extras?.diaryType == undefined ? 'caseDiary' : extras?.diaryType;
     this.selectedDiary == 'caseDiary' ? this.getCaseDiaryList() : this.getSubDiaryList();
@@ -47,7 +48,7 @@ export class CaseDiaryListComponent {
   }
 
   getCaseDiaryList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getCaseDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
@@ -79,7 +80,7 @@ export class CaseDiaryListComponent {
   }
 
   getSubDiaryList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getSubDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
@@ -146,6 +147,39 @@ export class CaseDiaryListComponent {
         }
       }
     })
+  }
+
+  getSharingContent(cases: any) {
+    const userData = JSON.parse(sessionStorage.getItem('userData')!);
+    const statement = `Subject: Update on Today's Hearing - ${cases.caseName}
+
+    Dear ${cases.representing == 'Applicant' ? cases.applicantName : cases.respondentName},
+    
+    I hope this message finds you well. I wanted to provide you with an update on the proceedings related to your case, ${cases.caseName}.
+    Case Details:
+    
+    Case Stage: ${cases.caseStage}
+    Court Name: ${cases.courtName}
+    Hearing Date: ${this._datePipe.transform(new Date(), 'dd/MM/yyyy')}
+    Next Hearing Date: ${this._datePipe.transform(new Date(cases.nextHearingDate || null), 'dd/MM/yyyy')}
+    Filing Date: ${this._datePipe.transform(new Date(cases.registrationDate), 'dd/MM/yyyy')}
+    
+    Summary of Today's Proceedings:
+    
+    [Provide a brief summary of what transpired during the hearing today. For example, mention if any significant progress was made, if there were any adjournments, or if any specific orders were passed.]
+    Next Steps:
+    
+    [Outline the next steps in the case. This could include preparation for the next hearing, any documents that need to be filed, or any actions the client needs to take.]
+    
+    Please feel free to reach out if you have any questions or need further clarification. We will continue to monitor the case closely and keep you updated on any new developments.
+    
+    Thank you for your continued trust and cooperation.
+    
+    Best regards,
+    ${userData.name}
+    Contact - ${userData.primaryPhoneNumber}
+    ${userData.orgainization}`
+    return statement;
   }
 
   ngOnDestroy() {

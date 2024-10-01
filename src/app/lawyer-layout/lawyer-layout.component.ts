@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-lawyer-layout',
@@ -7,7 +8,13 @@ import { Component } from '@angular/core';
 })
 export class LawyerLayoutComponent {
 
+  constructor(private _authService: AuthService) { }
+
   logoutCaseDiary() {
-    localStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
+    sessionStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
+  }
+
+  logout() {
+    this._authService.logout();
   }
 }

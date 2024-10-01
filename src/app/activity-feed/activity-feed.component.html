@@ -23,7 +23,8 @@
 
             <div class="d-flex w-100" *ngIf="userType === 'lawyer'">
               <div class="profile-container">
-                <img src="../../assets/images/image/person.jpg" />
+                <img [src]="getImageUrl(this.userImage)"
+                  onerror="this.onerror=null,this.src='../../../../assets/images/image/person.jpg'" />
               </div>
               <div class="section-2">
                 <input type="text" placeholder="Tittle" [(ngModel)]="post.title" />
@@ -53,7 +54,8 @@
             <div class="down-section-1">
               <div class="d-flex">
                 <div class="profile-container1">
-                  <img src="../../../../assets/images/image/person.jpg" />
+                  <img [src]="getImageUrl(item.lawyerProfile)"
+                    onerror="this.onerrror=null,this.src='../../../../assets/images/image/person.jpg'" />
                 </div>
                 <div class="down-section-2">
                   <div class="name">{{ item.lawyerName }}</div>

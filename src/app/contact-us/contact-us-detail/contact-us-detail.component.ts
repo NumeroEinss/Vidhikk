@@ -43,11 +43,12 @@ export class ContactUsDetailComponent {
       this._toastMessage.error('Enter Something to post !!');
     }
     else {
-      let userData = JSON.parse(localStorage.getItem('userData')!);
+      let userData = JSON.parse(sessionStorage.getItem('userData')!);
       let data = {
         ticketId: this.ticketDetail._id,
         replyText: this.comment,
-        replyType: userData.userType == "ADMIN" ? 'admin' : 'user'
+        replyType: userData.userType,
+        replyFrom: userData._id
       };
       this._apolloService.mutate(GQLConfig.replyTicket, data).subscribe(objRes => {
         if (objRes.data != null) {
@@ -82,7 +83,7 @@ export class ContactUsDetailComponent {
   }
 
   getTicketDetail() {
-    let userData = JSON.parse(localStorage.getItem('userData')!);
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
     this._apolloService.mutate(GQLConfig.getTicketDetail, { ticketId: this.routerState.ticket_id, lawyerId: userData._id }).subscribe(objRes => {
       if (objRes.data != null) {
         if (objRes.data.getTicketDetail.status == 200) {

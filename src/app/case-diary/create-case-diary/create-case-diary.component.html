@@ -69,15 +69,14 @@
 
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label">Representing</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select stage" formControlName="representing" required>
-                <mat-option *ngFor="let representing of representingList" [value]="representing.value">
-                  {{ representing.viewValue }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="createCaseDiaryForm.controls['representing'].errors?.['required']">
-                Representing is Required !!</mat-error>
-            </mat-form-field>
+            <!-- <mat-form-field appearance="outline"> -->
+            <mat-radio-group aria-label="User Type" class="mb-2" formControlName="representing">
+              <mat-radio-button value="'Applicant'">Applicant</mat-radio-button>
+              <mat-radio-button value="'Respondant'" checked>Respondant</mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="createCaseDiaryForm.controls['representing'].errors?.['required']">
+              Representing is Required !!</mat-error>
+            <!-- </mat-form-field> -->
           </div>
         </div>
 
@@ -121,6 +120,22 @@
               <mat-hint>MM/DD/YYYY</mat-hint>
               <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="case-diary-col row">
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <mat-label class="mat-label">Client Email</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Type IPC Section" formControlName="clientEmail" />
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <mat-label class="mat-label">Client Contact No.</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Type IPC Section" formControlName="clientContact" />
             </mat-form-field>
           </div>
         </div>

@@ -28,11 +28,9 @@ export class MessagingService {
 
 
   receiveMessaging() {
-    // console.log('Setting up message receiver');
     this._afMessaging.messages.subscribe(
       {
         next: (payload: any) => {
-          // console.log('Message received', payload);
           this.currentMessage.next(payload);
         },
         error: (error) => {

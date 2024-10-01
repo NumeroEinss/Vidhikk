@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { Location } from '@angular/common';
+import { GQLConfig } from '../../graphql.operations';
 
 @Component({
   selector: 'app-advocate-rating',
@@ -6,53 +11,53 @@ import { Component } from '@angular/core';
   styleUrl: './advocate-rating.component.scss'
 })
 export class AdvocateRatingComponent {
-  isRatingAdd: boolean= false;
+  lawyerId: any;
+  isRatingAdd: boolean = false;
+  lawyer: any;
 
-  reviews = [
-    {
-      image: '../../../assets/images/image/advocate_3.jpg',
-      name: 'Kapil Sibbal',
-      lawyerType: 'Criminal Lawyer',
-      rating: 4.0,
-      ratingCount: 23
+  ratingList: any = [
+    // {
+    //   image: '../../../assets/images/image/add_member.png',
+    //   name: 'Anil Soni',
+    //   ratingCount: 3.0,
+    //   days: '2 days ago'
+    // }
+  ];
+
+  constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
+    private location: Location) {
+    this.lawyerId = this._router.getCurrentNavigation()?.extras.state;
+    if (this.lawyerId != undefined) {
+      this.getLawyerRating();
     }
-  ];
+    else {
+      this.location.back();
+    }
+  }
 
-  ratingList = [
-    {
-      image: '../../../assets/images/image/add_member.png',
-      name: 'Anil Soni',
-      ratingCount: 3.0,
-      days:'2 days ago'
-    },
-    {
-      image: '../../../assets/images/image/add_member2.png',
-      name: 'Devansh Jain',
-      ratingCount: 3.0,
-      days:'1 days ago'
-    },
-    {
-      image: '../../../assets/images/image/add_member.png',
-      name: 'Anil Soni',
-      ratingCount: 3.0,
-      days:'2 days ago'
-    },
-    {
-      image: '../../../assets/images/image/add_member2.png',
-      name: 'Devansh Jain',
-      ratingCount: 3.0,
-      days:'1 days ago'
-    },
-  ];
-
-  addReviews(){
+  addReviews() {
+    const userData = JSON.parse(sessionStorage.getItem('userData')!)
     const rating = {
       image: '../../../assets/images/image/add_member.png',
-      name: 'Devansh Jain',
+      name: userData.name,
       ratingCount: 3.0,
-      days:'Today'
+      days: 'Today'
     }
-
     this.ratingList.unshift(rating)
+  }
+
+  getLawyerRating() {
+    this._apolloService.mutate(GQLConfig.getLawyerRating, { lawyerId: this.lawyerId }).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.getLawyerRatingList.status == 200) {
+          this._toastMessage.success(data.data.getLawyerRatingList.message);
+          this.lawyer = data.data.getLawyerRatingList.data;
+          this.ratingList = data.data.getLawyerRatingList.data.lawyerRatingList;
+        }
+        else {
+          this._toastMessage.success(data.data.getLawyerRatingList.message);
+        }
+      }
+    })
   }
 }

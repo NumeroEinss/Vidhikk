@@ -16,4 +16,6 @@ export class CreateCaseDiaryModel {
     FIRNumber: string = "";
     FIRDate: string = "";
     sectionIPC: string = "";
+    clientEmail: string = "";
+    clientContact: string = "";
 }

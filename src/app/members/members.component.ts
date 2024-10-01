@@ -1,8 +1,9 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { ApolloService } from '../shared/services/apollo.service';
 import { GQLConfig } from '../graphql.operations';
 import { HttpClient } from '@angular/common/http';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-members',
@@ -10,6 +11,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './members.component.scss',
 })
 export class MembersComponent implements AfterViewInit {
+
+  @ViewChild('searchInput', { static: true })
+  public searchInput!: ElementRef;
   selectedMember: any = {};
   memberList: any = [];
   filteredLawyerList: any = [];
@@ -38,7 +42,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   addMember(member: any) {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {}
     let data = {
       lawyerId: parsedData._id,
@@ -58,7 +62,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   deleteMember(member: any) {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {}
     let data = {
       lawyerId: parsedData._id,
@@ -80,20 +84,17 @@ export class MembersComponent implements AfterViewInit {
   filterLawyers(e: any) {
     let filter = e.target.value.toLowerCase();
     this.filteredLawyerList = this.lawyerList.filter((key: any) =>
-      key.memberName.toLowerCase().startsWith(filter)
+      key.lawyerName.toLowerCase().startsWith(filter)
     );
   }
 
   getAllLawyersList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {}
     this._apolloService.mutate(GQLConfig.getLawyersList, { lawyerId: parsedData._id }).subscribe(resObj => {
       if (resObj.data != null) {
         if (resObj.data.lawyersList.status == 200) {
           this.lawyerList = resObj.data.lawyersList.data.lawyerList;
-          this.lawyerList.forEach((element: any) => {
-            element.experience = 0;
-          });
           this.filteredLawyerList = this.lawyerList;
         }
         else {
@@ -104,7 +105,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   getMembersList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {}
     this._apolloService.mutate(GQLConfig.getMemberList, { lawyerId: parsedData._id }).subscribe(resObj => {
       if (resObj.data != null) {
@@ -123,7 +124,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   getFilteredLawyerList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     let data = {
       lawyerId: parsedData._id,
@@ -161,5 +162,14 @@ export class MembersComponent implements AfterViewInit {
       },
       error: (error) => { this._toastMessage.error(error) }
     })
+  }
+
+  getShortInfo(info: string) {
+    return info.slice(0, 15);
+  }
+
+  resetMemberPopup() {
+    this.filteredLawyerList = this.lawyerList;
+    this.searchInput.nativeElement.value = '';
   }
 }

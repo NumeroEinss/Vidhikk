@@ -9,6 +9,9 @@ import { ApolloService } from '../shared/services/apollo.service';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { GQLConfig } from '../graphql.operations';
 import { NgScrollbar } from 'ngx-scrollbar';
+import { AuthService } from '../shared/services/auth.service';
+import { imageUrl } from '../graphql.module';
+import { Subject, Subscription, takeUntil, timeout } from 'rxjs';
 
 @Component({
   selector: 'app-activity-feed',
@@ -26,13 +29,20 @@ export class ActivityFeedComponent {
   feedList: any = [];
   post: any = { title: "", description: "" };
   refreshVisible: boolean = false;
+  userImage: string = "";
+  onDestroy$: Subject<void> = new Subject()
 
   constructor(private _router: Router, private _apolloService: ApolloService,
-    private _toastMessage: ToastMessageService
+    private _toastMessage: ToastMessageService, private _authService: AuthService
   ) {
     this.userType = _router.url.split('/')[1];
     this.getActivityFeeds();
-    setInterval(() => { this.refreshVisible = true }, 10000)
+    setInterval(() => { this.refreshVisible = true }, 10000);
+    this._authService.profileImageSubject
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((data: any) => {
+          this.userImage = data;
+      })
   }
 
   addPost() {
@@ -43,7 +53,7 @@ export class ActivityFeedComponent {
       this._toastMessage.error("Post Description is required !!");
     }
     else {
-      let userData = JSON.parse(localStorage.getItem('userData')!);
+      let userData = JSON.parse(sessionStorage.getItem('userData')!);
       let reqObj = {
         lawyerId: userData._id,
         title: this.post.title,
@@ -58,7 +68,7 @@ export class ActivityFeedComponent {
             this.post.title = "";
             this.post.description = "";
             this.getActivityFeeds();
-            this.commentScroll.scrollTo({bottom:100})
+            this.commentScroll.scrollTo({ bottom: 100 })
           }
           else {
             this._toastMessage.success(data.data.postLawyerActivity.message);
@@ -89,7 +99,7 @@ export class ActivityFeedComponent {
   }
 
   likePost(post: any) {
-    const userData: any = localStorage.getItem('userData');
+    const userData: any = sessionStorage.getItem('userData');
     let userId = JSON.parse(userData)._id;
     let data = {
       postId: post._id,
@@ -110,7 +120,7 @@ export class ActivityFeedComponent {
   }
 
   addComment(post: any) {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     if (post.comment == "") {
       this._toastMessage.error('Comment is required !!');
@@ -151,5 +161,14 @@ export class ActivityFeedComponent {
         }
       }
     })
+  }
+
+  getImageUrl(image: any) {
+    return imageUrl() + image;
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }

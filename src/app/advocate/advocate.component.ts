@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { GQLConfig } from '../graphql.operations';
+import { ApolloService } from '../shared/services/apollo.service';
+import { ToastMessageService } from '../shared/services/snack-alert.service';
+import { Location } from '@angular/common';
+import { imageUrl } from '../graphql.module';
 
 @Component({
   selector: 'app-advocate',
@@ -8,31 +13,47 @@ import { Router } from '@angular/router';
 })
 export class AdvocateComponent {
 
-  lawyer: any = {
-    type: 'Criminal Lawyer',
-    caseWon: '40+ Cases',
-    rating: '4.5',
-    location: 'Vijay Nagar, Indore , M.P.',
-    lawsuit: '43 Clients',
-    fileAchievement: '97%',
-    experience: '10+ Years',
-    stateBar: 'State Bar',
-    practisingCourt: 'Practising Court',
-    practisingField: 'Criminal',
-    barLiscense: 'EB/04813/2021',
-    phoneNo: '9874563215',
-    mail: 'test@gmail.com',
-    name: 'Kapil Sibbal'
-  };
-
+  lawyer: any = {};
+  lawyerId: any;
   isNameVisible: boolean = false;
   activeRoute: string = "";
 
-  constructor(private _router: Router) {
-    this.activeRoute = this._router.url
+  constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
+    private location: Location) {
+    this.lawyerId = this._router.getCurrentNavigation()?.extras.state;
+    if (this.lawyerId != undefined) {
+      this.activeRoute = this._router.url;
+      this.getLawyerDetail();
+    }
+    else {
+      this.location.back();
+    }
   }
 
-  viewRating(){
-    this._router.navigate(['/user/advocates/gfdyfvayfd/advocate-rating']);
+  viewRating() {
+    const extras = this.lawyer._id;
+    this._router.navigate([`/user/advocates/view/advocate-rating`], { state: extras });
+  }
+
+  getLawyerDetail() {
+    this._apolloService.mutate(GQLConfig.getLawyerDetail, { lawyerId: this.lawyerId }).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.lawyerProfile.status == 200) {
+          this._toastMessage.success(data.data.lawyerProfile.message);
+          this.lawyer = data.data.lawyerProfile.data;
+        }
+        else {
+          this._toastMessage.success(data.data.lawyerProfile.message);
+        }
+      }
+    })
+  }
+
+  getImage(image: any) {
+    return imageUrl() + image;
+  }
+
+  showDetails() {
+    this.isNameVisible = true;
   }
 }

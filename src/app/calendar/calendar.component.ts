@@ -185,7 +185,7 @@ export class CalendarComponent {
   }
 
   addEvents() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this.eventForm.controls.lawyerId.patchValue(parsedData._id);
     if (this.eventForm.valid) {
@@ -209,7 +209,7 @@ export class CalendarComponent {
   }
 
   getCaseDiaryList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getCaseDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
@@ -225,7 +225,7 @@ export class CalendarComponent {
   }
 
   getLawyerEvents() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getLawyerEvents, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
@@ -326,7 +326,7 @@ export class CalendarComponent {
   }
 
   addAvaliability() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this.availabilityForm.controls.lawyerId.patchValue(parsedData._id);
     if (this.availabilityForm.valid) {
@@ -351,7 +351,7 @@ export class CalendarComponent {
   }
 
   getAvailabilityList() {
-    let userData = localStorage.getItem('userData');
+    let userData = sessionStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getAvailabilityList, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
