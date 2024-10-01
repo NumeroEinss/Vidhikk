@@ -698,4 +698,14 @@ export abstract class GQLConfig {
             data
         }
     }`;
+
+    static getPlanList = gql`mutation{
+        planList(input: {
+            planType: "LAWYER"
+        }){
+            status
+            message
+            data
+        }
+    }`;
 }

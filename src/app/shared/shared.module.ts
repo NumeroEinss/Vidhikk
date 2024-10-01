@@ -19,6 +19,9 @@ import { ShareButtons } from 'ngx-sharebuttons/buttons';
 import { shareIcons } from 'ngx-sharebuttons/icons';
 import { SubscriptionPlanComponent } from './component/subscription-plan/subscription-plan.component';
 import { QrModalComponent } from './component/qr-modal/qr-modal.component';
+import { HighlightOnSearchPipe } from './pipe/highlight-on-search.pipe';
+import { LandingPageComponent } from './component/landing-page/landing-page.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -33,7 +36,9 @@ import { QrModalComponent } from './component/qr-modal/qr-modal.component';
     SafeHTMLPipe,
     PreventKeyboardEventsDirective,
     SubscriptionPlanComponent,
-    QrModalComponent
+    QrModalComponent,
+    HighlightOnSearchPipe,
+    LandingPageComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +46,8 @@ import { QrModalComponent } from './component/qr-modal/qr-modal.component';
     NgScrollbarModule,
     MatChipsModule,
     FormsModule,
-    ShareButtons
+    ShareButtons,
+    RouterModule
   ],
   exports: [
     HeaderComponent,
@@ -53,7 +59,8 @@ import { QrModalComponent } from './component/qr-modal/qr-modal.component';
     PreventKeyboardEventsDirective,
     ShareButtons,
     SubscriptionPlanComponent,
-    QrModalComponent
+    QrModalComponent,
+    HighlightOnSearchPipe
   ],
   providers: [AuthService, shareIcons()]
 })

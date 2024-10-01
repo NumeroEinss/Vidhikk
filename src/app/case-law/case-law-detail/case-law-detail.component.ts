@@ -1,14 +1,14 @@
 import { Location } from '@angular/common';
-import { Component, ViewChild, ElementRef, Input, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { Router } from '@angular/router';
 import { ApolloService } from '../../shared/services/apollo.service';
-import { GQLConfig } from '../../graphql.operations';
 import { HighlighterPipe } from '../../shared/pipe/highlighter.pipe';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { EmailService } from '../../shared/services/email.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HighlightOnSearchPipe } from '../../shared/pipe/highlight-on-search.pipe';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-case-law-detail',
@@ -17,9 +17,11 @@ import { Observable } from 'rxjs';
 })
 
 export class CaseLawDetailComponent {
+  @ViewChild('scrollbar')
+  scrollbar!: NgScrollbar;
   @ViewChild('printableContent') printableContent!: ElementRef;
-  @Input() searchStyle = { width: '0px', display: 'none' };
-  @Input() searchIcon = { width: 'auto', display: 'block' };
+  @Input() searchStyle = { width: '100%', display: 'flex' };
+  @Input() searchIcon = { width: '0px', display: 'none' };
   @ViewChild('emailMenuTrigger') emailMenuTrigger!: MatMenuTrigger;
   caseId: any;
   caseLawDetail: any = { title: "", document: "" };
@@ -33,10 +35,12 @@ export class CaseLawDetailComponent {
   isLimitReached: boolean = false;
   isHighlighted: boolean = false;
   isHeaderGenerated: boolean = false;
+  searchTerm: string = "";
+  document: string = "";
 
   constructor(private _location: Location, private _router: Router, private _highlighterPipe: HighlighterPipe,
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService, private _emailService: EmailService,
-    private _http: HttpClient, private elementRef: ElementRef) {
+    private _http: HttpClient, private elementRef: ElementRef, private _higlightOnSearch: HighlightOnSearchPipe) {
     this.routerState = this._router.getCurrentNavigation()?.extras.state;
     this.userName = JSON.parse(sessionStorage.getItem('userData')!);
     if (this.routerState != undefined) {
@@ -180,12 +184,12 @@ export class CaseLawDetailComponent {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: '*/*',
-      user: JSON.stringify(userData._id)
+      user: userData._id
     })
     this._http.get(this._apolloService.BaseUrl + `/judgement/details/${this.caseId}`, { headers }).subscribe((data: any) => {
       if (data.status == "success") {
         this.caseLawDetail = data.data;
-        this.caseLawDetail.document = this.removeDocidAndLicense(this.caseLawDetail.document);
+        this.document = this.removeDocidAndLicense(this.caseLawDetail.document);
       }
       if (data.status == "error" && data.error === "Your daily quota has reached.") {
         this.isLimitReached = true;
@@ -217,7 +221,7 @@ export class CaseLawDetailComponent {
     // Replace the matched pattern in the input string
     let modifiedInput = input.replace(combinedPattern, '');
 
-    this.generateCustomHeader();
+    // this.generateCustomHeader();
 
     // Return the modified input string
     return modifiedInput;
@@ -348,6 +352,24 @@ export class CaseLawDetailComponent {
     });
 
     return contentContainer.outerHTML;
+  }
+
+  higlightOnSearch() {
+    let doc = document.getElementById('judgement') as HTMLElement;
+    doc.innerHTML = this._higlightOnSearch.transform(doc.innerHTML, this.searchTerm);
+    setTimeout(() => {
+      const firstMarked = document.querySelector('marked');
+      if (firstMarked) {
+        firstMarked.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 0);
+  }
+
+  clearSelection() {
+    this.document = this.caseLawDetail.document;
+    this.searchTerm = "";
+    this.higlightOnSearch();
+    this.scrollbar.scrollTo({ top: 0 });
   }
 }
 

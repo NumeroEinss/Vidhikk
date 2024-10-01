@@ -12,11 +12,11 @@
       </div>
 
       <div class="searchBox" [ngStyle]="searchStyle">
-        <input type="search" placeholder="Search Here..." />
-        <img class="cancel" (click)="
-            searchStyle = { width: '0px', display: 'none' };
-            searchIcon = { width: 'auto', display: 'block' };" src="../../../../assets/images/icons/cancel.svg" />
-        <img class="search" src="../../../../assets/images/icons/search_grey.svg" />
+        <input type="search" [(ngModel)]="searchTerm" placeholder="Search Here..." />
+        <img class="cancel" (click)="{ width: '100%', display: 'flex' };
+      searchIcon = { width: '0px', display: 'none' };clearSelection();"
+          src="../../../../assets/images/icons/cancel.svg" />
+        <img class="search" src="../../../../assets/images/icons/search_grey.svg" (click)="higlightOnSearch()" />
       </div>
 
       <div class="cursor-pointer" matTooltip="Highlighter" *ngIf="!isHighlighted" (click)="highlightText()"><img
@@ -53,7 +53,7 @@
     <!-- <a id="mail" [href]="this.mailToLink"></a> -->
   </div>
   <div *ngIf="!isLimitReached" style="height: calc(100vh - 175px)">
-    <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+    <ng-scrollbar #scrollbar autoHeightDisabled="false" appearance="standard">
       <div #printableContent class="case-law-detail">
         <div class="logo">
           <img src="../../../assets/images/icons/vidhiklogo.svg" alt="" />
@@ -68,11 +68,9 @@
         <!-- <div class="description mt-4">
           <div class="desc-body mt-4" [innerHTML]="caseLawDetail.document"></div>
         </div> -->
-        <div id="judgement" *ngIf="keyWord" class="mt-4"
-          [innerHTML]="caseLawDetail.document|highlighter:keyWord|safeHTML">
+        <div id="judgement" *ngIf="keyWord" class="mt-4" [innerHTML]="document|highlighter:keyWord|safeHTML">
         </div>
-        <div id="judgement" *ngIf="!keyWord" class="mt-4"
-          [innerHTML]="caseLawDetail.document|safeHTML">
+        <div id="judgement" *ngIf="!keyWord" class="mt-4" [innerHTML]="document|safeHTML">
         </div>
       </div>
     </ng-scrollbar>

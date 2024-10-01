@@ -1,242 +1,39 @@
-<div class="plan-container">
-    <ng-scrollbar autoHeightDisabled="false" appearance="standard" style="min-width: 1780px; margin: 25px 30px;">
-        <div class="d-flex" style="gap: 50px;flex-wrap: nowrap;">
-            <div class="silver-plan">
+<div class="plan-container" *ngIf="planList.length > 0">
+    <ng-scrollbar autoHeightDisabled="false" appearance="standard" orientation="horizontal" style="margin: 30px 0px;
+    ;height: 466px;" [ngStyle]="{'min-width':((planList.length*300)+'px')}">
+        <div class="d-flex" style="gap: 30px;flex-wrap: nowrap">
+            @for (item of planList; track $index) {
+            <div class="plan">
                 <div class="active-plan">
                     <img src="../../assets/images/icons/active_plan_label.svg" alt="" />
                 </div>
-                <div class="plan-name">FREE PLAN</div>
-                <div class="beginners">10 Days</div>
-                <div class="free">
-                    <!-- <div class="rupee">
-              <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-            </div> -->
-                    <div class="cost">Free</div>
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Activity Feed
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Case Laws (YOUR HC)
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />MarketPlace
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Case Laws (All
-                    HC & SC)
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Bare Acts
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Chat Box
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Case Diary
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Sub Diary
-                </div>
-
-                <!-- <div class="cancel-button">
-          <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-            Cancel Plan
-          </button>
-        </div> -->
-                <!-- <div class="cancel-button">
-                    <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-                        Choose Plan
-                    </button>
-                </div> -->
-            </div>
-
-            <div class="silver-plan">
-                <div class="plan-name">SILVER PLAN</div>
-                <div class="beginners">3 Months</div>
+                <div class="plan-name">{{item.planHeading}}</div>
+                <div class="beginners">{{item.duration}}</div>
                 <div class="free">
                     <div class="rupee">
                         <img src="../../assets/images/icons/repey.svg" alt="noImage" />
                     </div>
-                    <div class="cost">799</div>
+                    <div class="cost">{{item.planPrice}}</div>
                 </div>
+                @for (element of item.features; track $index) {
                 <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Activity Feed
+                    <img [src]="element.isAvailable?'../../assets/images/icons/available_subscription.svg':
+                    '../../assets/images/icons/not_available_subscription.svg'"
+                        alt="noImage" />{{element.featureHeading}}
                 </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Case Laws (All HC &
-                    SC)
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />MarketPlace
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Bare Acts
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Chat Box
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Case Diary
-                </div>
+                }
                 <div class="cancel-button">
                     <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
-                        data-bs-toggle="modal" data-bs-target="#qrModal">
+                        data-bs-toggle="modal" [attr.data-bs-target]="toggleId?toggleId:'#qrModal'">
                         Choose Plan
                     </button>
                 </div>
             </div>
-
-            <div class="gold-plan">
-                <div class="plan-name">GOLD PLAN</div>
-                <div class="beginners">6 Months</div>
-                <div class="free">
-                    <div class="rupee">
-                        <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-                    </div>
-                    <div class="cost">1199</div>
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Activity Feed
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Case Laws (All HC &
-                    SC)
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />1 Case Diary
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Bare Acts &
-                    MarketPlace
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />2 Sub Diary
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Chat Box
-                </div>
-
-                <div class="cancel-button">
-                    <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
-                        data-bs-toggle="modal" data-bs-target="#qrModal">
-                        Choose Plan
-                    </button>
-                </div>
-            </div>
-
-            <div class="gold-plan">
-                <div class="plan-name">DIAMOND PLAN</div>
-                <div class="individuals">9 Months</div>
-                <div class="free">
-                    <div class="rupee">
-                        <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-                    </div>
-                    <div class="cost">1599</div>
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Activity Feed
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Case Laws (All HC &
-                    SC)
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />1 Case Diary
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Bare Acts &
-                    MarketPlace
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />2 Sub Diary
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Chat Box
-                </div>
-                <div class="cancel-button">
-                    <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
-                        data-bs-toggle="modal" data-bs-target="#qrModal">
-                        Choose Plan
-                    </button>
-                </div>
-            </div>
-
-            <div class="platinum-plan">
-                <div class="plan-name">PLATINUM PLAN</div>
-                <div class="team">12 Months</div>
-                <div class="free">
-                    <div class="rupee">
-                        <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-                    </div>
-                    <div class="cost">1899</div>
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Activity Feed
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Case Laws (All HC &
-                    SC)
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />1 Case Diary
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Bare Acts &
-                    MarketPlace
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />2 Sub Diary
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Box
-                </div>
-                <div class="cancel-button">
-                    <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
-                        data-bs-toggle="modal" data-bs-target="#qrModal">
-                        Choose Plan
-                    </button>
-                </div>
-            </div>
-
-            <div class="platinum-plan">
-                <div class="plan-name">12 MONTHS (PREMIUM)</div>
-                <div class="team">Premium Mebership</div>
-                <div class="free">
-                    <div class="rupee">
-                        <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-                    </div>
-                    <div class="cost">4999</div>
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Activity Feed
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Case Laws (All HC &
-                    SC)
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />1 Case Diary 4 Sub
-                    Diary
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Bare Acts &
-                    MarketPlace
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Box
-                </div>
-                <div class="feature">
-                    <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Sponsored Profile
-                    Display
-                </div>
-                <div class="cancel-button">
-                    <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
-                        data-bs-toggle="modal" data-bs-target="#qrModal">
-                        Choose Plan
-                    </button>
-                </div>
-            </div>
+            }
         </div>
     </ng-scrollbar>
+</div>
+
+<div class="no-data" *ngIf="planList.length == 0">
+    <img src="../../../assets/images/image/No_Data.png" alt="">
 </div>

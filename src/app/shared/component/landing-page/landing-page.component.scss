@@ -1,0 +1,154 @@
+.root {
+    background: url('../../../../assets/images/icons/landing1.svg');
+    background-repeat: no-repeat;
+
+    .root-container {
+        padding: 30px 60px;
+
+        .landing-vector {
+            position: absolute;
+            right: -80px;
+            top: 0;
+        }
+
+        .justify-content-space-between {
+            justify-content: space-between;
+        }
+
+        .main-header {
+            align-items: center;
+        }
+
+        .description {
+            height: 550px;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+
+            .header {
+                font-size: 35px;
+                font-weight: 500;
+            }
+
+            .sub-description {
+                width: 40%;
+                margin-top: 20px;
+                line-height: 30px;
+            }
+        }
+
+        .services {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .service-header {
+                font-size: 30px;
+                font-weight: 600;
+            }
+
+            .sub-description {
+                width: 80%;
+                margin-top: 20px;
+                line-height: 30px;
+            }
+
+            .feature-container {
+                background-color: #F4F3FB;
+                padding: 30px;
+                border-radius: 4px;
+                line-height: 30px;
+
+                .header {
+                    display: flex !important;
+                    gap: 20px;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    color: #2e5bff;
+                }
+
+                .bold-text {
+                    font-weight: 500;
+                    font-size: 16px;
+                    width: 370px;
+                    margin-bottom: 10px;
+                }
+            }
+
+        }
+
+        .more-features {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+
+            .feature {
+                clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 0% 100%);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #2e5bff;
+                color: white;
+                width: 282px;
+                height: 260px;
+                padding: 30px;
+                border-radius: 4px;
+            }
+
+            .feature2 {
+                background-color: #F4F3FB;
+                width: 282px;
+                height: 260px;
+                padding: 30px;
+                display: flex;
+                flex-wrap: wrap;
+                border-radius: 4px;
+
+                .header {
+                    display: flex !important;
+                    gap: 20px;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    color: #2e5bff;
+                }
+
+                .bold-text {
+                    font-weight: 500;
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .feature2:nth-child(odd) {
+                clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 0% 100%);
+            }
+
+            .feature2:nth-child(even) {
+                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 80%);
+            }
+        }
+
+        .why-vidhik {
+            .vidhik-feature {
+                background-color: #F4F3FB;
+                padding: 30px;
+                border-radius: 4px;
+
+                .header {
+                    display: flex !important;
+                    gap: 20px;
+                    align-items: center;
+                    margin-bottom: 10px;
+                    color: #2e5bff;
+                }
+
+                .bold-text {
+                    font-weight: 500;
+                    font-size: 16px;
+                    width: 370px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
