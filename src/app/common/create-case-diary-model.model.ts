@@ -4,7 +4,7 @@ export class CreateCaseDiaryModel {
     applicantName: string = "";
     courtName: string = "";
     respondentName: string = "";
-    caseNumber: Number = 0;
+    caseNumber: string = " ";
     caseName: String = "";
     nextHearingDate: string = "";
     caseStage: string = "";
@@ -12,4 +12,8 @@ export class CreateCaseDiaryModel {
     city: string = "";
     applicationSection: string = "";
     lawyreasonForAbsent: string = "";
+    representing: string = "";
+    FIRNumber: string = "";
+    FIRDate: string = "";
+    sectionIPC: string = "";
 }

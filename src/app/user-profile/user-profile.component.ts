@@ -4,6 +4,8 @@ import { JudgeSignupModel, LawyerSignupModel } from '../../app/common/signup.mod
 import { userProfileModel } from '../common/user-profile.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
+import { MessagingService } from '../shared/services/messaging.service';
+import { imageUrl } from '../graphql.module';
 
 
 @Component({
@@ -79,7 +81,7 @@ export class UserProfileComponent {
   ngAfterViewInit() {
     if (this.userType == 'lawyer') {
       const element = document.getElementById("basic-info") as HTMLElement
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      // element.scrollIntoView({ behavior: "smooth", block: "end" });
       element.classList.add('box-shadow');
       const element2 = document.getElementById("basic-nav") as HTMLElement
       element2.classList.add('active-nav');
@@ -170,5 +172,9 @@ export class UserProfileComponent {
 
   logout() {
     this._authService.logout();
+  }
+
+  getImageUrl(image: any) {
+    return imageUrl() + image;
   }
 }

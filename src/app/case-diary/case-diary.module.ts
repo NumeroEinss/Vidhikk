@@ -14,9 +14,22 @@ import { CreateSubDiaryComponent } from './create-sub-diary/create-sub-diary.com
 import { ViewApplicationComponent } from './view-application/view-application.component';
 import { caseDiaryGuard } from '../core/guard/case-diary.guard';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { EditCaseDiaryComponent } from './edit-case-diary/edit-case-diary.component';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
+const MY_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY', // this is how your date will be parsed from Input
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY', // this is how your date will get displayed on the Input
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -29,7 +42,6 @@ import { EditCaseDiaryComponent } from './edit-case-diary/edit-case-diary.compon
     CreateSubDiaryComponent,
     ViewApplicationComponent,
     EditCaseDiaryComponent],
-
   imports: [
     CommonModule,
     CaseDiaryRoutingModule,
@@ -37,8 +49,16 @@ import { EditCaseDiaryComponent } from './edit-case-diary/edit-case-diary.compon
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatTooltipModule
   ],
-  providers: [caseDiaryGuard,provideNativeDateAdapter()]
+  providers: [caseDiaryGuard,
+    provideNativeDateAdapter(),
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT }]
 })
 export class CaseDiaryModule { }

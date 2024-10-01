@@ -1,0 +1,9 @@
+@import "../../../node_modules/bootstrap/scss/bootstrap-utilities.scss";
+
+//Generate utilites for Cursor
+$utilities: map-merge($utilities,
+                ("cursor": (property: cursor,
+                                values: auto default pointer wait text move help not-allowed),
+                ));
+
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss'; 

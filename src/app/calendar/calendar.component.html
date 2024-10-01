@@ -1,6 +1,6 @@
 <app-header [menuName]="'Calendar'"></app-header>
-<div class="root">
-  <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+<div class="root" appPreventKeyboardEvents>
+  <ng-scrollbar #calendarScroll autoHeightDisabled="false" appearance="standard">
     <div class="cards">
       <!-- calendar-header-menu start -->
       <div class="calendar-header-menu">
@@ -31,7 +31,7 @@
         <!-- create-event start -->
         <div class="create-event">
           <button id="addEventButton" mat-stroked-button color="primary" style="border-radius: 12px"
-            data-bs-toggle="modal" data-bs-target="#addEventModal">
+            data-bs-toggle="modal" data-bs-target="#addEventModal" (click)="resetEventForm()">
             <img class="mx-1" src="../../assets/images/icons/add-event.svg" /><span style="color: #2e5bff"></span>Add
             Event
           </button>
@@ -45,11 +45,13 @@
 
       <div [ngSwitch]="view" class="cal-container">
         <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
-          [activeDayIsOpen]="true">
+          (eventClicked)="handleEventClick($event.event)" [activeDayIsOpen]="true">
         </mwl-calendar-month-view>
-        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
+        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events"
+          (eventClicked)="handleEventClick($event.event)" precision="minutes">
         </mwl-calendar-week-view>
-        <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events">
+        <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events"
+          (eventClicked)="handleEventClick($event.event)" precision="minutes">
         </mwl-calendar-day-view>
       </div>
       <div class="availability">
@@ -79,12 +81,12 @@
             <div *ngFor="let availability of availabilityList; index as i" class="availability-list-data">
               <div class="grid-item2">{{ availability.date | date:'dd/MM/yyyy' }}</div>
               <div class="grid-item2 slots d-flex">
-                <div *ngFor="let slot of availability.timeSlot">
+                <div *ngFor="let slot of availability.timeSlots">
                   <div class="available" *ngIf="slot.status == 'available'">
-                    {{ slot.slot }}
+                    {{ slot.timeSlot }}
                   </div>
                   <div class="booked" *ngIf="slot.status == 'booked'">
-                    {{ slot.slot }}
+                    {{ slot.timeSlot }}
                   </div>
                 </div>
               </div>
@@ -99,7 +101,7 @@
                   <span class="mat-menu-list">Edit</span>
                 </div>
 
-                <div mat-menu-item (click)="this.deleteSlotIndex = i; handleDeleteAvailability();">
+                <div mat-menu-item (click)="this.deleteSlotIndex = i; handleDeleteAvailability(availability);">
                   <mat-icon>delete</mat-icon>
                   <span class="mat-menu-list">Delete</span>
                 </div>
@@ -118,6 +120,9 @@
   <button id="deleteAvailabilityButton" data-bs-target="#deleteAvailability" data-bs-toggle="modal"
     style="display: none;">Delete
     Event</button>
+  <button id="editEventButton" data-bs-toggle="modal" data-bs-target="#editEventModal" style="display: none;"
+    class="delete-event">Edit
+    Event</button>
 
 </div>
 
@@ -128,30 +133,26 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="addEventLabel">Important Event</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        <button id="closeEventModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
           data-bs-keyboard="false"></button>
       </div>
       <div class="modal-body d-flex justify-content-center">
-        <form class="calendar-form" [formGroup]="calendarForm">
+        <form class="calendar-form" [formGroup]="eventForm" appPreventKeyboardEvents>
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label text-start">Select Case</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select case" required formControlName="case">
-                <mat-option *ngFor="let case of caseList" [value]="case.caseTitle">
-                  {{ case.caseTitle }}
+            <mat-form-field appearance="outline" required>
+              <mat-select placeholder="Select case" formControlName="caseId">
+                <mat-option *ngFor="let case of caseList" [value]="case._id">
+                  {{ case.caseName }}
                 </mat-option>
               </mat-select>
-              <!-- <mat-error
-                *ngIf="createSubDiaryForm.controls['caseName'].errors?.['required']"
-                >Case name is Required !!</mat-error
-              > -->
             </mat-form-field>
           </div>
 
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label text-start">Event Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput type="text" placeholder="Enter Event Name" formControlName="event" />
+              <input matInput type="text" placeholder="Enter Event Name" formControlName="eventName" required />
             </mat-form-field>
           </div>
 
@@ -159,12 +160,13 @@
             <mat-label class="mat-label text-start">Event Description</mat-label>
             <mat-form-field appearance="outline" class="textArea">
               <textarea id="text-area" type="text" matInput placeholder="Enter Event Description" required rows="3"
-                maxlength="200" formControlName="eventDescription"></textarea>
+                maxlength="200" formControlName="eventDescription" required></textarea>
             </mat-form-field>
           </div>
 
           <div class="text-start">
-            <mat-checkbox [color]="'primary'" formControlName="allDay"><span style="color: black;">All
+            <mat-checkbox [color]="'primary'" formControlName="allDayCheck" (change)="allDayEventChange()"><span
+                style="color: black;">All
                 Day</span></mat-checkbox>
           </div>
 
@@ -172,8 +174,11 @@
             <div class="col-lg-5 col-md-5 text-start d-flex align-items-center">
               <mat-label class="mat-label">Select Color</mat-label>
             </div>
-            <div class="col-lg-7 col-md-7 d-flex" style="justify-content: flex-end;">
-              <input type="color" formControlName="color" style="width: 35px;">
+            <div class="color-picker">
+              <label *ngFor="let color of colors">
+                <input type="radio" name="colors" [value]="color.value" formControlName="colors" />
+                <span class="color-swatch" [ngStyle]="{'background-color': color.color}"></span>
+              </label>
             </div>
           </div>
 
@@ -183,7 +188,8 @@
             </div>
             <div class="col-lg-7 col-md-7">
               <mat-form-field appearance="outline" class="mat-input-white">
-                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="startDate" />
+                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="eventStartDate"
+                  [readonly]="true" required />
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -196,7 +202,8 @@
             </div>
             <div class="col-lg-7 col-md-7">
               <mat-form-field appearance="outline" class="mat-input-white">
-                <input matInput [matDatepicker]="picker2" [min]="minDate" formControlName="endDate" />
+                <input matInput [matDatepicker]="picker2" [min]="minDate" formControlName="eventEndDate"
+                  [readonly]="true" required />
                 <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
               </mat-form-field>
@@ -209,12 +216,13 @@
             </div>
             <div class="col-lg-7 col-md-7 d-flex">
               <mat-form-field appearance="outline" class="mat-input-white">
-                <input matInput name="selected_time_A" formControlName="startTime" [ngxMatTimepicker]="pickerA"
-                  placeholder="Start time" readonly />
-                <div matSuffix>
+                <input matInput name="selected_time_A" formControlName="eventStartTime" [ngxMatTimepicker]="pickerA"
+                  placeholder="Start time" [disableClick]="timepickerEnabled" [disabled]="timepickerEnabled"
+                  [readonly]="true" />
+                <div matSuffix *ngIf="!timepickerEnabled">
                   <img width="20" height="20" src="../../assets/images/icons/clock.svg" (click)="pickerA.open()">
                 </div>
-                <ngx-mat-timepicker #pickerA dottedMinutesInGap enableKeyboardInput
+                <ngx-mat-timepicker #pickerA dottedMinutesInGap [enableKeyboardInput]="false"
                   (timeSet)="onTimeSet($event)"></ngx-mat-timepicker>
               </mat-form-field>
             </div>
@@ -226,12 +234,13 @@
             </div>
             <div class="col-lg-7 col-md-7  d-flex">
               <mat-form-field appearance="outline" class="mat-input-white">
-                <input matInput name="selected_time_A" formControlName="endTime" [ngxMatTimepicker]="pickerB"
-                  placeholder="End Time" readonly />
-                <div matSuffix>
+                <input matInput name="selected_time_A" formControlName="eventEndTime" [ngxMatTimepicker]="pickerB"
+                  placeholder="End Time" [disableClick]="timepickerEnabled" [disabled]="timepickerEnabled"
+                  [readonly]="true" />
+                <div matSuffix *ngIf="!timepickerEnabled">
                   <img width="20" height="20" src="../../assets/images/icons/clock.svg" (click)="pickerB.open()">
                 </div>
-                <ngx-mat-timepicker #pickerB dottedMinutesInGap enableKeyboardInput
+                <ngx-mat-timepicker #pickerB dottedMinutesInGap [enableKeyboardInput]="false"
                   (timeSet)="onTimeSet($event)"></ngx-mat-timepicker>
               </mat-form-field>
             </div>
@@ -243,7 +252,7 @@
             </div>
             <div class="col-lg-7 col-md-7">
               <mat-form-field appearance="outline" class="mat-input-white w-100">
-                <mat-select placeholder="Select Event" required [(value)]="repeat" formControlName="repeat">
+                <mat-select placeholder="Select Event" formControlName="repeat" required>
                   <mat-option *ngFor="let repeat of repeatList" [value]="repeat.value">
                     {{ repeat.name }}
                   </mat-option>
@@ -258,7 +267,7 @@
             </div>
             <div class="col-lg-7 col-md-7">
               <mat-form-field appearance="outline" class="mat-input-white w-100">
-                <mat-select placeholder="Select Event" required [(value)]="reminder" formControlName="reminder">
+                <mat-select placeholder="Select Event" formControlName="reminder" required>
                   <mat-option *ngFor="let reminder of reminderList" [value]="reminder.value">
                     {{ reminder.name }}
                   </mat-option>
@@ -268,7 +277,7 @@
           </div>
 
           <button mat-raised-button color="primary" class="me-2" style="width: fit-content !important;"
-            data-bs-dismiss="modal">
+            (click)="addEvents()">
             Add
           </button>
 
@@ -281,44 +290,165 @@
   </div>
 </div>
 
-<!-- Add Avalability Modal -->
-<div class="modal modal-sm fade" id="addSlotModal" tabindex="-1" aria-labelledby="addSlotLabel" aria-hidden="true"
+<!-- Edit Event Modal -->
+<div class="modal modal-sm fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventLabel" aria-hidden="true"
   data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered" style="width: 320px;">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addSlotLabel">{{isEditMode?'Edit':'Add'}} Availability Slot</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        <h1 class="modal-title fs-5" id="addEventLabel">Edit Event</h1>
+        <button id="closeEditEventModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
           data-bs-keyboard="false"></button>
       </div>
-      <div class="modal-body">
-        <div class="d-flex" style="flex-direction: column;">
-          <mat-label class="mat-label text-start">Date</mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="date" [min]="minDate" [(ngModel)]="slotDate._d" />
-            <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
-            <mat-datepicker #date></mat-datepicker>
-          </mat-form-field>
-        </div>
+      <div class="modal-body d-flex justify-content-center">
+        <form class="calendar-form" [formGroup]="editEventForm" appPreventKeyboardEvents>
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <mat-label class="mat-label text-start">Select Case</mat-label>
+            <mat-form-field appearance="outline" required>
+              <mat-select placeholder="Select case" formControlName="caseId">
+                <mat-option *ngFor="let case of caseList" [value]="case._id">
+                  {{ case.caseName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-        <div class="d-flex" style="flex-direction: column;">
-          <mat-label class="mat-label text-start">Time Slot</mat-label>
-          <mat-form-field appearance="outline">
-            <mat-select multiple [(ngModel)]="slot">
-              <mat-option *ngFor="let slot of slots" [value]="slot.value">{{slot.viewValue}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <mat-label class="mat-label text-start">Event Name</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput type="text" placeholder="Enter Event Name" formControlName="eventName" required />
+            </mat-form-field>
+          </div>
 
-        <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 20px"
-          (click)="addAvailabilitySlot($event)">
-          {{isEditMode?'Update':'Save'}}
-        </button>
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <mat-label class="mat-label text-start">Event Description</mat-label>
+            <mat-form-field appearance="outline" class="textArea">
+              <textarea id="text-area" type="text" matInput placeholder="Enter Event Description" required rows="3"
+                maxlength="200" formControlName="eventDescription" required></textarea>
+            </mat-form-field>
+          </div>
 
-        <button id="cancelSlotButton" mat-stroked-button color="primary"
-          style="width: fit-content !important; margin-left: 20px" data-bs-dismiss="modal">
-          Cancel
-        </button>
+          <div class="text-start">
+            <mat-checkbox [color]="'primary'" formControlName="allDayCheck" (change)="allDayEventEditChange()"><span
+                style="color: black;">All
+                Day</span></mat-checkbox>
+          </div>
+
+          <div class="d-flex" style="margin: 10px 0 10px 0">
+            <div class="col-lg-5 col-md-5 text-start d-flex align-items-center">
+              <mat-label class="mat-label">Select Color</mat-label>
+            </div>
+            <div class="color-picker">
+              <label *ngFor="let color of colors">
+                <input type="radio" name="colors" [value]="color.value" formControlName="colors" />
+                <span class="color-swatch" [ngStyle]="{'background-color': color.color}"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="d-flex" style="position: relative">
+            <div class="col-lg-5 col-md-5 text-start">
+              <mat-label class="mat-label" style="position: absolute; top: 8px">Start Date</mat-label>
+            </div>
+            <div class="col-lg-7 col-md-7">
+              <mat-form-field appearance="outline" class="mat-input-white">
+                <input matInput [matDatepicker]="picker3" [min]="minDate" formControlName="eventStartDate"
+                  [readonly]="true" required />
+                <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex" style="position: relative">
+            <div class="col-lg-5 col-md-5 text-start">
+              <mat-label class="mat-label" style="position: absolute; top: 8px">End Date</mat-label>
+            </div>
+            <div class="col-lg-7 col-md-7">
+              <mat-form-field appearance="outline" class="mat-input-white">
+                <input matInput [matDatepicker]="picker4" [min]="minDate" formControlName="eventEndDate"
+                  [readonly]="true" required />
+                <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex" style="position: relative">
+            <div class="col-lg-5 col-md-5 text-start">
+              <mat-label class="mat-label" style="position: absolute; top: 8px">Start Time</mat-label>
+            </div>
+            <div class="col-lg-7 col-md-7 d-flex">
+              <mat-form-field appearance="outline" class="mat-input-white">
+                <input matInput name="selected_time_A" formControlName="eventStartTime" [ngxMatTimepicker]="picker5"
+                  placeholder="Start time" [disableClick]="timepickerEnabled" [disabled]="timepickerEnabled"
+                  [readonly]="true" />
+                <div matSuffix *ngIf="!timepickerEnabled">
+                  <img width=" 20" height="20" src="../../assets/images/icons/clock.svg" (click)="pickerA.open()">
+                </div>
+                <ngx-mat-timepicker #picker5 dottedMinutesInGap [enableKeyboardInput]="false"
+                  (timeSet)="onTimeSet($event)"></ngx-mat-timepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex" style="position: relative">
+            <div class="col-lg-5 col-md-5 text-start">
+              <mat-label class="mat-label" style="position: absolute; top: 8px">End Time</mat-label>
+            </div>
+            <div class="col-lg-7 col-md-7  d-flex">
+              <mat-form-field appearance="outline" class="mat-input-white">
+                <input matInput name="selected_time_A" formControlName="eventEndTime" [ngxMatTimepicker]="picker6"
+                  placeholder="End Time" [disableClick]="timepickerEnabled" [disabled]="timepickerEnabled"
+                  [readonly]="true" />
+                <div matSuffix *ngIf="!timepickerEnabled">
+                  <img width="20" height="20" src="../../assets/images/icons/clock.svg" (click)="pickerB.open()">
+                </div>
+                <ngx-mat-timepicker #picker6 dottedMinutesInGap [enableKeyboardInput]="false"
+                  (timeSet)="onTimeSet($event)"></ngx-mat-timepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex" style="position: relative">
+            <div class="col-lg-5 col-md-5 text-start">
+              <mat-label class="mat-label" style="position: absolute; top: 8px">Repeat</mat-label>
+            </div>
+            <div class="col-lg-7 col-md-7">
+              <mat-form-field appearance="outline" class="mat-input-white w-100">
+                <mat-select placeholder="Select Event" formControlName="repeat" required>
+                  <mat-option *ngFor="let repeat of repeatList" [value]="repeat.value">
+                    {{ repeat.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex" style="position: relative">
+            <div class="col-lg-5 col-md-5 text-start">
+              <mat-label class="mat-label" style="position: absolute; top: 8px">Reminder</mat-label>
+            </div>
+            <div class="col-lg-7 col-md-7">
+              <mat-form-field appearance="outline" class="mat-input-white w-100">
+                <mat-select placeholder="Select Event" formControlName="reminder" required>
+                  <mat-option *ngFor="let reminder of reminderList" [value]="reminder.value">
+                    {{ reminder.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <button mat-raised-button color="primary" class="me-2" style="width: fit-content !important;"
+            (click)="updateEvent()">
+            Update
+          </button>
+
+          <button mat-stroked-button color="primary" style="width: fit-content !important;" data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </form>
       </div>
     </div>
   </div>
@@ -352,12 +482,62 @@
 </div>
 <!-- Delete Event popup ends -->
 
-<!--Delete Event popup start -->
+<!-- Add Avalability Modal -->
+<div class="modal modal-sm fade" id="addSlotModal" tabindex="-1" aria-labelledby="addSlotLabel" aria-hidden="true"
+  data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addSlotLabel">{{isEditMode?'Edit':'Add'}} Availability Slot</h1>
+        <button id="closeAvailabilityButton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          data-bs-keyboard="false"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="availabilityForm" appPreventKeyboardEvents>
+          <div class="d-flex" style="flex-direction: column;">
+            <mat-label class="mat-label text-start">Date</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="date" [min]="minDate" formControlName="date" [readonly]="true"
+                required />
+              <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+              <mat-datepicker #date></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex" style="flex-direction: column;">
+            <mat-label class="mat-label text-start">Time Slot</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select multiple formControlName="timeSlots" required>
+                <mat-option *ngFor="let slot of slots" [value]="slot.value">{{slot.viewValue}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+
+        <button mat-raised-button color="primary" *ngIf="!isEditMode"
+          style="width: fit-content !important; margin-left: 20px" (click)="addAvaliability()">
+          Save
+        </button>
+        <button mat-raised-button color="primary" *ngIf="isEditMode"
+          style="width: fit-content !important; margin-left: 20px" (click)="updateAvailability()">
+          Update
+        </button>
+
+        <button id="cancelSlotButton" mat-stroked-button color="primary"
+          style="width: fit-content !important; margin-left: 20px" data-bs-dismiss="modal">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete Availability popup start -->
 <div class="modal fade" id="deleteAvailability" tabindex="-1" aria-labelledby="deleteAvailability" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered delete-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="deleteAvailability">Delete Availability</h1>
+        <h1 class="modal-title fs-5">Delete Availability</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

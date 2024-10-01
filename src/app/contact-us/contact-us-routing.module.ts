@@ -5,12 +5,12 @@ import { ContactUsDetailComponent } from './contact-us-detail/contact-us-detail.
 
 const routes: Routes = [
   {
-    path:'',
-    component:ContactUsComponent,
+    path: '',
+    component: ContactUsComponent,
   },
   {
-    path:'contact-us-detail',
-    component:ContactUsDetailComponent,
+    path: 'contact-us-detail',
+    component: ContactUsDetailComponent,
   }
 ];
 

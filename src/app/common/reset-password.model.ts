@@ -1,7 +1,7 @@
 export class resetModel{
-     oldPassword:string='';
-     setNewPassword:string='';
-     confirmNewPassword:string='';
+     password:string='';
+     newPassword:string='';
+     confirmPassword:string='';
      question:string='';
      answer:string='';
 }

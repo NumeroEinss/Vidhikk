@@ -14,28 +14,40 @@ export class CaseDiaryLoginComponent {
 
   caseDiaryForm: FormGroup;
   hide: boolean = true;
+  agreement: boolean = false;
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _router: Router) {
+    let userData = JSON.parse(localStorage.getItem('userData')!);
     this.caseDiaryForm = this._formBuilder.group({
       userName: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(10)])
+      password: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      lawyerId: new FormControl(userData._id)
     });
+    let isCaseDiaryLogin = JSON.parse(localStorage.getItem('isCaseDiaryLogin')!);
+    if (isCaseDiaryLogin) {
+      this._router.navigate(['lawyer/case-diary/cases']);
+    }
   }
 
   login() {
     if (this.caseDiaryForm.valid) {
-      this._apolloService.mutate(GQLConfig.caseDiaryLogin, this.caseDiaryForm.value).subscribe((data) => {
-        if (data.data != null) {
-          if (data.data.signIn.status == 200) {
-            this._router.navigate(['lawyer/case-diary/cases']);
-            localStorage.setItem('isCaseDiaryLogin', JSON.stringify(true));
+      if (this.agreement) {
+        this._apolloService.mutate(GQLConfig.caseDiaryLogin, this.caseDiaryForm.value).subscribe((data) => {
+          if (data.data != null) {
+            if (data.data.signIn.status == 200) {
+              this._router.navigate(['lawyer/case-diary/cases']);
+              localStorage.setItem('isCaseDiaryLogin', JSON.stringify(true));
+            }
+            else {
+              this._toastMessage.error(data.data.signIn.message);
+            }
           }
-          else {
-            this._toastMessage.error(data.data.signIn.message);
-          }
-        }
-      })
+        })
+      }
+      else {
+        this._toastMessage.error('Please agree to declaration !!')
+      }
     }
     else {
       this._toastMessage.error("Please fill all the fields !!");

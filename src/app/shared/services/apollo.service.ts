@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, timeout } from 'rxjs';
+import { Observable, catchError, map, throwError, timeout } from 'rxjs';
 import { ToastMessageService } from './snack-alert.service';
-import { Apollo, QueryRef, TypedDocumentNode } from 'apollo-angular';
-import { GQLConfig } from '../../graphql.operations';
+import { Apollo, TypedDocumentNode } from 'apollo-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { getBaseUrl } from '../../graphql.module';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +12,41 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ApolloService {
   private baseUrl: string = "http://84.247.151.137:3000";
 
-  constructor(private _apollo: Apollo, private snackAlert: ToastMessageService, private _http: HttpClient) { }
+  constructor(private _apollo: Apollo, private _toastMessage: ToastMessageService, private _http: HttpClient,
+    private _authService: AuthService) { }
 
   query(query: TypedDocumentNode<any>, variables?: Object): Observable<any> {
-    return this._apollo.query({ query: query, variables: variables })
+    return this._apollo.query({ query: query, variables: variables, errorPolicy: 'all' })
+      .pipe(
+        map(response => {
+          // Check if there are GraphQL errors in the response
+          if (response.errors) {
+            throw response.errors;
+          }
+          return response;
+        }),
+        catchError(error => {
+          this.handleError(error);
+          return throwError(() => error);
+        })
+      );
   };
 
   mutate(mutation: TypedDocumentNode<any>, variables?: Object): Observable<any> {
-    return this._apollo.mutate({ mutation: mutation, variables: variables });
-  }
-
-  watcQuery(query: TypedDocumentNode<any>, variables?: Object): QueryRef<any> {
-    return this._apollo.watchQuery<any>({ query: query })
+    return this._apollo.mutate({ mutation: mutation, variables: variables, errorPolicy: 'all' })
+      .pipe(
+        map(response => {
+          // Check if there are GraphQL errors in the response
+          if (response.errors) {
+            throw response.errors;
+          }
+          return response;
+        }),
+        catchError(error => {
+          this.handleError(error);
+          return throwError(() => error);
+        })
+      );
   }
 
   get(url: string): Observable<any> {
@@ -61,5 +85,32 @@ export class ApolloService {
     });
     return this._http
       .put(this.baseUrl + url, data, { headers });
+  }
+
+  handleError(error: any) {
+    if (error[0].message == 'Forbidden') {
+      this._toastMessage.error("Access Denied !! Login Again");
+      this._authService.logout();
+    }
+  }
+
+  upload(mutation: any, file: any, mapName: string): Observable<any> {
+    const operations = JSON.stringify(mutation);
+
+    const map = JSON.stringify({
+      [mapName]: ["variables.file"]
+    });
+
+    const formData = new FormData();
+    formData.append('operations', operations);
+    formData.append('map', map);
+    formData.append(mapName, file);
+
+    return this._http.post(getBaseUrl(), formData, {
+      headers: {
+        'x-apollo-operation-name': 'CreateTicket',
+        "apollo-require-preflight": "true"
+      }
+    });
   }
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../shared/component/page-not-found/page-not-found.component';
 import { GlobalSearchComponent } from '../shared/component/global-search/global-search.component';
-import { CalendarComponent } from '../calendar/calendar.component';
 import { ResetPasswordComponent } from '../auth/reset-password/reset-password.component';
 
 const routes: Routes = [
@@ -47,15 +46,15 @@ const routes: Routes = [
         loadChildren: () =>
           import('../members/members.module').then((m) => m.MembersModule),
       },
-      {
-        path: 'chat-room',
-        loadChildren: () =>
-          import('../chat-room/chat-room.module').then((m) => m.ChatRoomModule),
-      },
-      {
-        path: 'conference',
-        loadChildren: () => import('../conference/conference.module').then(m => m.ConferenceModule)
-      },
+      // {
+      //   path: 'chat-room',
+      //   loadChildren: () =>
+      //     import('../chat-room/chat-room.module').then((m) => m.ChatRoomModule),
+      // },
+      // {
+      //   path: 'conference',
+      //   loadChildren: () => import('../conference/conference.module').then(m => m.ConferenceModule)
+      // },
       {
         path: 'global-search',
         component: GlobalSearchComponent,
@@ -73,6 +72,10 @@ const routes: Routes = [
       {
         path: 'resetPassword',
         component: ResetPasswordComponent
+      },
+      {
+        path: 'bare-acts',
+        loadChildren: () => import('../bare-acts/bare-acts.module').then(m => m.BareActsModule)
       },
       {
         path: '**',

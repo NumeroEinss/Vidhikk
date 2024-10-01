@@ -5,7 +5,8 @@
     </div>
   </div>
   <div [ngClass]="colConfig" class="sub-container">
-    <button class="btn-primary" [ngStyle]="searchIcon" data-bs-toggle="modal" data-bs-target="#upgradeModal">Upgrade</button>
+    <button class="btn-primary" [ngStyle]="searchIcon" data-bs-toggle="modal"
+      data-bs-target="#upgradeModal">Upgrade</button>
 
     <div class="search" (click)="
         searchStyle = { width: '100%', display: 'flex' };
@@ -27,32 +28,40 @@
 
     <div class="notification-container" [matMenuTriggerFor]="notificationMenu">
       <img src="../../../../assets/images/icons/notification.svg" />
-      <div class="notification-count">0</div>
+      <div class="notification-count">{{notifications.length}}</div>
     </div>
-    <!-- <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false"> -->
     <mat-menu #notificationMenu="matMenu">
-      <div mat-menu-item data-bs-toggle="modal" data-bs-target="#notificationModal"
-        *ngFor="let notification of notifications">
-        <div class="notification-content">
-          <div class="d-flex">
-            <div><img [src]="notification.image" alt="noImage" /></div>
+      <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false">
+        <div mat-menu-item *ngFor="let notification of notifications"
+          (click)="notification.notificationType == 'approvalRequest'?openNoification():''">
+          <div class="notification-content">
+            <div class="d-flex">
+              <div class="image-container">
+                <img [src]="notification.image"
+                  onerror="this.onerror = '',this.src='../../../../assets/images/image/no-image.png'" />
+              </div>
 
-            <div class="notification-detail ms-2">
-              <div class="member-request">{{ notification.name }}</div>
-              <div class="notification">{{ notification.detail }}</div>
+              <div class="notification-detail ms-2">
+                <div class="d-flex notification-header">
+                  <div class="member-request">{{ notification.title }}</div>
+                  <div class="days">{{getDaysAgo(notification.timestamp)>0?getDaysAgo(notification.timestamp) + ' days
+                    ago':'Today' }}</div>
+                </div>
+                <div class="notification">{{ notification.body }}</div>
+              </div>
             </div>
           </div>
-
-          <div class="days">{{ notification.days }}</div>
         </div>
-      </div>
+        <button id='openNotifications' class="d-none" data-bs-toggle="modal"
+          data-bs-target="#notificationModal"></button>
+      </ng-scrollbar>
     </mat-menu>
-    <!-- </ng-scrollbar> -->
     <!-- <div class="add-button">
       <img src="../../../../assets/images/icons/add_button.svg" />
     </div> -->
     <div class="profile-container" (click)="redirectToProfile()">
-      <img src="../../../../assets/images/image/anurag_goyal.jpg" />
+      <img [src]="getImageUrl(this.userImage)"
+        onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" />
     </div>
   </div>
 </div>
@@ -71,7 +80,7 @@
           <span style="font-weight: 600">Amul Soni</span> has request to add you
           as member
         </div>
-        
+
         <div class="text-center mt-3 mb-3">
           <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal">
             Accept
@@ -93,106 +102,107 @@
   data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-xl modal-dialog-centered upgrade-modal">
     <div class="modal-content">
-      <div class="modal-header"><h1 class="modal-title fs-5" id="accountDeleteModalLabel">Plans</h1>
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="accountDeleteModalLabel">Plans</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-       <div class="modal-body">
-          <div class="silver-plan">
-            <div class="active-plan">
-             <img src="../../assets/images/icons/active_plan_label.svg" alt=""/>
-            </div>
-            <div class="plan-name">SILVER PLAN</div>
-            <div class="beginners">For Beginners</div>
-            <div class="free">FREE</div>
-            <div class="limit">Users : Unlimited</div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />1 Case Diary
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Blog
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top Listing
-            </div>
-
-            <div class="cancel-button">
-              <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-                Cancel Plan
-              </button>
-            </div>
+      <div class="modal-body">
+        <div class="silver-plan">
+          <div class="active-plan">
+            <img src="../../assets/images/icons/active_plan_label.svg" alt="" />
+          </div>
+          <div class="plan-name">SILVER PLAN</div>
+          <div class="beginners">For Beginners</div>
+          <div class="free">FREE</div>
+          <div class="limit">Users : Unlimited</div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />1 Case Diary
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Blog
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top Listing
           </div>
 
-          <div class="gold-plan">
-            <div class="plan-name">GOLD PLAN</div>
-            <div class="individuals">For Mediators</div>
-            <div class="free">
-              <div class="rupee">
-                <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-              </div>
-              <div class="cost">99</div>
-              <div class="month">
-                / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
-              </div>
-            </div>
-            <div class="limit">Users : Unlimited</div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />2 Case Diary
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top 100 Listing
-            </div>
-            <div class="cancel-button">
-              <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-                Choose Plan
-              </button>
-            </div>
-          </div>
-          <div class="platinum-plan">
-            <div class="plan-name">PLATINUM PLAN</div>
-            <div class="team">For Experts</div>
-            <div class="free">
-              <div class="rupee">
-                <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-              </div>
-              <div class="cost">499</div>
-              <div class="month">
-                / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
-              </div>
-            </div>
-            <div class="limit">
-              Users :
-              <div class="minus-btn">-</div>
-              <div class="number">5</div>
-              <div class="plus-btn">+</div>
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />3 Case Diary
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
-            </div>
-            <div class="feature">
-              <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Top 50 Listing
-            </div>
-            <div class="cancel-button">
-              <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-                Choose Plan
-              </button>
-            </div>
+          <div class="cancel-button">
+            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
+              Cancel Plan
+            </button>
           </div>
         </div>
+
+        <div class="gold-plan">
+          <div class="plan-name">GOLD PLAN</div>
+          <div class="individuals">For Mediators</div>
+          <div class="free">
+            <div class="rupee">
+              <img src="../../assets/images/icons/repey.svg" alt="noImage" />
+            </div>
+            <div class="cost">99</div>
+            <div class="month">
+              / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
+            </div>
+          </div>
+          <div class="limit">Users : Unlimited</div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />2 Case Diary
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Top 100 Listing
+          </div>
+          <div class="cancel-button">
+            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
+              Choose Plan
+            </button>
+          </div>
+        </div>
+        <div class="platinum-plan">
+          <div class="plan-name">PLATINUM PLAN</div>
+          <div class="team">For Experts</div>
+          <div class="free">
+            <div class="rupee">
+              <img src="../../assets/images/icons/repey.svg" alt="noImage" />
+            </div>
+            <div class="cost">499</div>
+            <div class="month">
+              / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
+            </div>
+          </div>
+          <div class="limit">
+            Users :
+            <div class="minus-btn">-</div>
+            <div class="number">5</div>
+            <div class="plus-btn">+</div>
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Chat Room
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />3 Case Diary
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Blog
+          </div>
+          <div class="feature">
+            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Top 50 Listing
+          </div>
+          <div class="cancel-button">
+            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
+              Choose Plan
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

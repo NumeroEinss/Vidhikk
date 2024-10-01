@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { TemplateService } from '../../shared/services/template.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-case-diary-list',
@@ -19,40 +21,25 @@ export class CaseDiaryListComponent {
 
   caseDiaryList: any = [];
 
-  subDiaryList: any = [
-    // {
-    //   regDate: '01-01-23',
-    //   courtName: 'Indore HG',
-    //   caseNo: '2341',
-    //   applicant: 'Karan Singh',
-    //   respondent: 'Ram Kumar',
-    //   caseStage: 'Stag 4',
-    //   nextHearing: '12 Mar 2024',
-    //   application: 'Criminal, Section 318',
-    //   owner: 'Self',
-    //   city: 'Indore',
-    //   assignedTo: 'Punit Jain',
-    // },
-    // {
-    //   regDate: '21-11-23',
-    //   courtName: 'Jabalpur HG',
-    //   caseNo: '3432',
-    //   applicant: 'Rajiram',
-    //   respondent: 'Ghisa Ram',
-    //   caseStage: 'Stag 2',
-    //   nextHearing: '18 Dec 2024',
-    //   application: 'Criminal, Section 318',
-    //   owner: 'Self',
-    //   city: 'Jabalpur',
-    //   assignedTo: 'Kapil S',
-    // },
-  ];
+  subDiaryList: any = [];
 
-  constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService) {
+  applicationTypeList: Array<any> = [];
+
+  applicationSubscription: Subscription;
+
+  today: Date = new Date();
+
+  selectedSubDiary: any;
+
+  constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
+    private _templateService: TemplateService) {
     let extras = this._router.getCurrentNavigation()?.extras.state;
     this.selectedDiary = extras?.diaryType == undefined ? 'caseDiary' : extras?.diaryType;
-    console.log(this.selectedDiary)
     this.selectedDiary == 'caseDiary' ? this.getCaseDiaryList() : this.getSubDiaryList();
+
+    this.applicationSubscription = this._templateService.templateList.subscribe((x: any) => {
+      this.applicationTypeList = x;
+    });
   }
 
   viewCase(caseId: any) {
@@ -60,7 +47,6 @@ export class CaseDiaryListComponent {
   }
 
   getCaseDiaryList() {
-    console.log("Case Diary");
     let userData = localStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getCaseDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
@@ -93,18 +79,76 @@ export class CaseDiaryListComponent {
   }
 
   getSubDiaryList() {
-    console.log("Sub Diary");
     let userData = localStorage.getItem('userData');
     let parsedData = userData ? JSON.parse(userData) : {};
     this._apolloService.mutate(GQLConfig.getSubDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
       if (data.data != null) {
         if (data.data.subDiaryList.status == 200) {
-          this.subDiaryList = data.data.subDiaryList.data.data;
+          this.subDiaryList = data.data.subDiaryList.data.resultData;
         }
         else {
           this._toastMessage.error(data.data.subDiaryList.message);
         }
       }
     });
+  }
+
+  applicationTypeChange(e: any, caseDiaryId: any, caseDiaryData: any, diaryType: string) {
+    if (e.value == 'Select') { }
+    else {
+      this.updateRecords(caseDiaryData, diaryType, caseDiaryId);
+    }
+  }
+
+
+  updateRecords(caseDiaryData: any, diaryType: string, caseDiaryId: any) {
+    let data = {
+      caseDiaryId: diaryType == 'caseDiary' ? caseDiaryData._id : caseDiaryData.subDiary_id,
+      registrationDate: caseDiaryData.registrationDate,
+      courtName: caseDiaryData.courtName,
+      caseNumber: caseDiaryData.caseNumber,
+      caseName: caseDiaryData.caseName,
+      caseStage: caseDiaryData.caseStage,
+      city: caseDiaryData.city,
+      applicantName: caseDiaryData.applicantName,
+      respondentName: caseDiaryData.respondentName,
+      applicationType: caseDiaryData.applicationType,
+      applicationSection: caseDiaryData.applicationSection,
+      nextHearingDate: caseDiaryData.nextHearingDate,
+      lawyreasonForAbsent: caseDiaryData.lawyreasonForAbsent,
+      representing: caseDiaryData.representing,
+      FIRNumber: caseDiaryData.FIRNumber,
+      FIRDate: caseDiaryData.FIRDate,
+      sectionIPC: caseDiaryData.sectionIPC
+    }
+    this._apolloService.mutate(GQLConfig.updateCaseDiary, data).subscribe((objRes) => {
+      if (objRes.data != null) {
+        if (objRes.data.caseDiaryUpdate.status == 200) {
+          this._toastMessage.success(objRes.data.caseDiaryUpdate.message);
+          this._router.navigate([`lawyer/case-diary/view-application/${caseDiaryId}`]);
+        }
+        else {
+          this._toastMessage.error(objRes.data.caseDiaryUpdate.message);
+        }
+      }
+    })
+  }
+
+  deleteSubDiary(subDiaryId: any) {
+    this._apolloService.mutate(GQLConfig.deleteSubDiary, { subDiaryId: subDiaryId }).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.deleteSubDiary.status == 200) {
+          this._toastMessage.success(objRes.data.deleteSubDiary.message);
+          this.getSubDiaryList();
+        }
+        else {
+          this._toastMessage.error(objRes.data.deleteSubDiary.message);
+        }
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.applicationSubscription.unsubscribe();
   }
 }

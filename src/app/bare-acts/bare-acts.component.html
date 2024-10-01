@@ -1,0 +1,27 @@
+<app-header [menuName]="'Bare Acts'"></app-header>
+<div class="root" appPreventKeyboardEvents>
+    <div class="filter-bar mt-2">
+        <div class="pretext col-lg-6 col-md-6">
+            <!-- <img src="../../../assets/images/icons/arrow-left.svg" /> -->
+            <div class="records">Found {{ recordCount }} Acts</div>
+        </div>
+        <div class="posttext col-lg-6 col-md-6">
+            <img src="../../../assets/images/icons/search-blue.svg" />
+        </div>
+    </div>
+    <div style="height: calc(100vh - 230px)">
+        <ng-scrollbar #scroll autoHeightDisabled="false" appearance="standard" [scrollTop]="'Top'">
+            <div class="bare-acts" *ngIf="bareActsList.length">
+                @for (acts of bareActsList; track acts) {
+                <div class="acts" (click)="viewBareActs(acts._id)">
+                    {{ acts.title }}
+                </div>
+                }
+            </div>
+            <div *ngIf="bareActsList.length == 0" class="no-data"> No Data....</div>
+        </ng-scrollbar>
+        <app-paginator [currentPage]="currentPage" (previousPageEvent)="previousPage();scroll.scrollTo({top:0});"
+            (nextPageEvent)="nextPage();scroll.scrollTo({top:0});" [pageSize]="pageSize"
+            [recordCount]="recordCount" (goToPageEvent)="goToPage($event)"></app-paginator>
+    </div>
+</div>

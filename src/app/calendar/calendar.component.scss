@@ -151,6 +151,35 @@
   padding: 0px;
 }
 
+.calendar-form {
+  .color-picker {
+    display: flex;
+    gap: 10px;
+  }
+
+  .color-picker label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .color-picker input[type="radio"] {
+    display: none;
+  }
+
+  .color-picker .color-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    display: inline-block;
+  }
+
+  .color-picker input[type="radio"]:checked+.color-swatch {
+    content: url(../../assets/images/icons/checked.svg);
+  }
+}
+
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .root {

@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { resetModel } from '../../common/reset-password.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { GQLConfig } from '../../graphql.operations';
+import { AuthService } from '../../shared/services/auth.service';
+import { MessagingService } from '../../shared/services/messaging.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -8,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './reset-password.component.scss',
 })
 export class ResetPasswordComponent {
-  resetPassword: FormGroup;
+  resetPasswordForm: FormGroup;
   hide: boolean = true;
   hideConfirmPassword: boolean = true;
   hideOldPassword: boolean = true;
@@ -26,18 +31,42 @@ export class ResetPasswordComponent {
     },
   ];
 
-  constructor(private _formBuilder: FormBuilder) {
-    this.resetPassword = this._formBuilder.group(new resetModel());
-    this.resetFrmCtrl['oldPassword'].setValidators([Validators.required]);
-    this.resetFrmCtrl['setNewPassword'].setValidators([Validators.required]);
-    this.resetFrmCtrl['confirmNewPassword'].setValidators([
+  constructor(private _formBuilder: FormBuilder, private _apolloService: ApolloService,
+    private _toastMessage: ToastMessageService, private _authService: AuthService) {
+    this.resetPasswordForm = this._formBuilder.group(new resetModel());
+    this.resetFrmCtrl['password'].setValidators([Validators.required]);
+    this.resetFrmCtrl['newPassword'].setValidators([Validators.required]);
+    this.resetFrmCtrl['confirmPassword'].setValidators([
       Validators.required,
     ]);
-    this.resetFrmCtrl['question'].setValidators([Validators.required]);
-    this.resetFrmCtrl['answer'].setValidators([Validators.required]);
+    // this.resetFrmCtrl['question'].setValidators([Validators.required]);
+    // this.resetFrmCtrl['answer'].setValidators([Validators.required]);
   }
 
   get resetFrmCtrl() {
-    return this.resetPassword.controls;
+    return this.resetPasswordForm.controls;
+  }
+
+  resetPassword() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    let data = {
+      phoneNumber: parsedData.primaryPhoneNumber,
+      oldPassword: this.resetPasswordForm.controls.password.value,
+      password: this.resetPasswordForm.controls.newPassword.value,
+      confirmPassword: this.resetPasswordForm.controls.confirmPassword.value,
+      userType: parsedData.userType
+    };
+    this._apolloService.mutate(GQLConfig.resetLoginPassword, data).subscribe(resObj => {
+      if (resObj.data != null) {
+        if (resObj.data.resetLoginPassword.status == 200) {
+          this._toastMessage.success(resObj.data.resetLoginPassword.message);
+          this._authService.logout();
+        }
+        else {
+          this._toastMessage.error(resObj.data.resetLoginPassword.message);
+        }
+      }
+    })
   }
 }

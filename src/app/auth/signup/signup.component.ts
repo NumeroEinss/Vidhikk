@@ -10,6 +10,7 @@ import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { Router } from '@angular/router';
 import { NgOtpInputComponent } from 'ng-otp-input';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -40,19 +41,7 @@ export class SignupComponent {
 
   private otpChangeTimeout: any;
 
-  cities: any[] = [
-    { value: 'indore', viewValue: 'Indore' },
-    { value: 'bhopal', viewValue: 'Bhopal' },
-    { value: 'surat', viewValue: 'Surat' },
-  ];
-
-  states: any[] = [
-    { value: 'mp', viewValue: 'Madhya Pradesh' },
-    { value: 'up', viewValue: 'Uttar Pradesh' },
-    { value: 'gujrat', viewValue: 'Gujrat' },
-    { value: 'punjab', viewValue: 'Punjab' },
-    { value: 'maharashtra', viewValue: 'Maharashtra' },
-  ];
+  cityList: any[] = [];
 
   allDistricts: any[] = [
     { state: 'mp', value: 'indore', viewValue: 'Indore' },
@@ -79,11 +68,7 @@ export class SignupComponent {
     { type: 'supreme Court', value: 'Subordinate Court Ahmedabad', viewValue: 'Subordinate Court Ahmedabad' },
   ];
 
-  fields: any[] = [
-    { value: 'civil', viewValue: 'Civil' },
-    { value: 'finance', viewValue: 'Finance' },
-    { value: 'taxation', viewValue: 'Taxation' },
-  ];
+  fields: any = [];
 
   queries: any[] = [
     { value: 'What is your favorite color', viewValue: 'What is your favorite color' },
@@ -340,7 +325,11 @@ export class SignupComponent {
     },
   ];
 
-  constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router,
+  filteredDistricts: any[] = [];
+  filteredCourtNames: any[] = [];
+  filteredCourtTypes: any[] = [];
+
+  constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router, private _http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
     this.signupForm = this._fb.group(new SignUpModel());
     this.SignupFrmCtrl.mobile.setValidators([Validators.required, Validators.minLength(10)]);
@@ -357,6 +346,9 @@ export class SignupComponent {
     this.userForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
     this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateUserConfirmPassword()]);
     this.judgeForm = this._fb.group(new JudgeSignupModel);
+
+    this.getCitiesList();
+    this.getPractiscingField();
   }
 
   opacityStyling = { opacity: 0.1 };
@@ -375,9 +367,9 @@ export class SignupComponent {
   }
 
   onSubmitOtp() {
-    this.lawyerForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
-    this.userForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
-    this.judgeForm.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
+    this.lawyerForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
+    this.userForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
+    this.judgeForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
   }
 
   validateConfirmPassword(): ValidatorFn {
@@ -430,7 +422,7 @@ export class SignupComponent {
 
   private _filter(value: any): string[] {
     const filterValue = value.value.toLowerCase();
-    return this.fields.filter(feilds => feilds.value.toLowerCase().includes(filterValue));
+    return this.fields.filter((feilds: { value: string; }) => feilds.value.toLowerCase().includes(filterValue));
   }
 
   selectedSection(id: string) {
@@ -441,15 +433,21 @@ export class SignupComponent {
   userImageChange(event: any) {
     const reader = new FileReader();
     reader.onload = (e) => {
-      this.userImage = e.target?.result;
+      if (this.userType == "LAWYER") {
+        this.lawyerForm.controls.file.patchValue(event.target.files[0]);
+        this.lawyerForm.controls.fileDisplay.patchValue(e.target?.result);
+      }
+      else if (this.userType == "USER") {
+        this.userForm.controls.file.patchValue(event.target.files[0]);
+        this.userForm.controls.fileDisplay.patchValue(e.target?.result);
+      }
+      else if (this.userType == "JUDGE") {
+        this.judgeForm.controls.file.patchValue(event.target.files[0]);
+        this.judgeForm.controls.fileDisplay.patchValue(e.target?.result);
+      }
     }
-
     reader.readAsDataURL(event.target.files[0]);
   }
-
-  filteredDistricts: any[] = [];
-  filteredCourtNames: any[] = [];
-  filteredCourtTypes: any[] = [];
 
   onStateChange(selectedState: string) {
     this.filteredDistricts = this.allDistricts.filter(district => district.state === selectedState);
@@ -537,13 +535,13 @@ export class SignupComponent {
     if (this.userType == "USER") {
       data = {
         email: this.userForm.controls.email.value,
-        mobile: this.userForm.controls.phoneNumber.value
+        phoneNumber: this.userForm.controls.phoneNumber.value
       };
     }
     else if (this.userType == "LAWYER") {
       data = {
         email: this.lawyerForm.controls.email.value,
-        mobile: this.lawyerForm.controls.phoneNumber.value
+        phoneNumber: this.lawyerForm.controls.phoneNumber.value
       };
     }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
@@ -569,17 +567,18 @@ export class SignupComponent {
         if (this.userType == "USER") {
           data = {
             email: this.userForm.controls.email.value,
+            mobile: this.userForm.controls.phoneNumber.value,
             otp: e
           };
         } else if (this.userType == "LAWYER") {
           data = {
             email: this.lawyerForm.controls.email.value,
+            mobile: this.lawyerForm.controls.phoneNumber.value,
             otp: e
           };
         }
         this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
           if (objEmailOtp.data != null) {
-            console.log(objEmailOtp);
             if (objEmailOtp.data.verifyOtp.status == 200) {
               this.emailOtpVerified = true;
               let el = document.getElementById('closeOtpModalButton') as HTMLElement;
@@ -600,13 +599,13 @@ export class SignupComponent {
     if (this.userType == "USER") {
       data = {
         email: this.userForm.controls.email.value,
-        mobile: this.userForm.controls.phoneNumber.value
+        phoneNumber: this.userForm.controls.phoneNumber.value
       };
     }
     else if (this.userType == "LAWYER") {
       data = {
         email: this.lawyerForm.controls.email.value,
-        mobile: this.lawyerForm.controls.phoneNumber.value
+        phoneNumber: this.lawyerForm.controls.phoneNumber.value
       };
     }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
@@ -623,80 +622,149 @@ export class SignupComponent {
   }
 
   userSignUp() {
-    let reqObj = {
-      userType: this.userType,
-      name: this.userForm.controls.name.value,
-      mobile: this.userForm.controls.phoneNumber.value,
-      isPrimaryContactWhatsapp: this.userForm.controls.isPrimaryContactWhatsapp.value,
-      secondaryContact: this.userForm.controls.secondaryContact.value,
-      isSecondaryContactWhatsapp: this.userForm.controls.isSecondaryContactWhatsapp.value,
-      address: this.userForm.controls.address.value,
-      city: this.userForm.controls.city.value,
-      state: this.userForm.controls.state.value,
-      email: this.userForm.controls.email.value,
-      password: this.userForm.controls.password.value,
-      confirmPassword: this.userForm.controls.confirmPassword.value,
+    if (!this.userForm.valid) {
+      this._toastMessage.error("Please fill all the fields !!");
     }
-    this._apolloService.mutate(GQLConfig.createUser, reqObj).subscribe(data => {
-      if (data.data != null) {
-        if (data.data.createUser.status == 200) {
-          this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
-          setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
-        }
-        else {
-          this._toastMessage.error(data.data.createUser.message);
-        }
+    else if (!this.emailOtpVerified) {
+      this._toastMessage.error("Please verify your email !!");
+    }
+    else {
+      let reqObj = {
+        userType: this.userType,
+        name: this.userForm.controls.name.value,
+        mobile: this.userForm.controls.phoneNumber.value,
+        isPrimaryContactWhatsapp: this.userForm.controls.isPrimaryContactWhatsapp.value,
+        secondaryContact: this.userForm.controls.secondaryContact.value,
+        isSecondaryContactWhatsapp: this.userForm.controls.isSecondaryContactWhatsapp.value,
+        address: this.userForm.controls.address.value,
+        city: this.userForm.controls.city.value,
+        state: this.userForm.controls.state.value,
+        email: this.userForm.controls.email.value,
+        password: this.userForm.controls.password.value,
+        confirmPassword: this.userForm.controls.confirmPassword.value,
       }
-    })
+      this._apolloService.mutate(GQLConfig.createUser, reqObj).subscribe(data => {
+        if (data.data != null) {
+          if (data.data.createUser.status == 200) {
+            this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
+            setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
+          }
+          else {
+            this._toastMessage.error(data.data.createUser.message);
+          }
+        }
+      })
+    }
   }
 
   lawyerSignup() {
     // accountVerificationButton
-    let reqObj = {
-      fatherName: this.lawyerForm.controls.fatherName.value,
-      userType: this.userType,
-      lawyerName: this.lawyerForm.controls.name.value,
-      city: this.lawyerForm.controls.city.value,
-      state: this.lawyerForm.controls.state.value,
-      email: this.lawyerForm.controls.email.value,
-      password: this.lawyerForm.controls.password.value,
-      confirmPassword: this.lawyerForm.controls.confirmPassword.value,
-      // question: this.lawyerForm.controls.question.value,
-      // answer: this.lawyerForm.controls.answer.value,
-      // question2: this.lawyerForm.controls.question2.value,
-      // answer2: this.lawyerForm.controls.answer2.value,
-      primaryContact: this.lawyerForm.controls.phoneNumber.value,
-      isPrimaryContactWhatsapp: this.lawyerForm.controls.isPrimaryContactWhatsapp.value,
-      isPrimaryContactVisible: this.lawyerForm.controls.isPrimaryContactVisible.value,
-      secondaryContact: this.lawyerForm.controls.secondaryContact.value,
-      isSecondaryContactWhatsapp: this.lawyerForm.controls.isSecondaryContactWhatsapp.value,
-      isSecondaryContactVisible: this.lawyerForm.controls.isSecondaryContactVisible.value,
-      isEmailDisplay: this.lawyerForm.controls.isEmailVisible.value,
-      isAddressVisible: this.lawyerForm.controls.isAddressVisible.value,
-      stateBar: this.lawyerForm.controls.stateBar.value,
-      practicingCourt: this.lawyerForm.controls.courtName.value,
-      barLicenseNumber: this.lawyerForm.controls.licenseNo.value,
-      practiceYear: parseInt(this.lawyerForm.controls.practiceYear.value),
-      practicingField: this.lawyerForm.controls.practiceField.value,
-      orgainization: this.lawyerForm.controls.orgainization.value,
-      coreCompetency: this.lawyerForm.controls.coreCompetency.value,
-      barAddress: this.lawyerForm.controls.barAddress.value,
-      isBarAddressDisplay: this.lawyerForm.controls.isAddressVisible.value,
-      isPrimaryMobileDisplay: this.lawyerForm.controls.isPrimaryContactVisible.value,
-      isSecondaryMobileDisplay: this.lawyerForm.controls.isSecondaryContactVisible.value
-    };
-    this._apolloService.mutate(GQLConfig.createLawyer, reqObj).subscribe(data => {
-      if (data.data != null) {
-        if (data.data.createLawyers.status == 200) {
-          this._toastMessage.success(data.data.createLawyers.message + '. Login to proceed further');
-          // this._router.navigate(['/auth/login']);
+    if (this.lawyerForm.value.file == "") {
+      this._toastMessage.error("Please add profile image !!");
+    }
+    else if (!this.lawyerForm.valid) {
+      this._toastMessage.error("Please Fill all the fields !!");
+    }
+    else if (!this.emailOtpVerified) {
+      this._toastMessage.error("Please verify your email !!");
+    }
+    else {
+      const mutation = {
+        "query": "mutation ($input: AdvocateProfile!, $file: Upload) { createLawyers(input: $input, file: $file) { status message data } }",
+        "variables": {
+          "input": {
+            "userType": this.userType,
+            "lawyerName": this.lawyerForm.controls.name.value,
+            "fatherName": this.lawyerForm.controls.fatherName.value,
+            "orgainization": this.lawyerForm.controls.orgainization.value,
+            "primaryContact": this.lawyerForm.controls.phoneNumber.value,
+            "isPrimaryContactWhatsapp": this.lawyerForm.controls.isPrimaryContactWhatsapp.value,
+            "isPrimaryMobileDisplay": this.lawyerForm.controls.isPrimaryContactVisible.value,
+            "secondaryContact": this.lawyerForm.controls.secondaryContact.value,
+            "isSecondaryContactWhatsapp": this.lawyerForm.controls.isSecondaryContactWhatsapp.value,
+            "isSecondaryMobileDisplay": this.lawyerForm.controls.isSecondaryContactVisible.value,
+            "city": this.lawyerForm.controls.city.value,
+            "state": this.lawyerForm.controls.state.value,
+            "email": this.lawyerForm.controls.email.value,
+            "password": this.lawyerForm.controls.password.value,
+            "confirmPassword": this.lawyerForm.controls.confirmPassword.value,
+            "barLicenseNumber": this.lawyerForm.controls.licenseNo.value,
+            "stateBar": this.lawyerForm.controls.stateBar.value,
+            "practiceYear": parseInt(this.lawyerForm.controls.practiceYear.value),
+            "coreCompetency": this.lawyerForm.controls.coreCompetency.value,
+            "practicingCourt": this.lawyerForm.controls.courtName.value,
+            "practicingField": this.lawyerForm.controls.practiceField.value,
+            "isEmailDisplay": false,
+            "barAddress": this.lawyerForm.controls.barAddress.value,
+            "isBarAddressDisplay": this.lawyerForm.controls.isAddressVisible.value
+          },
+          "file": null
+        }
+      }
+
+      this._apolloService.upload(mutation, this.lawyerForm.controls.file.value, "0").subscribe(objRes => {
+        if (objRes.data != null) {
+          this._toastMessage.success(objRes.data.createLawyers.message);
           let btn = document.getElementById('accountVerificationButton') as HTMLElement;
           btn.click();
         }
         else {
-          this._toastMessage.error(data.data.createLawyers.message);
+          this._toastMessage.error(objRes.data.createLawyers.message);
         }
-      }
+      })
+    }
+  }
+
+  citySelectionChange(e: any, formName: string) {
+    let stateObj = this.cityList.find(x => x.name == e.value);
+    switch (formName) {
+      case 'userForm':
+        this.userForm.controls.state.patchValue(stateObj.state);
+        break;
+      case 'lawyerForm':
+        this.lawyerForm.controls.state.patchValue(stateObj.state);
+        break;
+      case 'judgeForm':
+        this.judgeForm.controls.state.patchValue(stateObj.state);
+        break;
+      default:
+        break;
+    }
+  }
+
+  getCitiesList() {
+    this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
+      this.cityList = data;
     })
+  }
+
+  userTypeChange() {
+    this.lawyerForm.reset();
+    this.lawyerForm = this._fb.group(new LawyerSignupModel());
+    this.userForm.reset();
+    this.userForm = this._fb.group(new UserSignupModel());
+    this.judgeForm.reset();
+    this.judgeForm = this._fb.group(new JudgeSignupModel());
+    this.emailOtpVerified = false;
+    this.onSubmitOtp();
+  }
+
+  getPractiscingField() {
+    this._http.get('assets/JSON/practiscing_field.json').subscribe({
+      next: (data) => {
+        this.fields = data;
+      },
+      error: (error) => { this._toastMessage.error(error) }
+    })
+  }
+
+  getImage(image: any) {
+    console.log(window.location.host + image)
+    return window.location.host + image;
+  }
+
+  ngOnDestroy() {
+    let element = document.getElementById('dismissModal') as HTMLElement;
+    element.click();
   }
 }

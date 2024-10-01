@@ -12,11 +12,13 @@
                 <mat-form-field appearance="outline" class="mat-input-white">
                     <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
                     <mat-select placeholder="Select advocate type" required [(value)]="selectedAdvocateType">
-                        <mat-option *ngFor="let advocate of advocateTypeList" [value]="advocate.value"
-                            class="mat-options">
+                        @for (advocate of advocateTypeList; track advocate) {
+                        <mat-option [value]="advocate.value" class="mat-options">
                             {{ advocate.viewValue }}
                         </mat-option>
-                        <mat-option class="mat-options" data-bs-target="#advocateFilterModal" data-bs-toggle="modal" value="Apply Filter">
+                        }
+                        <mat-option class="mat-options" data-bs-target="#advocateFilterModal" data-bs-toggle="modal"
+                            value="Apply Filter">
                             Apply Filter
                         </mat-option>
                     </mat-select>
@@ -42,7 +44,8 @@
                 <div class="popular-lawyer">
                     <div class="heading">Popular Lawyers</div>
                     <div class="list">
-                        <div class="node" *ngFor="let lawyer of popularLawyerList" (click)="viewLawyerDetails()">
+                        @for (lawyer of popularLawyerList; track lawyer) {
+                        <div class="node" (click)="viewLawyerDetails()">
                             <div class="subnode d-flex justify-content-center">
                                 <img class="display-profile" [src]="lawyer.image" width="200" height="150" alt="">
                                 <div class="lawyer-details">
@@ -58,6 +61,7 @@
                                 </div>
                             </div>
                         </div>
+                        }
                     </div>
                 </div>
 
@@ -66,22 +70,26 @@
                 <div class="all-lawyer">
                     <div class="heading">All Lawyers</div>
                     <div class="list">
-                        <div class="node" *ngFor="let lawyer of allLawyerList" (click)="viewLawyerDetails()">
+                        @for (lawyer of allLawyerList; track lawyer) {
+                        <div class="node" (click)="viewLawyerDetails()">
                             <div class="subnode d-flex justify-content-center">
-                                <img class="display-profile" [src]="lawyer.image" width="200" height="150" alt="">
+                                <img class="display-profile" [src]="getImageUrl(lawyer.profileImage)" width="200"
+                                    height="150"
+                                    onerror="this.onerror=null;this.src='../../../assets/images/image/no-image.png';">
                                 <div class="lawyer-details">
-                                    <div class="location">{{lawyer.location}}</div>
-                                    <div class="type">{{lawyer.type}}</div>
+                                    <div class="location">{{lawyer.city}}</div>
+                                    <div class="type">{{lawyer.practicingField[0]}}</div>
                                     <div class="d-flex">
-                                        <div class="experience">{{lawyer.experience}}</div>
+                                        <div class="experience">{{lawyer.experience}}8+ Experience</div>
                                         <div class="rating" (click)="viewRating()">
                                             <img src="../../../assets/images/icons/star.svg" alt="">
-                                            <div>({{lawyer.rating}})</div>
+                                            <div>({{lawyer.rating}}5)</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        }
                     </div>
                 </div>
             </ng-scrollbar>
@@ -91,14 +99,15 @@
 
 <div>
     <div class="modal fade filterPopup" id="advocateFilterModal" aria-hidden="true"
-        aria-labelledby="advocateFilterModalLabel" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false" >
+        aria-labelledby="advocateFilterModalLabel" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered advocate-filter-popup">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="advocateFilterModalLabel">
                         Filter
                     </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="selectedAdvocateType = 'all'"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="selectedAdvocateType = 'all'"></button>
                 </div>
 
                 <div class="modal-body">
@@ -136,9 +145,11 @@
                         <mat-label class="mat-label">Select Place</mat-label>
                         <mat-form-field appearance="outline" class="mt-1">
                             <mat-select placeholder="Select place" required>
-                                <mat-option *ngFor="let place of places" [value]="place.value">
-                                    {{ place.viewValue }}
+                                @for (place of places; track place) {
+                                <mat-option [value]="place.state">
+                                    {{ place.state }}
                                 </mat-option>
+                                }
                             </mat-select>
                             <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
                      Required !!</mat-error> -->
@@ -147,9 +158,11 @@
                         <mat-label class="mat-label">Select Practising Field</mat-label>
                         <mat-form-field appearance="outline" class="mt-1">
                             <mat-select placeholder="Select place" required>
-                                <mat-option *ngFor="let field of practiseField" [value]="field.value">
-                                    {{ field.viewValue }}
+                                @for (field of practiseField; track field) {
+                                <mat-option [value]="field.value">
+                                    {{ field.value }}
                                 </mat-option>
+                                }
                             </mat-select>
                             <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
                      Required !!</mat-error> -->
@@ -157,7 +170,8 @@
 
 
                         <div class="mt-3 mb-3 filter-btn">
-                            <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal">
+                            <button mat-raised-button color="primary" style="width: fit-content !important"
+                                data-bs-dismiss="modal">
                                 Show Results
                             </button>
                             <button mat-stroked-button color="primary"

@@ -5,13 +5,11 @@ import { ngxLoadingAnimationTypes } from 'ngx-loading';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
   title = 'Vidhik';
   loaderType = ngxLoadingAnimationTypes;
-  constructor(public toastMessage: ToastMessageService) {
-  }
 
+  constructor(public toastMessage: ToastMessageService) { }
 }

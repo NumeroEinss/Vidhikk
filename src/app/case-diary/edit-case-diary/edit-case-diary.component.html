@@ -12,7 +12,7 @@
                         <mat-label class="mat-label">Registration Date</mat-label>
                         <mat-form-field appearance="outline">
                             <input matInput [matDatepicker]="picker" formControlName="registrationDate"
-                                placeholder="Select Registration Date" required>
+                                placeholder="Select Registration Date" [readonly]="true" required>
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -41,8 +41,8 @@
                         <mat-label class="mat-label">Court Name</mat-label>
                         <mat-form-field appearance="outline">
                             <mat-select placeholder="Select court" formControlName="courtName" required>
-                                <mat-option *ngFor="let court of courtNameList" [value]="court.value">
-                                    {{ court.viewValue }}
+                                <mat-option *ngFor="let court of courtNameList" [value]="court.name">
+                                    {{ court.name }}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="editCaseDiaryForm.controls['courtName'].errors?.['required']">Court Name
@@ -78,100 +78,61 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-                        <mat-label class="mat-label">Case No.</mat-label>
+                    <div class="d-flex mat-input-white" style="flex-direction: column">
+                        <mat-label class="mat-label">Representing</mat-label>
                         <mat-form-field appearance="outline">
-                            <input matInput placeholder="Type case number" formControlName="caseNumber" required />
-                            <mat-error *ngIf="editCaseDiaryForm.controls['caseNumber'].errors?.['required']">Case No. is
-                                Required
-                                !!</mat-error>
+                            <mat-select placeholder="Select stage" formControlName="representing" required>
+                                <mat-option *ngFor="let representing of representingList" [value]="representing.value">
+                                    {{ representing.viewValue }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="editCaseDiaryForm.controls['representing'].errors?.['required']">
+                                Representing is Required !!</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
 
                 <div class="case-diary-col row">
-                    <div class="d-flex mat-input-white" style="flex-direction: column">
-                        <mat-label class="mat-label">Next Hearing Date</mat-label>
-                        <mat-form-field appearance="outline">
-                            <input matInput [matDatepicker]="picker2" formControlName="nextHearingDate"
-                                placeholder="Select Next Hearing Date" required>
-                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
-                            <mat-error
-                                *ngIf="editCaseDiaryForm.controls['nextHearingDate'].errors?.['required']">Hearing
-                                Date is
-                                Required !!</mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-                        <mat-label class="mat-label">Case Stage</mat-label>
-                        <mat-form-field appearance="outline">
-                            <mat-select placeholder="Select stage" formControlName="caseStage" required>
-                                <mat-option *ngFor="let stage of stages" [value]="stage.value">
-                                    {{ stage.viewValue }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="editCaseDiaryForm.controls['caseStage'].errors?.['required']">
-                                Case Stage is Required !!</mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <div class="case-diary-col row">
-                    <div class="d-flex mat-input-white" style="flex-direction: column">
-                        <mat-label class="mat-label">Application Type</mat-label>
-                        <mat-form-field appearance="outline">
-                            <mat-select placeholder="Select application type" formControlName="applicationType"
-                                required>
-                                <mat-option *ngFor="let type of applicationType" [value]="type.value">
-                                    {{ type.viewValue }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error
-                                *ngIf="editCaseDiaryForm.controls['applicationType'].errors?.['required']">Application
-                                Type is
-                                Required !!</mat-error>
-                        </mat-form-field>
-                    </div>
-
                     <div class="d-flex mat-input-white me-4" style="flex-direction: column">
                         <mat-label class="mat-label">City</mat-label>
                         <mat-form-field appearance="outline">
                             <mat-select placeholder="Select city" formControlName="city" required>
-                                <mat-option *ngFor="let city of cities" [value]="city.value">
-                                    {{ city.viewValue }}
+                                @for (city of cityList; track city) {
+                                <mat-option [value]="city.name">
+                                    {{ city.name }}
                                 </mat-option>
+                                }
                             </mat-select>
-                            <mat-error *ngIf="editCaseDiaryForm.controls['city'].errors?.['required']">City is Required
+                            <mat-error *ngIf="editCaseDiaryForm.controls['city'].errors?.['required']">City is
+                                Required
                                 !!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="d-flex mat-input-white" style="flex-direction: column">
+                        <mat-label class="mat-label">Section of IPC</mat-label>
+                        <mat-form-field appearance="outline">
+                            <input matInput placeholder="Type IPC Section" formControlName="sectionIPC" />
                         </mat-form-field>
                     </div>
                 </div>
 
                 <div class="case-diary-col row">
-                    <div class="d-flex mat-input-white" style="flex-direction: column">
-                        <mat-label class="mat-label">Application Section</mat-label>
+                    <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+                        <mat-label class="mat-label">FIR No.</mat-label>
                         <mat-form-field appearance="outline">
-                            <mat-select placeholder="Select application section" formControlName="applicationSection"
-                                required>
-                                <mat-option *ngFor="let section of applicationSection" [value]="section.value">
-                                    {{ section.viewValue }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error
-                                *ngIf="editCaseDiaryForm.controls['applicationSection'].errors?.['required']">Application
-                                Section is Required !!</mat-error>
+                            <input matInput placeholder="Type FIR number" formControlName="FIRNumber" />
                         </mat-form-field>
                     </div>
 
                     <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-                        <mat-label class="mat-label">Reason for Absent</mat-label>
+                        <mat-label class="mat-label">FIR Date</mat-label>
                         <mat-form-field appearance="outline">
-                            <input matInput placeholder="Type reason for absent"
-                                formControlName="lawyreasonForAbsent" />
-                            <mat-error *ngIf="editCaseDiaryForm.controls['lawyreasonForAbsent'].errors?.['required']">
-                                Reason for Absent is Required !!</mat-error>
+                            <input matInput [matDatepicker]="picker2" formControlName="FIRDate"
+                                placeholder="Select FIR Date" [max]="today" [readonly]="true">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                     </div>
                 </div>

@@ -4,28 +4,29 @@ import { CaseLawRoutingModule } from './case-law-routing.module';
 import { CaseLawListComponent } from './case-law-list/case-law-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaseLawDetailComponent } from './case-law-detail/case-law-detail.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { BareActsDetailComponent } from './bare-acts-detail/bare-acts-detail.component';
-import { HighlighterPipe } from './highlighter.pipe';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { HighlighterPipe } from '../shared/pipe/highlighter.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
     CaseLawListComponent,
-    CaseLawDetailComponent,
-    BareActsDetailComponent,
-    HighlighterPipe  
+    CaseLawDetailComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     CaseLawRoutingModule,
     SharedModule,
     MaterialModule,
     MatDatepickerModule,
-    MatPaginatorModule
-  ]
+    MatPaginatorModule,
+    MatTooltipModule
+  ],
+  providers: [HighlighterPipe]
 })
 export class CaseLawModule { }

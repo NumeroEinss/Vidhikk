@@ -3,49 +3,54 @@
 <div class="root">
     <div style="height: calc(100vh - 160px);">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-            <div><img src="../../../assets/images/icons/black_left_arrow.svg" (click)="routeBack()" class="me-2" />Back
+            <div><img src="../../../assets/images/icons/black_left_arrow.svg" (click)="routeBack()" class="me-2"
+                    style="cursor: pointer;" />Back
             </div>
 
             <div class="ticket-detail">
                 <div class="d-flex align-items-center">
                     <div class="status me-2"></div>
-                    <div style="font-weight: 500;">{{routerState.ticketId}}</div>
+                    <div style="font-weight: 500;">{{ticketDetail?.ticketNo}}</div>
                 </div>
-                <div class="created-date">Posted at {{routerState.dayTime}}
+                <div class="created-date">Posted at {{getDay(ticketDetail?.createdAt)}},
+                    {{getDate(ticketDetail?.createdAt)}},
+                    {{getTime(ticketDetail?.createdAt)}}
                 </div>
             </div>
 
             <div style="margin-top: 25px;">
-                <div class="ticket-title">{{routerState.ticketTitle}}</div>
-                <div class="detail">{{routerState.description}}</div>
+                <div class="ticket-title">{{ticketDetail?.ticketTitle}}</div>
+                <div class="detail">{{ticketDetail?.ticketDescription}}</div>
             </div>
 
             <div class="mt-3 mb-3 screenshots-container">
-              <div class="screenshots" *ngFor="let ss of routerState.screenshot"><img [src]="ss" alt="noImage" (click)="openImage(ss)"/></div>   
+                <div class="screenshots"><img [src]="this.getImageToDisplay(ticketDetail?.ticketAttachment)"
+                        alt="noImage" (click)="openImage(ticketDetail?.ticketAttachment)" /></div>
             </div>
-            
+
             <hr>
-            <div id="scroll-to-comment" class="comment-section" *ngFor="let feed of feedList">
-                <div *ngIf="isCommentBoxOpen">
-                    <div class="notification" *ngIf="feed.type == 'notification'">
-                        <div><span>{{feed.name}}</span> changed ticket status from <span>open</span> to
-                            <span>inProcess</span>
-                        </div>
-                        <div style="font-size: 12px;">{{feed.day}}, {{feed.postDate}}, {{feed.time}}</div>
+            <div id="scroll-to-comment" class="comment-section" *ngFor="let feed of ticketDetail?.ticketReply">
+                <div>
+                    <div class="notification" *ngIf="feed.replyType=='notification'">
+                        <div>{{feed.replyText}}</div>
+                        <div style="font-size: 12px;">{{getDay(feed.replyAt)}}, {{getDate(feed.replyAt)}},
+                            {{getTime(feed.replyAt)}}</div>
                     </div>
-                    <div class="admin-comment-box" *ngIf="feed.userType == 'admin'">
+                    <div class="admin-comment-box" *ngIf="feed.replyType=='admin'">
                         <div class="content">
-                            <div class="name">{{feed.name}}</div>
-                            <div class="post-date">Posed at {{feed.day}}, {{feed.postDate}}, {{feed.time}}</div>
+                            <div class="name">{{feed.replyFrom }}</div>
+                            <div class="post-date">Posed at {{getDay(feed.replyAt)}}, {{getDate(feed.replyAt)}},
+                                {{getTime(feed.replyAt)}}</div>
                         </div>
-                        <div class="comment">{{feed.comment}}</div>
+                        <div class="comment">{{feed.replyText }}</div>
                     </div>
-                    <div class="user-comment-box" *ngIf="feed.userType == 'user'">
+                    <div class="user-comment-box" *ngIf="feed.replyType=='user'">
                         <div class="content">
-                            <div class="name">{{feed.name}}</div>
-                            <div class="post-date">Posed at {{feed.day}}, {{feed.postDate}}, {{feed.time}}</div>
+                            <div class="name">{{feed.replyFrom }}</div>
+                            <div class="post-date">Posed at {{getDay(feed.replyAt)}}, {{getDate(feed.replyAt)}},
+                                {{getTime(feed.replyAt)}}</div>
                         </div>
-                        <div class="comment">{{feed.comment}}</div>
+                        <div class="comment">{{feed.replyText }}</div>
                     </div>
                 </div>
             </div>
@@ -55,8 +60,8 @@
                 <div class="comment-box-textarea">
                     <textarea matInput placeholder="Type ticket issue here..." [(ngModel)]="comment"></textarea>
                 </div>
-                <div class="submit-btn" (click)="isCommentBoxOpen = !isCommentBoxOpen"><button mat-raised-button
-                        color="primary" style="width: fit-content !important" (click)="addComment()" [disabled]="!comment">Submit
+                <div class="submit-btn"><button mat-raised-button color="primary" style="width: fit-content !important"
+                        (click)="addComment()" [disabled]="!comment">Submit
                         Reply</button></div>
             </div>
         </ng-scrollbar>

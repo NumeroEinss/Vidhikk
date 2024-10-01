@@ -25,8 +25,8 @@ export abstract class GQLConfig {
 
     //forEmail
     static sendOtpEmail = gql`mutation
-        SendOtpEmail($email: String!,$mobile:String!) {
-            sendOtp(input: {method:"email", phoneNumber:$mobile, email:$email })
+        SendOtpEmail($email: String!,$phoneNumber: String!) {
+            sendOtp(input: {method:"email", email:$email,phoneNumber:$phoneNumber })
             {
                 status
                 message
@@ -34,8 +34,8 @@ export abstract class GQLConfig {
         }`;
 
     static verifyOtpEmail = gql`query
-        VerifyOtpEmail($email: String!, $otp: String!) {
-            verifyOtp(input: {method: "email", email: $email, otp: $otp })
+        VerifyOtpEmail($email: String!, $otp: String!,$mobile:String!) {
+            verifyOtp(input: {method: "email", email: $email, otp: $otp,phoneNumber:$mobile })
             {
                 status
                 message
@@ -114,14 +114,31 @@ export abstract class GQLConfig {
 
     // --------------------------------------------------------------------------------
 
+    static resetLoginPassword = gql`mutation($phoneNumber: String!, $password: String!, $oldPassword: String!, $confirmPassword: String!,
+     $userType: String!) {
+        resetLoginPassword(input: {
+            phoneNumber: $phoneNumber,
+            oldPassword:$oldPassword,
+            password: $password,
+            confirmPassword: $confirmPassword,
+            userType: $userType
+        })
+        {
+            status
+            message
+            data
+        }
+    }`;
+
     //createUser
     static createUser = gql`mutation
         CreateUser($userType: String!, $name: String!, $mobile: String!, $isPrimaryContactWhatsapp: Boolean!, $secondaryContact: String!, 
-            $isSecondaryContactWhatsapp: Boolean!, $address: String!, $city: String!, $state: String!, $email: String!, $password: String!, $confirmPassword: String! ){
+            $isSecondaryContactWhatsapp: Boolean!, $address: String!, $city: String!, $state: String!, $email: String!, $password: String!,
+             $confirmPassword: String! ){
             createUser(input: {
                 userType: $userType,
                 name: $name,
-                phoneNumber: $mobile,
+                primaryContact: $mobile,
                 isPrimaryContactWhatsapp: $isPrimaryContactWhatsapp,
                 secondaryContact: $secondaryContact,
                 isSecondaryContactWhatsapp:  $isSecondaryContactWhatsapp,
@@ -139,16 +156,16 @@ export abstract class GQLConfig {
               }
         } `;
 
-    static loginWithEmail = gql`mutation Login($email: String!, $password: String!, $userType: String!) {
-        login(input: { email: $email, password: $password, userType: $userType }){
+    static loginWithEmail = gql`mutation Login($email: String!, $password: String!, $userType: String!,$notificationToken:String) {
+        login(input: { email: $email, password: $password, userType: $userType,notificationToken:$notificationToken }){
             status
             message
             data
         }
     }`;
 
-    static loginWithMobile = gql`mutation Login($mobile: String!, $password: String!, $userType: String!) {
-        login(input: { phoneNumber: $mobile, password: $password, userType: $userType }){
+    static loginWithMobile = gql`mutation Login($mobile: String!, $password: String!, $userType: String!,$notificationToken:String) {
+        login(input: { phoneNumber: $mobile, password: $password, userType: $userType,notificationToken:$notificationToken}){
             status
             message
             data
@@ -159,7 +176,8 @@ export abstract class GQLConfig {
     static createLawyer = gql`mutation CreateLawyer($userType: String!, $lawyerName: String!, $fatherName: String!, $primaryContact: String!,
         $isPrimaryContactWhatsapp: Boolean!, $isPrimaryMobileDisplay: Boolean!, $secondaryContact: String!, $isSecondaryContactWhatsapp: Boolean!, $isEmailDisplay: Boolean!,
         $isSecondaryMobileDisplay: Boolean!, $barAddress: String!, $city: String!, $state: String!, $email: String!, $password: String!, $confirmPassword: String!, $barLicenseNumber: String!,
-        $stateBar: String!, $practiceYear: Float!, $coreCompetency: String!, $practicingCourt: String!, $practicingField: [String!]!, $isBarAddressDisplay: Boolean!, $orgainization: String) {
+        $stateBar: String!, $practiceYear: Float!, $coreCompetency: String!, $practicingCourt: String!, $practicingField: [String!]!, $isBarAddressDisplay: Boolean!, $orgainization: String,
+        $file:Upload) {
         createLawyers(input: {
             userType: $userType,
             lawyerName: $lawyerName,
@@ -185,7 +203,8 @@ export abstract class GQLConfig {
             isBarAddressDisplay: $isBarAddressDisplay,
             isEmailDisplay: $isEmailDisplay
             orgainization: $orgainization
-        }) {
+        },
+        file:$file) {
             status
             message
             data
@@ -262,10 +281,11 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static caseDiaryLogin = gql`mutation($userName: String!, $password: String!) {
+    static caseDiaryLogin = gql`mutation($userName: String!, $password: String!,$lawyerId:String!) {
         signIn(input: {
             userName: $userName,
-            password: $password
+            password: $password,
+            lawyerId: $lawyerId
         }) {
             status
             message
@@ -281,15 +301,16 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static createCaseDiary = gql` mutation($lawyerId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: Float!,
-            $caseName:String!,$caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
-            $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String) {
+    static createCaseDiary = gql` mutation($lawyerId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: String,
+        $caseName: String!, $caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
+        $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String, $representing: String!, $FIRNumber: String, $FIRDate: String,
+        $sectionIPC: String) {
         createCaseDiary(input: {
             lawyerId: $lawyerId,
             registrationDate: $registrationDate,
             courtName: $courtName,
             caseNumber: $caseNumber,
-            caseName:$caseName,
+            caseName: $caseName,
             caseStage: $caseStage,
             city: $city,
             applicantName: $applicantName,
@@ -297,7 +318,11 @@ export abstract class GQLConfig {
             applicationType: $applicationType,
             applicationSection: $applicationSection,
             nextHearingDate: $nextHearingDate,
-            lawyreasonForAbsent: $lawyreasonForAbsent
+            lawyreasonForAbsent: $lawyreasonForAbsent,
+            representing: $representing,
+            FIRNumber: $FIRNumber,
+            FIRDate: $FIRDate,
+            sectionIPC: $sectionIPC
         }) {
             status
             message
@@ -315,9 +340,10 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static updateCaseDiary = gql`mutation($caseDiaryId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: Float!,
+    static updateCaseDiary = gql`mutation($caseDiaryId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: String,
         $caseName:String!,$caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
-        $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String) {
+        $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String,$representing:String!, $FIRNumber: String, $FIRDate: String,
+        $sectionIPC: String) {
         caseDiaryUpdate(input: {
             caseDiaryId: $caseDiaryId,
             registrationDate: $registrationDate,
@@ -331,7 +357,11 @@ export abstract class GQLConfig {
             applicationType: $applicationType,
             applicationSection: $applicationSection,
             nextHearingDate: $nextHearingDate,
-            lawyreasonForAbsent: $lawyreasonForAbsent
+            lawyreasonForAbsent: $lawyreasonForAbsent,
+            representing:$representing,
+            FIRNumber: $FIRNumber,
+            FIRDate: $FIRDate,
+            sectionIPC: $sectionIPC
         }){
             status
             message
@@ -446,6 +476,192 @@ export abstract class GQLConfig {
           status
           message
           data
+        }
+    }`;
+
+    static getFilteredList = gql`mutation($lawyerId: String!, $experience: String!, $place: String!, $practicingField: String!){
+        filterLawyerList(input: {
+            lawyerId: $lawyerId
+            experience: $experience
+            place: $place
+            practicingField: $practicingField
+        }){
+            status
+            message
+            data
+        }
+    }`;
+
+    static deleteSubDiary = gql`mutation($subDiaryId: String!) {
+        deleteSubDiary(input: {
+
+            subDiaryId: $subDiaryId
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static addEvents = gql`mutation($lawyerId: String!, $caseId: String, $eventName: String, $eventDescription: String,
+        $allDayCheck: Boolean, $colors: String, $eventStartDate: String, $eventEndDate: String, $eventStartTime: String,
+        $eventEndTime: String, $repeat: String, $reminder: String) {
+        createEvents(input: {
+            lawyerId: $lawyerId
+          caseId: $caseId
+          eventName: $eventName
+          eventDescription: $eventDescription
+          allDayCheck: $allDayCheck
+          colors: $colors
+          eventStartDate: $eventStartDate
+          eventEndDate: $eventEndDate
+          eventStartTime: $eventStartTime
+          eventEndTime: $eventEndTime
+          repeat: $repeat
+          reminder: $reminder
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static getLawyerEvents = gql`mutation($lawyerId:String!) {
+        getLawyerEvent(input: {
+          lawyerId: $lawyerId
+        }) {
+          status
+          message
+          data
+        }
+      }`;
+
+    static editEvents = gql`mutation($eventId: String!, $eventName: String, $eventDescription: String,
+        $allDayCheck: Boolean, $colors: String, $eventStartDate: String, $eventEndDate: String, $eventStartTime: String,
+        $eventEndTime: String, $repeat: String, $reminder: String
+    ) {
+        editEvent(input: {
+            eventId: $eventId
+          eventName: $eventName
+          eventDescription: $eventDescription
+          allDayCheck: $allDayCheck
+          colors: $colors
+          eventStartDate: $eventStartDate
+          eventEndDate: $eventEndDate
+          eventStartTime: $eventStartTime
+          eventEndTime: $eventEndTime
+          repeat: $repeat
+          reminder: $reminder
+
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static deleteEvent = gql`mutation($eventId: String!) {
+        deleteEvent(input: {
+            eventId: $eventId
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static addAvailability = gql`mutation($lawyerId: String!, $date: String!, $timeSlots: [TimeSlotInput!]) {
+        addAvailability(input: {
+            lawyerId: $lawyerId
+          date: $date
+          timeSlots: $timeSlots
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static getAvailabilityList = gql`mutation($lawyerId: String!) {
+        getAvailabilityList(input: {
+            lawyerId: $lawyerId
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static editAvailability = gql`mutation($_id: String!, $date: String!, $timeSlots: [TimeSlotInput!]) {
+        editAvailability(input: {
+            avability_id: $_id
+            date: $date
+            timeSlots: $timeSlots
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static deleteAvailability = gql`mutation($id: String!) {
+        deleteAvailability(input: {
+            avability_id: $id
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static getAdvocateList = gql`mutation {
+        getLawyerList{
+            status
+            message
+            data
+        }
+    }`;
+
+    static getTicketList = gql`mutation($lawyerId: String!) {
+        getTicketList(input: {
+            lawyerId: $lawyerId
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static getTicketDetail = gql`mutation($ticketId: String, $lawyerId: String) {
+        getTicketDetail(input: {
+            ticketId: $ticketId
+          lawyerId: $lawyerId
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static replyTicket = gql`mutation($ticketId: String, $replyText: String, $replyType: String) {
+        replyTicket(input: {
+            ticketId: $ticketId,
+            replyText: $replyText,
+            replyType: $replyType
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static deleteTicket = gql`mutation($ticketId: String) {
+        deleteTicket(input: {
+            ticketId: $ticketId
+        }){
+            status
+            message
+            data
         }
     }`;
 }

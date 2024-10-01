@@ -14,7 +14,6 @@ import { CreateNewPasswordComponent } from './auth/create-new-password/create-ne
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HttpIntterceptor } from './core/interceptors/http.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { AuthGuard } from './core/guard/auth.guard';
 import { AuthService } from './shared/services/auth.service';
@@ -24,6 +23,9 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { GraphQLModule } from './graphql.module';
 import { NgxLoadingModule } from 'ngx-loading';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { environment } from '../enviroments/enviroment';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { NgxLoadingModule } from 'ngx-loading';
     NgOtpInputModule,
     HttpClientModule,
     GraphQLModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
     AuthGuard,
@@ -56,7 +60,6 @@ import { NgxLoadingModule } from 'ngx-loading';
     ToastMessageService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
     { provide: MAT_DIALOG_DATA, useValue: {} },
-    // { provide: HTTP_INTERCEPTORS, useClass: HttpIntterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

@@ -1,6 +1,15 @@
 .root {
   margin: 30px;
 
+  .mat-mdc-form-field {
+    max-width: 180px;
+    margin-bottom: unset;
+  }
+
+  .application-input {
+    width: 180px;
+  }
+
   //  case repository styling start
   .case-diary {
     display: flex;
@@ -110,32 +119,36 @@
 
     .case-diary-header {
       display: grid;
-      grid-template-columns: 7% 6% 7% 13% 10% 10% 8% 9% 12% 7% 6% 3%;
+      grid-template-columns: 8% 12% 12% 12% 10% 16% 17% 8% 5%;
       margin-bottom: 5px;
       align-items: center;
       padding: 5px;
       color: #8798ad !important;
-      font-size: 12px;
+      font-size: 11px;
       margin-top: 30px;
 
       .grid-item-name {
         margin-left: 5px;
       }
+
+      .grid-item1{
+        margin-right: 10px;
+      }
     }
 
     .case-diary-data {
       display: grid;
-      grid-template-columns: 7% 6% 7% 13% 10% 10% 8% 9% 12% 7% 6% 3%;
+      grid-template-columns: 8% 12% 12% 12% 10% 16% 17% 8% 5%;
       height: 80px;
       border: 1px solid #f5f5f5;
       border-radius: 12px;
       margin-bottom: 12px;
       align-items: center;
       padding: 5px;
-      font-size: 14px;
+      font-size: 13px;
 
       .grid-item2 {
-        margin: 0px 5px;
+        margin: 0 10px 0 0;
 
         .action-icon {
           font-size: 20px;
@@ -147,7 +160,7 @@
     // sub-diary table styling start
     .sub-diary-header {
       display: grid;
-      grid-template-columns: 8% 9% 7% 9% 9% 8% 11% 16% 8% 9% 4%;
+      grid-template-columns: 7% 8% 11% 11% 11% 8% 14% 15% 10% 5%;
       margin-bottom: 5px;
       align-items: center;
       padding: 5px;
@@ -158,7 +171,7 @@
 
     .sub-diary-data {
       display: grid;
-      grid-template-columns: 8% 9% 7% 9% 9% 8% 11% 16% 8% 9% 4%;
+      grid-template-columns: 7% 8% 11% 11% 11% 8% 14% 15% 10% 5%;
       height: 80px;
       border: 1px solid #f5f5f5;
       border-radius: 12px;
@@ -167,6 +180,8 @@
       padding: 5px;
 
       .grid-item2 {
+        margin: 0 5px 0 0;
+
         .action-icon {
           font-size: 20px;
           color: #000;

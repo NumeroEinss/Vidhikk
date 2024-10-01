@@ -1,27 +1,30 @@
 import { G } from '@angular/cdk/keycodes';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TemplateService {
 
-  templateList = [];
+  templateObj: Observable<any> = new BehaviorSubject<any>([]);
+
+  templateList: any = this.templateObj as Observable<[]>;
 
   constructor(private http: HttpClient) {
-    if (this.templateList.length == 0) { this.getTemplateList() };
+    this.getTemplateList();
   }
 
 
   getTemplateList() {
     this.http.get(`assets/JSON/templates.json`).subscribe((x: any) => {
-      this.templateList = x.map((temp: any) => {
+      let mappedArr = x.map((temp: any) => {
         let obj = { value: temp.application_type, viewValue: temp.application_type };
         return obj;
       })
-      console.log(this.templateList);
+      mappedArr.unshift({ value: "Select", viewValue: "Select" });
+      this.templateList.next(mappedArr);
     });
   }
 

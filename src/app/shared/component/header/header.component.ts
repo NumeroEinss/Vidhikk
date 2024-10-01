@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { P } from '@angular/cdk/keycodes';
+import { imageUrl } from '../../../graphql.module';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -9,35 +13,20 @@ import { Location } from '@angular/common';
 })
 export class HeaderComponent {
   userType: string = "";
-
-  notifications = [
-    {
-      image: '../assets/images/notification_user.png',
-      name: 'Member Request',
-      detail: 'You have new request. Get excited! click to view',
-      days: '4 mins ago'
-    },
-    {
-      image: '../assets/images/notification_user.png',
-      name: 'Member Request',
-      detail: 'Your Exotic Veggie Platter is on the menu. Get excited!',
-      days: '2 days ago'
-    },
-    {
-      image: '../assets/images/notification_user.png',
-      name: 'Member Request',
-      detail: 'You have new request. Get excited! click to view',
-      days: '12 days ago'
-    },
-  ];
+  userImage: string = "";
+  notifications: any = [];
 
   @Input() menuName: string = "";
   @Input() searchStyle = { width: '0px', display: 'none' };
   @Input() searchIcon = { width: 'auto', display: 'block' };
   @Input() colConfig: string = "col-lg-8 col-md-8";
 
-  constructor(private _router: Router, private _location: Location) {
+  constructor(private _router: Router, private _location: Location, private _authService: AuthService, private _http: HttpClient) {
+    this.getNotificationList();
     this.userType = this._router.url.split('/')[1];
+    this._authService.profileImageSubject.subscribe(data => {
+      this.userImage = data; console.log(data, 'userImage')
+    });
   }
 
   redirectToProfile() {
@@ -72,5 +61,38 @@ export class HeaderComponent {
 
   routeBack() {
     this._location.back()
+  }
+
+  getImageUrl(image: any) {
+    return imageUrl() + image;
+  }
+
+  getNotificationList() {
+    let userData = JSON.parse(localStorage.getItem('userData')!);
+    this._http.get(imageUrl() + `/notifications/${userData._id}/${userData.userType.toLowerCase()}`).subscribe((data: any) => {
+      if (data != null) {
+        if (data.status == 200) {
+          this.notifications = data.data;
+        }
+        else {
+          this.notifications = {
+            title: "No Notifications",
+            notificationType: "noData",
+            body: "No Notifications found !!",
+          }
+        }
+      }
+    })
+  }
+
+  getDaysAgo(date: Date) {
+    let today: Date = new Date();
+    let daysAgo = Math.floor((today.getTime() - new Date(date).getTime()) / (1000 * 60 * 60 * 24))
+    return daysAgo > 0 ? daysAgo : daysAgo * (-1);
+  }
+
+  openNoification() {
+    let el = document.getElementById('openNotifications') as HTMLElement;
+    el.click();
   }
 }

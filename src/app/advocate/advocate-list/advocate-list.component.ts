@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { GQLConfig } from '../../graphql.operations';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { GraphQLModule, imageUrl } from '../../graphql.module';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-advocate-list',
@@ -52,98 +57,65 @@ export class AdvocateListComponent {
       rating: 4
     }
   ];
-  allLawyerList: any = [
-    {
-      image: '../../../assets/images/image/advocate_3.jpg',
-      location: 'Bhopal ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    },
-    {
-      image: '../../../assets/images/image/advocate_4.jpg',
-      location: 'Indore ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    },
-    {
-      image: '../../../assets/images/image/lawyer_3.jpg',
-      location: 'Bhopal ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    },
-    {
-      image: '../../../assets/images/image/advocate_3.jpg',
-      location: 'Bhopal ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    },
-    {
-      image: '../../../assets/images/image/advocate_4.jpg',
-      location: 'Indore ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    },
-    {
-      image: '../../../assets/images/image/lawyer_3.jpg',
-      location: 'Bhopal ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    },
-    {
-      image: '../../../assets/images/image/advocate_3.jpg',
-      location: 'Bhopal ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    },
-    {
-      image: '../../../assets/images/image/advocate_4.jpg',
-      location: 'Indore ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    },
-    {
-      image: '../../../assets/images/image/lawyer_3.jpg',
-      location: 'Bhopal ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    },
-    {
-      image: '../../../assets/images/image/advocate_3.jpg',
-      location: 'Bhopal ,M.P.',
-      type: 'Criminal Lawyer',
-      experience: '9+ Experience',
-      rating: 4
-    }
-  ];
+  allLawyerList: any = [];
 
-  places = [
-    { value: 'indore', viewValue: 'Indore' },
-    { value: 'bhopal', viewValue: 'Bhopal' },
-    { value: 'mumbai', viewValue: 'Mumbai' },
-  ];
+  places: any = [];
 
-  practiseField = [
-    { value: 'civil', viewValue: 'Civil' },
-    { value: 'finance', viewValue: 'Finance' },
-    { value: 'civil', viewValue: 'Civil' },
-  ];
+  practiseField: any = [];
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router, private _apollo: ApolloService, private _toastMessage: ToastMessageService,
+    private _http: HttpClient) {
+    this.getAdvocateList();
+    this.getCityList();
+    this.getPractiscingField();
+  }
 
   viewLawyerDetails() {
     this._router.navigate(['/user/advocates/dflkasdksdfasde']);
   }
 
-  viewRating(){
+  viewRating() {
     this._router.navigate(['/user/advocates/gfdyfvayfd/advocate-rating'])
+  }
+
+  getAdvocateList() {
+    this._apollo.mutate(GQLConfig.getAdvocateList).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.getLawyerList.status == 200) {
+          this._toastMessage.message(data.data.getLawyerList.message);
+          this.allLawyerList = data.data.getLawyerList.data.lawyerList;
+        }
+        else {
+          this._toastMessage.error(data.data.getLawyerList.message);
+        }
+      }
+    })
+  }
+
+  getImageUrl(profileImage: any): String {
+    if (profileImage !== "") {
+      return imageUrl() + profileImage;
+    }
+    else {
+      return profileImage;
+    }
+  }
+
+  getCityList() {
+    this._http.get('assets/JSON/cities.json').subscribe({
+      next: (data) => {
+        this.places = data;
+      },
+      error: (error) => { this._toastMessage.error(error) }
+    })
+  }
+
+  getPractiscingField() {
+    this._http.get('assets/JSON/practiscing_field.json').subscribe({
+      next: (data) => {
+        this.practiseField = data;
+      },
+      error: (error) => { this._toastMessage.error(error) }
+    })
   }
 }

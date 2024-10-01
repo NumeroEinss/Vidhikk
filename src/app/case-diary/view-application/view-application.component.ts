@@ -1,13 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
 import { TemplateService } from '../../shared/services/template.service';
 import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-view-application',
@@ -21,6 +19,7 @@ export class ViewApplicationComponent {
   caseDiaryId: string = "";
   applicationData: any;
   cityList: any = [];
+  today: Date = new Date();
 
   constructor(private _router: Router, private _templateService: TemplateService, private _http: HttpClient,
     private _apolloService: ApolloService, private _toastMessage: ToastMessageService) {
@@ -135,7 +134,6 @@ export class ViewApplicationComponent {
     this._toastMessage.showLoader = true;
     this._templateService.getTemplate().subscribe({
       next: (data: any) => {
-        console.log(data)
         this.templateContent = data.find((x: any) => x.application_type == templateName);
         this._toastMessage.showLoader = false;
       },

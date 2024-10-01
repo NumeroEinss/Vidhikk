@@ -1,0 +1,29 @@
+.paginator {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 0px 30px;
+    margin: 10px 0px;
+
+    button {
+        height: 30px;
+    }
+
+    .paginator-input {
+        max-width: 80px;
+        margin-bottom: unset;
+        margin-left: 10px;
+
+        input {
+            height: 30px;
+        }
+    }
+
+    .go-to-text {
+        margin-left: 10px;
+    }
+
+    .goto-button {
+        margin-left: 10px;
+    }
+}

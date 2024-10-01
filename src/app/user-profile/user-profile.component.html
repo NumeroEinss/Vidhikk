@@ -42,7 +42,9 @@
         <div class="user-details">
           <div class="row">
             <div class="col-lg-2 col-md-2">
-              <img src="../../../../assets/images/image/anurag_goyal.jpg" class="user-profile" />
+              <img [src]="getImageUrl(userData.profileImage)"
+                onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'"
+                class="user-profile" />
             </div>
 
             <div class="col-lg-10 col-md-10">
@@ -180,7 +182,8 @@
   <!-- user/user-profile start -->
   <div class="user-profile-root" *ngIf="userType == 'user'">
     <div class="d-flex justify-content-between">
-      <div class="display-profile"><img src="../../assets/images/image/anurag_goyal.jpg" alt="noImage" /></div>
+      <div class="display-profile"><img [src]="getImageUrl(userData.profileImage)"
+          onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" /></div>
       <div><button mat-stroked-button color="primary" data-bs-target="#userEditProfileModal" data-bs-toggle="modal">
           <span style="color: #2e5bff">Edit</span>
         </button></div>
@@ -235,7 +238,8 @@
     <ng-scrollbar autoHeightDisabled="false" appearance="standard">
       <div class="user-profile-root">
         <div class="d-flex justify-content-between">
-          <div class="display-profile"><img src="../../assets/images/image/anurag_goyal.jpg" alt="noImage" /></div>
+          <div class="display-profile"><img [src]="getImageUrl(userData.profileImage)"
+              onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" /></div>
           <div><button mat-stroked-button color="primary" data-bs-target="#judgeEditProfileModal"
               data-bs-toggle="modal">
               <span style="color: #2e5bff">Edit</span>
@@ -681,7 +685,7 @@
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <div class="d-flex" style="justify-content:flex-start;
             align-items: center;">
-              <div class="picture"><img src="../../assets/images/image/anurag_goyal.jpg" alt="" /></div>
+              <div class="picture"><img src="../../assets/images/image/person.jpg" alt="" /></div>
               <div class="change-picture">Change</div>
             </div>
 
@@ -782,7 +786,7 @@
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <div class="d-flex" style="justify-content:flex-start;
             align-items: center;">
-              <div class="picture"><img src="../../assets/images/image/anurag_goyal.jpg" alt="" /></div>
+              <div class="picture"><img src="../../assets/images/image/person.jpg" alt="" /></div>
               <div class="change-picture">Change</div>
             </div>
 

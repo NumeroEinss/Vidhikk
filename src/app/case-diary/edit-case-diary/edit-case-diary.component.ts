@@ -5,6 +5,7 @@ import { CreateCaseDiaryModel } from '../../common/create-case-diary-model.model
 import { GQLConfig } from '../../graphql.operations';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-case-diary',
@@ -15,44 +16,20 @@ export class EditCaseDiaryComponent {
   editCaseDiaryForm: FormGroup;
   routerState: any;
 
-  courtNameList: any[] = [
-    {
-      value: 'District & Session Court INDORE',
-      viewValue: 'District & Session Court INDORE',
-    },
-    { value: 'Civil Court GOHAD', viewValue: 'Civil Court GOHAD' },
-    {
-      value: 'District & Session Court BHOPAL',
-      viewValue: 'District & Session Court BHOPAL',
-    },
+  courtNameList: any[] = [];
+
+  cityList: any[] = [];
+
+  representingList = [
+    { value: 'Applicant', viewValue: 'Applicant' },
+    { value: 'Respondent ', viewValue: 'Respondent ' },
   ];
 
-  stages: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
-  ];
-
-  cities: any[] = [
-    { value: 'Indore', viewValue: 'Indore' },
-    { value: 'Bhopal', viewValue: 'Bhopal' },
-    { value: 'Mumbai', viewValue: 'Mumbai' },
-  ];
-
-  applicationType: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
-  ];
-
-  applicationSection: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
-  ];
+  today: Date = new Date();
 
   constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
-    private _router: Router) {
+    private _router: Router, private _http: HttpClient) {
+    this.getCourtList();
     this.editCaseDiaryForm = this._formBuilder.group(
       new CreateCaseDiaryModel()
     );
@@ -68,18 +45,8 @@ export class EditCaseDiaryComponent {
     this.editCaseDiaryFrmCtrl['respondentName'].setValidators([
       Validators.required,
     ]);
-    this.editCaseDiaryFrmCtrl['nextHearingDate'].setValidators([
-      Validators.required,
-    ]);
     this.editCaseDiaryFrmCtrl['caseName'].setValidators([Validators.required]);
-    this.editCaseDiaryFrmCtrl['caseStage'].setValidators([Validators.required]);
-    this.editCaseDiaryFrmCtrl['applicationType'].setValidators([
-      Validators.required,
-    ]);
     this.editCaseDiaryFrmCtrl['city'].setValidators([Validators.required]);
-    this.editCaseDiaryFrmCtrl['applicationSection'].setValidators([
-      Validators.required,
-    ]);
 
     this.routerState = this._router.getCurrentNavigation()?.extras.state;
     if (this.routerState?.mode == "edit") {
@@ -88,6 +55,7 @@ export class EditCaseDiaryComponent {
     if (this.routerState == undefined) {
       this._router.navigate(['/lawyer/case-diary/cases']);
     }
+    this.getCitiesList();
   }
 
   get editCaseDiaryFrmCtrl() {
@@ -113,7 +81,7 @@ export class EditCaseDiaryComponent {
         caseDiaryId: this.editCaseDiaryForm.controls._id.value,
         registrationDate: this.editCaseDiaryForm.controls.registrationDate.value,
         courtName: this.editCaseDiaryForm.controls.courtName.value,
-        caseNumber: parseInt(this.editCaseDiaryForm.controls.caseNumber.value),
+        caseNumber: this.editCaseDiaryForm.controls.caseNumber.value,
         caseName: this.editCaseDiaryForm.controls.caseName.value,
         caseStage: this.editCaseDiaryForm.controls.caseStage.value,
         city: this.editCaseDiaryForm.controls.city.value,
@@ -122,7 +90,11 @@ export class EditCaseDiaryComponent {
         applicationType: this.editCaseDiaryForm.controls.applicationType.value,
         applicationSection: this.editCaseDiaryForm.controls.applicationSection.value,
         nextHearingDate: this.editCaseDiaryForm.controls.nextHearingDate.value,
-        lawyreasonForAbsent: this.editCaseDiaryForm.controls.lawyreasonForAbsent.value
+        lawyreasonForAbsent: this.editCaseDiaryForm.controls.lawyreasonForAbsent.value,
+        representing: this.editCaseDiaryForm.controls.representing.value,
+        FIRNumber: this.editCaseDiaryForm.controls.FIRNumber.value,
+        FIRDate: this.editCaseDiaryForm.controls.FIRDate.value,
+        sectionIPC: this.editCaseDiaryForm.controls.sectionIPC.value
       }
       this._apolloService.mutate(GQLConfig.updateCaseDiary, data).subscribe((objRes) => {
         if (objRes.data != null) {
@@ -139,5 +111,19 @@ export class EditCaseDiaryComponent {
     else {
       this._toastMessage.error("All fields are required !!");
     }
+  }
+
+  getCitiesList() {
+    this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
+      this.cityList = data;
+    })
+  }
+
+  getCourtList() {
+    this._apolloService.get('/court').subscribe(resObj => {
+      if (resObj.status == "success") {
+        this.courtNameList = resObj.data.courts;
+      }
+    })
   }
 }

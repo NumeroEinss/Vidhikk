@@ -21,7 +21,7 @@ marquee {
   .fab-container {
     display: none;
     position: fixed;
-    bottom: 20px;
+    bottom: 60px;
     right: 20px;
     z-index: 3;
     transition: all 0.3s ease-in-out;
@@ -69,7 +69,7 @@ marquee {
     .section-2 input,
     textarea {
       color: #c4c4c4;
-      background-color: #fbfbfb;
+      background-color: #2e5bff00;
       outline: none;
       border-style: none;
       line-height: 1.43;
@@ -107,7 +107,7 @@ marquee {
     .up-section-1 {
       // width: 70%;
       display: flex;
-      background-color: #fbfbfb;
+      background-color: #2e5bff0d;
       border-radius: 12px;
       height: 250px;
       padding: 20px;
@@ -121,8 +121,8 @@ marquee {
         margin: 20px 0 0 0;
 
         img {
-          width: 48px;
-          height: 48px;
+          width: 46px;
+          height: 46px;
           border-radius: 50%;
         }
       }
@@ -164,8 +164,8 @@ marquee {
           border-radius: 50px;
 
           img {
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
           }
         }
@@ -271,8 +271,8 @@ marquee {
               border-radius: 50px;
 
               img {
-                width: 48px;
-                height: 48px;
+                width: 46px;
+                height: 46px;
                 border-radius: 50%;
               }
             }
@@ -314,8 +314,8 @@ marquee {
           margin: 20px 0 20px 24px !important;
 
           img {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
           }
         }

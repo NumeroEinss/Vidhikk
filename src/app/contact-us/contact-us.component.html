@@ -47,7 +47,7 @@
                 <div class="ticket-list">
                     <div>
                         <div class="ticket-header">
-                            <div class="grid-item-name">TICKET ID</div>
+                            <!-- <div class="grid-item-name">TICKET ID</div> -->
                             <div class="grid-item1">TICKET TITLE</div>
                             <div class="grid-item1">TICKET TYPE</div>
                             <div class="grid-item1">CREATED</div>
@@ -56,10 +56,10 @@
                         </div>
 
                         <div *ngFor="let ticket of ticketList" class="ticket-data">
-                            <div class="grid-item2 id">{{ticket.ticketId }}</div>
+                            <!-- <div class="grid-item2 id">{{ticket._id }}</div> -->
                             <div class="grid-item2">{{ticket.ticketTitle }}</div>
                             <div class="grid-item2">{{ticket.ticketType }}</div>
-                            <div class="grid-item2">{{ticket.created}}</div>
+                            <div class="grid-item2">{{ticket.createdAt|date:'dd/MM/yyyy'}}</div>
                             <div class="grid-item2">
                                 <div class="oval-div close-status" *ngIf="ticket.status == 'Close'">
                                     Close
@@ -69,6 +69,9 @@
                                 </div>
                                 <div class="oval-div pending-status" *ngIf="ticket.status == 'Pending'">
                                     Pending
+                                </div>
+                                <div class="oval-div process-status" *ngIf="ticket.status == 'Open'">
+                                    Open
                                 </div>
                             </div>
                             <div class="grid-item2">
@@ -127,13 +130,14 @@
                             <mat-label class="mat-label mt-2 mb-1">Description</mat-label>
                             <mat-form-field appearance="outline" class="textArea">
                                 <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                    formControlName="description" required rows="3" minlength="10"></textarea>
-                                <mat-error *ngIf="ticketForm.controls['description'].hasError('required')">Description
+                                    formControlName="ticketDescription" required rows="3" minlength="10"></textarea>
+                                <mat-error
+                                    *ngIf="ticketForm.controls['ticketDescription'].hasError('required')">Description
                                     is
                                     Required</mat-error>
-                                    <mat-error *ngIf="
-                                    !ticketForm.controls.description.hasError('required') &&
-                                    ticketForm.controls.description.hasError('minlength')
+                                <mat-error *ngIf="
+                                    !ticketForm.controls.ticketDescription.hasError('required') &&
+                                    ticketForm.controls.ticketDescription.hasError('minlength')
                                   ">Minimum character should be 10</mat-error>
 
                             </mat-form-field>
@@ -143,15 +147,18 @@
                                     <div><img src="../../assets/images/icons/file_upload.svg" alt="noImg"></div>
                                     <div style="font-weight: 500;" class="mt-2">Drop your file here</div>
                                     <input type="file" (change)="onFileSelected($event)" #fileInput
-                                        style="display: none" multiple="true" accept="image/*">
+                                        style="display: none" multiple="false" accept="image/*">
                                     <div class="or-option">OR</div>
-                                    <button class="choose-file-btn" (click)="fileInput.click()">Choose File</button>
+                                    <button type="button" class="choose-file-btn" (click)="fileInput.click()">Choose
+                                        File</button>
                                 </div>
                                 <div *ngIf="files.length > 0" class="mt-3">
                                     <div class="selected-files">Selected Files: <span
-                                            *ngFor="let file of files, let last = last">{{ file.name }}{{ !last ? ', ' :
+                                            *ngFor="let file of files, let last = last">{{file}}{{ file.name }}{{ !last
+                                            ? ', ' :
                                             '' }}</span></div>
                                 </div>
+                                {{files.length}}
                             </div>
 
                             <div class="mt-4 mb-3 filter-btn">
@@ -211,21 +218,40 @@
                             <mat-label class="mat-label mt-2 mb-1">Description</mat-label>
                             <mat-form-field appearance="outline" class="textArea">
                                 <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                    formControlName="description" required rows="3" maxlength="100"></textarea>
-                                <mat-error *ngIf="ticketForm.controls['description'].hasError('required')">Description
+                                    formControlName="ticketDescription" required rows="3" maxlength="100"></textarea>
+                                <mat-error
+                                    *ngIf="ticketForm.controls['ticketDescription'].hasError('required')">Description
                                     is
                                     Required</mat-error>
                             </mat-form-field>
 
 
+                            <!-- <div class="file-container">
+                                <div class="drop-zone" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                                    <div><img src="../../assets/images/icons/file_upload.svg" alt="noImg"></div>
+                                    <div style="font-weight: 500;" class="mt-2">Drop your file here</div>
+                                    <input type="file" (change)="onFileSelected($event)" #fileInput
+                                        style="display: none" accept="image/*">
+                                    <div class="or-option">OR</div>
+                                    <button type="button" class="choose-file-btn" (click)="fileInput.click()">Choose
+                                        File</button>
+                                </div>
+                                <div *ngIf="files.length > 0" class="mt-3">
+                                    <div class="selected-files">Selected Files: <span
+                                            *ngFor="let file of files, let last = last">{{file}}{{ file.name }}{{ !last
+                                            ? ', ' :
+                                            '' }}</span></div>
+                                </div>
+                            </div> -->
+
                             <div class="mt-4 mb-3 filter-btn">
                                 <button mat-raised-button color="primary"
-                                    style="width: fit-content !important; padding: 12px 36px" (click)="saveChanges()"
-                                    data-bs-dismiss="modal">
+                                    style="width: fit-content !important; padding: 12px 36px" (click)="createTicket()"
+                                    data-bs-dismiss="modal" [disabled]="!ticketForm.valid || !fileUploaded">
                                     Submit
                                 </button>
                                 <button mat-stroked-button color="primary" style="width: fit-content !important;
-                                margin-left: 20px; padding: 12px 36px;" data-bs-dismiss="modal">
+                                  margin-left: 20px; padding: 12px 36px;" data-bs-dismiss="modal">
                                     Cancel
                                 </button>
                             </div>

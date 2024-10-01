@@ -16,6 +16,10 @@ mat-drawer-container {
     position: relative;
     display: block;
 
+    .scrollbar{
+      height: calc(100vh - 128px);
+    }
+
     .logo {
       height: 82px;
       justify-content: center;
@@ -95,47 +99,48 @@ mat-drawer-container {
       }
     }
 
-    .social-icon{
-      display: flex;
-      justify-content: center;
-      position: absolute;
-      bottom: 20px;
-      z-index: 3;
-      left: 17px;
-      cursor: pointer;
+    // .social-icon {
+    //   display: flex;
+    //   justify-content: center;
+    //   position: absolute;
+    //   bottom: 3px;
+    //   z-index: 3;
+    //   left: 17px;
+    //   cursor: pointer;
 
-      div{
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: #1949f517;
-        border: 1px solid #1949f517;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-       
-        .in-active {
-          display: block;
-        }
-  
-        .active {
-          display: none;
-        }
-      }
+    //   div {
+    //     width: 40px;
+    //     height: 40px;
+    //     border-radius: 50%;
+    //     background-color: #1949f517;
+    //     border: 1px solid #1949f517;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
 
-      div:hover {
-        background-color: #2e5bff;
-        transition: all 0.3s ease-in-out;
-        .active {
-          display: block;
-        }
-  
-        .in-active {
-          display: none;
-        }
-      }
-  
-    }
+    //     .in-active {
+    //       display: block;
+    //     }
+
+    //     .active {
+    //       display: none;
+    //     }
+    //   }
+
+    //   div:hover {
+    //     background-color: #2e5bff;
+    //     transition: all 0.3s ease-in-out;
+
+    //     .active {
+    //       display: block;
+    //     }
+
+    //     .in-active {
+    //       display: none;
+    //     }
+    //   }
+
+    // }
   }
 
   .main-content {
@@ -143,7 +148,7 @@ mat-drawer-container {
     width: calc(100vw - 220px);
     height: 100vh;
     overflow: auto;
-    
+
     // .modal {
     //   position: absolute !important;
     //   margin: calc(100vw - 220px);
@@ -156,34 +161,35 @@ mat-drawer-container {
     .sidenav {
       width: 180px;
 
-      li{
+      li {
         padding: 0 0 0 20px;
 
-        a{
+        a {
           font-size: 14px;
         }
 
         .in-active {
-        width: 20px;
-        height: 20px;
+          width: 20px;
+          height: 20px;
         }
-  
+
         .active {
           width: 20px;
           height: 20px;
         }
-        
+
       }
 
-      .social-icon{
-        div{
-         width: 30px;
-         height: 30px;
-        }
-      }
-      
-    }       
-    .main-content{
+      // .social-icon {
+      //   div {
+      //     width: 30px;
+      //     height: 30px;
+      //   }
+      // }
+
+    }
+
+    .main-content {
       width: calc(100vw - 180px);
     }
   }

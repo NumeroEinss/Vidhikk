@@ -1,14 +1,14 @@
 <app-header [menuName]="'Case Law'"></app-header>
-<div class="root">
+<div class="root" appPreventKeyboardEvents>
   <div class="filter-bar">
     <div class="pretext col-lg-6 col-md-6">
-      <img src="../../../assets/images/icons/arrow-left.svg" (click)="routeBack()" />
+      <img src="../../../assets/images/icons/arrow-left.svg" style="cursor: pointer;" (click)="routeBack()" />
       <div class="records">Case Law</div>
     </div>
     <div class="posttext col-lg-6 col-md-6">
       <div class="search" (click)="searchStyle = { width: '100%', display: 'flex' };
       searchIcon = { width: '0px', display: 'none' };" [ngStyle]="searchIcon">
-      <img src="../../../assets/images/icons/search-blue.svg" />
+        <img src="../../../assets/images/icons/search-blue.svg" />
       </div>
 
       <div class="searchBox" [ngStyle]="searchStyle">
@@ -16,137 +16,123 @@
         <img class="cancel" (click)="
             searchStyle = { width: '0px', display: 'none' };
             searchIcon = { width: 'auto', display: 'block' };" src="../../../../assets/images/icons/cancel.svg" />
-        <img class="search" src="../../../../assets/images/icons/search_grey.svg"/>
+        <img class="search" src="../../../../assets/images/icons/search_grey.svg" />
       </div>
 
-      <div><img src="../../../assets/images/icons/bookmark.svg" /></div>
-      <div><img src="../../../assets/images/icons/person.svg" /></div>
-      <div (click)="exportAsPDF('section-to-print')"><img src="../../../assets/images/icons/pdf.svg" /></div>
-      <div><a [href]="getMailtoLink()"
-        style="color: black; text-decoration: none;">
-          <img src="../../../assets/images/icons/mailTo.svg" /></a></div>
-      <div (click)="print()"><img src="../../../assets/images/icons/print.svg" /></div>
+      <div class="cursor-pointer" matTooltip="Highlighter" (click)="highlightText()"><img
+          src="../../../assets/images/icons/highlighter.svg" />
+      </div>
+      <div class="cursor-pointer" matTooltip="Save Case"><img src="../../../assets/images/icons/bookmark.svg" /></div>
+      <div class="cursor-pointer" matTooltip="Share with member" data-bs-target="#shareMemberPopup"
+        data-bs-toggle="modal"><img src="../../../assets/images/icons/person.svg" /></div>
+      <div class="cursor-pointer" matTooltip="Share via email" [matMenuTriggerFor]="emailMenu"
+        #emailMenuTrigger="matMenuTrigger"><img src="../../../assets/images/icons/mailTo.svg" /></div>
+      <div class="cursor-pointer" matTooltip="Print" (click)="print()"><img
+          src="../../../assets/images/icons/print.svg" /></div>
+
+      <mat-menu #emailMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu ">
+        <a (click)="$event.stopPropagation()" style="text-decoration: none">
+          <mat-form-field class="p-2 w-100" appearance="outline">
+            <input #search matInput placeholder="Enter Recievers Email" [(ngModel)]="sendersEmail" />
+          </mat-form-field>
+          <div class="d-flex">
+            <button mat-raised-button color="primary" class="m-2" (click)="sendEmail()">
+              send</button><br />
+            <button mat-stroked-button color="primary" class="m-2" (click)="emailMenuTrigger.closeMenu();">
+              Cancel
+            </button>
+          </div>
+        </a>
+      </mat-menu>
+      <a id="mail" [href]="this.mailToLink" target="_blank" class="d-none"></a>
     </div>
   </div>
   <div style="height: calc(100vh - 175px)">
     <ng-scrollbar autoHeightDisabled="false" appearance="standard">
       <div id="section-to-print" #printableContent class="case-law-detail">
-       <div class="logo"> 
+        <div class="logo">
           <img src="../../../assets/images/icons/vidhiklogo.svg" alt="" />
         </div>
-        <p class="header mt-4" >
-          This Product is licenced to ANURAG C GOYAL, ADVOCATE,
-          advocate&#64;anuraggoyal.co.in, Indore
+        <p class="header mt-4">
+          This Product is licenced to {{userName.name}},
+          {{userName.email}}, {{userName.city}}
         </p>
-        <p class="highlighted-text">[2023] 0 supreme (Kar) 250</p>
-        <div class="title mt-4">
-          Jairam Ramesh C/O C.K. Ramesh VS State of karnatak Through
-          yeshwanthpura P.S., Represented By S.P.P. Office, High court of
-          karnatak<br />
+        <div class="title mt-4" [innerHTML]="caseLawDetail.title|highlighter:keyWord|safeHTML">
+        </div><br />
+        <!-- <div class="description mt-4">
+          <div class="desc-body mt-4" [innerHTML]="caseLawDetail.document"></div>
+        </div> -->
+        <div id="judgement" *ngIf="keyWord" class="mt-4"
+          [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|highlighter:keyWord|safeHTML">
         </div>
-        <div class="description mt-4">
-          <div class="desc-head">
-            <div class="hearing-loc">
-              IN THE HIGH COURT OFKARNATAK AT BANGALURU<br />
-              M. NAGAPRASANNA J.<br />
-              Shri Jairam Ramesh, S/o, C.K. Ramesh and Ors. Pretitioners<br />
-              Versus<br />
-              State of karnatak Through yeshwanthpura P.S., Represented By
-              S.P.P. Office, High court of karnatak and Ans. - Respondents With
-              petition No. 25123 of 2022(GM - RES) Decided on : 28-06-2023<br />
-            </div>
-          </div>
-          <div class="desc-body mt-4">
-            <p>
-              <span class="bold">Background</span>: In this case, the accused,
-              Madhkar Narayan Mardikar, was a doctor who performed a medical
-              termination of pregnancy (abortion) on a woman without her
-              consent. The prosecution argued that the doctor violated Section
-              312 of the Indian Penal Code (IPC), which deals with causing a
-              miscarriage without the woman's consent.
-            </p>
-
-            <p>
-              <span class="bold mt-4">Legal Issue</span>: The key legal issue in
-              this case was whether the accused could be held liable under
-              Section 312 of the IPC for performing an abortion without the
-              woman's consent.
-            </p>
-
-            <p>
-              <span class="bold mt-4">Decision</span>: The Bombay High Court
-              held that the doctor was indeed guilty under Section 312. The
-              court emphasized that the term "consent" under Section 312
-              includes informed consent, and in this case, the doctor failed to
-              obtain the woman's informed consent before performing the
-              abortion. The court highlighted the importance of a woman's
-              autonomy over her body and the necessity of obtaining clear and
-              voluntary consent before medical procedures like abortions.
-            </p>
-
-            <p>
-              <span class="bold mt-4">Significance</span>: This case is
-              significant as it establishes the importance of informed consent
-              in medical procedures, particularly in the context of abortions.
-              It reinforces the legal principle that medical practitioners must
-              respect the autonomy and rights of patients, ensuring that they
-              are fully informed and provide consent willingly before undergoing
-              any medical procedure.
-            </p>
-
-            <p>
-              Please note that while I strive to provide accurate and relevant
-              information, it's essential to consult official legal databases or
-              professionals for the most up-to-date and precise details on any
-              case law.
-            </p>
-
-
-
-            <p>
-              <span class="bold mt-4">Significance</span>: This case is
-              significant as it establishes the importance of informed consent
-              in medical procedures, particularly in the context of abortions.
-              It reinforces the legal principle that medical practitioners must
-              respect the autonomy and rights of patients, ensuring that they
-              are fully informed and provide consent willingly before undergoing
-              any medical procedure.
-            </p>
-
-            <p>
-              Please note that while I strive to provide accurate and relevant
-              information, it's essential to consult official legal databases or
-              professionals for the most up-to-date and precise details on any
-              case law.
-            </p>
-            <p>
-              <span class="bold mt-4">Significance</span>: This case is
-              significant as it establishes the importance of informed consent
-              in medical procedures, particularly in the context of abortions.
-              It reinforces the legal principle that medical practitioners must
-              respect the autonomy and rights of patients, ensuring that they
-              are fully informed and provide consent willingly before undergoing
-              any medical procedure.
-            </p>
-
-            <p>
-              Please note that while I strive to provide accurate and relevant
-              information, it's essential to consult official legal databases or
-              professionals for the most up-to-date and precise details on any
-              case law.
-            </p>
-            <p>
-              <span class="bold mt-4">Significance</span>: This case is
-              significant as it establishes the importance of informed consent
-              in medical procedures, particularly in the context of abortions.
-              It reinforces the legal principle that medical practitioners must
-              respect the autonomy and rights of patients, ensuring that they
-              are fully informed and provide consent willingly before undergoing
-              any medical procedure.
-            </p>
-          </div>
+        <div id="judgement" *ngIf="!keyWord" class="mt-4"
+          [innerHTML]="removeDocidAndLicense(caseLawDetail.document)|safeHTML">
         </div>
       </div>
     </ng-scrollbar>
+  </div>
+</div>
+
+
+<!-- share with member popup start -->
+<div class="modal fade" id="shareMemberPopup" aria-hidden="true" aria-labelledby="shareMemberPopupLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable add-member-popup">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="shareMemberPopupLabel">
+          Members
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="add-member-body">
+          <div class="d-flex">
+            <!-- <mat-form-field class="search-input" appearance="outline">
+              <input matInput placeholder="Search Member" (keyup)="filterLawyers($event)" />
+              <span matSuffix><img src="../../../assets/images/icons/search-blue.svg"
+                  style="margin-right: 15px" /></span>
+            </mat-form-field> -->
+          </div>
+
+          <ng-scrollbar style="height: 400px">
+            <div class="add-member-details" *ngFor="let member of memberList">
+              <div class="d-flex align-items-center">
+                <div>
+                  <img src="../../assets/images/image/add_member.png" alt="noImage" class="member-img" />
+                </div>
+
+                <div class="member-detail ms-2">
+                  <div class="member-name">{{ member.lawyerName }}</div>
+                  <div class="d-flex">
+                    <img src="../../assets/images/icons/lawyer_type.svg" alt="" class="me-1" />
+                    <div class="member-lawyer-type">
+                      {{ member.practicingField[0] + '...' }}
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-left">
+                    <img src="../../assets/images/icons/member_experience.svg" width="16" height="23.8" alt=""
+                      class="me-1" />
+                    <div class="member-experience">
+                      {{ member.yearOfExperience }} Yrs
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="member-rating-btn">
+                <div class="star">
+                  <img src="../../assets/images/icons/yellow_star.svg" alt="" class="me-1" />{{(member.rating)}}
+                </div>
+                <div>
+                  <button mat-stroked-button color="primary" (click)="share(member)" data-bs-dismiss="modal">
+                    Share
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-scrollbar>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

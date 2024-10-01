@@ -36,4 +36,10 @@ export class ToastMessageService {
       verticalPosition: 'top',
     });
   }
+
+  showMessage(title: string, message: string) {
+    this.MatSnackBar.open(`${title}: ${message}`, 'Close', {
+      duration: 10000,
+    });
+  }
 }

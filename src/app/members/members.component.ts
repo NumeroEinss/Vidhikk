@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { ApolloService } from '../shared/services/apollo.service';
 import { GQLConfig } from '../graphql.operations';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-members',
@@ -14,26 +15,26 @@ export class MembersComponent implements AfterViewInit {
   filteredLawyerList: any = [];
   lawyerList: any = [];
 
-  places = [
-    { value: 'indore', viewValue: 'Indore' },
-    { value: 'bhopal', viewValue: 'Bhopal' },
-    { value: 'mumbai', viewValue: 'Mumbai' },
-  ];
+  places: any = [];
 
-  practiseField = [
-    { value: 'civil', viewValue: 'Civil' },
-    { value: 'finance', viewValue: 'Finance' },
-    { value: 'civil', viewValue: 'Civil' },
-  ];
+  practiseField: any = [];
 
-  constructor(private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
+  place: string = "";
+  practisingField: string = "";
+  popularity: string = "";
+  experience: string = "";
+
+  constructor(private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
+    private _http: HttpClient) {
     this.getAllLawyersList();
     this.getMembersList();
+    this.getCityList();
+    this.getPractiscingField();
   }
 
   ngAfterViewInit() {
-    let element = document.getElementById('modalButton1') as HTMLElement;
-    element.click();
+    // let element = document.getElementById('modalButton1') as HTMLElement;
+    // element.click();
   }
 
   addMember(member: any) {
@@ -91,7 +92,6 @@ export class MembersComponent implements AfterViewInit {
         if (resObj.data.lawyersList.status == 200) {
           this.lawyerList = resObj.data.lawyersList.data.lawyerList;
           this.lawyerList.forEach((element: any) => {
-            element.image = '../../assets/images/image/add_member.png';
             element.experience = 0;
           });
           this.filteredLawyerList = this.lawyerList;
@@ -120,5 +120,46 @@ export class MembersComponent implements AfterViewInit {
 
   trackById(index: number, member: any) {
     return member.memberId;
+  }
+
+  getFilteredLawyerList() {
+    let userData = localStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    let data = {
+      lawyerId: parsedData._id,
+      experience: this.experience,
+      place: this.place,
+      practicingField: this.practisingField
+    }
+    this._apolloService.mutate(GQLConfig.getFilteredList, data).subscribe(resObj => {
+      if (resObj.data != null) {
+        if (resObj.data.filterLawyerList.status == 200) {
+          this.filteredLawyerList = resObj.data.filterLawyerList.data.lawyerList;
+          let button = document.getElementById('modalButton') as HTMLElement;
+          button.click();
+        }
+        else {
+          this._toastMessage.error(resObj.data.filterLawyerList.message)
+        }
+      }
+    })
+  }
+
+  getCityList() {
+    this._http.get('assets/JSON/cities.json').subscribe({
+      next: (data) => {
+        this.places = data;
+      },
+      error: (error) => { this._toastMessage.error(error) }
+    })
+  }
+
+  getPractiscingField() {
+    this._http.get('assets/JSON/practiscing_field.json').subscribe({
+      next: (data) => {
+        this.practiseField = data;
+      },
+      error: (error) => { this._toastMessage.error(error) }
+    })
   }
 }

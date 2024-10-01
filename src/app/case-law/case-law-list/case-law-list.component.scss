@@ -1,4 +1,16 @@
 .root {
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100px;
+  }
+
+  .highlighted-text {
+    background: yellow;
+  }
+
   .mat-label {
     flex-grow: 0;
     font-family: Poppins;
@@ -93,6 +105,9 @@
         font-size: 14px;
         font-weight: 700;
         color: black;
+        border-left: 1px solid #96A5B7;
+        padding-left: 4px;
+        padding-right: 4px;
       }
 
       .cited {
@@ -192,33 +207,6 @@
     width: 357px;
   }
 
-  .bare-acts {
-    .acts {
-      height: 59px;
-      width: -webkit-fill-available;
-      width: -moz-available;
-      flex-grow: 0;
-      padding: 20px 30px;
-      font-family: Poppins;
-      font-size: 14px;
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: left;
-      color: var(--solid-black);
-      border-bottom: 0.5px solid #2e5bff0d;
-    }
-
-    .acts:hover {
-      color: #2e5bff;
-      cursor: pointer;
-      transition: color 0.3s ease-in-out;
-      -webkit-transition: color 0.3s ease-in-out;
-    }
-  }
-
   .act-section {
     font-family: Poppins;
     padding: 20px 30px;
@@ -296,7 +284,7 @@
       letter-spacing: normal;
       text-align: left;
       color: #000;
-    } 
+    }
 
     img {
       margin-right: 10px;
@@ -338,12 +326,6 @@
       padding: 20px 15px;
     }
 
-    .bare-acts {
-      .acts {
-        padding: 20px 15px;
-      }
-    }
-
     .act-section {
       padding: 20px 15px;
     }
@@ -357,7 +339,7 @@
     }
 
     .advance-search {
-      padding: 20px 15px;
+      padding: 20px 15px 60px 15px;
     }
 
   }
