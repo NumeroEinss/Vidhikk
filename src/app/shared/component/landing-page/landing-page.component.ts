@@ -13,6 +13,49 @@ export class LandingPageComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._toastMessage.showLoader = false; 
+    this._toastMessage.showLoader = false;
   }
+
+  location = [
+    {
+      image: '../../../../assets/images/image/city_demo_image.png',
+      city: 'Andhra Pradesh'
+    },
+    {
+      image: '../../../../assets/images/image/city_demo_image2.png',
+      city: 'Madhya Pradesh'
+    },
+    {
+      image: '../../../../assets/images/image/city_demo_image.png',
+      city: 'Mumbai'
+    },
+    {
+      image: '../../../../assets/images/image/city_demo_image2.png',
+      city: 'Delhi'
+    },
+    {
+      image: '../../../../assets/images/image/city_demo_image.png',
+      city: 'Gujrat'
+    },
+    {
+      image: '../../../../assets/images/image/city_demo_image2.png',
+      city: 'Andhra Pradesh'
+    },
+    {
+      image: '../../../../assets/images/image/city_demo_image.png',
+      city: 'Calcutta'
+    },
+    {
+      image: '../../../../assets/images/image/city_demo_image.png',
+      city: 'Karnataka'
+    },
+    {
+      image: '../../../../assets/images/image/city_demo_image.png',
+      city: 'Calcutta'
+    },
+    {
+      image: '../../../../assets/images/image/city_demo_image.png',
+      city: 'Karnataka'
+    },
+  ]
 }
