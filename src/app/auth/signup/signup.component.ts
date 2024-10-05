@@ -11,6 +11,7 @@ import { ApolloService } from '../../shared/services/apollo.service';
 import { Router } from '@angular/router';
 import { NgOtpInputComponent } from 'ng-otp-input';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -657,7 +658,7 @@ export class SignupComponent {
     }
   }
 
-  lawyerSignup() {
+  async lawyerSignup() {
     // accountVerificationButton
     if (this.lawyerForm.value.file == "") {
       this._toastMessage.error("Please add profile image !!");
@@ -669,6 +670,12 @@ export class SignupComponent {
       this._toastMessage.error("Please verify your email !!");
     }
     else {
+      let status: string = "";
+
+      let isLawyerVerified: Boolean = await this.isLawyerVerified(this.lawyerForm.controls.licenseNo.value.trim());
+
+      isLawyerVerified === true ? status = "Approved" : status = "";
+
       const mutation = {
         "query": "mutation ($input: AdvocateProfile!, $file: Upload) { createLawyers(input: $input, file: $file) { status message data } }",
         "variables": {
@@ -696,7 +703,8 @@ export class SignupComponent {
             "practicingField": this.lawyerForm.controls.practiceField.value,
             "isEmailDisplay": false,
             "barAddress": this.lawyerForm.controls.barAddress.value,
-            "isBarAddressDisplay": this.lawyerForm.controls.isAddressVisible.value
+            "isBarAddressDisplay": this.lawyerForm.controls.isAddressVisible.value,
+            "status": status
           },
           "file": null
         }
@@ -705,14 +713,31 @@ export class SignupComponent {
       this._apolloService.upload(mutation, this.lawyerForm.controls.file.value, "0").subscribe(objRes => {
         if (objRes.data != null) {
           this._toastMessage.success(objRes.data.createLawyers.message);
-          let btn = document.getElementById('accountVerificationButton') as HTMLElement;
-          btn.click();
+          if (isLawyerVerified == false) {
+            let btn = document.getElementById('accountVerificationButton') as HTMLElement;
+            btn.click();
+          }
+          if (isLawyerVerified == true) {
+            this._router.navigate(['/auth/login']);
+          }
         }
         else {
           this._toastMessage.error(objRes.data.createLawyers.message);
         }
       })
     }
+  }
+
+  async isLawyerVerified(barLiscenceNo: string): Promise<Boolean> {
+    let isVerified: any = false;
+    let reqObj = {
+      enrollmentNo: barLiscenceNo
+    }
+    let respObj = await lastValueFrom(this._apolloService.post('/lawyer/verify', reqObj));
+    if (respObj.status == "success") {
+      isVerified = true;
+    }
+    return isVerified;
   }
 
   citySelectionChange(e: any, formName: string) {

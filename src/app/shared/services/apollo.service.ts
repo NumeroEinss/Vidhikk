@@ -10,7 +10,8 @@ import { getBaseUrl } from '../../graphql.module';
   providedIn: 'root'
 })
 export class ApolloService {
-  private baseUrl: string = "http://84.247.151.137:3000";
+  // private baseUrl: string = "http://84.247.151.137:3000";
+  private baseUrl: string = "https://api2.myvidhik.com"; //ssl server
 
   constructor(private _apollo: Apollo, private _toastMessage: ToastMessageService, private _http: HttpClient,
     private _authService: AuthService) { }
