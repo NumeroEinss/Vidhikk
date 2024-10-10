@@ -756,67 +756,6 @@
   </div>
 </div>
 
-
-<!-- Terms And Services Modal Start -->
-<div class=" modal fade" id="termsConditionsModal" tabindex="-1" aria-labelledby="termsConditionsModalLabel"
-  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="termsConditionsModalLabel">Terms And Conditions</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div style="height: calc(100vh - 153px); margin-bottom: 10px;">
-          <ng-scrollbar>
-            <div class="policy-container">
-              <div>Welcome to Vidhik. These Terms and Conditions govern your use of the Website, including all
-                features,
-                content, and services provided by Vidhik.<br><br>
-                By accessing or using the Website, you agree to be bound by these Terms. If you do not agree
-                with any
-                part of these Terms, you may not use the Website.</div>
-              <div *ngFor="let terms of termsCondition">
-                <div class="sub-heading">{{terms.subHeading}}</div>
-                <div class="details" *ngFor="let detail of terms.details">{{detail}}</div>
-              </div>
-            </div>
-          </ng-scrollbar>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Privacy Policy Modal Start -->
-<div class="modal fade" id="privacyPolicyModal" tabindex="-1" aria-labelledby="privacyPolicyModalLabel"
-  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="privacyPolicyModalLabel">Privacy Policy</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div style="height: calc(100vh - 153px); margin-bottom: 10px;">
-          <ng-scrollbar>
-            <div class="policy-container">
-              <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects, uses,
-                maintains, and discloses information collected from users ("you" or "your") of the Vidhik
-                website.</div>
-              <div *ngFor="let policy of privacyPolicy">
-                <div class="sub-heading">{{policy.subHeading}}</div>
-                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
-              </div>
-            </div>
-          </ng-scrollbar>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- modal start -->
 <button id="modalButton" data-bs-toggle="modal" data-bs-target="#disclaimerModal" style="display: none"></button>
 <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true"
@@ -826,143 +765,80 @@
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="disclaimerModalLabel">Disclaimer</h1>
       </div>
-      <div class="modal-body mb-3">
-        <ol>
-          <li class="mb-3">
-            <span class="list-heading">No Legal Advise: </span><span class="list-description">The information
-              contained on the Website is for general
-              informational purposes only and is not intended to provide legal
-              advice. You should consult with a qualified legal professional
-              for advice regarding your individual situation.
-            </span>
-          </li>
-          <li class="mb-3">
-            <span class="list-heading">No Attorney-Client Relationship: </span><span class="list-description">Your use
-              of the Website does not create an attorney-client
-              relationship between you and vidhik. Such a relationship can
-              only be established through a specific written agreement with
-              us.
-            </span>
-          </li>
-          <li class="mb-3">
-            <span class="list-heading">Accuracy of Information: </span><span class="list-description">While we
-              strive to
-              provide accurate and
-              up-to-date information,
-              we make no representations or warranties of any kind, express or
-              implied, about the completeness, accuracy, reliability,
-              suitability, or availability of the information contained on the
-              Website.
-            </span>
-          </li>
-          <li class="mb-3">
-            <span class="list-heading">Acceptance of Terms: </span><span class="list-description">By clicking
-              &quot;Accept&quot; below, you
-              acknowledge that you
-              have read, understood, and agree to be bound by the terms of
-              this disclaimer. If you do not agree to these terms, pleas click
-              &quot;Reject&quot; and refrain from using the Website.</span>
-          </li>
-        </ol>
+      <div class="modal-body mb-3" style="text-align: justify;">
 
-        <!-- Policy List Start -->
-        <div class="policy-list">
-          <ul>
-            <li (click)="selectedSection('section1')"><a>Terms and Conditions</a></li>
-            <li (click)="selectedSection('section2')"><a>Privacy Policy</a></li>
-            <li (click)="selectedSection('section3')"><a>Cookies Policy</a></li>
-            <li (click)="selectedSection('section4')"><a>Copyrights</a></li>
-            <li (click)="selectedSection('section5')"><a>Trust and Safety</a></li>
-            <li (click)="selectedSection('section6')"><a>Community Standard</a></li>
-          </ul>
-        </div>
-
-        <div style="height: calc(100vh - 300px); margin-bottom: 10px;">
+        <div style="height: calc(100vh - 300px); margin-bottom: 10px; margin-left: 20px;">
           <ng-scrollbar>
-            <!-- Terms & Conditions Section Start -->
-            <div class="policy-container" id="section1">
-              <div class="heading">Terms and Conditions</div>
-              <div>Welcome to Vidhik. These Terms and Conditions govern your use of the Website, including all
-                features, content, and services provided by Vidhik.<br><br>
-                By accessing or using the Website, you agree to be bound by these Terms. If you do not agree
-                with any
-                part of these Terms, you may not use the Website.</div>
-              <div *ngFor="let terms of termsCondition">
-                <div class="sub-heading">{{terms.subHeading}}</div>
-                <div class="details" *ngFor="let detail of terms.details">{{detail}}</div>
-              </div>
+            <div class="list-description">
+              Vidhik (A mobile and Web Application) is provided "AS IS" without warranty of any kind, either express or
+              implied. By using this Application, you agree to the following terms:
             </div>
+            <div class="list-heading">Limitation of Liability</div>
+            <div class="list-description">The Peraturb Decimo LLP shall not be liable for: </div>
+            <ol>
+              <li class="mb-3">Any damages, including but not limited to incidental, consequential, or punitive damages.
+              </li>
+              <li class="mb-3">Loss of data, business interruption, or any other commercial damages.
+              </li>
+              <li class="mb-3">Any claims, demands, or actions arising from or related to this Application.
+              </li>
+            </ol>
 
-            <!-- Privacy Policy Section Start -->
-            <div class="policy-container" id="section2">
-              <div class="heading">Privacy Policy</div>
-              <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects, uses,
-                maintains, and discloses information collected from users ("you" or "your") of the Vidhik
-                website.
-              </div>
-              <div *ngFor="let policy of privacyPolicy">
-                <div class="sub-heading">{{policy.subHeading}}</div>
-                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
-              </div>
-            </div>
+            <div class="list-heading">No Warranty</div>
+            <div class="list-description">The Peraturb Decimo LLP disclaims all warranties, express or implied,
+              including
+              but not limited to: </div>
+            <ol>
+              <li class="mb-3">Fitness for a particular purpose.
+              </li>
+              <li class="mb-3">Merchantability.
+              </li>
+              <li class="mb-3">Non-infringement.
+              </li>
+            </ol>
 
-            <!-- Cookies Policy Section Start -->
-            <div class="policy-container" id="section3">
-              <div class="heading">Cookies Policy</div>
-              <div>This Cookies Policy explains how Vidhik ("we", "us", or "our") uses cookies and similar
-                technologies on our website (the "Website"). By using the Website, you consent to the use of
-                cookies
-                in accordance with this policy.</div>
-              <div *ngFor="let policy of cookiesPolicy ">
-                <div class="sub-heading">{{policy.subHeading}}</div>
-                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
-              </div>
-            </div>
+            <div class="list-heading">Use at Your Own Risk</div>
+            <div class="list-description">You acknowledge that:</div>
+            <ol>
+              <li class="mb-3">You use this Application at your own risk.
+              </li>
+              <li class="mb-3">The Peraturb Decimo LLP is not responsible for any errors or omissions.
+              </li>
+              <li class="mb-3">The Peraturb Decimo LLP is not responsible for any third-party content or links.
+              </li>
+            </ol>
 
-            <!-- Copyrights Section Start -->
-            <div class="policy-container" id="section4">
-              <div class="heading">Copyrights</div>
-              <div>Welcome to the Copyrights Page of Vidhik ("we", "us", or "our"). This page outlines the
-                copyright
-                policies and procedures regarding the content available on our website (the "Website").</div>
-              <div *ngFor="let rights of copyrights">
-                <div class="sub-heading">{{rights.subHeading}}</div>
-                <div class="details" *ngFor="let detail of rights.details">{{detail}}</div>
-              </div>
-            </div>
+            <div class="list-heading">Intellectual Property</div>
+            <div class="list-description mb-3">The Peraturb Decimo LLP retains all rights, title, and interest in and to
+              the
+              Application, including all intellectual property rights.</div>
 
-            <!-- Trust & Safety Section Start -->
-            <div class="policy-container" id="section5">
-              <div class="heading">Trust and Safety</div>
-              <div>Welcome to the Trust and Safety Page of Vidhik ("we", "us", or "our"). This page outlines our
-                commitment to ensuring a safe and trustworthy environment for all users of our website.</div>
-              <div *ngFor="let policy of trustSafety">
-                <div class="sub-heading">{{policy.subHeading}}</div>
-                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
-              </div>
-            </div>
+            <div class="list-heading">Governing Law</div>
+            <div class="list-description mb-3">This Disclaimer shall be governed by and construed in accordance with the
+              laws of
+              Madhya Pradesh, India.</div>
 
-            <!-- Community Standard Section Start -->
-            <div class="policy-container" id="section6">
-              <div class="heading">Community Standard</div>
-              <div>Welcome to the Community Standards Page of Vidhik ("we", "us", or "our"). This page outlines
-                the
-                standards of behavior and content that govern our online community on our website (the
-                "Website").
-              </div>
-              <div *ngFor="let policy of communityStandard">
-                <div class="sub-heading">{{policy.subHeading}}</div>
-                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
-              </div>
-            </div>
+            <div class="list-heading">Changes</div>
+            <div class="list-description mb-3">The Peraturb Decimo LLP reserves the right to modify or update this
+              Disclaimer at
+              any time without notice.</div>
+
+            <div class="list-heading">Acceptance</div>
+            <div class="list-description mb-3">By using this Application, you acknowledge that you have read,
+              understood,
+              and
+              agree to be bound by this Disclaimer which confirms that you have thoroughly read and understand the terms
+              of
+              use of mobile and web applications built by Peraturb Decimo LLP, is legally enforced.
+
+              You also acknowledge that the "AS IS" is a legal term used to describe the condition of a service provide
+              by
+              the Peraturb Decimo LLP.</div>
           </ng-scrollbar>
         </div>
 
-
-        <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I have read and agree
-            to the
-            terms and conditions and
-            privacy policy outlined above.</mat-checkbox></div>
+        <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I Aknowledge to the Terms and
+            Policies mentioned herein this Disclaimer</mat-checkbox></div>
 
         <div class="text-center mt-3">
           <button id="dismissModal" mat-stroked-button color="primary" style="width: fit-content !important"
