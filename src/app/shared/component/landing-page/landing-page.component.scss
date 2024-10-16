@@ -2,15 +2,26 @@
     height: calc(100vh - 0px);
 
     .root-container {
-        background: url('../../../../assets/images/icons/landing1.svg');
-        background-repeat: no-repeat;
+        // background: url('../../../../assets/images/icons/landing1.svg');
+        // background-repeat: no-repeat;
+        // -moz-background-size: cover;
+        // -webkit-background-size: cover;
+        // -o-background-size: cover;
+        // background-size: cover;
         padding: 30px 60px;
+        position: relative;
 
         // .landing-vector {
         //     position: absolute;
         //     right: -80px;
         //     top: 0;
         // }
+
+        .landing-page-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
 
         .justify-content-space-between {
             justify-content: space-between;
@@ -307,6 +318,16 @@
         .root-container {
             padding: 30px 30px;
             background-size: cover;
+
+            .landing-page-image {
+               width: 600px;
+               height: 450px;
+
+               img{
+                width: 600px;
+                height: 450px;
+               }
+            }
 
             .main-header {
                 flex-wrap: wrap;
