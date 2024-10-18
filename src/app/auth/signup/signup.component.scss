@@ -132,55 +132,6 @@
   }
 }
 
-
-// Terms And Services styling Start
-.terms-service {
-  width: 688px;
-
-  .modal-content {
-    .modal-header {
-      display: flex;
-      justify-content: flex-start;
-
-      h1 {
-        padding-left: 16px;
-      }
-    }
-  }
-
-  .modal-body {
-    text-align: left;
-
-    .policy-container {
-      margin-left: 16px;
-      margin-bottom: 30px;
-      font-family: Poppins;
-      padding-right: 20px;
-
-      .heading {
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 10px;
-      }
-
-      .sub-heading {
-        // font-weight: 500;
-        font-size: 18px;
-        margin-top: 20px;
-        margin-bottom: 8px;
-        color: #2e5bff;
-      }
-
-      .details {
-        font-size: 14px;
-      }
-    }
-  }
-}
-
-// Terms And Services styling ends
-
-
 // Email Verification Modal styling start
 .email-modal {
   .modal-body {

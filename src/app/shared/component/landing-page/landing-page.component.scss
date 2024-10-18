@@ -33,8 +33,9 @@
 
             .sub-description {
                 width: 40%;
-                margin-top: 20px;
-                line-height: 30px;
+                margin-top: 50px;
+                line-height: 35px;
+                font-size: 16px;
             }
         }
 
@@ -96,7 +97,7 @@
             background-color: #2e5bff;
             color: white;
             width: 282px;
-            height: 260px;
+            height: 300px;
             padding: 30px;
             border-radius: 4px;
         }
@@ -104,10 +105,10 @@
         .feature2 {
             background-color: #F4F3FB;
             width: 282px;
-            height: 260px;
+            height: 300px;
             padding: 30px;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             border-radius: 4px;
 
             .header {
@@ -122,6 +123,13 @@
                 font-weight: 500;
                 font-size: 16px;
                 margin-bottom: 10px;
+            }
+
+            .description-text {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
             }
         }
 
@@ -482,7 +490,12 @@
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {}
 
-#disclaimerModal .modal-dialog {
+#disclaimerModal,
+#communityModal,
+#cookiesModal,
+#trustModal,
+#copyrightModal,
+#myVidhikModal .modal-dialog {
     .modal-content {
         .modal-header {
             display: flex;
@@ -569,3 +582,50 @@
         }
     }
 }
+
+// Terms And Services styling Start
+.terms-service {
+    width: 688px;
+
+    .modal-content {
+        .modal-header {
+            display: flex;
+            justify-content: flex-start;
+
+            h1 {
+                padding-left: 16px;
+            }
+        }
+    }
+
+    .modal-body {
+        text-align: left;
+
+        .policy-container {
+            margin-left: 16px;
+            margin-bottom: 30px;
+            font-family: Poppins;
+            padding-right: 20px;
+
+            .heading {
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 10px;
+            }
+
+            .sub-heading {
+                // font-weight: 500;
+                font-size: 18px;
+                margin-top: 20px;
+                margin-bottom: 8px;
+                color: #2e5bff;
+            }
+
+            .details {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+// Terms And Services styling ends

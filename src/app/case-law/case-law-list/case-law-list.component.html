@@ -12,7 +12,7 @@
             +(caseLawCurrentPage*pageSize) +')'+
             ' of '+ recordCount }} Cases</div>
         </div>
-        <div class="posttext col-lg-6 col-md-6">
+        <!-- <div class="posttext col-lg-6 col-md-6">
           <div>
             <img [matMenuTriggerFor]="filterMenu" #filterMenuTrigger="matMenuTrigger"
               src="../../../assets/images/icons/sort.svg" />
@@ -21,9 +21,9 @@
             <img [matMenuTriggerFor]="sortMenu" #sortMenuTrigger="matMenuTrigger"
               src="../../../assets/images/icons/filter.svg" />
           </div>
-        </div>
+        </div> -->
         <!-- Filter Menu -->
-        <mat-menu #sortMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu ">
+        <!-- <mat-menu #sortMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu ">
           <a (click)="$event.stopPropagation()" style="text-decoration: none">
             <mat-form-field class="p-2 w-100 search-input" appearance="outline">
               <input #search matInput (keyup)="filterCourt($event)" placeholder="By Court" />
@@ -48,14 +48,14 @@
               </button>
             </div>
           </a>
-        </mat-menu>
+        </mat-menu> -->
         <!-- Sort Menu -->
-        <mat-menu #filterMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="sort-menu">
+        <!-- <mat-menu #filterMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="sort-menu">
           <div mat-menu-item (click)="sort('0')">Recent</div>
           <div mat-menu-item (click)="sort('1')">Relevance</div>
           <div mat-menu-item (click)="sort('2')">Most Cited</div>
           <div mat-menu-item (click)="sort('3')">Judge Bench</div>
-        </mat-menu>
+        </mat-menu> -->
       </div>
       <!-- Case Law List -->
       <div style="height: calc(100vh - 290px)">
