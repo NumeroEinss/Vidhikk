@@ -3,24 +3,20 @@
         <img src="../../../../assets/images/icons/landing3.svg" alt="">
     </div> -->
     <ng-scrollbar autoHeightDisabled="true">
-        <div class="root-container">
-            <div class="main-header d-flex justify-content-space-between">
+        <div class="root-container" id="animate-area">
+            <div class="main-header">
                 <img src="../../../../assets/images/icons/vidhiklogo.svg" alt="">
-                <div class="d-flex">
-                    <button mat-stroked-button color="primary" style="
-                      width: fit-content !important;
-                      padding: 12px 36px;
-                    " data-bs-dismiss="modal" [routerLink]="'/auth/login'">
+                <div class="d-flex btns">
+                    <button mat-stroked-button color="primary" class="login-btn" data-bs-dismiss="modal">
                         Login
                     </button>
-                    <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px;
-                      margin-left: 20px;" [routerLink]="'/auth/signup'">
+                    <button mat-raised-button color="primary" class="signup-btn">
                         Signup
                     </button>
                 </div>
             </div>
-            <div class="d-flex justify-content-space-between">
-                <div class="mt-5 description">
+            <div class="d-flex justify-content-space-between responsive-root">
+                <div class="description">
                     <div class="header">Connecting Lawyers</div>
                     <div class="sub-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione quis
                         tempore
@@ -35,20 +31,18 @@
             <div class="section3-header">
                 <div class="header">Why Vidhik</div>
             </div>
-            <div class="section3-description">Let's dive deeper into the features that make Kopyst your documentation
-                dream
-                team</div>
-            <div class="d-flex justify-content-space-between mt-5">
-                <div class="col-lg-6 col-md-6">
+            <div class="section3-description">Your never experienced the features before</div>
+            <div class="d-flex responsive-why-vidhik">
+                <div>
                     <div class="vidhik-feature">
                         <div>
                             <img src="../../../../assets/images/image/interactive_feed.png" alt="">
                         </div>
 
-                        <div class="ms-3">
-                            <div class="heading">Interactive Feed</div>
-                            <div class="detail">Forget manual typing and formatting. Walk through your process, and
-                                Kopyst captures everything, transforming it into a polished document in a flash</div>
+                        <div class="margin-start">
+                            <div class="heading">End to end Encryption</div>
+                            <div class="detail">Vidhik is a user centric with two layer protection shield and
+                                data is end to end encrypted and no conversations leave any digital foot prints.</div>
                         </div>
                     </div>
 
@@ -57,10 +51,12 @@
                             <img src="../../../../assets/images/image/client_centric.png" alt="">
                         </div>
 
-                        <div class="ms-3 ">
-                            <div class="heading">Client - Centric Approach</div>
-                            <div class="detail">Whether you need user manuals, SOPs, product documentation, or training
-                                materials, Kopyst is your one-stop shop for document creation excellence.</div>
+                        <div class="margin-start">
+                            <div class="heading">360° Integrated Solution</div>
+                            <div class="detail">Vidhik provides the features like activity feed, news, advocate
+                                search, market place, time-pass for any user. The advocate find some additional like
+                                more that 13.5 Lakhs reportable judgements, bare acts, chat room and a conference to
+                                connect. </div>
                         </div>
                     </div>
 
@@ -69,10 +65,11 @@
                             <img src="../../../../assets/images/image/genuine_rated.png" alt="">
                         </div>
 
-                        <div class="ms-3">
+                        <div class="margin-start">
                             <div class="heading">Genuine Rated Lawyers</div>
-                            <div class="detail">Our smart AI assistant understands your steps, anticipates your needs,
-                                and ensures your documents are clear, concise, and easy to follow.</div>
+                            <div class="detail">Prior to granting exploration rights, Vidhik's team authenticates
+                                lawyers' credentials through rigorous profile verification, ensuring their reliability
+                                to users. This process ensures lawyers' legitimacy, safeguarding users' interests.</div>
                         </div>
                     </div>
 
@@ -81,66 +78,74 @@
                             <img src="../../../../assets/images/image/user-centric.png" alt="">
                         </div>
 
-                        <div class="ms-3">
+                        <div class="margin-start">
                             <div class="heading">User Centric Services</div>
-                            <div class="detail">Invite team members to view, edit, and discuss documents effortlessly.
-                                Keep everyone in the loop and ensure smooth workflows.</div>
+                            <div class="detail">“Vidhik” is a user-centric digital platform empowering users, advocates,
+                                and enterprises to input data independently, without interference from our team.</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 section3-img-div">
+                <div class="section3-img-div">
                     <img src="../../../../assets/images/icons/why-vidhik.svg" alt="" class="section3-img">
                 </div>
             </div>
         </div>
 
-        <div class="services mt-5">
+        <div class="services">
             <div>
-                <div class="service-header">Our Services</div>
-                <div class="sub-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione quis
-                    tempore
-                    sed itaque, dolore recusandae ullam eius voluptas</div>
+                <div class="service-header">The Tool-box</div>
+                <div class="sub-description">At Vidhik, we provide comprehensive solutions tailored to meet
+                    your needs, which include ...</div>
             </div>
             <div class="feature-container">
                 <div class="d-flex header">
                     <img src="../../../../assets/images/icons/spark.svg" alt="">
-                    <div>Virtual Case Diary</div>
+                    <div>Activity Feed</div>
                 </div>
-                <div class="bold-text">Slash document creation time from hours to minutes.</div>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse interdum velit dolor</div>
+                <div class="bold-text">Stash document creation time from hours to minutes.</div>
+                <div>"Vidhik's platform empowers you to share your legal expertise, vision, and ideas with our
+                    community, fostering collaboration and innovation."</div>
             </div>
         </div>
 
         <div class="more-features">
             <div class="feature">
-                Kopyst's AI ensures your documents are always flawless and up to date, reflecting your
-                professionalism with every click.
+                "Vidhik's Case Law Database offers unparalleled access to 13.5 lakh plus judgments from High Courts,
+                Supreme Court, and Privy Council, empowering legal professionals and researchers."
             </div>
             <div class="feature2">
                 <div class="header">
                     <img src="../../../../assets/images/icons/spark.svg" alt="">
-                    <div>Confrence</div>
+                    <div>Case Diary</div>
                 </div>
-                <div class="bold-text">Share and edit documents seamlessly with your team..</div>
+                <div class="description-text">"Vidhik's Digital Case Diary revolutionizes trial lawyers' workflow,
+                    offering a
+                    secure, free, and server/cloud-free solution for case management, collaboration, and data
+                    protection."</div>
             </div>
             <div class="feature2">
                 <div class="header">
                     <img src="../../../../assets/images/icons/spark.svg" alt="">
-                    <div>Case law & Bare Act</div>
+                    <div>Chat Room</div>
                 </div>
-                <div class="bold-text">No more formatting nightmares.</div>
+                <div class="description-text">"Vidhik's Chat Room feature empowers lawyers to securely collaborate,
+                    strategize,
+                    and find legal solutions with colleagues in real-time."</div>
             </div>
             <div class="feature2">
                 <div class="header">
                     <img src="../../../../assets/images/icons/spark.svg" alt="">
-                    <div>Activity Feed</div>
+                    <div>Conference</div>
                 </div>
-                <div class="bold-text">Kopyst adapts to your needs.</div>
+                <div class="description-text">"Vidhik's Conference feature revolutionizes legal consultations,
+                    connecting users
+                    with suitable lawyers nationwide and providing transcripts and recordings for seamless reference."
+                </div>
             </div>
         </div>
 
         <div class="location-carousel">
-            <div class="header">Hunt The Lawyers By Location</div>
+            <div class="header">Locate your Lawyer</div>
             <ng-scrollbar appearance="standard" track="all" style="height: 220px;" autoHeightDisabled="true">
                 <div class="image-carousel">
                     <div class="image-outer" *ngFor="let detail of location">
@@ -155,9 +160,9 @@
             <div class="d-flex justify-content-space-between inside-below-section">
                 <div class="col-lg-6 col-md-6 col-data">
                     <div class="heading">If You Would Like to Take Our Service , Download our App</div>
-                    <div class="below-section-desc">Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has
-                        been the industry's standard dummy text ever</div>
+                    <div class="below-section-desc">If needed, Please Download our App from Google Play Store and IOS's
+                        App Store, or explore directly on our web
+                        version at <a href="https://myvidhik.com">www.myvidhik.com</a></div>
 
                     <div class="social-btn">
                         <img src="../../../../assets/images/image/google_play.png">
@@ -175,9 +180,7 @@
                 <div class="">
                     <img src="../../../../assets/images/icons/white_vidhik_logo.svg" alt="">
 
-                    <div class="detail">You can now order your prescription via the website. For the last few weeks the
-                        website has been
-                        under test …</div>
+                    <div class="detail">You can now connect with the legal world through our platform at one tap.</div>
 
                     <div class="social-icon">
                         <img src="../../../../assets/images/icons/footer_facebook_icon.svg">
@@ -187,40 +190,503 @@
                     </div>
 
                 </div>
-                <div class="">
+                <div class="gradient-line">
                     <img src="../../../../assets/images/icons/gradient_line.svg" alt="">
                 </div>
                 <div class="">
                     <div class="heading">Practicing Area</div>
-                    <div class="mt-3">Solutions</div>
-                    <div class="mt-3">How It Works</div>
-                    <div class="mt-3">Advertising</div>
-                    <div class="mt-3">Donation</div>
-                    <div class="mt-3">Child Care</div>
+                    <div class="mt-3">Civil</div>
+                    <div class="mt-3">IB Law</div>
+                    <div class="mt-3">Sarfaesi Act</div>
+                    <div class="mt-3">Revenue</div>
+                    <div class="mt-3">Criminal</div>
                 </div>
 
                 <div class="">
-                    <div class="heading">About</div>
-                    <div class="mt-3">About us</div>
-                    <div class="mt-3">Our Team</div>
-                    <div class="mt-3">Practice Area</div>
-                    <div class="mt-3">Help Guide</div>
-                    <div class="mt-3">Tutorials</div>
+                    <div class="heading" data-bs-toggle="modal" data-bs-target="#myVidhikModal">My Vidhik</div>
+                    <div class="mt-3" data-bs-toggle="modal" data-bs-target="#communityModal">Community Standard</div>
+                    <div class="mt-3" data-bs-toggle="modal" data-bs-target="#termsConditionsModal">Terms of Usage</div>
+                    <div class="mt-3" data-bs-toggle="modal" data-bs-target="#privacyPolicyModal">Privacy Policy</div>
+                    <div class="mt-3" data-bs-toggle="modal" data-bs-target="#cookiesModal">Cookies Policy</div>
+                    <div class="mt-3" data-bs-toggle="modal" data-bs-target="#trustModal">Trust and Safety</div>
+                    <div class="mt-3" data-bs-toggle="modal" data-bs-target="#copyrightModal">Copyright and Trademark
+                    </div>
                 </div>
                 <div class="">
-                    <div class="heading">Support</div>
-                    <div class="mt-3">Support</div>
-                    <div class="mt-3">Documentation</div>
-                    <div class="mt-3">Faq</div>
-                    <div class="mt-3">Contact Us</div>
+                    <!-- <div class="heading">Support</div> -->
+                    <!-- <div class="mt-3">Community Standard</div> -->
+                    <!-- <div class="mt-3">Faq</div>
+                    <div class="mt-3">Contact Us</div> -->
                 </div>
 
             </div>
 
             <div class="footer-detail">
                 <img src="../../../../assets/images/icons/footer_horizontal_line.svg" alt="">
-                <div class="mt-2">©2024 All Rights Reserved. a product of Peraturb Decimo</div>
+                <div class="mt-2">©2024 All Rights Reserved. a product of Peraturb Decimo LLP, India</div>
             </div>
         </div>
     </ng-scrollbar>
 </div>
+
+
+<!-- Terms And Services Modal Start -->
+<div class=" modal fade" id="termsConditionsModal" tabindex="-1" aria-labelledby="termsConditionsModalLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="termsConditionsModalLabel">Terms of Usage</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div style="height: calc(100vh - 153px); margin-bottom: 10px;text-align: justify;">
+                    <ng-scrollbar>
+                        <div class="policy-container">
+                            <p>
+                                Peraturb Decimo LLP builds technologies and services that enable people to connect with
+                                each other, build communities and grow businesses. These Terms govern your use of Vidhik
+                                and its products, features, apps, services, technologies and software that we offer
+                                except where we expressly state that separate terms (and not these) apply. These
+                                Products are provided to you by Peraturb Decimo LLP a limited liability partnership
+                                company registered with ROC Gwalior, MP, India.
+
+                                We don't charge you to use Vidhik products and its modules like activity feed, news,
+                                case laws, bare acts, market place and time pass covered by these Terms, unless we state
+                                otherwise. The other services are except to the above is chargeable. Instead,
+                                businesses, organisations and other persons pay us to show you ads for their products
+                                and services. By using our Products, you agree that we can show you ads that we think
+                                may be relevant to you and your interests. We use your personal data to help determine
+                                which personalised ads to show you.
+
+                                We don't sell your personal data to advertisers, and we don't share information that
+                                directly identifies you (such as your name, email address or other contact information)
+                                with advertisers unless you give us specific permission. Instead, advertisers can tell
+                                us things such as the kind of audience that they want to see their ads, and we show
+                                those ads to people who may be interested. We provide advertisers with reports about the
+                                performance of their ads that help them understand how people are interacting with their
+                                content.
+
+                                Our Privacy Policy explains how we collect and use your personal data to determine some
+                                of the ads that you see and provide all of the other services described below.
+                            </p>
+                            <div *ngFor="let terms of termsCondition">
+                                <div class="sub-heading">{{terms.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of terms.details">
+                                    <!-- <p>{{detail.heading?'':detail}}</p> -->
+                                    <p><b>{{detail.heading}}</b></p>
+                                    <p>{{detail.subHeading}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Privacy Policy Modal Start -->
+<div class="modal fade" id="privacyPolicyModal" tabindex="-1" aria-labelledby="privacyPolicyModalLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="privacyPolicyModalLabel">Privacy Policy</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div style="height: calc(100vh - 153px); margin-bottom: 10px;">
+                    <ng-scrollbar>
+                        <div class="policy-container">
+                            <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects,
+                                uses,
+                                maintains information collected from users ("you" or "your") of the
+                                Vidhik
+                                website.</div>
+                            <div *ngFor="let policy of privacyPolicy">
+                                <div class="sub-heading">{{policy.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of policy.details">
+                                    <p><b>{{detail.heading}}</b></p>
+                                    <p>{{detail.subHeading}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal start -->
+<!-- <button id="modalButton" data-bs-toggle="modal" data-bs-target="#disclaimerModal" style="display: none"></button> -->
+<!-- <div class="modal fade" id="" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="disclaimerModalLabel">Disclaimer</h1>
+            </div>
+            <div class="modal-body mb-3">
+                <ol>
+                    <li class="mb-3">
+                        <span class="list-heading">No Legal Advise: </span><span class="list-description">The
+                            information
+                            contained on the Website is for general
+                            informational purposes only and is not intended to provide legal
+                            advice. You should consult with a qualified legal professional
+                            for advice regarding your individual situation.
+                        </span>
+                    </li>
+                    <li class="mb-3">
+                        <span class="list-heading">No Attorney-Client Relationship: </span><span
+                            class="list-description">Your use
+                            of the Website does not create an attorney-client
+                            relationship between you and vidhik. Such a relationship can
+                            only be established through a specific written agreement with
+                            us.
+                        </span>
+                    </li>
+                    <li class="mb-3">
+                        <span class="list-heading">Accuracy of Information: </span><span class="list-description">While
+                            we
+                            strive to
+                            provide accurate and
+                            up-to-date information,
+                            we make no representations or warranties of any kind, express or
+                            implied, about the completeness, accuracy, reliability,
+                            suitability, or availability of the information contained on the
+                            Website.
+                        </span>
+                    </li>
+                    <li class="mb-3">
+                        <span class="list-heading">Acceptance of Terms: </span><span class="list-description">By
+                            clicking
+                            &quot;Accept&quot; below, you
+                            acknowledge that you
+                            have read, understood, and agree to be bound by the terms of
+                            this disclaimer. If you do not agree to these terms, pleas click
+                            &quot;Reject&quot; and refrain from using the Website.</span>
+                    </li>
+                </ol>
+
+                
+                <div class="policy-list">
+                    <ul>
+                        <li (click)="selectedSection('section1')"><a>Terms and Conditions</a></li>
+                        <li (click)="selectedSection('section2')"><a>Privacy Policy</a></li>
+                        <li (click)="selectedSection('section3')"><a>Cookies Policy</a></li>
+                        <li (click)="selectedSection('section4')"><a>Copyrights</a></li>
+                        <li (click)="selectedSection('section5')"><a>Trust and Safety</a></li>
+                        <li (click)="selectedSection('section6')"><a>Community Standard</a></li>
+                    </ul>
+                </div>
+
+                <div style="height: calc(100vh - 300px); margin-bottom: 10px;">
+                    <ng-scrollbar>
+                        
+                        <div class="policy-container" id="section1">
+                            <div class="heading">Terms and Conditions</div>
+                            <div>Welcome to Vidhik. These Terms and Conditions govern your use of the Website, including
+                                all
+                                features, content, and services provided by Vidhik.<br><br>
+                                By accessing or using the Website, you agree to be bound by these Terms. If you do not
+                                agree
+                                with any
+                                part of these Terms, you may not use the Website.</div>
+                            <div *ngFor="let terms of termsCondition">
+                                <div class="sub-heading">{{terms.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of terms.details">{{detail}}</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="policy-container" id="section2">
+                            <div class="heading">Privacy Policy</div>
+                            <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects,
+                                uses,
+                                maintains information collected from users ("you" or "your") of the
+                                Vidhik
+                                website.
+                            </div>
+                            <div *ngFor="let policy of privacyPolicy">
+                                <div class="sub-heading">{{policy.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="policy-container" id="section3">
+                            <div class="heading">Cookies Policy</div>
+                            <div>This Cookies Policy explains how Vidhik ("we", "us", or "our") uses cookies and similar
+                                technologies on our website (the "Website"). By using the Website, you consent to the
+                                use of
+                                cookies
+                                in accordance with this policy.</div>
+                            <div *ngFor="let policy of cookiesPolicy ">
+                                <div class="sub-heading">{{policy.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="policy-container" id="section4">
+                            <div class="heading">Copyrights</div>
+                            <div>Welcome to the Copyrights Page of Vidhik ("we", "us", or "our"). This page outlines the
+                                copyright
+                                policies and procedures regarding the content available on our website (the "Website").
+                            </div>
+                            <div *ngFor="let rights of copyrights">
+                                <div class="sub-heading">{{rights.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of rights.details">{{detail}}</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="policy-container" id="section5">
+                            <div class="heading">Trust and Safety</div>
+                            <div>Welcome to the Trust and Safety Page of Vidhik ("we", "us", or "our"). This page
+                                outlines our
+                                commitment to ensuring a safe and trustworthy environment for all users of our website.
+                            </div>
+                            <div *ngFor="let policy of trustSafety">
+                                <div class="sub-heading">{{policy.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="policy-container" id="section6">
+                            <div class="heading">Community Standard</div>
+                            <div>Welcome to the Community Standards Page of Vidhik ("we", "us", or "our"). This page
+                                outlines
+                                the
+                                standards of behavior and content that govern our online community on our website (the
+                                "Website").
+                            </div>
+                            <div *ngFor="let policy of communityStandard">
+                                <div class="sub-heading">{{policy.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+                            </div>
+                        </div>
+                    </ng-scrollbar>
+                </div>
+
+
+                <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I have read and agree
+                        to the
+                        terms and conditions and
+                        privacy policy outlined above.</mat-checkbox></div>
+
+                <div class="text-center mt-3">
+                    <button id="dismissModal" mat-stroked-button color="primary" style="width: fit-content !important"
+                        routerLink="/auth/login" data-bs-dismiss="modal">Reject
+                    </button>
+
+                    <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 20px"
+                        data-bs-dismiss="modal" (click)="opacityStyling = { opacity: 1 }"
+                        [disabled]="!confirmed.checked">
+                        Accept
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- modal ends -->
+
+<!-- Community Standard -->
+<div class="modal fade" id="communityModal" tabindex="-1" aria-labelledby="communityModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="communityModalLabel">Community Standards</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mb-3">
+                <div style="height: calc(100vh - 173px); margin-bottom: 10px;text-align: justify;">
+                    <ng-scrollbar>
+                        <div class="policy-container" id="section6">
+                            <div class="heading">Community Standard</div>
+                            <div>Welcome to the Community Standards Page of Vidhik ("we", "us", or "our"). This page
+                                outlines
+                                the
+                                standards of behavior and content that govern our online community on our website (the
+                                "Website").
+                            </div>
+                            <div *ngFor="let policy of communityStandard">
+                                <div class="sub-heading">{{policy.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of policy.details">{{detail}}</div>
+                            </div>
+                        </div>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Community Standard Ends -->
+
+<!-- Cookies Modal -->
+<div class="modal fade" id="cookiesModal" tabindex="-1" aria-labelledby="cookiesModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="cookiesModalLabel">Cookies Policy</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mb-3">
+                <div style="height: calc(100vh - 173px); margin-bottom: 10px;text-align: justify;">
+                    <ng-scrollbar>
+                        <div class="policy-container" id="section3">
+                            <!-- <div class="heading">Cookies Policy</div> -->
+                            <div>This Cookies Policy explains how Vidhik ("we", "us", or "our") uses cookies and similar
+                                technologies on our website (the "Website"). By using the Website, you consent to the
+                                use of
+                                cookies
+                                in accordance with this policy.</div>
+                            <div *ngFor="let policy of cookiesPolicy ">
+                                <div class="sub-heading">{{policy.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of policy.details">
+                                    <p><b>{{detail.heading}}</b></p>
+                                    <p>{{detail.subHeading}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cookies Modal End -->
+
+<!-- Trust Modal -->
+<div class="modal fade" id="trustModal" tabindex="-1" aria-labelledby="trustModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="trustModalLabel">Trust and Safety</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mb-3">
+                <div style="height: calc(100vh - 173px); margin-bottom: 10px;text-align: justify;">
+                    <ng-scrollbar>
+                        <div class="policy-container" id="section5">
+                            <div class="heading">Trust and Safety</div>
+                            <div>Welcome to the Trust and Safety Page of Vidhik ("we", "us", or "our"). This page
+                                outlines our
+                                commitment to ensuring a safe and trustworthy environment for all users of our website.
+                            </div>
+                            <div *ngFor="let policy of trustSafety">
+                                <div class="sub-heading">{{policy.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of policy.details">
+                                    <p><b>{{detail.heading}}</b></p>
+                                    <p>{{detail.subHeading}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Trust Modal End -->
+
+<!-- Copyright Modal -->
+<div class="modal fade" id="copyrightModal" tabindex="-1" aria-labelledby="copyrightModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="copyrightModalLabel">Copyrights</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mb-3">
+                <div style="height: calc(100vh - 173px); margin-bottom: 10px;text-align: justify;">
+                    <ng-scrollbar>
+                        <div class="policy-container" id="section4">
+                            <!-- <div class="heading">Copyrights</div> -->
+                            <div>Welcome to the Copyrights Page of Vidhik ("we", "us", or "our"). This page outlines the
+                                copyright
+                                policies and procedures regarding the content available on our website (the "Website").
+                            </div><br />
+                            <div *ngFor="let rights of copyrights">
+                                <div class="sub-heading">{{rights.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of rights.details">{{detail}}</div>
+                            </div>
+                        </div>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Copyright Modal End -->
+
+<!-- My Vidhik Modal-->
+<div class="modal fade" id="myVidhikModal" tabindex="-1" aria-labelledby="myVidhikModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="myVidhikModalLabel">My Vidhik</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mb-3">
+                <div style="height: calc(100vh - 173px); margin-bottom: 10px;text-align: justify;">
+                    <ng-scrollbar>
+                        <div class="policy-container" id="section4">
+                            <!-- <div class="heading">Copyrights</div> -->
+                            <div><span class="sub-heading">"Vidhik"</span>, developed by <b>Peraturb Decimo LLP</b>,is
+                                an
+                                innovative digital platform crafted to empower advocates practicing in Indian courts. As
+                                a registered Limited Liability Partnership with the <b>ROC Gwalior, Madhya Pradesh,
+                                    India</b>,, and an MSME-registered startup recognized by the Government of India,
+                                Vidhik is at the forefront of transforming legal practice.
+                            </div><br />
+                            <!-- <div *ngFor="let rights of copyrights">
+                                <div class="sub-heading">{{rights.subHeading}}</div>
+                                <div class="details" *ngFor="let detail of rights.details">{{detail}}</div>
+                            </div> -->
+                            <div class="sub-heading">
+                                Key Features of Vidhik:
+                            </div>
+                            <ul>
+                                <li><b>Activity Feed:</b> A unique space for advocates to share their knowledge,
+                                    insights, and
+                                    experiences with peers.
+                                </li>
+                                <li><b>Extensive Digital Library:</b> Access to over 1.35 million judgments, ranging
+                                    from the Privy Council to the present day.</li>
+                                <li><b>Digital Case Diary:</b> Includes sub-diaries and preformatted applications to
+                                    simplify
+                                    case management.</li>
+                                <li><b>Secure Chat Rooms:</b> Facilitate collaborative problem-solving among advocates.
+                                </li>
+                                <li><b>Nationwide Advocate Directory:</b> Enables the public to easily find and connect
+                                    with legal professionals.</li>
+                                <li><b>Seamless Conference Scheduling:</b> Simplifies the process of arranging meetings
+                                    between advocates and clients.</li>
+                            </ul>
+                            <div class="sub-heading">Additionally, Vidhik features:</div>
+                            <ul>
+                                <li><b>Time Pass:</b> A dedicated gaming zone for relaxation and entertainment.</li>
+                                <li><b>Market Place:</b> A shopping platform offering a variety of merchandise.</li>
+                            </ul>
+                            <div>By streamlining legal workflows and enhancing connectivity, Vidhik is revolutionizing
+                                the landscape of the Indian legal profession, making it more efficient and accessible
+                                for everyone involved.</div>
+                        </div>
+                    </ng-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- My Vidhik Modal End -->

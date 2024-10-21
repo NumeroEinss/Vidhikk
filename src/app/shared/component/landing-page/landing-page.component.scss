@@ -11,12 +11,6 @@
         padding: 30px 60px;
         position: relative;
 
-        // .landing-vector {
-        //     position: absolute;
-        //     right: -80px;
-        //     top: 0;
-        // }
-
         .landing-page-image {
             position: absolute;
             top: 0;
@@ -28,7 +22,20 @@
         }
 
         .main-header {
+            display: flex;
             align-items: center;
+            justify-content: space-between;
+
+            .login-btn {
+                width: fit-content !important;
+                padding: 12px 36px;
+            }
+
+            .signup-btn {
+                width: fit-content !important;
+                padding: 12px 36px;
+                margin-left: 20px;
+            }
         }
 
         .description {
@@ -40,12 +47,15 @@
             .header {
                 font-size: 35px;
                 font-weight: 500;
+                margin-top: 60px;
             }
 
             .sub-description {
                 width: 40%;
-                margin-top: 20px;
-                line-height: 30px;
+                margin-top: 50px;
+                line-height: 35px;
+                font-size: 16px;
+                text-align: justify;
             }
         }
 
@@ -57,6 +67,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 60px;
+        margin-top: 60px;
 
         .service-header {
             font-size: 30px;
@@ -107,7 +118,7 @@
             background-color: #2e5bff;
             color: white;
             width: 282px;
-            height: 260px;
+            height: 300px;
             padding: 30px;
             border-radius: 4px;
         }
@@ -115,10 +126,10 @@
         .feature2 {
             background-color: #F4F3FB;
             width: 282px;
-            height: 260px;
+            height: 300px;
             padding: 30px;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             border-radius: 4px;
 
             .header {
@@ -133,6 +144,13 @@
                 font-weight: 500;
                 font-size: 16px;
                 margin-bottom: 10px;
+            }
+
+            .description-text {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
             }
         }
 
@@ -165,10 +183,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 60px;
+            text-align: justify;
+        }
+
+        .responsive-why-vidhik{
+           display: flex;
+           justify-content: space-between;     
         }
 
         .vidhik-feature {
             display: flex;
+
+            .margin-start {
+                margin-left: 20px;
+            }
 
             .heading {
                 font-size: 16px;
@@ -180,6 +209,7 @@
                 font-size: 14px;
                 width: 450px;
                 line-height: 22.5px;
+                text-align: justify;
             }
         }
 
@@ -263,8 +293,6 @@
         }
     }
 
-
-
     .footer {
         position: relative;
         left: 0;
@@ -312,6 +340,146 @@
     }
 }
 
+#disclaimerModal,
+#communityModal,
+#cookiesModal,
+#trustModal,
+#copyrightModal,
+#myVidhikModal .modal-dialog {
+    .modal-content {
+        .modal-header {
+            display: flex;
+            justify-content: flex-start;
+
+            h1 {
+                padding-left: 16px;
+            }
+        }
+
+        .modal-body {
+            text-align: left !important;
+
+            .list-heading {
+                font-family: Poppins;
+                font-size: 14px;
+                font-weight: 700 !important;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: left;
+                color: var(--solid-black);
+            }
+
+            .list-description {
+                padding-bottom: 20px;
+                padding-right: 20px;
+            }
+
+            .policy-list {
+                font-size: 14px;
+                font-family: Poppins;
+
+                ul {
+                    li {
+                        line-height: 2.5em;
+                        text-decoration: underline;
+                        text-underline-offset: 6px;
+
+                        a {
+                            color: #000000;
+                            margin-left: 5px;
+                            cursor: pointer;
+                        }
+
+                        :hover {
+                            color: #2e5bff;
+                            transition: all 0.3s ease-in-out;
+                        }
+                    }
+
+                    :hover {
+                        color: #2e5bff;
+                        transition: all 0.3s ease-in-out;
+                    }
+                }
+            }
+
+            .policy-container {
+                margin-left: 16px;
+                margin-bottom: 30px;
+                font-family: Poppins;
+                padding-right: 20px;
+
+                .heading {
+                    font-size: 18px;
+                    font-weight: 500;
+                    margin-bottom: 10px;
+                }
+
+                .sub-heading {
+                    // font-weight: 500;
+                    font-size: 18px;
+                    margin-top: 20px;
+                    margin-bottom: 8px;
+                    color: #2e5bff;
+                }
+
+                .details {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+// Terms And Services styling Start
+.terms-service {
+    width: 688px;
+
+    .modal-content {
+        .modal-header {
+            display: flex;
+            justify-content: flex-start;
+
+            h1 {
+                padding-left: 16px;
+            }
+        }
+    }
+
+    .modal-body {
+        text-align: left;
+
+        .policy-container {
+            margin-left: 16px;
+            margin-bottom: 30px;
+            font-family: Poppins;
+            padding-right: 20px;
+
+            .heading {
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 10px;
+            }
+
+            .sub-heading {
+                // font-weight: 500;
+                font-size: 18px;
+                margin-top: 20px;
+                margin-bottom: 8px;
+                color: #2e5bff;
+            }
+
+            .details {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+// Terms And Services styling ends
+
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
     .root {
@@ -320,13 +488,13 @@
             background-size: cover;
 
             .landing-page-image {
-               width: 600px;
-               height: 450px;
-
-               img{
                 width: 600px;
                 height: 450px;
-               }
+
+                img {
+                    width: 600px;
+                    height: 450px;
+                }
             }
 
             .main-header {
@@ -334,7 +502,7 @@
             }
 
             .description {
-                height: 260px;
+                height: 300px;
 
                 .header {
                     font-size: 25px;
@@ -344,6 +512,7 @@
                 .sub-description {
                     width: 50%;
                     margin-top: 15px;
+                    font-size: 14px;
                 }
             }
 
@@ -400,6 +569,9 @@
 
 
             .vidhik-feature {
+                .margin-start {
+                    margin-left: 10px;
+                }
 
                 .heading {
                     font-size: 15px;
@@ -488,7 +660,7 @@
 
                 .detail {
                     width: 160px;
-                }
+                } 
             }
 
             .footer-detail {
@@ -501,4 +673,284 @@
     }
 }
 
-@media only screen and (min-width: 320px) and (max-width: 480px) {}
+@media (max-width: 600px) {
+    .root {
+        height: calc(100vh - 0px);
+
+        .root-container {
+            padding: 20px;
+
+            .main-header {
+
+                .btns {
+                    margin-left: 10px;
+                }
+
+                img {
+                    height: 42px;
+                }
+
+                .login-btn,
+                .signup-btn {
+                    height: 35px;
+                    padding: 10px 16px;
+                    font-size: 13px;
+                }
+
+                .mat-mdc-raised-button {
+                    padding: 10px 16px;
+                }
+
+            }
+
+            .justify-content-space-between {
+                justify-content: unset;
+            }
+
+            .responsive-root {
+                .description {
+                    height: unset;
+
+                    .header {
+                        font-size: 22px;
+                    }
+
+                    .sub-description {
+                        width: 100%;
+                        margin-top: 15px;
+                        line-height: 30px;
+                        font-size: 13px;
+                    }
+                }
+
+                .landing-page-image {
+                    display: none;
+                }
+            }
+        }
+
+        .why-vidhik {
+            margin: 30px 0 30px 0;
+            padding: 0 20px;
+
+            .section3-header {
+    
+                .header {
+                    font-size: 25px;
+                    line-height: 40px;
+                }
+            }
+
+            .section3-description {
+                margin-bottom: 40px;
+            }
+
+            .responsive-why-vidhik {
+                display: flex;
+                flex-wrap: wrap;
+
+                .section3-img-div {
+                    margin-top: 30px;
+                    width: 100%;
+                    height: 230px;
+                    display: flex;
+                    justify-content: center;
+
+                    img {
+                        // width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+
+            .vidhik-feature {
+                .margin-start {
+                    margin-left: 10px;
+                }
+
+                .heading {
+                    font-size: 16px;
+                    line-height: 27px;
+                }
+
+                .detail {
+                    font-size: 13px;
+                    width: 100%;
+                }
+
+                img {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+
+            .more-space {
+                margin-top: 30px;
+            }
+
+            .section3-img {
+                height: 275px;
+            }
+        }
+
+        .services {
+            padding: 0 20px;
+            flex-wrap: wrap;
+            margin-top: 60px;
+
+            .service-header {
+                font-size: 25px;
+            }
+
+            .sub-description {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .feature-container {
+                padding: 20px;
+                line-height: 30px;
+                margin-top: 20px;
+
+                .bold-text {
+                    font-size: 14px;
+                    width: unset;
+                    margin-bottom: 5px;
+                }
+            }
+
+        }
+
+
+        .more-features {
+            padding: 0 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .location-carousel {
+            margin-top: 50px;
+
+            .header {
+                justify-content: flex-start;
+                font-size: 25px;
+                padding-left: 20px;
+                line-height: 65px;
+            }
+
+            .image-carousel {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 15px;
+                padding: 0 20px;
+                gap: 15px;
+            }
+
+
+            .image-outer {
+                background-color: white;
+                border-radius: 12px;
+                padding: 6px;
+
+                .city-name {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 5px 0 10px 0;
+                    font-weight: 700;
+                }
+            }
+
+        }
+
+        .below-section {
+            padding: 75px 30px 55px 30px;
+
+            .inside-below-section {
+                display: flex;
+                flex-wrap: wrap;
+
+                .heading {
+                    width: 100%;
+                }
+
+                .col-data {
+                    .below-section-desc {
+                        width: 100%;
+                    }
+                }
+
+                .below-section-img {
+                    width: 100%;
+                    height: 300px;
+                    margin-top: 50px;
+                    display: flex;
+                    justify-content: center;
+
+                    img {
+                        // width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+
+            .heading {
+                font-size: 25px;
+                font-weight: 700;
+                line-height: 35px;
+                margin-bottom: 30px;
+                // width: 700px;
+            }
+
+            .social-btn {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                margin-top: 35px;
+
+                img {
+                    height: 35px;
+                }
+            }
+
+
+        }
+
+        .footer {
+            padding: 50px;
+            text-align: center;
+
+            .sections {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+
+                .detail {
+                    width: unset;
+                    margin: 25px 0;
+                }
+
+                .social-icon{
+                 justify-content: center;   
+                }
+
+                .heading {
+                    font-size: 14px;
+                    margin-top: 35px;
+                }
+
+                .gradient-line {
+                    display: none;
+                }
+            }
+
+            .footer-detail {
+                img {
+                    width: 100%;
+                }
+            }
+        }
+
+    }
+}
