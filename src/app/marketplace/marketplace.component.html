@@ -1,0 +1,84 @@
+<app-header [menuName]="'Marketplace'"></app-header>
+
+<div class="root">
+    <marquee behavior="'smooth'" direction="rtl" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop()"
+        OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();">comply with any legal advertising regulations
+        in your jurisdiction and ensure that your messages dhere to professional and ethical standards
+    </marquee>
+
+
+    <div class="marketplace-container">
+        <div class="header-menu">
+            <div class="filter-section">
+                <mat-form-field appearance="outline">
+                    <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
+                    <mat-select placeholder="All Products" required [(value)]="selectedProduct" style="color: black;">
+                        <mat-option *ngFor="let product of productsName" [value]="product.value">
+                            {{ product.viewValue }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="search-bar">
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Search Products" required />
+                    <div matSuffix>
+                        <img src="../../../assets/images/icons/search-blue.svg"
+                            style="margin-right: 15px; cursor: pointer" />
+                    </div>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div style="height: calc(100vh - 255px); margin-bottom: 20px;">
+            <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="./../assets/images/image/marketplace-front-img.png" class="d-block w-100"
+                                alt="...">
+                        </div>
+                        <div class="carousel-item" *ngFor="let img of carouselImagess">
+                            <img [src]="img.image" class="d-block w-100" alt="">
+                        </div>
+                    </div>
+                    <div class="prev-btn"><img src="../../assets/images/image/previous (1).png"
+                            data-bs-target="#carouselExample" data-bs-slide="prev"></div>
+
+                    <div class="next-btn"><img src="../../assets/images/image/previous (2).png"
+                            data-bs-target="#carouselExample" data-bs-slide="next"></div>
+                </div>
+
+                <div class="products-container">
+                    <div class="products-content">
+                        <div class="product" *ngFor="let detail of productsDetailList" >
+                            <div class="like" *ngIf="detail.like === 'false'"><img
+                                    src="../../assets/images/icons/like_icon.svg" class="like-icon"></div>
+                            <div class="like" *ngIf="detail.like === 'true'"><img
+                                    src="../../assets/images/icons/like.svg" class="liked-icon"></div>
+                            <div (click)="productDetail(detail)">
+                                <div class="product-image"><img [src]="detail.image"></div>
+                                <div class="detail">
+                                    <div class="name">{{detail.productName}}</div>
+                                    <div class="seller-detail">
+                                        <div class="seller-image"><img [src]="detail.sellerImage"></div>
+                                        <div class="seller-name">{{detail.sellerName}}</div>
+                                    </div>
+                                    <div class="price-heading">Price</div>
+                                    <div class="price">{{detail.price}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="advertisement">
+                        <img class="ad mb-2" src="../../assets/images/image/advertisement_2.png" alt="noImage" />
+                        <img class="ad mb-1" src="../../assets/images/image/ad.png" alt="noImage" />
+                    </div>
+                </div>
+
+            </ng-scrollbar>
+        </div>
+
+    </div>

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
-import { imageUrl } from '../../../graphql.module';
+import { getBaseUrl, imageUrl } from '../../../graphql.module';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription, takeUntil, timeout } from 'rxjs';
 
@@ -74,7 +74,7 @@ export class HeaderComponent {
 
   getNotificationList() {
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
-    this._http.get(imageUrl() + `/notifications/${userData._id}/${userData.userType.toLowerCase()}`).subscribe((data: any) => {
+    this._http.get(getBaseUrl() + `/notifications/${userData._id}/${userData.userType.toLowerCase()}`).subscribe((data: any) => {
       if (data != null) {
         if (data.status == 200) {
           this.notifications = data.data;

@@ -1,0 +1,249 @@
+.root {
+    marquee {
+        color: #2e5bff;
+        background-color: #053bff0d;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .marketplace-container {
+        margin: 20px 30px;
+        margin-right: 0;
+
+        .header-menu {
+            display: flex;
+            margin-right: 30px;
+
+            .filter-section {
+                margin-right: 24px;
+
+                .mat-mdc-form-field {
+                    width: 200px !important;
+                }
+
+                .mat-mdc-select-placeholder {
+                    color: black !important;
+                }
+            }
+
+            .search-bar {
+                width: 100% !important;
+
+                .mat-mdc-form-field {
+                    max-width: unset;
+                    width: 100% !important;
+                    max-width: unset;
+
+
+                    .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+                        background-color: transparent !important;
+                    }
+                }
+            }
+        }
+
+        .carousel {
+            margin-top: 20px;
+            height: 260px;
+            position: relative;
+
+            .carousel-inner {
+                height: 260px;
+            }
+
+            img {
+                height: 260px;
+                object-fit: cover;
+            }
+
+
+            .prev-btn {
+                position: absolute;
+                top: 120px;
+                left: 30px;
+                cursor: pointer;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+
+            .next-btn {
+                position: absolute;
+                top: 120px;
+                right: 30px;
+                cursor: pointer;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+
+        .products-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 25px;
+
+            .products-content {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                height: fit-content;
+
+
+                .product {
+                    border: 1px solid #E6E8EC;
+                    border-radius: 8px;
+                    cursor: pointer;
+
+                    .like {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        float: right;
+                        background-color: #FBFBFB;
+                        margin: 5px;
+
+                        .like-icon {
+                            cursor: pointer;
+                        }
+
+                        .liked-icon {
+                            cursor: pointer;
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
+
+                    .product-image {
+                        height: 230px;
+                        width: 215px;
+                        padding: 20px 0;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+
+                    .detail {
+                        background-color: #FBFBFB;
+                        margin-top: 25px;
+                        padding: 10px 15px;
+
+                        .name {
+                            font-weight: 600;
+                            font-size: 14px;
+                            width: 185px;
+                            white-space: nowrap;
+                        }
+
+                        .seller-detail {
+                            display: flex;
+                            margin-top: 5px;
+
+                            .seller-image {
+                                width: 20px;
+                                height: 20px;
+                                border-radius: 50%;
+                                margin-right: 5px;
+
+                                img {
+                                    width: 20px;
+                                    height: 20px;
+                                    border-radius: 50%;
+                                }
+                            }
+
+                            .seller-name {
+                                font-size: 13px;
+
+                            }
+                        }
+
+                        .price-heading {
+                            color: #C4C4C4;
+                            font-size: 12px;
+                            margin-top: 5px;
+                        }
+
+                        .price {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+
+        .advertisement {
+            display: flex;
+            flex-direction: column;
+
+            .ad {
+                width: 193px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .root{
+        .marketplace-container{
+            margin-left: 15px;
+
+            .header-menu {
+                margin-right: 15px; 
+            }
+
+            .products-container {
+                gap: 20px;
+    
+                .products-content {
+                    gap: 20px;
+                    flex-wrap: wrap;
+    
+                    .product {
+                        .product-image {
+                            height: 200px;
+                            width: 180px;
+                            padding: 20px 0;
+    
+                            img {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+    
+                        .detail {
+                            .name {
+                                font-size: 13px;
+                                width: 150px;
+                                white-space: normal;
+                            }
+                        }
+                    }
+                }
+
+                .ad{
+                    width: 149px;
+                }
+            }
+        }
+    }
+}

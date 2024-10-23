@@ -53,6 +53,10 @@ const routes: Routes = [
           import('../transactions/transactions.module').then((m) => m.TransactionsModule),
       },
       {
+        path:'marketplace',
+        loadChildren: ()=> import('../marketplace/marketplace.module').then(m=>m.MarketplaceModule)
+      },
+      {
         path: 'resetPassword',
         component: ResetPasswordComponent
       },

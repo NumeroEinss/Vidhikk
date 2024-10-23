@@ -61,7 +61,6 @@
 
     }
 
-
     .services {
         display: flex;
         justify-content: space-between;
@@ -187,9 +186,9 @@
             text-align: justify;
         }
 
-        .responsive-why-vidhik{
-           display: flex;
-           justify-content: space-between;     
+        .responsive-why-vidhik {
+            display: flex;
+            justify-content: space-between;
         }
 
         .vidhik-feature {
@@ -435,7 +434,6 @@
 
 // Terms And Services styling Start
 .terms-service {
-    width: 688px;
 
     .modal-content {
         .modal-header {
@@ -473,6 +471,7 @@
 
             .details {
                 font-size: 14px;
+                // width: 200px;
             }
         }
     }
@@ -503,6 +502,7 @@
 
             .description {
                 height: 300px;
+                margin-top: 30px;
 
                 .header {
                     font-size: 25px;
@@ -660,7 +660,7 @@
 
                 .detail {
                     width: 160px;
-                } 
+                }
             }
 
             .footer-detail {
@@ -734,7 +734,7 @@
             padding: 0 20px;
 
             .section3-header {
-    
+
                 .header {
                     font-size: 25px;
                     line-height: 40px;
@@ -931,8 +931,8 @@
                     margin: 25px 0;
                 }
 
-                .social-icon{
-                 justify-content: center;   
+                .social-icon {
+                    justify-content: center;
                 }
 
                 .heading {

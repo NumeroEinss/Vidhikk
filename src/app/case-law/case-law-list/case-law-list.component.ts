@@ -367,9 +367,9 @@ export class CaseLawListComponent {
       this.getCaseLaws(1);
     }
     else {
-      this._apolloService.get(`/judgement/search/court/${selectedCourt.name}?page=1&pageSize=10`).subscribe(objRes => {
+      this._apolloService.get(`/judgement/search/court/${selectedCourt.name}?page=${this.caseLawCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
         if (objRes.status == "success") {
-          this.caseList = objRes.data.court;
+          this.caseList = objRes.data.items;
           this.recordCount = objRes.data.totalCount;
         }
       })
@@ -485,6 +485,15 @@ export class CaseLawListComponent {
     }
   }
 
+  getPaginatedCaseLawByAdvanceSearch(page: number) {
+    this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.respAdvanceSearchList = objRes.data.items;
+        this.recordCount = objRes.data.totalCount;
+      }
+    })
+  }
+
   getHeadingLength(): number {
     return (window.innerWidth > 1199) ? 90 : 30;
   }
@@ -537,7 +546,7 @@ export class CaseLawListComponent {
         break;
       case 'Advance':
         var val = this.advanceSearchCurrentPage += 1;
-        this.getCaseLawByAdvanceSearch(val);
+        this.getPaginatedCaseLawByAdvanceSearch(val);
         break;
       case 'Saved':
         break;
@@ -583,7 +592,7 @@ export class CaseLawListComponent {
       case 'Advance':
         if (this.advanceSearchCurrentPage > 1) {
           let val = this.advanceSearchCurrentPage -= 1;
-          this.getCaseLawByAdvanceSearch(val);
+          this.getPaginatedCaseLawByAdvanceSearch(val);
         }
         break;
       case 'Saved':
@@ -619,7 +628,7 @@ export class CaseLawListComponent {
         break;
       case 'Advance':
         this.advanceSearchCurrentPage = e;
-        this.getCaseLawByAdvanceSearch(this.advanceSearchCurrentPage);
+        this.getPaginatedCaseLawByAdvanceSearch(this.advanceSearchCurrentPage);
         break;
       case 'Saved':
         break;

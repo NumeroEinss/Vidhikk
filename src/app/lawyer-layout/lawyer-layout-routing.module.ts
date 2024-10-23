@@ -60,6 +60,10 @@ const routes: Routes = [
         loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule)
       },
       {
+        path:'marketplace',
+        loadChildren: ()=> import('../marketplace/marketplace.module').then(m=>m.MarketplaceModule)
+      },
+      {
         path: 'global-search',
         component: GlobalSearchComponent,
       },
