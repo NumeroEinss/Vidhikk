@@ -48,6 +48,10 @@ const routes: Routes = [
         component: ResetPasswordComponent
       },
       {
+        path:'marketplace',
+        loadChildren: ()=> import('../marketplace/marketplace.module').then(m=>m.MarketplaceModule)
+      },
+      {
         path: '**',
         component: PageNotFoundComponent,
       }

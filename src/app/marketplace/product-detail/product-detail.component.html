@@ -1,0 +1,144 @@
+<app-header [menuName]="'Marketplace'"></app-header>
+
+<div class="root">
+    <div class="redirection"><span (click)="routeBack()" class="route">Marketplace</span> / {{routerState.productName}}</div>
+
+    <div style="height: calc(100vh - 200px); margin-bottom: 20px;">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+
+            <div class="product-detail-container">
+                <div class="product-images">
+                    <div class="prev" (click)="prevImage()" [class.disabled]="isPrevDisabled"
+                        [attr.disabled]="isPrevDisabled ? true : null"><img
+                            src="../../../assets/images/icons/black_arrow_down.svg"></div>
+                    <div class="image">
+                        <div><img [src]="currentImage"></div>
+                    </div>
+                    <div class="next" (click)="nextImage()" [class.disabled]="isNextDisabled"
+                        [attr.disabled]="isNextDisabled ? true : null">
+                        <img src="../../../assets/images/icons/black_arrow_down.svg">
+                        <div class="image-numbering">{{imageNumbering}}</div>
+                    </div>
+                </div>
+
+                <div class="seller-product-detail">
+                    <div class="product-detail">
+                        <div>{{routerState.productName}}</div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="price">{{routerState.price}}</div>
+                            <div class="d-flex align-items-center"><img
+                                    src="../../../assets/images/icons/black_colored_share.svg" alt="">
+                                <img src="../../../assets/images/icons/black_bordered_like.svg" alt="" class="ms-2">
+                                <!-- <img src="../../assets/images/icons/like.svg" alt=""  class="liked-icon"> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="seller-detail" (click)="redirectToSellerProfile(routerState)">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <div class="seller-img">
+                                    <img [src]="routerState.sellerImage" alt="">
+                                </div>
+                                <div class="seller-name">{{routerState.sellerName}}</div>
+                            </div>
+                            <img src="../../../assets/images/icons/black_arrow_down.svg" alt="" class="right-arrow">
+                        </div>
+
+                        <div class="label mt-4">Mobile Number</div>
+                        <div class="detail">{{routerState.sellerMobileNo}}</div>
+
+                        <div class="label mt-3">Email</div>
+                        <div class="detail">{{routerState.sellerEmail}}<span>(Verified)</span></div>
+
+                        <div class="label mt-3">Posted In</div>
+                        <div class="detail">{{routerState.sellerAddress}}<span>(Verified)</span></div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="total_images">
+                <div class="img-box" *ngFor="let img of productMultipleImages"><img [src]="img" alt=""></div>
+            </div>
+
+            <div class="headings">
+                <div (click)="toggleDescription()"
+                    [ngClass]="{'colored-heading': isDescriptionOpened, 'default-heading': !isDescriptionOpened}">
+                    Description</div>
+                <div (click)="toggleReview()"
+                    [ngClass]="{'colored-heading': isReviewOpened, 'default-heading': !isReviewOpened}">
+                    Reviews</div>
+            </div>
+
+            <div *ngIf="isDescriptionOpened">
+                <div class="heading">Key Features</div>
+                <ol>
+                    <li><span class="bold-text">Material : </span>Tailored from high-quality, durable fabric to ensure
+                        both
+                        comfort and
+                        longevity.</li>
+                    <li><span class="bold-text">Design : </span> A classic, timelessly elegant design that exudes
+                        authority.
+                        The coat features a
+                        well-defined
+                        silhouette, emphasizing the wearer's professionalism.</li>
+                    <li><span class="bold-text">Color : </span> Choose from a range of sophisticated colors to suit your
+                        personal style and make a
+                        powerful
+                        statement in the courtroom.</li>
+                    <li><span class="bold-text">Details : </span> Thoughtfully designed with practicality in mind,
+                        including
+                        functional pockets for
+                        essential items
+                        and a tasteful yet subtle lining that adds a touch of luxury.</li>
+                    <li><span class="bold-text">Versatility :</span> Perfect for a variety of occasions, from courtroom
+                        appearances to professional
+                        meetings, this
+                        coat effortlessly transitions between different aspects of a legal professional's day.</li>
+                </ol>
+
+                <div class="heading">Description</div>
+                <div class="desc">This exquisite garment seamlessly blends professionalism with sophistication, making it the perfect
+                    choice for legal professionals who value both appearance and functionality.</div>
+            </div>
+
+            <div *ngIf="isReviewOpened">
+                <div class="review-btn" *ngIf="!showReviewForm"><button mat-raised-button color="primary"
+                        (click)="reviewForm()">Write a Review</button></div>
+
+                <div class="review-form" *ngIf="showReviewForm">
+                    <div style="color: black;">Add Star Rating</div>
+                    <div class="star-content mt-1"><star-rating [starType]="'svg'" [rating]="3"></star-rating></div>
+                    <div class="mt-4" style="color: black;">Add Review</div>
+                    <div class="comment-box">
+                        <textarea matInput placeholder="Tag your review..." [(ngModel)]="reviews"></textarea>
+                        <button type="button" class="btn btn-primary comment-btn" (click)="submitReview(reviews)">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
+                <div class="reviews-container" *ngFor="let review of reviewList">
+                    <div class="reviews-content">
+                        <div class="d-flex align-items-center">
+                            <div class="profile-image"><img [src]="review.profileImage" alt=""></div>
+                            <div>
+                                <div class="ms-2">{{review.name}}</div>
+                                <div class="star-content ms-1 d-flex align-items-center"><star-rating
+                                        [starType]="'svg'" [rating]="3"></star-rating>
+                                    <div class="rating">4.5</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="post-time">{{review.postTime}}</div>
+                    </div>
+
+                    <div class="description">{{review.review}}</div>
+                    <hr class="horizontal-line">
+                </div>
+            </div>
+        </ng-scrollbar>
+    </div>
+</div>

@@ -980,7 +980,7 @@ body {
 
 
   // mat-input-white override css
-  .contact-us-container {
+  .contact-us-container, .marketplace-container{
     .header-menu {
       .filter-section {
         .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
@@ -1008,6 +1008,10 @@ body {
           background-color: transparent !important;
         }
       }
+
+      // .mat-mdc-select-placeholder{
+      //   color: black !important;
+      // }
     }
   }
 

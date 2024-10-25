@@ -1,0 +1,169 @@
+<app-header [menuName]="'Marketplace'"></app-header>
+
+<div class="root">
+    <div class="seller-product-container">
+        <div class="d-flex">
+            <div class="image-container">
+                <img class="display-profile" [src]="routerState.sellerImage"
+                    onerror="this.onerror=null,this.src='../../../assets/images/image/no-image.png'">
+            </div>
+
+            <div class="detail">
+                <div class="name">{{routerState.sellerName}}</div>
+                <div class="disclaimer-detail">
+                    <img src="../../../assets/images/icons/active_calendar.svg" alt="">
+                    <div class="disclaimer">{{routerState.sellerMemberShipfrom}}</div>
+                </div>
+                <div class="disclaimer-detail">
+                    <img src="../../../assets/images/icons/disclaimer.svg" alt="">
+                    <div class="disclaimer">{{routerState.disclaimer}}</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="rating-detail">
+            <div class="rating">4.0</div>
+            <div class="rating-img"><star-rating [starType]="'svg'" [rating]="4" [readOnly]="true"></star-rating>
+            </div>
+            <div class="rating-count">Based on 23 Review</div>
+        </div>
+
+        <div class="seller-info">
+            <div class="d-flex">
+                <div class="parameter">Customer Service</div>
+                <div class="container">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuemax="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="parameter">Product/Service Quality</div>
+                <div class="container">
+                    <div class="progress">
+                        <!-- <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="lawyer.totalAvgLegalAnalysis"
+                            aria-valuemin="0" aria-valuemax="100"
+                            [ngStyle]="{'width':((lawyer?.totalAvgLegalAnalysis*20)+'%')}">
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="parameter">Communication</div>
+                <div class="container">
+                    <div class="progress">
+                        <!-- <div class="progress-bar" role="progressbar"
+                            [attr.aria-valuenow]="lawyer.totalAvgcommunicationSkills" aria-valuemin="0"
+                            aria-valuemax="100" [ngStyle]="{'width':((lawyer?.totalAvgcommunicationSkills*20)+'%')}">
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="parameter">Shipping/Handling Time</div>
+                <div class="container">
+                    <div class="progress">
+                        <!-- <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="lawyer.totalAvgEnP"
+                            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width':((lawyer?.totalAvgEnP*20)+'%')}">
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div style="height: calc(100vh - 340px); margin-bottom: 20px;">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+            <div class="headings">
+                <div (click)="toggleListing()"
+                    [ngClass]="{'colored-heading': isListingShow, 'default-heading': !isListingShow}">
+                    Listing</div>
+                <div (click)="toggleReview()"
+                    [ngClass]="{'colored-heading': isReviewShow, 'default-heading': !isReviewShow}">
+                    Reviews</div>
+            </div>
+
+            <div *ngIf="isListingShow">
+                <div class="products-container">
+                    <div class="products-content">
+                        <div class="product" *ngFor="let detail of productsDetail" >
+                            <div class="like" *ngIf="detail.like === 'false'"><img
+                                    src="../../assets/images/icons/like_icon.svg" class="like-icon"></div>
+                            <div class="like" *ngIf="detail.like === 'true'"><img
+                                    src="../../assets/images/icons/like.svg" class="liked-icon"></div>
+
+                            <div class="product-image"><img [src]="detail.image"></div>
+                            <div class="detail">
+                                <div class="name">{{detail.productName}}</div>
+                                <div class="seller-detail">
+                                    <div class="seller-image"><img [src]="detail.sellerImage"></div>
+                                    <div class="seller-name">{{detail.sellerName}}</div>
+                                </div>
+                                <div class="price-heading">Price</div>
+                                <div class="price">{{detail.price}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="isReviewShow">
+                <div class="review-btn" *ngIf="!showReviewForm"><button mat-raised-button color="primary"
+                    (click)="reviewForm()">Write a Review</button></div>
+
+            <div class="review-form" *ngIf="showReviewForm">
+                <div style="color: black;">Add Star Rating</div>
+                <div class="star-content mt-1"><star-rating [starType]="'svg'" [rating]="3"></star-rating></div>
+
+
+                <div class="d-flex mt-5">
+                    <div class="parameter-basic">Customer Service</div>
+                    <div class="star-content"><star-rating [starType]="'svg'" [rating]="3"></star-rating></div>
+                </div>
+                <div class="d-flex  mt-1">
+                    <div class="parameter-basic">Product/Service Quality</div>
+                    <div class="star-content"><star-rating [starType]="'svg'" [rating]="3"></star-rating></div>
+                </div>
+                <div class="d-flex mt-1">
+                    <div class="parameter-basic">Communication</div>
+                    <div class="star-content"><star-rating [starType]="'svg'" [rating]="3"></star-rating></div>
+                </div>
+                <div class="d-flex mt-1">
+                    <div class="parameter-basic">Shipping/Handling Time</div>
+                    <div class="star-content"><star-rating [starType]="'svg'" [rating]="3"></star-rating></div>
+                </div>
+
+                <div class="mt-5" style="color: black;">Add Review</div>
+                <div class="comment-box">
+                    <textarea matInput placeholder="Tag your review..." [(ngModel)]="reviews"></textarea>
+                    <button type="button" class="btn btn-primary comment-btn" (click)="submitReview(reviews)">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+            <div class="reviews-container" *ngFor="let review of reviewList">
+                <div class="reviews-content">
+                    <div class="d-flex align-items-center">
+                        <div class="profile-image"><img [src]="review.profileImage" alt=""></div>
+                        <div>
+                            <div class="ms-2">{{review.name}}</div>
+                            <div class="star-content ms-1 d-flex align-items-center"><star-rating
+                                    [starType]="'svg'" [rating]="3"></star-rating>
+                                <div class="rating">4.5</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-time">{{review.postTime}}</div>
+                </div>
+
+                <div class="description">{{review.review}}</div>
+                <hr class="horizontal-line">
+            </div>
+            </div>
+
+        </ng-scrollbar>
+    </div>
+</div>
