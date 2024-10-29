@@ -1,35 +1,38 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
-
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-seller-product-profile',
-  templateUrl: './seller-product-profile.component.html',
-  styleUrl: './seller-product-profile.component.scss'
+  selector: 'app-seller-dashboard',
+  templateUrl: './seller-dashboard.component.html',
+  styleUrl: './seller-dashboard.component.scss'
 })
-export class SellerProductProfileComponent {
+export class SellerDashboardComponent {
   routerState: any;
   isListingShow: boolean = true;
   isReviewShow: boolean = false;
   showReviewForm: boolean = false;
   reviews: string = '';
+  addProductForm: FormGroup;
 
-  productsDetail = [
+  files: any = { name: "No Files Selected" };
+  fileUploaded: boolean = false;
+
+  productsDetail: any = [
     {
       productId: '1',
       like: 'true',
       image: '../../assets/images/image/coat.png',
-      multipleImages: ['../../assets/images/image/coat.png', '../../assets/images/image/coat.png'],
+      multipleImages: ['../../assets/images/image/coat.png', '../../assets/images/image/coat1.png'],
       productName: 'Advocates Coat and gown',
       sellerImage: '../../assets/images/image/person.jpg',
       sellerName: 'Sandeep Agal',
       sellerMobileNo: '9876543120',
       sellerEmail: 'sandeep@gmail.com',
       sellerAddress: 'Indore, M.P',
-      sellerMemberShipfrom: 'Member since Apr 2015',
-      disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-      price: '1110 Rs'
+      price: '1110 Rs',
+      postedDate: '21 Dec 2023',
+      userType:'SELLER'
     },
     {
       productId: '2',
@@ -42,9 +45,9 @@ export class SellerProductProfileComponent {
       sellerMobileNo: '9876543120',
       sellerEmail: 'saurabh@gmail.com',
       sellerAddress: 'Indore, M.P',
-      sellerMemberShipfrom: 'Member since Apr 2015',
-      disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-      price: '190 Rs'
+      price: '190 Rs',
+      postedDate: '21 Dec 2023',
+      userType:'SELLER'
     },
     {
       productId: '3',
@@ -56,10 +59,10 @@ export class SellerProductProfileComponent {
       sellerName: 'Preeti jain',
       sellerMobileNo: '9876543120',
       sellerEmail: 'preeti@gmail.com',
-      sellerMemberShipfrom: 'Member since Apr 2015',
-      disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
       sellerAddress: 'Indore, M.P',
-      price: '4999 Rs'
+      price: '4999 Rs',
+      postedDate: '21 Dec 2023',
+      userType:'SELLER'
     },
     {
       productId: '4',
@@ -72,9 +75,9 @@ export class SellerProductProfileComponent {
       sellerMobileNo: '9876543120',
       sellerEmail: 'sandeep@gmail.com',
       sellerAddress: 'Indore, M.P',
-      sellerMemberShipfrom: 'Member since Apr 2015',
-      disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-      price: '1110 Rs'
+      price: '1110 Rs',
+      postedDate: '21 Dec 2023',
+      userType:'SELLER'
     },
     {
       productId: '5',
@@ -87,9 +90,9 @@ export class SellerProductProfileComponent {
       sellerMobileNo: '9876543120',
       sellerEmail: 'saurabh@gmail.com',
       sellerAddress: 'Indore, M.P',
-      sellerMemberShipfrom: 'Member since Apr 2015',
-      disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-      price: '190 Rs'
+      price: '190 Rs',
+      postedDate: '21 Dec 2023',
+      userType:'SELLER'
     },
   ];
 
@@ -108,22 +111,38 @@ export class SellerProductProfileComponent {
     }
   ];
 
-  constructor(private router: Router, private location: Location, private route: ActivatedRoute) {
-    this.routerState = this.router.getCurrentNavigation()?.extras.state;
+  sellersInfo = [
+    {
+      sellerImage: '../../assets/images/image/person.jpg',
+      sellerName: 'Sandeep Agal',
+      sellerMobileNo: '9876543120',
+      sellerEmail: 'sandeep@gmail.com',
+      sellerAddress: 'Indore, M.P',
+      sellerMemberShipfrom: 'Member since Apr 2015',
+      disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
+    }
+  ];
 
-    if (this.routerState == undefined) {
-      this.routeBack();
-    }
-    else {
-      this.getSellerProductDetail()
-    }
+  categoryList = [
+    { value: 'male', viewValue: 'Male' },
+    { value: 'female', viewValue: 'Female' },
+    { value: 'child', viewValue: 'Child' },
+  ]
+
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.addProductForm = new FormGroup({
+      category: new FormControl(''),
+      productName: new FormControl(''),
+      ProductDescription: new FormControl(''),
+      productPrice: new FormControl(''),
+    })
+
+    this.getSellerProductDetail();
   }
 
-  routeBack() {
-    this.location.back();
+  isNumber(event: any) {
+    return event.charCode >= 48 && event.charCode <= 57;
   }
-
-  getSellerProductDetail() { }
 
   toggleListing() {
     this.isReviewShow = false;
@@ -135,17 +154,41 @@ export class SellerProductProfileComponent {
     this.isListingShow = false;
   }
 
-  productDetail(detail: any) {
-    this.router.navigate(['/lawyer/marketplace/productDetail'], { state: detail });
+  onFileSelected(event: any): void {
+    this.files = event.target.files[0];
+    this.fileUploaded = true;
   }
 
-  reviewForm() {
-    this.showReviewForm = true;
+  onDrop(event: any): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.files = event.dataTransfer.files[0];
+    this.fileUploaded = true;
   }
 
-  submitReview(reviews: string) {
-    this.reviews = '';
+  onDragOver(event: any): void {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
-  
+  ProductDetail(detail: any) {
+    this.router.navigate(['/seller/marketplace/productDetail'], { state: detail });
+  }
+
+  addProduct() {
+    let productObj = {
+      category: this.addProductForm.controls.category.value,
+      productName: this.addProductForm.controls.productName.value,
+      description: this.addProductForm.controls.ProductDescription.value,
+      price: this.addProductForm.controls.productPrice.value,
+      image: this.files.name,
+      postedDate: new Date(),
+    }
+
+    console.log(productObj)
+    this.productsDetail.push(productObj)
+    this.addProductForm.reset('');
+  }
+
+  getSellerProductDetail() { }
 }

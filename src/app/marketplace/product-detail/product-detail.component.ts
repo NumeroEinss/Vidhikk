@@ -13,9 +13,10 @@ export class ProductDetailComponent {
   isDescriptionOpened: boolean = true;
   isReviewOpened: boolean = false;
   showReviewForm: boolean = false;
-  currentIndex: number = 0;
   productMultipleImages: string[] = [];
   reviews: string = '';
+  currentImageIndex: number = 0;
+  currentImage: string;
 
   reviewList = [
     {
@@ -43,7 +44,8 @@ export class ProductDetailComponent {
       this.getProductDetail()
     }
 
-    this.productMultipleImages = this.routerState.multipleImages
+    this.productMultipleImages = this.routerState.multipleImages;
+    this.currentImage = this.productMultipleImages[this.currentImageIndex];
   }
 
   routeBack() {
@@ -53,31 +55,35 @@ export class ProductDetailComponent {
   getProductDetail() { }
 
   prevImage() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
+    if (this.currentImageIndex > 0) {
+      this.currentImageIndex--;
+      this.currentImage = this.productMultipleImages[this.currentImageIndex];
     }
   }
 
   nextImage() {
-    if (this.currentIndex < this.productMultipleImages.length - 1) {
-      this.currentIndex++;
+    if (this.currentImageIndex < this.productMultipleImages.length - 1) {
+      this.currentImageIndex++;
+      this.currentImage = this.productMultipleImages[this.currentImageIndex];
     }
   }
 
-  get currentImage() {
-    return this.productMultipleImages[this.currentIndex];
+  selectImage(index: number) {
+    this.currentImageIndex = index;
+    this.currentImage = this.productMultipleImages[this.currentImageIndex];
   }
 
+
   get imageNumbering() {
-    return `${this.currentIndex + 1}/${this.productMultipleImages.length}`;
+    return `${this.currentImageIndex + 1}/${this.productMultipleImages.length}`;
   }
 
   get isNextDisabled() {
-    return this.currentIndex >= this.productMultipleImages.length - 1;
+    return this.currentImageIndex >= this.productMultipleImages.length - 1;
   }
 
   get isPrevDisabled() {
-    return this.currentIndex <= 0;
+    return this.currentImageIndex <= 0;
   }
 
   toggleDescription() {
@@ -100,8 +106,7 @@ export class ProductDetailComponent {
   }
 
   redirectToSellerProfile(sellerDetail:any){
-    this.router.navigate(['/lawyer/marketplace/sellerProfile'], {state: sellerDetail});
-    console.log('sellerDetail',sellerDetail)
+    this.router.navigate(['/lawyer/marketplace/allProducts'], {state: sellerDetail});
   }
 
 }

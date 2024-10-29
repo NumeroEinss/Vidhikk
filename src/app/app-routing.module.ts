@@ -10,6 +10,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { UserLayoutComponent } from './user-layout/user-layout.component';
 import { JudgeLayoutComponent } from './judge-layout/judge-layout.component';
 import { LandingPageComponent } from './shared/component/landing-page/landing-page.component';
+import { SellerLayoutComponent } from './seller-layout/seller-layout.component';
 
 const routes: Routes = [
   {
@@ -49,12 +50,12 @@ const routes: Routes = [
     loadChildren: () => import('./user-layout/user-layout.module').then(m => m.UserLayoutModule),
     canActivate: [AuthGuard]
   },
-  // {
-  //   path: 'seller',
-  //   component: LawyerLayoutComponent,
-  //   loadChildren: () => import('./lawyer-Layout/lawyer-layout.module').then(m => m.LawyerLayoutModule),
-  //   // canActivate: [AuthGuard]
-  // },
+  {
+    path: 'seller',
+    component: SellerLayoutComponent,
+    loadChildren: () => import('./seller-layout/seller-layout.module').then(m => m.SellerLayoutModule),
+    // canActivate: [AuthGuard]
+  },
   {
     path: 'judge',
     component: JudgeLayoutComponent,

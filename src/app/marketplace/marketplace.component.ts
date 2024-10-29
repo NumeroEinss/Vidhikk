@@ -30,7 +30,7 @@ export class MarketplaceComponent {
       productId: '1',
       like: 'true',
       image: '../../assets/images/image/coat.png',
-      multipleImages:['../../assets/images/image/coat.png', '../../assets/images/image/coat.png'],
+      multipleImages:['../../assets/images/image/coat.png', '../../assets/images/image/coat1.png'],
       productName: 'Advocates Coat and gown',
       sellerImage: '../../assets/images/image/person.jpg',
       sellerName: 'Sandeep Agal',
@@ -39,7 +39,7 @@ export class MarketplaceComponent {
       sellerAddress:'Indore, M.P',
       sellerMemberShipfrom:'Member since Apr 2015',
       disclaimer:'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-      price: '1110 Rs'
+      price: '1110 Rs',
     },
     {
       productId: '2',
@@ -54,7 +54,7 @@ export class MarketplaceComponent {
       sellerAddress:'Indore, M.P',
       sellerMemberShipfrom:'Member since Apr 2015',
       disclaimer:'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-      price: '190 Rs'
+      price: '190 Rs',
     },
     {
       productId: '3',
@@ -69,7 +69,7 @@ export class MarketplaceComponent {
       sellerMemberShipfrom:'Member since Apr 2015',
       disclaimer:'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
       sellerAddress:'Indore, M.P',
-      price: '4999 Rs'
+      price: '4999 Rs',
     },
     {
       productId: '4',
@@ -84,7 +84,7 @@ export class MarketplaceComponent {
       sellerAddress:'Indore, M.P',
       sellerMemberShipfrom:'Member since Apr 2015',
       disclaimer:'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-      price: '1110 Rs'
+      price: '1110 Rs',
     },
     {
       productId: '5',
@@ -99,7 +99,7 @@ export class MarketplaceComponent {
       sellerAddress:'Indore, M.P',
       sellerMemberShipfrom:'Member since Apr 2015',
       disclaimer:'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-      price: '190 Rs'
+      price: '190 Rs',
     },
   ];
 

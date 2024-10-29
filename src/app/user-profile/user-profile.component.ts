@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { LawyerSignupModel } from '../../app/common/signup.model';
+import { LawyerSignupModel, SellerSignupModel } from '../../app/common/signup.model';
 import { userProfileModel } from '../common/user-profile.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
@@ -24,6 +24,7 @@ export class UserProfileComponent {
 
   lawyerEditProfileForm: FormGroup;
   userEditProfileForm: FormGroup;
+  sellerEditProfileForm: FormGroup;
   userType: string = "";
   userData: any;
   displayImage: any = "";
@@ -65,6 +66,8 @@ export class UserProfileComponent {
     this.userEditFrmCtrl.district.setValidators([Validators.required]);
     this.userEditFrmCtrl.courtType.setValidators([Validators.required]);
     this.userEditFrmCtrl.courtName.setValidators([Validators.required]);
+
+    this.sellerEditProfileForm = this._fb.group(new SellerSignupModel)
 
     this.userData = JSON.parse(sessionStorage.getItem('userData')!);
     this._authService.profileImageSubject.asObservable()
@@ -186,6 +189,13 @@ export class UserProfileComponent {
         }
       }
       else if (this.userType == "judge") {
+        this.userImage = event.target.files[0];
+        let uploaded = await this.uploadImage();
+        if (uploaded == true) {
+          this.displayImage = e.target?.result;
+        }
+      }
+      else if (this.userType == "seller") {
         this.userImage = event.target.files[0];
         let uploaded = await this.uploadImage();
         if (uploaded == true) {
@@ -336,6 +346,13 @@ export class UserProfileComponent {
         phoneNumber: this.lawyerEditProfileForm.controls.phoneNumber.value
       };
     }
+    else if (this.userType == "seller") {
+      data = {
+        email: this.sellerEditProfileForm.controls.email.value,
+        phoneNumber: this.sellerEditProfileForm.controls.phoneNumber.value
+      };
+    }
+
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
       if (objEmailOtp.data != null) {
         if (objEmailOtp.data.sendOtp.status == 200) {
@@ -364,6 +381,13 @@ export class UserProfileComponent {
           data = {
             email: this.lawyerEditProfileForm.controls.email.value,
             mobile: this.lawyerEditProfileForm.controls.phoneNumber.value,
+            otp: e
+          };
+        }
+        else if (this.userType == "seller") {
+          data = {
+            email: this.sellerEditProfileForm.controls.email.value,
+            mobile: this.sellerEditProfileForm.controls.phoneNumber.value,
             otp: e
           };
         }
