@@ -242,6 +242,12 @@ export class SignupComponent {
     return this.judgeForm.controls;
   }
 
+  toUppercase(event: Event) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.toUpperCase();
+    this.sellerForm.controls['panNo'].setValue(input.value, { emitEvent: false });
+  }
+
 
   //generateMobileOtpForSignup
   generateOtp() {

@@ -393,7 +393,6 @@
   </div>
 </div>
 
-
 <!-- lawyer/user-profile- Edit Profile Popup Start -->
 <div class="modal fade" id="lawyerEditProfileModal" aria-hidden="true" aria-labelledby="lawyerEditProfileModalLabel"
   tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -998,6 +997,61 @@
   </div>
 </div>
 <!--seller/user-profile- Edit Profile Popup ends -->
+
+<!--seller/user-profile Mobile Otp Verification Popup Start-->
+<!-- <div class="modal fade" id="mobileOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered mobile-verification-popup">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="otpModalLabel">Mobile Verification</h1>
+        <button type="button" id="closeMobile" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="head-text">Enter Verification Code</div>
+        <div class="sub-text mt-2 mb-4">
+          We sent a 6-digit code to<br /><span
+            class="mobile mt-2">{{this.sellerEditProfileForm.controls.phoneNumber.value}}</span>
+        </div>
+        <ng-otp-input #mobileOtpInput (onInputChange)="onMobileOtpChange($event)" [config]="{ length: 6 }" class="mt-2"
+          [(ngModel)]="mobileOtp"></ng-otp-input>
+        <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
+          <button mat-button color="primary" class="request-btn"
+            (click)="resendOtp(this.lawyerEditProfileForm.controls.phoneNumber.value)">
+            Request a new Code
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!--seller/user-profile Mobile Otp Verification Popup Ends -->
+
+<!--seller/user-profile Email Otp Verification Popup Start-->
+<!-- <div class="modal fade" id="emailOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered email-verification-popup">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="otpModalLabel">Email Verification</h1>
+        <button type="button" id="closeEmail" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="head-text">Enter Verification Code</div>
+        <div class="sub-text mt-2 mb-4">
+          We sent a 6-digit code to<br /><span
+            class="email mt-2">{{this.sellerEditProfileForm.controls.email.value}}</span>
+        </div>
+        <ng-otp-input #emailOtpInput (onInputChange)="onEmailOtpChange($event)" [config]="{ length: 6 }"
+          class="mt-2"></ng-otp-input>
+        <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
+          <button mat-button color="primary" class="request-btn">
+            Request a new Code
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!--seller/user-profile Email Verify Otp Verification Popup Ends -->
 
 
 <button mat-stroked-button id="openLawyerEditModal" color="primary" class="d-none"

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../shared/component/page-not-found/page-not-found.component';
 import { SellerLayoutComponent } from './seller-layout.component';
+import { GlobalSearchComponent } from '../shared/component/global-search/global-search.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
         path: 'contact-us',
         loadChildren: () =>
           import('../contact-us/contact-us.module').then((m) => m.ContactUsModule),
+      },
+      {
+        path: 'global-search',
+        component: GlobalSearchComponent,
       },
       {
         path: '**',
