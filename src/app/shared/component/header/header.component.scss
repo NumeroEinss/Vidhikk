@@ -25,6 +25,10 @@
     padding-left: 30px;
   }
 
+  .icon {
+    display: none;
+  }
+
   .sub-container {
     display: flex;
     justify-content: right;
@@ -221,6 +225,10 @@ body .modal-dialog .modal-header {
       padding-left: 15px;
     }
 
+    .icon {
+      display: none;
+    }
+
     .search {
       margin-right: 10px;
     }
@@ -235,6 +243,58 @@ body .modal-dialog .modal-header {
 
     .profile-container {
       margin-right: 15px !important;
+    }
+  }
+}
+
+
+@media (max-width: 600px) {
+  .main-container {
+    .welcome-text {
+      display: none;
+    }
+
+    .icon {
+      display: block;
+      width: 20px;
+      height: 20px;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .sub-container {
+      margin-left: 20px;
+    }
+
+    .search {
+      margin-right: 10px;
+    }
+
+    .notification-container {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .add-button {
+      margin-right: 10px;
+    }
+
+    .profile-container {
+      width: 20px;
+      height: 20px;
+      margin-right: 0 !important;
+      img {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

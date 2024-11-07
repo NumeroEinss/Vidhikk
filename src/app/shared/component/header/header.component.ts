@@ -17,6 +17,7 @@ export class HeaderComponent {
   userImage: string = "";
   notifications: any = [];
   sub$: Subscription;
+  isSidebarOpen: boolean = false;
 
   @Input() menuName: string = "";
   @Input() searchStyle = { width: '0px', display: 'none' };
@@ -99,6 +100,11 @@ export class HeaderComponent {
   openNoification() {
     let el = document.getElementById('openNotifications') as HTMLElement;
     el.click();
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    console.log(this.isSidebarOpen)
   }
 
   ngOnDestroy() {

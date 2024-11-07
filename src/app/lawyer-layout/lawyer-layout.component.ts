@@ -7,7 +7,8 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrl: './lawyer-layout.component.scss'
 })
 export class LawyerLayoutComponent {
-
+  isSidebarOpen: boolean = false;
+  
   constructor(private _authService: AuthService) { }
 
   logoutCaseDiary() {

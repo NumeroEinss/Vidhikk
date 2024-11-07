@@ -580,3 +580,53 @@ marquee {
     margin-bottom: 50px;
   }
 }
+
+
+@media (max-width: 600px) {
+  .root {
+    .feed-section {
+      .up-section-1 {
+        margin: 0 15px;
+        margin-right: unset;
+      }
+
+      .advertisement {
+        display: none;
+
+        img {
+          display: none;
+        }
+      }
+
+      .feed {
+        .down-section-1 {
+          margin: 0 15px;
+        }
+
+        .post-date {
+          margin-right: unset;
+          padding: unset;
+        }
+
+        .activity-feed {
+          margin: 0 15px;
+        }
+
+        .activity-feed-bottom {
+          .like-comment-share-buttons {
+            margin-left: 15px;
+          }
+        }
+      }
+
+      .comment-section {
+        margin-left: 52px !important;
+      }
+
+      .comment-box {
+        margin-left: 52px !important;
+      }
+    }
+  }
+
+}

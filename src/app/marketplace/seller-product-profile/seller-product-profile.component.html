@@ -88,12 +88,12 @@
                 <div class="products-container">
                     <div class="products-content">
                         <div class="product" *ngFor="let detail of productsDetail">
-                            <div class="like" *ngIf="detail.like === 'false'"><img
+                            <div class="like" *ngIf="detail.like == false"><img
                                     src="../../assets/images/icons/like_icon.svg" class="like-icon"></div>
-                            <div class="like" *ngIf="detail.like === 'true'"><img
+                            <div class="like" *ngIf="detail.like == true"><img
                                     src="../../assets/images/icons/like.svg" class="liked-icon"></div>
                             <div (click)="productDetail(detail)">
-                                <div class="product-image"><img [src]="detail.image"></div>
+                                <div class="product-image"><img [src]="getImageUrl(detail.productImage)"></div>
                                 <div class="detail">
                                     <div class="name">{{detail.productName}}</div>
                                     <div class="seller-detail">

@@ -708,4 +708,22 @@ export abstract class GQLConfig {
             data
         }
     }`;
+
+    static sellerProfile = gql`mutation($sellerId: String) {
+        sellerProfile(input: {
+            sellerId: $sellerId,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static getProductList = gql`mutation {
+       getProductList {
+              status
+              message
+              data
+        }
+    }`;
 }

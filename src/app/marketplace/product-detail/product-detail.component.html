@@ -13,7 +13,7 @@
                         [attr.disabled]="isPrevDisabled ? true : null"><img
                             src="../../../assets/images/icons/left_arrow_black.svg"></div>
                     <div class="image">
-                        <div><img [src]="currentImage"></div>
+                        <div><img [src]="getImageUrl(currentImage)"></div>
                     </div>
                     <div class="next" (click)="nextImage()" [class.disabled]="isNextDisabled"
                         [attr.disabled]="isNextDisabled ? true : null">
@@ -36,11 +36,11 @@
                         </div>
                     </div>
 
-                    <div class="seller-detail" (click)="redirectToSellerProfile(routerState)" *ngIf="routerState.userType !== 'SELLER'">
+                    <div class="seller-detail" (click)="redirectToSellerProfile(routerState)" *ngIf="userData.userType !== 'SELLER'">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
                                 <div class="seller-img">
-                                    <img [src]="routerState.sellerImage" alt="">
+                                    <img [src]="routerState.sellerImage"  onerror="this.onerror=null,this.src='../../../../assets/images/image/person.jpg'">
                                 </div>
                                 <div class="seller-name">{{routerState.sellerName}}</div>
                             </div>
@@ -61,9 +61,9 @@
             </div>
 
             <div class="total_images">
-                <div class="img-box" *ngFor="let img of productMultipleImages; let i = index"
+                <div class="img-box" *ngFor="let img of productImages; let i = index"
                     [class.active]="i === currentImageIndex" (click)="selectImage(i)">
-                    <img [src]="img" alt="">
+                    <img [src]="getImageUrl(img)" alt="">
                 </div>
             </div>
 
@@ -110,10 +110,10 @@
             </div>
 
             <div *ngIf="isReviewOpened">
-                <div class="review-btn" *ngIf="!showReviewForm && routerState.userType !== 'SELLER'"><button mat-raised-button color="primary"
+                <div class="review-btn" *ngIf="!showReviewForm && userData.userType !== 'SELLER'"><button mat-raised-button color="primary"
                         (click)="reviewForm()">Write a Review</button></div>
 
-                <div class="review-form" *ngIf="showReviewForm && routerState.userType !== 'SELLER'">
+                <div class="review-form" *ngIf="showReviewForm && userData.userType !== 'SELLER'">
                     <div style="color: black;">Add Star Rating</div>
                     <div class="star-content mt-1"><star-rating [starType]="'svg'" [rating]="3"></star-rating></div>
                     <div class="mt-4" style="color: black;">Add Review</div>

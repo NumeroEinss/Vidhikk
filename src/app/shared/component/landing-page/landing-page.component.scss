@@ -37,6 +37,7 @@
 
         .carousel {
             height: 600px;
+            pointer-events: none;
 
             .carousel-inner {
                 margin-top: 50px;
@@ -246,6 +247,11 @@
             background-color: white;
             border-radius: 12px;
             padding: 6px;
+
+            img{
+                width: 200px;
+                height: 140px;
+            }
 
             .city-name {
                 display: flex;

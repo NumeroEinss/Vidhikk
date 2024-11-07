@@ -18,44 +18,40 @@ export class LandingPageComponent implements AfterViewInit {
 
   location = [
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Andhra Pradesh'
-    },
-    {
-      image: '../../../../assets/images/image/city_demo_image2.png',
+      image: '../../../../assets/images/image/mp_img.png',
       city: 'Madhya Pradesh'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Mumbai'
-    },
-    {
-      image: '../../../../assets/images/image/city_demo_image2.png',
-      city: 'Delhi'
-    },
-    {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Gujrat'
-    },
-    {
-      image: '../../../../assets/images/image/city_demo_image2.png',
+      image: '../../../../assets/images/image/andra_pradesh_img.png',
       city: 'Andhra Pradesh'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Calcutta'
+      image: '../../../../assets/images/image/bombay_img.png',
+      city: 'Mumbai'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Karnataka'
+      image: '../../../../assets/images/image/delhi_img.png',
+      city: 'Delhi'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Calcutta'
+      image: '../../../../assets/images/image/gujrat_img.png',
+      city: 'Gujrat'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Karnataka'
+      image: '../../../../assets/images/image/chhattisgarh_img.png',
+      city: 'Chhattisgarh'
+    },
+    {
+      image: '../../../../assets/images/image/kerala_img.png',
+      city: 'Kerala'
+    },
+    {
+      image: '../../../../assets/images/image/jammu_kashmir_img.png',
+      city: 'Jammu & Kashmir'
+    },
+    {
+      image: '../../../../assets/images/image/punjab_img.png',
+      city: 'Punjab'
     },
   ];
 

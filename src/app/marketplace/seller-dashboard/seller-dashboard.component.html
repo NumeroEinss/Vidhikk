@@ -10,7 +10,7 @@
             </div>
 
             <div class="detail">
-                <div class="name">{{detail.sellerName}}</div>
+                <div class="name">{{ userData.name}}</div>
                 <div class="disclaimer-detail">
                     <img src="../../../assets/images/icons/active_calendar.svg" alt="">
                     <div class="disclaimer">{{detail.sellerMemberShipfrom}}</div>
@@ -73,7 +73,7 @@
             </div>
         </div>
     </div>
-    <div class="action-btns" *ngIf="productsDetail.length > 0">
+    <div class="action-btns" *ngIf="productList.length > 0">
         <div class="add-btn">
             <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-toggle="modal"
                 data-bs-target="#addProductModal">Add Product</button>
@@ -96,7 +96,7 @@
 
 
             <div *ngIf="isListingShow">
-                <div class="for-no-record" *ngIf="productsDetail.length == 0">
+                <div class="for-no-record" *ngIf="productList.length == 0">
                     <div class="main-heading">You haven't listed anything yet</div>
                     <div class="sub-heading">Let go of what you don't use anymore</div>
                     <div class="object-img"><img src="../../../assets/images/icons/marketplace_listing_object.svg"
@@ -110,7 +110,8 @@
                 <div class="products-container">
                     <div class="products-list">
                         <div class="products-list-header">
-                            <div class="checkbox"><mat-checkbox></mat-checkbox></div>
+                            <div class="checkbox"><mat-checkbox [(ngModel)]="selectAll"
+                                    (change)="toggleSelectAll()"></mat-checkbox></div>
                             <div class="grid-item1">PRODUCT IMAGE</div>
                             <div class="grid-item1">PRODUCT NAME</div>
                             <div class="grid-item1">PRICE</div>
@@ -118,27 +119,19 @@
                             <div class="grid-item1">ACTION</div>
                         </div>
 
-                        <div *ngFor="let detail of productsDetail" class="products-list-data">
-                            <div class="grid-item2 checkbox"><mat-checkbox></mat-checkbox></div>
+                        <div *ngFor="let detail of productList" class="products-list-data">
+                            <div class="grid-item2 checkbox"><mat-checkbox [(ngModel)]="detail.selected"
+                                    (change)="updateSelectAll()"></mat-checkbox></div>
                             <div class="grid-item2 product-img" (click)="ProductDetail(detail)">
-                                <img [src]="detail.image">
+                                <img [src]="getImageUrl(detail.productImage)">
                             </div>
                             <div class="grid-item2">{{detail.productName}}</div>
-                            <div class="grid-item2">{{detail.price }}
+                            <div class="grid-item2">Rs {{detail.price }}
                             </div>
-                            <div class="grid-item2">{{detail.postedDate}}</div>
+                            <div class="grid-item2">{{detail.createdAt | date:'dd/MM/yyyy'}}</div>
                             <div class="grid-item2">
-                                <button mat-icon-button>
-                                    <mat-icon class="action-icon">more_vert</mat-icon>
-                                </button>
+                                <img src="../../../assets/images/icons/edit_blue.svg" class="ms-3">
                             </div>
-
-                            <!-- <mat-menu #transactionMenu="matMenu">
-                                <button mat-menu-item>
-                                    <img src="../../../assets/images/icons/raise_ticket.svg" alt="" class="me-2" />
-                                    <span class="mat-menu-list">Raise a ticket</span>
-                                </button>
-                            </mat-menu> -->
                         </div>
                     </div>
                 </div>
@@ -179,7 +172,8 @@
                 <h1 class="modal-title fs-5" id="addProductModalLabel">
                     Post your Product
                 </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" id="closeAddProductModal" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form [formGroup]="addProductForm">
@@ -230,7 +224,7 @@
                         <div class="file-container">
                             <div class="drop-zone" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
                                 <input type="file" (change)="onFileSelected($event)" #fileInput style="display: none"
-                                    multiple="false" accept="image/*">
+                                   accept="image/*"  multiple>
                                 <div class="add-picture" (click)="fileInput.click()">+</div>
                             </div>
                             <div class="mt-3">
@@ -239,11 +233,9 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="mt-4 mb-3 filter-btn">
                             <button mat-raised-button color="primary"
-                                style="width: fit-content !important; padding: 12px 36px" (click)="addProduct()"
-                                data-bs-dismiss="modal" [disabled]="!addProductForm.valid || !fileUploaded">
+                                style="width: fit-content !important; padding: 12px 36px" (click)="addProduct()">
                                 Add Product
                             </button>
                             <button mat-stroked-button color="primary" style="width: fit-content !important;
