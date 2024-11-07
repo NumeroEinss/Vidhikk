@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MarketplaceComponent } from './marketplace.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { SellerProductProfileComponent } from './seller-product-profile/seller-product-profile.component';
+import { SellerDashboardComponent } from './seller-dashboard/seller-dashboard.component';
 
 const routes: Routes = [
   {
@@ -14,9 +15,13 @@ const routes: Routes = [
     component: ProductDetailComponent
   },
   {
-    path: 'sellerProfile',
+    path: 'allProducts',
     component: SellerProductProfileComponent
-  }
+  },
+  {
+    path: 'dashboard',
+    component: SellerDashboardComponent,
+  },
 ];
 
 @NgModule({

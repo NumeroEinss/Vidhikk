@@ -337,8 +337,79 @@
       </div>
     </ng-scrollbar>
   </div>
-</div>
 
+  <!-- seller/user-profile start -->
+  <div style="height: calc(100vh - 130px);">
+    <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+      <div class="user-profile-root" *ngIf="userType == 'seller'">
+        <div class="d-flex justify-content-between">
+          <div class="display-profile"><img [src]="displayImage"
+              onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" /></div>
+          <div><button mat-stroked-button color="primary" data-bs-target="#sellerEditProfileModal"
+              data-bs-toggle="modal">
+              <span style="color: #2e5bff">Edit</span>
+            </button></div>
+        </div>
+
+        <div class="basic-information">
+          <h4>Basic Information</h4>
+          <div class="d-flex">
+            <div class="details-container">
+              <div class="heading">Name</div>
+              <div class="detail">{{userData.name}}</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Location</div>
+              <div class="detail">{{userData.address}},{{userData.state}}</div>
+            </div>
+          </div>
+
+          <div class="d-flex">
+            <div class="details-container">
+              <div class="heading">Mobile</div>
+              <div class="detail">{{userData.primaryPhoneNumber }} {{ userData.secondaryPhoneNumber}}</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Email</div>
+              <div class="detail">{{userData.email}}</div>
+            </div>
+          </div>
+
+          <div class="d-flex">
+            <div class="details-container">
+              <div class="heading">PAN No.</div>
+              <div class="detail">{{userData.panNo}}</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">GSTIN No.</div>
+              <div class="detail">{{userData.gstinNo}}</div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="password-security">
+          <h4>Password & Security</h4>
+          <div class="description">
+            To change your password, you'll need to verify the current one first.
+            Then create a password you're not using elsewhere, and be sure to
+            change it regularly as well as anytime you suspect it's been
+            compromised.
+          </div>
+          <div class="user-details">
+            <a routerLink="/user/resetPassword">Change Password </a>
+            <a (click)="logout()">Logout</a>
+            <a data-bs-toggle="modal" data-bs-target="#userAccountDeleteModal">Delete Your Account</a>
+          </div>
+        </div>
+      </div>
+    </ng-scrollbar>
+  </div>
+</div>
 
 <!-- lawyer/user-profile- Edit Profile Popup Start -->
 <div class="modal fade" id="lawyerEditProfileModal" aria-hidden="true" aria-labelledby="lawyerEditProfileModalLabel"
@@ -840,6 +911,165 @@
     </div>
   </div>
 </div>
+
+
+<!-- seller/user-profile- Edit Profile Popup Start -->
+<div class="modal fade" id="sellerEditProfileModal" aria-hidden="true" aria-labelledby="sellerEditProfileModalLabel"
+  tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered user-edit-profile-popup">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="sellerEditProfileModallLabel">
+          Edit Profile
+        </h1>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="sellerEditProfileForm">
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <div class="d-flex" style="justify-content:flex-start;
+            align-items: center;">
+              <div class="picture"><img src="../../assets/images/image/person.jpg" alt="" /></div>
+              <div class="change-picture">Change</div>
+            </div>
+            <mat-label class="mat-label mt-3 mb-1">Name</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Name" formControlName="name" required />
+              <mat-error *ngIf="sellerEditProfileForm.controls['name'].hasError('required')">Name is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !sellerEditProfileForm.controls['name'].hasError('required') &&
+                    sellerEditProfileForm.controls['name'].invalid
+                  ">Name is invalid</mat-error>
+            </mat-form-field>
+
+            <mat-label class="mat-label mt-2 mb-1">Select Location</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select City" formControlName="city" required>
+                <mat-option *ngFor="let city of cities" [value]="city.value">
+                  {{ city.viewValue }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="sellerEditProfileForm.controls['city'].hasError('required')">City is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !sellerEditProfileForm.controls['city'].hasError('required') &&
+                    sellerEditProfileForm.controls['city'].invalid
+                  ">City is invalid</mat-error>
+            </mat-form-field>
+
+            <div class="row-field mt-2">
+              <div><mat-label class="mat-label">Mobile No</mat-label></div>
+              <div>
+                <a mat-button [disabled]="mobileOtpVerified" class="resend-otp f-12" data-bs-toggle="modal"
+                  data-bs-target="#mobileOtpModal" (click)="generateOtp()">Send OTP</a>
+              </div>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Mobile No" formControlName="phoneNumber" maxlength="10"
+                (keypress)="isNumber($event)" (change)="mobileNumberChanged()" required />
+              <mat-error *ngIf="sellerEditProfileForm.controls['phoneNumber'].hasError('required')">Mobile No. is
+                Required</mat-error>
+              <mat-error *ngIf="
+                  !sellerEditProfileForm.controls['phoneNumber'].hasError('required') &&
+                  sellerEditProfileForm.controls['phoneNumber'].invalid
+                ">Mobile No. invalid</mat-error>
+            </mat-form-field>
+
+            <div class="row-field mt-2">
+              <div><mat-label class="mat-label mt-2">Email</mat-label></div>
+              <div>
+                <a mat-button class="resend-otp f-12"
+                  [disabled]="emailOtpVerified && sellerEditProfileForm.controls['email'].valid" data-bs-toggle="modal"
+                  data-bs-target="#emailOtpModal" (click)="sendOtpForEmail()">Send OTP</a>
+              </div>
+            </div>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Email" formControlName="email" (change)="emailChanged()" required />
+              <mat-error *ngIf="sellerEditProfileForm.controls['email'].hasError('required')">Email is
+                Required</mat-error>
+              <mat-error *ngIf="
+                  !sellerEditProfileForm.controls['email'].hasError('required') &&
+                  sellerEditProfileForm.controls['email'].invalid
+                ">Email is invalid</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="mt-3 mb-3 filter-btn">
+            <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px"
+              data-bs-dismiss="modal" [disabled]="!emailOtpVerified || !mobileOtpVerified">
+              Save
+            </button>
+            <button mat-stroked-button color="primary" style="
+                width: fit-content !important;
+                margin-left: 20px;
+                padding: 12px 36px;
+              " data-bs-dismiss="modal">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--seller/user-profile- Edit Profile Popup ends -->
+
+<!--seller/user-profile Mobile Otp Verification Popup Start-->
+<!-- <div class="modal fade" id="mobileOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered mobile-verification-popup">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="otpModalLabel">Mobile Verification</h1>
+        <button type="button" id="closeMobile" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="head-text">Enter Verification Code</div>
+        <div class="sub-text mt-2 mb-4">
+          We sent a 6-digit code to<br /><span
+            class="mobile mt-2">{{this.sellerEditProfileForm.controls.phoneNumber.value}}</span>
+        </div>
+        <ng-otp-input #mobileOtpInput (onInputChange)="onMobileOtpChange($event)" [config]="{ length: 6 }" class="mt-2"
+          [(ngModel)]="mobileOtp"></ng-otp-input>
+        <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
+          <button mat-button color="primary" class="request-btn"
+            (click)="resendOtp(this.lawyerEditProfileForm.controls.phoneNumber.value)">
+            Request a new Code
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!--seller/user-profile Mobile Otp Verification Popup Ends -->
+
+<!--seller/user-profile Email Otp Verification Popup Start-->
+<!-- <div class="modal fade" id="emailOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered email-verification-popup">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="otpModalLabel">Email Verification</h1>
+        <button type="button" id="closeEmail" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="head-text">Enter Verification Code</div>
+        <div class="sub-text mt-2 mb-4">
+          We sent a 6-digit code to<br /><span
+            class="email mt-2">{{this.sellerEditProfileForm.controls.email.value}}</span>
+        </div>
+        <ng-otp-input #emailOtpInput (onInputChange)="onEmailOtpChange($event)" [config]="{ length: 6 }"
+          class="mt-2"></ng-otp-input>
+        <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
+          <button mat-button color="primary" class="request-btn">
+            Request a new Code
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!--seller/user-profile Email Verify Otp Verification Popup Ends -->
 
 
 <button mat-stroked-button id="openLawyerEditModal" color="primary" class="d-none"

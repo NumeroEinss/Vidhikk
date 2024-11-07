@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators, FormControl } from '@angular/forms';
-import { SignUpModel, LawyerSignupModel, UserSignupModel, JudgeSignupModel } from '../../common/signup.model';
+import { SignUpModel, LawyerSignupModel, UserSignupModel, JudgeSignupModel, SellerSignupModel } from '../../common/signup.model';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -24,6 +24,7 @@ export class SignupComponent {
 
   signupForm: FormGroup;
   lawyerForm: FormGroup;
+  sellerForm: FormGroup;
   otpVerified: boolean = false;
   mobileNoEntered: boolean = false;
   hidePassword: boolean = true;
@@ -97,7 +98,15 @@ export class SignupComponent {
     this.userForm = this._fb.group(new UserSignupModel);
     this.userForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
     this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateUserConfirmPassword()]);
+
     this.judgeForm = this._fb.group(new JudgeSignupModel);
+
+    this.sellerForm = this._fb.group(new SellerSignupModel);
+    this.sellerForm.controls.organisationInfo.setValidators([Validators.maxLength(200)]);
+    this.sellerForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
+    this.sellerForm.controls.confirmPassword.setValidators([Validators.required, this.validateSellerConfirmPassword()]);
+    this.sellerForm.controls.panNo.setValidators([Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]);
+    this.sellerForm.controls.gstinNo.setValidators([Validators.pattern(/^([0-9]{2})([A-Z]{5})([0-9]{4})([A-Z]{1})([1-9A-Z]{1})(Z)([0-9A-Z]{1})$/)]);
 
     this.getCitiesList();
     this.getPractiscingField();
@@ -122,6 +131,7 @@ export class SignupComponent {
     this.lawyerForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
     this.userForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
     this.judgeForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
+    this.sellerForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
   }
 
   validateConfirmPassword(): ValidatorFn {
@@ -140,6 +150,16 @@ export class SignupComponent {
         return null;
       }
       const passwordValid = (control.value == this.userForm.controls.password.value);
+      return !passwordValid ? { passwordMatch: true } : null;
+    }
+  }
+
+  validateSellerConfirmPassword(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const passwordValid = (control.value == this.sellerForm.controls.password.value);
       return !passwordValid ? { passwordMatch: true } : null;
     }
   }
@@ -192,6 +212,10 @@ export class SignupComponent {
         this.judgeForm.controls.file.patchValue(event.target.files[0]);
         this.judgeForm.controls.fileDisplay.patchValue(e.target?.result);
       }
+      else if (this.userType == "SELLER") {
+        this.sellerForm.controls.file.patchValue(event.target.files[0]);
+        this.sellerForm.controls.fileDisplay.patchValue(e.target?.result);
+      }
     }
     reader.readAsDataURL(event.target.files[0]);
   }
@@ -216,6 +240,12 @@ export class SignupComponent {
 
   get judgeFrmCtrl() {
     return this.judgeForm.controls;
+  }
+
+  toUppercase(event: Event) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.toUpperCase();
+    this.sellerForm.controls['panNo'].setValue(input.value, { emitEvent: false });
   }
 
 
@@ -291,6 +321,12 @@ export class SignupComponent {
         phoneNumber: this.lawyerForm.controls.phoneNumber.value
       };
     }
+    else if (this.userType == "SELLER") {
+      data = {
+        email: this.sellerForm.controls.email.value,
+        phoneNumber: this.sellerForm.controls.phoneNumber.value
+      };
+    }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
       if (objEmailOtp.data != null) {
         if (objEmailOtp.data.sendOtp.status == 200) {
@@ -317,10 +353,18 @@ export class SignupComponent {
             mobile: this.userForm.controls.phoneNumber.value,
             otp: e
           };
-        } else if (this.userType == "LAWYER") {
+        } 
+        else if (this.userType == "LAWYER") {
           data = {
             email: this.lawyerForm.controls.email.value,
             mobile: this.lawyerForm.controls.phoneNumber.value,
+            otp: e
+          };
+        }
+        else if (this.userType == "SELLER") {
+          data = {
+            email: this.sellerForm.controls.email.value,
+            mobile: this.sellerForm.controls.phoneNumber.value,
             otp: e
           };
         }
@@ -353,6 +397,12 @@ export class SignupComponent {
       data = {
         email: this.lawyerForm.controls.email.value,
         phoneNumber: this.lawyerForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "SELLER") {
+      data = {
+        email: this.sellerForm.controls.email.value,
+        phoneNumber: this.sellerForm.controls.phoneNumber.value
       };
     }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
@@ -485,6 +535,70 @@ export class SignupComponent {
     }
     return isVerified;
   }
+  
+  hasGstInNo(){
+     if(this.sellerForm.controls.hasGstin.value == true){
+      this.sellerForm.controls.hasGstin.addValidators(Validators.required)
+     }
+     else{
+      this.sellerForm.controls.hasGstin.removeValidators(Validators.required)
+     }
+  }
+
+  sellerSignup() {
+    if (this.sellerForm.value.file == "") {
+      this._toastMessage.error("Please add profile image !!");
+    }
+    else if (!this.sellerForm.valid) {
+      this._toastMessage.error("Please Fill all the fields !!");
+    }
+    else if (!this.emailOtpVerified) {
+      this._toastMessage.error("Please verify your email !!");
+    }
+    else {
+      const mutation = {
+        "query": "mutation ($input: SellerProfile!, $file: Upload) { CreateSeller(input: $input, file: $file) { status message data }}",
+        "variables": {
+          "input": {
+            "name": this.sellerForm.controls.name.value,
+            "primaryContact": this.sellerForm.controls.phoneNumber.value,
+            "isPrimaryMobileDisplay": this.sellerForm.controls.isPrimaryContactVisible.value,
+            "isPrimaryContactWhatsapp": this.sellerForm.controls.isPrimaryContactWhatsapp.value,
+            "state": this.sellerForm.controls.state.value,
+            "secondaryContact": this.sellerForm.controls.secondaryContact.value,
+            "isSecondaryContactWhatsapp": this.sellerForm.controls.isSecondaryContactWhatsapp.value,
+            "isSecondaryMobileDisplay": this.sellerForm.controls.isSecondaryContactVisible.value,
+            "userType": this.userType,
+            "orgainization": this.sellerForm.controls.orgainization.value,
+            "city": this.sellerForm.controls.city.value,
+            "password": this.sellerForm.controls.password.value,
+            "confirmPassword": this.sellerForm.controls.confirmPassword.value,
+            "email": this.sellerForm.controls.email.value,
+            "isEmailVisible": this.sellerForm.controls.isEmailVisible.value,
+            "organisationInfo": this.sellerForm.controls.organisationInfo.value,
+            "address": this.sellerForm.controls.address.value,
+            "isAddressVisible": this.sellerForm.controls.isAddressVisible.value,
+            "haveGSTIN": this.sellerForm.controls.hasGstin.value,
+            "gstinNo": this.sellerForm.controls.gstinNo.value,
+            "panNo": this.sellerForm.controls.panNo.value,
+          },
+          "file": null
+        }
+      }
+      console.log("file", this.sellerForm.controls.file.value)
+
+      this._apolloService.upload(mutation, this.sellerForm.controls.file.value, "0").subscribe(objRes => {
+        if (objRes.data != null) {
+          console.log("objRes", objRes.data)
+          this._toastMessage.success(objRes.data.CreateSeller.message);
+          this._router.navigate(['/auth/login']);
+        }
+        else {
+          this._toastMessage.error(objRes.data.CreateSeller.message);
+        }
+      })
+    }
+  }
 
   citySelectionChange(e: any, formName: string) {
     let stateObj = this.cityList.find(x => x.name == e.value);
@@ -497,6 +611,9 @@ export class SignupComponent {
         break;
       case 'judgeForm':
         this.judgeForm.controls.state.patchValue(stateObj.state);
+        break;
+      case 'sellerForm':
+        this.sellerForm.controls.state.patchValue(stateObj.state);
         break;
       default:
         break;

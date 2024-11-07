@@ -85,3 +85,30 @@ export class JudgeSignupModel {
     notificationToken = new FormControl("");
     fileDisplay = new FormControl("");
 }
+
+export class SellerSignupModel {
+    userType = new FormControl("SELLER", [Validators.required]);
+    name = new FormControl("", [Validators.required]);
+    address = new FormControl("", [Validators.required]);
+    city = new FormControl("", [Validators.required]);
+    state = new FormControl("", [Validators.required]);
+    email = new FormControl("", [Validators.required]);
+    password = new FormControl("", [Validators.required]);
+    confirmPassword = new FormControl("", [Validators.required]);
+    phoneNumber = new FormControl("", [Validators.required]);
+    isPrimaryContactWhatsapp = new FormControl(false);
+    isPrimaryContactVisible = new FormControl(true);
+    secondaryContact = new FormControl("");
+    isSecondaryContactWhatsapp = new FormControl(false);
+    isSecondaryContactVisible = new FormControl(true);
+    isEmailVisible = new FormControl(true);
+    isAddressVisible = new FormControl(true);
+    orgainization = new FormControl("");
+    organisationInfo = new FormControl("", [Validators.required]);
+    file = new FormControl("");
+    notificationToken = new FormControl("");
+    fileDisplay = new FormControl("");
+    hasGstin = new FormControl(false);
+    gstinNo = new FormControl("", [Validators.required]);
+    panNo = new FormControl("", [Validators.required]);
+}

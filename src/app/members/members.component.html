@@ -30,18 +30,19 @@
     </button>
   </div>
 
-  <div class="add-member-list" *ngIf="memberList.length >0">
-    <div style="height: calc(100vh - 280px);">
 
-      <div class="member-list-header">
-        <div class="grid-item-name">NAME</div>
-        <div class="grid-item1">CONTACT NO. DETAILS</div>
-        <div class="grid-item1">EMAIL DETAILS</div>
-        <div class="grid-item1">PRACTISING FIELD</div>
-        <div class="grid-item1">CITY</div>
-        <div class="grid-item1">ACTIONS</div>
-      </div>
-      <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+  <div style="height: calc(100vh - 280px);">
+    <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+      <div class="add-member-list" *ngIf="memberList.length >0">
+        <div class="member-list-header">
+          <div class="grid-item-name">NAME</div>
+          <div class="grid-item1">CONTACT NO. DETAILS</div>
+          <div class="grid-item1">EMAIL DETAILS</div>
+          <div class="grid-item1">PRACTISING FIELD</div>
+          <div class="grid-item1">CITY</div>
+          <div class="grid-item1">ACTIONS</div>
+        </div>
+
         @for (member of memberList;track member) {
         <div class="member-list-data">
           <div class="grid-item2">
@@ -71,8 +72,8 @@
           </div>
         </div>
         }
-      </ng-scrollbar>
-    </div>
+      </div>
+    </ng-scrollbar>
     <!-- add member list ends -->
   </div>
   <!-- root section ends -->
@@ -244,7 +245,7 @@
                     <mat-radio-button value="popular" checked>Popular Lawyers</mat-radio-button>
                   </div>
 
-                  <div class="col-lg-6">
+                  <div class="col-lg-6" style="padding-left: unset">
                     <mat-radio-button value="all">All lawyers</mat-radio-button>
                     <!-- <mat-radio-button value="bestReview">Best Review</mat-radio-button> 
                     <mat-radio-button value="mostReviewFirst">Most Review First</mat-radio-button> -->
@@ -260,7 +261,7 @@
                     <mat-radio-button value="5 to 10">5-10 Years</mat-radio-button>
                   </div>
 
-                  <div class="col-lg-6">
+                  <div class="col-lg-6" style="padding-left: unset">
                     <mat-radio-button value="2 to 5">2-5 Years</mat-radio-button>
                     <mat-radio-button value="10+">10+ Experience</mat-radio-button>
                   </div>

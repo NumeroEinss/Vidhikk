@@ -9,6 +9,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { StarRatingModule } from 'angular-star-rating';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SellerProductProfileComponent } from './seller-product-profile/seller-product-profile.component';
+import { SellerDashboardComponent } from './seller-dashboard/seller-dashboard.component';
 
 
 
@@ -16,7 +17,8 @@ import { SellerProductProfileComponent } from './seller-product-profile/seller-p
   declarations: [
     MarketplaceComponent,
     ProductDetailComponent,
-    SellerProductProfileComponent
+    SellerProductProfileComponent,
+    SellerDashboardComponent
   ],
   imports: [
     CommonModule,

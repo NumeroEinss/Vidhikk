@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { imageUrl } from '../../graphql.module';
 
 @Component({
   selector: 'app-product-detail',
@@ -13,9 +14,11 @@ export class ProductDetailComponent {
   isDescriptionOpened: boolean = true;
   isReviewOpened: boolean = false;
   showReviewForm: boolean = false;
-  currentIndex: number = 0;
-  productMultipleImages: string[] = [];
+  productImages: any = [];
   reviews: string = '';
+  currentImageIndex: number = 0;
+  currentImage: string;
+  userData:any;
 
   reviewList = [
     {
@@ -43,7 +46,11 @@ export class ProductDetailComponent {
       this.getProductDetail()
     }
 
-    this.productMultipleImages = this.routerState.multipleImages
+    this.userData = JSON.parse(sessionStorage.getItem('userData')!)
+
+    this.productImages.push(this.routerState.productImage)
+    console.log('this.productImages', this.productImages)
+    this.currentImage = this.productImages[this.currentImageIndex];
   }
 
   routeBack() {
@@ -53,31 +60,36 @@ export class ProductDetailComponent {
   getProductDetail() { }
 
   prevImage() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
+    if (this.currentImageIndex > 0) {
+      this.currentImageIndex--;
+      this.currentImage = this.productImages[this.currentImageIndex];
     }
   }
 
   nextImage() {
-    if (this.currentIndex < this.productMultipleImages.length - 1) {
-      this.currentIndex++;
+    if (this.currentImageIndex < this.productImages.length - 1) {
+      this.currentImageIndex++;
+      this.currentImage = this.productImages[this.currentImageIndex];
     }
   }
 
-  get currentImage() {
-    return this.productMultipleImages[this.currentIndex];
+  selectImage(index: number) {
+    this.currentImageIndex = index;
+    this.currentImage = this.productImages[this.currentImageIndex];
   }
 
+
   get imageNumbering() {
-    return `${this.currentIndex + 1}/${this.productMultipleImages.length}`;
+    console.log(this.currentImageIndex, this.productImages.length)
+    return `${this.currentImageIndex + 1}/${this.productImages.length}`;
   }
 
   get isNextDisabled() {
-    return this.currentIndex >= this.productMultipleImages.length - 1;
+    return this.currentImageIndex >= this.productImages.length - 1;
   }
 
   get isPrevDisabled() {
-    return this.currentIndex <= 0;
+    return this.currentImageIndex <= 0;
   }
 
   toggleDescription() {
@@ -99,9 +111,12 @@ export class ProductDetailComponent {
     this.reviews = '';
   }
 
-  redirectToSellerProfile(sellerDetail:any){
-    this.router.navigate(['/lawyer/marketplace/sellerProfile'], {state: sellerDetail});
-    console.log('sellerDetail',sellerDetail)
+  getImageUrl(image: any) {
+    return imageUrl() + image;
+  }
+
+  redirectToSellerProfile(sellerDetail: any) {
+    this.router.navigate(['/lawyer/marketplace/allProducts'], { state: sellerDetail });
   }
 
 }

@@ -684,6 +684,214 @@
             Continue</button><br />
         </div>
       </form>
+
+      <form [formGroup]="sellerForm" class="col mt-3" *ngIf="otpVerified && userType =='SELLER'" class="register-form">
+        <div class="profile-container">
+          <img class="profile" [src]="sellerForm.controls.fileDisplay.value" />
+          <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
+          <div class="profile-input" for="file" (click)="file.click()">
+            <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
+          </div>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/people-icon.svg" alt="" /></mat-icon></span>
+          <input type="text" matInput placeholder="Enter your full name" formControlName="name" required />
+          <mat-error *ngIf="sellerForm.controls.name.hasError('required')">Full name is Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
+          <input type="text" matInput placeholder="Name of organisation" formControlName="orgainization" required />
+          <mat-error *ngIf="sellerForm.controls.orgainization.hasError('required')">Name of Organisation is
+            Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="textArea">
+          <span matPrefix style="height: 82px"><mat-icon><img src="../../../assets/images/icons/org-icon.svg"
+                alt="" /></mat-icon></span>
+          <textarea id="text-area" type="text" matInput placeholder="Organisation info"
+            formControlName="organisationInfo" required rows="3" maxlength="200"></textarea>
+          <mat-error *ngIf="sellerForm.controls.organisationInfo.hasError('required')">Organisation info is
+            Required</mat-error>
+          <!-- <mat-error *ngIf="!sellerForm.controls.coreCompetency'].hasError('required') &&
+                         sellerForm.controls.coreCompetency'].hasError('minlength')">Minimum 150 Characters
+                        Required</mat-error> -->
+
+          <mat-error *ngIf="
+              !sellerForm.controls.organisationInfo.hasError('required') &&
+              sellerForm.controls.organisationInfo.hasError('maxlength')
+            ">Max Charaters Limit Reached</mat-error>
+        </mat-form-field>
+
+        <div class="mdc-label mb-2">Note: Describe in max 200 character.</div>
+
+        <mat-form-field appearance="outline">
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/location-icon.svg"
+                alt="" /></mat-icon></span>
+          <input type="text" matInput placeholder="Enter your Address" formControlName="address" required />
+          <mat-error *ngIf="sellerForm.controls.address.hasError('required')">Address is Required</mat-error>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="isAddressVisible" [color]="'primary'">
+          Display on Profile
+        </mat-checkbox>
+
+        <mat-form-field appearance="outline">
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
+          <mat-select placeholder="Select City" formControlName="city"
+            (selectionChange)="citySelectionChange($event,'sellerForm')" required>
+            <mat-option *ngFor="let city of cityList" [value]="city.name">
+              {{ city.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="sellerForm.controls.city.hasError('required')">City is Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
+          <mat-select placeholder="Select State" formControlName="state" required>
+            <mat-option *ngFor="let state of cityList" [value]="state.state" disabled>
+              {{ state.state }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="sellerForm.controls.state.hasError('required')">State is Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/phone-icon.svg" alt="" /></mat-icon></span>
+          <input type="text" matInput placeholder="Enter mobile number" formControlName="phoneNumber" maxlength="10"
+            [readonly]="true" />
+          <mat-error *ngIf="sellerForm.controls.phoneNumber.hasError('required')">Mobile No.
+            is
+            Required</mat-error>
+          <mat-error *ngIf="
+              !sellerForm.controls.phoneNumber.hasError('required') &&
+              sellerForm.controls.phoneNumber.invalid
+            ">Mobile No. invalid</mat-error>
+        </mat-form-field>
+
+        <div class="d-flex">
+          <mat-checkbox formControlName="isPrimaryContactVisible" [color]="'primary'">
+            Display on Profile
+          </mat-checkbox>
+          <mat-checkbox formControlName="isPrimaryContactWhatsapp" [color]="'primary'">
+            Is Whatsapp No. ?
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/phone-icon.svg" alt="" /></mat-icon></span>
+          <input type="text" matInput placeholder="Enter Secondary Mobile number" formControlName="secondaryContact"
+            maxlength="10" (keypress)="isNumber($event)" />
+          <mat-error *ngIf="sellerForm.controls.secondaryContact.invalid">No.
+            invalid</mat-error>
+        </mat-form-field>
+
+        <div class="d-flex">
+          <mat-checkbox formControlName="isSecondaryContactVisible" [color]="'primary'">
+            Display on Profile
+          </mat-checkbox>
+          <mat-checkbox formControlName="isSecondaryContactWhatsapp" [color]="'primary'">
+            Is Whatsapp No. ?
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Enter your email" formControlName="email" (change)="emailOtpVerified=false"
+            required />
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
+          <mat-error *ngIf="sellerForm.controls.email.hasError('required')">Email is Required</mat-error>
+          <mat-error *ngIf="
+              !sellerForm.controls.email.hasError('required') && sellerForm.controls.email.invalid
+            ">Email is invalid</mat-error>
+        </mat-form-field>
+
+        <div class="row mb-2" style="font-size: 10px; font-family: Poppins">
+          <span class="col-lg-8 col-md-8 gray-font">Note: Email verification is needed for account recovery
+            purpose</span>
+          <button type="button" class="float-right verify-btn col-lg-4 col-md-4"
+            [ngClass]="emailOtpVerified?'green-font':'red-font'" mat-button
+            [disabled]="this.sellerForm.controls.email.value == ''" (click)="emailOtpVerified?'':sendOtpForEmail()">
+            {{emailOtpVerified?'(Verified)':'(Not Verified)'}}
+          </button>
+        </div>
+
+
+        <mat-checkbox formControlName="isEmailVisible" [color]="'primary'">
+          Display on Profile
+        </mat-checkbox>
+
+        <div class="d-flex" style="flex-direction: column;">
+          <mat-label style="margin-top: 5px;"><img class="me-2" src="../../../assets/images/icons/gstIn_icon.svg"
+              alt="">
+            Do You Have GSTIN No.
+          </mat-label>
+          <mat-radio-group aria-label="GSTIN No." class="mb-2" formControlName="hasGstin" (change)="hasGstInNo()">
+            <mat-radio-button [value]="true">Yes</mat-radio-button>
+            <mat-radio-button [value]="false">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <mat-form-field appearance="outline" *ngIf="sellerForm.controls.hasGstin.value === true">
+          <input matInput placeholder="Enter GSTIN No." formControlName="gstinNo"  maxlength="15"/>
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/gstIn_icon.svg" alt="" /></mat-icon></span>
+          <mat-error *ngIf="sellerForm.controls.gstinNo.hasError('required')">GSTIN No. is Required</mat-error>
+          <mat-error *ngIf="
+              !sellerForm.controls.gstinNo.hasError('required') && sellerForm.controls.gstinNo.invalid
+            ">GSTIN No. is invalid</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Enter PAN No." formControlName="panNo" (input)="toUppercase($event)"
+          maxlength="10" required/>
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/pan_icon.svg" alt="" /></mat-icon></span>
+          <mat-error *ngIf="sellerForm.controls.panNo.hasError('required')">PAN No. is Required</mat-error>
+          <mat-error *ngIf="
+              !sellerForm.controls.panNo.hasError('required') && sellerForm.controls.panNo.invalid
+            ">PAN No No. is invalid</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="password">
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+            placeholder="Enter Password" (change)="sellerForm.controls.confirmPassword.patchValue('')" required />
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
+          <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{
+              hidePassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+          </button>
+          <mat-error *ngIf="sellerForm.controls.password.errors?.['required']">Password is Required !!</mat-error>
+          <mat-error
+            *ngIf="!sellerForm.controls.password.errors?.['required'] && sellerForm.controls.password.invalid">Enter
+            atleast 10 characters !!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="password">
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword"
+            placeholder="Enter Confirm Password" required />
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
+          <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+            <mat-icon>{{
+              hideConfirmPassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+          </button>
+          <mat-error *ngIf="sellerForm.controls.confirmPassword.errors?.required">Confirm Password is Required
+            !!</mat-error>
+          <mat-error *ngIf="
+              sellerForm.controls.confirmPassword.errors?.passwordMatch
+            ">Password does not match</mat-error>
+        </mat-form-field>
+
+        <div class="mt-3">
+          <button mat-raised-button color="primary w-100" (click)="sellerSignup()">
+            Continue</button><br />
+        </div>
+      </form>
+
     </ng-scrollbar>
   </div>
   <div class="col-lg-7 col-md-6">
@@ -743,6 +951,7 @@
           <span class="email mt-2" *ngIf="userType == 'JUDGE'"> {{ judgeForm.controls.email.value }}</span>
           <span class="email mt-2" *ngIf="userType == 'LAWYER'"> {{ lawyerForm.controls.email.value }}</span>
           <span class="email mt-2" *ngIf="userType == 'USER'"> {{ userForm.controls.email.value }}</span>
+          <span class="email mt-2" *ngIf="userType == 'SELLER'"> {{ sellerForm.controls.email.value }}</span>
         </div>
         <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"
           class="mt-2"></ng-otp-input>

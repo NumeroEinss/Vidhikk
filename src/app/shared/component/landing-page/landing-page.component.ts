@@ -18,44 +18,40 @@ export class LandingPageComponent implements AfterViewInit {
 
   location = [
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Andhra Pradesh'
-    },
-    {
-      image: '../../../../assets/images/image/city_demo_image2.png',
+      image: '../../../../assets/images/image/mp_img.png',
       city: 'Madhya Pradesh'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Mumbai'
-    },
-    {
-      image: '../../../../assets/images/image/city_demo_image2.png',
-      city: 'Delhi'
-    },
-    {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Gujrat'
-    },
-    {
-      image: '../../../../assets/images/image/city_demo_image2.png',
+      image: '../../../../assets/images/image/andra_pradesh_img.png',
       city: 'Andhra Pradesh'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Calcutta'
+      image: '../../../../assets/images/image/bombay_img.png',
+      city: 'Mumbai'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Karnataka'
+      image: '../../../../assets/images/image/delhi_img.png',
+      city: 'Delhi'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Calcutta'
+      image: '../../../../assets/images/image/gujrat_img.png',
+      city: 'Gujrat'
     },
     {
-      image: '../../../../assets/images/image/city_demo_image.png',
-      city: 'Karnataka'
+      image: '../../../../assets/images/image/chhattisgarh_img.png',
+      city: 'Chhattisgarh'
+    },
+    {
+      image: '../../../../assets/images/image/kerala_img.png',
+      city: 'Kerala'
+    },
+    {
+      image: '../../../../assets/images/image/jammu_kashmir_img.png',
+      city: 'Jammu & Kashmir'
+    },
+    {
+      image: '../../../../assets/images/image/punjab_img.png',
+      city: 'Punjab'
     },
   ];
 
@@ -539,6 +535,72 @@ export class LandingPageComponent implements AfterViewInit {
       ],
     },
   ];
+
+  homePageDetail = [
+    {
+      header: 'Your Judgement Search Simplified',
+      description: 'A judgment database is a powerful tool designed to streamline the search for legal decisions and rulings across various jurisdictions. It serves as a comprehensive repository where users can easily access, filter, and analyze judgments, saving time and enhancing legal research. By providing detailed information on case outcomes, legal precedents, and relevant citations, this database empowers legal professionals, researchers, and the public to make informed decisions. With user-friendly search features and advanced filtering options, a judgment database not only simplifies the navigation of complex legal landscapes but also fosters transparency and accessibility in the justice system.',
+      image: '../../../../assets/images/image/landing_page_carousel2.png'
+    },
+    {
+      header: 'Navigate Bare Acts with Ease',
+      description: 'Bare Act Search is an invaluable resource for legal professionals, students, and anyone seeking clarity on statutory laws. It provides a streamlined platform to access bare acts—the original, unembellished texts of legislation—allowing users to quickly locate specific laws and provisions without the distraction of commentary or interpretation. This focused approach ensures that users can engage directly with the legislative text, facilitating a deeper understanding of the law as it stands. With advanced search capabilities, users can easily navigate through various acts, making legal research more efficient and effective.',
+      image: '../../../../assets/images/image/landing_page_carousel5.png'
+    },
+    {
+      header: 'Your trusted Case Diary',
+      description: 'Vidhik Provides an essential tool for legal professionals, serving as a comprehensive record of all aspects related to a particular case. It helps lawyers and paralegals document key developments, deadlines, and important communications, ensuring that no detail is overlooked. By maintaining a meticulous account of meetings, court appearances, evidence, and strategies, a case diary not only enhances organization but also facilitates better case management. This organized approach allows for quick reference and reflection, empowering legal teams to make informed decisions and adjustments as needed. Ultimately, a well-kept case diary is invaluable for improving efficiency, accountability, and the overall effectiveness of legal practice.',
+      image: '../../../../assets/images/image/landing_page_carousel.png'
+    },
+    {
+      header: 'Connecting Lawyers',
+      description: 'Vidhik is a comprehensive digital  solution that enables any person who needs to connect with a lawyer  whenever they require any assistance. This application seamlessly links  individuals with legal professionals across the nation at the touch of a button, ensuring that expert legal support is always within reach.  Whether you a re seeking advice, representation, or simply have questions, Vidhik makes accessing legal help more easier than ever.',
+      image: '../../../../assets/images/image/landing_page_carosel4.png'
+    },
+  ];
+
+  whyVidhikDetail = [
+    {
+      image: '../../../../assets/images/icons/lp_extensive_judgement.svg',
+      heading: 'Extensive Judgment Coverage',
+      description: 'Extensive judgment coverage refers to a detailed analysis and reporting of a legal decision, including the reasoning, of laws & implications of the judgment'
+    },
+    {
+      image: '../../../../assets/images/icons/lp_case_diary.svg',
+      heading: 'Bare Acts',
+      description: 'Bare Acts are the unannotated versions of laws and statutes passed by a legislative body, presented in their raw text form without commentary, explanations'
+    },
+    {
+      image: '../../../../assets/images/icons/lp_case_diary.svg',
+      heading: 'Case Diary',
+      description: "Vidhik's Digital Case Diary revolutionizes trial lawyers workflow, offering a secure, free, and server/cloud-free solution for case collaboration, and data"
+    },
+    {
+      image: '../../../../assets/images/icons/lp_call.svg',
+      heading: 'Call / Transcription',
+      description: "Vidhik's Call feature revolutionizes legal consultations, connecting users with suitable lawyers nationwide and providing transcripts and recordings for seamless reference."
+    },
+    {
+      image: '../../../../assets/images/icons/lp_marketplace.svg',
+      heading: 'MarketPlace',
+      description: 'A marketplace lawyer is a legal professional who provides services through online platforms that connect clients with lawyers. '
+    },
+    {
+      image: '../../../../assets/images/icons/lp_endToend_encryption.svg',
+      heading: 'End To End Encryption',
+      description: 'This application is a user centric with two layer protection shield and data is end to end encrypted and no conversations leave any digital foot prints.'
+    },
+    {
+      image: '../../../../assets/images/icons/lp_genuine_lawyer.svg',
+      heading: 'Genuine Lawyers',
+      description: "Prior to granting exploration rights, Vidhik's team authenticates lawyers credentials through rigorous profile verification, ensuring their reliability to users. "
+    },
+    {
+      image: '../../../../assets/images/icons/lp_usercentric.svg',
+      heading: 'User Centric Services',
+      description: "Vidhik” is a user-centric digital platform empowering users, advocates, and enterprises to input data independently, without interference from our team."
+    },
+  ]
 
   opacityStyling = { opacity: 0.1 };
 

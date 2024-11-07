@@ -28,12 +28,12 @@
             position: relative;
 
             .prev {
-                height: 100%;
+                height: 350px;
                 display: flex;
+                align-items: center;
                 background-color: #E1E1E1;
 
                 img {
-                    transform: rotate(90deg);
                     padding: 0 30px;
                     cursor: pointer;
                 }
@@ -53,12 +53,12 @@
             }
 
             .next {
-                height: 100%;
+                height: 350px;
                 display: flex;
+                align-items: center;
                 background-color: #E1E1E1;
 
                 img {
-                    transform: rotate(270deg);
                     padding: 0 30px;
                     cursor: pointer;
                 }
@@ -98,6 +98,11 @@
                 .liked-icon {
                     width: 22px;
                     height: 22px;
+                }
+
+                .edit-img {
+                    width: 20px;
+                    height: 20px;
                 }
             }
 
@@ -154,13 +159,19 @@
             border: 1px solid #E1E1E1;
             border-radius: 8px;
             width: 85px;
-            height: 80px;
+            height: 85px;
             padding: 2px;
+            transition: border 0.3s;
+            cursor: pointer;
 
             img {
-                width: 80px;
-                height: 75px;
+                width: 100%;
+                height: 100%;
             }
+        }
+
+        .img-box.active {
+            border: 1px solid #2E5BFF;
         }
     }
 
@@ -318,7 +329,7 @@
         .product-detail-container {
             // flex-wrap: wrap;
             margin-left: 15px;
-            margin-right: 0;
+            margin-right: 5px;
 
             .product-images {
                 .prev {
@@ -333,7 +344,8 @@
 
                     img {
                         width: 100%;
-                        height: 100%;
+                        height: 150px;
+
                         padding: 10px 0;
                     }
                 }
@@ -344,7 +356,8 @@
                     }
 
                     .image-numbering {
-                        right: 8px;
+                        right: 12px;
+                        font-size: 10px;
                     }
                 }
             }
@@ -354,16 +367,20 @@
             margin: 20px 0 0 15px;
         }
 
-        .headings, .heading, ol, .desc, .review-form{
-         margin-left: 15px;
+        .headings,
+        .heading,
+        ol,
+        .desc,
+        .review-form {
+            margin-left: 15px;
         }
 
-        .reviews-container{
-            .reviews-content{
+        .reviews-container {
+            .reviews-content {
                 margin-left: 15px;
             }
 
-            .description{
+            .description {
                 margin: 10px 0 10px 15px;
             }
         }
