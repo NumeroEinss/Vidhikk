@@ -18,6 +18,8 @@ export class ChatRoomComponent {
   addMemberList: any = [];
   selectedAddMember: any = [];
   selectedRemoveMember: any = [];
+  isChatOpen: boolean = false;
+
 
   members = [
     { value: 'anilSoni', viewValue: 'Anil Soni' },
@@ -123,14 +125,6 @@ export class ChatRoomComponent {
             'I am also good. It is pretty sleek, black with a subtle gold trim. Looks quite professional.',
           senderImage: '../../assets/images/image/add_member2.png',
         },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            ' Yeah, it says it is made of genuine leather. The reviews also seem positive. I think I will go for it.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        }
       ],
       lastMessage: '',
     },
@@ -159,13 +153,6 @@ export class ChatRoomComponent {
           name: 'lavkush Mishra',
           time: '05:32 pm',
           message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:33 pm',
-          message: 'What about you..?',
           receiverImage: '../../assets/images/image/add_member.png',
         },
         {
@@ -206,13 +193,6 @@ export class ChatRoomComponent {
           time: '05:32 pm',
           message: 'Hey! how are you?',
           senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:32 pm',
-          message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
         },
         {
           type: 'receiver',
@@ -291,6 +271,40 @@ export class ChatRoomComponent {
     })
   }
 
+  openChat(selectedChatRoom: any){
+    this.addMemberList = [];
+    this.selectedChatRoom = selectedChatRoom;
+
+    this.members.forEach(member => {
+      if (this.selectedChatRoom.participant.indexOf(member) == -1) {
+        this.addMemberList.push(member);
+      }
+    })
+
+    let element1 = document.getElementById('groupList') as HTMLElement;
+    element1.style.height = '0';
+    element1.style.position = 'fixed';
+    element1.style.zIndex = '-1';
+
+    let element = document.getElementById('chatSection') as HTMLElement;
+    element.style.height = 'calc(100vh - 100px)';
+    element.style.top = '83px';
+    element.style.position = 'absolute';
+    element.style.zIndex = '1';  
+  }
+
+  closeChat(){
+    let element = document.getElementById('chatSection') as HTMLElement;
+    element.style.height = '0';
+    element.style.position = 'absolute';
+    element.style.zIndex = '-1';  
+
+    let element1 = document.getElementById('groupList') as HTMLElement;
+    element1.style.height = '100vh';
+    element1.style.position = 'fixed';
+    element1.style.zIndex = '1';
+  }
+
   notifyUser() {
     this._toastMessage.message('You can not add more than 20 Chat Rooms !!');
   }
@@ -299,7 +313,7 @@ export class ChatRoomComponent {
     const newData = {
       image: '../../assets/images/image/chat-default.png',
       roomName: this.chatRoomForm.controls.roomName.value,
-      message: "",
+      message: "You have started a new chat",
       participant: this.chatRoomForm.controls.participant.value,
       chatList: [],
     };

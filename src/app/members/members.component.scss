@@ -160,7 +160,6 @@
     }
   }
 }
-
 //  member initial popup styling ends
 
 //  add-member-popup styling start
@@ -320,5 +319,47 @@
         min-width: 1000px;
       }
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .root {
+    margin: 30px 15px;
+    margin-right: 0;
+
+    .add-member-btn {
+      margin-right: 15px;
+    }
+
+    .add-member-list {
+      overflow-x: scroll;
+      width: calc(100vw - 35px);
+      white-space: nowrap;
+
+      .member-list-header {
+        min-width: 1000px;
+      }
+
+      .member-list-data {
+        min-width: 1000px;
+      }
+    }
+  }
+
+  .add-member-popup {
+    width: 100%!important;
+
+    .modal-body {
+      padding: 15px;
+
+      .add-member-details{
+        width: 90% !important;
+        // padding-right: 20px !important;
+      }
+    }
+  }
+
+  .delete-modal{
+    width:unset !important;
   }
 }

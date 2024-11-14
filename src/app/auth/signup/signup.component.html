@@ -1,7 +1,11 @@
-<div class="d-flex h-100" appPreventKeyboardEvents>
+<div class="d-flex root" appPreventKeyboardEvents>
+  <div class="mobile-responsive-img">
+    <div class="vidhik-logo"><img src="../../../assets/images/icons/vidhiklogo.svg" alt=""></div>
+    <img src="../../../assets/images/image/vidhik-animated.gif" alt="" />
+  </div>
   <div class="col-lg-5 col-md-6 d-flex signup-form" [ngStyle]="opacityStyling">
     <div class="header-text">
-      <img src="../../../assets/images/icons/vidhiklogo.svg" alt="vidhik" />
+      <img src="../../../assets/images/icons/vidhiklogo.svg" alt="vidhik" class="vidhik-logo" />
 
       <div class="welcome-text mt-4 mb-4">Create an account</div>
 
@@ -834,7 +838,7 @@
         </div>
 
         <mat-form-field appearance="outline" *ngIf="sellerForm.controls.hasGstin.value === true">
-          <input matInput placeholder="Enter GSTIN No." formControlName="gstinNo"  maxlength="15"/>
+          <input matInput placeholder="Enter GSTIN No." formControlName="gstinNo" maxlength="15" />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/gstIn_icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="sellerForm.controls.gstinNo.hasError('required')">GSTIN No. is Required</mat-error>
           <mat-error *ngIf="
@@ -844,7 +848,7 @@
 
         <mat-form-field appearance="outline">
           <input matInput placeholder="Enter PAN No." formControlName="panNo" (input)="toUppercase($event)"
-          maxlength="10" required/>
+            maxlength="10" required />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/pan_icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="sellerForm.controls.panNo.hasError('required')">PAN No. is Required</mat-error>
           <mat-error *ngIf="
@@ -894,173 +898,178 @@
 
     </ng-scrollbar>
   </div>
-  <div class="col-lg-7 col-md-6">
+  <div class="col-lg-7 col-md-7 mobile-responsive-img1">
     <!-- image-container d-flex align-item-center justify-content-center -->
     <img src="../../../assets/images/image/vidhik-animated.gif" alt="" style="width: 100%; height: 100vh" />
   </div>
-</div>
 
-<!--Account Verification Modal -->
-<button id="accountVerificationButton" data-bs-toggle="modal" data-bs-target="#accVerificationModal"
-  class="d-none"></button>
-<div class="modal fade" id="accVerificationModal" tabindex="-1" aria-labelledby="accVerificationModalLabel"
-  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="accVerificationModalLabel">
-          Verify Your Account
-        </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          routerLink="/auth/login"></button>
-      </div>
-      <div class="modal-body">
-        <p>
-          Thank you for your registration. We are committed to ensuring the
-          security of your profile. In order to complete the verification
-          process, we will be conducting a thorough review. Please note that
-          this process may take up to 48 hours. Once the verification is
-          complete, we will send you a password to the phone number associated
-          with your account. We appreciate your patience and understanding.
-        </p>
-        <div class="text-center">
-          <button type="button" mat-raised-button color="primary" data-bs-dismiss="modal"
-            style="width: fit-content !important" routerLink="/auth/login">
-            Ok
-          </button>
+  <!--Account Verification Modal -->
+  <button id="accountVerificationButton" data-bs-toggle="modal" data-bs-target="#accVerificationModal"
+    class="d-none"></button>
+  <div class="modal fade" id="accVerificationModal" tabindex="-1" aria-labelledby="accVerificationModalLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="accVerificationModalLabel">
+            Verify Your Account
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            routerLink="/auth/login"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Thank you for your registration. We are committed to ensuring the
+            security of your profile. In order to complete the verification
+            process, we will be conducting a thorough review. Please note that
+            this process may take up to 48 hours. Once the verification is
+            complete, we will send you a password to the phone number associated
+            with your account. We appreciate your patience and understanding.
+          </p>
+          <div class="text-center">
+            <button type="button" mat-raised-button color="primary" data-bs-dismiss="modal"
+              style="width: fit-content !important" routerLink="/auth/login">
+              Ok
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Email Otp Verification Modal -->
-<button id="otpModalButton" data-bs-toggle="modal" data-bs-target="#emailOtpModal" style="display: none;"></button>
-<div class="modal fade" id="emailOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered email-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="otpModalLabel">Email Verification</h1>
-        <button type="button" id="closeOtpModalButton" class="btn-close" data-bs-dismiss="modal"
-          aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="head-text">Enter Verification Code</div>
-        <div class="sub-text mt-2 mb-4">
-          We sent a 6-digit code to<br />
-          <span class="email mt-2" *ngIf="userType == 'JUDGE'"> {{ judgeForm.controls.email.value }}</span>
-          <span class="email mt-2" *ngIf="userType == 'LAWYER'"> {{ lawyerForm.controls.email.value }}</span>
-          <span class="email mt-2" *ngIf="userType == 'USER'"> {{ userForm.controls.email.value }}</span>
-          <span class="email mt-2" *ngIf="userType == 'SELLER'"> {{ sellerForm.controls.email.value }}</span>
+  <!-- Email Otp Verification Modal -->
+  <button id="otpModalButton" data-bs-toggle="modal" data-bs-target="#emailOtpModal" style="display: none;"></button>
+  <div class="modal fade" id="emailOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered email-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="otpModalLabel">Email Verification</h1>
+          <button type="button" id="closeOtpModalButton" class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button>
         </div>
-        <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"
-          class="mt-2"></ng-otp-input>
-        <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
-          <button mat-button color="primary" style="font-size: 12px" class="request-btn" (click)="resendEmailOtp()">
-            Request a new Code
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- modal start -->
-<button id="modalButton" data-bs-toggle="modal" data-bs-target="#disclaimerModal" style="display: none"></button>
-<div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true"
-  data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="disclaimerModalLabel">Disclaimer</h1>
-      </div>
-      <div class="modal-body mb-3" style="text-align: justify;">
-
-        <div style="height: calc(100vh - 300px); margin-bottom: 10px; margin-left: 20px;">
-          <ng-scrollbar>
-            <div class="list-description">
-              Vidhik (A mobile and Web Application) is provided "AS IS" without warranty of any kind, either express or
-              implied. By using this Application, you agree to the following terms:
-            </div>
-            <div class="list-heading">Limitation of Liability</div>
-            <div class="list-description">The Peraturb Decimo LLP shall not be liable for: </div>
-            <ol>
-              <li class="mb-3">Any damages, including but not limited to incidental, consequential, or punitive damages.
-              </li>
-              <li class="mb-3">Loss of data, business interruption, or any other commercial damages.
-              </li>
-              <li class="mb-3">Any claims, demands, or actions arising from or related to this Application.
-              </li>
-            </ol>
-
-            <div class="list-heading">No Warranty</div>
-            <div class="list-description">The Peraturb Decimo LLP disclaims all warranties, express or implied,
-              including
-              but not limited to: </div>
-            <ol>
-              <li class="mb-3">Fitness for a particular purpose.
-              </li>
-              <li class="mb-3">Merchantability.
-              </li>
-              <li class="mb-3">Non-infringement.
-              </li>
-            </ol>
-
-            <div class="list-heading">Use at Your Own Risk</div>
-            <div class="list-description">You acknowledge that:</div>
-            <ol>
-              <li class="mb-3">You use this Application at your own risk.
-              </li>
-              <li class="mb-3">The Peraturb Decimo LLP is not responsible for any errors or omissions.
-              </li>
-              <li class="mb-3">The Peraturb Decimo LLP is not responsible for any third-party content or links.
-              </li>
-            </ol>
-
-            <div class="list-heading">Intellectual Property</div>
-            <div class="list-description mb-3">The Peraturb Decimo LLP retains all rights, title, and interest in and to
-              the
-              Application, including all intellectual property rights.</div>
-
-            <div class="list-heading">Governing Law</div>
-            <div class="list-description mb-3">This Disclaimer shall be governed by and construed in accordance with the
-              laws of
-              Madhya Pradesh, India.</div>
-
-            <div class="list-heading">Changes</div>
-            <div class="list-description mb-3">The Peraturb Decimo LLP reserves the right to modify or update this
-              Disclaimer at
-              any time without notice.</div>
-
-            <div class="list-heading">Acceptance</div>
-            <div class="list-description mb-3">By using this Application, you acknowledge that you have read,
-              understood,
-              and
-              agree to be bound by this Disclaimer which confirms that you have thoroughly read and understand the terms
-              of
-              use of mobile and web applications built by Peraturb Decimo LLP, is legally enforced.
-
-              You also acknowledge that the "AS IS" is a legal term used to describe the condition of a service provide
-              by
-              the Peraturb Decimo LLP.</div>
-          </ng-scrollbar>
-        </div>
-
-        <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I Aknowledge to the Terms and
-            Policies mentioned herein this Disclaimer</mat-checkbox></div>
-
-        <div class="text-center mt-3">
-          <button id="dismissModal" mat-stroked-button color="primary" style="width: fit-content !important"
-            routerLink="/auth/login" data-bs-dismiss="modal">Reject
-          </button>
-
-          <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 20px"
-            data-bs-dismiss="modal" (click)="opacityStyling = { opacity: 1 }" [disabled]="!confirmed.checked">
-            Accept
-          </button>
+        <div class="modal-body">
+          <div class="head-text">Enter Verification Code</div>
+          <div class="sub-text mt-2 mb-4">
+            We sent a 6-digit code to<br />
+            <span class="email mt-2" *ngIf="userType == 'JUDGE'"> {{ judgeForm.controls.email.value }}</span>
+            <span class="email mt-2" *ngIf="userType == 'LAWYER'"> {{ lawyerForm.controls.email.value }}</span>
+            <span class="email mt-2" *ngIf="userType == 'USER'"> {{ userForm.controls.email.value }}</span>
+            <span class="email mt-2" *ngIf="userType == 'SELLER'"> {{ sellerForm.controls.email.value }}</span>
+          </div>
+          <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"
+            class="mt-2"></ng-otp-input>
+          <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
+            <button mat-button color="primary" style="font-size: 12px" class="request-btn" (click)="resendEmailOtp()">
+              Request a new Code
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<!-- modal ends -->
+
+  <!-- modal start -->
+  <button id="modalButton" data-bs-toggle="modal" data-bs-target="#disclaimerModal" style="display: none"></button>
+  <div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="disclaimerModalLabel">Disclaimer</h1>
+        </div>
+        <div class="modal-body mb-3" style="text-align: justify;">
+
+          <div style="height: calc(100vh - 300px); margin-bottom: 10px; margin-left: 15px;">
+            <ng-scrollbar>
+              <div class="list-description">
+                Vidhik (A mobile and Web Application) is provided "AS IS" without warranty of any kind, either express
+                or
+                implied. By using this Application, you agree to the following terms:
+              </div>
+              <div class="list-heading">Limitation of Liability</div>
+              <div class="list-description">The Peraturb Decimo LLP shall not be liable for: </div>
+              <ol>
+                <li class="mb-3">Any damages, including but not limited to incidental, consequential, or punitive
+                  damages.
+                </li>
+                <li class="mb-3">Loss of data, business interruption, or any other commercial damages.
+                </li>
+                <li class="mb-3">Any claims, demands, or actions arising from or related to this Application.
+                </li>
+              </ol>
+
+              <div class="list-heading">No Warranty</div>
+              <div class="list-description">The Peraturb Decimo LLP disclaims all warranties, express or implied,
+                including
+                but not limited to: </div>
+              <ol>
+                <li class="mb-3">Fitness for a particular purpose.
+                </li>
+                <li class="mb-3">Merchantability.
+                </li>
+                <li class="mb-3">Non-infringement.
+                </li>
+              </ol>
+
+              <div class="list-heading">Use at Your Own Risk</div>
+              <div class="list-description">You acknowledge that:</div>
+              <ol>
+                <li class="mb-3">You use this Application at your own risk.
+                </li>
+                <li class="mb-3">The Peraturb Decimo LLP is not responsible for any errors or omissions.
+                </li>
+                <li class="mb-3">The Peraturb Decimo LLP is not responsible for any third-party content or links.
+                </li>
+              </ol>
+
+              <div class="list-heading">Intellectual Property</div>
+              <div class="list-description mb-3">The Peraturb Decimo LLP retains all rights, title, and interest in and
+                to
+                the
+                Application, including all intellectual property rights.</div>
+
+              <div class="list-heading">Governing Law</div>
+              <div class="list-description mb-3">This Disclaimer shall be governed by and construed in accordance with
+                the
+                laws of
+                Madhya Pradesh, India.</div>
+
+              <div class="list-heading">Changes</div>
+              <div class="list-description mb-3">The Peraturb Decimo LLP reserves the right to modify or update this
+                Disclaimer at
+                any time without notice.</div>
+
+              <div class="list-heading">Acceptance</div>
+              <div class="list-description mb-3">By using this Application, you acknowledge that you have read,
+                understood,
+                and
+                agree to be bound by this Disclaimer which confirms that you have thoroughly read and understand the
+                terms
+                of
+                use of mobile and web applications built by Peraturb Decimo LLP, is legally enforced.
+
+                You also acknowledge that the "AS IS" is a legal term used to describe the condition of a service
+                provide
+                by
+                the Peraturb Decimo LLP.</div>
+            </ng-scrollbar>
+          </div>
+
+          <div class="terms-service-checkbox"><mat-checkbox [color]="'primary'" #confirmed>I Aknowledge to the Terms and
+              Policies mentioned herein this Disclaimer</mat-checkbox></div>
+
+          <div class="text-center mt-3">
+            <button id="dismissModal" mat-stroked-button color="primary" style="width: fit-content !important"
+              routerLink="/auth/login" data-bs-dismiss="modal">Reject
+            </button>
+
+            <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 20px"
+              data-bs-dismiss="modal" (click)="opacityStyling = { opacity: 1 }" [disabled]="!confirmed.checked">
+              Accept
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal ends -->

@@ -658,3 +658,104 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .root {
+    .profile-container {
+      .profile-sidenav {
+        display: none;
+        position: relative;
+        z-index: 10;
+        padding: 0 15px;
+        flex-wrap: wrap;
+
+        li {
+          white-space: nowrap;
+          padding: 6px 10px;
+          height: 50px;
+          max-width: unset;
+          height: 50px;
+
+          a {
+            font-size: 12px;
+          }
+        }
+
+        .logout {
+          a {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .main-content {
+        // width: calc(100vw - 206px);
+        height: calc(100vh - 200px);
+        overflow-y: auto;
+        position: absolute;
+        top: 30px;
+        margin: 89px 14px 0px 12px;
+
+        .section-info {
+          padding: 20px;
+          margin-right: 0px;
+
+          // &:last-child {
+          //   margin-bottom: 20px !important;
+          // }
+
+          .description {
+            white-space: normal;
+          }
+
+          .user-details {
+            flex-wrap: wrap;
+
+            .user-details-heading {
+              margin: 0px 0px 0 15px;
+            }
+
+            .user-details-detail {
+              margin: 0 10px 30px 15px;
+              word-break: break-word;
+            }
+
+            .column{
+              margin-top: 15px;
+            }
+          }
+
+        }
+      }
+    }
+
+    .user-profile-root {
+      margin: 15px 15px 30px 20px;
+
+      .basic-information {
+        .mr-bi{
+          flex-wrap: wrap !important;
+        }
+      }
+
+      .password-security {
+        .description {
+          padding-right: 50px;
+        }
+      }
+    }
+  }
+
+  .edit-profile-popup {
+    width: unset !important;
+  }
+
+  .user-edit-profile-popup{
+    width: 100% !important;
+  }
+
+  .delete-modal{
+    width: 100% !important;
+  }
+
+}

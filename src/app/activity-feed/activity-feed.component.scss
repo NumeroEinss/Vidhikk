@@ -598,6 +598,10 @@ marquee {
         }
       }
 
+      // .section-2{
+      //   width: 260px;
+      // }
+
       .feed {
         .down-section-1 {
           margin: 0 15px;
@@ -624,7 +628,22 @@ marquee {
       }
 
       .comment-box {
-        margin-left: 52px !important;
+        // margin-left: 30px !important;
+        margin-right: 15px !important;
+
+        .comment-box-textarea{
+          width: 160px !important;
+        }
+
+        .comment-btn{
+          padding: 5px 12px !important;
+          font-size: 12px;
+
+          img{
+            width: 14px;
+            height: 14px;
+          }
+        }
       }
     }
   }

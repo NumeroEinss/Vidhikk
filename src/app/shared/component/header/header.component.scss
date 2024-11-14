@@ -29,6 +29,10 @@
     display: none;
   }
 
+  .logo {
+    display: none;
+  }
+
   .sub-container {
     display: flex;
     justify-content: right;
@@ -56,6 +60,10 @@
       text-align: left;
       color: white;
       margin-right: 24px;
+    }
+
+    .upgrade {
+      display: block;
     }
 
     .search {
@@ -135,6 +143,146 @@
         border-radius: 50%;
       }
     }
+  }
+}
+
+.mobile-sidebar {
+  background-color: #fbfbfb;
+  width: 300px;
+  position: absolute;
+  top: 83px;
+  left: 0;
+  z-index: 3;
+
+  .logo {
+    height: 82px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .profile-section {
+    display: flex;
+    margin: 20px 30px 20px 10px;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+
+  .scrollbar {
+    height: calc(100vh - 200px);
+    margin-bottom: 20px;
+  }
+
+  .text {
+    font-size: 12px;
+    margin-left: 10px;
+    color: #000;
+
+    .email {
+      color: #64748B;
+    }
+  }
+
+  li {
+    height: 48px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    gap: 12px;
+    padding: 0 0 0 30px;
+    background-color: #ffffff0d;
+    list-style-type: none;
+
+    a {
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: #00000099;
+      text-decoration: none;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .in-active {
+      margin-right: 12px;
+      display: block;
+    }
+
+    .active {
+      display: none;
+    }
+  }
+
+  .active-link {
+    background-color: #2e5bff0d;
+
+    a {
+      color: #2e5bff;
+
+      .active {
+        margin-right: 12px;
+        display: block;
+      }
+
+      .in-active {
+        display: none;
+      }
+    }
+  }
+
+  .social-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // position: absolute;
+    // bottom: 0;
+    // z-index: 2;
+    cursor: pointer;
+
+    div {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #1949f517;
+      border: 1px solid #1949f517;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .in-active {
+        display: block;
+      }
+
+      .active {
+        display: none;
+      }
+    }
+
+    div:hover {
+      background-color: #2e5bff;
+      transition: all 0.3s ease-in-out;
+
+      .active {
+        display: block;
+      }
+
+      .in-active {
+        display: none;
+      }
+    }
+
   }
 }
 
@@ -250,51 +398,86 @@ body .modal-dialog .modal-header {
 
 @media (max-width: 600px) {
   .main-container {
-    .welcome-text {
-      display: none;
-    }
+    justify-content: space-between;
+    padding: 0 15px;
 
-    .icon {
-      display: block;
-      width: 20px;
-      height: 20px;
+    .main-text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-      img {
+      .welcome-text {
+        font-size: 20px;
+        white-space: nowrap;
+        padding-left: 15px;
+      }
+
+      .icon {
+        display: block;
         width: 20px;
         height: 20px;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+    }
+
+
+    .logo {
+      display: block;
+      width: 80px;
+
+      img {
+        width: 80px;
       }
     }
 
     .sub-container {
       margin-left: 20px;
+
+      .upgrade {
+        display: none !important;
+      }
     }
 
     .search {
-      margin-right: 10px;
+      margin-right: 12px !important;
+
+      img {
+        width: 22px;
+        height: 22px;
+      }
     }
 
     .notification-container {
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
+      margin-right: 10px !important;
+
       img {
-        width: 20px;
-        height: 20px;
+        width: 25px !important;
+        height: 25px !important;
       }
     }
 
-    .add-button {
-      margin-right: 10px;
-    }
+    // .add-button {
+    //   margin-right: 5px !important;
+    // }
 
     .profile-container {
-      width: 20px;
-      height: 20px;
+      width: 35px !important;
+      height: 35px !important;
       margin-right: 0 !important;
+
       img {
-        width: 20px;
-        height: 20px;
+        width: 33px !important;
+        height: 33px !important;
       }
     }
+  }
+
+  .qr-modal {
+    width: 100%;
   }
 }

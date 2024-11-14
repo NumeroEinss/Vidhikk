@@ -297,4 +297,104 @@
   }
 }
 
-@media screen and (min-width:1024px) {}
+@media (max-width: 600px) {
+  .mat-mdc-option {
+    font-size: 12px;
+    padding: 0 10px !important;
+  }
+
+  .root {
+    margin: 30px 15px;
+
+    .main-div {
+      .case-diary-header-menu {
+        flex-wrap: wrap;
+        gap: 15px;
+        .filter-section {
+          margin-right: 10px;
+          font-size: 12px;
+
+          // img {
+          //   display: none;
+          // }
+
+          // .mat-mdc-form-field {
+          //   width: 100px !important;
+          // }
+
+          .mat-mdc-select-trigger {
+            padding: 10px 10px 7px 0px !important;
+          }
+
+          .mat-mdc-select {
+            font-size: 12px;
+          }
+        }
+
+        .search-bar {
+          margin-right: 10px;
+          width: 100% !important;
+
+          img {
+            margin-right: 12px !important;
+          }
+
+          .mdc-text-field__input {
+            padding: 8px 0px !important;
+            font-size: 12px !important;
+          }
+        }
+
+        .create-case-diary {
+          margin-right: 10px;
+
+          button {
+            width: 145px !important;
+            font-size: 12px;
+
+            img {
+              display: none;
+            }
+          }
+        }
+
+        .create-sub-diary {
+          button {
+            width: 135px !important;
+            font-size: 12px;
+
+            img {
+              display: none;
+            }
+          }
+        }
+      }
+
+      .case-diary-list {
+        width: 100%;
+        overflow-x: scroll;
+
+        .case-diary-header {
+          width: 1180px;
+        }
+
+        .case-diary-data {
+          width: 1180px;
+        }
+      }
+
+      .sub-diary-list {
+        width: 100%;
+        overflow-x: scroll;
+
+        .sub-diary-header {
+          width: 1180px;
+        }
+
+        .sub-diary-data {
+          width: 1180px;
+        }
+      }
+    }
+  }
+}

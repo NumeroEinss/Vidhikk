@@ -451,6 +451,7 @@ export class CaseLawListComponent {
   // }
 
   getCaseLawByAdvanceSearch(page: number) {
+    console.log('this.advanceSearchForm.value',this.advanceSearchForm.value)
     this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
       if (objRes.status == "success") {
         this.respAdvanceSearchList = objRes.data.items;

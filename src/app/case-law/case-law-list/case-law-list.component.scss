@@ -348,3 +348,45 @@
 .text-left {
   text-align: left;
 }
+
+@media (max-width:600px) {
+  .root {
+    .mat-mdc-form-field {
+      width: 330px !important;
+    }
+    .filter-bar {
+      .pretext {
+        padding-left: 15px;
+      }
+
+      img {
+        margin-right: 15px;
+      }
+    }
+
+    .case-container {
+      padding: 20px 15px;
+    }
+
+    .app-resp-container {
+      padding: 20px 15px;
+    }
+
+    .judge-wise {
+      padding: 20px 15px;
+
+      .title{
+        margin-right: unset;
+      }
+    }
+
+    .advance-search{
+      padding: 20px 15px 60px 15px;
+
+      .title{
+        margin-right: unset;
+      }
+    }
+
+  }
+}

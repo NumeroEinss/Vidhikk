@@ -320,7 +320,6 @@
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
     .root {
-
         .redirection {
             margin-left: 15px;
             margin-right: 0;
@@ -351,6 +350,75 @@
                 }
 
                 .next {
+                    img {
+                        padding: 0 10px;
+                    }
+
+                    .image-numbering {
+                        right: 12px;
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
+
+        .total_images {
+            margin: 20px 0 0 15px;
+        }
+
+        .headings,
+        .heading,
+        ol,
+        .desc,
+        .review-form {
+            margin-left: 15px;
+        }
+
+        .reviews-container {
+            .reviews-content {
+                margin-left: 15px;
+            }
+
+            .description {
+                margin: 10px 0 10px 15px;
+            }
+        }
+    }
+}
+
+@media (max-width:600px) {
+    .root {
+        .redirection {
+            margin-left: 15px;
+            margin-right: 0;
+        }
+
+        .product-detail-container {
+            flex-wrap: wrap;
+            margin-left: 15px;
+            .product-images {
+                width: 100%;
+                .prev {
+                    height: 150px;
+                    img {
+                        padding: 0 10px;
+                    }
+                }
+
+                .image {
+                    width: 100%;
+                    height: 150px;
+
+                    img {
+                        width: 100%;
+                        height: 140px;
+
+                        padding: 10px 0;
+                    }
+                }
+
+                .next {
+                    height: 150px;
                     img {
                         padding: 0 10px;
                     }

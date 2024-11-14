@@ -49,16 +49,31 @@
 
     .main-content {
       margin-left:unset;
-    }
-
-
-  
-    
+    }  
     
   }
   .root{
     .conference-container{
       margin: 10px 15px 0 15px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .root{
+    .conference-container{
+      margin: 10px 0 0 15px;
+        overflow-x: scroll;
+        width: calc(100vw - 35px);
+        white-space: nowrap;
+  
+        .conference-header {
+          min-width: 550px;
+        }
+  
+        .conference-data {
+          min-width: 550px;
+        }
     }
   }
 }

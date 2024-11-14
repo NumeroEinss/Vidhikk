@@ -222,3 +222,59 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .root {
+    margin: 15px;
+    margin-right: 0;
+
+    .cards {
+      .calendar-header-menu {
+        flex-wrap: wrap;
+
+        .filter-section {
+          margin-right: 15px;
+        }
+
+        .search-bar {
+          width: 100% !important;
+          margin-right: 15px;
+        }
+
+        button {
+          width: 140px !important;
+        }
+      }
+
+      .cal-container {
+        font-size: 12px;
+        width: calc(100vw - 25px);
+      }
+
+      .availability {
+        position: unset;
+      }
+
+      .add-availability-list {
+        overflow-x: scroll;
+        width: calc(100vw - 60px);
+
+        .availability-list-header {
+          min-width: 1000px;
+        }
+
+        .availability-list-data {
+          min-width: 1000px;
+        }
+      }
+    }
+  }
+
+  .add-event{
+    width:100% !important;
+
+    .modal-body{
+    padding: 20px 15px;
+    }
+  }
+}

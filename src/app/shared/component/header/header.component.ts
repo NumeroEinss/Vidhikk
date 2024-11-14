@@ -18,6 +18,7 @@ export class HeaderComponent {
   notifications: any = [];
   sub$: Subscription;
   isSidebarOpen: boolean = false;
+  userData: any;
 
   @Input() menuName: string = "";
   @Input() searchStyle = { width: '0px', display: 'none' };
@@ -33,6 +34,7 @@ export class HeaderComponent {
       });
     this.getNotificationList();
     this.userType = this._router.url.split('/')[1];
+    this.userData = JSON.parse(sessionStorage.getItem('userData')!)
   }
 
   redirectToProfile() {
@@ -104,7 +106,14 @@ export class HeaderComponent {
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
-    console.log(this.isSidebarOpen)
+  }
+
+  logoutCaseDiary() {
+    sessionStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
+  }
+
+  logout() {
+    this._authService.logout();
   }
 
   ngOnDestroy() {

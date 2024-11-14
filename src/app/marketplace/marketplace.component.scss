@@ -56,6 +56,7 @@
             margin-top: 20px;
             height: 260px;
             position: relative;
+            // pointer-events: none;
 
             .carousel-inner {
                 height: 260px;
@@ -65,7 +66,6 @@
                 height: 260px;
                 object-fit: cover;
             }
-
 
             .prev-btn {
                 position: absolute;
@@ -202,33 +202,33 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-    .root{
-        .marketplace-container{
+    .root {
+        .marketplace-container {
             margin-left: 15px;
 
             .header-menu {
-                margin-right: 15px; 
+                margin-right: 15px;
             }
 
             .products-container {
                 gap: 20px;
-    
+
                 .products-content {
                     gap: 20px;
                     flex-wrap: wrap;
-    
+
                     .product {
                         .product-image {
                             height: 200px;
                             width: 180px;
                             padding: 20px 0;
-    
+
                             img {
                                 width: 100%;
                                 height: 100%;
                             }
                         }
-    
+
                         .detail {
                             .name {
                                 font-size: 13px;
@@ -239,10 +239,56 @@
                     }
                 }
 
-                .ad{
+                .ad {
                     width: 149px;
                 }
             }
         }
+    }
+}
+
+@media (max-width:600px) {
+    .root {
+        .marketplace-container {
+            margin-left: 15px;
+
+            .header-menu {
+                margin-right: 15px;
+                flex-wrap: wrap;
+            }
+
+            .carousel{
+                img{
+                    object-fit: unset;
+                }
+            }
+
+            .products-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 40px;
+
+                .products-content{
+                    justify-content: center;
+
+                    .product{
+                        width: 100%;
+
+                        .product-image{
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .advertisement {
+              width: 100%;
+    
+                .ad {
+                    width: 100%;
+                }
+            }
+        }
+
     }
 }

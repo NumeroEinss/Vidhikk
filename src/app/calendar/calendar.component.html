@@ -129,14 +129,14 @@
 <!-- Add Event Modal -->
 <div class="modal modal-sm fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventLabel" aria-hidden="true"
   data-bs-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered" style="width: 320px;">
+  <div class="modal-dialog modal-dialog-centered add-event" style="width: 320px;">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="addEventLabel">Important Event</h1>
         <button id="closeEventModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
           data-bs-keyboard="false"></button>
       </div>
-      <div class="modal-body d-flex justify-content-center">
+      <div class="modal-body d-flex">
         <form class="calendar-form" [formGroup]="eventForm" appPreventKeyboardEvents>
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label text-start">Select Case</mat-label>
