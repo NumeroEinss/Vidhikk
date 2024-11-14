@@ -47,7 +47,7 @@
                         @for (lawyer of popularLawyerList; track lawyer) {
                         <div class="node" (click)="viewLawyerDetails(lawyer._id)">
                             <div class="subnode d-flex justify-content-center">
-                                <img class="display-profile" [src]="lawyer.image" width="200" height="150" alt="">
+                                <img class="display-profile" [src]="lawyer.image" alt="">
                                 <div class="lawyer-details">
                                     <div class="location">{{lawyer.location}}</div>
                                     <div class="type">{{lawyer.type}}</div>

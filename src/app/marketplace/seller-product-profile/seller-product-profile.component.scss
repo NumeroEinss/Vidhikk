@@ -206,7 +206,7 @@
                     .name {
                         font-weight: 600;
                         font-size: 14px;
-                        width: 200px ;
+                        width: 200px;
                     }
 
                     .seller-detail {
@@ -402,6 +402,112 @@
         .review-form {
             margin-left: 15px;
             margin-right: 15px;
+        }
+
+        .reviews-container {
+            .reviews-content {
+                margin-left: 15px;
+                margin-right: 15px;
+
+            }
+
+            .description {
+                margin: 10px 15px 10px 15px;
+            }
+        }
+
+        .reviews-container:last-child {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .root {
+        .seller-product-container {
+            margin: 15px;
+
+            .image-container {
+                width: 60px;
+                height: 60px;
+
+                .display-profile {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                }
+            }
+
+            .detail {
+                margin-left: 30px;
+
+                .name {
+                    font-size: 20px;
+                }
+
+                .disclaimer-detail {
+                    .disclaimer {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .rating-detail,
+            .seller-info {
+                margin-top: 30px;
+
+                .parameter {
+                    min-width: 180px;
+                    font-size: 13px;
+                }
+
+                .container {
+                    width: 180px;
+                }
+            }
+        }
+
+        .headings {
+            margin-left: 15px;
+        }
+
+        .products-container {
+            margin: 30px 0 35px 15px;
+
+            .products-content {
+                justify-content: center;
+
+                .product {
+                    width: 100%;
+                    .product-image{
+                        width: 100%;
+                        img{
+                            width: 100%; 
+                        }
+                    }
+                }
+            }
+        }
+
+        .review-btn {
+            margin-right: 15px;
+            margin-top: 20px;
+        }
+
+        .review-form {
+            margin-left: 15px;
+            margin-right: 15px;
+
+            .parameter-basic {
+                width: 180px;
+                font-size: 12px;
+            }
+
+            .comment-box {
+                textarea {
+                    width: 100%;
+                }
+            }
         }
 
         .reviews-container {

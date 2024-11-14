@@ -50,3 +50,20 @@
     }
   }
 }
+
+
+@media (max-width:600px) {
+  .root {
+    .case-diary {
+      .diary-container {
+        width: 350px;
+        padding: 20px;
+
+        .sub-text {
+          width: 320px;
+        }
+
+      }
+    }
+  }
+}

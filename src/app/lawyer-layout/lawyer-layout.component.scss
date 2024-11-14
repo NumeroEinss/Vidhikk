@@ -195,15 +195,14 @@ mat-drawer-container {
   }
 }
 
-// @media (max-width: 600px) {
-//   .main-container {
+@media (max-width: 600px) {
+  .main-container {
+    .sidenav{
+      display: none;
+    }
 
-//     .sidenav{
-//       display: none;
-//     }
-
-//     .main-content {
-//       width: 100%;
-//     }
-//   }
-// }
+    .main-content {
+      width: 100%;
+    }
+  }
+}

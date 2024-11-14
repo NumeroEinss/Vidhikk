@@ -128,3 +128,26 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .filter-bar {
+        .pretext {
+            padding-left: 15px !important;
+
+            .records {
+                font-size: 12px !important;
+                white-space: nowrap;
+            }
+        }
+
+        img {
+            margin-right: 15px !important;
+        }
+    }
+
+    .bare-acts {
+        .acts {
+            padding: 10px 15px !important;
+        }
+    }
+}

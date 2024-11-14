@@ -46,15 +46,33 @@
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-.calendar-header{
-  .navigators{
-    gap: 5px;
-  }
+  .calendar-header {
+    .navigators {
+      gap: 5px;
+    }
 
-  .view-controller {
-    div{
-      width: 70px;
+    .view-controller {
+      div {
+        width: 70px;
+      }
     }
   }
 }
+
+@media (max-width: 600px) {
+  .calendar-header {
+    font-size: 12px;
+    justify-content:flex-start;
+
+    .navigators {
+      gap: 0;
+      font-size: 12px;
+    }
+
+    .view-controller {
+      div {
+        width: 70px;
+      }
+    }
+  }
 }

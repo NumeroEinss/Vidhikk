@@ -310,3 +310,61 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .root {
+    margin: 15px;
+    margin-right: 0;
+
+    .contact-us-container {
+      .header-menu {
+        flex-wrap: wrap;
+        margin-right: 15px;
+
+        .filter-section {
+          margin-right: 15px;
+
+          .mat-mdc-form-field {
+            width: 180px !important;
+          }
+        }
+
+        .search-bar {
+          margin-right: 15px;
+        }
+
+        .add-ticket {
+          width: 180px !important;
+          margin-right: 0;
+
+          button {
+            width: 180px !important;
+          }
+        }
+      }
+
+      .ticket-list {
+        overflow-x: scroll;
+        width: calc(100vw - 35px);
+        white-space: nowrap;
+        margin-right: 15px;
+
+        .ticket-header {
+          min-width: 1000px;
+        }
+
+        .ticket-data {
+          min-width: 1000px;
+        }
+      }
+    }
+  }
+
+  .add-ticket-popup {
+    width: 100% !important;
+  }
+
+  .delete-modal {
+    width: unset !important;
+  }
+}

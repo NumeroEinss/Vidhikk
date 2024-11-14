@@ -105,3 +105,27 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .root {
+    .filter-bar {
+      padding: 0 15px !important;
+    }
+
+    .bare-acts-container {
+      .bare-acts-content {
+        margin: 20px 15px !important;
+      }
+
+      .bare-acts-section {
+        .title {
+          margin: 0 15px 0 15px !important;
+        }
+
+        .detail {
+          margin: 0 15px 0 15px !important;
+        }
+      }
+    }
+  }
+}

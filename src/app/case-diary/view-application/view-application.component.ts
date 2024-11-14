@@ -20,6 +20,7 @@ export class ViewApplicationComponent {
   applicationData: any;
   cityList: any = [];
   today: Date = new Date();
+  viewApplication: any = { title: "", document: "" };
 
   constructor(private _router: Router, private _templateService: TemplateService, private _http: HttpClient,
     private _apolloService: ApolloService, private _toastMessage: ToastMessageService) {
@@ -89,45 +90,141 @@ export class ViewApplicationComponent {
     })
   }
 
+  // print() {
+  //   const content = this.printableContent.nativeElement.innerHTML;
+  //   const printWindow = window;
+  //   if (printWindow) {
+  //     // printWindow.document.open();
+  //     // printWindow.document.write(`
+  //     //   <html>
+  //     //     <head>
+  //     //       <title>Print</title>
+  //     //       <style>
+  //     //       @media print {
+  //     //         body{
+  //     //           font-size:18px;
+  //     //           font-family: Poppins;
+  //     //           font-stretch: normal;
+  //     //           font-style: normal;
+  //     //           line-height: normal;
+  //     //           letter-spacing: normal;
+  //     //         }
+
+  //     //         .print-content{
+  //     //           margin-top:15px
+  //     //         }
+  //     //           .bold {
+  //     //             font-weight: bold;
+  //     //           }
+  //     //     }
+  //     //       </style>
+  //     //       </head>
+  //     //       <body>
+  //     //        ${content}
+  //     //       </body>
+  //     //    </html>
+  //     //  `);
+  //     // printWindow.document.close();
+  //     printWindow.print();
+  //   } else {
+  //     console.error('Failed to open print window.');
+  //   }
+  // }
   print() {
     const content = this.printableContent.nativeElement.innerHTML;
-    const printWindow = window;
+    const printWindow = window.open('case-law/print', '_blank');
     if (printWindow) {
-      // printWindow.document.open();
-      // printWindow.document.write(`
-      //   <html>
-      //     <head>
-      //       <title>Print</title>
-      //       <style>
-      //       @media print {
-      //         body{
-      //           font-size:18px;
-      //           font-family: Poppins;
-      //           font-stretch: normal;
-      //           font-style: normal;
-      //           line-height: normal;
-      //           letter-spacing: normal;
-      //         }
-
-      //         .print-content{
-      //           margin-top:15px
-      //         }
-      //           .bold {
-      //             font-weight: bold;
-      //           }
-      //     }
-      //       </style>
-      //       </head>
-      //       <body>
-      //        ${content}
-      //       </body>
-      //    </html>
-      //  `);
-      // printWindow.document.close();
+      printWindow.document.open();
+      printWindow.document.write(`
+          <html>
+            <head>
+              <title>${this.getPrintTitle(this.viewApplication.title)}</title>
+              <!-- Load Poppins font -->
+              <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+              <style>
+              @media print {
+                html, body {
+                  font-family: 'Poppins', sans-serif !important;
+                  font-size:14px;
+                  line-height:30px;
+                }
+                .logo {
+                  width: 100%;
+                  height: 65px;
+                  text-align: center;
+                  background-image: url("../../../../assets/images/icons/vidhiklogo.svg");
+                  background-repeat: no-repeat;
+                  background-position: center;
+                }
+                .header {
+                  font-size: 16px;
+                  font-weight: normal;
+                  color: #8798ad;
+                  text-align: center;
+                }
+                .highlighted-text {
+                  font-size: 18px;
+                  font-weight: 500;
+                  color: #2E5BFF;
+                  width: 100%;
+                  margin-top: 38px;
+                  background-color: #e6e60bee;
+                }
+                .title {
+                  font-size: 18px;
+                  font-weight: bold;
+                  color: black;
+                  width: 100%;
+                }
+                .description {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  font-weight: normal;
+                  line-height: 1.4;
+                  margin-top: 30px;
+                  font-size: 16px;
+                }
+                .desc-head {
+                  max-width: 590px; 
+                  text-align: center;
+                  color: #282828;
+                }
+                .hearing-loc {
+                  font-size: 18px;
+                }
+                .desc-body {
+                  text-align: left;
+                  color: #282828;
+                  margin-top: 25px;
+                  font-size: 18px;
+                }
+                .bold {
+                  font-weight: bold;
+                }
+                mark{
+                background-color: #e6e60bee;
+                padding: unset;
+                }
+              }
+              </style>
+             </head>
+             <body>
+              ${content}
+             </body>
+          </html>
+        `);
+      printWindow.document.close();
       printWindow.print();
     } else {
       console.error('Failed to open print window.');
     }
+
+  }
+
+  
+  getPrintTitle(title: any) {
+    return title.replaceAll(' ', '_');
   }
 
   onSelectTemplate(templateName: string): void {

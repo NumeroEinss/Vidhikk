@@ -1,136 +1,145 @@
-.signup-form {
-  font-family: Poppins;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
+.root {
+  .mobile-responsive-img {
+    display: none;
+  }
 
-  .welcome-text {
-    flex-grow: 0;
+  .signup-form {
     font-family: Poppins;
-    font-size: 24px;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+    .welcome-text {
+      flex-grow: 0;
+      font-family: Poppins;
+      font-size: 24px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: #000;
+    }
+
+    .sub-text {
+      flex-grow: 0;
+      margin: 12px 0 0;
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: #8798ad;
+    }
+
+    .mat-mdc-form-field {
+      display: grid;
+    }
+
+    // .header-text {
+    //   width: 357px;
+    // }
+
+    .otp-form {
+      width: 357px;
+      max-height: 290px;
+
+      .gray-font {
+        a {
+          color: #2e5bff;
+          cursor: pointer;
+        }
+
+        :hover {
+          text-decoration: underline;
+          transition: all 1s ease-in-out;
+        }
+      }
+    }
+
+    .register-form {
+      max-height: calc(100vh - 225px);
+      width: 395px;
+      padding: 0 35px 0 0;
+
+      mat-label {
+        color: #8798ad;
+        font-size: 14px;
+        font-family: Poppins;
+      }
+
+      .user-type {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .verify-btn {
+        width: 112px;
+      }
+    }
+
+    .profile-container {
+      width: 80px;
+      height: 80px;
+      border: 1px solid black;
+      border-radius: 50%;
+      position: relative;
+      margin-bottom: 15px;
+
+      input {
+        display: none;
+      }
+
+      .profile {
+        width: 78px;
+        height: 78px;
+        border-radius: 50%;
+      }
+
+      .profile-input {
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        background-color: #2e5bff;
+        border-radius: 50%;
+        bottom: 0;
+        right: -8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        .camera {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+
+  .image-container {
+    background-color: #1949f517;
+  }
+
+  .head-text {
+    font-size: 20px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #000;
   }
 
   .sub-text {
-    flex-grow: 0;
-    margin: 12px 0 0;
-    font-family: Poppins;
-    font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #8798ad;
-  }
-
-  .mat-mdc-form-field {
-    display: grid;
-  }
-
-  .header-text {
-    width: 357px;
-  }
-
-  .otp-form {
-    width: 357px;
-    max-height: 290px;
-
-    .gray-font {
-      a {
-        color: #2e5bff;
-        cursor: pointer;
-      }
-
-      :hover {
-        text-decoration: underline;
-        transition: all 1s ease-in-out;
-      }
+    .email {
+      font-weight: 700;
     }
   }
 
-  .register-form {
-    max-height: calc(100vh - 225px);
-    width: 395px;
-    padding: 0 35px 0 0;
-
-    mat-label {
-      color: #8798ad;
-      font-size: 14px;
-      font-family: Poppins;
-    }
-
-    .user-type {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .verify-btn{
-      width: 112px;
-    }
-  }
-
-  .profile-container {
-    width: 80px;
-    height: 80px;
-    border: 1px solid black;
-    border-radius: 50%;
-    position: relative;
-    margin-bottom: 15px;
-
-    input {
-      display: none;
-    }
-
-    .profile {
-      width: 78px;
-      height: 78px;
-      border-radius: 50%;
-    }
-
-    .profile-input {
-      position: absolute;
-      width: 26px;
-      height: 26px;
-      background-color: #2e5bff;
-      border-radius: 50%;
-      bottom: 0;
-      right: -8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-
-      .camera {
-        width: 16px;
-        height: 16px;
-      }
-    }
-  }
 }
 
-.image-container {
-  background-color: #1949f517;
-}
 
-.head-text {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.sub-text {
-  .email {
-    font-weight: 700;
-  }
-}
 
 // Email Verification Modal styling start
 .email-modal {
@@ -237,33 +246,83 @@
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-  .signup-form {
-    .header-text {
-      width: 320px;
-    }
+  .root {
+    .signup-form {
+      .header-text {
+        width: 320px;
+      }
 
-    .otp-form {
-      width: 320px;
+      .otp-form {
+        width: 320px;
 
-      .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
-        width: unset !important;
+        .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
+          width: unset !important;
+        }
+      }
+
+      .register-form {
+        width: 320px;
+
+        .verify-btn {
+          width: 90px;
+        }
+      }
+
+      ng-scrollbar {
+        width: 320px !important;
       }
     }
 
-    .register-form {
-      width: 320px;
+    .terms-service-checkbox {
+      margin-bottom: 45px;
+    }
+  }
+}
 
-      .verify-btn{
-        width: 90px;
+@media (max-width:600px) {
+  .root {
+    flex-wrap: wrap;
+
+    .mobile-responsive-img {
+      display: block;
+      width: 100%;
+
+      .vidhik-logo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 20px 0;
+
+        img {
+          height: 70px;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 300px;
       }
     }
 
-    ng-scrollbar {
-      width: 320px !important;
+    .signup-form {
+      height: unset;
+      padding: 0 20px 20px 20px;
+      align-items: unset;
+
+      .vidhik-logo {
+        display: none;
+      }
+    }
+
+    .mobile-responsive-img1 {
+      display: none;
     }
   }
 
-  .terms-service-checkbox {
-    margin-bottom: 45px;
+  #disclaimerModal {
+    .text-center {
+      margin-top: 35px !important;
+    }
   }
+
 }

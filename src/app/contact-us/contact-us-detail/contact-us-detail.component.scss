@@ -39,10 +39,10 @@
         display: inline-flex;
         gap: 30px;
         flex-wrap: wrap;
-        
+
         .screenshots {
-            width: 240px;
-            height: 240px;
+            width: 245px;
+            height: 245px;
             border: 1px solid #D3D3D3;
             border-radius: 5px;
 
@@ -186,6 +186,34 @@
         // .screenshots-div {
         //     margin-right: 15px;
         // }
+
+        .comment-section {
+            margin-right: 0;
+        }
+
+        .reply-to-ticket {
+            margin-right: 0;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .root {
+        margin: 15px;
+        // margin-right: 0;
+
+        .screenshots-container {
+            .screenshots {
+                width: 200px !important;
+                height: 200px !important;
+
+                img {
+                    width: 100% !important;
+                    height: 100% !important;
+                }
+            }
+
+        }
 
         .comment-section {
             margin-right: 0;

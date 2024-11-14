@@ -22,10 +22,10 @@ export class MarketplaceComponent {
 
   carouselImagess = [
     {
-      image: '../../assets/images/image/marketplace-front-img.png'
+      image: '../../assets/images/image/marketplace_img.png'
     },
     {
-      image: '../../assets/images/image/marketplace-front-img.png'
+      image: '../../assets/images/image/marketplace1_img.png'
     }
   ];
 

@@ -166,3 +166,27 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .root {
+        margin: 15px;
+        margin-right: 0;
+
+        .availability-list {
+            overflow-x: scroll;
+            width: calc(100vw - 35px);
+
+            .availability-list-header {
+                min-width: 1000px;
+            }
+
+            .availability-list-data {
+                min-width: 1000px;
+            }
+        }
+    }
+
+    .schedule-meeting-qr-Modal, .payment-successful{
+        width: 100% !important;
+    }
+}

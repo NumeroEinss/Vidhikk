@@ -60,3 +60,19 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .root {
+    .feed-section {
+      .filter-bar {
+        padding: 0 15px;
+        z-index: 1 !important;
+      }
+
+      .description {
+        margin: 15px;
+      }
+    }
+  }
+}
+

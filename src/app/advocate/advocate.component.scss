@@ -157,3 +157,31 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .root {
+        margin: 15px 15px 40px 15px;
+
+        .lawyer-info{
+            flex-wrap: wrap;
+
+            .payment-schedule-button {
+                margin-top: 20px;
+            }
+        }
+
+        .general-information,
+        .contact-information,
+        .other-information {
+            margin-top: 40px;
+        }
+
+        .general-info {
+            margin-bottom: 15px;
+        }
+    }
+
+    .schedule-meeting-modal{
+        width: 100% !important;
+    }
+}

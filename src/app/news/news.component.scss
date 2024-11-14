@@ -212,3 +212,19 @@
     }
   }
 }
+
+@media (max-width:600px) {
+  .root {
+    .feed-section {
+      margin: 30px 15px 15px 15px;
+
+      .news {
+        margin-right: unset;
+      }
+
+      .advertisement {
+        display: none;
+      }
+    }
+  }
+}

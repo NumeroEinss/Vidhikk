@@ -76,3 +76,15 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .root {
+        .edit-case-diary {
+            margin: 15px;
+
+            .lower-div {
+                margin: 25px 0 70px 0;
+            }
+        }
+    }
+}

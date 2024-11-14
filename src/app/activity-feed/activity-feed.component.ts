@@ -83,6 +83,7 @@ export class ActivityFeedComponent {
       if (data.data != null) {
         if (data.data.getpostList.status == 200) {
           this.feedList = data.data.getpostList.data.postList;
+          // console.log(' this.feedList', this.feedList)
           this.feedList.forEach((x: any) => { x.isCommentExpanded = false; x.comment = ""; });
         }
         else {

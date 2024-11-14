@@ -74,6 +74,7 @@ export class AdvocateListComponent {
 
   viewLawyerDetails(lawyerId: any) {
     const extras = lawyerId;
+    console.log('extras', extras)
     this._router.navigate([`/user/advocates/view`], { state: extras });
   }
 

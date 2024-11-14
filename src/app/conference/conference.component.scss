@@ -135,8 +135,6 @@
       // right: 0;
       // bottom: 66px;
       // width: 441px;
-
-
       position: fixed;
       right: 0;
       bottom: 0px;
@@ -330,8 +328,8 @@
   // }
 }
 
-.user-payment-modal{
-  .modal-body{
+.user-payment-modal {
+  .modal-body {
     .payment {
       background-color: #053bff0d;
       border-color: #7d818e0d !important;
@@ -340,12 +338,12 @@
       margin-top: 10px;
 
       .duration {
-          font-size: 12px;
-          padding-left: 44px;
-          color: #000000cc;
-          margin-top: -10px;
+        font-size: 12px;
+        padding-left: 44px;
+        color: #000000cc;
+        margin-top: -10px;
       }
-  }
+    }
   }
 }
 
@@ -357,5 +355,11 @@
     .chat-popup {
       margin-right: 0;
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .chat-popup {
+    width: unset !important;
   }
 }

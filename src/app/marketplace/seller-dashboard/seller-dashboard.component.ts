@@ -202,6 +202,11 @@ export class SellerDashboardComponent {
     this.selectAll = this.productList.every((product: any) => product.selected);
   }
 
+  resetForm() {
+    this.addProductForm.reset('');
+    this.files = "";
+  }
+
   getSellerProductList() {
     this.apolloService.mutate(GQLConfig.getProductList).subscribe(data => {
       if (data.data != null) {

@@ -109,6 +109,8 @@
 
                         .display-profile {
                             border-radius: 12px;
+                            width: 200px;
+                            height: 150px;
                         }
 
                         .lawyer-details {
@@ -207,6 +209,65 @@
                 .list {
                     .node:nth-child(5n+5) {
                         margin-right: 40px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .root {
+        margin: 15px;
+        margin-right: 0;
+
+        .main-div {
+            .advocate-header-menu {
+                .filter-section {
+                    margin-right: 15px;
+
+                    span {
+                        display: none;
+                    }
+
+                    .mat-mdc-form-field {
+                        width: 150px !important;
+                    }
+                }
+
+                .search-bar {
+                    margin-right: 15px;
+                }
+            }
+
+            .popular-lawyer,
+            .all-lawyer {
+                .list {
+                    .node {
+                        width: 100%;
+                        min-width: unset;
+                        margin: 20px 0 38px 0;
+                        height: 220px;
+
+                        .subnode {
+                            position: relative;
+
+                            .display-profile {
+                                border-radius: 12px;
+                                width: 100%;
+                                height: 220px;
+                            }
+
+                            .lawyer-details {
+                                width: 280px;
+                                height: 80px;
+                                padding: 10px 8px 5px 16px;
+                            }
+                        }
+                    }
+
+                    .node:nth-child(5n+5) {
+                        margin-right: 0;
                     }
                 }
             }
