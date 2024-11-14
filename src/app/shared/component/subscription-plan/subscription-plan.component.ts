@@ -19,7 +19,7 @@ export class SubscriptionPlanComponent {
   getPlanList() {
     this._apolloService.mutate(GQLConfig.getPlanList).subscribe(objRes => {
       if (objRes.data != null) {
-        console.log(objRes, 'Response')
+        // console.log(objRes, 'Response')
         if (objRes.data.planList.status == 200) {
           this.planList = objRes.data.planList.data.plans;
         }

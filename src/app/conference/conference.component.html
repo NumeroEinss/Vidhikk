@@ -232,21 +232,21 @@
 
         <mat-radio-group aria-label="payment-slot" class="mb-2">
           <div class="d-flex justify-content-center" style="gap: 10px;">
-              <div class="payment"><mat-radio-button value="100" checked>100 Rs</mat-radio-button>
-                  <div class="duration">15 Mins</div>
-              </div>
+            <div class="payment"><mat-radio-button value="100" checked>100 Rs</mat-radio-button>
+              <div class="duration">15 Mins</div>
+            </div>
 
-              <div class="payment"><mat-radio-button value="200">200
-                      Rs</mat-radio-button>
-                  <div class="duration">30 Mins</div>
-              </div>
+            <div class="payment"><mat-radio-button value="200">200
+                Rs</mat-radio-button>
+              <div class="duration">30 Mins</div>
+            </div>
 
-              <div class="payment"><mat-radio-button value="500">500
-                      Rs</mat-radio-button>
-                  <div class="duration">60 Mins</div>
-              </div>
+            <div class="payment"><mat-radio-button value="500">500
+                Rs</mat-radio-button>
+              <div class="duration">60 Mins</div>
+            </div>
           </div>
-      </mat-radio-group>
+        </mat-radio-group>
         <div class="text-center mt-4 mb-4">
           <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-toggle="modal"
             data-bs-target="#qrModal">
@@ -262,12 +262,12 @@
 <!-- <button id="qrModalButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
   data-bs-target="#qrModal" class="d-none"></button> -->
 <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true"
-  style="width: 100%;">
+  style="width: 100%;" data-bs-backdrop="static">
   <div class="modal-dialog modal-md modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title" id="qrModalLabel">Scan QR Code</div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" [routerLink]="'/user/conference'"></button>
       </div>
       <div class="modal-body">
         <div class="mt-2 mb-2 d-flex justify-content-center" (click)="timer=2; timeInSecond=(timer * 60);"
@@ -278,7 +278,8 @@
           </p>
         </div>
         <div class="mt-4 mb-4">
-          <img src="../../assets/images/image/QRtiger.png" width="236" alt="">
+          <!-- <img src="../../assets/images/image/QRtiger.png" width="236" alt=""> -->
+          <qrcode [qrdata]="qrData" [width]="236" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
       </div>
     </div>

@@ -140,4 +140,22 @@ export class NewsComponent {
         break;
     }
   }
+
+  getPubLisher(type: string) {
+    let val = "";
+    switch (type) {
+      case 'times_of_india':
+        val = "Times of India";
+        break;
+      case 'live_mint':
+        val = "Live Mint";
+        break;
+      case 'hindustan_times':
+        val = "Hindustan Times";
+        break;
+      default:
+        break;
+    }
+    return val;
+  }
 }

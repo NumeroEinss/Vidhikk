@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
   DateAdapter,
@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { ApolloService } from '../../shared/services/apollo.service';
-import { Subject, debounceTime, switchMap } from 'rxjs';
+import { Subject, debounceTime, lastValueFrom, switchMap } from 'rxjs';
 import { SearchService } from '../../shared/services/search.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AdvanceSearchModel } from '../../common/advanceSearch.model';
@@ -38,7 +38,7 @@ const MY_DATE_FORMAT = {
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
   ],
 })
-export class CaseLawListComponent {
+export class CaseLawListComponent implements AfterViewInit {
 
   @ViewChild('appInput') appInputRef!: ElementRef;
   @ViewChild('respInput') respInputRef!: ElementRef;
@@ -239,10 +239,6 @@ export class CaseLawListComponent {
     private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder) {
     this._dateAdapter.setLocale('en-GB');
     this.filteredJournalsList = this.journalList;
-    this.getCaseLaws(1);
-    this.getJudgeList();
-    this.getCourtList();
-    this.getSavedCases();
     this.filteredActList = this.actList;
     this.filteredActTypeList = this.actTypeList;
     this.filteredYearList = this.yearList;
@@ -251,6 +247,10 @@ export class CaseLawListComponent {
   }
 
   ngOnInit() {
+    this.getCaseLaws(1);
+    this.getJudgeList();
+    this.getCourtList();
+    this.getSavedCases();
     this.judgeControl.valueChanges.pipe(
       debounceTime(300), // Add a debounce to limit the number of API calls
       switchMap(value => this._searchService.search(value))
@@ -264,6 +264,10 @@ export class CaseLawListComponent {
     ).subscribe(data => {
       this.filteredJudgeList = data.judges;
     });
+  }
+
+  ngAfterViewInit() {
+
   }
 
   tabSelectionChange(e: any) {
@@ -323,19 +327,23 @@ export class CaseLawListComponent {
   }
 
   getJudgeList() {
+    this._toastMessage.showLoader = true;
     this._apolloService.get('/judge?page=1&pageSize=50').subscribe(resObj => {
       if (resObj.status == "success") {
         this.judgeList = resObj.data.judges;
         this.filteredJudgeList = this.judgeList;
+        this._toastMessage.showLoader = false;
       }
     })
   }
 
   getCourtList() {
+    this._toastMessage.showLoader = true;
     this._apolloService.get('/court').subscribe(resObj => {
       if (resObj.status == "success") {
         this.courtList = resObj.data.courts;
         this.filteredCourtList = this.courtList;
+        this._toastMessage.showLoader = false;
       }
     })
   }
@@ -352,13 +360,16 @@ export class CaseLawListComponent {
     this.selectedCourt = "";
   }
 
-  getCaseLaws(page: number) {
-    this._apolloService.get(`/judgement/latest?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
-      if (objRes.status == "success") {
-        this.caseList = objRes.data.items;
-        this.recordCount = objRes.data.totalCount;
-      }
-    })
+  async getCaseLaws(page: number) {
+    this._toastMessage.showLoader = true;
+    let sub: any = this._apolloService.get(`/judgement/latest?page=${page}&pageSize=${this.pageSize}`);
+    let objRes: any = await lastValueFrom(sub);
+    if (objRes.status == "success") {
+      this.caseList = objRes.data.items;
+      this.recordCount = objRes.data.totalCount;
+      console.log(this.caseList, "Case LIsfjaksdfjlakdfjlak;sdfjla;kssdjflak;sdfjl;kasksdjflk;asdjflkassdjf")
+      this._toastMessage.showLoader = false;
+    }
   }
 
   getCaseLawByCourt() {
@@ -451,7 +462,7 @@ export class CaseLawListComponent {
   // }
 
   getCaseLawByAdvanceSearch(page: number) {
-    console.log('this.advanceSearchForm.value',this.advanceSearchForm.value)
+    // console.log('this.advanceSearchForm.value',this.advanceSearchForm.value)
     this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
       if (objRes.status == "success") {
         this.respAdvanceSearchList = objRes.data.items;
@@ -648,11 +659,13 @@ export class CaseLawListComponent {
   }
 
   getSavedCases() {
+    this._toastMessage.showLoader = true;
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
     this._apolloService.get(`/saved-judgement/user/${userData._id}`).subscribe(objRes => {
       if (objRes.status == "success") {
-        this.savedCasesList = objRes.data;
+        this.savedCasesList = objRes.data.reverse();
         this.recordCount = objRes.data.length;
+        this._toastMessage.showLoader = false;
       }
     })
   }
@@ -660,5 +673,10 @@ export class CaseLawListComponent {
   viewSavedCase(cases: any) {
     const extras = { savedCaseId: cases._id, caseId: cases.judgementId._id }
     this._router.navigate([`lawyer/case-law/savedCases/view`], { state: extras });
+  }
+
+  chooseYear(event: any): void {
+    this.advanceSearchForm.controls.caseYear.patchValue(event[0]['_d']);
+    event[1].close(); // Close the picker after year selection
   }
 }

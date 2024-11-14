@@ -74,7 +74,7 @@ export class AdvocateListComponent {
 
   viewLawyerDetails(lawyerId: any) {
     const extras = lawyerId;
-    console.log('extras', extras)
+    // console.log('extras', extras)
     this._router.navigate([`/user/advocates/view`], { state: extras });
   }
 
@@ -126,7 +126,7 @@ export class AdvocateListComponent {
   }
 
   getShortInfo(info: string) {
-    return info.slice(0, 15);
+    return info?.slice(0, 15);
   }
 
   filterLawyers(e: any) {

@@ -230,7 +230,7 @@ export class UserProfileComponent {
       }
     } catch (error: any) {
       this._toastMessage.error('Error uploading image');
-      console.log(error, 'lhngbf')
+      // console.log(error, 'lhngbf')
       return false;
     }
   }

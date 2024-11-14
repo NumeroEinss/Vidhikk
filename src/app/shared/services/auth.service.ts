@@ -22,7 +22,7 @@ export class AuthService {
     this._messagingService.requestPermission();
     this.subscription$ = this._messagingService.accessToken.asObservable().subscribe(data => {
       if (data) {
-        console.log('Subscription for token !!');
+        // console.log('Subscription for token !!');
         this.fireBaseToken = data;
         // sessionStorage.setItem('messageToken', data);
       } else {
@@ -48,7 +48,7 @@ export class AuthService {
   async login(query: any, variables: any, userType: string) {
     // setTimeout(() => {
     variables.notificationToken = this._messagingService.accessToken.value;
-    console.log('Token Generated')
+    // console.log('Token Generated')
     let sub: any = this._apollo.mutate({ mutation: query, variables: variables, errorPolicy: 'all' })
     let respObj: any = await lastValueFrom(sub);
     if (respObj != null) {

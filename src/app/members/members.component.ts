@@ -165,7 +165,7 @@ export class MembersComponent implements AfterViewInit {
   }
 
   getShortInfo(info: string) {
-    return info.slice(0, 15);
+    return info?.slice(0, 15);
   }
 
   resetMemberPopup() {

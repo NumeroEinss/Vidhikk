@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AdvocateSchedulingComponent {
   isNameVisible: boolean = false;
+  qrData:string = "Welcome to Advocate Scheduling"
 
   availabilityList: any = [ // Only slots from current date and after will fall under this.
     {

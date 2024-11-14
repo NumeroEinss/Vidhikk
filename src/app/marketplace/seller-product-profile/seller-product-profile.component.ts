@@ -147,7 +147,7 @@ export class SellerProductProfileComponent {
             disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
           }));
 
-          console.log('this.productList', this.productsDetail)
+          // console.log('this.productList', this.productsDetail)
           this.toastMessage.success(data.data.getProductList.message);
         }
         else {

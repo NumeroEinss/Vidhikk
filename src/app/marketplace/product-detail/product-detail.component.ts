@@ -49,7 +49,7 @@ export class ProductDetailComponent {
     this.userData = JSON.parse(sessionStorage.getItem('userData')!)
 
     this.productImages.push(this.routerState.productImage)
-    console.log('this.productImages', this.productImages)
+    // console.log('this.productImages', this.productImages)
     this.currentImage = this.productImages[this.currentImageIndex];
   }
 
@@ -80,7 +80,7 @@ export class ProductDetailComponent {
 
 
   get imageNumbering() {
-    console.log(this.currentImageIndex, this.productImages.length)
+    // console.log(this.currentImageIndex, this.productImages.length)
     return `${this.currentImageIndex + 1}/${this.productImages.length}`;
   }
 
@@ -107,7 +107,7 @@ export class ProductDetailComponent {
   }
 
   submitReview(reviews: string) {
-    console.log("reviews", reviews)
+    // console.log("reviews", reviews)
     this.reviews = '';
   }
 

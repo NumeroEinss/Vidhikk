@@ -323,7 +323,7 @@ export class CaseLawDetailComponent {
         judgementId: this.caseId,
         judgement: await this.fetchMarkedText()
       };
-      console.log(data)
+      // console.log(data)
       this._apolloService.post(`/saved-judgement/${userData._id}`, data).subscribe(data => {
         if (data.status == "success") {
           this._toastMessage.success("Case Saved Successfully !!")
@@ -347,7 +347,7 @@ export class CaseLawDetailComponent {
 
     // Extract the outer HTML of each <mark> tag including the tag itself
     markedElements.forEach((markElement: HTMLElement) => {
-      console.log(markElement)
+      // console.log(markElement)
       markedArray.push(markElement.outerHTML); // Logs the <mark> content including the tags
     });
 
