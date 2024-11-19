@@ -19,6 +19,7 @@ export class SellerProductProfileComponent {
   showReviewForm: boolean = false;
   reviews: string = '';
   productsDetail: any;
+  defaultProductLength = 20;
 
   // productsDetail = [
   //   {
@@ -123,6 +124,24 @@ export class SellerProductProfileComponent {
     }
     else {
       this.getSellerProductDetail()
+    }
+  }
+
+  ngOnInit() {
+    this.updateProductNameLength();
+  }
+
+  onResize(){
+    this.updateProductNameLength();
+  }
+
+  updateProductNameLength() {
+    if (window.innerWidth < 600) {
+      this.defaultProductLength = 30;
+    } else if (window.innerWidth > 601 && window.innerWidth < 1023) {
+      this.defaultProductLength = 20;
+    } else if (window.innerWidth > 1023) {
+      this.defaultProductLength = 20;
     }
   }
 

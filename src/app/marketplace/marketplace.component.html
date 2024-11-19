@@ -37,9 +37,8 @@
                     data-bs-interval="3000">
                     <div class="carousel-inner">
                         <div class="carousel-item" *ngFor="let img of carouselImagess; let i = index"
-                        [class.active]="i === 0">
-                            <img [src]="img.image" class="d-block w-100"
-                                alt="...">
+                            [class.active]="i === 0">
+                            <img [src]="img.image" class="d-block w-100" alt="...">
                         </div>
                     </div>
                     <div class="prev-btn"><img src="../../assets/images/image/previous (1).png"
@@ -59,7 +58,9 @@
                             <div (click)="productDetail(detail)">
                                 <div class="product-image"><img [src]="getImageUrl(detail.productImage)"></div>
                                 <div class="detail">
-                                    <div class="name">{{detail.productName.slice(0,20)}}</div>
+                                    <div class="name">{{ detail.productName.length > defaultProductLength
+                                        ? (detail.productName | slice:0:defaultProductLength) + '...'
+                                        : detail.productName }}</div>
                                     <div class="seller-detail">
                                         <div class="seller-image"><img [src]="detail.sellerImage"
                                                 onerror="this.onerror=null,this.src='../../../../assets/images/image/person.jpg'">

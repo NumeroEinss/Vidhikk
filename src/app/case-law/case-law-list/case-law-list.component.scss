@@ -366,6 +366,25 @@
 
     .case-container {
       padding: 20px 15px;
+
+      .sub-desc {
+        display: flex;
+        line-height: normal;
+        margin-bottom: 9px;
+  
+        .court {
+          font-size: 12px;
+        }
+  
+        .bench {
+          font-size: 12px;
+          white-space: nowrap;
+        }
+  
+        .cited {
+          font-size: 12px;
+        }
+      }
     }
 
     .app-resp-container {

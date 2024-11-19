@@ -429,14 +429,6 @@
         }
       }
 
-      .colored-border-label {
-        border-left: 3px solid #2e5bff;
-      }
-
-      .colorless-border-label {
-        border-left: 3px solid #ffffff;
-      }
-
       .chat-room-details {
         height: 69px;
         display: flex;
@@ -953,6 +945,6 @@
   }
 
   .modal-dialog {
-    width: 100% !important;
+    width: 96% !important;
   }
 }

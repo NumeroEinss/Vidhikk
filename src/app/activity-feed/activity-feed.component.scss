@@ -17,7 +17,6 @@ marquee {
 
 
 .root {
-
   .fab-container {
     display: none;
     position: fixed;
@@ -631,21 +630,25 @@ marquee {
         // margin-left: 30px !important;
         margin-right: 15px !important;
 
-        .comment-box-textarea{
+        .comment-box-textarea {
           width: 160px !important;
         }
 
-        .comment-btn{
+        .comment-btn {
           padding: 5px 12px !important;
           font-size: 12px;
 
-          img{
+          img {
             width: 14px;
             height: 14px;
           }
         }
       }
     }
+
+    
   }
+
+
 
 }

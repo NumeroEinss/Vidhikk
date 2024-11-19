@@ -337,7 +337,7 @@ export class CalendarComponent {
             let closeEventButton = document.getElementById('closeAvailabilityButton') as HTMLElement;
             closeEventButton.click();
             this.getAvailabilityList();
-            this.calendarScroll.scrollTo({ bottom: 0, end: 0 });
+            this.calendarScroll.scrollTo({ bottom: 0});
           }
           else {
             this._toastMessage.error(objRes.data.addAvailability.message);

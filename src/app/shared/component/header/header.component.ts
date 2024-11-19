@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
@@ -26,7 +26,8 @@ export class HeaderComponent {
   @Input() colConfig: string = "col-lg-8 col-md-8";
   onDestroy$: Subject<void> = new Subject();
 
-  constructor(private _router: Router, private _location: Location, private _authService: AuthService, private _http: HttpClient) {
+  constructor(private _router: Router, private _location: Location, private _authService: AuthService,
+    private _http: HttpClient, private renderer: Renderer2, private elementRef: ElementRef) {
     this.sub$ = this._authService.profileImageSubject.asObservable()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((data: any) => {
@@ -35,6 +36,15 @@ export class HeaderComponent {
     this.getNotificationList();
     this.userType = this._router.url.split('/')[1];
     this.userData = JSON.parse(sessionStorage.getItem('userData')!)
+
+    this.renderer.listen('document', 'click', (event: Event) => this.onDocumentClick(event));
+  }
+
+  onDocumentClick(event: Event): void {
+    const clickedInside = this.elementRef.nativeElement.contains(event.target);
+    if (!clickedInside && this.isSidebarOpen) {
+      this.isSidebarOpen = false;
+    }
   }
 
   redirectToProfile() {

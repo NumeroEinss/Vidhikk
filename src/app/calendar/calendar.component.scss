@@ -18,6 +18,10 @@
         }
       }
 
+      .create-event1{
+        display: none;
+      }
+
       .search-bar {
         width: 100%;
         margin-right: 24px;
@@ -48,7 +52,7 @@
     }
 
     .availability {
-      position: relative;
+      // position: relative;
       margin-top: 56px;
 
       .availability-label {
@@ -56,9 +60,7 @@
       }
 
       .create-availability {
-        position: absolute;
-        right: 0;
-        width: unset;
+        // width: unset;
 
         button {
           width: 215px !important;
@@ -68,6 +70,7 @@
       }
 
       .add-availability-list {
+        margin-right: 15px;
         .availability-list-header {
           display: grid;
           // grid-template-columns: 250px 200px 250px 200px 120px 40px;
@@ -244,6 +247,14 @@
         button {
           width: 140px !important;
         }
+
+        .create-event1{
+          display: block;
+        }
+
+        .create-event{
+          display: none;
+        }
       }
 
       .cal-container {
@@ -251,27 +262,28 @@
         width: calc(100vw - 25px);
       }
 
-      .availability {
-        position: unset;
-      }
+      // .availability {
+      //   position: unset;
+      // }
 
       .add-availability-list {
         overflow-x: scroll;
-        width: calc(100vw - 60px);
+        width: calc(100vw - 35px);
+        // margin-right: 25px !important;
 
         .availability-list-header {
-          min-width: 1000px;
+          min-width: 800px;
         }
 
         .availability-list-data {
-          min-width: 1000px;
+          min-width: 800px;
         }
       }
     }
   }
 
   .add-event{
-    width:100% !important;
+    width:96% !important;
 
     .modal-body{
     padding: 20px 15px;

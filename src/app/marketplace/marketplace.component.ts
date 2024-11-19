@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { GQLConfig } from '../graphql.operations';
 import { ApolloService } from '../shared/services/apollo.service';
@@ -13,6 +13,9 @@ import { imageUrl } from '../graphql.module';
 export class MarketplaceComponent {
   selectedProduct: string = '';
   productsDetailList: any;
+  defaultProductLength = 20;
+
+  @HostListener('window:resize', ['$event'])
 
   productsName: any[] = [
     { value: 'coat', viewValue: 'Coat' },
@@ -111,6 +114,24 @@ export class MarketplaceComponent {
     this.getProductsDataSource();
   }
 
+  ngOnInit() {
+    this.updateProductNameLength();
+  }
+
+  onResize(){
+    this.updateProductNameLength();
+  }
+
+  updateProductNameLength() {
+    if (window.innerWidth < 600) {
+      this.defaultProductLength = 30;
+    } else if (window.innerWidth > 601 && window.innerWidth < 1023) {
+      this.defaultProductLength = 20;
+    } else if (window.innerWidth > 1023) {
+      this.defaultProductLength = 20;
+    }
+  }
+
   getImageUrl(image: any) {
     return imageUrl() + image;
   }
@@ -122,14 +143,14 @@ export class MarketplaceComponent {
           // this.productsDetailList = data.data.getProductList.data.randomProducts;
           this.productsDetailList = data.data.getProductList.data.randomProducts.map((product: any) => ({
             ...product,
-            like: false,
+            like: true,
             sellerImage: '../../assets/images/image/person.jpg',
             sellerName: 'Sandeep Agal',
             sellerMobileNo: '9876543120',
             sellerEmail: 'sandeep@gmail.com',
             sellerAddress: 'Indore, M.P',
-            sellerMemberShipfrom:'Member since Apr 2015',
-            disclaimer:'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
+            sellerMemberShipfrom: 'Member since Apr 2015',
+            disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
           }));
 
           console.log('this.productList', this.productsDetailList)

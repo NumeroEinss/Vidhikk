@@ -16,6 +16,10 @@
         }
       }
 
+      .add-ticket1{
+        display: none;
+      }
+
       .search-bar {
         width: 100% !important;
         margin-right: 24px;
@@ -322,10 +326,17 @@
         margin-right: 15px;
 
         .filter-section {
-          margin-right: 15px;
+          margin-right: 20px;
 
           .mat-mdc-form-field {
             width: 180px !important;
+          }
+        }
+
+        .add-ticket1{
+          display: block;
+          button {
+            width: 100% !important;
           }
         }
 
@@ -334,12 +345,7 @@
         }
 
         .add-ticket {
-          width: 180px !important;
-          margin-right: 0;
-
-          button {
-            width: 180px !important;
-          }
+          display: none;
         }
       }
 
@@ -361,7 +367,7 @@
   }
 
   .add-ticket-popup {
-    width: 100% !important;
+    width: 96% !important;
   }
 
   .delete-modal {

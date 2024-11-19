@@ -71,6 +71,7 @@ export class MembersComponent implements AfterViewInit {
     this._apolloService.mutate(GQLConfig.deleteMember, data).subscribe(resObj => {
       if (resObj.data != null) {
         if (resObj.data.deleteMember.status == 200) {
+          // console.log(resObj.data.deleteMember)
           this._toastMessage.success(resObj.data.deleteMember.message);
           this.getMembersList();
         }
@@ -164,7 +165,7 @@ export class MembersComponent implements AfterViewInit {
     })
   }
 
-  getShortInfo(info: string) {
+  getShortInfo(info:string) {
     return info.slice(0, 15);
   }
 

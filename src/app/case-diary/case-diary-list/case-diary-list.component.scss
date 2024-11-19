@@ -311,17 +311,16 @@
         flex-wrap: wrap;
         gap: 15px;
         .filter-section {
-          margin-right: 10px;
+          margin-right: 5px;
           font-size: 12px;
 
-          // img {
-          //   display: none;
-          // }
+          img {
+            display: none;
+          }
 
-          // .mat-mdc-form-field {
-          //   width: 100px !important;
-          // }
-
+          .mat-mdc-form-field {
+            width: 110px !important;
+          }
           .mat-mdc-select-trigger {
             padding: 10px 10px 7px 0px !important;
           }
@@ -332,11 +331,11 @@
         }
 
         .search-bar {
-          margin-right: 10px;
-          width: 100% !important;
+          margin-right: 0px;
+          width: 240px !important;
 
           img {
-            margin-right: 12px !important;
+            margin-right: 8px !important;
           }
 
           .mdc-text-field__input {
@@ -346,10 +345,10 @@
         }
 
         .create-case-diary {
-          margin-right: 10px;
+          margin-right: 5px;
 
           button {
-            width: 145px !important;
+            width: 160px !important;
             font-size: 12px;
 
             img {
@@ -360,7 +359,7 @@
 
         .create-sub-diary {
           button {
-            width: 135px !important;
+            width: 150px !important;
             font-size: 12px;
 
             img {
