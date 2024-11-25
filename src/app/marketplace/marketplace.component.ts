@@ -17,7 +17,7 @@ export class MarketplaceComponent {
 
   @HostListener('window:resize', ['$event'])
 
-  productsName: any[] = [
+  productsName = [
     { value: 'coat', viewValue: 'Coat' },
     { value: 'collarBand', viewValue: 'Collar Band' },
     { value: 'briefCase', viewValue: 'Briefcase' },
@@ -140,20 +140,8 @@ export class MarketplaceComponent {
     this.apolloService.mutate(GQLConfig.getProductList).subscribe(data => {
       if (data.data != null) {
         if (data.data.getProductList.status == 200) {
-          // this.productsDetailList = data.data.getProductList.data.randomProducts;
-          this.productsDetailList = data.data.getProductList.data.randomProducts.map((product: any) => ({
-            ...product,
-            like: true,
-            sellerImage: '../../assets/images/image/person.jpg',
-            sellerName: 'Sandeep Agal',
-            sellerMobileNo: '9876543120',
-            sellerEmail: 'sandeep@gmail.com',
-            sellerAddress: 'Indore, M.P',
-            sellerMemberShipfrom: 'Member since Apr 2015',
-            disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-          }));
-
-          console.log('this.productList', this.productsDetailList)
+          this.productsDetailList = data.data.getProductList.data.randomProducts;
+          console.log('List',this.productsDetailList)
           this.toastMessage.success(data.data.getProductList.message);
         }
         else {

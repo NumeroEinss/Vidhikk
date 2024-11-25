@@ -584,22 +584,24 @@ marquee {
 @media (max-width: 600px) {
   .root {
     .feed-section {
-      .up-section-1 {
-        margin: 0 15px;
-        margin-right: unset;
-      }
+      .mobile-responsive {
+        flex-wrap: wrap;
 
-      .advertisement {
-        display: none;
+        .up-section-1 {
+          margin: 0 15px;
+          margin-right: unset;
+        }
 
-        img {
-          display: none;
+        .advertisement {
+          margin: 15px;
+          margin-right: 0;
+          width: 100%;
+
+          img {
+            width: 100%;
+          }
         }
       }
-
-      // .section-2{
-      //   width: 260px;
-      // }
 
       .feed {
         .down-section-1 {
@@ -645,10 +647,5 @@ marquee {
         }
       }
     }
-
-    
   }
-
-
-
 }

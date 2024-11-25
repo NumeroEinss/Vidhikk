@@ -18,7 +18,7 @@ export class ProductDetailComponent {
   reviews: string = '';
   currentImageIndex: number = 0;
   currentImage: string;
-  userData:any;
+  userData: any;
 
   reviewList = [
     {
@@ -45,11 +45,10 @@ export class ProductDetailComponent {
     else {
       this.getProductDetail()
     }
-
     this.userData = JSON.parse(sessionStorage.getItem('userData')!)
-
-    this.productImages.push(this.routerState.productImage)
-    console.log('this.productImages', this.productImages)
+    this.routerState.productImages.forEach((item: any) => {
+      this.productImages.push(item)
+    })
     this.currentImage = this.productImages[this.currentImageIndex];
   }
 
@@ -78,9 +77,7 @@ export class ProductDetailComponent {
     this.currentImage = this.productImages[this.currentImageIndex];
   }
 
-
   get imageNumbering() {
-    console.log(this.currentImageIndex, this.productImages.length)
     return `${this.currentImageIndex + 1}/${this.productImages.length}`;
   }
 

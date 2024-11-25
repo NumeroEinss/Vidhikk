@@ -123,7 +123,7 @@ export class SellerProductProfileComponent {
       this.routeBack();
     }
     else {
-      this.getSellerProductDetail()
+      // this.getSellerProductDetail()
     }
   }
 
@@ -149,32 +149,32 @@ export class SellerProductProfileComponent {
     this.location.back();
   }
 
-  getSellerProductDetail() {
-    this.apolloService.mutate(GQLConfig.getProductList).subscribe(data => {
-      if (data.data != null) {
-        if (data.data.getProductList.status == 200) {
-          // this.productsDetailList = data.data.getProductList.data.randomProducts;
-          this.productsDetail = data.data.getProductList.data.randomProducts.map((product: any) => ({
-            ...product,
-            like: false,
-            sellerImage: '../../assets/images/image/person.jpg',
-            sellerName: 'Sandeep Agal',
-            sellerMobileNo: '9876543120',
-            sellerEmail: 'sandeep@gmail.com',
-            sellerAddress: 'Indore, M.P',
-            sellerMemberShipfrom: 'Member since Apr 2015',
-            disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-          }));
+  // getSellerProductDetail() {
+  //   this.apolloService.mutate(GQLConfig.getProductList).subscribe(data => {
+  //     if (data.data != null) {
+  //       if (data.data.getProductList.status == 200) {
+  //         // this.productsDetailList = data.data.getProductList.data.randomProducts;
+  //         this.productsDetail = data.data.getProductList.data.randomProducts.map((product: any) => ({
+  //           ...product,
+  //           like: false,
+  //           sellerImage: '../../assets/images/image/person.jpg',
+  //           sellerName: 'Sandeep Agal',
+  //           sellerMobileNo: '9876543120',
+  //           sellerEmail: 'sandeep@gmail.com',
+  //           sellerAddress: 'Indore, M.P',
+  //           sellerMemberShipfrom: 'Member since Apr 2015',
+  //           disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
+  //         }));
 
-          console.log('this.productList', this.productsDetail)
-          this.toastMessage.success(data.data.getProductList.message);
-        }
-        else {
-          this.toastMessage.success(data.data.getProductList.message);
-        }
-      }
-    })
-  }
+  //         console.log('this.productList', this.productsDetail)
+  //         this.toastMessage.success(data.data.getProductList.message);
+  //       }
+  //       else {
+  //         this.toastMessage.success(data.data.getProductList.message);
+  //       }
+  //     }
+  //   })
+  // }
 
 
   toggleListing() {

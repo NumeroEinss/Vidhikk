@@ -345,6 +345,15 @@
   }
 }
 
+@media only screen and (min-width: 1024px) and (max-width: 1439px) {
+  .root {
+    .advance-search {
+      padding: 20px 15px 80px 15px;
+    }
+
+  }
+}
+
 .text-left {
   text-align: left;
 }

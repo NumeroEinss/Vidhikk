@@ -56,7 +56,7 @@
                             <div class="like" *ngIf="detail.like == true"><img src="../../assets/images/icons/like.svg"
                                     class="liked-icon"></div>
                             <div (click)="productDetail(detail)">
-                                <div class="product-image"><img [src]="getImageUrl(detail.productImage)"></div>
+                                <div class="product-image"><img [src]="getImageUrl(detail.productImages[0])"></div>
                                 <div class="detail">
                                     <div class="name">{{ detail.productName.length > defaultProductLength
                                         ? (detail.productName | slice:0:defaultProductLength) + '...'

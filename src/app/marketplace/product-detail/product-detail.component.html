@@ -37,17 +37,17 @@
                             <div class="price">{{routerState.price}}</div>
                             <div class="d-flex align-items-center">
                                 <img src="../../../assets/images/icons/black_colored_share.svg" alt=""
-                                    *ngIf="routerState.userType !== 'SELLER'">
+                                    *ngIf="userData.userType !== 'SELLER'">
                                 <!-- <img src="../../../assets/images/icons/black_bordered_like.svg" alt="" class="ms-2"
                                     *ngIf="routerState.userType !== 'SELLER'"> -->
 
-                                <img *ngIf="routerState.userType !== 'SELLER'"
+                                <img *ngIf="userData.userType !== 'SELLER'"
                                     [src]="routerState.isLiked?'../../assets/images/icons/like_icon.svg':'../../assets/images/icons/like.svg'"
-                                    style="width: 23px; height: 23px;" class="ms-1"/>
+                                    style="width: 23px; height: 23px;" class="ms-1" />
 
                                 <!-- <img src="../../assets/images/icons/like.svg" alt=""  class="liked-icon"> -->
                                 <img src="../../../assets/images/icons/black_bordered_edit.svg" alt=""
-                                    *ngIf="routerState.userType === 'SELLER'" class="edit-img">
+                                    *ngIf="userData.userType === 'SELLER'" class="edit-img">
                             </div>
                         </div>
                     </div>
@@ -95,40 +95,11 @@
             </div>
 
             <div *ngIf="isDescriptionOpened">
-                <div class="heading">Key Features</div>
-                <ol>
-                    <li><span class="bold-text">Material : </span>Tailored from high-quality, durable fabric to ensure
-                        both
-                        comfort and
-                        longevity.</li>
-                    <li><span class="bold-text">Design : </span> A classic, timelessly elegant design that exudes
-                        authority.
-                        The coat features a
-                        well-defined
-                        silhouette, emphasizing the wearer's professionalism.</li>
-                    <li><span class="bold-text">Color : </span> Choose from a range of sophisticated colors to suit your
-                        personal style and make a
-                        powerful
-                        statement in the courtroom.</li>
-                    <li><span class="bold-text">Details : </span> Thoughtfully designed with practicality in mind,
-                        including
-                        functional pockets for
-                        essential items
-                        and a tasteful yet subtle lining that adds a touch of luxury.</li>
-                    <li><span class="bold-text">Versatility :</span> Perfect for a variety of occasions, from courtroom
-                        appearances to professional
-                        meetings, this
-                        coat effortlessly transitions between different aspects of a legal professional's day.</li>
-                </ol>
-
-                <div class="heading">Description</div>
-                <div class="desc">This exquisite garment seamlessly blends professionalism with sophistication, making
-                    it the perfect
-                    choice for legal professionals who value both appearance and functionality.</div>
+                <div class="desc">{{routerState.productDescription}}</div>
             </div>
 
             <div *ngIf="isReviewOpened">
-                <div class="review-btn" *ngIf="!showReviewForm && userData.userType !== 'SELLER'"><button
+                <!-- <div class="review-btn" *ngIf="!showReviewForm && userData.userType !== 'SELLER'"><button
                         mat-raised-button color="primary" (click)="reviewForm()">Write a Review</button></div>
 
                 <div class="review-form" *ngIf="showReviewForm && userData.userType !== 'SELLER'">
@@ -141,7 +112,7 @@
                             Submit
                         </button>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="reviews-container" *ngFor="let review of reviewList">
                     <div class="reviews-content">

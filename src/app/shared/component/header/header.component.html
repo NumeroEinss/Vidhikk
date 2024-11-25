@@ -8,7 +8,7 @@
     </div>
   </div>
   <div [ngClass]="colConfig" class="sub-container">
-    <button *ngIf="userType == 'lawyer'" class="btn-primary upgrade" [ngStyle]="searchIcon" data-bs-toggle="modal"
+    <button *ngIf="userType == 'lawyer'|| userType == 'seller'" class="btn-primary upgrade" [ngStyle]="searchIcon" data-bs-toggle="modal"
       data-bs-target="#upgradeModal">Upgrade</button>
     <!-- <div class="logo">
         <img src="../../assets/images/icons/vidhiklogo.svg" alt="Vidhik" routerLink="/lawyer/activity-feed"
@@ -440,27 +440,27 @@ data-bs-target="#paymentSuccessModal" class="d-none"></button> -->
             Payment Details
           </div>
           <div class="transaction-detail">
-            <div class="d-flex mt-2">
+            <div class="d-flex mt-2 justify-content-between">
               <div class="col-lg-6 col-md-6 label">Client</div>
               <div class="col-lg-6 col-md-6 detail">Kapil Sibbal</div>
             </div>
 
-            <div class="d-flex mt-1">
+            <div class="d-flex mt-1 justify-content-between">
               <div class="col-lg-6 col-md-6 label">Transaction ID</div>
               <div class="col-lg-6 col-md-6 detail">TTCNI022000800594</div>
             </div>
 
-            <div class="d-flex mt-1">
+            <div class="d-flex mt-1 justify-content-between">
               <div class="col-lg-6 col-md-6 label">Payment Date</div>
               <div class="col-lg-6 col-md-6 detail">Feb 15 2024, 4:35 PM</div>
             </div>
 
-            <div class="d-flex mt-1">
+            <div class="d-flex mt-1 justify-content-between">
               <div class="col-lg-6 col-md-6 label">Payment Method</div>
               <div class="col-lg-6 col-md-6 detail">Bank Account</div>
             </div>
 
-            <div class="d-flex mt-1">
+            <div class="d-flex mt-1 justify-content-between">
               <div class="col-lg-6 col-md-6 label">Confirmation</div>
               <div class="col-lg-6 col-md-6 detail">Successful</div>
             </div>

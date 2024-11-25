@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../shared/component/page-not-found/page-not-found.component';
 import { SellerLayoutComponent } from './seller-layout.component';
 import { GlobalSearchComponent } from '../shared/component/global-search/global-search.component';
+import { ResetPasswordComponent } from '../auth/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'global-search',
         component: GlobalSearchComponent,
+      },
+      {
+        path: 'resetPassword',
+        component: ResetPasswordComponent
       },
       {
         path: '**',
