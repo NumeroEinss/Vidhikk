@@ -177,7 +177,7 @@
 
   .profile-section {
     display: flex;
-    margin: 20px 30px 20px 10px;
+    margin: 20px 0 20px 10px;
 
     img {
       width: 40px;
@@ -452,46 +452,52 @@ body .modal-dialog .modal-header {
     .sub-container {
       margin-left: 20px;
 
-      .upgrade {
-        display: none !important;
+      .btn-primary {
+        width: 70px !important;
+        height: 30px;
+        padding: 0 9px;
+        margin-right: 15px;
+        font-size: 12px;
+      }
+
+      .search {
+        margin-right: 12px !important;
+  
+        img {
+          width: 22px;
+          height: 22px;
+        }
+      }
+  
+      .notification-container {
+        margin-right: 10px !important;
+  
+        img {
+          width: 25px !important;
+          height: 25px !important;
+        }
+      }
+  
+      // .add-button {
+      //   margin-right: 5px !important;
+      // }
+  
+      .profile-container {
+        width: 35px !important;
+        height: 35px !important;
+        margin-right: 0 !important;
+  
+        img {
+          width: 33px !important;
+          height: 33px !important;
+        }
       }
     }
 
-    .search {
-      margin-right: 12px !important;
-
-      img {
-        width: 22px;
-        height: 22px;
-      }
-    }
-
-    .notification-container {
-      margin-right: 10px !important;
-
-      img {
-        width: 25px !important;
-        height: 25px !important;
-      }
-    }
-
-    // .add-button {
-    //   margin-right: 5px !important;
-    // }
-
-    .profile-container {
-      width: 35px !important;
-      height: 35px !important;
-      margin-right: 0 !important;
-
-      img {
-        width: 33px !important;
-        height: 33px !important;
-      }
-    }
+    
   }
 
   .qr-modal {
-    width: 100%;
+    width: 96% !important;
   }
 }

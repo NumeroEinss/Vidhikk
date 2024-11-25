@@ -200,6 +200,8 @@ marked {
 
 @media (max-width:600px){
     .filter-bar {
+        display: flex;
+        justify-content: space-between;
         padding: 0 15px;
     }
 

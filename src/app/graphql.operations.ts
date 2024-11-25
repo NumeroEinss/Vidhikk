@@ -709,6 +709,15 @@ export abstract class GQLConfig {
         }
     }`;
 
+    static getProductList = gql`mutation {
+        getProductList{
+            status
+            message
+            data
+        }
+    }`;
+
+
     static sellerProfile = gql`mutation($sellerId: String) {
         sellerProfile(input: {
             sellerId: $sellerId,
@@ -719,11 +728,40 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static getProductList = gql`mutation {
-       getProductList {
-              status
-              message
-              data
+
+    static updateSellerProfile = gql`mutation($sellerId: String, $email:String, $primaryContact:String, $address:String) {
+        updateSellerProfile(input: {
+            sellerId: $sellerId,
+            email:$email,
+            primaryContact:$primaryContact,
+            address:$address
+        }) {
+            status
+            message
+            data
         }
     }`;
+
+
+    static getProductBySellerId = gql`mutation($sellerId: String) {
+        getProductBySellerId(input: {
+            sellerId: $sellerId,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static deleteProduct = gql`mutation($sellerId: String, $productId: String)  {
+        deleteProduct(input: {
+        sellerId: $sellerId,
+        productId:$productId
+       }) {
+         status
+         message
+         data
+       }
+ } `
+
 }

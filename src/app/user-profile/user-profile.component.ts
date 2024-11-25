@@ -10,6 +10,7 @@ import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { GQLConfig } from '../graphql.operations';
 import { NgOtpInputComponent } from 'ng-otp-input';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -49,7 +50,7 @@ export class UserProfileComponent {
   onDestroy$: Subject<void> = new Subject();
 
   constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService,
-    private _apolloService: ApolloService, private _toastMessage: ToastMessageService) {
+    private _apolloService: ApolloService, private _toastMessage: ToastMessageService, private _http:HttpClient) {
     this.userType = this._router.url.split('/')[1];
 
     this.lawyerEditProfileForm = this._fb.group(new LawyerSignupModel);
@@ -75,6 +76,8 @@ export class UserProfileComponent {
       .subscribe(data => {
         this.displayImage = imageUrl() + data;
       });
+
+    this.getCitiesList();
   }
 
 
@@ -91,6 +94,14 @@ export class UserProfileComponent {
   get userEditFrmCtrl() {
     return this.userEditProfileForm.controls;
   }
+
+  getCitiesList() {
+    this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
+      console.log(data)
+      this.cities = data;
+    })
+  }
+
 
   addShadow(type: any) {
     let element1 = document.getElementById("password&security") as HTMLElement;
@@ -237,11 +248,23 @@ export class UserProfileComponent {
 
   patchUserDetail() {
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
-    this.lawyerEditProfileForm.controls.email.patchValue(userData.email);
-    this.lawyerEditProfileForm.controls.coreCompetency.patchValue(userData.coreCompetency);
-    this.lawyerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
-    this.mobileOtpVerified = true;
-    this.emailOtpVerified = true;
+    console.log(userData)
+
+    if (userData.userType === 'LAWYER') {
+      this.lawyerEditProfileForm.controls.email.patchValue(userData.email);
+      this.lawyerEditProfileForm.controls.coreCompetency.patchValue(userData.coreCompetency);
+      this.lawyerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
+      this.mobileOtpVerified = true;
+      this.emailOtpVerified = true;
+    } else if (userData.userType === 'SELLER') {
+      this.sellerEditProfileForm.controls.name.patchValue(userData.name);
+      this.sellerEditProfileForm.controls.city.patchValue(userData.city);
+      this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
+      this.sellerEditProfileForm.controls.email.patchValue(userData.email);
+      this.mobileOtpVerified = true;
+      this.emailOtpVerified = true;
+    }
+
   }
 
   mobileNumberChanged() {
@@ -250,10 +273,21 @@ export class UserProfileComponent {
 
   //generateMobileOtpForSignup
   generateOtp() {
-    let reqObj = {
-      mobile: this.lawyerEditProfileForm.controls.phoneNumber.value
+    let data = {};
+    if (this.userType == "user") {
+      data = {
+        mobile: this.userEditProfileForm.controls.phoneNumber.value,
+      };
+    } else if (this.userType == "lawyer") {
+      data = {
+        mobile: this.lawyerEditProfileForm.controls.phoneNumber.value
+      };
+    } else if (this.userType == "seller") {
+      data = {
+        mobile: this.sellerEditProfileForm.controls.phoneNumber.value,
+      };
     }
-    this._apolloService.mutate(GQLConfig.sendOtp, reqObj).subscribe(data => {
+    this._apolloService.mutate(GQLConfig.sendOtp, data).subscribe(data => {
       if (data.data != null) {
         if (data.data.sendOtp.status == 200) {
           this._toastMessage.message(data.data.sendOtp.message);
@@ -281,6 +315,12 @@ export class UserProfileComponent {
           data = {
             email: this.lawyerEditProfileForm.controls.email.value,
             mobile: this.lawyerEditProfileForm.controls.phoneNumber.value,
+            otp: e
+          };
+        } else if (this.userType == "seller") {
+          data = {
+            email: this.sellerEditProfileForm.controls.email.value,
+            mobile: this.sellerEditProfileForm.controls.phoneNumber.value,
             otp: e
           };
         }
@@ -462,6 +502,26 @@ export class UserProfileComponent {
     })
   }
 
+  updateSellerProfile() {
+    let data = {
+      sellerId: this.userData._id,
+      email: this.sellerEditProfileForm.controls.email.value,
+      primaryContact: this.sellerEditProfileForm.controls.phoneNumber.value,
+      address: this.sellerEditProfileForm.controls.city.value
+    }
+
+    console.log('data', data)
+    this._apolloService.mutate(GQLConfig.updateSellerProfile, data).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.updateSellerProfile.status == 200) {
+          this._toastMessage.message(objRes.data.updateSellerProfile.message);
+        }
+        else {
+          this._toastMessage.error(objRes.data.updateSellerProfile.message);
+        }
+      }
+    })
+  }
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();

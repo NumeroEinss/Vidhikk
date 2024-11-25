@@ -64,6 +64,7 @@ export class ForgotPasswordComponent {
     ]);
 
     this.userType = this._router.getCurrentNavigation()?.extras.state;
+    // console.log('userType',this.userType)
   }
 
   getErrorMessage() {

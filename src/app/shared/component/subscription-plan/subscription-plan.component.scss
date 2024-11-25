@@ -68,9 +68,10 @@
                 color: var(--solid-black);
             }
 
-            .month {
+            .year {
                 color: #2e5bff;
                 white-space: nowrap;
+                font-size: 12px;
             }
         }
 
@@ -100,12 +101,12 @@
     }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
+// @media only screen and (min-width: 768px) and (max-width: 1023px) {
 
-    .plan-container {
-        flex-wrap: wrap;
-    }
-}
+//     .plan-container {
+//         flex-wrap: wrap;
+//     }
+// }
 
 @media only screen and (min-width: 1024px) and (max-width: 1199px) {
 
@@ -122,5 +123,12 @@
         .platinum-plan {
             width: 230px;
         }
+    }
+}
+
+@media (max-width: 600px) {
+    .plan-container {
+        display: flex;
+        flex-wrap: wrap;
     }
 }

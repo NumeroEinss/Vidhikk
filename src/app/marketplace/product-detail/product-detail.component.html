@@ -8,17 +8,25 @@
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
 
             <div class="product-detail-container">
-                <div class="product-images">
-                    <div class="prev" (click)="prevImage()" [class.disabled]="isPrevDisabled"
-                        [attr.disabled]="isPrevDisabled ? true : null"><img
-                            src="../../../assets/images/icons/left_arrow_black.svg"></div>
-                    <div class="image">
-                        <div><img [src]="getImageUrl(currentImage)"></div>
+                <div class="product-container">
+                    <div class="product-images">
+                        <div class="prev" (click)="prevImage()" [class.disabled]="isPrevDisabled"
+                            [attr.disabled]="isPrevDisabled ? true : null"><img
+                                src="../../../assets/images/icons/left_arrow_black.svg"></div>
+                        <div class="image">
+                            <div><img [src]="getImageUrl(currentImage)"></div>
+                        </div>
+                        <div class="next" (click)="nextImage()" [class.disabled]="isNextDisabled"
+                            [attr.disabled]="isNextDisabled ? true : null">
+                            <img src="../../../assets/images/icons/right_arrow_black.svg">
+                            <div class="image-numbering">{{imageNumbering}}</div>
+                        </div>
                     </div>
-                    <div class="next" (click)="nextImage()" [class.disabled]="isNextDisabled"
-                        [attr.disabled]="isNextDisabled ? true : null">
-                        <img src="../../../assets/images/icons/right_arrow_black.svg">
-                        <div class="image-numbering">{{imageNumbering}}</div>
+                    <div class="total-images1">
+                        <div class="img-box" *ngFor="let img of productImages; let i = index"
+                            [class.active]="i === currentImageIndex" (click)="selectImage(i)">
+                            <img [src]="getImageUrl(img)" alt="">
+                        </div>
                     </div>
                 </div>
 
@@ -28,19 +36,29 @@
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div class="price">{{routerState.price}}</div>
                             <div class="d-flex align-items-center">
-                                <img src="../../../assets/images/icons/black_colored_share.svg" alt="" *ngIf="routerState.userType !== 'SELLER'">
-                                <img src="../../../assets/images/icons/black_bordered_like.svg" alt="" class="ms-2" *ngIf="routerState.userType !== 'SELLER'">
+                                <img src="../../../assets/images/icons/black_colored_share.svg" alt=""
+                                    *ngIf="userData.userType !== 'SELLER'">
+                                <!-- <img src="../../../assets/images/icons/black_bordered_like.svg" alt="" class="ms-2"
+                                    *ngIf="routerState.userType !== 'SELLER'"> -->
+
+                                <img *ngIf="userData.userType !== 'SELLER'"
+                                    [src]="routerState.isLiked?'../../assets/images/icons/like_icon.svg':'../../assets/images/icons/like.svg'"
+                                    style="width: 23px; height: 23px;" class="ms-1" />
+
                                 <!-- <img src="../../assets/images/icons/like.svg" alt=""  class="liked-icon"> -->
-                                <img src="../../../assets/images/icons/black_bordered_edit.svg" alt="" *ngIf="routerState.userType === 'SELLER'" class="edit-img">
+                                <img src="../../../assets/images/icons/black_bordered_edit.svg" alt=""
+                                    *ngIf="userData.userType === 'SELLER'" class="edit-img">
                             </div>
                         </div>
                     </div>
 
-                    <div class="seller-detail" (click)="redirectToSellerProfile(routerState)" *ngIf="userData.userType !== 'SELLER'">
+                    <div class="seller-detail" (click)="redirectToSellerProfile(routerState)"
+                        *ngIf="userData.userType !== 'SELLER'">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
                                 <div class="seller-img">
-                                    <img [src]="routerState.sellerImage"  onerror="this.onerror=null,this.src='../../../../assets/images/image/person.jpg'">
+                                    <img [src]="routerState.sellerImage"
+                                        onerror="this.onerror=null,this.src='../../../../assets/images/image/person.jpg'">
                                 </div>
                                 <div class="seller-name">{{routerState.sellerName}}</div>
                             </div>
@@ -60,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="total_images">
+            <div class="total-images">
                 <div class="img-box" *ngFor="let img of productImages; let i = index"
                     [class.active]="i === currentImageIndex" (click)="selectImage(i)">
                     <img [src]="getImageUrl(img)" alt="">
@@ -77,41 +95,12 @@
             </div>
 
             <div *ngIf="isDescriptionOpened">
-                <div class="heading">Key Features</div>
-                <ol>
-                    <li><span class="bold-text">Material : </span>Tailored from high-quality, durable fabric to ensure
-                        both
-                        comfort and
-                        longevity.</li>
-                    <li><span class="bold-text">Design : </span> A classic, timelessly elegant design that exudes
-                        authority.
-                        The coat features a
-                        well-defined
-                        silhouette, emphasizing the wearer's professionalism.</li>
-                    <li><span class="bold-text">Color : </span> Choose from a range of sophisticated colors to suit your
-                        personal style and make a
-                        powerful
-                        statement in the courtroom.</li>
-                    <li><span class="bold-text">Details : </span> Thoughtfully designed with practicality in mind,
-                        including
-                        functional pockets for
-                        essential items
-                        and a tasteful yet subtle lining that adds a touch of luxury.</li>
-                    <li><span class="bold-text">Versatility :</span> Perfect for a variety of occasions, from courtroom
-                        appearances to professional
-                        meetings, this
-                        coat effortlessly transitions between different aspects of a legal professional's day.</li>
-                </ol>
-
-                <div class="heading">Description</div>
-                <div class="desc">This exquisite garment seamlessly blends professionalism with sophistication, making
-                    it the perfect
-                    choice for legal professionals who value both appearance and functionality.</div>
+                <div class="desc">{{routerState.productDescription}}</div>
             </div>
 
             <div *ngIf="isReviewOpened">
-                <div class="review-btn" *ngIf="!showReviewForm && userData.userType !== 'SELLER'"><button mat-raised-button color="primary"
-                        (click)="reviewForm()">Write a Review</button></div>
+                <!-- <div class="review-btn" *ngIf="!showReviewForm && userData.userType !== 'SELLER'"><button
+                        mat-raised-button color="primary" (click)="reviewForm()">Write a Review</button></div>
 
                 <div class="review-form" *ngIf="showReviewForm && userData.userType !== 'SELLER'">
                     <div style="color: black;">Add Star Rating</div>
@@ -123,7 +112,7 @@
                             Submit
                         </button>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="reviews-container" *ngFor="let review of reviewList">
                     <div class="reviews-content">
@@ -132,7 +121,7 @@
                             <div>
                                 <div class="ms-2">{{review.name}}</div>
                                 <div class="star-content ms-1 d-flex align-items-center"><star-rating [starType]="'svg'"
-                                        [rating]="3"></star-rating>
+                                        [rating]="3" [readOnly]="true"></star-rating>
                                     <div class="rating">4.5</div>
                                 </div>
                             </div>

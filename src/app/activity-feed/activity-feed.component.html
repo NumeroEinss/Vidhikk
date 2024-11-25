@@ -8,7 +8,7 @@
   standards</marquee>
 
 <!-- root section & feed section start-->
-<div class="root" appPreventKeyboardEvents>
+<div class="root activity-feed" appPreventKeyboardEvents>
   <div id="fab-container" class="fab-container" [ngStyle]="refreshVisible?{'display':'block'}:{'display':'none'}">
     <button class="fab" (click)="getActivityFeeds()">
       <span>&#x21bb;</span>
@@ -18,7 +18,7 @@
   <div style="height: calc(100vh - 196px)">
     <ng-scrollbar autoHeightDisabled="false" appearance="standard">
       <div class="feed-section">
-        <div class="d-flex w-100">
+        <div class="d-flex w-100 mobile-responsive">
           <div class="up-section-1 w-100" [ngClass]="userType != 'lawyer'?'up-section':''">
 
             <div class="d-flex w-100" *ngIf="userType === 'lawyer'">

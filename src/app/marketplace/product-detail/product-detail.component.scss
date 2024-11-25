@@ -72,6 +72,31 @@
             }
         }
 
+        .total-images1 {
+            display: none;
+            gap: 20px;
+            margin: 10px 0 0 0;
+
+            .img-box {
+                border: 1px solid #E1E1E1;
+                border-radius: 8px;
+                width: 65px;
+                height: 65px;
+                padding: 2px;
+                transition: border 0.3s;
+                cursor: pointer;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .img-box.active {
+                border: 1px solid #2E5BFF;
+            }
+        }
+
         .seller-product-detail {
             width: 100%;
             display: flex;
@@ -150,7 +175,7 @@
 
     }
 
-    .total_images {
+    .total-images {
         display: flex;
         gap: 20px;
         margin: 20px 0 0 30px;
@@ -218,8 +243,8 @@
     }
 
     .desc {
-        margin-left: 30px;
         margin-right: 0;
+        margin: 25px 0 0 30px;
 
     }
 
@@ -362,7 +387,7 @@
             }
         }
 
-        .total_images {
+        .total-images {
             margin: 20px 0 0 15px;
         }
 
@@ -396,43 +421,56 @@
         .product-detail-container {
             flex-wrap: wrap;
             margin-left: 15px;
-            .product-images {
+
+            .product-container{
                 width: 100%;
-                .prev {
-                    height: 150px;
-                    img {
-                        padding: 0 10px;
-                    }
-                }
-
-                .image {
+                .product-images {
                     width: 100%;
-                    height: 150px;
-
-                    img {
+    
+                    .prev {
+                        height: 150px;
+    
+                        img {
+                            padding: 0 10px;
+                        }
+                    }
+    
+                    .image {
                         width: 100%;
-                        height: 140px;
-
-                        padding: 10px 0;
+                        height: 150px;
+    
+                        img {
+                            width: 100%;
+                            height: 140px;
+    
+                            padding: 10px 0;
+                        }
+                    }
+    
+                    .next {
+                        height: 150px;
+    
+                        img {
+                            padding: 0 10px;
+                        }
+    
+                        .image-numbering {
+                            right: 12px;
+                            font-size: 10px;
+                        }
                     }
                 }
-
-                .next {
-                    height: 150px;
-                    img {
-                        padding: 0 10px;
-                    }
-
-                    .image-numbering {
-                        right: 12px;
-                        font-size: 10px;
-                    }
+    
+                .total-images1 {
+                    display: block;
                 }
             }
+
+            
         }
 
-        .total_images {
-            margin: 20px 0 0 15px;
+        .total-images {
+            display: none;
         }
 
         .headings,

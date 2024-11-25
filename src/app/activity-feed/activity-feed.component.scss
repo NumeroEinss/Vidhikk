@@ -17,7 +17,6 @@ marquee {
 
 
 .root {
-
   .fab-container {
     display: none;
     position: fixed;
@@ -585,22 +584,24 @@ marquee {
 @media (max-width: 600px) {
   .root {
     .feed-section {
-      .up-section-1 {
-        margin: 0 15px;
-        margin-right: unset;
-      }
+      .mobile-responsive {
+        flex-wrap: wrap;
 
-      .advertisement {
-        display: none;
+        .up-section-1 {
+          margin: 0 15px;
+          margin-right: unset;
+        }
 
-        img {
-          display: none;
+        .advertisement {
+          margin: 15px;
+          margin-right: 0;
+          width: 100%;
+
+          img {
+            width: 100%;
+          }
         }
       }
-
-      // .section-2{
-      //   width: 260px;
-      // }
 
       .feed {
         .down-section-1 {
@@ -631,15 +632,15 @@ marquee {
         // margin-left: 30px !important;
         margin-right: 15px !important;
 
-        .comment-box-textarea{
+        .comment-box-textarea {
           width: 160px !important;
         }
 
-        .comment-btn{
+        .comment-btn {
           padding: 5px 12px !important;
           font-size: 12px;
 
-          img{
+          img {
             width: 14px;
             height: 14px;
           }
@@ -647,5 +648,4 @@ marquee {
       }
     }
   }
-
 }

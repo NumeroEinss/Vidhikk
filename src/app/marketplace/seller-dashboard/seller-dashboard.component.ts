@@ -21,8 +21,10 @@ export class SellerDashboardComponent {
   productList: any = [];
   userData: any;
   selectAll: boolean = false;
+  imageUrls: string[] = [];
+  selectedProducts: any;
 
-  files: any = { name: "No Files Selected" };
+  files: any = [{ name: "No Files Selected" }];
   fileUploaded: boolean = false;
 
   // productList: any = [
@@ -162,17 +164,10 @@ export class SellerDashboardComponent {
   }
 
   onFileSelected(event: any): void {
-    this.files = event.target.files[0];
+    const fileList = event.target.files;
+    this.files = Array.from(fileList);
     this.fileUploaded = true;
-    console.log(this.files)
   }
-
-  // onFileSelected(event: any): void {
-  //   const fileList = event.target.files;
-  //   this.files = Array.from(fileList);
-  //   this.fileUploaded = true;
-  //   console.log(this.files)
-  // }
 
   onDrop(event: any): void {
     event.preventDefault();
@@ -200,6 +195,7 @@ export class SellerDashboardComponent {
 
   updateSelectAll() {
     this.selectAll = this.productList.every((product: any) => product.selected);
+    console.log('this.selectAll', this.selectAll)
   }
 
   resetForm() {
@@ -208,41 +204,46 @@ export class SellerDashboardComponent {
   }
 
   getSellerProductList() {
-    this.apolloService.mutate(GQLConfig.getProductList).subscribe(data => {
+    let data = {
+      sellerId: this.userData._id
+    }
+    this.apolloService.mutate(GQLConfig.getProductBySellerId, data).subscribe(data => {
       if (data.data != null) {
-        if (data.data.getProductList.status == 200) {
-          this.productList = data.data.getProductList.data.randomProducts
-          this.toastMessage.success(data.data.getProductList.message);
+        if (data.data.getProductBySellerId.status == 200) {
+          this.productList = data.data.getProductBySellerId.data.products;
+          console.log('List', this.productList)
+          this.toastMessage.success(data.data.getProductBySellerId.message);
         }
         else {
-          this.toastMessage.success(data.data.getProductList.message);
+          this.toastMessage.success(data.data.getProductBySellerId.message);
         }
       }
     })
   }
 
   addProduct() {
-    if (!this.fileUploaded) {
-      this.toastMessage.error("Please add an image !!");
-    }
-    else if (!this.addProductForm.valid) {
+    if (!this.addProductForm.valid) {
       this.toastMessage.error("Please Fill all the fields !!");
+    }
+    else if (!this.fileUploaded) {
+      this.toastMessage.error("Please add an image !!");
     }
     else {
       const mutation = {
-        "query": "mutation ($input: marketPlaceInput!, $file: Upload) { addProducts(input: $input, file: $file) { status message data } }",
+        "query": "mutation ($input: marketPlaceInput!, $files: [Upload!]) { addProducts(input: $input, files: $files) { status message data } }",
         "variables": {
           "input": {
             "userType": this.userData.userType,
+            "sellerId": this.userData._id,
             "productName": this.addProductForm.controls.productName.value,
             "productDescription": this.addProductForm.controls.ProductDescription.value,
             "price": +this.addProductForm.controls.productPrice.value,
             "productCategory": this.addProductForm.controls.category.value
           },
-          "file": null
+          "files": []
         }
       }
-      this.apolloService.upload(mutation, this.files, "0").subscribe(objRes => {
+      this.apolloService.uploadMultiple(mutation, this.files).subscribe(objRes => {
         if (objRes.data != null) {
           this.toastMessage.success(objRes.data.addProducts.message);
           this.addProductForm.reset('');
@@ -256,4 +257,30 @@ export class SellerDashboardComponent {
       })
     }
   }
+
+  deleteProduct() {
+    let selectedProducts = this.productList.filter((product: any) => product.selected);
+    console.log('selectedProducts', selectedProducts)
+    let reqObj = {}
+    selectedProducts.forEach((data: any) => {
+      reqObj = {
+        sellerId: data.sellerId,
+        productId: data._id
+      }
+    })
+    console.log('data', reqObj)
+    this.apolloService.mutate(GQLConfig.deleteProduct, reqObj).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.deleteProduct.status == 200) {
+          this.toastMessage.success(data.data.deleteProduct.message);
+          this.getSellerProductList();
+        }
+        else {
+          this.toastMessage.success(data.data.deleteProduct.message);
+        }
+      }
+    })
+  }
+
+
 }

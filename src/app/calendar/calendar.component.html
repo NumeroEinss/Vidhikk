@@ -17,6 +17,16 @@
         </div>
         <!-- filter section ends -->
 
+         <!-- create-event start -->
+         <div class="create-event1">
+          <button id="addEventButton" mat-stroked-button color="primary" style="border-radius: 12px"
+            data-bs-toggle="modal" data-bs-target="#addEventModal" (click)="resetEventForm()">
+            <img class="mx-1" src="../../assets/images/icons/add-event.svg" /><span style="color: #2e5bff"></span>Add
+            Event
+          </button>
+        </div>
+        <!-- creat-event ends -->
+
         <!-- search-bar start -->
         <div class="search-bar">
           <mat-form-field appearance="outline">
@@ -55,7 +65,7 @@
         </mwl-calendar-day-view>
       </div>
       <div class="availability">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
           <div class="availability-label">
             Availability
           </div>
@@ -70,6 +80,7 @@
           <!-- create-availability ends -->
         </div>
         <!-- add availability list starts -->
+         <ng-scrollbar style="height: calc(100vh - 570px);">
         <div class="add-availability-list">
           <div>
             <div class="availability-list-header">
@@ -110,9 +121,9 @@
           </div>
           <!-- add availability list ends -->
         </div>
+      </ng-scrollbar>
       </div>
     </div>
-
   </ng-scrollbar>
   <button id="deleteEventButton" data-bs-target="#deleteEvent" data-bs-toggle="modal" style="display: none;"
     class="delete-event">Delete
@@ -174,7 +185,7 @@
             <div class="col-lg-5 col-md-5 text-start d-flex align-items-center">
               <mat-label class="mat-label">Select Color</mat-label>
             </div>
-            <div class="color-picker">
+            <div class="color-picker ms-3">
               <label *ngFor="let color of colors">
                 <input type="radio" name="colors" [value]="color.value" formControlName="colors" />
                 <span class="color-swatch" [ngStyle]="{'background-color': color.color}"></span>

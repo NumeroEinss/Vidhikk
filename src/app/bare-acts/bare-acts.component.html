@@ -1,11 +1,11 @@
 <app-header [menuName]="'Bare Acts'"></app-header>
 <div class="root" appPreventKeyboardEvents>
     <div class="filter-bar mt-2">
-        <div class="pretext col-lg-6 col-md-6">
+        <div class="pretext col-lg-6 col-md-6 col-sm-6">
             <!-- <img src="../../../assets/images/icons/arrow-left.svg" /> -->
             <div class="records">Found {{ recordCount }} Acts</div>
         </div>
-        <div class="posttext col-lg-6 col-md-6">
+        <div class="posttext col-lg-6 col-md-6 col-sm-6">
             <div class="search"
                 (click)="searchStyle = { width: '100%', display: 'flex' };searchIcon = { width: '0px', display: 'none' };"
                 [ngStyle]="searchIcon">

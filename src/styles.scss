@@ -980,7 +980,8 @@ body {
 
 
   // mat-input-white override css
-  .contact-us-container, .marketplace-container{
+  .contact-us-container,
+  .marketplace-container {
     .header-menu {
       .filter-section {
         .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
@@ -1179,4 +1180,50 @@ body {
   .mat-pseudo-checkbox {
     display: none !important;
   }
+}
+
+@media (max-width:600px) {
+  .error {
+    width: 100%;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word;
+  }
+
+  .mat-mdc-snack-bar-container .mdc-snackbar__label {
+    font-size: 13px !important;
+    word-break: break-word;
+  }
+
+  .mat-mdc-form-field-error {
+    font-size: 13px !important;
+  }
+
+  .mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container {
+    transform: scale(0.9) !important;
+  }
+
+  .calendar-header-menu,
+  .case-diary-header-menu,
+  .marketplace-container {
+    .filter-section {
+      .mat-mdc-select-trigger {
+        padding: 8px 8px 7px 0 !important;
+      }
+    }
+  }
+
+  .activity-feed {
+    .ng-scrollbar-wrapper {
+      .ng-scroll-viewport {
+        .ng-scroll-content {
+          padding-right: 0 !important;
+        }
+      }
+    }
+  }
+
+
+
+
+
 }
