@@ -130,7 +130,7 @@ export class ContactUsComponent {
   }
 
   redirectToContactDetail(ticket: any) {
-    console.log(ticket, 'ticket')
+    // console.log(ticket, 'ticket')
     let userData = sessionStorage.getItem('userData');
     let parsedData = JSON.parse(userData!)
     if (parsedData.userType == "LAWYER") {

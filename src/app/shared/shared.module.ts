@@ -13,7 +13,7 @@ import { HighlighterPipe } from './pipe/highlighter.pipe';
 import { PaginatorComponent } from './component/paginator/paginator.component';
 import { SafeHTMLPipe } from './pipe/safe-html.pipe';
 import { PreventKeyboardEventsDirective } from './directives/prevent-keyboard-events.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ShareButtons } from 'ngx-sharebuttons/buttons';
 import { shareIcons } from 'ngx-sharebuttons/icons';
@@ -22,6 +22,9 @@ import { QrModalComponent } from './component/qr-modal/qr-modal.component';
 import { HighlightOnSearchPipe } from './pipe/highlight-on-search.pipe';
 import { LandingPageComponent } from './component/landing-page/landing-page.component';
 import { RouterModule } from '@angular/router';
+import { YearPickerComponent } from './component/year-picker/year-picker.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -38,7 +41,8 @@ import { RouterModule } from '@angular/router';
     SubscriptionPlanComponent,
     QrModalComponent,
     HighlightOnSearchPipe,
-    LandingPageComponent
+    LandingPageComponent,
+    YearPickerComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +51,10 @@ import { RouterModule } from '@angular/router';
     MatChipsModule,
     FormsModule,
     ShareButtons,
-    RouterModule
+    RouterModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
+    QRCodeModule
   ],
   exports: [
     HeaderComponent,
@@ -60,7 +67,8 @@ import { RouterModule } from '@angular/router';
     ShareButtons,
     SubscriptionPlanComponent,
     QrModalComponent,
-    HighlightOnSearchPipe
+    HighlightOnSearchPipe,
+    YearPickerComponent
   ],
   providers: [AuthService, shareIcons()]
 })

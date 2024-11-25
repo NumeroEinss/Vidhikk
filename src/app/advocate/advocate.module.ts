@@ -7,8 +7,9 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { AdvocateSchedulingComponent } from './advocate-scheduling/advocate-scheduling.component';
 import { AdvocateRatingComponent } from './advocate-rating/advocate-rating.component';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { StarRatingModule } from 'angular-star-rating';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { StarRatingModule } from 'angular-star-rating';
     SharedModule,
     MaterialModule,
     MatProgressBarModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    QRCodeModule
   ]
 })
 export class AdvocateModule { }

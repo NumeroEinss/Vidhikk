@@ -50,7 +50,7 @@ export class UserProfileComponent {
   onDestroy$: Subject<void> = new Subject();
 
   constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService,
-    private _apolloService: ApolloService, private _toastMessage: ToastMessageService, private _http:HttpClient) {
+    private _apolloService: ApolloService, private _toastMessage: ToastMessageService, private _http: HttpClient) {
     this.userType = this._router.url.split('/')[1];
 
     this.lawyerEditProfileForm = this._fb.group(new LawyerSignupModel);
@@ -248,15 +248,14 @@ export class UserProfileComponent {
 
   patchUserDetail() {
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
-    console.log(userData)
 
-    if (userData.userType === 'LAWYER') {
+    if (this.userType === 'lawyer') {
       this.lawyerEditProfileForm.controls.email.patchValue(userData.email);
       this.lawyerEditProfileForm.controls.coreCompetency.patchValue(userData.coreCompetency);
       this.lawyerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
       this.mobileOtpVerified = true;
       this.emailOtpVerified = true;
-    } else if (userData.userType === 'SELLER') {
+    } else if (this.userType === 'seller') {
       this.sellerEditProfileForm.controls.name.patchValue(userData.name);
       this.sellerEditProfileForm.controls.city.patchValue(userData.city);
       this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);

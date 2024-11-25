@@ -13,6 +13,7 @@ export class ConferenceComponent {
   message: string = '';
   isMuted: boolean = false;
   userType: string = "";
+  qrData: string = "Payment For Conference Extension"
 
   chatList = [
     {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-qr-modal',
@@ -7,6 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class QrModalComponent {
 
+  @Input('qrData') qrData: any;
   @Output() paymentConfirmedEvent: EventEmitter<number> = new EventEmitter();
 
   constructor() { }

@@ -486,11 +486,15 @@
 
           <div class="advance-search-col">
             <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-              <mat-label class="mat-label">Case Year</mat-label>
+              <!-- <mat-label class="mat-label">Case Year</mat-label>
               <mat-form-field appearance="outline">
-                <input matInput placeholder="Enter Case Year" (keypress)="isNumber($event)" maxlength="4"
-                  formControlName="caseYear" />
-              </mat-form-field>
+                <input matInput [matDatepicker]="picker" formControlName="caseYear" [readonly]="true" [max]="today">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="multi-year" (yearSelected)="chooseYear($event, picker)"
+                  panelClass="year-only-picker"></mat-datepicker>
+              </mat-form-field> -->
+              <app-year-picker [label]="'Case Year'" [year]="advanceSearchForm.controls.caseYear.value"
+                (yearChange)="chooseYear($event)"></app-year-picker>
             </div>
 
             <div class="d-flex mat-input-white" style="flex-direction: column">

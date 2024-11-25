@@ -170,7 +170,7 @@ export class SavedCaseLawDetailComponent {
         judgementId: this.caseId,
         judgement: await this.fetchMarkedText()
       };
-      console.log(data)
+      // console.log(data)
       this._apolloService.post(`/saved-judgement/${userData._id}`, data).subscribe(data => {
         if (data.status == "success") {
           this._toastMessage.success("Case Saved Successfully !!")

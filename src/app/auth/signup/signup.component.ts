@@ -585,11 +585,11 @@ export class SignupComponent {
           "file": null
         }
       }
-      console.log("file", this.sellerForm.controls.file.value)
+      // console.log("file", this.sellerForm.controls.file.value)
 
       this._apolloService.upload(mutation, this.sellerForm.controls.file.value, "0").subscribe(objRes => {
         if (objRes.data != null) {
-          console.log("objRes", objRes.data)
+          // console.log("objRes", objRes.data)
           this._toastMessage.success(objRes.data.CreateSeller.message);
           this._router.navigate(['/auth/login']);
         }

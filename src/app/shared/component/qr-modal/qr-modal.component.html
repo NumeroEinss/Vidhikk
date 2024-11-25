@@ -20,7 +20,8 @@
                     </p>
                 </div>
                 <div class="mt-4 mb-4">
-                    <img src="../../assets/images/image/QRtiger.png" width="236" alt="">
+                    <!-- <img src="../../assets/images/image/QRtiger.png" width="236" alt=""> -->
+                    <qrcode [qrdata]="qrData" [width]="236" [errorCorrectionLevel]="'M'"></qrcode>
                 </div>
             </div>
         </div>

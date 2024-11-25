@@ -26,13 +26,13 @@
                         <span>{{ news.title?.substr(0, getHeadingLength())}}
                           {{news.title?.length>getHeadingLength()?'...':''}}</span>
                       </div>
-                      <div class="news-description mt-1">{{ news?.description?.substr(0,getCharLength())}}&nbsp;<a
-                          target="_blank" [href]="getNewsUrl(news)">Read More..</a></div>
-                      <!-- <div class="publisher mt-1">
-                        Publisher: <a target="_blank" [href]="news?.publisher.href">{{news?.publisher.title}}</a>
-                      </div> -->
+                      <!-- <div class="news-description mt-1">{{ news?.description?.substr(0,getCharLength())}}&nbsp;<a
+                          target="_blank" [href]="getNewsUrl(news)">Read More..</a></div> -->
+                      <div class="publisher mt-1">
+                        Publisher: <a target="_blank" [href]="getNewsUrl(news)">{{getPubLisher(news?.source)}}</a>
+                      </div>
                       <div class="timestamp mt-1">
-                        <div class="vector"></div> {{news.date}}
+                        Published Date: {{news.date}}
                       </div>
                     </div>
                   </div>

@@ -104,7 +104,7 @@ export class ProductDetailComponent {
   }
 
   submitReview(reviews: string) {
-    console.log("reviews", reviews)
+    // console.log("reviews", reviews)
     this.reviews = '';
   }
 

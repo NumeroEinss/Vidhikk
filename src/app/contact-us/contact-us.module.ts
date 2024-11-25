@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactUsRoutingModule } from './contact-us-routing.module';
 import { ContactUsDetailComponent } from './contact-us-detail/contact-us-detail.component';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../app/shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
