@@ -17,6 +17,7 @@ export class AdvocateComponent {
   lawyerId: any;
   isNameVisible: boolean = false;
   activeRoute: string = "";
+  qrData: string = "Payment For Hiring Advocate";
 
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
     private location: Location) {
@@ -24,10 +25,21 @@ export class AdvocateComponent {
     if (this.lawyerId != undefined) {
       this.activeRoute = this._router.url;
       this.getLawyerDetail();
+      this.getQrData();
     }
     else {
       this.location.back();
     }
+  }
+
+  getQrData() {
+    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+      if (objRes != null) {
+        if (objRes.status == 'success') {
+          this.qrData = objRes.data;
+        }
+      }
+    })
   }
 
   viewRating() {

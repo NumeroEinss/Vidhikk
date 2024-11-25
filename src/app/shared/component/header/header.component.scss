@@ -143,6 +143,20 @@
         border-radius: 50%;
       }
     }
+
+    .user-details {
+      padding: 10px;
+
+      .name {
+        font-weight: 600;
+      }
+      
+      .plan {
+        display: flex;
+        justify-content: right;
+        font-size: 12px;
+      }
+    }
   }
 }
 

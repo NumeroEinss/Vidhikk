@@ -12,6 +12,8 @@ import { Subject, debounceTime, lastValueFrom, switchMap } from 'rxjs';
 import { SearchService } from '../../shared/services/search.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AdvanceSearchModel } from '../../common/advanceSearch.model';
+import { DataService } from '../../shared/services/data.service';
+import { DatePipe } from '@angular/common';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -206,10 +208,10 @@ export class CaseLawListComponent implements AfterViewInit {
   judgeControl = new FormControl();
 
   advanceSearchForm: FormGroup;
-  decisionDate = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
+  // dateRange = new FormGroup({
+  //   start: new FormControl<Date | null>(null),
+  //   end: new FormControl<Date | null>(null),
+  // });
 
   showAdvanceSearch: boolean = true;
   respAdvanceSearchList: any = [];
@@ -236,21 +238,54 @@ export class CaseLawListComponent implements AfterViewInit {
   // sharedCurrentPage: number = 1;
 
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
-    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder) {
+    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder,
+    private _dataService: DataService, private _datePipe: DatePipe) {
     this._dateAdapter.setLocale('en-GB');
     this.filteredJournalsList = this.journalList;
     this.filteredActList = this.actList;
     this.filteredActTypeList = this.actTypeList;
     this.filteredYearList = this.yearList;
     this.filteredVolumeList = this.volumeList;
-    this.advanceSearchForm = this._formBuilder.group(new AdvanceSearchModel)
+    this.advanceSearchForm = this._formBuilder.group(new AdvanceSearchModel);
+
+
   }
 
-  ngOnInit() {
-    this.getCaseLaws(1);
+  async ngOnInit() {
+    if (this._dataService.getData()?.activeTabIndex !== undefined) {
+      this.selectedIndex = this._dataService.getData().activeTabIndex;
+      if (this.selectedIndex === 1) {
+        this.showJudgeSearch = false;
+        this.judgeWiseCurrentPage = this._dataService.getData()?.page;
+        this.judgeControl.patchValue(this._dataService.getData()?.judgeControl);
+        await this.getPaginatedCaseLawByJudges(this.judgeWiseCurrentPage);
+      }
+      else if (this.selectedIndex === 2) {
+        this.showWordsSearch = false;
+        this.searchedWord = this._dataService.getData()?.wordControl;
+        this.wordsPhraseRadioModel = this._dataService.getData()?.wordRadioControl;
+        this.wordsPhraseCurrentPage = this._dataService.getData()?.page;
+        this.getCaseLawsByWords(this.wordsPhraseCurrentPage)
+      }
+      else if (this.selectedIndex === 3) {
+        this.showAdvanceSearch = false;
+        this.advanceSearchCurrentPage = this._dataService.getData()?.page;
+        this.advanceSearchForm.patchValue(this._dataService.getData()?.advanceSearchControl);
+        this.getPaginatedCaseLawByAdvanceSearch(this.advanceSearchCurrentPage);
+      }
+      else if (this.selectedIndex === 4) {
+        this.getSavedCases();
+      }
+      else if (this.selectedIndex === 0) {
+        this.caseLawCurrentPage = this._dataService.getData()?.page;
+        await this.getCaseLaws(this.caseLawCurrentPage);
+      }
+    }
+    else {
+      this.getCaseLaws(this.caseLawCurrentPage);
+    }
     this.getJudgeList();
     this.getCourtList();
-    this.getSavedCases();
     this.judgeControl.valueChanges.pipe(
       debounceTime(300), // Add a debounce to limit the number of API calls
       switchMap(value => this._searchService.search(value))
@@ -270,34 +305,29 @@ export class CaseLawListComponent implements AfterViewInit {
 
   }
 
+  get dateRangeFormGroup(): FormGroup {
+    return this.advanceSearchForm.get('dateRange') as FormGroup;
+  }
+
   tabSelectionChange(e: any) {
     switch (e.index) {
       case 0:
         this.getCaseLaws(this.caseLawCurrentPage);
         break;
       case 1:
+        this.showJudgeSearch = true;
         // this.showAppSearch = true;
         break;
       case 2:
+        this.showWordsSearch = true;
         // this.showRespSearch = true;
         break;
       case 3:
-        this.showJudgeSearch = true;
-        break;
-      case 4:
-        // this.showCitationSearch = true;
-        break;
-      case 5:
-        this.showWordsSearch = true;
-        break;
-      case 6:
         this.showAdvanceSearch = true;
         break;
-      case 7:
-        this.recordCount = 0;
-        break;
-      case 8:
-        this.recordCount = 0;
+      case 4:
+        this.getSavedCases();
+        // this.showCitationSearch = true;
         break;
     }
   }
@@ -305,8 +335,23 @@ export class CaseLawListComponent implements AfterViewInit {
   sort(sortValue: string) {
   }
 
-  viewCase(caseId: any, keyWord: string = "") {
-    const extras = { keyWord: keyWord, caseId: caseId }
+  viewCase(caseId: any, keyWord: string = "", page: number) {
+    const extras = { keyWord: keyWord, caseId: caseId, activeTabIndex: this.selectedIndex, page: page, pageSize: this.pageSize };
+    if (this.selectedIndex === 1) {
+      this._dataService.setData({ activeTabIndex: this.selectedIndex, judgeControl: this.judgeControl.value, page: this.judgeWiseCurrentPage });
+    }
+    else if (this.selectedIndex === 2) {
+      this._dataService.setData({ activeTabIndex: this.selectedIndex, wordControl: this.searchedWord, wordRadioControl: this.wordsPhraseRadioModel, page: this.wordsPhraseCurrentPage });
+    }
+    else if (this.selectedIndex === 3) {
+      this._dataService.setData({ activeTabIndex: this.selectedIndex, advanceSearchControl: this.advanceSearchForm.value, page: this.advanceSearchCurrentPage });
+    }
+    else if (this.selectedIndex === 4) {
+      this.getSavedCases();
+    }
+    else if (this.selectedIndex === 0) {
+      this._dataService.setData({ activeTabIndex: this.selectedIndex, page: this.caseLawCurrentPage })
+    }
     this._router.navigate([`lawyer/case-law/cases/view`], { state: extras });
   }
 
@@ -367,7 +412,7 @@ export class CaseLawListComponent implements AfterViewInit {
     if (objRes.status == "success") {
       this.caseList = objRes.data.items;
       this.recordCount = objRes.data.totalCount;
-      console.log(this.caseList, "Case LIsfjaksdfjlakdfjlak;sdfjla;kssdjflak;sdfjl;kasksdjflk;asdjflkassdjf")
+      // console.log(this.caseList, "Case LIsfjaksdfjlakdfjlak;sdfjla;kssdjflak;sdfjl;kasksdjflk;asdjflkassdjf")
       this._toastMessage.showLoader = false;
     }
   }
@@ -463,7 +508,13 @@ export class CaseLawListComponent implements AfterViewInit {
 
   getCaseLawByAdvanceSearch(page: number) {
     // console.log('this.advanceSearchForm.value',this.advanceSearchForm.value)
-    this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
+    let reqObj = JSON.parse(JSON.stringify(this.advanceSearchForm.value));
+    if (reqObj.dateRange['start'] != null) {
+      reqObj.dateRange['start'] = this._datePipe.transform(reqObj.dateRange['start'], 'yyyy/MM/dd');
+      reqObj.dateRange['end'] = this._datePipe.transform(reqObj.dateRange['end'], 'yyyy/MM/dd');
+    }
+    console.log(reqObj, 'AdvReqObj', this.advanceSearchForm.value)
+    this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, reqObj).subscribe(objRes => {
       if (objRes.status == "success") {
         this.respAdvanceSearchList = objRes.data.items;
         this.advanceSearchCurrentPage = 1;
@@ -649,13 +700,13 @@ export class CaseLawListComponent implements AfterViewInit {
     }
   }
 
-  getPaginatedCaseLawByJudges(page: number) {
-    this._apolloService.get(`/judgement/search/judges/${this.judgeControl.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
-      if (objRes.status == "success") {
-        this.respJudgeList = objRes.data.items;
-        this.recordCount = objRes.data.totalCount;
-      }
-    })
+  async getPaginatedCaseLawByJudges(page: number) {
+    let res: any = this._apolloService.get(`/judgement/search/judges/${this.judgeControl.value}?page=${page}&pageSize=${this.pageSize}`);
+    let objRes: any = await lastValueFrom(res);
+    if (objRes.status == "success") {
+      this.respJudgeList = objRes.data.items;
+      this.recordCount = objRes.data.totalCount;
+    }
   }
 
   getSavedCases() {
@@ -672,11 +723,7 @@ export class CaseLawListComponent implements AfterViewInit {
 
   viewSavedCase(cases: any) {
     const extras = { savedCaseId: cases._id, caseId: cases.judgementId._id }
+    this._dataService.setData({ activeTabIndex: this.selectedIndex });
     this._router.navigate([`lawyer/case-law/savedCases/view`], { state: extras });
-  }
-
-  chooseYear(event: any): void {
-    this.advanceSearchForm.controls.caseYear.patchValue(event[0]['_d']);
-    event[1].close(); // Close the picker after year selection
   }
 }

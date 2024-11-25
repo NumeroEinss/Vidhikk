@@ -61,7 +61,7 @@
       <div style="height: calc(100vh - 290px)">
         <ng-scrollbar #latestCaseScroll autoHeightDisabled="false" appearance="standard" [hidden]="caseList.length==0">
           @for (case of caseList; track case) {
-          <div class="case-container" (click)="viewCase(case._id)">
+          <div class="case-container" (click)="viewCase(case._id,'',caseLawCurrentPage)">
             <div class="title">
               {{ case.title?.substr(0,getHeadingLength()) }}...
             </div>
@@ -255,7 +255,7 @@
       <div style="height: calc(100vh - 290px)" [hidden]="showJudgeSearch">
         <ng-scrollbar #judgeScroll autoHeightDisabled="false" appearance="standard">
           @for (case of respJudgeList; track case) {
-          <div class="case-container" (click)="viewCase(case._id,judgeControl.value)">
+          <div class="case-container" (click)="viewCase(case._id,judgeControl.value,judgeWiseCurrentPage)">
             <div class="title"
               [innerHTML]="case.title?.substr(0,getHeadingLength())+'...' | highlighter:judgeControl.value">
             </div>
@@ -381,7 +381,7 @@
       <div style="height: calc(100vh - 290px)" [hidden]="showWordsSearch">
         <ng-scrollbar #wordsScroll autoHeightDisabled="false" appearance="standard">
           @for (case of respWordsPhraseList; track case) {
-          <div class="case-container" (click)="viewCase(case._id,searchedWord)">
+          <div class="case-container" (click)="viewCase(case._id,searchedWord,wordsPhraseCurrentPage)">
             <div class="title" [innerHTML]="case.title?.substr(0,getHeadingLength())+'...' | highlighter:searchedWord">
             </div>
             <div class="desc" [innerHTML]="case.shortInfo?.substr(0,getCharLength())+'...' | highlighter:searchedWord">
@@ -486,15 +486,17 @@
 
           <div class="advance-search-col">
             <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-              <!-- <mat-label class="mat-label">Case Year</mat-label>
-              <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker" formControlName="caseYear" [readonly]="true" [max]="today">
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker startView="multi-year" (yearSelected)="chooseYear($event, picker)"
-                  panelClass="year-only-picker"></mat-datepicker>
-              </mat-form-field> -->
-              <app-year-picker [label]="'Case Year'" [year]="advanceSearchForm.controls.caseYear.value"
-                (yearChange)="chooseYear($event)"></app-year-picker>
+              <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+                <mat-label class="mat-label">Date Range</mat-label>
+                <mat-form-field appearance="outline">
+                  <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRangeFormGroup">
+                    <input matStartDate placeholder="Start date" formControlName="start" />
+                    <input matEndDate placeholder="End date" formControlName="end" />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker startView="year" #picker></mat-date-range-picker>
+                </mat-form-field>
+              </div>
             </div>
 
             <div class="d-flex mat-input-white" style="flex-direction: column">
@@ -555,20 +557,6 @@
             </div>
           </div>
 
-          <div class="advance-search-col">
-            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-              <mat-label class="mat-label">Year Range</mat-label>
-              <mat-form-field appearance="outline">
-                <mat-date-range-input [rangePicker]="picker" [formGroup]="decisionDate">
-                  <input matStartDate placeholder="Start date" formControlName="start" />
-                  <input matEndDate placeholder="End date" formControlName="end" />
-                </mat-date-range-input>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker startView="year" #picker></mat-date-range-picker>
-              </mat-form-field>
-            </div>
-          </div>
-
           <div class="d-flex mt-4">
             <button type="button" mat-raised-button color="primary"
               style="width: 124px !important; margin-right: 20px; display: flex"
@@ -596,7 +584,7 @@
         <ng-scrollbar #advanceSearchScroll autoHeightDisabled="false" appearance="standard"
           [hidden]="respAdvanceSearchList.length==0">
           @for (case of respAdvanceSearchList; track case) {
-          <div class="case-container" (click)="viewCase(case._id)">
+          <div class="case-container" (click)="viewCase(case._id,'',advanceSearchCurrentPage)">
             <div class="title">
               {{ case.title?.substr(0,getHeadingLength()) }}...
             </div>

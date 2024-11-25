@@ -63,7 +63,7 @@ export class ApolloService {
       .get(this.baseUrl + url, { headers });
   }
 
-  post(url: string, body: any): Observable<any> {
+  post(url: string, body?: any): Observable<any> {
     const data = body;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
