@@ -63,7 +63,7 @@ export class ApolloService {
       .get(this.baseUrl + url, { headers });
   }
 
-  post(url: string, body: any): Observable<any> {
+  post(url: string, body?: any): Observable<any> {
     const data = body;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -129,14 +129,11 @@ export class ApolloService {
       obj[index] = [`variables.files.${index}`];
     })
 
-    console.log(obj, 'Object')
-
     const formData = new FormData();
     formData.append('operations', operations);
     formData.append('map', JSON.stringify(obj));
 
     files.forEach((element: any, index: number) => {
-      console.log(typeof (element), "Element Type");
       formData.append(index.toString(), element)
     });
 

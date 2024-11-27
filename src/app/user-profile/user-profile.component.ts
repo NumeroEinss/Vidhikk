@@ -33,6 +33,9 @@ export class UserProfileComponent {
   mobileOtpVerified: boolean = false;
   mobileOtp: string = "";
   emailOtpVerified: boolean = false;
+  sellerProfileList: any = '';
+
+  files: any;
 
   cities: any[] = [];
 
@@ -78,6 +81,7 @@ export class UserProfileComponent {
       });
 
     this.getCitiesList();
+    this.getSellerProfile()
   }
 
 
@@ -218,32 +222,62 @@ export class UserProfileComponent {
   }
 
   async uploadImage(): Promise<Boolean> {
-    let mutation = {
-      "query": "mutation ($input: AdvocateProfile!, $file: Upload) { updateProfilePicture(input: $input, file: $file) { status message data } }",
-      "variables": {
-        "input": {
-          "userType": "LAWYER",
-          "lawyerId": this.userData._id
-        },
-        "file": null
+    let mutation = {}
+    if(this.userType === 'lawyer'){
+      mutation = {
+        "query": "mutation ($input: AdvocateProfile!, $file: Upload) { updateProfilePicture(input: $input, file: $file) { status message data } }",
+        "variables": {
+          "input": {
+            "userType": this.userData.userTyp,
+            "lawyerId": this.userData._id
+          },
+          "file": null
+        }
       }
+    }else if(this.userType === 'seller'){
+      mutation = {
+        "query": "mutation ($input: SellerProfile!, $file: Upload) { updateSellerProfilePic(input: $input, file: $file) { status message data } }",
+        "variables": {
+          "input": {
+            "userType": this.userData.userType,
+            "sellerId": this.userData._id
+          },
+          "file": null
+        }
     }
-
-    try {
-      let objRes: any = await lastValueFrom(this._apolloService.upload(mutation, this.userImage, "0"));
-      if (objRes.data) {
-        this._toastMessage.success(objRes.data.updateProfilePicture.message);
-        this._authService.updateProfile(objRes.data.updateProfilePicture.data)
-        return true;
-      } else {
-        this._toastMessage.error(objRes.data.updateProfilePicture.message);
-        return false;
-      }
-    } catch (error: any) {
-      this._toastMessage.error('Error uploading image');
-      console.log(error, 'lhngbf')
+  }
+  try {
+    let objRes: any = await lastValueFrom(this._apolloService.upload(mutation, this.userImage, "0"));
+    if (objRes.data) {
+      this._toastMessage.success(objRes.data.updateSellerProfilePic.message);
+      this._authService.updateProfile(objRes.data.updateSellerProfilePic.data)
+      return true;
+    } else {
+      this._toastMessage.error(objRes.data.updateSellerProfilePic.message);
       return false;
     }
+  } catch (error: any) {
+    this._toastMessage.error('Error uploading image');
+    return false;
+  }
+  }
+
+  getSellerProfile() {
+    let data = {
+      sellerId: this.userData._id
+    }
+    this._apolloService.mutate(GQLConfig.sellerProfile, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.sellerProfile.status == 200) {
+          this.sellerProfileList = data.data.sellerProfile.data;
+          console.log('list', this.sellerProfileList )
+          this._toastMessage.message(data.data.sellerProfile.message);
+        }
+        else {
+          this._toastMessage.error(data.data.sellerProfile.message);
+        }
+      }
+    })
   }
 
   patchUserDetail() {
@@ -258,8 +292,9 @@ export class UserProfileComponent {
     } else if (this.userType === 'seller') {
       this.sellerEditProfileForm.controls.name.patchValue(userData.name);
       this.sellerEditProfileForm.controls.city.patchValue(userData.city);
-      this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
+      this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber || userData.primaryContact);
       this.sellerEditProfileForm.controls.email.patchValue(userData.email);
+      // this.sellerEditProfileForm.controls.fileDisplay.patchValue(userData.profileImage);
       this.mobileOtpVerified = true;
       this.emailOtpVerified = true;
     }
@@ -328,6 +363,19 @@ export class UserProfileComponent {
     }, 300); // 300ms delay
   }
 
+  getPhoneNumber(): string {
+    switch (this.userData.userType) {
+      case 'LAWYER':
+        return this.lawyerEditProfileForm.controls.phoneNumber.value;
+      case 'SELLER':
+        return this.sellerEditProfileForm.controls.phoneNumber.value;
+      case 'USER':
+        return this.userEditProfileForm.controls.phoneNumber.value;
+      default:
+        return this.userEditProfileForm.controls.phoneNumber.value;
+    }
+  }
+
   //resendOtpForSignup
   resendOtp(mobile: any) {
     let reqObj = {
@@ -355,8 +403,18 @@ export class UserProfileComponent {
           this.mobileOtpVerified = !this.mobileOtpVerified;
           let btn = document.getElementById('closeMobile') as HTMLElement;
           btn.click();
-          let btn2 = document.getElementById('openLawyerEditModal') as HTMLElement;
-          btn2.click();
+
+          if (this.userType == 'lawyer') {
+            let btn1 = document.getElementById('openLawyerEditModal') as HTMLElement;
+            btn1.click();
+          } else if (this.userType == 'user') {
+            let btn2 = document.getElementById('openUserEditModal') as HTMLElement;
+            btn2.click();
+          } else if (this.userType == 'seller') {
+            let btn3 = document.getElementById('openSellerEditModal') as HTMLElement;
+            btn3.click();
+          }
+
           this.mobileOtpInput.setValue('');
         }
         else {
@@ -438,8 +496,17 @@ export class UserProfileComponent {
               this._toastMessage.success(objEmailOtp.data.verifyOtp.message);
               this.emailOtpInput.setValue('');
               this.emailOtpVerified = true;
-              let btn2 = document.getElementById('openLawyerEditModal') as HTMLElement;
-              btn2.click();
+              if (this.userType == 'lawyer') {
+                let btn1 = document.getElementById('openLawyerEditModal') as HTMLElement;
+                btn1.click();
+              } else if (this.userType == 'user') {
+                let btn2 = document.getElementById('openUserEditModal') as HTMLElement;
+                btn2.click();
+              } else if (this.userType == 'seller') {
+                let btn3 = document.getElementById('openSellerEditModal') as HTMLElement;
+                btn3.click();
+              }
+
             } else {
               this._toastMessage.error(objEmailOtp.data.verifyOtp.message);
             }
@@ -508,12 +575,12 @@ export class UserProfileComponent {
       primaryContact: this.sellerEditProfileForm.controls.phoneNumber.value,
       address: this.sellerEditProfileForm.controls.city.value
     }
-
     console.log('data', data)
     this._apolloService.mutate(GQLConfig.updateSellerProfile, data).subscribe(objRes => {
       if (objRes.data != null) {
         if (objRes.data.updateSellerProfile.status == 200) {
           this._toastMessage.message(objRes.data.updateSellerProfile.message);
+          this.getSellerProfile()
         }
         else {
           this._toastMessage.error(objRes.data.updateSellerProfile.message);
@@ -521,6 +588,8 @@ export class UserProfileComponent {
       }
     })
   }
+
+
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();

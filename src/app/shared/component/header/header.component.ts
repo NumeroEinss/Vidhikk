@@ -1,10 +1,11 @@
-import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { getBaseUrl, imageUrl } from '../../../graphql.module';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, Subscription, takeUntil, timeout } from 'rxjs';
+import { ApolloService } from '../../services/apollo.service';
 
 
 @Component({
@@ -12,13 +13,14 @@ import { Subject, Subscription, takeUntil, timeout } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements AfterViewInit {
   userType: string = "";
   userImage: string = "";
   notifications: any = [];
   sub$: Subscription;
   isSidebarOpen: boolean = false;
   userData: any;
+  qrData: string = "My Vidhik";
 
   @Input() menuName: string = "";
   @Input() searchStyle = { width: '0px', display: 'none' };
@@ -27,7 +29,7 @@ export class HeaderComponent {
   onDestroy$: Subject<void> = new Subject();
 
   constructor(private _router: Router, private _location: Location, private _authService: AuthService,
-    private _http: HttpClient, private renderer: Renderer2, private elementRef: ElementRef) {
+    private _http: HttpClient, private renderer: Renderer2, private elementRef: ElementRef, private _apolloService: ApolloService) {
     this.sub$ = this._authService.profileImageSubject.asObservable()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((data: any) => {
@@ -45,6 +47,21 @@ export class HeaderComponent {
     if (!clickedInside && this.isSidebarOpen) {
       this.isSidebarOpen = false;
     }
+  }
+
+  ngAfterViewInit() {
+    // this.getQrData();
+  }
+
+  getQrData() {
+    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+      if (objRes != null) {
+        // console.log(objRes, "ObjRessssss")
+        if (objRes.status == 'success') {
+          this.qrData = objRes.data;
+        }
+      }
+    })
   }
 
   redirectToProfile() {
@@ -87,7 +104,11 @@ export class HeaderComponent {
 
   getNotificationList() {
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
-    this._http.get(getBaseUrl() + `/notifications/${userData._id}/${userData.userType.toLowerCase()}`).subscribe((data: any) => {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: '*/*'
+    })
+    this._http.get(getBaseUrl() + `/notifications/${userData._id}/${userData.userType.toLowerCase()}`, { headers }).subscribe((data: any) => {
       if (data != null) {
         if (data.status == 200) {
           this.notifications = data.data;

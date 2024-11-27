@@ -4,10 +4,13 @@ export class AdvanceSearchModel {
     text: string = "";
     judge: string = "";
     caseNo: string = "";
-    caseYear: string = "";
+    dateRange: any = new FormGroup({
+        start: new FormControl<Date | null>(null),
+        end: new FormControl<Date | null>(null),
+    });
     advocate: string = "";
     respondent: string = "";
-    decisionDate: any = "";
+    decisionDate: string = "";
     actType: string = "";
     actTitle: string = "";
     court: string = "";

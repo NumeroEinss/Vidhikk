@@ -1,14 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CountdownComponent } from 'ngx-countdown';
 import { Subscription, interval, takeUntil } from 'rxjs';
+import { ApolloService } from '../shared/services/apollo.service';
 
 @Component({
   selector: 'app-conference',
   templateUrl: './conference.component.html',
   styleUrl: './conference.component.scss',
 })
-export class ConferenceComponent {
+export class ConferenceComponent implements AfterViewInit {
   @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
   message: string = '';
   isMuted: boolean = false;
@@ -63,7 +64,7 @@ export class ConferenceComponent {
 
   isExtended: boolean = false;
 
-  constructor(private _router: Router) {
+  constructor(private _router: Router, private _apolloService: ApolloService) {
     // this.subscription = this.source.subscribe(() => this.decreaseTimer());
     this.userType = this._router.url.split('/')[1];
   }
@@ -71,6 +72,7 @@ export class ConferenceComponent {
   ngAfterViewInit() {
     let el = document.getElementById('conference') as HTMLElement;
     el.click();
+    this.getQrData();
     // if (this.timer > 60) {
     //   this.countdown.config.format = 'HH:mm:ss';
     // }
@@ -101,6 +103,16 @@ export class ConferenceComponent {
   //   // let elem = document.getElementById('timer') as HTMLElement;
   //   // elem.style.background = `conic-gradient(${color} ${degree}deg,${color2} 0deg)`;
   // }
+
+  getQrData() {
+    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+      if (objRes != null) {
+        if (objRes.status == 'success') {
+          this.qrData = objRes.data;
+        }
+      }
+    })
+  }
 
   isChatOpen() {
     let element = document.getElementById('myForm') as HTMLElement;

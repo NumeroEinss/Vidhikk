@@ -717,6 +717,16 @@ export abstract class GQLConfig {
         }
     }`;
 
+    static searchProduct = gql`mutation($search: String) {
+        searchProduct(input: {
+            search: $search,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
 
     static sellerProfile = gql`mutation($sellerId: String) {
         sellerProfile(input: {

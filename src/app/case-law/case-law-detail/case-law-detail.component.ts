@@ -37,6 +37,9 @@ export class CaseLawDetailComponent {
   isHeaderGenerated: boolean = false;
   searchTerm: string = "";
   document: string = "";
+  activeIndex: number = 0;
+  page: number = 0;
+  pageSize: number = 0;
 
   constructor(private _location: Location, private _router: Router, private _highlighterPipe: HighlighterPipe,
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService, private _emailService: EmailService,
@@ -46,6 +49,9 @@ export class CaseLawDetailComponent {
     if (this.routerState != undefined) {
       this.caseId = this.routerState.caseId || "";
       this.keyWord = this.routerState.keyWord || "";
+      this.activeIndex = this.routerState.activeTabIndex || 0;
+      this.page = this.routerState.page || 0;
+      this.pageSize = this.routerState.pageSize || 0;
       this.getCaseLawDetail();
     }
     else {

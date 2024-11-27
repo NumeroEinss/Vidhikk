@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApolloService } from '../../shared/services/apollo.service';
 
 @Component({
   selector: 'app-advocate-scheduling',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AdvocateSchedulingComponent {
   isNameVisible: boolean = false;
-  qrData:string = "Welcome to Advocate Scheduling"
+  qrData: string = "Payment For Advocate Scheduling";
 
   availabilityList: any = [ // Only slots from current date and after will fall under this.
     {
@@ -193,4 +194,18 @@ export class AdvocateSchedulingComponent {
       ],
     }
   ];
+
+  constructor(private _apolloService: ApolloService) {
+    this.getQrData();
+  }
+
+  getQrData() {
+    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+      if (objRes != null) {
+        if (objRes.status == 'success') {
+          this.qrData = objRes.data;
+        }
+      }
+    })
+  }
 }

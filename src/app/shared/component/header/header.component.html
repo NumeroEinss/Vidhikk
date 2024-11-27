@@ -75,6 +75,9 @@
               </div>
             </div>
           </div>
+          <div *ngIf="notifications.length == 0" class="notification-content justify-content-center">No new
+            Notifications
+          </div>
           <button id='openNotifications' class="d-none" data-bs-toggle="modal"
             data-bs-target="#notificationModal"></button>
         </ng-scrollbar>
@@ -84,6 +87,10 @@
     <!-- <div class="add-button">
       <img src="../../../../assets/images/icons/add_button.svg" />
     </div> -->
+    <div class="user-details">
+      <div class="name">{{userData.name}}</div>
+      <div class="plan">Free Plan</div>
+    </div>
     <div class="profile-container" (click)="redirectToProfile()">
       <img [src]="getImageUrl(this.userImage)"
         onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" />
@@ -396,9 +403,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="mt-4 mb-4" style="color: #8798AD;">
+        <!-- <p class="mt-4 mb-4" style="color: #8798AD;">
           All the details of the lawyer upon successful payment. For this you will be charged INR 500.
-        </p>
+        </p> -->
         <div class="mt-2 mb-2 d-flex justify-content-center">
           <p style="background:#2E5BFF0D; max-width: 360px; padding: 10px 122px;font-size: 16px;border-radius: 12px;cursor: pointer;"
             data-bs-toggle="modal" data-bs-target="#paymentSuccessModal">
@@ -406,7 +413,8 @@
           </p>
         </div>
         <div class="mt-4 mb-4">
-          <img src="../../assets/images/image/QRtiger.png" width="236" alt="">
+          <!-- <img src="../../assets/images/image/QRtiger.png" width="236" alt=""> -->
+          <qrcode [qrdata]="qrData" [width]="236" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
       </div>
     </div>

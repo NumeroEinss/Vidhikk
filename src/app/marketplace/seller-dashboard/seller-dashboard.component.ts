@@ -18,92 +18,18 @@ export class SellerDashboardComponent {
   showReviewForm: boolean = false;
   reviews: string = '';
   addProductForm: FormGroup;
+  editProductForm: FormGroup;
   productList: any = [];
   userData: any;
   selectAll: boolean = false;
   imageUrls: string[] = [];
-  selectedProducts: any;
+  selectedProducts: any[] = [];
+  productId: string = '';
 
-  files: any = [{ name: "No Files Selected" }];
+  files: any;
   fileUploaded: boolean = false;
 
-  // productList: any = [
-  //   {
-  //     productId: '1',
-  //     like: 'true',
-  //     image: '../../assets/images/image/coat.png',
-  //     multipleImages: ['../../assets/images/image/coat.png', '../../assets/images/image/coat1.png'],
-  //     productName: 'Advocates Coat and gown',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Sandeep Agal',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'sandeep@gmail.com',
-  //     sellerAddress: 'Indore, M.P',
-  //     price: '1110 Rs',
-  //     postedDate: '21 Dec 2023',
-  //     userType: 'SELLER'
-  //   },
-  //   {
-  //     productId: '2',
-  //     like: 'true',
-  //     image: '../../assets/images/image/collar_band.png',
-  //     multipleImages: ['../../assets/images/image/collar_band.png'],
-  //     productName: 'Advocates Collar Band',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Saurabh Verma',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'saurabh@gmail.com',
-  //     sellerAddress: 'Indore, M.P',
-  //     price: '190 Rs',
-  //     postedDate: '21 Dec 2023',
-  //     userType: 'SELLER'
-  //   },
-  //   {
-  //     productId: '3',
-  //     like: 'false',
-  //     image: '../../assets/images/image/breifcase.png',
-  //     multipleImages: ['../../assets/images/image/breifcase.png', '../../assets/images/image/breifcase.png'],
-  //     productName: 'Advocates Breifcase',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Preeti jain',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'preeti@gmail.com',
-  //     sellerAddress: 'Indore, M.P',
-  //     price: '4999 Rs',
-  //     postedDate: '21 Dec 2023',
-  //     userType: 'SELLER'
-  //   },
-  //   {
-  //     productId: '4',
-  //     like: 'true',
-  //     image: '../../assets/images/image/table.png',
-  //     multipleImages: ['../../assets/images/image/table.png', '../../assets/images/image/table.png'],
-  //     productName: 'Advocates table',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Sandeep Agal',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'sandeep@gmail.com',
-  //     sellerAddress: 'Indore, M.P',
-  //     price: '1110 Rs',
-  //     postedDate: '21 Dec 2023',
-  //     userType: 'SELLER'
-  //   },
-  //   {
-  //     productId: '5',
-  //     like: 'false',
-  //     image: '../../assets/images/image/blazzer.png',
-  //     multipleImages: ['../../assets/images/image/blazzer.png', '../../assets/images/image/blazzer.png'],
-  //     productName: 'Advocates Blazzer',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Saurabh Verma',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'saurabh@gmail.com',
-  //     sellerAddress: 'Indore, M.P',
-  //     price: '190 Rs',
-  //     postedDate: '21 Dec 2023',
-  //     userType: 'SELLER'
-  //   },
-  // ];
+  editProductFiles: any = [];
 
   reviewList = [
     {
@@ -142,9 +68,17 @@ export class SellerDashboardComponent {
     this.addProductForm = new FormGroup({
       category: new FormControl(''),
       productName: new FormControl(''),
-      ProductDescription: new FormControl(''),
+      productDescription: new FormControl(''),
       productPrice: new FormControl(''),
-    })
+    });
+
+    this.editProductForm = new FormGroup({
+      category: new FormControl(''),
+      productName: new FormControl(''),
+      productDescription: new FormControl(''),
+      productPrice: new FormControl(''),
+    });
+
     this.userData = JSON.parse(sessionStorage.getItem('userData')!)
     this.getSellerProductList();
   }
@@ -181,6 +115,14 @@ export class SellerDashboardComponent {
     event.stopPropagation();
   }
 
+  addProductsImage(event: any) {
+    const fileList = Array.from(event.target.files);
+    // const newFiles = fileList.map((file: any) => URL.createObjectURL(file));
+    this.editProductFiles = [...this.editProductFiles, ...fileList];
+    this.fileUploaded = true;
+    console.log(this.editProductFiles)
+  }
+
   ProductDetail(detail: any) {
     this.router.navigate(['/seller/marketplace/productDetail'], { state: detail });
   }
@@ -195,12 +137,16 @@ export class SellerDashboardComponent {
 
   updateSelectAll() {
     this.selectAll = this.productList.every((product: any) => product.selected);
-    console.log('this.selectAll', this.selectAll)
+  }
+
+  isAnyCheckboxSelected(): boolean {
+    return this.productList.some((product: any) => product.selected);
   }
 
   resetForm() {
     this.addProductForm.reset('');
     this.files = "";
+    this.fileUploaded = false;
   }
 
   getSellerProductList() {
@@ -236,19 +182,20 @@ export class SellerDashboardComponent {
             "userType": this.userData.userType,
             "sellerId": this.userData._id,
             "productName": this.addProductForm.controls.productName.value,
-            "productDescription": this.addProductForm.controls.ProductDescription.value,
+            "productDescription": this.addProductForm.controls.productDescription.value,
             "price": +this.addProductForm.controls.productPrice.value,
             "productCategory": this.addProductForm.controls.category.value
           },
           "files": []
         }
       }
+
       this.apolloService.uploadMultiple(mutation, this.files).subscribe(objRes => {
         if (objRes.data != null) {
           this.toastMessage.success(objRes.data.addProducts.message);
-          this.addProductForm.reset('');
           let closeAddProduct = document.getElementById('closeAddProductModal') as HTMLElement;
           closeAddProduct.click();
+          this.resetForm();
           this.getSellerProductList();
         }
         else {
@@ -259,28 +206,82 @@ export class SellerDashboardComponent {
   }
 
   deleteProduct() {
-    let selectedProducts = this.productList.filter((product: any) => product.selected);
-    console.log('selectedProducts', selectedProducts)
-    let reqObj = {}
-    selectedProducts.forEach((data: any) => {
+    let reqObj = {};
+    this.selectedProducts = this.productList.filter((product: any) => product.selected);
+    this.selectedProducts.forEach((product: any) => {
       reqObj = {
-        sellerId: data.sellerId,
-        productId: data._id
-      }
-    })
-    console.log('data', reqObj)
-    this.apolloService.mutate(GQLConfig.deleteProduct, reqObj).subscribe(data => {
-      if (data.data != null) {
-        if (data.data.deleteProduct.status == 200) {
-          this.toastMessage.success(data.data.deleteProduct.message);
-          this.getSellerProductList();
+        sellerId: product.sellerId,
+        productId: product._id,
+      };
+      this.apolloService.mutate(GQLConfig.deleteProduct, reqObj).subscribe(data => {
+        if (data.data != null) {
+          if (data.data.deleteProduct.status == 200) {
+            this.toastMessage.success(data.data.deleteProduct.message);
+            this.getSellerProductList();
+          }
+          else {
+            this.toastMessage.success(data.data.deleteProduct.message);
+          }
         }
-        else {
-          this.toastMessage.success(data.data.deleteProduct.message);
-        }
-      }
+      })
+    });
+  }
+
+  patchProductDetail(detail: any) {
+    console.log(detail)
+    this.productId = detail._id
+    this.editProductForm.controls.category.patchValue(detail.productCategory);
+    this.editProductForm.controls.productName.patchValue(detail.productName);
+    this.editProductForm.controls.productDescription.patchValue(detail.productDescription);
+    this.editProductForm.controls.productPrice.patchValue(detail.price);
+    this.editProductFiles = []
+    detail.productImages.forEach((img: any) => {
+      this.editProductFiles.push(img)
     })
+    console.log('images', this.editProductFiles)
   }
 
 
+  removeImage(file: any, index: number) {
+    this.editProductFiles.splice(index, 1)
+  }
+
+  UpdateProduct() {
+    if (!this.editProductForm.valid) {
+      this.toastMessage.error("Please Fill all the fields !!");
+    }
+    else if (!this.fileUploaded) {
+      this.toastMessage.error("Please add an image !!");
+    }
+    else {
+      const mutation = {
+        "query": "mutation UpdateProduct($productId: String!, $input: marketPlaceInput!, $files: [Upload!]) { updateProduct(productId: $productId, input: $input, files: $files) { status message data } }",
+        "variables": {
+          "input": {
+            "productId": "673f3812af13408fcf953d2c",
+            "productName": this.editProductForm.controls.productName.value,
+            "productDescription": this.editProductForm.controls.productDescription.value,
+            "price": +this.editProductForm.controls.productPrice.value,
+            "productCategory": this.editProductForm.controls.category.value
+          },
+          "files": []
+        }
+      }
+
+      console.log(this.editProductFiles)
+
+      this.apolloService.uploadMultiple(mutation, this.editProductFiles).subscribe(objRes => {
+        if (objRes.data != null) {
+          this.toastMessage.success(objRes.data.UpdateProduct.message);
+          let closeEditProduct = document.getElementById('closeEditProductModal') as HTMLElement;
+          closeEditProduct.click();
+          this.resetForm();
+          this.getSellerProductList();
+        }
+        else {
+          this.toastMessage.error(objRes.data.UpdateProduct.message);
+        }
+      })
+    }
+  }
 }

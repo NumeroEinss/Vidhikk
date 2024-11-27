@@ -155,7 +155,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: 70px;
+        margin-top: 50px;
 
         .main-heading {
             flex-grow: 0;
@@ -394,6 +394,42 @@
                 }
             }
         }
+
+        .selected-image {
+            border-radius: 5px;
+            margin: 15px 0;
+
+            .image-preview {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+
+                .image-wrapper {
+                    position: relative;
+                    // background-color: #f9f9f9;
+                    border: 1px solid #fbf7f7;
+                    border-radius: 5px;
+                    padding: 8px;
+                }
+
+                .image-wrapper img {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .close-btn {
+                    position: absolute;
+                    top: -8px;
+                    right: -2px;
+                    cursor: pointer;
+                }
+
+                .close-btn img {
+                    width: 12px;
+                    height: 12px;
+                }
+            }
+        }
     }
 }
 
@@ -475,15 +511,15 @@
                 overflow-x: scroll;
                 width: calc(100vw - 210px);
                 margin-right: 15px;
-        
+
                 .products-list-header {
-                  min-width: 1000px;
+                    min-width: 1000px;
                 }
-        
+
                 .products-list-data {
-                  min-width: 1000px;
+                    min-width: 1000px;
                 }
-              }
+            }
         }
 
         .review-btn {
@@ -591,15 +627,15 @@
                 overflow-x: scroll;
                 width: calc(100vw - 35px);
                 margin-right: 15px;
-        
+
                 .products-list-header {
-                  min-width: 1000px;
+                    min-width: 1000px;
                 }
-        
+
                 .products-list-data {
-                  min-width: 1000px;
+                    min-width: 1000px;
                 }
-              }
+            }
         }
 
         .review-btn {
