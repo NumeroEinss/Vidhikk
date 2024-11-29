@@ -5,7 +5,7 @@
     <div class="seller-product-container" *ngFor="let detail of sellersInfo">
         <div class="d-flex">
             <div class="image-container">
-                <img class="display-profile" [src]="detail.sellerImage"
+                <img class="display-profile" [src]="getImageUrl(_authService.profileImageSubject.value)"
                     onerror="this.onerror=null,this.src='../../../assets/images/image/no-image.png'">
             </div>
 
@@ -75,12 +75,17 @@
     </div>
     <div class="action-btns">
         <div class="add-btn">
-            <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-toggle="modal"
+            <button mat-stroked-button color="primary" style="border-radius: 12px" (click)="openAddProductModal()">Add
+                Product</button>
+            <button mat-stroked-button id="addProductButton" color="primary" style="display:none" data-bs-toggle="modal"
                 data-bs-target="#addProductModal">Add Product</button>
+
         </div>
         <div class="delete-btn" *ngIf="productList.length > 0">
-            <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-toggle="modal"
+            <button id="deleteProductButton" style="display:none" data-bs-toggle="modal"
                 data-bs-target="#deleteProduct">Delete</button>
+            <button mat-stroked-button color="primary" (click)="triggerDeleteProduct()"
+                style="border-radius: 12px">Delete</button>
         </div>
     </div>
     <div style="height: calc(100vh - 340px); margin-bottom: 20px;">
@@ -121,7 +126,7 @@
                         <div *ngFor="let detail of productList" class="products-list-data">
                             <div class="grid-item2 checkbox"><mat-checkbox [(ngModel)]="detail.selected"
                                     (change)="updateSelectAll()"></mat-checkbox></div>
-                            <div class="grid-item2 product-img" (click)="ProductDetail(detail)">
+                            <div class="grid-item2 product-img">
                                 <img [src]="getImageUrl(detail.productImages[0])">
                             </div>
                             <div class="grid-item2">{{detail.productName}}</div>
@@ -129,7 +134,8 @@
                             </div>
                             <div class="grid-item2">{{detail.createdAt | date:'dd/MM/yyyy'}}</div>
                             <div class="grid-item2">
-                                <img src="../../../assets/images/icons/edit_blue.svg" class="ms-3">
+                                <img (click)="ProductDetail(detail)" src="../../../assets/images/icons/edit_blue.svg"
+                                    class="ms-3">
                             </div>
                         </div>
                     </div>

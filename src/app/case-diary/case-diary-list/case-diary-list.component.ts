@@ -182,6 +182,37 @@ export class CaseDiaryListComponent {
     return statement;
   }
 
+  createSubDiary() {
+    let routerLink = "/lawyer/case-diary/create-sub-diary";
+    if (JSON.parse(sessionStorage.getItem('userData')!).activePlan === 'DIAMOND PLAN') {
+      if (this.subDiaryList.length < 2) {
+        this._router.navigate([routerLink]);
+      }
+      else {
+        this._toastMessage.error('Please Upgrade Plan to add more Subdiary !!');
+      }
+    }
+    else if (JSON.parse(sessionStorage.getItem('userData')!).activePlan === 'PLATINUM PLAN') {
+      if (this.subDiaryList.length < 2) {
+        this._router.navigate([routerLink]);
+      }
+      else {
+        this._toastMessage.error('Please Upgrade Plan to add more Subdiary !!');
+      }
+    }
+    else if (JSON.parse(sessionStorage.getItem('userData')!).activePlan === 'PREMIUM MEMBERSHIP') {
+      if (this.subDiaryList.length < 4) {
+        this._router.navigate([routerLink]);
+      }
+      else {
+        this._toastMessage.error('You Have reached maximum Subdiary creation limit !!');
+      }
+    }
+    else {
+      this._toastMessage.error('Please upgrade your subscription to add Sub Diary!!');
+    }
+  }
+
   ngOnDestroy() {
     this.applicationSubscription.unsubscribe();
   }

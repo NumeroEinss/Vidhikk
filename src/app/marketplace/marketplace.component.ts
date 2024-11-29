@@ -141,7 +141,6 @@ export class MarketplaceComponent {
       if (data.data != null) {
         if (data.data.getProductList.status == 200) {
           this.productsDetailList = data.data.getProductList.data.randomProducts;
-          console.log('List',this.productsDetailList)
           this.toastMessage.success(data.data.getProductList.message);
         }
         else {

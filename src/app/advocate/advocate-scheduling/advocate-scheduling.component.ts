@@ -194,16 +194,18 @@ export class AdvocateSchedulingComponent {
       ],
     }
   ];
+  transactionId: any = "";
 
   constructor(private _apolloService: ApolloService) {
     this.getQrData();
   }
 
   getQrData() {
-    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
-          this.qrData = objRes.data;
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
         }
       }
     })

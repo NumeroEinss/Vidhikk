@@ -10,6 +10,7 @@ import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { GQLConfig } from '../../graphql.operations';
 import { AuthService } from '../../shared/services/auth.service';
 import { MessagingService } from '../../shared/services/messaging.service';
+import { SubscriptionService } from '../../shared/services/subscription.service';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class LoginComponent {
     private _router: Router,
     private _toastMessage: ToastMessageService,
     private _authService: AuthService,
-    private _messagingService: MessagingService
+    private _messagingService: MessagingService,
+    private _subscriptionService: SubscriptionService
   ) {
     this.loginForm = this._formBuilder.group({
       userType: new FormControl('', [Validators.required]),

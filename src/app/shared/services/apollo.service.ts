@@ -125,18 +125,14 @@ export class ApolloService {
     let obj: any = {};
 
     files.forEach((element: any, index: number) => {
-      console.log(index.toString());
       obj[index] = [`variables.files.${index}`];
     })
-
-    console.log(obj, 'Object')
 
     const formData = new FormData();
     formData.append('operations', operations);
     formData.append('map', JSON.stringify(obj));
 
     files.forEach((element: any, index: number) => {
-      console.log(typeof (element), "Element Type");
       formData.append(index.toString(), element)
     });
 

@@ -63,6 +63,7 @@ export class ConferenceComponent implements AfterViewInit {
   // subscription: Subscription;
 
   isExtended: boolean = false;
+  transactionId: any = "";
 
   constructor(private _router: Router, private _apolloService: ApolloService) {
     // this.subscription = this.source.subscribe(() => this.decreaseTimer());
@@ -105,10 +106,11 @@ export class ConferenceComponent implements AfterViewInit {
   // }
 
   getQrData() {
-    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
-          this.qrData = objRes.data;
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
         }
       }
     })

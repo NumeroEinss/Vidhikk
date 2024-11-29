@@ -1,10 +1,13 @@
 <div class="plan-container" *ngIf="planList.length > 0 && userType == 'LAWYER'">
+    <div class="text-center" style="color: #91a1b4;">
+        We’ve designed our subscription plans to meet everyone’s needs—choose the one that’s perfect for you!
+    </div>
     <ng-scrollbar autoHeightDisabled="false" appearance="standard" orientation="horizontal" style="margin: 30px 0px;
     ;height: 466px;" [ngStyle]="{'min-width':((planList.length*300)+'px')}">
         <div class="d-flex" style="gap: 30px;flex-wrap: nowrap">
             @for (item of planList; track $index) {
             <div class="plan">
-                <div class="active-plan">
+                <div class="active-plan" *ngIf="item.planHeading === activePlan">
                     <img src="../../assets/images/icons/active_plan_label.svg" alt="" />
                 </div>
                 <div class="plan-name">{{item.planHeading}}</div>
@@ -22,9 +25,10 @@
                         alt="noImage" />{{element.featureHeading}}
                 </div>
                 }
-                <div class="cancel-button">
+                <div class="cancel-button" *ngIf="item.planHeading !== activePlan">
                     <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
-                        data-bs-toggle="modal" [attr.data-bs-target]="toggleId?toggleId:'#qrModal'">
+                        data-bs-toggle="modal" [attr.data-bs-target]="toggleId?toggleId:'#qrModal'"
+                        (click)="choosePlan(item)">
                         Choose Plan
                     </button>
                 </div>
@@ -35,16 +39,19 @@
 </div>
 
 <div class="plan-container" *ngIf="planList.length > 0 && userType == 'SELLER'">
+    <div class="text-center" style="color: #91a1b4;">
+        We’ve designed our subscription plans to meet everyone’s needs—choose the one that’s perfect for you!
+    </div>
     <ng-scrollbar autoHeightDisabled="false" appearance="standard" orientation="horizontal" style="margin: 30px 0px;
     ;height: 466px;" [ngStyle]="{'min-width':((planList.length*200)+'px')}">
         <div class="d-flex" style="gap: 30px;flex-wrap: nowrap">
             @for (item of sellerPlans; track $index) {
             <div class="plan">
-                <div class="active-plan" *ngIf="item.currentlyActive == true">
+                <div class="active-plan" *ngIf="item.planHeading === this.activePlan">
                     <img src="../../assets/images/icons/active_plan_label.svg" alt="" />
                 </div>
-                <div class="plan-name">{{item.productQuantity}}</div>
-                <div class="beginners">Products</div>
+                <div class="plan-name">{{item.planHeading}}</div>
+                <div class="beginners">{{item.planDescription}} Products</div>
                 <div class="free">
                     <div class="rupee">
                         <img src="../../assets/images/icons/repey.svg" alt="noImage" />
@@ -61,9 +68,10 @@
                         alt="noImage" />{{element.featureHeading}}
                 </div>
                 } -->
-                <div class="cancel-button">
+                <div class="cancel-button" *ngIf="item.planHeading !== activePlan">
                     <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
-                        data-bs-toggle="modal" [attr.data-bs-target]="toggleId?toggleId:'#qrModal'">
+                        data-bs-toggle="modal" [attr.data-bs-target]="toggleId?toggleId:'#qrModal'"
+                        (click)="choosePlan(item)">
                         Choose Plan
                     </button>
                 </div>

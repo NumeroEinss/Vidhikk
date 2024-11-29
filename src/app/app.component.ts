@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastMessageService } from './shared/services/snack-alert.service';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { SubscriptionService } from './shared/services/subscription.service';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +12,5 @@ export class AppComponent {
   title = 'Vidhik';
   loaderType = ngxLoadingAnimationTypes;
 
-  constructor(public toastMessage: ToastMessageService) { }
+  constructor(public toastMessage: ToastMessageService, private _subscriptionService: SubscriptionService) { }
 }

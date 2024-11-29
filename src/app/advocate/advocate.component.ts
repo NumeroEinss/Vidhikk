@@ -18,6 +18,7 @@ export class AdvocateComponent {
   isNameVisible: boolean = false;
   activeRoute: string = "";
   qrData: string = "Payment For Hiring Advocate";
+  transactionId: any = "";
 
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
     private location: Location) {
@@ -33,10 +34,11 @@ export class AdvocateComponent {
   }
 
   getQrData() {
-    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
-          this.qrData = objRes.data;
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
         }
       }
     })

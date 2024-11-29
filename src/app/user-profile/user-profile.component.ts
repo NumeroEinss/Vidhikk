@@ -33,6 +33,7 @@ export class UserProfileComponent {
   mobileOtpVerified: boolean = false;
   mobileOtp: string = "";
   emailOtpVerified: boolean = false;
+  qrData: string = "Payment for Subscription";
 
   cities: any[] = [];
 
@@ -49,8 +50,13 @@ export class UserProfileComponent {
 
   onDestroy$: Subject<void> = new Subject();
 
+  planList: any = [];
+  sellerPlans: any = [];
+  currentPlan: any = {};
+  transactionId: any = "";
+
   constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService,
-    private _apolloService: ApolloService, private _toastMessage: ToastMessageService, private _http:HttpClient) {
+    private _apolloService: ApolloService, private _toastMessage: ToastMessageService, private _http: HttpClient) {
     this.userType = this._router.url.split('/')[1];
 
     this.lawyerEditProfileForm = this._fb.group(new LawyerSignupModel);
@@ -78,6 +84,10 @@ export class UserProfileComponent {
       });
 
     this.getCitiesList();
+
+    this.getQrData();
+
+    this.getPlanList();
   }
 
 
@@ -91,13 +101,24 @@ export class UserProfileComponent {
     }
   }
 
+  getQrData() {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+      if (objRes != null) {
+        if (objRes.status == 'success') {
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
+        }
+      }
+    })
+  }
+
   get userEditFrmCtrl() {
     return this.userEditProfileForm.controls;
   }
 
   getCitiesList() {
     this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
-      console.log(data)
+      // console.log(data)
       this.cities = data;
     })
   }
@@ -241,14 +262,12 @@ export class UserProfileComponent {
       }
     } catch (error: any) {
       this._toastMessage.error('Error uploading image');
-      // console.log(error, 'lhngbf')
       return false;
     }
   }
 
   patchUserDetail() {
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
-    console.log(userData)
 
     if (userData.userType === 'LAWYER') {
       this.lawyerEditProfileForm.controls.email.patchValue(userData.email);
@@ -509,8 +528,6 @@ export class UserProfileComponent {
       primaryContact: this.sellerEditProfileForm.controls.phoneNumber.value,
       address: this.sellerEditProfileForm.controls.city.value
     }
-
-    console.log('data', data)
     this._apolloService.mutate(GQLConfig.updateSellerProfile, data).subscribe(objRes => {
       if (objRes.data != null) {
         if (objRes.data.updateSellerProfile.status == 200) {
@@ -522,6 +539,28 @@ export class UserProfileComponent {
       }
     })
   }
+
+  getPlanList() {
+    this._apolloService.mutate(GQLConfig.getPlanList, { planType: 'LAWYER' }).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.planList.status == 200) {
+          this.planList = objRes.data.planList.data.plans;
+          this.currentPlan = this.planList.find((plan: any) => plan.planHeading == this.userData.activePlan);
+        }
+      }
+    })
+  }
+
+  sellerPlanList() {
+    this._apolloService.mutate(GQLConfig.getPlanList, { planType: 'SELLER' }).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.planList.status == 200) {
+          this.sellerPlans = objRes.data.planList.data.plans;
+        }
+      }
+    })
+  }
+
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();

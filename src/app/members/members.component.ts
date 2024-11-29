@@ -4,6 +4,7 @@ import { ApolloService } from '../shared/services/apollo.service';
 import { GQLConfig } from '../graphql.operations';
 import { HttpClient } from '@angular/common/http';
 import { MatInput } from '@angular/material/input';
+import { imageUrl } from '../graphql.module';
 
 @Component({
   selector: 'app-members',
@@ -165,12 +166,16 @@ export class MembersComponent implements AfterViewInit {
     })
   }
 
-  getShortInfo(info:string) {
-    return info.slice(0, 15);
+  getShortInfo(info: string) {
+    return info?.slice(0, 15);
   }
 
   resetMemberPopup() {
     this.filteredLawyerList = this.lawyerList;
     this.searchInput.nativeElement.value = '';
+  }
+
+  getImageUrl(image: any) {
+    return imageUrl() + image;
   }
 }

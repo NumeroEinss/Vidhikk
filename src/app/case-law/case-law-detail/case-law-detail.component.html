@@ -12,7 +12,7 @@
       </div>
 
       <div class="searchBox" [ngStyle]="searchStyle">
-        <input type="search" [(ngModel)]="searchTerm" placeholder="Search Here..." />
+        <input type="search" [(ngModel)]="searchTerm" placeholder="Search Here..." (keyup.enter)="higlightOnSearch()" />
         <img class="cancel" (click)="{ width: '100%', display: 'flex' };
       searchIcon = { width: '0px', display: 'none' };clearSelection();"
           src="../../../../assets/images/icons/cancel.svg" />

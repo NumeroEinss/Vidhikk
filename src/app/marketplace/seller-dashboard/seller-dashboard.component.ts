@@ -5,6 +5,7 @@ import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { GQLConfig } from '../../graphql.operations';
 import { imageUrl } from '../../graphql.module';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-seller-dashboard',
@@ -138,7 +139,7 @@ export class SellerDashboardComponent {
     { value: 'Office Supplies', viewValue: 'Office Supplies' },
   ]
 
-  constructor(private fb: FormBuilder, private router: Router, private toastMessage: ToastMessageService, private apolloService: ApolloService) {
+  constructor(private fb: FormBuilder, private router: Router, private toastMessage: ToastMessageService, private apolloService: ApolloService, public _authService: AuthService) {
     this.addProductForm = new FormGroup({
       category: new FormControl(''),
       productName: new FormControl(''),
@@ -195,7 +196,7 @@ export class SellerDashboardComponent {
 
   updateSelectAll() {
     this.selectAll = this.productList.every((product: any) => product.selected);
-    console.log('this.selectAll', this.selectAll)
+    // console.log('this.selectAll', this.selectAll)
   }
 
   resetForm() {
@@ -211,7 +212,7 @@ export class SellerDashboardComponent {
       if (data.data != null) {
         if (data.data.getProductBySellerId.status == 200) {
           this.productList = data.data.getProductBySellerId.data.products;
-          console.log('List', this.productList)
+          // console.log('List', this.productList)
           this.toastMessage.success(data.data.getProductBySellerId.message);
         }
         else {
@@ -258,9 +259,20 @@ export class SellerDashboardComponent {
     }
   }
 
+  triggerDeleteProduct() {
+    let selectedProducts = this.productList.filter((product: any) => product.selected);
+    if (selectedProducts.length > 0) {
+      let el = document.getElementById('deleteProductButton') as HTMLElement;
+      el.click();
+    }
+    else {
+      this.toastMessage.error("Please select a product to delete !!");
+    }
+  }
+
   deleteProduct() {
     let selectedProducts = this.productList.filter((product: any) => product.selected);
-    console.log('selectedProducts', selectedProducts)
+    // console.log('selectedProducts', selectedProducts)
     let reqObj = {}
     selectedProducts.forEach((data: any) => {
       reqObj = {
@@ -268,7 +280,7 @@ export class SellerDashboardComponent {
         productId: data._id
       }
     })
-    console.log('data', reqObj)
+    // console.log('data', reqObj)
     this.apolloService.mutate(GQLConfig.deleteProduct, reqObj).subscribe(data => {
       if (data.data != null) {
         if (data.data.deleteProduct.status == 200) {
@@ -282,5 +294,42 @@ export class SellerDashboardComponent {
     })
   }
 
-
+  openAddProductModal() {
+    if (JSON.parse(sessionStorage.getItem('userData')!).activePlan === 'FREE PLAN') {
+      if (this.productList.length < 2) {
+        let el = document.getElementById('addProductButton') as HTMLElement;
+        el?.click();
+      }
+      else {
+        this.toastMessage.error("Please Upgrade your subscription to add more Product !!");
+      }
+    }
+    else if (JSON.parse(sessionStorage.getItem('userData')!).activePlan === 'SILVER PLAN') {
+      if (this.productList.length < 10) {
+        let el = document.getElementById('addProductButton') as HTMLElement;
+        el?.click();
+      }
+      else {
+        this.toastMessage.error("Please Upgrade your subscription to add more Product !!");
+      }
+    }
+    else if (JSON.parse(sessionStorage.getItem('userData')!).activePlan === 'GOLD PLAN') {
+      if (this.productList.length < 25) {
+        let el = document.getElementById('addProductButton') as HTMLElement;
+        el?.click();
+      }
+      else {
+        this.toastMessage.error("Please Upgrade your subscription to add more Product !!");
+      }
+    }
+    else if (JSON.parse(sessionStorage.getItem('userData')!).activePlan === 'DIAMOND PLAN') {
+      if (this.productList.length < 50) {
+        let el = document.getElementById('addProductButton') as HTMLElement;
+        el?.click();
+      }
+      else {
+        this.toastMessage.error("Please Upgrade your subscription to add more Product !!");
+      }
+    }
+  }
 }

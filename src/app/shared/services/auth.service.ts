@@ -4,6 +4,7 @@ import { BehaviorSubject, lastValueFrom, Subscription } from 'rxjs';
 import { ToastMessageService } from './snack-alert.service';
 import { Apollo } from 'apollo-angular';
 import { MessagingService } from './messaging.service';
+import { SubscriptionService } from './subscription.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +15,11 @@ export class AuthService {
   private messageSubscription$: Subscription;
   fireBaseToken: string = "";
 
-  private currentUserSubject: BehaviorSubject<any> | undefined;
+  currentUserSubject: BehaviorSubject<any> = new BehaviorSubject({});
   profileImageSubject: BehaviorSubject<string> = new BehaviorSubject("");
 
   constructor(private _apollo: Apollo, private _router: Router, private _toastMessage: ToastMessageService,
-    private _activatedRoute: ActivatedRoute, private _messagingService: MessagingService) {
+    private _activatedRoute: ActivatedRoute, private _messagingService: MessagingService, private _subscriptionService: SubscriptionService) {
     this._messagingService.requestPermission();
     this.subscription$ = this._messagingService.accessToken.asObservable().subscribe(data => {
       if (data) {
@@ -37,7 +38,10 @@ export class AuthService {
     });
     if (sessionStorage.getItem('userData')) {
       const userData = JSON.parse(sessionStorage.getItem('userData')!);
-      this.profileImageSubject?.next(userData.profileImage)
+      this.profileImageSubject?.next(userData.profileImage);
+      this.currentUserSubject.next(userData)
+      if (userData.userType == 'LAWYER') { this._subscriptionService.getSubscriptionDetails(); }
+      if (userData.userType == 'SELLER') { this._subscriptionService.getSubscriptionDetails(); }
     }
   }
 
@@ -59,6 +63,9 @@ export class AuthService {
         sessionStorage.setItem('vidhikToken', respObj.data.login.data.accessToken)
         this.currentUserSubject?.next(respObj.data.login.data);
         this.profileImageSubject.next(respObj.data.login.data.profileImage)
+        this._subscriptionService.getSubscriptionDetails();
+        if (respObj.data.login.data.userType == 'LAWYER') { this._subscriptionService.getSubscriptionDetails(); }
+        if (respObj.data.login.data.userType == 'SELLER') { this._subscriptionService.getSubscriptionDetails(); }
 
         //redirect the user as per the selected type
         if (userType == "USER") {

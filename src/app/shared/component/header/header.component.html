@@ -8,8 +8,8 @@
     </div>
   </div>
   <div [ngClass]="colConfig" class="sub-container">
-    <button *ngIf="userType == 'lawyer'|| userType == 'seller'" class="btn-primary upgrade" [ngStyle]="searchIcon" data-bs-toggle="modal"
-      data-bs-target="#upgradeModal">Upgrade</button>
+    <button *ngIf="userType == 'lawyer'|| userType == 'seller'" class="btn-primary upgrade" [ngStyle]="searchIcon"
+      data-bs-toggle="modal" data-bs-target="#upgradeModal" (click)="getQrData()">Upgrade</button>
     <!-- <div class="logo">
         <img src="../../assets/images/icons/vidhiklogo.svg" alt="Vidhik" routerLink="/lawyer/activity-feed"
           style="cursor: pointer"/>
@@ -89,7 +89,7 @@
     </div> -->
     <div class="user-details">
       <div class="name">{{userData.name}}</div>
-      <div class="plan">Free Plan</div>
+      <div class="plan">{{userData.activePlan}}</div>
     </div>
     <div class="profile-container" (click)="redirectToProfile()">
       <img [src]="getImageUrl(this.userImage)"
@@ -385,6 +385,7 @@
       </div>
       <div class="modal-body">
         <app-subscription-plan [toggleId]="'#scannerModal'"></app-subscription-plan>
+        <!-- <app-subscription-plan [toggleId]="'d'"></app-subscription-plan> -->
       </div>
     </div>
   </div>

@@ -42,7 +42,7 @@
       <!-- search-bar ends -->
 
       <!-- creat-case-diary start -->
-      <div class="create-case-diary">
+      <div class="create-case-diary" *ngIf="selectedDiary == 'caseDiary'">
         <button mat-stroked-button color="primary" style="border-radius: 12px" routerLink="/lawyer/case-diary/create">
           <img class="me-1" src="../../../assets/images/icons/sub-diary.svg" /><span
             style="color: #2e5bff"></span>Create Case Diary
@@ -51,9 +51,8 @@
       <!-- creat-case-diary ends -->
 
       <!-- creat-sub-diary start -->
-      <div class="create-sub-diary">
-        <button mat-stroked-button color="primary" style="border-radius: 12px"
-          routerLink="/lawyer/case-diary/create-sub-diary">
+      <div class="create-sub-diary" *ngIf="selectedDiary == 'subDiary'">
+        <button mat-stroked-button color="primary" style="border-radius: 12px" (click)="createSubDiary()">
           <img class="me-1" src="../../../assets/images/icons/sub-diary.svg" /><span
             style="color: #2e5bff"></span>Create Sub Diary
         </button>
@@ -80,7 +79,7 @@
       </div>
 
       @for (item of caseDiaryList; track item) {
-      <div class="case-diary-data">
+      <div class="case-diary-data" *ngIf="caseDiaryList.length>0">
         <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
         <!-- <div class="grid-item2">{{ item.applicantName }}</div> -->
         <!-- <div class="grid-item2">{{ item.respondentName }}</div> -->
@@ -137,6 +136,9 @@
         </mat-menu> -->
       </div>
       }
+      <div class="no-data" *ngIf="caseDiaryList.length == 0">
+        <img src="../../../assets/images/image/No_Data.png" alt="">
+      </div>
       <!-- case-diary list ends-->
     </div>
     <!-- case-diary table ends -->
@@ -159,7 +161,7 @@
       </div>
 
       @for (item of subDiaryList; track item) {
-      <div class="sub-diary-data">
+      <div class="sub-diary-data" *ngIf="subDiaryList.length > 0">
         <div class="grid-item2">{{ item.registrationDate| date:'shortDate' }}</div>
         <div class="grid-item2">{{ item.caseName }}</div>
         <div class="grid-item2">{{ item.courtName }}</div>
@@ -188,6 +190,9 @@
       </div>
       }
       <!-- case-diary list ends-->
+      <div class="no-data" *ngIf="subDiaryList.length == 0">
+        <img src="../../../assets/images/image/No_Data.png" alt="">
+      </div>
     </div>
     <!-- sub-diary list ends -->
   </div>

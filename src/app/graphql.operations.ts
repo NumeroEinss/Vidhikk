@@ -304,7 +304,7 @@ export abstract class GQLConfig {
     static createCaseDiary = gql` mutation($lawyerId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: String,
         $caseName: String!, $caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
         $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String, $representing: String!, $FIRNumber: String, $FIRDate: String,
-        $sectionIPC: String) {
+        $sectionIPC: String,$clientEmail:String,$clientContact:String) {
         createCaseDiary(input: {
             lawyerId: $lawyerId,
             registrationDate: $registrationDate,
@@ -322,7 +322,9 @@ export abstract class GQLConfig {
             representing: $representing,
             FIRNumber: $FIRNumber,
             FIRDate: $FIRDate,
-            sectionIPC: $sectionIPC
+            sectionIPC: $sectionIPC,
+            clientContact:$clientContact,
+            clientEmail:$clientEmail
         }) {
             status
             message
@@ -343,7 +345,7 @@ export abstract class GQLConfig {
     static updateCaseDiary = gql`mutation($caseDiaryId: String!, $registrationDate: String!, $courtName: String!, $caseNumber: String,
         $caseName:String!,$caseStage: String!, $city: String, $applicantName: String!, $respondentName: String, $applicationType: String!,
         $applicationSection: String!, $nextHearingDate: String!, $lawyreasonForAbsent: String,$representing:String!, $FIRNumber: String, $FIRDate: String,
-        $sectionIPC: String) {
+        $sectionIPC: String,$clientEmail:String,$clientContact:String) {
         caseDiaryUpdate(input: {
             caseDiaryId: $caseDiaryId,
             registrationDate: $registrationDate,
@@ -361,7 +363,9 @@ export abstract class GQLConfig {
             representing:$representing,
             FIRNumber: $FIRNumber,
             FIRDate: $FIRDate,
-            sectionIPC: $sectionIPC
+            sectionIPC: $sectionIPC,
+            clientContact:$clientContact,
+            clientEmail:$clientEmail
         }){
             status
             message
@@ -699,9 +703,9 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static getPlanList = gql`mutation{
+    static getPlanList = gql`mutation($planType:String!){
         planList(input: {
-            planType: "LAWYER"
+            planType: $planType
         }){
             status
             message
@@ -762,6 +766,27 @@ export abstract class GQLConfig {
          message
          data
        }
- } `
+    } `;
 
+    static choosePlan = gql`mutation($lawyerId: String!, $activePlan: String!) {
+        lawyerPurchasedPlan(input: {
+            lawyerId: $lawyerId,
+            activePlan: $activePlan
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static sellerChoosePlan = gql`mutation($sellerId: String!, $activePlan: String!) {
+        sellerPurchasedPlan(input: {
+            sellerId: $sellerId,
+            activePlan: $activePlan
+        }) {
+            status
+            message
+            data
+        }
+    }`;
 }
