@@ -14,6 +14,7 @@ export class PaaymentService {
 
   // Function to poll the API until success is received
   pollTransactionStatus(transactionId: string): Observable<boolean> {
+    const timeoutDuration = 60000;
     return new Observable<boolean>((observer) => {
       // Polling every 5 seconds
       const interval = setInterval(() => {
@@ -25,6 +26,20 @@ export class PaaymentService {
           }
         });
       }, 5000);  // Poll every 5 seconds
+
+      // Stop polling after 1 minute (60000 milliseconds)
+      const timeout = setTimeout(() => {
+        observer.next(false);  // If 1 minute has passed without success, stop polling
+        observer.complete();
+        clearInterval(interval);  // Clear the polling interval
+      }, timeoutDuration);
+
+      // Cleanup in case the observable is unsubscribed earlier
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timeout);
+      };
+
     });
   }
 

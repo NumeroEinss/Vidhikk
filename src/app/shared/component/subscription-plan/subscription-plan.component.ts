@@ -195,20 +195,26 @@ export class SubscriptionPlanComponent {
     }
   }
 
-  getPayentStatus() {
-    this.paymentService.pollTransactionStatus(this.transactionId).subscribe(
-      (success) => {
-        if (success) {
+  getPayentStatus(plan: any) {
+    this.paymentService.pollTransactionStatus(this.transactionId).subscribe({
+      next: (success) => {
+        console.log(success, 'Success')
+        if (success == true) {
           this.transactionCompleted = true;
           this.loading = false;
+          this.choosePlan(plan);
           alert('Transaction completed successfully!');
         }
+        else if (success == false){
+          this._toastMessage.error("Transaction Session Expired !!");
+        }
       },
-      (error) => {
+      error: (error) => {
+        console.log(error, 'Error')
         this.loading = false;
         console.error('Error during payment process', error);
         alert('Something went wrong. Please try again.');
       }
-    );
+    });
   }
 }
