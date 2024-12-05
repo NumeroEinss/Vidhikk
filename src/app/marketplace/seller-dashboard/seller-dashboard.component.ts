@@ -5,6 +5,8 @@ import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { GQLConfig } from '../../graphql.operations';
 import { imageUrl } from '../../graphql.module';
+import { AuthService } from '../../shared/services/auth.service';
+import { addproductModel, editproductModel } from '../../common/marketplace.model';
 
 @Component({
   selector: 'app-seller-dashboard',
@@ -22,41 +24,17 @@ export class SellerDashboardComponent {
   productList: any = [];
   userData: any;
   selectAll: boolean = false;
-  imageUrls: string[] = [];
   selectedProducts: any[] = [];
   productId: string = '';
+  sellerDetail: any = [];
+  reviewList: any = [];
 
   files: any;
   fileUploaded: boolean = false;
 
-  editProductFiles: any = [];
-
-  reviewList = [
-    {
-      profileImage: '../../assets/images/image/person.jpg',
-      name: 'Anil Soni',
-      postTime: '1 days ago',
-      review: 'A top criminal defense and personal injury lawyer who knows how to fight smart and strategically to get the best possible results. A top criminal defense and personal injury lawyer who knows how to fight smart and strategically to get the best possible results.'
-    },
-    {
-      profileImage: '../../assets/images/image/person.jpg',
-      name: 'Deepak Kumar',
-      postTime: '3 days ago',
-      review: 'A top defense and personal injury lawyer who knows how to fight smart and strategically to get the best possible results.'
-    }
-  ];
-
-  sellersInfo = [
-    {
-      sellerImage: '../../assets/images/image/person.jpg',
-      sellerName: 'Sandeep Agal',
-      sellerMobileNo: '9876543120',
-      sellerEmail: 'sandeep@gmail.com',
-      sellerAddress: 'Indore, M.P',
-      sellerMemberShipfrom: 'Member since Apr 2015',
-      disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-    }
-  ];
+  previewImages: any = [];
+  editFiles: any = [];
+  editPreviewImages: string[] = [];
 
   categoryList = [
     { value: 'Clothing', viewValue: 'Clothing' },
@@ -64,22 +42,13 @@ export class SellerDashboardComponent {
     { value: 'Office Supplies', viewValue: 'Office Supplies' },
   ]
 
-  constructor(private fb: FormBuilder, private router: Router, private toastMessage: ToastMessageService, private apolloService: ApolloService) {
-    this.addProductForm = new FormGroup({
-      category: new FormControl(''),
-      productName: new FormControl(''),
-      productDescription: new FormControl(''),
-      productPrice: new FormControl(''),
-    });
-
-    this.editProductForm = new FormGroup({
-      category: new FormControl(''),
-      productName: new FormControl(''),
-      productDescription: new FormControl(''),
-      productPrice: new FormControl(''),
-    });
+  constructor(private fb: FormBuilder, private router: Router, private toastMessage: ToastMessageService,
+    private apolloService: ApolloService, public _authService: AuthService) {
+    this.addProductForm = this.fb.group(new addproductModel());
+    this.editProductForm = this.fb.group(new editproductModel());
 
     this.userData = JSON.parse(sessionStorage.getItem('userData')!)
+    this.getSellerDetail();
     this.getSellerProductList();
   }
 
@@ -97,30 +66,32 @@ export class SellerDashboardComponent {
     this.isListingShow = false;
   }
 
-  onFileSelected(event: any): void {
+  onFileSelected(event: any) {
     const fileList = event.target.files;
     this.files = Array.from(fileList);
     this.fileUploaded = true;
+    console.log(this.files)
+
+    this.files.forEach((file: any) => {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        // this.previewImages = [];
+        this.previewImages.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
   }
 
-  onDrop(event: any): void {
+  onDrop(event: any) {
     event.preventDefault();
     event.stopPropagation();
     this.files = event.dataTransfer.files[0];
     this.fileUploaded = true;
   }
 
-  onDragOver(event: any): void {
+  onDragOver(event: any) {
     event.preventDefault();
     event.stopPropagation();
-  }
-
-  addProductsImage(event: any) {
-    const fileList = Array.from(event.target.files);
-    // const newFiles = fileList.map((file: any) => URL.createObjectURL(file));
-    this.editProductFiles = [...this.editProductFiles, ...fileList];
-    this.fileUploaded = true;
-    console.log(this.editProductFiles)
   }
 
   ProductDetail(detail: any) {
@@ -149,6 +120,26 @@ export class SellerDashboardComponent {
     this.fileUploaded = false;
   }
 
+  getSellerDetail() {
+    let data = {
+      sellerId: this.userData._id
+    }
+    this.apolloService.mutate(GQLConfig.getSellerRatingList, data).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.getSellerRatingList.status == 200) {
+          this.sellerDetail = data.data.getSellerRatingList.data.response;
+          this.sellerDetail.sellerRatingList.forEach((review: any) => {
+            this.reviewList.push(review)
+          })
+          this.toastMessage.success(data.data.getSellerRatingList.message);
+        }
+        else {
+          this.toastMessage.success(data.data.getSellerRatingList.message);
+        }
+      }
+    })
+  }
+
   getSellerProductList() {
     let data = {
       sellerId: this.userData._id
@@ -157,14 +148,14 @@ export class SellerDashboardComponent {
       if (data.data != null) {
         if (data.data.getProductBySellerId.status == 200) {
           this.productList = data.data.getProductBySellerId.data.products;
-          console.log('List', this.productList)
+          // console.log('List', this.productList)
           this.toastMessage.success(data.data.getProductBySellerId.message);
         }
         else {
           this.toastMessage.success(data.data.getProductBySellerId.message);
         }
       }
-    })
+    });
   }
 
   addProduct() {
@@ -205,6 +196,17 @@ export class SellerDashboardComponent {
     }
   }
 
+  triggerDeleteProduct() {
+    let selectedProducts = this.productList.filter((product: any) => product.selected);
+    if (selectedProducts.length > 0) {
+      let el = document.getElementById('deleteProductButton') as HTMLElement;
+      el.click();
+    }
+    else {
+      this.toastMessage.error("Please select a product to delete !!");
+    }
+  }
+
   deleteProduct() {
     let reqObj = {};
     this.selectedProducts = this.productList.filter((product: any) => product.selected);
@@ -228,25 +230,25 @@ export class SellerDashboardComponent {
   }
 
   patchProductDetail(detail: any) {
-    console.log(detail)
     this.productId = detail._id
     this.editProductForm.controls.category.patchValue(detail.productCategory);
     this.editProductForm.controls.productName.patchValue(detail.productName);
     this.editProductForm.controls.productDescription.patchValue(detail.productDescription);
     this.editProductForm.controls.productPrice.patchValue(detail.price);
-    this.editProductFiles = []
+    this.editPreviewImages = []
     detail.productImages.forEach((img: any) => {
-      this.editProductFiles.push(img)
+      this.editPreviewImages.push(img);
     })
-    console.log('images', this.editProductFiles)
+    console.log(this.editPreviewImages)
+    this.editFiles = [...this.files];
+    console.log("this.editFiles at patch", this.editFiles)
   }
-
 
   removeImage(file: any, index: number) {
-    this.editProductFiles.splice(index, 1)
+    this.previewImages.splice(index, 1)
   }
 
-  UpdateProduct() {
+  updateProduct() {
     if (!this.editProductForm.valid) {
       this.toastMessage.error("Please Fill all the fields !!");
     }
@@ -257,8 +259,8 @@ export class SellerDashboardComponent {
       const mutation = {
         "query": "mutation UpdateProduct($productId: String!, $input: marketPlaceInput!, $files: [Upload!]) { updateProduct(productId: $productId, input: $input, files: $files) { status message data } }",
         "variables": {
+          "productId": this.productId,
           "input": {
-            "productId": "673f3812af13408fcf953d2c",
             "productName": this.editProductForm.controls.productName.value,
             "productDescription": this.editProductForm.controls.productDescription.value,
             "price": +this.editProductForm.controls.productPrice.value,
@@ -268,9 +270,9 @@ export class SellerDashboardComponent {
         }
       }
 
-      console.log(this.editProductFiles)
+      console.log(this.editFiles)
 
-      this.apolloService.uploadMultiple(mutation, this.editProductFiles).subscribe(objRes => {
+      this.apolloService.uploadMultiple(mutation, this.editFiles).subscribe(objRes => {
         if (objRes.data != null) {
           this.toastMessage.success(objRes.data.UpdateProduct.message);
           let closeEditProduct = document.getElementById('closeEditProductModal') as HTMLElement;

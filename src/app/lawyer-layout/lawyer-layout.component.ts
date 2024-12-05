@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
+import { SubscriptionService } from '../shared/services/subscription.service';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lawyer-layout',
@@ -8,8 +11,18 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class LawyerLayoutComponent {
   isSidebarOpen: boolean = false;
-  
-  constructor(private _authService: AuthService) { }
+  menuConfig: any = {};
+  sub$?: Subscription;
+
+  constructor(private _authService: AuthService, public subscriptionService: SubscriptionService, private _router: Router) {
+    this.getMenuConfigData();
+  }
+
+  async getMenuConfigData() {
+    this.sub$ = this.subscriptionService.subscriptionplanSubject.asObservable().subscribe((data: any) => {
+      this.menuConfig = data;
+    })
+  }
 
   logoutCaseDiary() {
     sessionStorage.setItem('isCaseDiaryLogin', JSON.stringify(false));
@@ -17,5 +30,13 @@ export class LawyerLayoutComponent {
 
   logout() {
     this._authService.logout();
+  }
+
+  navigate(url: any) {
+    this._router.navigate([url]);
+  }
+
+  ngOnDestroy() {
+    this.sub$?.unsubscribe();
   }
 }

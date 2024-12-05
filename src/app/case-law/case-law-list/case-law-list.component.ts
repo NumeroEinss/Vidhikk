@@ -223,7 +223,7 @@ export class CaseLawListComponent implements AfterViewInit {
   searchedWord: string = "";
   wordsPhraseRadioModel: number = 1;
 
-  pageSize: number = 50;
+  pageSize: number = 10;
 
   // applicantCurrentPage: number = 1;
 
@@ -312,20 +312,25 @@ export class CaseLawListComponent implements AfterViewInit {
   tabSelectionChange(e: any) {
     switch (e.index) {
       case 0:
+        this.recordCount = 0;
         this.getCaseLaws(this.caseLawCurrentPage);
         break;
       case 1:
+        this.recordCount = 0;
         this.showJudgeSearch = true;
         // this.showAppSearch = true;
         break;
       case 2:
+        this.recordCount = 0;
         this.showWordsSearch = true;
         // this.showRespSearch = true;
         break;
       case 3:
+        this.recordCount = 0;
         this.showAdvanceSearch = true;
         break;
       case 4:
+        this.recordCount = 0;
         this.getSavedCases();
         // this.showCitationSearch = true;
         break;
@@ -510,10 +515,9 @@ export class CaseLawListComponent implements AfterViewInit {
     // console.log('this.advanceSearchForm.value',this.advanceSearchForm.value)
     let reqObj = JSON.parse(JSON.stringify(this.advanceSearchForm.value));
     if (reqObj.dateRange['start'] != null) {
-      reqObj.dateRange['start'] = this._datePipe.transform(reqObj.dateRange['start'], 'yyyy/MM/dd');
-      reqObj.dateRange['end'] = this._datePipe.transform(reqObj.dateRange['end'], 'yyyy/MM/dd');
+      reqObj.dateRange['start'] = this.formatDate(reqObj.dateRange['start'], '00:00:00.000Z');
+      reqObj.dateRange['end'] = this.formatDate(reqObj.dateRange['end'], '23:59:59.999Z');
     }
-    console.log(reqObj, 'AdvReqObj', this.advanceSearchForm.value)
     this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, reqObj).subscribe(objRes => {
       if (objRes.status == "success") {
         this.respAdvanceSearchList = objRes.data.items;
@@ -521,6 +525,12 @@ export class CaseLawListComponent implements AfterViewInit {
         this.recordCount = objRes.data.totalCount;
       }
     })
+  }
+
+  formatDate(date: Date, time: string): string {
+    const formattedDate = new Date(date);
+    const isoString = formattedDate.toISOString().split('T')[0]; // Get only the date part (yyyy-mm-dd)
+    return `${isoString}T${time}`;
   }
 
   resetAdvanceSearchForm() {
@@ -541,7 +551,7 @@ export class CaseLawListComponent implements AfterViewInit {
       this._apolloService.post(`/judgement/search/words?page=${page}&pageSize=${this.pageSize}`, data).subscribe(objRes => {
         if (objRes.status == "success") {
           this.respWordsPhraseList = objRes.data.items;
-          this.wordsPhraseCurrentPage = 1;
+          // this.wordsPhraseCurrentPage = 1;
           this.recordCount = objRes.data.totalCount;
         }
       })

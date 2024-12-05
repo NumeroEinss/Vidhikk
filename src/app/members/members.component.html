@@ -46,7 +46,8 @@
         @for (member of memberList;track member) {
         <div class="member-list-data">
           <div class="grid-item2">
-            <span><img src="../../assets/images/image/add_member.png" class="member-img me-2" /></span>{{
+            <span><img [src]="getImageUrl(member.memberprofileImage	)"
+                onerror="this.onerror=null;this.src='../../../../assets/images/image/no-image.png'" class="member-img me-2" /></span>{{
             member.memberName }}
           </div>
           <div class="grid-item2">
@@ -162,15 +163,16 @@
               <div class="add-member-details" *ngFor="let lawyer of filteredLawyerList">
                 <div class="d-flex align-items-center">
                   <div>
-                    <img src="../../assets/images/image/add_member.png" alt="noImage" class="member-img" />
+                    <img [src]="getImageUrl(lawyer.profileImage)"
+                      onerror="this.onerror=null;this.src='../../../../assets/images/image/no-image.png'" class="member-img" />
                   </div>
 
                   <div class="member-detail ms-2">
-                    <div class="member-name">{{ getShortInfo(lawyer.lawyerName) }}</div>
+                    <div class="member-name">{{ getShortInfo(lawyer?.lawyerName) }}</div>
                     <div class="d-flex">
                       <img src="../../assets/images/icons/lawyer_type.svg" alt="" class="me-1 lawyer-type" />
                       <div class="member-lawyer-type">
-                        {{ getShortInfo(lawyer.practicingField[0]) + '...' }}
+                        {{ getShortInfo(lawyer?.practicingField[0]) + '...' }}
                       </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-left">

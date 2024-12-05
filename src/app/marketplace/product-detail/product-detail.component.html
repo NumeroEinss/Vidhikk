@@ -1,7 +1,7 @@
 <app-header [menuName]="'Marketplace'"></app-header>
 
 <div class="root">
-    <div class="redirection"><span (click)="routeBack()" class="route">Marketplace</span> / {{routerState.productName}}
+    <div class="redirection"><span (click)="routeBack()" class="route">Marketplace</span> / {{productDetail.productName}}
     </div>
 
     <div style="height: calc(100vh - 200px); margin-bottom: 20px;">
@@ -32,47 +32,47 @@
 
                 <div class="seller-product-detail">
                     <div class="product-detail">
-                        <div>{{routerState.productName}}</div>
+                        <div>{{productDetail.productName}}</div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
-                            <div class="price">{{routerState.price}}</div>
+                            <div class="price">{{productDetail.price}}</div>
                             <div class="d-flex align-items-center">
                                 <img src="../../../assets/images/icons/black_colored_share.svg" alt=""
                                     *ngIf="userData.userType !== 'SELLER'">
                                 <!-- <img src="../../../assets/images/icons/black_bordered_like.svg" alt="" class="ms-2"
                                     *ngIf="routerState.userType !== 'SELLER'"> -->
 
-                                <img *ngIf="userData.userType !== 'SELLER'"
+                                <!-- <img *ngIf="userData.userType !== 'SELLER'"
                                     [src]="routerState.isLiked?'../../assets/images/icons/like_icon.svg':'../../assets/images/icons/like.svg'"
-                                    style="width: 23px; height: 23px;" class="ms-1" />
+                                    style="width: 23px; height: 23px;" class="ms-1" /> -->
 
                                 <!-- <img src="../../assets/images/icons/like.svg" alt=""  class="liked-icon"> -->
-                                <img src="../../../assets/images/icons/black_bordered_edit.svg" alt=""
-                                    *ngIf="userData.userType === 'SELLER'" class="edit-img">
+                                <!-- <img src="../../../assets/images/icons/black_bordered_edit.svg" alt=""
+                                    *ngIf="userData.userType === 'SELLER'" class="edit-img"> -->
                             </div>
                         </div>
                     </div>
 
-                    <div class="seller-detail" (click)="redirectToSellerProfile(routerState)"
+                    <div class="seller-detail" (click)="redirectToSellerProfile(productDetail)"
                         *ngIf="userData.userType !== 'SELLER'">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
                                 <div class="seller-img">
-                                    <img [src]="routerState.sellerImage"
+                                    <img [src]="getImageUrl(productDetail.sellerImage)"
                                         onerror="this.onerror=null,this.src='../../../../assets/images/image/person.jpg'">
                                 </div>
-                                <div class="seller-name">{{routerState.sellerName}}</div>
+                                <div class="seller-name">{{productDetail.sellerName}}</div>
                             </div>
                             <img src="../../../assets/images/icons/black_arrow_down.svg" alt="" class="right-arrow">
                         </div>
 
                         <div class="label mt-3">Mobile Number</div>
-                        <div class="detail">{{routerState.sellerMobileNo}}jjjj</div>
+                        <div class="detail">{{productDetail.sellerPhoneNumber}}</div>
 
                         <div class="label mt-3">Email</div>
-                        <div class="detail email">{{routerState.sellerEmail}}<span>(Verified)</span></div>
+                        <div class="detail email">{{productDetail.sellerEmail}}<span>(Verified)</span></div>
 
                         <div class="label mt-3">Posted In</div>
-                        <div class="detail">{{routerState.sellerAddress}}<span>(Verified)</span></div>
+                        <div class="detail">{{productDetail.sellerAddress}}<span>(Verified)</span></div>
 
                     </div>
                 </div>
@@ -89,13 +89,13 @@
                 <div (click)="toggleDescription()"
                     [ngClass]="{'colored-heading': isDescriptionOpened, 'default-heading': !isDescriptionOpened}">
                     Description</div>
-                <div (click)="toggleReview()"
-                    [ngClass]="{'colored-heading': isReviewOpened, 'default-heading': !isReviewOpened}">
-                    Reviews</div>
+                <!-- <div (click)="toggleReview()"
+                    [ngClass]="{'colored-heading': isReviewOpened, 'default-heading': !isReviewOpened}" *ngIf="userData.userType !== 'LAWYER && SELLER'">
+                    Reviews</div> -->
             </div>
 
             <div *ngIf="isDescriptionOpened">
-                <div class="desc">{{routerState.productDescription}}</div>
+                <div class="desc">{{productDetail.productDescription}}</div>
             </div>
 
             <div *ngIf="isReviewOpened">

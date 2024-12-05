@@ -18,6 +18,7 @@ export class MessagingService {
         next: (token: any) => {
           console.log('Permission granted !!');
           this.accessToken.next(token);
+          // console.log(token,'FCM TOKEN')
         },
         error: (error) => {
           console.error('Permission denied or error occurred:', error);

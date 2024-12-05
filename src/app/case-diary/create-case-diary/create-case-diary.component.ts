@@ -59,6 +59,8 @@ export class CreateCaseDiaryComponent {
     // ]);
     this.createCaseDiaryFrmCtrl['caseName'].setValidators([Validators.required]);
     this.createCaseDiaryFrmCtrl['city'].setValidators([Validators.required]);
+    this.createCaseDiaryFrmCtrl['clientEmail'].setValidators([Validators.required]);
+    this.createCaseDiaryFrmCtrl['clientContact'].setValidators([Validators.required]);
     this.getCitiesList();
 
   }
@@ -94,7 +96,9 @@ export class CreateCaseDiaryComponent {
         representing: this.createCaseDiaryForm.controls.representing.value,
         FIRNumber: this.createCaseDiaryForm.controls.FIRNumber.value,
         FIRDate: this.createCaseDiaryForm.controls.FIRDate.value,
-        sectionIPC: this.createCaseDiaryForm.controls.sectionIPC.value
+        sectionIPC: this.createCaseDiaryForm.controls.sectionIPC.value,
+        clientEmail: this.createCaseDiaryForm.controls.clientEmail.value,
+        clientContact: this.createCaseDiaryForm.controls.clientContact.value
       }
       this._apolloService.mutate(GQLConfig.createCaseDiary, data).subscribe((objRes) => {
         if (objRes.data != null) {

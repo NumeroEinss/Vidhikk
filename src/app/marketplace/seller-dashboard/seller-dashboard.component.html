@@ -2,31 +2,32 @@
 
 
 <div class="root">
-    <div class="seller-product-container" *ngFor="let detail of sellersInfo">
+    <div class="seller-product-container">
         <div class="d-flex">
             <div class="image-container">
-                <img class="display-profile" [src]="detail.sellerImage"
-                    onerror="this.onerror=null,this.src='../../../assets/images/image/no-image.png'">
+                <img class="display-profile" [src]="getImageUrl(sellerDetail.sellerImage)"
+                    onerror="this.onerror=null,this.src='../../../assets/images/image/person.jpg'">
             </div>
 
             <div class="detail">
-                <div class="name">{{ userData.name}}</div>
+                <div class="name">{{sellerDetail.sellerName}}</div>
                 <div class="disclaimer-detail">
                     <img src="../../../assets/images/icons/active_calendar.svg" alt="">
-                    <div class="disclaimer">{{detail.sellerMemberShipfrom}}</div>
+                    <div class="disclaimer">{{sellerDetail.memberFrom | date}}</div>
                 </div>
                 <div class="disclaimer-detail">
                     <img src="../../../assets/images/icons/disclaimer.svg" alt="">
-                    <div class="disclaimer">{{detail.disclaimer}}</div>
+                    <div class="disclaimer">{{sellerDetail.sellerorganisation}}</div>
                 </div>
 
             </div>
         </div>
         <div class="rating-detail">
-            <div class="rating">4.0</div>
-            <div class="rating-img"><star-rating [starType]="'svg'" [rating]="4" [readOnly]="true"></star-rating>
+            <div class="rating">{{sellerDetail.totalRating}}</div>
+            <div class="rating-img"><star-rating [starType]="'svg'" [rating]="sellerDetail.totalRating"
+                    [readOnly]="true"></star-rating>
             </div>
-            <div class="rating-count">Based on 23 Review</div>
+            <div class="rating-count">Based on {{sellerDetail.totalNumberOfRatings}} Review</div>
         </div>
 
         <div class="seller-info">
@@ -34,7 +35,9 @@
                 <div class="parameter">Customer Service</div>
                 <div class="container">
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuemax="100">
+                        <div class="progress-bar" role="progressbar"
+                            [attr.aria-valuenow]="sellerDetail.totalCustomerService" aria-valuemin="0"
+                            aria-valuemax="100" [ngStyle]="{'width':((sellerDetail?.totalCustomerService*20)+'%')}">
                         </div>
                     </div>
                 </div>
@@ -43,10 +46,10 @@
                 <div class="parameter">Product/Service Quality</div>
                 <div class="container">
                     <div class="progress">
-                        <!-- <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="lawyer.totalAvgLegalAnalysis"
-                            aria-valuemin="0" aria-valuemax="100"
-                            [ngStyle]="{'width':((lawyer?.totalAvgLegalAnalysis*20)+'%')}">
-                        </div> -->
+                        <div class="progress-bar" role="progressbar"
+                            [attr.aria-valuenow]="sellerDetail.totalProductQuality" aria-valuemin="0"
+                            aria-valuemax="100" [ngStyle]="{'width':((sellerDetail?.totalProductQuality*20)+'%')}">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,10 +57,10 @@
                 <div class="parameter">Communication</div>
                 <div class="container">
                     <div class="progress">
-                        <!-- <div class="progress-bar" role="progressbar"
-                            [attr.aria-valuenow]="lawyer.totalAvgcommunicationSkills" aria-valuemin="0"
-                            aria-valuemax="100" [ngStyle]="{'width':((lawyer?.totalAvgcommunicationSkills*20)+'%')}">
-                        </div> -->
+                        <div class="progress-bar" role="progressbar"
+                            [attr.aria-valuenow]="sellerDetail.totalCommunication" aria-valuemin="0" aria-valuemax="100"
+                            [ngStyle]="{'width':((sellerDetail?.totalCommunication*20)+'%')}">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,9 +68,10 @@
                 <div class="parameter">Shipping/Handling Time</div>
                 <div class="container">
                     <div class="progress">
-                        <!-- <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="lawyer.totalAvgEnP"
-                            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width':((lawyer?.totalAvgEnP*20)+'%')}">
-                        </div> -->
+                        <div class="progress-bar" role="progressbar"
+                            [attr.aria-valuenow]="sellerDetail.totalShippingHandling" aria-valuemin="0"
+                            aria-valuemax="100" [ngStyle]="{'width':((sellerDetail?.totalShippingHandling*20)+'%')}">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,8 +79,9 @@
     </div>
     <div class="action-btns">
         <div class="add-btn">
-            <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-toggle="modal"
+            <button mat-stroked-button id="addProductButton" color="primary" data-bs-toggle="modal"
                 data-bs-target="#addProductModal">Add Product</button>
+
         </div>
         <div class="delete-btn" *ngIf="productList.length > 0">
             <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-toggle="modal"
@@ -139,21 +144,20 @@
             </div>
 
             <div *ngIf="isReviewShow">
-
                 <div class="reviews-container" *ngFor="let review of reviewList">
                     <div class="reviews-content">
                         <div class="d-flex align-items-center">
-                            <div class="profile-image"><img [src]="review.profileImage" alt=""></div>
+                            <div class="profile-image"><img [src]="getImageUrl(review.userProfile)" alt=""></div>
                             <div>
-                                <div class="ms-2">{{review.name}}</div>
+                                <div class="ms-2">{{review.userName}}</div>
                                 <div class="star-content ms-1 d-flex align-items-center"><star-rating [starType]="'svg'"
-                                        [rating]="3"></star-rating>
-                                    <div class="rating">4.5</div>
+                                        [rating]="review.averageRating" [readOnly]="true"></star-rating>
+                                    <div class="rating">{{review.averageRating}}</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="post-time">{{review.postTime}}</div>
+                        <div class="post-time">{{review.createdAt | date}}</div>
                     </div>
 
                     <div class="description">{{review.review}}</div>
@@ -229,10 +233,19 @@
                                     accept="image/*" multiple>
                                 <div class="add-picture" (click)="fileInput.click()">+</div>
                             </div>
-                            <div class="mt-3" *ngIf="fileUploaded == true">
+                            <!-- <div class="mt-3" *ngIf="fileUploaded == true">
                                 <div class="selected-files">
                                     Selected File: <span *ngFor="let file of files, let last = last">{{ file.name }}
                                         {{!last ?', ' : '' }}</span>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="selected-image">
+                            <div class="image-preview">
+                                <div *ngFor="let image of previewImages; index as i" class="image-wrapper">
+                                    <img [src]="image" alt="Selected-Image">
+                                    <div class="close-btn" (click)="removeImage(image, i)"><img
+                                            src="../../../assets/images/icons/close_button.svg" alt=""></div>
                                 </div>
                             </div>
                         </div>
@@ -317,8 +330,12 @@
 
                         <mat-label class="mat-label mt-2 mb-1">Product Description</mat-label>
                         <mat-form-field appearance="outline" class="textArea">
-                            <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                formControlName="productDescription" required rows="3" minlength="10"></textarea>
+                            <div style="height: calc(100vh - 685px); margin-bottom: 10px;">
+                                <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+                                    <textarea id="text-area" type="text" matInput placeholder="Enter description"
+                                        formControlName="productDescription" minlength="10" required></textarea>
+                                </ng-scrollbar>
+                            </div>
                             <mat-error
                                 *ngIf="editProductForm.controls['productDescription'].hasError('required')">Description
                                 is Required</mat-error>
@@ -340,9 +357,9 @@
                         <mat-label class="mat-label mt-2 mb-1">Add Image</mat-label>
                         <div class="file-container">
                             <div class="drop-zone" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
-                                <input type="file" (change)="addProductsImage($event)" #fileInput1 style="display: none"
+                                <input type="file" (change)="onFileSelected($event)" #editFileInput style="display: none"
                                     accept="image/*" multiple>
-                                <div class="add-picture" (click)="fileInput1.click()">+</div>
+                                <div class="add-picture" (click)="editFileInput.click()">+</div>
                             </div>
                             <!-- <div class="mt-3" *ngIf="fileUploaded == true">
                                 <div class="selected-files">
@@ -353,8 +370,17 @@
                         </div>
                         <div class="selected-image">
                             <div class="image-preview">
-                                <div *ngFor="let file of editProductFiles; index as i" class="image-wrapper">
+                                <div *ngFor="let file of editPreviewImages; index as i" class="image-wrapper">
                                     <img [src]="getImageUrl(file)" alt="Selected-Image">
+                                    <div class="close-btn" (click)="removeImage(file, i)"><img
+                                            src="../../../assets/images/icons/close_button.svg" alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="selected-image">
+                            <div class="image-preview">
+                                <div *ngFor="let file of previewImages; index as i" class="image-wrapper">
+                                    <img [src]="file" alt="Selected-Image">
                                     <div class="close-btn" (click)="removeImage(file, i)"><img
                                             src="../../../assets/images/icons/close_button.svg" alt=""></div>
                                 </div>
@@ -362,8 +388,8 @@
                         </div>
                         <div class="mt-4 mb-3 filter-btn">
                             <button mat-raised-button color="primary"
-                                style="width: fit-content !important; padding: 12px 36px" (click)="UpdateProduct()">
-                                Add Product
+                                style="width: fit-content !important; padding: 12px 36px" (click)="updateProduct()">
+                                Update Product
                             </button>
                             <button mat-stroked-button color="primary" style="width: fit-content !important;
                                   margin-left: 20px; padding: 12px 36px;" data-bs-dismiss="modal"

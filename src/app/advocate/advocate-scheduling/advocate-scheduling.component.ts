@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ApolloService } from '../../shared/services/apollo.service';
+import { GQLConfig } from '../../graphql.operations';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-advocate-scheduling',
@@ -9,201 +12,37 @@ import { ApolloService } from '../../shared/services/apollo.service';
 export class AdvocateSchedulingComponent {
   isNameVisible: boolean = false;
   qrData: string = "Payment For Advocate Scheduling";
+  availabilityList: any;
+  transactionId: any = "";
+  lawyerId: any = "";
 
-  availabilityList: any = [ // Only slots from current date and after will fall under this.
-    {
-      id: 'fasdljasdfa',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'fasdasdfljasdfa',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'available',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'available',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'ewrewrewrx',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'fasdasdfljasdfa',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'available',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'available',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'fasdasdfljasdfa',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'available',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'available',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'ewrewrewrx',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'ewrewrewrx',
-      date: new Date(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    }
-  ];
-
-  constructor(private _apolloService: ApolloService) {
+  constructor(private _apolloService: ApolloService, private _toastMessage: ToastMessageService, private _router: Router) {
+    this.lawyerId = this._router.getCurrentNavigation()?.extras.state;
+    this.getAvailabilityList();
     this.getQrData();
   }
 
+  getAvailabilityList() {
+    this._apolloService.mutate(GQLConfig.getAvailabilityList, { lawyerId:  this.lawyerId }).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.getAvailabilityList.status == 200) {
+          this.availabilityList = data.data.getAvailabilityList.data.availabilities;
+          console.log(this.availabilityList)
+        }
+        else {
+          this._toastMessage.error(data.data.getAvailabilityList.message);
+        }
+      }
+    });
+  }
+
+
   getQrData() {
-    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
-          this.qrData = objRes.data;
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
         }
       }
     })

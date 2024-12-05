@@ -158,11 +158,31 @@
             <span>Edit</span>
           </button>
         </div>
+
         <div class="description">
+          You are a <span style="color:#2e5bff">{{currentPlan.planHeading}}</span> Member
+        </div>
+        <!-- <div class="description">
           To change your password, you'll need to verify the current one first.
           Then create a password you're not using elsewhere, and be sure to
           change it regularly as well as anytime you suspect it's been
           compromised.
+        </div> -->
+        <div class="user-details">
+          <div class="row">
+            <div class="col-lg-2 col-md-2">
+              <img src="../../../../assets/images/icons/organization.svg" class="user-profile" />
+            </div>
+
+            <div class="col-lg-10 col-md-10">
+              <div class="row">
+                <div class="col-lg-4 col-md-4" *ngFor="let plan of currentPlan.features">
+                  <div class="user-details-heading">{{plan.featureHeading }}</div>
+                  <div class="user-details-detail">{{plan.isAvailable?'Available':'Not Available'}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -339,7 +359,7 @@
   </div>
 
   <!-- seller/user-profile start -->
-  <div style="height: calc(100vh - 130px);">
+  <div style="height: calc(100vh - 130px);" *ngIf="userType == 'seller'">
     <ng-scrollbar autoHeightDisabled="false" appearance="standard">
       <div class="user-profile-root" *ngIf="userType == 'seller'">
         <div class="d-flex justify-content-between">
@@ -369,12 +389,13 @@
             <div class="details-container">
               <div class="heading">Mobile</div>
               <div class="detail">{{sellerProfileList.primaryContact }}<span *ngIf="sellerProfileList.secondaryContact">,</span> {{ sellerProfileList.secondaryContact}}
+                <span *ngIf="mobileOtpVerified"  [ngClass]="mobileOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span>
               </div>
             </div>
            
             <div class="details-container">
               <div class="heading">Email</div>
-              <div class="detail">{{sellerProfileList.email}}</div>
+              <div class="detail">{{sellerProfileList.email}} <span *ngIf="emailOtpVerified"  [ngClass]="emailOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span></div> 
             </div>
           </div>
 
@@ -570,7 +591,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <app-subscription-plan></app-subscription-plan>
+        <app-subscription-plan [toggleId]="'#scannerModal'" [transactionId]="transactionId"></app-subscription-plan>
       </div>
     </div>
   </div>
@@ -1035,4 +1056,4 @@
   data-bs-target="#sellerEditProfileModal" data-bs-toggle="modal">
 </button>
 
-<app-qr-modal></app-qr-modal>
+<app-qr-modal [qrData]="qrData"></app-qr-modal>

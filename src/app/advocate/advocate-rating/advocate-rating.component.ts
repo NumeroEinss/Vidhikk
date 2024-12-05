@@ -15,6 +15,7 @@ export class AdvocateRatingComponent {
   isRatingAdd: boolean = false;
   lawyer: any;
 
+
   ratingList: any = [
     // {
     //   image: '../../../assets/images/image/add_member.png',

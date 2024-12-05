@@ -47,6 +47,8 @@ export class EditCaseDiaryComponent {
     ]);
     this.editCaseDiaryFrmCtrl['caseName'].setValidators([Validators.required]);
     this.editCaseDiaryFrmCtrl['city'].setValidators([Validators.required]);
+    this.editCaseDiaryFrmCtrl['clientEmail'].setValidators([Validators.required]);
+    this.editCaseDiaryFrmCtrl['clientContact'].setValidators([Validators.required]);
 
     this.routerState = this._router.getCurrentNavigation()?.extras.state;
     if (this.routerState?.mode == "edit") {
@@ -94,7 +96,9 @@ export class EditCaseDiaryComponent {
         representing: this.editCaseDiaryForm.controls.representing.value,
         FIRNumber: this.editCaseDiaryForm.controls.FIRNumber.value,
         FIRDate: this.editCaseDiaryForm.controls.FIRDate.value,
-        sectionIPC: this.editCaseDiaryForm.controls.sectionIPC.value
+        sectionIPC: this.editCaseDiaryForm.controls.sectionIPC.value,
+        clientEmail: this.editCaseDiaryForm.controls.clientEmail.value,
+        clientContact: this.editCaseDiaryForm.controls.clientContact.value
       }
       this._apolloService.mutate(GQLConfig.updateCaseDiary, data).subscribe((objRes) => {
         if (objRes.data != null) {

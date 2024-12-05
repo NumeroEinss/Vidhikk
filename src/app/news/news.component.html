@@ -32,7 +32,7 @@
                         Publisher: <a target="_blank" [href]="getNewsUrl(news)">{{getPubLisher(news?.source)}}</a>
                       </div>
                       <div class="timestamp mt-1">
-                        Published Date: {{news.date}}
+                        <div class="vector"></div>Published On: {{news.date}}
                       </div>
                     </div>
                   </div>
@@ -63,8 +63,7 @@
                 <div class="news-feed-container">
                   <div class="news-feed-section" *ngFor="let news of newsListLegal">
                     <div class="news-details">
-                      <div class="news-heading d-flex"><img class="news-logo"
-                          src="https://akm-img-a-in.tosshub.com/aajtak/resource/img/icons/favicon.ico"
+                      <div class="news-heading d-flex"><img class="news-logo" [src]="news.thumbnail"
                           onerror="this.onerror=null;this.src='../../assets/images/image/no-image.png'">
                         <span>{{ news.title?.substr(0, getHeadingLength())}}
                           {{news.title?.length>getHeadingLength()?'...':''}}</span>
@@ -73,10 +72,11 @@
                           target="_blank" [href]="news.url">Read
                           More..</a></div>
                       <div class="publisher mt-1">
-                        Publisher: <a target="_blank" [href]="news.publisher.href">{{news.publisher.title}}</a>
+                        Publisher: <a target="_blank"
+                          [href]="news?.publisher?.href">{{getPubLisher(news?.publisher?.title)}}</a>
                       </div>
                       <div class="timestamp mt-1">
-                        <div class="vector"></div> {{timeAgo(news['published date'])}}
+                        <div class="vector"></div>Pulblished on: {{news['publishedDate']}}
                       </div>
                     </div>
                   </div>

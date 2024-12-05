@@ -14,10 +14,12 @@ import { imageUrl } from '../graphql.module';
 export class AdvocateComponent {
 
   lawyer: any = {};
+  lawyerDetail: any;
   lawyerId: any;
   isNameVisible: boolean = false;
   activeRoute: string = "";
   qrData: string = "Payment For Hiring Advocate";
+  transactionId: any = "";
 
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
     private location: Location) {
@@ -33,10 +35,11 @@ export class AdvocateComponent {
   }
 
   getQrData() {
-    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
-          this.qrData = objRes.data;
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
         }
       }
     })
@@ -67,5 +70,10 @@ export class AdvocateComponent {
 
   showDetails() {
     this.isNameVisible = true;
+  }
+
+  navigateToAdvocateSchedule() {
+    const extras = this.lawyer._id;
+    this._router.navigate([`${this.activeRoute}/hire`], { state: extras });
   }
 }

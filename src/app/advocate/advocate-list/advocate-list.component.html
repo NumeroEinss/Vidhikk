@@ -78,7 +78,7 @@
                                     onerror="this.onerror=null;this.src='../../../assets/images/image/no-image.png';">
                                 <div class="lawyer-details">
                                     <div class="location">{{lawyer.city}}</div>
-                                    <div class="type">{{getShortInfo(lawyer.practicingField[0])}}</div>
+                                    <div class="type">{{getShortInfo(lawyer?.practicingField[0])}}</div>
                                     <div class="d-flex">
                                         <div class="experience">{{lawyer.practiceYear}} Years</div>
                                         <div class="rating" (click)="viewRating(lawyer._id)">

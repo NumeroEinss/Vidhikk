@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { imageUrl } from '../../graphql.module';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { GQLConfig } from '../../graphql.operations';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -10,14 +13,14 @@ import { imageUrl } from '../../graphql.module';
 })
 export class ProductDetailComponent {
   routerState: any;
-  productdetail: any;
+  productDetail: any = [];
   isDescriptionOpened: boolean = true;
   isReviewOpened: boolean = false;
   showReviewForm: boolean = false;
   productImages: any = [];
   reviews: string = '';
   currentImageIndex: number = 0;
-  currentImage: string;
+  currentImage: string = "";
   userData: any;
 
   reviewList = [
@@ -36,7 +39,8 @@ export class ProductDetailComponent {
   ];
 
 
-  constructor(private router: Router, private location: Location, private route: ActivatedRoute) {
+  constructor(private router: Router, private location: Location, private route: ActivatedRoute,
+    private apolloService: ApolloService, private toastMessage: ToastMessageService) {
     this.routerState = this.router.getCurrentNavigation()?.extras.state;
 
     if (this.routerState == undefined) {
@@ -46,17 +50,34 @@ export class ProductDetailComponent {
       this.getProductDetail()
     }
     this.userData = JSON.parse(sessionStorage.getItem('userData')!)
-    this.routerState.productImages.forEach((item: any) => {
-      this.productImages.push(item)
-    })
-    this.currentImage = this.productImages[this.currentImageIndex];
   }
 
   routeBack() {
     this.location.back();
   }
 
-  getProductDetail() { }
+  getProductDetail() {
+    let data = {
+      productId: this.routerState._id,
+    }
+    console.log("data", data)
+    this.apolloService.mutate(GQLConfig.getProductDetail, data).subscribe(res => {
+      if (res.data != null) {
+        if (res.data.getProductDetail.status == 200) {
+          this.productDetail = res.data.getProductDetail.data.product;
+          console.log(this.productDetail)
+          this.productDetail.productImages.forEach((item: any) => {
+            this.productImages.push(item)
+          })
+          this.currentImage = this.productImages[this.currentImageIndex];
+          this.toastMessage.success(res.data.getProductDetail.message)
+        }
+        else {
+          this.toastMessage.error(res.data.getProductDetail.message)
+        }
+      }
+    })
+  }
 
   prevImage() {
     if (this.currentImageIndex > 0) {
@@ -102,9 +123,8 @@ export class ProductDetailComponent {
   reviewForm() {
     this.showReviewForm = true;
   }
-
   submitReview(reviews: string) {
-    // console.log("reviews", reviews)
+    console.log("reviews", reviews)
     this.reviews = '';
   }
 

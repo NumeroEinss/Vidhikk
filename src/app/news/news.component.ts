@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ApolloService } from '../shared/services/apollo.service';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
+import { imageUrl } from '../graphql.module';
 
 @Component({
   selector: 'app-news',
@@ -102,6 +103,7 @@ export class NewsComponent {
     this._apolloService.get(`/news?page=${page}&pageSize=${this.pageSizeLegal}`).subscribe(data => {
       if (data.status == 'success') {
         this.newsListLegal = data.data.items;
+        // console.log(this.newsListLegal, 'Legal News');
         this.recordCountLegal = data.data.totalCount;
       }
     })
@@ -153,9 +155,16 @@ export class NewsComponent {
       case 'hindustan_times':
         val = "Hindustan Times";
         break;
+      case 'bar_bench':
+        val = "Bar and Bench";
+        break;
       default:
         break;
     }
     return val;
+  }
+
+  getImageUrl(image: any) {
+    return imageUrl() + image;
   }
 }

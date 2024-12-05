@@ -4,6 +4,8 @@ import { GQLConfig } from '../graphql.operations';
 import { ApolloService } from '../shared/services/apollo.service';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { imageUrl } from '../graphql.module';
+import { Subject } from 'rxjs/internal/Subject';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-marketplace',
@@ -12,10 +14,13 @@ import { imageUrl } from '../graphql.module';
 })
 export class MarketplaceComponent {
   selectedProduct: string = '';
-  productsDetailList: any;
+  productList: any;
   defaultProductLength = 20;
   serachProduct: string = '';
-  filteredProduct:any=[];
+  filteredProduct: any = [];
+
+  searchSubject = new Subject<string>();
+  searchProductValue = '';
 
   @HostListener('window:resize', ['$event'])
 
@@ -41,7 +46,13 @@ export class MarketplaceComponent {
 
   ngOnInit() {
     this.updateProductNameLength();
+    this.searchSubject.pipe(debounceTime(300)).subscribe((search:any) => this.searchProduct(search));
   }
+
+  onSearchChange(value: string) {
+    this.searchSubject.next(value);
+  }
+  
 
   onResize() {
     this.updateProductNameLength();
@@ -57,19 +68,15 @@ export class MarketplaceComponent {
     }
   }
 
-  searchProduct(){
-    this.apolloService.mutate(GQLConfig.searchProduct, {search: this.serachProduct}).subscribe(data => {
-      if (data.data != null) {
-        if (data.data.searchProduct.status == 200) {
-          this.productsDetailList = []
-          this.productsDetailList = data.data.searchProduct.data.data
-          this.toastMessage.success(data.data.searchProduct.message);
-        }
-        else {
-          this.toastMessage.error(data.data.searchProduct.message);
-        }
+  searchProduct(search: string) {
+    this.apolloService.mutate(GQLConfig.searchProduct, { search }).subscribe(data => {
+      if (data.data.searchProduct.status === 200) {
+        this.productList = data.data.searchProduct.data.data;
+        this.toastMessage.success(data.data.searchProduct.message);
+      } else {
+        this.toastMessage.error(data?.data?.searchProduct?.message);
       }
-    })
+    });
   }
 
   getImageUrl(image: any) {
@@ -80,8 +87,8 @@ export class MarketplaceComponent {
     this.apolloService.mutate(GQLConfig.getProductList).subscribe(data => {
       if (data.data != null) {
         if (data.data.getProductList.status == 200) {
-          this.productsDetailList = data.data.getProductList.data.data;
-          console.log('List', this.productsDetailList)
+          this.productList = data.data.getProductList.data.data;
+          console.log('List', this.productList)
           this.toastMessage.success(data.data.getProductList.message);
         }
         else {

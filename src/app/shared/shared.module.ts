@@ -68,7 +68,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     SubscriptionPlanComponent,
     QrModalComponent,
     HighlightOnSearchPipe,
-    YearPickerComponent
+    YearPickerComponent,
   ],
   providers: [AuthService, shareIcons()]
 })

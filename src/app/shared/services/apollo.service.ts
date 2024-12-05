@@ -125,7 +125,6 @@ export class ApolloService {
     let obj: any = {};
 
     files.forEach((element: any, index: number) => {
-      console.log(index.toString());
       obj[index] = [`variables.files.${index}`];
     })
 

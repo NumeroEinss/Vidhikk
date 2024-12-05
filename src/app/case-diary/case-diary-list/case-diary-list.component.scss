@@ -193,6 +193,14 @@
   }
 
   // list-style ends
+
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+  }
 }
 
 
@@ -310,6 +318,7 @@
       .case-diary-header-menu {
         flex-wrap: wrap;
         gap: 15px;
+
         .filter-section {
           margin-right: 5px;
           font-size: 12px;
@@ -321,6 +330,7 @@
           .mat-mdc-form-field {
             width: 110px !important;
           }
+
           .mat-mdc-select-trigger {
             padding: 10px 10px 7px 0px !important;
           }

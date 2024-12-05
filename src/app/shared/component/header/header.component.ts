@@ -21,6 +21,7 @@ export class HeaderComponent implements AfterViewInit {
   isSidebarOpen: boolean = false;
   userData: any;
   qrData: string = "My Vidhik";
+  transactionId: any = "";
 
   @Input() menuName: string = "";
   @Input() searchStyle = { width: '0px', display: 'none' };
@@ -28,7 +29,7 @@ export class HeaderComponent implements AfterViewInit {
   @Input() colConfig: string = "col-lg-8 col-md-8";
   onDestroy$: Subject<void> = new Subject();
 
-  constructor(private _router: Router, private _location: Location, private _authService: AuthService,
+  constructor(private _router: Router, private _location: Location, public _authService: AuthService,
     private _http: HttpClient, private renderer: Renderer2, private elementRef: ElementRef, private _apolloService: ApolloService) {
     this.sub$ = this._authService.profileImageSubject.asObservable()
       .pipe(takeUntil(this.onDestroy$))
@@ -37,8 +38,7 @@ export class HeaderComponent implements AfterViewInit {
       });
     this.getNotificationList();
     this.userType = this._router.url.split('/')[1];
-    this.userData = JSON.parse(sessionStorage.getItem('userData')!)
-
+    this.userData = JSON.parse(sessionStorage.getItem('userData')!);
     this.renderer.listen('document', 'click', (event: Event) => this.onDocumentClick(event));
   }
 
@@ -54,11 +54,12 @@ export class HeaderComponent implements AfterViewInit {
   }
 
   getQrData() {
-    this._apolloService.post('/payment/make-payment').subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
       if (objRes != null) {
         // console.log(objRes, "ObjRessssss")
         if (objRes.status == 'success') {
-          this.qrData = objRes.data;
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
         }
       }
     })

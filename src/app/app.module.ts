@@ -26,6 +26,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { environment } from '../enviroments/enviroment';
+import { SubscriptionService } from './shared/services/subscription.service';
 
 @NgModule({
     declarations: [
@@ -55,6 +56,7 @@ import { environment } from '../enviroments/enviroment';
         AuthService,
         ApolloService,
         ToastMessageService,
+        SubscriptionService,
         { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

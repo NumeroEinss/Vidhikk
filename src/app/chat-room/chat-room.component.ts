@@ -233,8 +233,8 @@ export class ChatRoomComponent {
 
   ngAfterContentInit() {
     this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
-    let element = document.getElementById('modalButton2') as HTMLElement;
-    element.click();
+    // let element = document.getElementById('modalButton2') as HTMLElement;
+    // element.click();
     this.roomList[0].className = 'colored-border-label';
     this.selectedChatRoom = this.roomList[0];
   }
@@ -271,7 +271,7 @@ export class ChatRoomComponent {
     })
   }
 
-  openChat(selectedChatRoom: any){
+  openChat(selectedChatRoom: any) {
     this.addMemberList = [];
     this.selectedChatRoom = selectedChatRoom;
 
@@ -290,14 +290,14 @@ export class ChatRoomComponent {
     element.style.height = 'calc(100vh - 100px)';
     element.style.top = '83px';
     element.style.position = 'absolute';
-    element.style.zIndex = '1';  
+    element.style.zIndex = '1';
   }
 
-  closeChat(){
+  closeChat() {
     let element = document.getElementById('chatSection') as HTMLElement;
     element.style.height = '0';
     element.style.position = 'absolute';
-    element.style.zIndex = '-1';  
+    element.style.zIndex = '-1';
 
     let element1 = document.getElementById('groupList') as HTMLElement;
     element1.style.height = '100vh';
