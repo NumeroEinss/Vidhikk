@@ -690,7 +690,7 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static updateLawyerProfile = gql`mutation($lawyerId: String, $email: String, $primaryContact: String, $coreCompetency: String) {
+    static updateProfile = gql`mutation($lawyerId: String, $email: String, $primaryContact: String, $coreCompetency: String) {
         updateProfile(input: {
          lawyerId: $lawyerId
          email: $email

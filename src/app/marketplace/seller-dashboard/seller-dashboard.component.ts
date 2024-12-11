@@ -120,6 +120,12 @@ export class SellerDashboardComponent {
     this.fileUploaded = false;
   }
 
+  adjustHeight(event: Event): void {
+    const textarea = event.target as HTMLTextAreaElement;
+    // textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }
+
   getSellerDetail() {
     let data = {
       sellerId: this.userData._id
@@ -235,13 +241,11 @@ export class SellerDashboardComponent {
     this.editProductForm.controls.productName.patchValue(detail.productName);
     this.editProductForm.controls.productDescription.patchValue(detail.productDescription);
     this.editProductForm.controls.productPrice.patchValue(detail.price);
-    this.editPreviewImages = []
+    this.editPreviewImages = [];
     detail.productImages.forEach((img: any) => {
       this.editPreviewImages.push(img);
     })
-    console.log(this.editPreviewImages)
-    this.editFiles = [...this.files];
-    console.log("this.editFiles at patch", this.editFiles)
+    console.log("this.editFiles at patch", this.editPreviewImages)
   }
 
   removeImage(file: any, index: number) {
@@ -269,10 +273,10 @@ export class SellerDashboardComponent {
           "files": []
         }
       }
+      this.editPreviewImages = [this.editPreviewImages, ...this.files];
+      console.log( this.editPreviewImages)
 
-      console.log(this.editFiles)
-
-      this.apolloService.uploadMultiple(mutation, this.editFiles).subscribe(objRes => {
+      this.apolloService.uploadMultiple(mutation, this.files).subscribe(objRes => {
         if (objRes.data != null) {
           this.toastMessage.success(objRes.data.UpdateProduct.message);
           let closeEditProduct = document.getElementById('closeEditProductModal') as HTMLElement;

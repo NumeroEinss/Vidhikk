@@ -199,6 +199,11 @@
     .email {
       color: #64748B;
     }
+
+    .plan{
+      margin-top: 10px;
+      color: #64748B;
+    }
   }
 
   li {
@@ -481,6 +486,10 @@ body .modal-dialog .modal-header {
       // .add-button {
       //   margin-right: 5px !important;
       // }
+
+      .user-details{
+        display: none;
+      }
   
       .profile-container {
         width: 35px !important;

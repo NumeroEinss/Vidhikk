@@ -84,7 +84,8 @@
                     [ngClass]="{'colored-heading': isListingShow, 'default-heading': !isListingShow}">
                     Listing</div>
                 <div (click)="toggleReview()"
-                    [ngClass]="{'colored-heading': isReviewShow, 'default-heading': !isReviewShow}"  *ngIf="userData.userType == 'LAWYER'">
+                    [ngClass]="{'colored-heading': isReviewShow, 'default-heading': !isReviewShow}"
+                    *ngIf="userData.userType == 'LAWYER'">
                     Reviews</div>
             </div>
 
@@ -119,30 +120,34 @@
                 <div class="review-btn" *ngIf="!showReviewForm"><button mat-raised-button color="primary"
                         (click)="reviewForm()">Write a Review</button></div>
 
-                <form [formGroup]="ratingForm">
+                <form [formGroup]="sellerRatingForm">
                     <div class="review-form" *ngIf="showReviewForm">
                         <div style="color: black;">Add Star Rating</div>
                         <!-- <div class="star-content mt-1"><star-rating [starType]="'svg'" [rating]="3"></star-rating></div> -->
 
                         <div class="d-flex mt-5">
                             <div class="parameter-basic">Customer Service</div>
-                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5" [showHalfStars]="true"
-                               (starClickChange)="onClick('customerService', $event)"></star-rating></div>
+                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5"
+                                    [showHalfStars]="true"
+                                    (starClickChange)="onClick('customerService', $event)"></star-rating></div>
                         </div>
                         <div class="d-flex  mt-1">
                             <div class="parameter-basic">Product/Service Quality</div>
-                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5" [showHalfStars]="true"
-                                (starClickChange)="onClick('productQuality', $event)"></star-rating></div>
+                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5"
+                                    [showHalfStars]="true"
+                                    (starClickChange)="onClick('productQuality', $event)"></star-rating></div>
                         </div>
                         <div class="d-flex mt-1">
                             <div class="parameter-basic">Communication</div>
-                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5" [showHalfStars]="true"
-                                (starClickChange)="onClick('communication', $event)"></star-rating></div>
+                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5"
+                                    [showHalfStars]="true"
+                                    (starClickChange)="onClick('communication', $event)"></star-rating></div>
                         </div>
                         <div class="d-flex mt-1">
                             <div class="parameter-basic">Shipping/Handling Time</div>
-                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5" [showHalfStars]="true"
-                                (starClickChange)="onClick('shippingHandling', $event)"></star-rating></div>
+                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5"
+                                    [showHalfStars]="true"
+                                    (starClickChange)="onClick('shippingHandling', $event)"></star-rating></div>
                         </div>
 
                         <div class="mt-5" style="color: black;">Add Review</div>
@@ -168,15 +173,12 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="post-time">{{review.createdAt | date}}</div>
                     </div>
-
                     <div class="description">{{review.review}}</div>
                     <hr class="horizontal-line">
                 </div>
             </div>
-
         </ng-scrollbar>
     </div>
 </div>

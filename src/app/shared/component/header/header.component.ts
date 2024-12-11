@@ -113,6 +113,7 @@ export class HeaderComponent implements AfterViewInit {
       if (data != null) {
         if (data.status == 200) {
           this.notifications = data.data;
+          console.log(this.notifications)
           if (this.notifications.length == 0) {
             this.notifications = [{
               title: "No Notifications",

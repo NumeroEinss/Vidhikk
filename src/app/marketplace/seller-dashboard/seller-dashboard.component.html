@@ -206,8 +206,13 @@
 
                         <mat-label class="mat-label mt-2 mb-1">Product Description</mat-label>
                         <mat-form-field appearance="outline" class="textArea">
-                            <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                formControlName="productDescription" required rows="3" minlength="10"></textarea>
+                            <div style="height: calc(100vh - 685px); margin-bottom: 10px;">
+                                <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+                                    <textarea id="text-area" type="text" matInput placeholder="Enter description"
+                                    (input)="adjustHeight($event)" style="overflow: hidden;"
+                                        formControlName="productDescription" minlength="10" rows="3" required></textarea>
+                                </ng-scrollbar>
+                            </div>
                             <mat-error
                                 *ngIf="addProductForm.controls['productDescription'].hasError('required')">Description
                                 is Required</mat-error>
@@ -333,6 +338,7 @@
                             <div style="height: calc(100vh - 685px); margin-bottom: 10px;">
                                 <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                                     <textarea id="text-area" type="text" matInput placeholder="Enter description"
+                                    (input)="adjustHeight($event)" style="overflow: hidden;"
                                         formControlName="productDescription" minlength="10" required></textarea>
                                 </ng-scrollbar>
                             </div>
@@ -361,12 +367,6 @@
                                     accept="image/*" multiple>
                                 <div class="add-picture" (click)="editFileInput.click()">+</div>
                             </div>
-                            <!-- <div class="mt-3" *ngIf="fileUploaded == true">
-                                <div class="selected-files">
-                                    Selected File: <span *ngFor="let file of files, let last = last">{{ file.name }}
-                                        {{!last ?', ' : '' }}</span>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="selected-image">
                             <div class="image-preview">
@@ -377,7 +377,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="selected-image">
+                        <!-- <div class="selected-image">
                             <div class="image-preview">
                                 <div *ngFor="let file of previewImages; index as i" class="image-wrapper">
                                     <img [src]="file" alt="Selected-Image">
@@ -385,7 +385,7 @@
                                             src="../../../assets/images/icons/close_button.svg" alt=""></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="mt-4 mb-3 filter-btn">
                             <button mat-raised-button color="primary"
                                 style="width: fit-content !important; padding: 12px 36px" (click)="updateProduct()">

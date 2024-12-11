@@ -105,8 +105,9 @@
                 ,this.src='../../assets/images/image/person.jpg'">
     </div>
     <div class="text">
-      <div>{{userData.name}}</div>
+      <div class="d-flex">{{userData.name}}</div>
       <div class="email">{{userData.email}}</div>
+      <div class="plan">{{userData.activePlan}}</div>
     </div>
   </div>
   <div class="scrollbar" *ngIf="userData.userType === 'LAWYER'">

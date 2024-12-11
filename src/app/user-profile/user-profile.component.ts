@@ -85,12 +85,9 @@ export class UserProfileComponent {
       .subscribe(data => {
         this.displayImage = imageUrl() + data;
       });
-
     this.getCitiesList();
-    this.getSellerProfile()
-
+    // this.getSellerProfile()
     this.getQrData();
-
     this.getPlanList();
   }
 
@@ -126,7 +123,6 @@ export class UserProfileComponent {
       this.cities = data;
     })
   }
-
 
   addShadow(type: any) {
     let element1 = document.getElementById("password&security") as HTMLElement;
@@ -207,120 +203,237 @@ export class UserProfileComponent {
     this._authService.logout();
   }
 
-  userImageChange(event: any) {
+  // userImageChange(event: any) {
+  //   const reader = new FileReader();
+  //   reader.onload = async (e) => {
+  //     if (this.userType == "lawyer") {
+  //       this.userImage = event.target.files[0];
+  //       let uploaded = await this.uploadImage();
+  //       if (uploaded == true) {
+  //         this.displayImage = e.target?.result;
+  //       }
+  //     }
+  //     else if (this.userType == "user") {
+  //       this.userImage = event.target.files[0];
+  //       let uploaded = await this.uploadImage();
+  //       if (uploaded == true) {
+  //         this.displayImage = e.target?.result;
+  //       }
+  //     }
+  //     else if (this.userType == "judge") {
+  //       this.userImage = event.target.files[0];
+  //       let uploaded = await this.uploadImage();
+  //       if (uploaded == true) {
+  //         this.displayImage = e.target?.result;
+  //       }
+  //     }
+  //     else if (this.userType == "seller") {
+  //       this.userImage = event.target.files[0];
+  //       let uploaded = await this.uploadImage();
+  //       if (uploaded == true) {
+  //         this.displayImage = e.target?.result;
+  //       }
+  //     }
+  //   }
+  //   reader.readAsDataURL(event.target.files[0]);
+  // }
+
+  // async uploadImage(): Promise<Boolean> {
+  //   let mutation = {}
+  //   if(this.userType === 'lawyer'){
+  //     mutation = {
+  //       "query": "mutation ($input: AdvocateProfile!, $file: Upload) { updateProfilePicture(input: $input, file: $file) { status message data } }",
+  //       "variables": {
+  //         "input": {
+  //           "userType": this.userData.userType,
+  //           "lawyerId": this.userData._id
+  //         },
+  //         "file": null
+  //       }
+  //     }
+  //   }else if(this.userType === 'seller'){
+  //     mutation = {
+  //       "query": "mutation ($input: SellerProfile!, $file: Upload) { updateSellerProfilePic(input: $input, file: $file) { status message data } }",
+  //       "variables": {
+  //         "input": {
+  //           "userType": this.userData.userType,
+  //           "sellerId": this.userData._id
+  //         },
+  //         "file": null
+  //       }
+  //   }
+  // }
+  // try {
+  //   let objRes: any = await lastValueFrom(this._apolloService.upload(mutation, this.userImage, "0"));
+  //   if (objRes.data) {
+  //     if(this.userType === 'seller'){
+
+  //     }
+  //     this._toastMessage.success(objRes.data.updateSellerProfilePic.message);
+  //     this._authService.updateProfile(objRes.data.updateSellerProfilePic.data)
+  //     return true;
+  //   } else {
+  //     this._toastMessage.error(objRes.data.updateSellerProfilePic.message);
+  //     return false;
+  //   }
+  // } catch (error: any) {
+  //   this._toastMessage.error('Error uploading image');
+  //   return false;
+  // }
+  // }
+
+  async userImageChange(event: any) {
     const reader = new FileReader();
+    const file = event.target.files[0];
+
     reader.onload = async (e) => {
-      if (this.userType == "lawyer") {
-        this.userImage = event.target.files[0];
-        let uploaded = await this.uploadImage();
-        if (uploaded == true) {
-          this.displayImage = e.target?.result;
-        }
+      this.userImage = file;
+      const uploaded = await this.uploadImage();
+      if (uploaded) {
+        this.displayImage = e.target?.result;
       }
-      else if (this.userType == "user") {
-        this.userImage = event.target.files[0];
-        let uploaded = await this.uploadImage();
-        if (uploaded == true) {
-          this.displayImage = e.target?.result;
-        }
-      }
-      else if (this.userType == "judge") {
-        this.userImage = event.target.files[0];
-        let uploaded = await this.uploadImage();
-        if (uploaded == true) {
-          this.displayImage = e.target?.result;
-        }
-      }
-      else if (this.userType == "seller") {
-        this.userImage = event.target.files[0];
-        let uploaded = await this.uploadImage();
-        if (uploaded == true) {
-          this.displayImage = e.target?.result;
-        }
-      }
-    }
-    reader.readAsDataURL(event.target.files[0]);
+    };
+
+    reader.readAsDataURL(file);
   }
 
-  async uploadImage(): Promise<Boolean> {
-    let mutation = {}
-    if(this.userType === 'lawyer'){
-      mutation = {
-        "query": "mutation ($input: AdvocateProfile!, $file: Upload) { updateProfilePicture(input: $input, file: $file) { status message data } }",
-        "variables": {
-          "input": {
-            "userType": this.userData.userTyp,
-            "lawyerId": this.userData._id
+  async uploadImage(): Promise<boolean> {
+    let mutation;
+    let variables;
+
+    switch (this.userType) {
+      case 'lawyer':
+        mutation = `
+          mutation ($input: AdvocateProfile!, $file: Upload) {
+            updateProfilePicture(input: $input, file: $file) {
+              status
+              message
+              data
+            }
+          }
+        `;
+        variables = {
+          input: {
+            userType: this.userData.userType,
+            lawyerId: this.userData._id,
           },
-          "file": null
-        }
-      }
-    }else if(this.userType === 'seller'){
-      mutation = {
-        "query": "mutation ($input: SellerProfile!, $file: Upload) { updateSellerProfilePic(input: $input, file: $file) { status message data } }",
-        "variables": {
-          "input": {
-            "userType": this.userData.userType,
-            "sellerId": this.userData._id
+          file: null,
+        };
+        break;
+
+      case 'user':
+        mutation = `
+          mutation ($input: UserProfile!, $file: Upload) {
+            updateUserProfilePicture(input: $input, file: $file) {
+              status
+              message
+              data
+            }
+          }
+        `;
+        variables = {
+          input: {
+            userType: this.userData.userType,
+            userId: this.userData._id,
           },
-          "file": null
-        }
+          file: null,
+        };
+        break;
+
+      case 'judge':
+        mutation = `
+          mutation ($input: JudgeProfile!, $file: Upload) {
+            updateJudgeProfilePicture(input: $input, file: $file) {
+              status
+              message
+              data
+            }
+          }
+        `;
+        variables = {
+          input: {
+            userType: this.userData.userType,
+            judgeId: this.userData._id,
+          },
+          file: null,
+        };
+        break;
+
+      case 'seller':
+        mutation = `
+          mutation ($input: SellerProfile!, $file: Upload) {
+            updateSellerProfilePic(input: $input, file: $file) {
+              status
+              message
+              data
+            }
+          }
+        `;
+        variables = {
+          input: {
+            userType: this.userData.userType,
+            sellerId: this.userData._id,
+          },
+          file: null,
+        };
+        break;
+
+      default:
+        this._toastMessage.error('Invalid user type');
+        return false;
     }
-  }
-  try {
-    let objRes: any = await lastValueFrom(this._apolloService.upload(mutation, this.userImage, "0"));
-    if (objRes.data) {
-      this._toastMessage.success(objRes.data.updateSellerProfilePic.message);
-      this._authService.updateProfile(objRes.data.updateSellerProfilePic.data)
-      return true;
-    } else {
-      this._toastMessage.error(objRes.data.updateSellerProfilePic.message);
+
+    try {
+      const objRes: any = await lastValueFrom(this._apolloService.upload({ query: mutation, variables }, this.userImage, "0"));
+      const resultKey = this.getResultKeyForUserType();
+
+      if (objRes.data && objRes.data[resultKey]) {
+        this._toastMessage.success(objRes.data[resultKey].message);
+        this._authService.updateProfile(objRes.data[resultKey].data);
+        return true;
+      } else {
+        this._toastMessage.error(objRes.data[resultKey]?.message || 'Upload failed');
+        return false;
+      }
+    } catch (error: any) {
+      this._toastMessage.error('Error uploading image');
       return false;
     }
-  } catch (error: any) {
-    this._toastMessage.error('Error uploading image');
-    return false;
-  }
   }
 
-  getSellerProfile() {
-    let data = {
-      sellerId: this.userData._id
+  getResultKeyForUserType(): string {
+    switch (this.userType) {
+      case 'lawyer':
+        return 'updateProfilePicture';
+      case 'user':
+        return 'updateUserProfilePicture';
+      case 'judge':
+        return 'updateJudgeProfilePicture';
+      case 'seller':
+        return 'updateSellerProfilePic';
+      default:
+        return '';
     }
-    this._apolloService.mutate(GQLConfig.sellerProfile, data).subscribe((data: any) => {
-      if (data.data != null) {
-        if (data.data.sellerProfile.status == 200) {
-          this.sellerProfileList = data.data.sellerProfile.data;
-          console.log('list', this.sellerProfileList )
-          this._toastMessage.message(data.data.sellerProfile.message);
-        }
-        else {
-          this._toastMessage.error(data.data.sellerProfile.message);
-        }
-      }
-    })
   }
 
-  patchUserDetail() {
-    let userData = JSON.parse(sessionStorage.getItem('userData')!);
 
-    if (this.userType === 'lawyer') {
-      this.lawyerEditProfileForm.controls.email.patchValue(userData.email);
-      this.lawyerEditProfileForm.controls.coreCompetency.patchValue(userData.coreCompetency);
-      this.lawyerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
-      this.mobileOtpVerified = true;
-      this.emailOtpVerified = true;
-    } else if (this.userType === 'seller') {
-      this.sellerEditProfileForm.controls.name.patchValue(userData.name);
-      this.sellerEditProfileForm.controls.city.patchValue(userData.city);
-      this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber || userData.primaryContact);
-      this.sellerEditProfileForm.controls.email.patchValue(userData.email);
-      // this.sellerEditProfileForm.controls.fileDisplay.patchValue(userData.profileImage);
-      // this.mobileOtpVerified = true;
-      // this.emailOtpVerified = true;
-    }
-
-  }
+  // getSellerProfile() {
+  //   let data = {
+  //     sellerId: this.userData._id
+  //   }
+  //   this._apolloService.mutate(GQLConfig.sellerProfile, data).subscribe((data: any) => {
+  //     if (data.data != null) {
+  //       if (data.data.sellerProfile.status == 200) {
+  //         this.sellerProfileList = data.data.sellerProfile.data;
+  //         console.log('list', this.sellerProfileList )
+  //         this._toastMessage.message(data.data.sellerProfile.message);
+  //       }
+  //       else {
+  //         this._toastMessage.error(data.data.sellerProfile.message);
+  //       }
+  //     }
+  //   })
+  // }
 
   mobileNumberChanged() {
     this.mobileOtpVerified = false;
@@ -563,26 +676,41 @@ export class UserProfileComponent {
     })
   }
 
-  updateProfile() {
-    let data = {}
-    if (this.userType == 'lawyer') {
-      data = {
-        lawyerId: this.userData._id,
-        email: this.lawyerEditProfileForm.controls.email.value,
-        primaryContact: this.lawyerEditProfileForm.controls.phoneNumber.value,
-        coreCompetency: this.lawyerEditProfileForm.controls.coreCompetency.value
-      }
+  patchUserDetail() {
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
+
+    if (this.userType === 'lawyer') {
+      this.lawyerEditProfileForm.controls.email.patchValue(userData.email);
+      this.lawyerEditProfileForm.controls.coreCompetency.patchValue(userData.coreCompetency);
+      this.lawyerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
+      this.mobileOtpVerified = true;
+      this.emailOtpVerified = true;
+    } else if (this.userType === 'seller') {
+      this.sellerEditProfileForm.controls.name.patchValue(userData.name);
+      this.sellerEditProfileForm.controls.city.patchValue(userData.city);
+      this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber || userData.primaryContact);
+      this.sellerEditProfileForm.controls.email.patchValue(userData.email);
+      // this.mobileOtpVerified = true;
+      // this.emailOtpVerified = true;
     }
-    else if (this.userType == 'user') {
-      data = {}
+
+  }
+
+  updateLawyerProfile() {
+    let data = {
+      lawyerId: this.userData._id,
+      email: this.lawyerEditProfileForm.controls.email.value,
+      primaryContact: this.lawyerEditProfileForm.controls.phoneNumber.value,
+      coreCompetency: this.lawyerEditProfileForm.controls.coreCompetency.value
     }
-    this._apolloService.mutate(GQLConfig.updateLawyerProfile, data).subscribe(objRes => {
+    this._apolloService.mutate(GQLConfig.updateProfile, data).subscribe(objRes => {
       if (objRes.data != null) {
-        if (objRes.data.updateLawyerProfile.status == 200) {
-          this._toastMessage.message(objRes.data.updateLawyerProfile.message);
+        if (objRes.data.updateProfile.status == 200) {
+          this._toastMessage.message(objRes.data.updateProfile.message);
+          this._authService.updateProfile(objRes.data.updateProfile.data);
         }
         else {
-          this._toastMessage.error(objRes.data.updateLawyerProfile.message);
+          this._toastMessage.error(objRes.data.updateProfile.message);
         }
       }
     })
@@ -601,7 +729,6 @@ export class UserProfileComponent {
         if (objRes.data.updateSellerProfile.status == 200) {
           this._toastMessage.message(objRes.data.updateSellerProfile.message);
           this.mobileOtpVerified = true;
-          this.getSellerProfile()
         }
         else {
           this._toastMessage.error(objRes.data.updateSellerProfile.message);

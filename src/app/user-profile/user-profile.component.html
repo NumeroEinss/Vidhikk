@@ -36,9 +36,7 @@
           </button>
         </div>
         <div class="description">
-          Core competency lies in law and politics, with extensive experience in
-          constitutional matters, litigation, and strategic policymaking,
-          contributing significantly to legal and political discourse.
+         {{userData.coreCompetency}}
         </div>
         <div class="user-details">
           <div class="row">
@@ -376,38 +374,38 @@
           <div class="d-flex mr-bi">
             <div class="details-container">
               <div class="heading">Name</div>
-              <div class="detail">{{sellerProfileList.name}}</div>
+              <div class="detail">{{userData.name}}</div>
             </div>
 
             <div class="details-container">
               <div class="heading">Location</div>
-              <div class="detail">{{sellerProfileList.address}}</div>
+              <div class="detail">{{userData.address}}</div>
             </div>
           </div>
 
           <div class="d-flex mr-bi">
             <div class="details-container">
               <div class="heading">Mobile</div>
-              <div class="detail">{{sellerProfileList.primaryContact }}<span *ngIf="sellerProfileList.secondaryContact">,</span> {{ sellerProfileList.secondaryContact}}
+              <div class="detail">{{userData.primaryPhoneNumber }}<span *ngIf="userData.secondaryPhoneNumber">,</span> {{ userData.secondaryPhoneNumber}}
                 <span *ngIf="mobileOtpVerified"  [ngClass]="mobileOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span>
               </div>
             </div>
            
             <div class="details-container">
               <div class="heading">Email</div>
-              <div class="detail">{{sellerProfileList.email}} <span *ngIf="emailOtpVerified"  [ngClass]="emailOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span></div> 
+              <div class="detail">{{userData.email}} <span *ngIf="emailOtpVerified"  [ngClass]="emailOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span></div> 
             </div>
           </div>
 
           <div class="d-flex mr-bi">
             <div class="details-container">
               <div class="heading">PAN No.</div>
-              <div class="detail">{{sellerProfileList.panNo}}</div>
+              <div class="detail">{{userData.panNo}}</div>
             </div>
 
             <div class="details-container">
               <div class="heading">GSTIN No.</div>
-              <div class="detail">{{sellerProfileList.gstinNo}}</div>
+              <div class="detail">{{userData.gstinNo}}</div>
             </div>
           </div>
 
@@ -506,7 +504,7 @@
 
           <div class="mt-3 mb-3 filter-btn">
             <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px"
-              data-bs-dismiss="modal" [disabled]="!emailOtpVerified || !mobileOtpVerified">
+              data-bs-dismiss="modal" [disabled]="!emailOtpVerified || !mobileOtpVerified" (click)="updateLawyerProfile()">
               Save
             </button>
             <button mat-stroked-button color="primary" style="
@@ -537,7 +535,7 @@
         <div class="sub-text mt-2 mb-4">
           We sent a 6-digit code to<br /><span class="mobile mt-2">{{ userData.userType ==='LAWYER' ?
             lawyerEditProfileForm.controls.phoneNumber.value : userData.userType ==='SELLER' ?
-            sellerEditProfileForm.controls.phoneNumber.value : userEditProfileForm.controls.phoneNumber.value }}</span>
+            sellerEditProfileForm.controls.phoneNumber.value : userEditProfileForm.controls.mobile.value }}</span>
         </div>
 
         <ng-otp-input #mobileOtpInput (onInputChange)="onMobileOtpChange($event)" [config]="{ length: 6 }" class="mt-2"

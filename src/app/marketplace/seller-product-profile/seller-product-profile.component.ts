@@ -6,6 +6,7 @@ import { GQLConfig } from '../../graphql.operations';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { sellerRatingModel } from '../../common/marketplace.model';
 
 
 @Component({
@@ -22,18 +23,18 @@ export class SellerProductProfileComponent {
   sellerDetail: any = [];
   defaultProductLength = 20;
   reviewList: any = [];
-  customerService: number = 1;
+  customerService: number = 0;
   serviceQuality: number = 0;
   communication: number = 0;
   shipping: number = 0;
-  ratingForm: FormGroup;
+  sellerRatingForm: FormGroup;
   userData: any;
-
 
   constructor(private router: Router, private location: Location, private route: ActivatedRoute,
     private toastMessage: ToastMessageService, private apolloService: ApolloService,
     private fb: FormBuilder
   ) {
+    this.sellerRatingForm = this.fb.group(new sellerRatingModel)
     this.userData = JSON.parse(sessionStorage.getItem('userData')!)
     this.routerState = this.router.getCurrentNavigation()?.extras.state;
     if (this.routerState == undefined) {
@@ -43,15 +44,6 @@ export class SellerProductProfileComponent {
       this.getSellerDetail();
       this.getSellerProductList()
     }
-
-    this.ratingForm = this.fb.group({
-      customerService: new FormControl(0),
-      productQuality: new FormControl(0),
-      communication: new FormControl(0),
-      shippingHandling: new FormControl(0),
-      review: new FormControl(''),
-    });
-
   }
 
   ngOnInit() {
@@ -84,6 +76,7 @@ export class SellerProductProfileComponent {
       if (data.data != null) {
         if (data.data.getSellerRatingList.status == 200) {
           this.sellerDetail = data.data.getSellerRatingList.data.response
+          this.reviewList = [];
           this.sellerDetail.sellerRatingList.forEach((review: any) => {
             this.reviewList.push(review);
           })
@@ -133,36 +126,39 @@ export class SellerProductProfileComponent {
   }
 
   onClick(parameter: string, e: any): void {
-    console.log(parameter, e)
-    this.ratingForm.get(parameter)?.setValue(e);
+    this.sellerRatingForm.get(parameter)?.setValue(e);
   }
 
   submitReview() {
-    let data = {
-      userType: this.userData.userType,
-      sellerId: this.routerState.sellerId,
-      userId: this.userData._id,
-      customerService: parseFloat(this.ratingForm.value.customerService.rating),
-      productQuality: parseFloat(this.ratingForm.value.productQuality.rating),
-      communication: parseFloat(this.ratingForm.value.communication.rating),
-      shippingHandling: parseFloat(this.ratingForm.value.shippingHandling.rating),
-      review: this.ratingForm.controls.review.value,
-    }
-    console.log("review", data)
-
-    this.apolloService.mutate(GQLConfig.createSellerRating, data).subscribe(data => {
-      if (data.data != null) {
-        if (data.data.createSellerRating.status == 200) {
-          this.toastMessage.success(data.data.createSellerRating.message);
-        }
-        else {
-          this.toastMessage.error(data.data.createSellerRating.message);
-        }
+    if (this.sellerRatingForm.controls.review.value == "") {
+      this.toastMessage.error("Plaese add review!!");
+    } else {
+      let data = {
+        userType: this.userData.userType,
+        userId: this.userData._id,
+        customerService: parseFloat(this.sellerRatingForm.value.customerService.rating),
+        productQuality: parseFloat(this.sellerRatingForm.value.productQuality.rating),
+        communication: parseFloat(this.sellerRatingForm.value.communication.rating),
+        shippingHandling: parseFloat(this.sellerRatingForm.value.shippingHandling.rating),
+        review: this.sellerRatingForm.controls.review.value,
       }
-    })
+      console.log(data)
+      this.apolloService.mutate(GQLConfig.createSellerRating, data).subscribe(data => {
+        if (data.data != null) {
+          if (data.data.createSellerRating.status == 200) {
+            this.toastMessage.success(data.data.createSellerRating.message);
+            this.sellerRatingForm.reset('');
+            this.getSellerDetail();
+          }
+          else {
+            this.toastMessage.error(data.data.createSellerRating.message);
+          }
+        }
+      })
+    }
   }
 
   getImageUrl(image: any) {
     return imageUrl() + image;
   }
-}
+} 

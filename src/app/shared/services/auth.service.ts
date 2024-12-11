@@ -99,6 +99,7 @@ export class AuthService {
   }
 
   updateProfile(data: any) {
+    console.log("data", data)
     this.currentUserSubject?.next(data);
     this.profileImageSubject.next('');
     this.profileImageSubject.next(data.profileImage);
