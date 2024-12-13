@@ -53,8 +53,9 @@ export class HeaderComponent implements AfterViewInit {
     // this.getQrData();
   }
 
-  getQrData() {
-    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+  getQrData(e: any) {
+    console.log(e, 'Event')
+    this._apolloService.post('/payment/make-payment', { amount: e }).subscribe(objRes => {
       if (objRes != null) {
         // console.log(objRes, "ObjRessssss")
         if (objRes.status == 'success') {
@@ -146,6 +147,10 @@ export class HeaderComponent implements AfterViewInit {
 
   logout() {
     this._authService.logout();
+  }
+
+  closeQrEvent() {
+    this._router.navigate(['/auth/login']);
   }
 
   ngOnDestroy() {

@@ -262,6 +262,15 @@
                 alt="" /></mat-icon></span>
           <mat-error *ngIf="lawyerForm.controls.licenseNo.hasError('required')">License No. is Required</mat-error>
         </mat-form-field>
+
+        <div class="doc-container" *ngIf="docUploadEnabled">
+          <img class="doc" [src]="lawyerForm.controls.docDisplay.value" />
+          <input type="file" #file accept="image/png, image/jpeg" (change)="docChange($event)" />
+          <div class="doc-input" for="file" (click)="file.click()">
+            <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
+          </div>
+        </div>
+
         <!-- </mat-grid-tile>
                     <mat-grid-tile> -->
         <mat-form-field appearance="outline">

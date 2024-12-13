@@ -7,17 +7,17 @@
         </div>
         <div class="posttext col-lg-6 col-md-6 col-sm-6">
             <div class="search"
-                (click)="searchStyle = { width: '100%', display: 'flex' };searchIcon = { width: '0px', display: 'none' };"
+                (click)="searchStyle = { width: '100%', display: 'flex' };searchIcon = { width: '0px', display: 'none' };openSearch();"
                 [ngStyle]="searchIcon">
                 <img src="../../../assets/images/icons/search-blue.svg" />
             </div>
 
             <div class="searchBox" [ngStyle]="searchStyle">
-                <input type="search" placeholder="Search Here..." [(ngModel)]="searchInput"
-                    (keyup)="filterBareActs($event)" />
+                <input type="search" placeholder="Search Here..." [formControl]="bareActsControl" #searchInput />
                 <img class="cancel" (click)="
             searchStyle = { width: '0px', display: 'none' };
-            searchIcon = { width: 'auto', display: 'block' };" src="../../../../assets/images/icons/cancel.svg" />
+            searchIcon = { width: 'auto', display: 'block' };getBareActs(currentPage)"
+                    src="../../../../assets/images/icons/cancel.svg" />
                 <img class="search" src="../../../../assets/images/icons/search_grey.svg" />
             </div>
         </div>

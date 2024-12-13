@@ -120,6 +120,44 @@
         }
       }
     }
+
+    .doc-container {
+      width: max-content;
+      // height: 80px;
+      border: 1px solid black;
+      border-radius: 10px;
+      position: relative;
+      margin-bottom: 15px;
+
+      input {
+        display: none;
+      }
+
+      .doc {
+        width: 357px;
+        height: 357px;
+        border-radius: 10px;
+      }
+
+      .doc-input {
+        position: absolute;
+        width: 46px;
+        height: 46px;
+        background-color: #2e5bff;
+        border-radius: 50%;
+        bottom: -8px;
+        right: -8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        .camera {
+          width: 26px;
+          height: 26px;
+        }
+      }
+    }
   }
 
   .image-container {

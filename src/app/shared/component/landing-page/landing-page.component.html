@@ -4,10 +4,10 @@
             <div class="main-header">
                 <img src="../../../../assets/images/icons/vidhiklogo.svg" alt="">
                 <div class="d-flex btns">
-                    <button mat-stroked-button color="primary" class="login-btn" data-bs-dismiss="modal">
+                    <button mat-stroked-button color="primary" class="login-btn" data-bs-dismiss="modal" [routerLink]="'/auth/login'">
                         Login
                     </button>
-                    <button mat-raised-button color="primary" class="signup-btn">
+                    <button mat-raised-button color="primary" class="signup-btn" [routerLink]="'/auth/signup'">
                         Signup
                     </button>
                 </div>

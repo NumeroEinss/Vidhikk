@@ -9,6 +9,7 @@ import { ApolloService } from '../../shared/services/apollo.service';
 export class AdvocateSchedulingComponent {
   isNameVisible: boolean = false;
   qrData: string = "Payment For Advocate Scheduling";
+  qrAmount: number = 200;
 
   availabilityList: any = [ // Only slots from current date and after will fall under this.
     {
@@ -201,7 +202,7 @@ export class AdvocateSchedulingComponent {
   }
 
   getQrData() {
-    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: this.qrAmount.toString() + '.00' }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
           this.qrData = objRes.data.url;

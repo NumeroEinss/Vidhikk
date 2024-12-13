@@ -19,7 +19,8 @@ export class PaaymentService {
       // Polling every 5 seconds
       const interval = setInterval(() => {
         this.checkTransactionStatus(transactionId).subscribe(response => {
-          if (response.success) {
+          console.log(response, 'response')
+          if (response.data.trStatus === 'SUCCESS') {
             observer.next(true);  // Success response, stop polling
             observer.complete();
             clearInterval(interval);

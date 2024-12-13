@@ -143,4 +143,26 @@ export class ApolloService {
       }
     });
   }
+
+  uploadLawyer(mutation: any, file: any, docFile: any): Observable<any> {
+    const operations = JSON.stringify(mutation);
+
+    const map = JSON.stringify({
+      ["0"]: ["variables.profileFile"],
+      ["1"]: ["variables.docFile"]
+    });
+
+    const formData = new FormData();
+    formData.append('operations', operations);
+    formData.append('map', map);
+    formData.append("0", file);
+    formData.append("1", docFile)
+
+    return this._http.post(getBaseUrl(), formData, {
+      headers: {
+        'x-apollo-operation-name': 'CreateTicket',
+        "apollo-require-preflight": "true"
+      }
+    });
+  }
 }

@@ -2,14 +2,28 @@
 
 <div class="root" appPreventKeyboardEvents>
   <div class="filter-bar">
-    <div class="pretext col-lg-12 col-md-12">
+    <div class="pretext col-lg-6 col-md-6">
       <img src="../../../assets/images/icons/arrow-left.svg" (click)="routeBack()" />
+    </div>
+    <div class="posttext col-lg-6 col-md-6">
+      <div class="search" (click)="searchStyle = { width: '100%', display: 'flex' };
+      searchIcon = { width: '0px', display: 'none' };" [ngStyle]="searchIcon">
+        <img src="../../../assets/images/icons/search-blue.svg" />
+      </div>
+
+      <div class="searchBox" [ngStyle]="searchStyle">
+        <input type="search" [(ngModel)]="searchTerm" placeholder="Search Here..." (keyup.enter)="higlightOnSearch()" />
+        <img class="cancel" (click)="{ width: '100%', display: 'flex' };
+      searchIcon = { width: '0px', display: 'none' };clearSelection();"
+          src="../../../../assets/images/icons/cancel.svg" />
+        <img class="search" src="../../../../assets/images/icons/search_grey.svg" (click)="higlightOnSearch()" />
+      </div>
     </div>
   </div>
 
   <div class="bare-acts-container">
     <div class="bare-acts-content">
-      <div class="act-heading">{{bareActData.title}}</div>
+      <div class="act-heading">{{bareActData?.title}}</div>
       <div class="d-flex mat-input-white mt-3" style="flex-direction: column">
         <!-- <mat-label class="mat-label mb-1">Section</mat-label>
         <mat-form-field appearance="outline">
@@ -34,7 +48,7 @@
     </div>
 
     <div style="height: calc(100vh - 330px); margin-top: 15px">
-      <ng-scrollbar appearance="standard">
+      <ng-scrollbar #scrollbar appearance="standard">
         <div class="bare-acts-section">
           <div class="title">
             <!-- <span>
@@ -42,7 +56,7 @@
             </span> : {{ list.title }} -->
           </div>
           <div class="detail">
-            <div [innerHTML]="bareActData.contents|safeHTML"></div>
+            <div id="bareActs" [innerHTML]="bareActsDocument|safeHTML"></div>
             <!-- <div>{{ list.detailHeader }}</div>
             <div *ngFor="let item of list.details">{{ item }}</div> -->
           </div>

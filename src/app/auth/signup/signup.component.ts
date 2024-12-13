@@ -82,6 +82,8 @@ export class SignupComponent {
   filteredCourtNames: any[] = [];
   filteredCourtTypes: any[] = [];
 
+  docUploadEnabled: boolean = false;
+
   constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router, private _http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
     this.signupForm = this._fb.group(new SignUpModel());
@@ -220,6 +222,15 @@ export class SignupComponent {
     reader.readAsDataURL(event.target.files[0]);
   }
 
+  docChange(event: any) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.lawyerForm.controls.docFile.patchValue(event.target.files[0]);
+      this.lawyerForm.controls.docDisplay.patchValue(e.target?.result);
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
   onStateChange(selectedState: string) {
     this.filteredDistricts = this.allDistricts.filter(district => district.state === selectedState);
     this.judgeFrmCtrl.currentDistrict.setValue('');
@@ -353,7 +364,7 @@ export class SignupComponent {
             mobile: this.userForm.controls.phoneNumber.value,
             otp: e
           };
-        } 
+        }
         else if (this.userType == "LAWYER") {
           data = {
             email: this.lawyerForm.controls.email.value,
@@ -459,6 +470,9 @@ export class SignupComponent {
     if (this.lawyerForm.value.file == "") {
       this._toastMessage.error("Please add profile image !!");
     }
+    else if (this.docUploadEnabled == true && this.lawyerForm.controls.docFile.value == "") {
+      this._toastMessage.error("Please upload your Identification Proof !!")
+    }
     else if (!this.lawyerForm.valid) {
       this._toastMessage.error("Please Fill all the fields !!");
     }
@@ -473,7 +487,7 @@ export class SignupComponent {
       isLawyerVerified === true ? status = "Approved" : status = "";
 
       const mutation = {
-        "query": "mutation ($input: AdvocateProfile!, $file: Upload) { createLawyers(input: $input, file: $file) { status message data } }",
+        "query": "mutation ($input: AdvocateProfile!, $profileFile: Upload, $docFile:Upload) { createLawyers(input: $input, profileFile: $profileFile, docFile:$docFile) { status message data } }",
         "variables": {
           "input": {
             "userType": this.userType,
@@ -502,18 +516,25 @@ export class SignupComponent {
             "isBarAddressDisplay": this.lawyerForm.controls.isAddressVisible.value,
             "status": status
           },
-          "file": null
+          "profileFile": null,
+          "docFile": null
         }
       }
 
-      this._apolloService.upload(mutation, this.lawyerForm.controls.file.value, "0").subscribe(objRes => {
+      this._apolloService.uploadLawyer(mutation, this.lawyerForm.controls.file.value, this.lawyerForm.controls.docFile.value).subscribe(objRes => {
         if (objRes.data != null) {
-          this._toastMessage.success(objRes.data.createLawyers.message);
+
           if (isLawyerVerified == false) {
-            let btn = document.getElementById('accountVerificationButton') as HTMLElement;
-            btn.click();
+            if (objRes.data.createLawyers.status == 200) {
+              let btn = document.getElementById('accountVerificationButton') as HTMLElement;
+              btn.click();
+            }
+            else {
+              this._toastMessage.error(objRes.data.createLawyers.message);
+            }
           }
           if (isLawyerVerified == true) {
+            this._toastMessage.success(objRes.data.createLawyers.message);
             this._router.navigate(['/auth/login']);
           }
         }
@@ -535,14 +556,14 @@ export class SignupComponent {
     }
     return isVerified;
   }
-  
-  hasGstInNo(){
-     if(this.sellerForm.controls.hasGstin.value == true){
+
+  hasGstInNo() {
+    if (this.sellerForm.controls.hasGstin.value == true) {
       this.sellerForm.controls.hasGstin.addValidators(Validators.required)
-     }
-     else{
+    }
+    else {
       this.sellerForm.controls.hasGstin.removeValidators(Validators.required)
-     }
+    }
   }
 
   sellerSignup() {
@@ -608,6 +629,15 @@ export class SignupComponent {
         break;
       case 'lawyerForm':
         this.lawyerForm.controls.state.patchValue(stateObj.state);
+        if (stateObj.state == 'Madhya Pradesh') {
+          this.docUploadEnabled = false;
+        }
+        else if (stateObj.state == 'Maharashtra') {
+          this.docUploadEnabled = false;
+        }
+        else {
+          this.docUploadEnabled = true;
+        }
         break;
       case 'judgeForm':
         this.judgeForm.controls.state.patchValue(stateObj.state);

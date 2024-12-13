@@ -14,4 +14,6 @@ export class AdvanceSearchModel {
     actType: string = "";
     actTitle: string = "";
     court: string = "";
+    applicant: string = "";
+    bench: string = "";
 };

@@ -12,6 +12,7 @@ import { HighlighterPipe } from '../shared/pipe/highlighter.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SavedCaseLawDetailComponent } from './saved-case-law-detail/saved-case-law-detail.component';
 import { HighlightOnSearchPipe } from '../shared/pipe/highlight-on-search.pipe';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HighlightOnSearchPipe } from '../shared/pipe/highlight-on-search.pipe';
     MaterialModule,
     MatDatepickerModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [HighlighterPipe, HighlightOnSearchPipe, DatePipe]
 })
