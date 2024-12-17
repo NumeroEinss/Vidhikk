@@ -41,7 +41,7 @@
       <div style="height: 200px; width: 400px;">
         <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false" style="height: 100%; width: 100%;">
           <div mat-menu-item *ngFor="let notification of notifications"
-            (click)="notification.notificationType == 'approvalRequest'?openNoification():''">
+            (click)="notification.notificationType == 'approvalRequest'?openNotification():''">
             <div class="notification-content">
               <div class="d-flex w-100" *ngIf="notification.notificationType!='noData'">
                 <div class="image-container">
@@ -105,8 +105,9 @@
                 ,this.src='../../assets/images/image/person.jpg'">
     </div>
     <div class="text">
-      <div>{{userData.name}}</div>
+      <div class="d-flex">{{userData.name}}</div>
       <div class="email">{{userData.email}}</div>
+      <div class="plan">{{userData.activePlan}}</div>
     </div>
   </div>
   <div class="scrollbar" *ngIf="userData.userType === 'LAWYER'">

@@ -5,6 +5,8 @@ import { imageUrl } from '../../graphql.module';
 import { GQLConfig } from '../../graphql.operations';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { ApolloService } from '../../shared/services/apollo.service';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { sellerRatingModel } from '../../common/marketplace.model';
 
 
 @Component({
@@ -17,113 +19,30 @@ export class SellerProductProfileComponent {
   isListingShow: boolean = true;
   isReviewShow: boolean = false;
   showReviewForm: boolean = false;
-  reviews: string = '';
-  productsDetail: any;
+  productList: any;
+  sellerDetail: any = [];
   defaultProductLength = 20;
-
-  // productsDetail = [
-  //   {
-  //     productId: '1',
-  //     like: 'true',
-  //     image: '../../assets/images/image/coat.png',
-  //     multipleImages: ['../../assets/images/image/coat.png', '../../assets/images/image/coat.png'],
-  //     productName: 'Advocates Coat and gown',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Sandeep Agal',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'sandeep@gmail.com',
-  //     sellerAddress: 'Indore, M.P',
-  //     sellerMemberShipfrom: 'Member since Apr 2015',
-  //     disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-  //     price: '1110 Rs'
-  //   },
-  //   {
-  //     productId: '2',
-  //     like: 'true',
-  //     image: '../../assets/images/image/collar_band.png',
-  //     multipleImages: ['../../assets/images/image/collar_band.png'],
-  //     productName: 'Advocates Collar Band',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Saurabh Verma',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'saurabh@gmail.com',
-  //     sellerAddress: 'Indore, M.P',
-  //     sellerMemberShipfrom: 'Member since Apr 2015',
-  //     disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-  //     price: '190 Rs'
-  //   },
-  //   {
-  //     productId: '3',
-  //     like: 'false',
-  //     image: '../../assets/images/image/breifcase.png',
-  //     multipleImages: ['../../assets/images/image/breifcase.png', '../../assets/images/image/breifcase.png'],
-  //     productName: 'Advocates Breifcase',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Preeti jain',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'preeti@gmail.com',
-  //     sellerMemberShipfrom: 'Member since Apr 2015',
-  //     disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-  //     sellerAddress: 'Indore, M.P',
-  //     price: '4999 Rs'
-  //   },
-  //   {
-  //     productId: '4',
-  //     like: 'true',
-  //     image: '../../assets/images/image/table.png',
-  //     multipleImages: ['../../assets/images/image/table.png', '../../assets/images/image/table.png'],
-  //     productName: 'Advocates table',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Sandeep Agal',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'sandeep@gmail.com',
-  //     sellerAddress: 'Indore, M.P',
-  //     sellerMemberShipfrom: 'Member since Apr 2015',
-  //     disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-  //     price: '1110 Rs'
-  //   },
-  //   {
-  //     productId: '5',
-  //     like: 'false',
-  //     image: '../../assets/images/image/blazzer.png',
-  //     multipleImages: ['../../assets/images/image/blazzer.png', '../../assets/images/image/blazzer.png'],
-  //     productName: 'Advocates Blazzer',
-  //     sellerImage: '../../assets/images/image/person.jpg',
-  //     sellerName: 'Saurabh Verma',
-  //     sellerMobileNo: '9876543120',
-  //     sellerEmail: 'saurabh@gmail.com',
-  //     sellerAddress: 'Indore, M.P',
-  //     sellerMemberShipfrom: 'Member since Apr 2015',
-  //     disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-  //     price: '190 Rs'
-  //   },
-  // ];
-
-  reviewList = [
-    {
-      profileImage: '../../assets/images/image/person.jpg',
-      name: 'Anil Soni',
-      postTime: '1 days ago',
-      review: 'A top criminal defense and personal injury lawyer who knows how to fight smart and strategically to get the best possible results. A top criminal defense and personal injury lawyer who knows how to fight smart and strategically to get the best possible results.'
-    },
-    {
-      profileImage: '../../assets/images/image/person.jpg',
-      name: 'Deepak Kumar',
-      postTime: '3 days ago',
-      review: 'A top defense and personal injury lawyer who knows how to fight smart and strategically to get the best possible results.'
-    }
-  ];
+  reviewList: any = [];
+  customerService: number = 0;
+  serviceQuality: number = 0;
+  communication: number = 0;
+  shipping: number = 0;
+  sellerRatingForm: FormGroup;
+  userData: any;
 
   constructor(private router: Router, private location: Location, private route: ActivatedRoute,
-    private toastMessage: ToastMessageService, private apolloService: ApolloService
+    private toastMessage: ToastMessageService, private apolloService: ApolloService,
+    private fb: FormBuilder
   ) {
+    this.sellerRatingForm = this.fb.group(new sellerRatingModel)
+    this.userData = JSON.parse(sessionStorage.getItem('userData')!)
     this.routerState = this.router.getCurrentNavigation()?.extras.state;
-
     if (this.routerState == undefined) {
       this.routeBack();
     }
     else {
-      // this.getSellerProductDetail()
+      this.getSellerDetail();
+      this.getSellerProductList()
     }
   }
 
@@ -131,7 +50,7 @@ export class SellerProductProfileComponent {
     this.updateProductNameLength();
   }
 
-  onResize(){
+  onResize() {
     this.updateProductNameLength();
   }
 
@@ -149,33 +68,44 @@ export class SellerProductProfileComponent {
     this.location.back();
   }
 
-  // getSellerProductDetail() {
-  //   this.apolloService.mutate(GQLConfig.getProductList).subscribe(data => {
-  //     if (data.data != null) {
-  //       if (data.data.getProductList.status == 200) {
-  //         // this.productsDetailList = data.data.getProductList.data.randomProducts;
-  //         this.productsDetail = data.data.getProductList.data.randomProducts.map((product: any) => ({
-  //           ...product,
-  //           like: false,
-  //           sellerImage: '../../assets/images/image/person.jpg',
-  //           sellerName: 'Sandeep Agal',
-  //           sellerMobileNo: '9876543120',
-  //           sellerEmail: 'sandeep@gmail.com',
-  //           sellerAddress: 'Indore, M.P',
-  //           sellerMemberShipfrom: 'Member since Apr 2015',
-  //           disclaimer: 'Premier legal firm offering sophisticated and professional accessories, seamlessly blending style and substance to elevate your legal presence with distinction.',
-  //         }));
+  getSellerDetail() {
+    let data = {
+      sellerId: this.routerState.sellerId
+    }
+    this.apolloService.mutate(GQLConfig.getSellerRatingList, data).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.getSellerRatingList.status == 200) {
+          this.sellerDetail = data.data.getSellerRatingList.data.response
+          this.reviewList = [];
+          this.sellerDetail.sellerRatingList.forEach((review: any) => {
+            this.reviewList.push(review);
+          })
+          this.toastMessage.success(data.data.getSellerRatingList.message);
+        }
+        else {
+          this.toastMessage.success(data.data.getSellerRatingList.message);
+        }
+      }
+    })
+  }
 
-  //         console.log('this.productList', this.productsDetail)
-  //         this.toastMessage.success(data.data.getProductList.message);
-  //       }
-  //       else {
-  //         this.toastMessage.success(data.data.getProductList.message);
-  //       }
-  //     }
-  //   })
-  // }
 
+  getSellerProductList() {
+    let data = {
+      sellerId: this.routerState.sellerId
+    }
+    this.apolloService.mutate(GQLConfig.getProductBySellerId, data).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.getProductBySellerId.status == 200) {
+          this.productList = data.data.getProductBySellerId.data.products;
+          this.toastMessage.success(data.data.getProductBySellerId.message);
+        }
+        else {
+          this.toastMessage.success(data.data.getProductBySellerId.message);
+        }
+      }
+    });
+  }
 
   toggleListing() {
     this.isReviewShow = false;
@@ -195,12 +125,40 @@ export class SellerProductProfileComponent {
     this.showReviewForm = true;
   }
 
-  submitReview(reviews: string) {
-    this.reviews = '';
+  onClick(parameter: string, e: any): void {
+    this.sellerRatingForm.get(parameter)?.setValue(e);
+  }
+
+  submitReview() {
+    if (this.sellerRatingForm.controls.review.value == "") {
+      this.toastMessage.error("Plaese add review!!");
+    } else {
+      let data = {
+        userType: this.userData.userType,
+        userId: this.userData._id,
+        customerService: parseFloat(this.sellerRatingForm.value.customerService.rating),
+        productQuality: parseFloat(this.sellerRatingForm.value.productQuality.rating),
+        communication: parseFloat(this.sellerRatingForm.value.communication.rating),
+        shippingHandling: parseFloat(this.sellerRatingForm.value.shippingHandling.rating),
+        review: this.sellerRatingForm.controls.review.value,
+      }
+      console.log(data)
+      this.apolloService.mutate(GQLConfig.createSellerRating, data).subscribe(data => {
+        if (data.data != null) {
+          if (data.data.createSellerRating.status == 200) {
+            this.toastMessage.success(data.data.createSellerRating.message);
+            this.sellerRatingForm.reset('');
+            this.getSellerDetail();
+          }
+          else {
+            this.toastMessage.error(data.data.createSellerRating.message);
+          }
+        }
+      })
+    }
   }
 
   getImageUrl(image: any) {
     return imageUrl() + image;
   }
-
-}
+} 

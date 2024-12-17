@@ -114,6 +114,7 @@ export class HeaderComponent implements AfterViewInit {
       if (data != null) {
         if (data.status == 200) {
           this.notifications = data.data;
+          console.log(this.notifications)
           if (this.notifications.length == 0) {
             this.notifications = [{
               title: "No Notifications",
@@ -132,7 +133,7 @@ export class HeaderComponent implements AfterViewInit {
     return daysAgo > 0 ? daysAgo : daysAgo * (-1);
   }
 
-  openNoification() {
+  openNotification() {
     let el = document.getElementById('openNotifications') as HTMLElement;
     el.click();
   }

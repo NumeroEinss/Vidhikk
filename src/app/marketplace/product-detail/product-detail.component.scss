@@ -48,6 +48,7 @@
 
                 img {
                     height: 350px;
+                    width: 100%;
                     padding: 10px 0;
                 }
             }
@@ -134,8 +135,9 @@
             .seller-detail {
                 border: 1px solid #E1E1E1;
                 border-radius: 8px;
-                padding: 15px 20px;
+                padding: 10px 22px 10px 20px;
                 cursor: pointer;
+                height: 100%;
 
                 .seller-img {
                     width: 40px;
@@ -165,11 +167,16 @@
             }
 
             .detail {
+                font-size: 13px;
                 span {
                     margin-left: 10px;
                     color: #258017;
                     font-size: 10px;
                 }
+            }
+            
+            .email{
+                word-break: break-all;
             }
         }
 

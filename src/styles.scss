@@ -1074,6 +1074,22 @@ body {
     }
   }
 
+  .rating.color-negative .star-container .star svg {
+    fill: #ffc058 !important;
+  }
+
+  .rating.color-positive .star-container .star svg {
+    fill:  #ffc058 !important;
+  }
+
+  star-rating .rating-container .rating-background path {
+    fill: #D3D3D3; /* Inactive star color */
+  }
+  
+  star-rating .rating-container .rating-foreground path {
+    fill: #FFD700; /* Active star color */
+  }
+
   .schedule-meeting-qr-Modal {
     .modal-body {
       .payment {

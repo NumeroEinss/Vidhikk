@@ -14,6 +14,7 @@ import { imageUrl } from '../graphql.module';
 export class AdvocateComponent {
 
   lawyer: any = {};
+  lawyerDetail: any;
   lawyerId: any;
   isNameVisible: boolean = false;
   activeRoute: string = "";
@@ -70,5 +71,10 @@ export class AdvocateComponent {
 
   showDetails() {
     this.isNameVisible = true;
+  }
+
+  navigateToAdvocateSchedule() {
+    const extras = this.lawyer._id;
+    this._router.navigate([`${this.activeRoute}/hire`], { state: extras });
   }
 }

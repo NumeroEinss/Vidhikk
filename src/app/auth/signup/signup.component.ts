@@ -379,6 +379,13 @@ export class SignupComponent {
             otp: e
           };
         }
+        else if (this.userType == "JUDGE") {
+          data = {
+            email: this.judgeForm.controls.email.value,
+            mobile: this.judgeForm.controls.phoneNumber.value,
+            otp: e
+          };
+        }
         this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
           if (objEmailOtp.data != null) {
             if (objEmailOtp.data.verifyOtp.status == 200) {
@@ -414,6 +421,12 @@ export class SignupComponent {
       data = {
         email: this.sellerForm.controls.email.value,
         phoneNumber: this.sellerForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "JUDGE") {
+      data = {
+        email: this.judgeForm.controls.email.value,
+        phoneNumber: this.judgeForm.controls.phoneNumber.value
       };
     }
     this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {

@@ -2,31 +2,32 @@
 
 
 <div class="root">
-    <div class="seller-product-container" *ngFor="let detail of sellersInfo">
+    <div class="seller-product-container">
         <div class="d-flex">
             <div class="image-container">
-                <img class="display-profile" [src]="getImageUrl(_authService.profileImageSubject.value)"
-                    onerror="this.onerror=null,this.src='../../../assets/images/image/no-image.png'">
+                <img class="display-profile" [src]="getImageUrl(sellerDetail.sellerImage)"
+                    onerror="this.onerror=null,this.src='../../../assets/images/image/person.jpg'">
             </div>
 
             <div class="detail">
-                <div class="name">{{ userData.name}}</div>
+                <div class="name">{{sellerDetail.sellerName}}</div>
                 <div class="disclaimer-detail">
                     <img src="../../../assets/images/icons/active_calendar.svg" alt="">
-                    <div class="disclaimer">{{detail.sellerMemberShipfrom}}</div>
+                    <div class="disclaimer">{{sellerDetail.memberFrom | date}}</div>
                 </div>
                 <div class="disclaimer-detail">
                     <img src="../../../assets/images/icons/disclaimer.svg" alt="">
-                    <div class="disclaimer">{{detail.disclaimer}}</div>
+                    <div class="disclaimer">{{sellerDetail.sellerorganisation}}</div>
                 </div>
 
             </div>
         </div>
         <div class="rating-detail">
-            <div class="rating">4.0</div>
-            <div class="rating-img"><star-rating [starType]="'svg'" [rating]="4" [readOnly]="true"></star-rating>
+            <div class="rating">{{sellerDetail.totalRating}}</div>
+            <div class="rating-img"><star-rating [starType]="'svg'" [rating]="sellerDetail.totalRating"
+                    [readOnly]="true"></star-rating>
             </div>
-            <div class="rating-count">Based on 23 Review</div>
+            <div class="rating-count">Based on {{sellerDetail.totalNumberOfRatings}} Review</div>
         </div>
 
         <div class="seller-info">
@@ -34,7 +35,9 @@
                 <div class="parameter">Customer Service</div>
                 <div class="container">
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuemax="100">
+                        <div class="progress-bar" role="progressbar"
+                            [attr.aria-valuenow]="sellerDetail.totalCustomerService" aria-valuemin="0"
+                            aria-valuemax="100" [ngStyle]="{'width':((sellerDetail?.totalCustomerService*20)+'%')}">
                         </div>
                     </div>
                 </div>
@@ -43,10 +46,10 @@
                 <div class="parameter">Product/Service Quality</div>
                 <div class="container">
                     <div class="progress">
-                        <!-- <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="lawyer.totalAvgLegalAnalysis"
-                            aria-valuemin="0" aria-valuemax="100"
-                            [ngStyle]="{'width':((lawyer?.totalAvgLegalAnalysis*20)+'%')}">
-                        </div> -->
+                        <div class="progress-bar" role="progressbar"
+                            [attr.aria-valuenow]="sellerDetail.totalProductQuality" aria-valuemin="0"
+                            aria-valuemax="100" [ngStyle]="{'width':((sellerDetail?.totalProductQuality*20)+'%')}">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,10 +57,10 @@
                 <div class="parameter">Communication</div>
                 <div class="container">
                     <div class="progress">
-                        <!-- <div class="progress-bar" role="progressbar"
-                            [attr.aria-valuenow]="lawyer.totalAvgcommunicationSkills" aria-valuemin="0"
-                            aria-valuemax="100" [ngStyle]="{'width':((lawyer?.totalAvgcommunicationSkills*20)+'%')}">
-                        </div> -->
+                        <div class="progress-bar" role="progressbar"
+                            [attr.aria-valuenow]="sellerDetail.totalCommunication" aria-valuemin="0" aria-valuemax="100"
+                            [ngStyle]="{'width':((sellerDetail?.totalCommunication*20)+'%')}">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,9 +68,10 @@
                 <div class="parameter">Shipping/Handling Time</div>
                 <div class="container">
                     <div class="progress">
-                        <!-- <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="lawyer.totalAvgEnP"
-                            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width':((lawyer?.totalAvgEnP*20)+'%')}">
-                        </div> -->
+                        <div class="progress-bar" role="progressbar"
+                            [attr.aria-valuenow]="sellerDetail.totalShippingHandling" aria-valuemin="0"
+                            aria-valuemax="100" [ngStyle]="{'width':((sellerDetail?.totalShippingHandling*20)+'%')}">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,20 +79,16 @@
     </div>
     <div class="action-btns">
         <div class="add-btn">
-            <button mat-stroked-button color="primary" style="border-radius: 12px" (click)="openAddProductModal()">Add
-                Product</button>
-            <button mat-stroked-button id="addProductButton" color="primary" style="display:none" data-bs-toggle="modal"
+            <button mat-stroked-button id="addProductButton" color="primary" data-bs-toggle="modal"
                 data-bs-target="#addProductModal">Add Product</button>
 
         </div>
         <div class="delete-btn" *ngIf="productList.length > 0">
-            <button id="deleteProductButton" style="display:none" data-bs-toggle="modal"
-                data-bs-target="#deleteProduct">Delete</button>
-            <button mat-stroked-button color="primary" (click)="triggerDeleteProduct()"
-                style="border-radius: 12px">Delete</button>
+            <button mat-stroked-button color="primary" style="border-radius: 12px" data-bs-toggle="modal"
+                data-bs-target="#deleteProduct" [disabled]="!isAnyCheckboxSelected()">Delete</button>
         </div>
     </div>
-    <div style="height: calc(100vh - 340px); margin-bottom: 20px;">
+    <div style="height: calc(100vh - 367px); margin-bottom: 10px;">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
             <div class="headings">
                 <div (click)="toggleListing()"
@@ -106,7 +106,8 @@
                     <div class="object-img"><img src="../../../assets/images/icons/marketplace_listing_object.svg"
                             alt="NoImage" />
                     </div>
-                    <div><button type="button" class="btn btn-primary">
+                    <div><button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#addProductModal">
                             <img src="../../../assets/images/icons/white_bordered_marketplace.svg" class="me-2">Start
                             Selling</button>
                     </div>
@@ -126,16 +127,16 @@
                         <div *ngFor="let detail of productList" class="products-list-data">
                             <div class="grid-item2 checkbox"><mat-checkbox [(ngModel)]="detail.selected"
                                     (change)="updateSelectAll()"></mat-checkbox></div>
-                            <div class="grid-item2 product-img">
+                            <div class="grid-item2 product-img" (click)="ProductDetail(detail)">
                                 <img [src]="getImageUrl(detail.productImages[0])">
                             </div>
                             <div class="grid-item2">{{detail.productName}}</div>
                             <div class="grid-item2">Rs {{detail.price }}
                             </div>
                             <div class="grid-item2">{{detail.createdAt | date:'dd/MM/yyyy'}}</div>
-                            <div class="grid-item2">
-                                <img (click)="ProductDetail(detail)" src="../../../assets/images/icons/edit_blue.svg"
-                                    class="ms-3">
+                            <div class="grid-item2" data-bs-toggle="modal" data-bs-target="#editProductModal"
+                                (click)="patchProductDetail(detail)">
+                                <img src="../../../assets/images/icons/edit_blue.svg" class="ms-3">
                             </div>
                         </div>
                     </div>
@@ -143,21 +144,20 @@
             </div>
 
             <div *ngIf="isReviewShow">
-
                 <div class="reviews-container" *ngFor="let review of reviewList">
                     <div class="reviews-content">
                         <div class="d-flex align-items-center">
-                            <div class="profile-image"><img [src]="review.profileImage" alt=""></div>
+                            <div class="profile-image"><img [src]="getImageUrl(review.userProfile)" alt=""></div>
                             <div>
-                                <div class="ms-2">{{review.name}}</div>
+                                <div class="ms-2">{{review.userName}}</div>
                                 <div class="star-content ms-1 d-flex align-items-center"><star-rating [starType]="'svg'"
-                                        [rating]="3"></star-rating>
-                                    <div class="rating">4.5</div>
+                                        [rating]="review.averageRating" [readOnly]="true"></star-rating>
+                                    <div class="rating">{{review.averageRating}}</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="post-time">{{review.postTime}}</div>
+                        <div class="post-time">{{review.createdAt | date}}</div>
                     </div>
 
                     <div class="description">{{review.review}}</div>
@@ -206,14 +206,19 @@
 
                         <mat-label class="mat-label mt-2 mb-1">Product Description</mat-label>
                         <mat-form-field appearance="outline" class="textArea">
-                            <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                formControlName="ProductDescription" required rows="3" minlength="10"></textarea>
+                            <div style="height: calc(100vh - 685px); margin-bottom: 10px;">
+                                <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+                                    <textarea id="text-area" type="text" matInput placeholder="Enter description"
+                                    (input)="adjustHeight($event)" style="overflow: hidden;"
+                                        formControlName="productDescription" minlength="10" rows="3" required></textarea>
+                                </ng-scrollbar>
+                            </div>
                             <mat-error
-                                *ngIf="addProductForm.controls['ProductDescription'].hasError('required')">Description
+                                *ngIf="addProductForm.controls['productDescription'].hasError('required')">Description
                                 is Required</mat-error>
                             <mat-error *ngIf="
-                                    !addProductForm.controls.ProductDescription.hasError('required') &&
-                                    addProductForm.controls.ProductDescription.hasError('minlength')
+                                    !addProductForm.controls.productDescription.hasError('required') &&
+                                    addProductForm.controls.productDescription.hasError('minlength')
                                   ">Minimum character should be 10</mat-error>
                         </mat-form-field>
 
@@ -233,10 +238,19 @@
                                     accept="image/*" multiple>
                                 <div class="add-picture" (click)="fileInput.click()">+</div>
                             </div>
-                            <div class="mt-3" *ngIf="fileUploaded == true">
+                            <!-- <div class="mt-3" *ngIf="fileUploaded == true">
                                 <div class="selected-files">
                                     Selected File: <span *ngFor="let file of files, let last = last">{{ file.name }}
                                         {{!last ?', ' : '' }}</span>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="selected-image">
+                            <div class="image-preview">
+                                <div *ngFor="let image of previewImages; index as i" class="image-wrapper">
+                                    <img [src]="image" alt="Selected-Image">
+                                    <div class="close-btn" (click)="removeImage(image, i)"><img
+                                            src="../../../assets/images/icons/close_button.svg" alt=""></div>
                                 </div>
                             </div>
                         </div>
@@ -279,6 +293,112 @@
                         Cancel
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Product List Modal -->
+<div class="modal fade" id="editProductModal" aria-hidden="true" aria-labelledby="editProductModalLabel" tabindex="-1"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered add-product-popup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editProductModalLabel">
+                    Edit Product
+                </h1>
+                <button type="button" class="btn-close" id="closeEditProductModal" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editProductForm">
+                    <div class="d-flex mat-input-white" style="flex-direction: column">
+
+                        <mat-label class="mat-label mt-2 mb-1">Select Category</mat-label>
+                        <mat-form-field appearance="outline">
+                            <mat-select placeholder="Select category" formControlName="category" required>
+                                <mat-option *ngFor="let category of categoryList" [value]="category.value">
+                                    {{ category.viewValue }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="editProductForm.controls['category'].hasError('required')">Category
+                                is Required</mat-error>
+                        </mat-form-field>
+
+                        <mat-label class="mat-label mt-2 mb-1">Product Name</mat-label>
+                        <mat-form-field appearance="outline">
+                            <input matInput placeholder="Enter product name" formControlName="productName" required />
+                            <mat-error *ngIf="editProductForm.controls['productName'].hasError('required')">Product name
+                                is
+                                Required</mat-error>
+                        </mat-form-field>
+
+                        <mat-label class="mat-label mt-2 mb-1">Product Description</mat-label>
+                        <mat-form-field appearance="outline" class="textArea">
+                            <div style="height: calc(100vh - 685px); margin-bottom: 10px;">
+                                <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+                                    <textarea id="text-area" type="text" matInput placeholder="Enter description"
+                                    (input)="adjustHeight($event)" style="overflow: hidden;"
+                                        formControlName="productDescription" minlength="10" required></textarea>
+                                </ng-scrollbar>
+                            </div>
+                            <mat-error
+                                *ngIf="editProductForm.controls['productDescription'].hasError('required')">Description
+                                is Required</mat-error>
+                            <mat-error *ngIf="
+                                    !editProductForm.controls.productDescription.hasError('required') &&
+                                    editProductForm.controls.productDescription.hasError('minlength')
+                                  ">Minimum character should be 10</mat-error>
+                        </mat-form-field>
+
+                        <mat-label class="mat-label mt-2 mb-1">Product Price</mat-label>
+                        <mat-form-field appearance="outline">
+                            <input matInput placeholder="Enter product price" formControlName="productPrice"
+                                (keypress)="isNumber($event)" required />
+                            <mat-error *ngIf="editProductForm.controls['productPrice'].hasError('required')">Product
+                                price
+                                is Required</mat-error>
+                        </mat-form-field>
+
+                        <mat-label class="mat-label mt-2 mb-1">Add Image</mat-label>
+                        <div class="file-container">
+                            <div class="drop-zone" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                                <input type="file" (change)="onFileSelected($event)" #editFileInput style="display: none"
+                                    accept="image/*" multiple>
+                                <div class="add-picture" (click)="editFileInput.click()">+</div>
+                            </div>
+                        </div>
+                        <div class="selected-image">
+                            <div class="image-preview">
+                                <div *ngFor="let file of editPreviewImages; index as i" class="image-wrapper">
+                                    <img [src]="getImageUrl(file)" alt="Selected-Image">
+                                    <div class="close-btn" (click)="removeImage(file, i)"><img
+                                            src="../../../assets/images/icons/close_button.svg" alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="selected-image">
+                            <div class="image-preview">
+                                <div *ngFor="let file of previewImages; index as i" class="image-wrapper">
+                                    <img [src]="file" alt="Selected-Image">
+                                    <div class="close-btn" (click)="removeImage(file, i)"><img
+                                            src="../../../assets/images/icons/close_button.svg" alt=""></div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="mt-4 mb-3 filter-btn">
+                            <button mat-raised-button color="primary"
+                                style="width: fit-content !important; padding: 12px 36px" (click)="updateProduct()">
+                                Update Product
+                            </button>
+                            <button mat-stroked-button color="primary" style="width: fit-content !important;
+                                  margin-left: 20px; padding: 12px 36px;" data-bs-dismiss="modal"
+                                (click)="resetForm()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

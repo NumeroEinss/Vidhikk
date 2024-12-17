@@ -48,7 +48,6 @@ export class BareActsComponent {
         this.bareActsList = objRes.data.acts;
         this.filteredBareActsList = this.bareActsList;
         this.recordCount = objRes.data.totalCount;
-        this.bareActsControl.patchValue('');
       }
     })
   }
@@ -67,6 +66,7 @@ export class BareActsComponent {
 
   nextPage(): void {
     let val = this.currentPage += 1;
+    console.log(val, 'Index')
     this.getBareActs(val);
   }
 

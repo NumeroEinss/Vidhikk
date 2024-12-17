@@ -10,12 +10,12 @@
                 <div *ngFor="let availability of availabilityList ;index as i" class="availability-list-data">
                     <div class="grid-item2">{{ availability.date | date:'dd/MM/yyyy' }}</div>
                     <div class="grid-item2 slots d-flex">
-                        <div *ngFor="let slot of availability.timeSlot">
+                        <div *ngFor="let slot of availability.timeSlots">
                             <div class="available" *ngIf="slot.status == 'available'">
-                                <button mat-button>{{ slot.slot }}</button>
+                                <button mat-button>{{ slot.timeSlot }}</button>
                             </div>
                             <div class="booked" *ngIf="slot.status == 'booked'">
-                                <button mat-button disabled>{{ slot.slot }}</button>
+                                <button mat-button disabled>{{ slot.timeSlot }}</button>
                             </div>
                         </div>
                     </div>

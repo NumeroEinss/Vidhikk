@@ -690,7 +690,7 @@ export abstract class GQLConfig {
         }
     }`;
 
-    static updateLawyerProfile = gql`mutation($lawyerId: String, $email: String, $primaryContact: String, $coreCompetency: String) {
+    static updateProfile = gql`mutation($lawyerId: String, $email: String, $primaryContact: String, $coreCompetency: String) {
         updateProfile(input: {
          lawyerId: $lawyerId
          email: $email
@@ -715,6 +715,26 @@ export abstract class GQLConfig {
 
     static getProductList = gql`mutation {
         getProductList{
+            status
+            message
+            data
+        }
+    }`;
+
+    static getProductDetail = gql`mutation($productId: String) {
+        getProductDetail(input: {
+            productId: $productId,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static searchProduct = gql`mutation($search: String) {
+        searchProduct(input: {
+            search: $search,
+        }) {
             status
             message
             data
@@ -767,6 +787,34 @@ export abstract class GQLConfig {
          data
        }
     } `;
+
+    static getSellerRatingList = gql`mutation($sellerId: String) {
+        getSellerRatingList(input: {
+            sellerId: $sellerId,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static createSellerRating = gql`mutation($userType:String, $sellerId: String, $userId: String, $customerService: Float
+    , $shippingHandling: Float, $communication: Float, $productQuality: Float, $review : String) {
+        createSellerRating(input: {
+            userType: $userType,
+            sellerId: $sellerId,
+            userId: $userId,
+            customerService: $customerService,
+            shippingHandling: $shippingHandling,
+            communication: $communication,
+            productQuality: $productQuality,
+            review: $review,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
 
     static choosePlan = gql`mutation($lawyerId: String!, $activePlan: String!) {
         lawyerPurchasedPlan(input: {

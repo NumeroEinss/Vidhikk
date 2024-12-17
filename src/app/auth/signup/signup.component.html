@@ -847,7 +847,7 @@
         </div>
 
         <mat-form-field appearance="outline" *ngIf="sellerForm.controls.hasGstin.value === true">
-          <input matInput placeholder="Enter GSTIN No." formControlName="gstinNo" maxlength="15" />
+          <input matInput placeholder="Enter GSTIN No." formControlName="gstinNo" maxlength="15"/>
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/gstIn_icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="sellerForm.controls.gstinNo.hasError('required')">GSTIN No. is Required</mat-error>
           <mat-error *ngIf="
