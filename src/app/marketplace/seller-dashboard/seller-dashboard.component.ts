@@ -118,6 +118,7 @@ export class SellerDashboardComponent {
     this.addProductForm.reset('');
     this.files = "";
     this.fileUploaded = false;
+    this.previewImages = [];
   }
 
   adjustHeight(event: Event): void {
@@ -245,10 +246,10 @@ export class SellerDashboardComponent {
     detail.productImages.forEach((img: any) => {
       this.editPreviewImages.push(img);
     })
-    console.log("this.editFiles at patch", this.editPreviewImages)
   }
 
-  removeImage(file: any, index: number) {
+  
+  removeImage(index: number) {
     this.previewImages.splice(index, 1)
   }
 
@@ -273,12 +274,10 @@ export class SellerDashboardComponent {
           "files": []
         }
       }
-      this.editPreviewImages = [this.editPreviewImages, ...this.files];
-      console.log( this.editPreviewImages)
 
       this.apolloService.uploadMultiple(mutation, this.files).subscribe(objRes => {
         if (objRes.data != null) {
-          this.toastMessage.success(objRes.data.UpdateProduct.message);
+          this.toastMessage.success(objRes.data.updateProduct.message);
           let closeEditProduct = document.getElementById('closeEditProductModal') as HTMLElement;
           closeEditProduct.click();
           this.resetForm();
