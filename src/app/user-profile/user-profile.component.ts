@@ -90,8 +90,7 @@ export class UserProfileComponent {
     this.getQrData();
     this.getPlanList();
   }
-
-
+  
   ngAfterViewInit() {
     if (this.userType == 'lawyer') {
       const element = document.getElementById("basic-info") as HTMLElement
@@ -690,10 +689,9 @@ export class UserProfileComponent {
       this.sellerEditProfileForm.controls.city.patchValue(userData.city);
       this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber || userData.primaryContact);
       this.sellerEditProfileForm.controls.email.patchValue(userData.email);
-      // this.mobileOtpVerified = true;
-      // this.emailOtpVerified = true;
+      this.mobileOtpVerified = true;
+      this.emailOtpVerified = true;
     }
-
   }
 
   updateLawyerProfile() {
@@ -763,4 +761,3 @@ export class UserProfileComponent {
     this.onDestroy$.complete();
   }
 }
-
