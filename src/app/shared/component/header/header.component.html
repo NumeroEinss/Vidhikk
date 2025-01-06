@@ -1,15 +1,19 @@
 <div class="main-container">
   <div class="main-text col-lg-4 col-md-4 col-sm-2" *ngIf="menuName">
-    <div> <a href="javascript:void(0);" class="icon" (click)="toggleSidebar()">
-        <img src="../../../../assets/images/icons/burger-menu.svg" class="hamburger-img">
-      </a></div>
+    <div>
+      <a href="javascript:void(0);" class="icon" (click)="toggleSidebar()">
+        <img src="../../../../assets/images/icons/burger-menu.svg" class="hamburger-img" />
+      </a>
+    </div>
     <div class="welcome-text">
       {{ menuName }}
     </div>
   </div>
   <div [ngClass]="colConfig" class="sub-container">
-    <!-- <button *ngIf="userType == 'lawyer'|| userType == 'seller'" class="btn-primary upgrade" [ngStyle]="searchIcon"
-      data-bs-toggle="modal" data-bs-target="#upgradeModal">Upgrade</button> -->
+    <button *ngIf="userType == 'lawyer' || userType == 'seller'" class="btn-primary upgrade" [ngStyle]="searchIcon"
+      data-bs-toggle="modal" data-bs-target="#upgradeModal">
+      Upgrade
+    </button>
     <!-- <div class="logo">
         <img src="../../assets/images/icons/vidhiklogo.svg" alt="Vidhik" routerLink="/lawyer/activity-feed"
           style="cursor: pointer"/>
@@ -35,15 +39,18 @@
 
     <div class="notification-container" [matMenuTriggerFor]="notificationMenu">
       <img src="../../../../assets/images/icons/notification.svg" />
-      <div class="notification-count">{{notifications.length}}</div>
+      <div class="notification-count">{{ notifications.length }}</div>
     </div>
     <mat-menu #notificationMenu="matMenu">
-      <div style="height: 200px; width: 400px;">
-        <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false" style="height: 100%; width: 100%;">
-          <div mat-menu-item *ngFor="let notification of notifications"
-            (click)="notification.notificationType == 'approvalRequest'?openNotification():''">
+      <div style="height: 200px; width: 400px">
+        <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false" style="height: 100%; width: 100%">
+          <div mat-menu-item *ngFor="let notification of notifications" (click)="
+              notification.notificationType == 'approvalRequest'
+                ? openNotification()
+                : ''
+            ">
             <div class="notification-content">
-              <div class="d-flex w-100" *ngIf="notification.notificationType!='noData'">
+              <div class="d-flex w-100" *ngIf="notification.notificationType != 'noData'">
                 <div class="image-container">
                   <img [src]="notification.image"
                     onerror="this.onerror = '',this.src='../../../../assets/images/image/no-image.png'" />
@@ -52,14 +59,19 @@
                 <div class="notification-detail ms-2">
                   <div class="d-flex notification-header">
                     <div class="member-request">{{ notification.title }}</div>
-                    <div class="days">{{getDaysAgo(notification.timestamp)>0?getDaysAgo(notification.timestamp) +
-                      ' days ago':'Today' }}</div>
+                    <div class="days">
+                      {{
+                      getDaysAgo(notification.timestamp) > 0
+                      ? getDaysAgo(notification.timestamp) + " days ago"
+                      : "Today"
+                      }}
+                    </div>
                   </div>
                   <div class="notification">{{ notification.body }}</div>
                 </div>
               </div>
               <div class="d-flex w-100" *ngIf="notification.notificationType == 'noData'">
-                <div class=" image-container">
+                <div class="image-container">
                   <img [src]="notification.image"
                     onerror="this.onerror = '',this.src='../../../../assets/images/image/no-image.png'" />
                 </div>
@@ -67,18 +79,23 @@
                 <div class="notification-detail ms-2">
                   <div class="d-flex notification-header">
                     <div class="member-request">{{ notification.title }}</div>
-                    <div class="days">{{getDaysAgo(notification.timestamp)>0?getDaysAgo(notification.timestamp) +
-                      ' days ago':'Today' }}</div>
+                    <div class="days">
+                      {{
+                      getDaysAgo(notification.timestamp) > 0
+                      ? getDaysAgo(notification.timestamp) + " days ago"
+                      : "Today"
+                      }}
+                    </div>
                   </div>
                   <div class="notification">{{ notification.body }}</div>
                 </div>
               </div>
             </div>
           </div>
-          <div *ngIf="notifications.length == 0" class="notification-content justify-content-center">No new
-            Notifications
+          <div *ngIf="notifications.length == 0" class="notification-content justify-content-center">
+            No new Notifications
           </div>
-          <button id='openNotifications' class="d-none" data-bs-toggle="modal"
+          <button id="openNotifications" class="d-none" data-bs-toggle="modal"
             data-bs-target="#notificationModal"></button>
         </ng-scrollbar>
       </div>
@@ -88,8 +105,10 @@
       <img src="../../../../assets/images/icons/add_button.svg" />
     </div> -->
     <div class="user-details">
-      <div class="name">{{userData.name}}</div>
-      <div class="plan">{{(_authService.currentUserSubject|async)?.activePlan}}</div>
+      <div class="name">{{ userData.name }}</div>
+      <div class="plan">
+        {{ (_authService.currentUserSubject | async)?.activePlan }}
+      </div>
     </div>
     <div class="profile-container" (click)="redirectToProfile()">
       <img [src]="getImageUrl(this.userImage)"
@@ -102,12 +121,12 @@
   <div class="profile-section">
     <div>
       <img [src]="getImageUrl(userData.profileImage)" onerror="this.onerror =null
-                ,this.src='../../assets/images/image/person.jpg'">
+                ,this.src='../../assets/images/image/person.jpg'" />
     </div>
     <div class="text">
-      <div class="d-flex">{{userData.name}}</div>
-      <div class="email">{{userData.email}}</div>
-      <div class="plan">{{userData.activePlan}}</div>
+      <div class="d-flex">{{ userData.name }}</div>
+      <div class="email">{{ userData.email }}</div>
+      <div class="plan">{{ userData.activePlan }}</div>
     </div>
   </div>
   <div class="scrollbar" *ngIf="userData.userType === 'LAWYER'">
@@ -212,8 +231,8 @@
       </li>
       <li>
         <a (click)="logout()">
-          <img src="../../assets/images/icons/power.svg" class="in-active" style="width:24px" />
-          <img src="../../assets/images/icons/power_active.svg" class="active" style="width:24px" />
+          <img src="../../assets/images/icons/power.svg" class="in-active" style="width: 24px" />
+          <img src="../../assets/images/icons/power_active.svg" class="active" style="width: 24px" />
           Logout</a>
       </li>
     </ng-scrollbar>
@@ -255,8 +274,8 @@
 
       <li>
         <a (click)="logout()">
-          <img src="../../assets/images/icons/power.svg" class="in-active" style="width:24px" />
-          <img src="../../assets/images/icons/power_active.svg" class="active" style="width:24px" />
+          <img src="../../assets/images/icons/power.svg" class="in-active" style="width: 24px" />
+          <img src="../../assets/images/icons/power_active.svg" class="active" style="width: 24px" />
           Logout</a>
       </li>
     </ng-scrollbar>
@@ -316,8 +335,8 @@
       </li>
       <li>
         <a (click)="logout()">
-          <img src="../../assets/images/icons/power.svg" class="in-active" style="width:24px" />
-          <img src="../../assets/images/icons/power_active.svg" class="active" style="width:24px" />
+          <img src="../../assets/images/icons/power.svg" class="in-active" style="width: 24px" />
+          <img src="../../assets/images/icons/power_active.svg" class="active" style="width: 24px" />
           Logout</a>
       </li>
     </ng-scrollbar>
@@ -342,7 +361,6 @@
     </div>
   </div> -->
 </div>
-
 
 <!-- notification popup start -->
 <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true"
@@ -374,7 +392,6 @@
 </div>
 <!-- notification popup ends -->
 
-
 <!-- Upgrade Popup Start  -->
 <div class="modal fade" id="upgradeModal" tabindex="-1" aria-labelledby="upgradeModalLabel" aria-hidden="true"
   data-bs-backdrop="static" data-bs-keyboard="false">
@@ -397,22 +414,27 @@
 <!-- QR payment popup start -->
 <!-- <button id="scannerModalButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
   data-bs-target="#scannerModal" class="d-none"></button> -->
-<div class="modal fade" id="scannerModal" tabindex="-1" aria-labelledby="scannerModalLabel" aria-hidden="true"
-  style="width: 100%;">
-  <div class="modal-dialog modal-md modal-dialog-centered qr-modal" style="width: 430px;">
+<div class="modal fade" id="scannerModal" tabindex="-1" aria-labelledby="scannerModalLabel"
+  style="width: 100%">
+  <div class="modal-dialog modal-md modal-dialog-centered qr-modal" style="width: 430px">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title" id="scannerModalLabel">Scan QR Code</div>
-        <button id="closeQrModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="closeQrEvent()"></button>
+        <button id="closeQrModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- <p class="mt-4 mb-4" style="color: #8798AD;">
           All the details of the lawyer upon successful payment. For this you will be charged INR 500.
         </p> -->
         <div class="mt-2 mb-2 d-flex justify-content-center">
-          <p style="background:#2E5BFF0D; max-width: 360px; padding: 10px 122px;font-size: 16px;border-radius: 12px;cursor: pointer;"
-            data-bs-toggle="modal" data-bs-target="#paymentSuccessModal">
+          <p style="
+              background: #2e5bff0d;
+              max-width: 360px;
+              padding: 10px 122px;
+              font-size: 16px;
+              border-radius: 12px;
+              cursor: pointer;
+            " data-bs-toggle="modal" data-bs-target="#paymentSuccessModal">
             Scan QR Code
           </p>
         </div>
@@ -429,28 +451,27 @@
 <!-- <button id="paymentSuccessfullPopupButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
 data-bs-target="#paymentSuccessModal" class="d-none"></button> -->
 <div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-labelledby="paymentSuccessModalLabel"
-  aria-hidden="true" style="width: 100%;">
-  <div class="modal-dialog modal-md modal-dialog-centered  qr-modal" style="width: 430px;">
+  aria-hidden="true" style="width: 100%">
+  <div class="modal-dialog modal-md modal-dialog-centered qr-modal" style="width: 430px">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="modal-title" id="paymentSuccessModalLabel">Payment Successfull</div>
+        <div class="modal-title" id="paymentSuccessModalLabel">
+          Payment Successfull
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="mt-3 mb-3">
-          <img src="../../assets/images/image/payment_successful.png" alt="">
+          <img src="../../assets/images/image/payment_successful.png" alt="" />
         </div>
-        <p class="mb-4">
-          Payment Successfull
+        <p class="mb-4">Payment Successfull</p>
+        <p class="m-4" style="color: #8798ad">
+          You have successfully paid to see the details of the lawyer.<br /><br />
+          These details will be shown to you only 48 hours after the payment is
+          completed.
         </p>
-        <p class="m-4" style="color:#8798AD">
-          You have successfully paid to see the details of the lawyer.<br><br> These details will be shown to
-          you only 48 hours after the payment is completed.
-        </p>
-        <div class="mt-4 mb-4 px-4 py-3" style="border:1px solid #0000001A;border-radius: 12px;">
-          <div class="payment-detail">
-            Payment Details
-          </div>
+        <div class="mt-4 mb-4 px-4 py-3" style="border: 1px solid #0000001a; border-radius: 12px">
+          <div class="payment-detail">Payment Details</div>
           <div class="transaction-detail">
             <div class="d-flex mt-2 justify-content-between">
               <div class="col-lg-6 col-md-6 label">Client</div>
@@ -477,10 +498,11 @@ data-bs-target="#paymentSuccessModal" class="d-none"></button> -->
               <div class="col-lg-6 col-md-6 detail">Successful</div>
             </div>
 
-            <hr>
+            <hr />
 
             <div>
-              <button mat-raised-button color="primary" class="m-2" data-bs-dismiss="modal">Done</button><br />
+              <button mat-raised-button color="primary" class="m-2" data-bs-dismiss="modal">
+                Done</button><br />
               <button mat-stroked-button color=" primary" class="m-2">
                 Download Receipt
               </button>

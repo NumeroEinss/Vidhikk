@@ -15,13 +15,13 @@ export class PaaymentService {
   // Function to poll the API until success is received
   pollTransactionStatus(transactionId: string): Observable<boolean> {
     const timeoutDuration = 60000;
-    return new Observable<boolean>((observer) => {
+    return new Observable<any>((observer) => {
       // Polling every 5 seconds
       const interval = setInterval(() => {
         this.checkTransactionStatus(transactionId).subscribe(response => {
           console.log(response, 'response')
           if (response.data.trStatus === 'SUCCESS') {
-            observer.next(true);  // Success response, stop polling
+            observer.next({ status: true, ...response.data });  // Success response, stop polling
             observer.complete();
             clearInterval(interval);
           }
@@ -30,7 +30,7 @@ export class PaaymentService {
 
       // Stop polling after 1 minute (60000 milliseconds)
       const timeout = setTimeout(() => {
-        observer.next(false);  // If 1 minute has passed without success, stop polling
+        observer.next({ status: false });  // If 1 minute has passed without success, stop polling
         observer.complete();
         clearInterval(interval);  // Clear the polling interval
       }, timeoutDuration);

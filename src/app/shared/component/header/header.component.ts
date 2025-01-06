@@ -150,10 +150,6 @@ export class HeaderComponent implements AfterViewInit {
     this._authService.logout();
   }
 
-  closeQrEvent() {
-    this._router.navigate(['/auth/login']);
-  }
-
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();

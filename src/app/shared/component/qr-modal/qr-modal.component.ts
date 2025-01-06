@@ -9,6 +9,7 @@ export class QrModalComponent {
 
   @Input('qrData') qrData: any;
   @Output() paymentConfirmedEvent: EventEmitter<number> = new EventEmitter();
+  @Input('responseData') responseData: any;
 
   constructor() { }
 
