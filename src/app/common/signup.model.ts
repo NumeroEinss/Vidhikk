@@ -1,35 +1,116 @@
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+
 export class SignUpModel {
-    mobile: string = "";
-    otp: string = "";
+    mobile = new FormControl("", [Validators.required]);
+    otp = new FormControl("", [Validators.required]);
 }
 
-export class SignUpModel2 {
-    orgainization: string = "";
-    fullName: string = "";
-    fatherName: string = "";
-    address: string = "";
-    state: string = "";
-    city: string = "";
-    mobile: string = "989765432";
-    email: string = "abc@gmail.com";
-    stateBar: string = "";
-    courtName: string = "";
-    licenseNo: string = "";
-    practiceYear: string = "";
-    practiceField: string = "";
-    question: string = '';
-    answer: string = '';
-    question2: string = '';
-    answer2: string = '';
-    coreCompetency: string = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
-    isAddressVisible: boolean = false;
-    isPrimaryContactVisible: boolean = false;
-    isPrimaryContactWhatsapp: boolean = false;
-    isSecondaryContactVisible: boolean = false;
-    isSecondaryContactWhatsapp: boolean = false;
-    isEmailVisible: boolean = false;
-    password: string = "";
-    confirmPassword: string = "";
-    secondaryContact: string = "";
+export class LawyerSignupModel {
+    fatherName = new FormControl("", [Validators.required]);
+    userType = new FormControl("LAWYER", [Validators.required]);
+    name = new FormControl("", [Validators.required]);
+    barAddress = new FormControl("", [Validators.required]);
+    city = new FormControl("", [Validators.required]);
+    state = new FormControl("", [Validators.required]);
+    email = new FormControl("", [Validators.required]);
+    password = new FormControl("", [Validators.required]);
+    confirmPassword = new FormControl("", [Validators.required]);
+    question = new FormControl("");
+    answer = new FormControl("");
+    question2 = new FormControl("");
+    answer2 = new FormControl("");
+    phoneNumber = new FormControl("", [Validators.required]);
+    isPrimaryContactWhatsapp = new FormControl(false);
+    isPrimaryContactVisible = new FormControl(false);
+    secondaryContact = new FormControl("");
+    isSecondaryContactWhatsapp = new FormControl(false);
+    isSecondaryContactVisible = new FormControl(false);
+    isEmailVisible = new FormControl(false);
+    isAddressVisible = new FormControl(false);
+    stateBar = new FormControl("", [Validators.required]);
+    courtName = new FormControl("", [Validators.required]);
+    licenseNo = new FormControl("", [Validators.required]);
+    practiceYear = new FormControl("", [Validators.required]);
+    practiceField = new FormControl("", [Validators.required]);
+    orgainization = new FormControl("");
+    coreCompetency = new FormControl("", [Validators.required]);
+    file = new FormControl("");
+    notificationToken = new FormControl("");
+    fileDisplay = new FormControl("");
+    docFile = new FormControl("");
+    docDisplay = new FormControl("");
 }
 
+export class UserSignupModel {
+    userType = new FormControl("USER", [Validators.required]);
+    name = new FormControl("", [Validators.required]);
+    phoneNumber = new FormControl("", [Validators.required]);
+    isPrimaryContactWhatsapp = new FormControl(false, [Validators.required]);
+    secondaryContact = new FormControl("");
+    isSecondaryContactWhatsapp = new FormControl(false, [Validators.required]);
+    address = new FormControl("", [Validators.required]);
+    city = new FormControl("", [Validators.required]);
+    state = new FormControl("", [Validators.required]);
+    email = new FormControl("", [Validators.required]);
+    password = new FormControl("", [Validators.required]);
+    confirmPassword = new FormControl("", [Validators.required]);
+    file = new FormControl("");
+    notificationToken = new FormControl("");
+    fileDisplay = new FormControl("");
+}
+
+export class JudgeSignupModel {
+    userType = new FormControl("JUDGE", [Validators.required]);
+    fullName = new FormControl("", [Validators.required]);
+    address = new FormControl("", [Validators.required]);
+    state = new FormControl("", [Validators.required]);
+    city = new FormControl("", [Validators.required]);
+    district = new FormControl("", [Validators.required]);
+    phoneNumber = new FormControl("", [Validators.required]);
+    email = new FormControl("", [Validators.required]);
+    currentState = new FormControl("", [Validators.required]);
+    currentDistrict = new FormControl("", [Validators.required]);
+    courtType = new FormControl("", [Validators.required]);
+    courtName = new FormControl("", [Validators.required]);
+    registrationNo = new FormControl("", [Validators.required]);
+    password = new FormControl("", [Validators.required]);
+    confirmPassword = new FormControl("", [Validators.required]);
+    question = new FormControl("", [Validators.required]);
+    answer = new FormControl("", [Validators.required]);
+    question2 = new FormControl("", [Validators.required]);
+    answer2 = new FormControl("", [Validators.required]);
+    isPrimaryContactWhatsapp = new FormControl(false);
+    isSecondaryContactWhatsapp = new FormControl(false);
+    secondaryContact = new FormControl("");
+    isEmailVisible = new FormControl(false);
+    file = new FormControl("");
+    notificationToken = new FormControl("");
+    fileDisplay = new FormControl("");
+}
+
+export class SellerSignupModel {
+    userType = new FormControl("SELLER", [Validators.required]);
+    name = new FormControl("", [Validators.required]);
+    address = new FormControl("", [Validators.required]);
+    city = new FormControl("", [Validators.required]);
+    state = new FormControl("", [Validators.required]);
+    email = new FormControl("", [Validators.required]);
+    password = new FormControl("", [Validators.required]);
+    confirmPassword = new FormControl("", [Validators.required]);
+    phoneNumber = new FormControl("", [Validators.required]);
+    isPrimaryContactWhatsapp = new FormControl(false);
+    isPrimaryContactVisible = new FormControl(true);
+    secondaryContact = new FormControl("");
+    isSecondaryContactWhatsapp = new FormControl(false);
+    isSecondaryContactVisible = new FormControl(true);
+    isEmailVisible = new FormControl(true);
+    isAddressVisible = new FormControl(true);
+    orgainization = new FormControl("");
+    organisationInfo = new FormControl("", [Validators.required]);
+    file = new FormControl("");
+    notificationToken = new FormControl("");
+    fileDisplay = new FormControl("");
+    hasGstin = new FormControl(false);
+    gstinNo = new FormControl("", [Validators.required]);
+    panNo = new FormControl("", [Validators.required]);
+}

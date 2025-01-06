@@ -1,5 +1,5 @@
-import { AfterViewInit, Component } from '@angular/core';
-import { SnackAlertService } from '../shared/services/snack-alert.service';
+import { Component } from '@angular/core';
+import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -13,12 +13,13 @@ export class ChatRoomComponent {
   chatRoomForm: FormGroup;
   selectedChat: string = 'allChat';
   message: string = "";
-  // searchMemberList: any = [];
   selectedChatRoom: any = {};
   selectedMembers: string[] = [];
   addMemberList: any = [];
   selectedAddMember: any = [];
   selectedRemoveMember: any = [];
+  isChatOpen: boolean = false;
+
 
   members = [
     { value: 'anilSoni', viewValue: 'Anil Soni' },
@@ -124,14 +125,6 @@ export class ChatRoomComponent {
             'I am also good. It is pretty sleek, black with a subtle gold trim. Looks quite professional.',
           senderImage: '../../assets/images/image/add_member2.png',
         },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            ' Yeah, it says it is made of genuine leather. The reviews also seem positive. I think I will go for it.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        }
       ],
       lastMessage: '',
     },
@@ -160,13 +153,6 @@ export class ChatRoomComponent {
           name: 'lavkush Mishra',
           time: '05:32 pm',
           message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:33 pm',
-          message: 'What about you..?',
           receiverImage: '../../assets/images/image/add_member.png',
         },
         {
@@ -211,331 +197,6 @@ export class ChatRoomComponent {
         {
           type: 'receiver',
           name: 'lavkush Mishra',
-          time: '05:32 pm',
-          message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:33 pm',
-          message: 'What about you..?',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            'I am also good. It is pretty sleek, black with a subtle gold trim. Looks quite professional.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            ' Yeah, it says it is made of genuine leather. The reviews also seem positive. I think I will go for it.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        }
-      ],
-      lastMessage: '',
-    },
-    {
-      image: '../../assets/images/image/chat-default.png',
-      roomName: 'The Legal Warriors',
-      message: 'Thats Great',
-      participant: [],
-      chatList: [
-        {
-          type: 'schedule',
-          name: '',
-          time: '',
-          message: 'Today',
-          userImage: '',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:32 pm',
-          message: 'Hey! how are you?',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:32 pm',
-          message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:33 pm',
-          message: 'What about you..?',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            'I am also good. It is pretty sleek, black with a subtle gold trim. Looks quite professional.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            ' Yeah, it says it is made of genuine leather. The reviews also seem positive. I think I will go for it.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        }
-      ],
-      lastMessage: '',
-    },
-    {
-      image: '../../assets/images/image/chat-default.png',
-      roomName: 'The Legal Knights',
-      message: 'What about you',
-      participant: [],
-      chatList: [
-        {
-          type: 'schedule',
-          name: '',
-          time: '',
-          message: 'Today',
-          userImage: '',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:32 pm',
-          message: 'Hey! how are you?',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:32 pm',
-          message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:33 pm',
-          message: 'What about you..?',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            'I am also good. It is pretty sleek, black with a subtle gold trim. Looks quite professional.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            ' Yeah, it says it is made of genuine leather. The reviews also seem positive. I think I will go for it.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        }
-      ],
-      lastMessage: '',
-    },
-    {
-      image: '../../assets/images/image/chat-default.png',
-      roomName: 'The Law Titans',
-      message: 'No problem! Let me know if...',
-      participant: [],
-      chatList: [
-        {
-          type: 'schedule',
-          name: '',
-          time: '',
-          message: 'Today',
-          userImage: '',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:32 pm',
-          message: 'Hey! how are you?',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:32 pm',
-          message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:33 pm',
-          message: 'What about you..?',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            'I am also good. It is pretty sleek, black with a subtle gold trim. Looks quite professional.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            ' Yeah, it says it is made of genuine leather. The reviews also seem positive. I think I will go for it.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        }
-      ],
-      lastMessage: '',
-    },
-    {
-      image: '../../assets/images/image/chat-default.png',
-      roomName: 'Legal Lions',
-      message: 'No problem! Let me know if...',
-      participant: [],
-      chatList: [
-        {
-          type: 'schedule',
-          name: '',
-          time: '',
-          message: 'Today',
-          userImage: '',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:32 pm',
-          message: 'Hey! how are you?',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:32 pm',
-          message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:33 pm',
-          message: 'What about you..?',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            'I am also good. It is pretty sleek, black with a subtle gold trim. Looks quite professional.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            ' Yeah, it says it is made of genuine leather. The reviews also seem positive. I think I will go for it.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        }
-      ],
-      lastMessage: '',
-    },
-    {
-      image: '../../assets/images/image/chat-default.png',
-      roomName: 'Legal Crusaders',
-      message: 'No problem! Let me know if...',
-      participant: [],
-      chatList: [
-        {
-          type: 'schedule',
-          name: '',
-          time: '',
-          message: 'Today',
-          userImage: '',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:32 pm',
-          message: 'Hey! how are you?',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:32 pm',
-          message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:33 pm',
-          message: 'What about you..?',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            'I am also good. It is pretty sleek, black with a subtle gold trim. Looks quite professional.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:35 pm',
-          message:
-            ' Yeah, it says it is made of genuine leather. The reviews also seem positive. I think I will go for it.',
-          senderImage: '../../assets/images/image/add_member2.png',
-        }
-      ],
-      lastMessage: '',
-    },
-    {
-      image: '../../assets/images/image/chat-default.png',
-      roomName: 'Justice League',
-      message: 'No problem! Let me know if...',
-      participant: [],
-      chatList: [
-        {
-          type: 'schedule',
-          name: '',
-          time: '',
-          message: 'Today',
-          userImage: '',
-        },
-        {
-          type: 'sender',
-          name: 'Anil Soni',
-          time: '05:32 pm',
-          message: 'Hey! how are you?',
-          senderImage: '../../assets/images/image/add_member2.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
-          time: '05:32 pm',
-          message: 'I am fine...',
-          receiverImage: '../../assets/images/image/add_member.png',
-        },
-        {
-          type: 'receiver',
-          name: 'lavkush Mishra',
           time: '05:33 pm',
           message: 'What about you..?',
           receiverImage: '../../assets/images/image/add_member.png',
@@ -561,7 +222,7 @@ export class ChatRoomComponent {
     },
   ];
 
-  constructor(private _router: Router, private _toastMessage: SnackAlertService, private formBuilder: FormBuilder) {
+  constructor(private _router: Router, private _toastMessage: ToastMessageService, private formBuilder: FormBuilder) {
     this.chatRoomForm = new FormGroup({
       participant: new FormControl('', [Validators.required]),
       roomName: new FormControl('', [Validators.required]),
@@ -571,12 +232,11 @@ export class ChatRoomComponent {
 
 
   ngAfterContentInit() {
-    this.roomList.forEach((room: any) => { room.className = "" })
-    let element = document.getElementById('modalButton2') as HTMLElement;
-    element.click();
+    this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
+    // let element = document.getElementById('modalButton2') as HTMLElement;
+    // element.click();
     this.roomList[0].className = 'colored-border-label';
     this.selectedChatRoom = this.roomList[0];
-    // console.log(this.selectedChatRoom) 
   }
 
   addMessage() {
@@ -590,7 +250,6 @@ export class ChatRoomComponent {
       message: this.message,
       senderImage: '../../assets/images/image/add_member2.png',
     };
-    console.log(this.selectedChatRoom)
     this.selectedChatRoom.chatList.push(newMessage);
     this.message = '';
     // let element = document.getElementById('chat-textarea') as HTMLElement;
@@ -612,6 +271,40 @@ export class ChatRoomComponent {
     })
   }
 
+  openChat(selectedChatRoom: any) {
+    this.addMemberList = [];
+    this.selectedChatRoom = selectedChatRoom;
+
+    this.members.forEach(member => {
+      if (this.selectedChatRoom.participant.indexOf(member) == -1) {
+        this.addMemberList.push(member);
+      }
+    })
+
+    let element1 = document.getElementById('groupList') as HTMLElement;
+    element1.style.height = '0';
+    element1.style.position = 'fixed';
+    element1.style.zIndex = '-1';
+
+    let element = document.getElementById('chatSection') as HTMLElement;
+    element.style.height = 'calc(100vh - 100px)';
+    element.style.top = '83px';
+    element.style.position = 'absolute';
+    element.style.zIndex = '1';
+  }
+
+  closeChat() {
+    let element = document.getElementById('chatSection') as HTMLElement;
+    element.style.height = '0';
+    element.style.position = 'absolute';
+    element.style.zIndex = '-1';
+
+    let element1 = document.getElementById('groupList') as HTMLElement;
+    element1.style.height = '100vh';
+    element1.style.position = 'fixed';
+    element1.style.zIndex = '1';
+  }
+
   notifyUser() {
     this._toastMessage.message('You can not add more than 20 Chat Rooms !!');
   }
@@ -620,13 +313,13 @@ export class ChatRoomComponent {
     const newData = {
       image: '../../assets/images/image/chat-default.png',
       roomName: this.chatRoomForm.controls.roomName.value,
-      message: "",
+      message: "You have started a new chat",
       participant: this.chatRoomForm.controls.participant.value,
       chatList: [],
     };
     this.roomList.unshift(newData);
-    this.selectedChatRoom = this.roomList[0]
-    this.roomList.forEach((room: any) => { room.className = "" })
+    this.selectedChatRoom = this.roomList[0];
+    this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
     this.roomList[0].className = 'colored-border-label';
   }
 
@@ -658,7 +351,7 @@ export class ChatRoomComponent {
       if (x.roomName == this.selectedChatRoom.roomName) {
         this.roomList.splice(index, 1)
         this.selectedChatRoom = this.roomList[0];
-        this.roomList.forEach((room: any) => { room.className = "" })
+        this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
         this.roomList[0].className = 'colored-border-label';
       }
     })

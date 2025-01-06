@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
   DateAdapter,
@@ -6,6 +6,15 @@ import {
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { Subject, debounceTime, lastValueFrom, switchMap } from 'rxjs';
+import { SearchService } from '../../shared/services/search.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AdvanceSearchModel } from '../../common/advanceSearch.model';
+import { DataService } from '../../shared/services/data.service';
+import { DatePipe } from '@angular/common';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -32,60 +41,25 @@ const MY_DATE_FORMAT = {
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
   ],
 })
-export class CaseLawListComponent {
+export class CaseLawListComponent implements AfterViewInit {
+
+  @ViewChild('appInput') appInputRef!: ElementRef;
+  @ViewChild('respInput') respInputRef!: ElementRef;
+  @ViewChild('judgSearch') judgeSearchRef!: ElementRef;
+
   selectedIndex: number = 0;
-  recordCount: number = 2134;
-  
-  caseList = [
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-  ];
-  courtList: any = [
-    { name: 'Supreme Court', checked: false },
-    { name: 'Madhya Pradesh', checked: false },
-    { name: 'Andhra Pradesh', checked: false },
-    { name: 'Karnataka', checked: false },
-    { name: 'Maharashtra', checked: false },
-    { name: 'Gujrat', checked: false },
-    { name: 'Delhi', checked: false },
-    { name: 'Uttar Pradesh', checked: false },
-  ];
-  courtFilter: string = '';
-  searchList: any = [];
+  recordCount: number = 0;
+
+  loaderType = ngxLoadingAnimationTypes;
+  showLoader: boolean = false;
+
+  caseLawCurrentPage: number = 1;
+
+  caseList: any = [];
+
+  courtList: any = [];
+  filteredCourtList: any = [];
+
   journalList: any = [
     {
       name: 'NIJ',
@@ -120,85 +94,14 @@ export class CaseLawListComponent {
       value: 'ocr',
     },
   ];
+
   filteredJournalsList: any = [];
-  actsList: any = [
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Code of Criminal Procedure, 1973x' },
-    { name: 'The Goods and Services Tax (Compensation to States) Act, 2017' },
-    {
-      name: 'The Juvenile Justice (Care and Protection of Children) Act, 2015',
-    },
-    { name: 'The Environmental Protection Act, 1986' },
-    { name: 'The Trademarks Act, 1999' },
-    { name: 'The Hindu Marriage Act, 1955' },
-    { name: 'TThe Maternity Benefit Act, 19610' },
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Indian Penal Code, 1860' },
-    { name: 'The Indian Penal Code, 1860' },
-  ];
-  overruledList = [
-    {
-      previousAttorney: 'Karan Singh Vs Bhagwan Singh',
-      currentAttorney: 'Shyam Sundar Vs Ram Kumar',
-    },
-    {
-      previousAttorney: 'Shubhashis Vs Medical Council',
-      currentAttorney: 'Medical Council Vs State of Rajasthan',
-    },
-    {
-      previousAttorney: 'Rajiram Vs Ghisaram',
-      currentAttorney: 'Shyam Sundar Vs Ram Kumar',
-    },
-    {
-      previousAttorney: 'Sub Division Inspector of Post Vs Joseph',
-      currentAttorney: 'AIR Vs Santosh Kumar',
-    },
-    {
-      previousAttorney: 'Shubhashis Vs Medical Council',
-      currentAttorney: 'Medical Council of India Vs State of Rajasthan',
-    },
-    {
-      previousAttorney: 'Rajiram Vs Ghisaram',
-      currentAttorney: 'Shyam Sundar Vs Ram Kumar',
-    },
-  ];
-  judgeList: any = [
-    {
-      name: 'Anoop Chitkara',
-      value: 'nij',
-    },
-    {
-      name: 'Puneet Gupta',
-      value: 'ocr',
-    },
-    {
-      name: 'Sunil Awasthi',
-      value: 'olr',
-    },
-    {
-      name: 'Satyan Vaida',
-      value: 'pccr',
-    },
-    {
-      name: 'A Ali',
-      value: 'plj',
-    },
-    {
-      name: 'Jyotsana Dua',
-      value: 'gcd',
-    },
-    {
-      name: 'Ajay Goel',
-      value: 'gjh',
-    },
-    {
-      name: 'Anil Choudhary',
-      value: 'ocr',
-    },
-  ];
+
+  overruledList = [];
+
+  judgeList: any = [];
   filteredJudgeList: any = [];
+
   actList = [
     {
       name: 'NIJ',
@@ -234,6 +137,7 @@ export class CaseLawListComponent {
     },
   ];
   filteredActList: any = [];
+
   actTypeList = [
     {
       name: '302',
@@ -284,60 +188,186 @@ export class CaseLawListComponent {
   ];
   filteredVolumeList: any = [];
 
-  constructor(private _router: Router) {
-    this.searchList = this.courtList;
+  private searchTerms = new Subject<string>();
+
+  judgeSearch: string = "";
+
+  // showAppSearch: boolean = true;
+  // resAppList: Array<any> = [];
+
+  // showRespSearch: boolean = true;
+  // resRespList: Array<any> = [];
+
+  showJudgeSearch: boolean = true;
+  respJudgeList: Array<any> = [];
+
+  hasMore = true;
+  page: number = 1;
+
+  selectedCourt: string = "";
+
+  // showCitationSearch: boolean = true;
+  // citationList: Array<any> = [];
+
+  judgeControl = new FormControl();
+
+  advanceSearchForm: FormGroup;
+  // dateRange = new FormGroup({
+  //   start: new FormControl<Date | null>(null),
+  //   end: new FormControl<Date | null>(null),
+  // });
+
+  showAdvanceSearch: boolean = true;
+  respAdvanceSearchList: any = [];
+  advanceSearchCurrentPage: number = 1;
+
+  showWordsSearch: boolean = true;
+  respWordsPhraseList: any = [];
+  wordsPhraseCurrentPage: number = 1;
+  searchedWord: string = "";
+  wordsPhraseRadioModel: number = 1;
+
+  pageSize: number = 10;
+
+  // applicantCurrentPage: number = 1;
+
+  // respondantCurrentPage: number = 1;
+
+  judgeWiseCurrentPage: number = 1;
+
+  savedCasesList: any = [];
+  savedCurrentPage: number = 1;
+
+  // sharedList: any = [];
+  // sharedCurrentPage: number = 1;
+
+  benchList: any = [{ value: "SINGLE BENCH", label: "SINGLE BENCH" },
+  { value: "FULL BENCH", label: "FULL BENCH" }, { value: "DIVISION BENCH", label: "DIVISION BENCH" }];
+
+  constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
+    private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder,
+    private _dataService: DataService, private _datePipe: DatePipe) {
+    this._dateAdapter.setLocale('en-GB');
     this.filteredJournalsList = this.journalList;
-    this.filteredJudgeList = this.judgeList;
     this.filteredActList = this.actList;
     this.filteredActTypeList = this.actTypeList;
     this.filteredYearList = this.yearList;
     this.filteredVolumeList = this.volumeList;
+    this.advanceSearchForm = this._formBuilder.group(new AdvanceSearchModel);
+
+
   }
 
-  tabSelectionChange(e: any) {}
+  async ngOnInit() {
+    if (this._dataService.getData()?.activeTabIndex !== undefined) {
+      this.showLoader = true;
+      this.selectedIndex = this._dataService.getData().activeTabIndex;
+      if (this.selectedIndex === 1) {
+        this.showJudgeSearch = false;
+        this.judgeWiseCurrentPage = this._dataService.getData()?.page;
+        this.judgeControl.patchValue(this._dataService.getData()?.judgeControl);
+        await this.getPaginatedCaseLawByJudges(this.judgeWiseCurrentPage);
+      }
+      else if (this.selectedIndex === 2) {
+        this.showWordsSearch = false;
+        this.searchedWord = this._dataService.getData()?.wordControl;
+        this.wordsPhraseRadioModel = this._dataService.getData()?.wordRadioControl;
+        this.wordsPhraseCurrentPage = this._dataService.getData()?.page;
+        this.getCaseLawsByWords(this.wordsPhraseCurrentPage)
+      }
+      else if (this.selectedIndex === 3) {
+        this.showAdvanceSearch = false;
+        this.advanceSearchCurrentPage = this._dataService.getData()?.page;
+        this.advanceSearchForm.patchValue(this._dataService.getData()?.advanceSearchControl);
+        this.getPaginatedCaseLawByAdvanceSearch(this.advanceSearchCurrentPage);
+      }
+      else if (this.selectedIndex === 4) {
+        this.getSavedCases();
+      }
+      else if (this.selectedIndex === 0) {
+        this.caseLawCurrentPage = this._dataService.getData()?.page;
+        await this.getCaseLaws(this.caseLawCurrentPage);
+      }
+    }
+    else {
+      this.getCaseLaws(this.caseLawCurrentPage);
+    }
+    this.getJudgeList();
+    this.getCourtList();
+    this.judgeControl.valueChanges.pipe(
+      debounceTime(300), // Add a debounce to limit the number of API calls
+      switchMap(value => this._searchService.search(value))
+    ).subscribe(data => {
+      this.filteredJudgeList = data.judges;
+    });
 
-  onKey(e: any = { target: { value: '' } }) {
-    this.searchList = this.search(e.target.value);
+    this.advanceSearchForm.controls.judge.valueChanges.pipe(
+      debounceTime(300), // Add a debounce to limit the number of API calls
+      switchMap(value => this._searchService.search(value))
+    ).subscribe(data => {
+      this.filteredJudgeList = data.judges;
+    });
   }
 
-  search(value: string) {
-    let filter = value.toLowerCase();
-    return this.courtList.filter((option: any) =>
-      option.name.toLowerCase().startsWith(filter)
-    );
+  ngAfterViewInit() {
+    this.showLoader = false;
   }
 
-  closed(e: any) {
-    console.log(e);
+  get dateRangeFormGroup(): FormGroup {
+    return this.advanceSearchForm.get('dateRange') as FormGroup;
   }
 
-  updateAllComplete() {}
+  tabSelectionChange(e: any) {
+    switch (e.index) {
+      case 0:
+        this.recordCount = 0;
+        this.getCaseLaws(this.caseLawCurrentPage);
+        break;
+      case 1:
+        this.recordCount = 0;
+        this.showJudgeSearch = true;
+        // this.showAppSearch = true;
+        break;
+      case 2:
+        this.recordCount = 0;
+        this.showWordsSearch = true;
+        // this.showRespSearch = true;
+        break;
+      case 3:
+        this.recordCount = 0;
+        this.showAdvanceSearch = true;
+        break;
+      case 4:
+        this.recordCount = 0;
+        this.getSavedCases();
+        // this.showCitationSearch = true;
+        break;
+    }
+  }
 
   sort(sortValue: string) {
-    console.log(sortValue);
   }
 
-  filterJournal(e: any) {
-    let filter = e.target.value.toLowerCase();
-    this.filteredJournalsList = this.journalList.filter((key: any) =>
-      key.name.toLowerCase().startsWith(filter)
-    );
+  viewCase(caseId: any, keyWord: string = "", page: number) {
+    const extras = { keyWord: keyWord, caseId: caseId, activeTabIndex: this.selectedIndex, page: page, pageSize: this.pageSize };
+    if (this.selectedIndex === 1) {
+      this._dataService.setData({ activeTabIndex: this.selectedIndex, judgeControl: this.judgeControl.value, page: this.judgeWiseCurrentPage });
+    }
+    else if (this.selectedIndex === 2) {
+      this._dataService.setData({ activeTabIndex: this.selectedIndex, wordControl: this.searchedWord, wordRadioControl: this.wordsPhraseRadioModel, page: this.wordsPhraseCurrentPage });
+    }
+    else if (this.selectedIndex === 3) {
+      this._dataService.setData({ activeTabIndex: this.selectedIndex, advanceSearchControl: this.advanceSearchForm.value, page: this.advanceSearchCurrentPage });
+    }
+    else if (this.selectedIndex === 4) {
+      this.getSavedCases();
+    }
+    else if (this.selectedIndex === 0) {
+      this._dataService.setData({ activeTabIndex: this.selectedIndex, page: this.caseLawCurrentPage })
+    }
+    this._router.navigate([`lawyer/case-law/cases/view`], { state: extras });
   }
 
-  viewCase(caseId: any) {
-    this._router.navigate([`lawyer/case-law/cases/view/${caseId}`]);
-  }
-
-  viewBareActs(caseId: any) {
-    this._router.navigate([`lawyer/case-law/bare-acts/view/${caseId}`]);
-  }
-
-  filterJudge(e: any) {
-    let filter = e.target.value.toLowerCase();
-    this.filteredJudgeList = this.judgeList.filter((key: any) =>
-      key.name.toLowerCase().startsWith(filter)
-    );
-  }
   filterAct(e: any) {
     let filter = e.target.value.toLowerCase();
     this.filteredActList = this.actList.filter((key: any) =>
@@ -349,8 +379,369 @@ export class CaseLawListComponent {
   }
   filterActType(e: any) {
     let filter = e.target.value.toLowerCase();
-    this.filteredActTypeList = this.actList.filter((key: any) =>
+    this.filteredActTypeList = this.actTypeList.filter((key: any) =>
       key.name.toLowerCase().startsWith(filter)
     );
+  }
+
+  getJudgeList() {
+    this._toastMessage.showLoader = true;
+    this._apolloService.get('/judge?page=1&pageSize=50').subscribe(resObj => {
+      if (resObj.status == "success") {
+        this.judgeList = resObj.data.judges;
+        this.filteredJudgeList = this.judgeList;
+        this._toastMessage.showLoader = false;
+      }
+    })
+  }
+
+  getCourtList() {
+    this._toastMessage.showLoader = true;
+    this._apolloService.get('/court').subscribe(resObj => {
+      if (resObj.status == "success") {
+        this.courtList = resObj.data.courts;
+        this.filteredCourtList = this.courtList;
+        this._toastMessage.showLoader = false;
+      }
+    })
+  }
+
+  filterCourt(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.filteredCourtList = this.courtList.filter((key: any) =>
+      key.name.toLowerCase().startsWith(filter)
+    );
+  }
+
+  clearCourtFilter() {
+    this.filteredCourtList = this.courtList;
+    this.selectedCourt = "";
+  }
+
+  async getCaseLaws(page: number) {
+    this._toastMessage.showLoader = true;
+    let sub: any = this._apolloService.get(`/judgement/latest?page=${page}&pageSize=${this.pageSize}`);
+    let objRes: any = await lastValueFrom(sub);
+    if (objRes.status == "success") {
+      this.caseList = objRes.data.items;
+      this.recordCount = objRes.data.totalCount;
+      // console.log(this.caseList, "Case LIsfjaksdfjlakdfjlak;sdfjla;kssdjflak;sdfjl;kasksdjflk;asdjflkassdjf")
+      this._toastMessage.showLoader = false;
+    }
+  }
+
+  getCaseLawByCourt() {
+    let selectedCourt = this.filteredCourtList.find((x: any) => x.name == this.selectedCourt);
+    if (selectedCourt == undefined) {
+      this.getCaseLaws(1);
+    }
+    else {
+      this._apolloService.get(`/judgement/search/court/${selectedCourt.name}?page=${this.caseLawCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
+        if (objRes.status == "success") {
+          this.caseList = objRes.data.items;
+          this.recordCount = objRes.data.totalCount;
+        }
+      })
+    }
+  }
+
+  // getCaseLawByApplicant(keyWord: string) {
+  //   if (keyWord == undefined) {
+  //     this._toastMessage.error('Applicant name is required !!');
+  //   }
+  //   else if (keyWord == "") {
+  //     this._toastMessage.error('Applicant name is required !!');
+  //   }
+  //   else {
+  //     this._apolloService.get(`/judgement/search/appellant/${keyWord}?page=${this.applicantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
+  //       if (objRes.status == "success") {
+  //         this.resAppList = objRes.data.items;
+  //         this.applicantCurrentPage = 1;
+  //         this.recordCount = objRes.data.totalCount;
+  //         this.showAppSearch = !this.showAppSearch;
+  //       }
+  //     })
+  //   }
+  // }
+
+  // getCaseLawByRespondent(keyWord: string) {
+  //   if (keyWord == undefined) {
+  //     this._toastMessage.error('Respondent name is required !!');
+  //   }
+  //   else if (keyWord == "") {
+  //     this._toastMessage.error('Respondent name is required !!');
+  //   }
+  //   else {
+  //     this._apolloService.get(`/judgement/search/respondents/${keyWord}?page=${this.respondantCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
+  //       if (objRes.status == "success") {
+  //         this.resRespList = objRes.data.items;
+  //         this.respondantCurrentPage = 1;
+  //         this.recordCount = objRes.data.totalCount;
+  //         this.showRespSearch = !this.showRespSearch;
+  //       }
+  //     })
+  //   }
+  // }
+
+  getCaseLawByJudges(keyWord: string) {
+    if (keyWord == undefined) {
+      this._toastMessage.error('Judge name is required !!');
+    }
+    else if (keyWord == "") {
+      this._toastMessage.error('Judge name is required !!');
+    }
+    else {
+      this._apolloService.get(`/judgement/search/judges/${keyWord}?page=${this.judgeWiseCurrentPage}&pageSize=${this.pageSize}`).subscribe(objRes => {
+        if (objRes.status == "success") {
+          this.respJudgeList = objRes.data.items;
+          this.judgeWiseCurrentPage = 1;
+          this.recordCount = objRes.data.totalCount;
+          this.showJudgeSearch = !this.showJudgeSearch;
+        }
+      })
+    }
+  }
+
+  eleminateWhiteSpace(e: any) {
+    let value = e.target.value;
+    const regex = /^\s/;
+    return regex.test(value);
+  }
+
+  // getCitations(keyWord: string = "") {
+  //   let data = { name: keyWord }
+  //   this._apolloService.post(`/citation/search`, data).subscribe(objRes => {
+  //     if (objRes.status == "success") {
+  //       this.citationList = objRes.data;
+  //       this.recordCount = this.citationList.length;
+  //       this.showCitationSearch = !this.showCitationSearch;
+  //     }
+  //   })
+  // }
+
+  getCaseLawByAdvanceSearch(page: number) {
+    // console.log('this.advanceSearchForm.value',this.advanceSearchForm.value)
+    let reqObj = JSON.parse(JSON.stringify(this.advanceSearchForm.value));
+    if (reqObj.dateRange['start'] != null) {
+      reqObj.dateRange['start'] = this.formatDate(reqObj.dateRange['start'], '00:00:00.000Z');
+      reqObj.dateRange['end'] = this.formatDate(reqObj.dateRange['end'], '23:59:59.999Z');
+    }
+    this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, reqObj).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.respAdvanceSearchList = objRes.data.items;
+        this.advanceSearchCurrentPage = 1;
+        this.recordCount = objRes.data.totalCount;
+      }
+    })
+  }
+
+  formatDate(date: Date, time: string): string {
+    const formattedDate = new Date(date);
+    const isoString = formattedDate.toISOString().split('T')[0]; // Get only the date part (yyyy-mm-dd)
+    return `${isoString}T${time}`;
+  }
+
+  resetAdvanceSearchForm() {
+    this.advanceSearchForm.reset();
+    this.advanceSearchForm.patchValue(new AdvanceSearchModel());
+  }
+
+  getCaseLawsByWords(page: number) {
+    if (this.searchedWord == '') {
+      this._toastMessage.error('Please Enter any text !!');
+      this.showWordsSearch = !this.showWordsSearch;
+    }
+    else {
+      let data = {
+        text: this.searchedWord,
+        exact: this.wordsPhraseRadioModel
+      }
+      this._apolloService.post(`/judgement/search/words?page=${page}&pageSize=${this.pageSize}`, data).subscribe(objRes => {
+        if (objRes.status == "success") {
+          this.respWordsPhraseList = objRes.data.items;
+          // this.wordsPhraseCurrentPage = 1;
+          this.recordCount = objRes.data.totalCount;
+        }
+      })
+    }
+  }
+
+  getPaginatedCaseLawByAdvanceSearch(page: number) {
+    this._apolloService.post(`/judgement/search/advanced?page=${page}&pageSize=${this.pageSize}`, this.advanceSearchForm.value).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.respAdvanceSearchList = objRes.data.items;
+        this.recordCount = objRes.data.totalCount;
+      }
+    })
+  }
+
+  getHeadingLength(): number {
+    return (window.innerWidth > 1199) ? 90 : 30;
+  }
+
+  getCharLength(): number {
+    return (window.innerWidth > 1199) ? 440 : 200;
+  }
+
+  // getPaginatedCaseLawByApplicant(page: number) {
+  //   this._apolloService.get(`/judgement/search/appellant/${this.appInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
+  //     if (objRes.status == "success") {
+  //       this.resAppList = objRes.data.items;
+  //       this.recordCount = objRes.data.totalCount;
+  //     }
+  //   })
+  // }
+
+  // getPaginatedCaseLawByRespondant(page: number) {
+  //   this._apolloService.get(`/judgement/search/respondents/${this.respInputRef.nativeElement.value}?page=${page}&pageSize=${this.pageSize}`).subscribe(objRes => {
+  //     if (objRes.status == "success") {
+  //       this.resRespList = objRes.data.items;
+  //       this.recordCount = objRes.data.totalCount;
+  //     }
+  //   })
+  // }
+
+  nextPageEvent(type: string) {
+    switch (type) {
+      case 'Latest':
+        var val = this.caseLawCurrentPage += 1;
+        this.getCaseLaws(val);
+        break;
+      case 'Applicant':
+        // var val = this.applicantCurrentPage += 1;
+        // this.getPaginatedCaseLawByApplicant(val);
+        break;
+      case 'Respondant':
+        // var val = this.respondantCurrentPage += 1;
+        // this.getPaginatedCaseLawByRespondant(val);
+        break;
+      case 'Judge':
+        var val = this.judgeWiseCurrentPage += 1;
+        this.getPaginatedCaseLawByJudges(val);
+        break;
+      case 'Citation':
+        break;
+      case 'Words':
+        var val = this.wordsPhraseCurrentPage += 1;
+        this.getCaseLawsByWords(val);
+        break;
+      case 'Advance':
+        var val = this.advanceSearchCurrentPage += 1;
+        this.getPaginatedCaseLawByAdvanceSearch(val);
+        break;
+      case 'Saved':
+        break;
+      case 'Shared':
+        break;
+    }
+  }
+
+  previousPageEvent(type: string) {
+    switch (type) {
+      case 'Latest':
+        if (this.caseLawCurrentPage > 1) {
+          let val = this.caseLawCurrentPage -= 1;
+          this.getCaseLaws(val);
+        }
+        break;
+      case 'Applicant':
+        // if (this.applicantCurrentPage > 1) {
+        //   let val = this.applicantCurrentPage -= 1;
+        //   this.getPaginatedCaseLawByApplicant(val);
+        // }
+        break;
+      case 'Respondant':
+        // if (this.respondantCurrentPage > 1) {
+        //   let val = this.respondantCurrentPage -= 1;
+        //   this.getPaginatedCaseLawByRespondant(val);
+        // }
+        break;
+      case 'Judge':
+        if (this.judgeWiseCurrentPage > 1) {
+          let val = this.judgeWiseCurrentPage -= 1;
+          this.getPaginatedCaseLawByJudges(val);
+        }
+        break;
+      case 'Citation':
+        break;
+      case 'Words':
+        if (this.wordsPhraseCurrentPage > 1) {
+          let val = this.wordsPhraseCurrentPage -= 1;
+          this.getCaseLawsByWords(val);
+        }
+        break;
+      case 'Advance':
+        if (this.advanceSearchCurrentPage > 1) {
+          let val = this.advanceSearchCurrentPage -= 1;
+          this.getPaginatedCaseLawByAdvanceSearch(val);
+        }
+        break;
+      case 'Saved':
+        break;
+      case 'Shared':
+        break;
+    }
+  }
+
+  goToPageEvent(type: string, e: any) {
+    switch (type) {
+      case 'Latest':
+        this.caseLawCurrentPage = e;
+        this.getCaseLaws(this.caseLawCurrentPage);
+        break;
+      case 'Applicant':
+        // this.applicantCurrentPage = e;
+        // this.getPaginatedCaseLawByApplicant(this.applicantCurrentPage);
+        break;
+      case 'Respondant':
+        // this.respondantCurrentPage = e;
+        // this.getPaginatedCaseLawByRespondant(this.respondantCurrentPage);
+        break;
+      case 'Judge':
+        this.judgeWiseCurrentPage = e;
+        this.getPaginatedCaseLawByJudges(this.judgeWiseCurrentPage);
+        break;
+      case 'Citation':
+        break;
+      case 'Words':
+        this.wordsPhraseCurrentPage = e;
+        this.getCaseLawsByWords(this.wordsPhraseCurrentPage);
+        break;
+      case 'Advance':
+        this.advanceSearchCurrentPage = e;
+        this.getPaginatedCaseLawByAdvanceSearch(this.advanceSearchCurrentPage);
+        break;
+      case 'Saved':
+        break;
+      case 'Shared':
+        break;
+    }
+  }
+
+  async getPaginatedCaseLawByJudges(page: number) {
+    let res: any = this._apolloService.get(`/judgement/search/judges/${this.judgeControl.value}?page=${page}&pageSize=${this.pageSize}`);
+    let objRes: any = await lastValueFrom(res);
+    if (objRes.status == "success") {
+      this.respJudgeList = objRes.data.items;
+      this.recordCount = objRes.data.totalCount;
+    }
+  }
+
+  getSavedCases() {
+    this._toastMessage.showLoader = true;
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
+    this._apolloService.get(`/saved-judgement/user/${userData._id}`).subscribe(objRes => {
+      if (objRes.status == "success") {
+        this.savedCasesList = objRes.data.reverse();
+        this.recordCount = objRes.data.length;
+        this._toastMessage.showLoader = false;
+      }
+    })
+  }
+
+  viewSavedCase(cases: any) {
+    const extras = { savedCaseId: cases._id, caseId: cases.judgementId._id }
+    this._dataService.setData({ activeTabIndex: this.selectedIndex });
+    this._router.navigate([`lawyer/case-law/savedCases/view`], { state: extras });
   }
 }

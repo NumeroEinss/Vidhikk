@@ -1,0 +1,192 @@
+mat-drawer-container {
+    position: unset;
+}
+
+.main-container {
+    height: 100vh;
+    display: flex;
+
+    .material-symbols-sharp {
+        font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
+    }
+
+    .sidenav {
+        background-color: #fbfbfb;
+        width: 220px;
+        position: relative;
+        display: block;
+
+        .logo {
+            height: 82px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        li {
+            height: 48px;
+            align-self: stretch;
+            flex-grow: 0;
+            display: flex;
+            gap: 12px;
+            padding: 0 0 0 30px;
+            background-color: #ffffff0d;
+            list-style-type: none;
+
+            a {
+                font-family: Poppins;
+                font-size: 14px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: left;
+                color: #00000099;
+                text-decoration: none;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .in-active {
+                margin-right: 12px;
+                display: block;
+            }
+
+            .active {
+                display: none;
+            }
+        }
+
+        li:hover {
+            background-color: #2e5bff0d;
+
+            a {
+                color: #2e5bff;
+            }
+
+            .active {
+                margin-right: 12px;
+                display: block;
+            }
+
+            .in-active {
+                display: none;
+            }
+        }
+
+        .active-link {
+            background-color: #2e5bff0d;
+
+            a {
+                color: #2e5bff;
+
+                .active {
+                    margin-right: 12px;
+                    display: block;
+                }
+
+                .in-active {
+                    display: none;
+                }
+            }
+        }
+
+        .social-icon {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            bottom: 20px;
+            z-index: 3;
+            left: 17px;
+            cursor: pointer;
+
+            div {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: #1949f517;
+                border: 1px solid #1949f517;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .in-active {
+                    display: block;
+                }
+
+                .active {
+                    display: none;
+                }
+            }
+
+            div:hover {
+                background-color: #2e5bff;
+                transition: all 0.3s ease-in-out;
+
+                .active {
+                    display: block;
+                }
+
+                .in-active {
+                    display: none;
+                }
+            }
+
+        }
+    }
+
+    .main-content {
+        background-color: white;
+        width: calc(100vw - 220px);
+        height: 100vh;
+        overflow: auto;
+
+        // .modal {
+        //   position: absolute !important;
+        //   margin: calc(100vw - 220px);
+        // }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .main-container {
+        .sidenav {
+            width: 180px;
+
+            li {
+                padding: 0 0 0 20px;
+
+                a {
+                    font-size: 14px;
+                }
+
+                .in-active {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                .active {
+                    width: 20px;
+                    height: 20px;
+                }
+
+            }
+
+            .social-icon {
+                div {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+
+        }
+
+        .main-content {
+            width: calc(100vw - 180px);
+        }
+    }
+}

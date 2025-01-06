@@ -1,10 +1,7 @@
-<app-header
-  [searchStyle]="{ width: '100%', display: 'flex' }"
-  [searchIcon]="{ width: '0px', display: 'none' }"
-  [colConfig]="'col-lg-12 col-md-12'"
-></app-header>
+<app-header [searchStyle]="{ width: '100%', display: 'flex' }" [searchIcon]="{ width: '0px', display: 'none' }"
+  [colConfig]="'col-lg-12 col-md-12'"></app-header>
 <div class="root">
-  <mat-chip-listbox aria-label="Fish selection" class="m-4">
+  <mat-chip-listbox aria-label="Fish selection">
     <mat-chip-option selected>Cases</mat-chip-option>
     <mat-chip-option>App/Resp</mat-chip-option>
     <mat-chip-option>Judge Wise</mat-chip-option>
@@ -13,12 +10,8 @@
     <mat-chip-option>Words and Phrases</mat-chip-option>
     <mat-chip-option>Overruled</mat-chip-option>
   </mat-chip-listbox>
-  <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-    <div
-      class="case-container"
-      *ngFor="let item of caseList"
-      (click)="viewCase('edadsfalkdlk2jkldas2255E')"
-    >
+  <ng-scrollbar autoHeightDisabled="false" appearance="standard" style="height: calc (100vh - 50px);margin-bottom: 20px;">
+    <div class="case-container" *ngFor="let item of caseList" (click)="viewCase('edadsfalkdlk2jkldas2255E')">
       <div class="title">
         {{ item.caseTitle }}
       </div>

@@ -1,0 +1,59 @@
+<app-header [menuName]="'Transactions'"></app-header>
+
+<div class="root">
+    <div style="height: calc(100vh - 180px);">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+            <div class="transaction-list">
+                <div>
+                    <div class="transaction-list-header">
+                        <div class="grid-item-name">TRANSACTION ID</div>
+                        <div class="grid-item1">DATE</div>
+                        <div class="grid-item1">REMARK</div>
+                        <div class="grid-item1">TIME</div>
+                        <div class="grid-item1">AMOUNT</div>
+                        <div class="grid-item1">STATUS</div>
+                        <div class="grid-item1">ACTIONS</div>
+                    </div>
+
+                    <div *ngFor="let transaction of transactionList" class="transaction-list-data">
+                        <div class="grid-item2 id">{{transaction.transactionId }}</div>
+                        <div class="grid-item2">
+                            <span><img class="date-img me-1" src="../../assets/images/icons/date.svg"
+                                    alt="noImage" /></span>
+                            {{transaction.date }}
+                        </div>
+                        <div class="grid-item2">{{transaction.remark }}</div>
+                        <div class="grid-item2"><span><img class="time-img me-1"
+                                    src="../../assets/images/icons/time.svg" alt="noImage" /></span>{{transaction.time
+                            }}
+                        </div>
+                        <div class="grid-item2">{{transaction.amount}}</div>
+                        <div class="grid-item2">
+                            <div class="oval-div close-status" *ngIf="transaction.status == 'Failed'">
+                                Failed
+                            </div>
+                            <div class="oval-div process-status" *ngIf="transaction.status == 'Completed'">
+                                Completed
+                            </div>
+                            <div class="oval-div pending-status" *ngIf="transaction.status == 'Pending'">
+                                Pending
+                            </div>
+                        </div>
+                        <div class="grid-item2">
+                            <button mat-icon-button [matMenuTriggerFor]="transactionMenu">
+                                <mat-icon class="action-icon">more_vert</mat-icon>
+                              </button>
+                        </div>
+
+                        <mat-menu #transactionMenu="matMenu">
+                            <button mat-menu-item >
+                              <img src="../../../assets/images/icons/raise_ticket.svg" alt="" class="me-2"/>
+                              <span class="mat-menu-list">Raise a ticket</span>
+                            </button>
+                          </mat-menu>
+                    </div>
+                </div>
+            </div>
+        </ng-scrollbar>
+    </div>
+</div>

@@ -1,13 +1,14 @@
 .root {
   .feed-section {
     top: 0;
+
     .filter-bar {
       background-color: #f6f6f6;
       width: 100%;
       position: relative;
       display: flex;
       height: 47px;
-      padding: 0px 18px;
+      padding: 0px 30px;
 
       .pretext {
         display: flex;
@@ -27,7 +28,7 @@
     }
 
     .description {
-      margin: 30px 50px 50px 50px;
+      margin: 30px;
       font-family: poppins;
       font-stretch: normal;
       font-style: normal;
@@ -40,8 +41,40 @@
         font-weight: bold;
       }
     }
-   
-  }
 
-  
+  }
 }
+
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    .feed-section {
+      .filter-bar {
+        padding: 0 15px;
+      }
+
+      .description {
+        margin: 15px;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .root {
+    .feed-section {
+      .filter-bar {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px;
+        z-index: 1 !important;
+      }
+
+      .description {
+        margin: 15px;
+      }
+    }
+  }
+}
+

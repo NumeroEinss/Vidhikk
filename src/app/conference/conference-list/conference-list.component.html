@@ -18,9 +18,39 @@
       <div class="grid-item2">{{ item.date }}</div>
       <div class="grid-item2">{{ item.time }}</div>
       <div class="grid-item2">
-        <button mat-stroked-button color="primary" routerLink="/lawyer/conference/dgdfg7897yhvjbjrtyu">
+        <button mat-stroked-button color="primary" (click)="joinConference()">
           Join
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Conference Disclaimer Popup -->
+<button id="conferenceDisclaimer" mat-raised-button color="primary w-100" data-bs-toggle="modal"
+  data-bs-target="#conferenceDisclaimerPopup" class="d-none"></button>
+<div class="modal fade" id="conferenceDisclaimerPopup" tabindex="-1" aria-labelledby="conferenceDisclaimerPopupLabel"
+  aria-hidden="true" style="width: 100%;">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="conferenceDisclaimerPopupLabel">Disclaimer</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mt-2 mb-2">
+          This is the limited time conference.The conference will end automatically after your time completed. You can
+          make further payment to book another conference by going to lawyer profile.
+          All the information of the conference will be shared with you in the form of transcript. you will you this
+          conversation for further reference.
+          This communication end to end encrypted. We are not storing any kind of your personal data.
+        </p>
+        <div class="text-center mt-3 mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important"
+            routerLink="/user/conference/asdfn4lke4rulasd">
+            Join Conference
+          </button>
+        </div>
       </div>
     </div>
   </div>

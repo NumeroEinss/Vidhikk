@@ -7,11 +7,15 @@
     <div class="create-case-diary-heading">Create Case Diary</div>
     <div class="create-case-diary-fields">
       <form [formGroup]="createCaseDiaryForm">
-        <div class="row">
-          <div class="d-flex mat-input-white" style="flex-direction: column">
+        <div class="case-diary-col row">
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Registration Date</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Type registration date" formControlName="registrationDate" required />
+              <input matInput [matDatepicker]="picker" formControlName="registrationDate"
+                placeholder="Select Registration Date" [max]="today" [readonly]="true" required>
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="createCaseDiaryForm.controls['registrationDate'].errors?.['required']">Registration Date
                 is Required !!</mat-error>
             </mat-form-field>
@@ -27,15 +31,16 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="d-flex mat-input-white" style="flex-direction: column">
+        <div class="case-diary-col row">
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Court Name</mat-label>
             <mat-form-field appearance="outline">
-              <mat-select placeholder="Select court" formControlName="courtName" required>
-                <mat-option *ngFor="let court of courtNameList" [value]="court.value">
-                  {{ court.viewValue }}
+              <!-- <mat-select placeholder="Select court" formControlName="courtName" required>
+                <mat-option *ngFor="let court of courtNameList" [value]="court.name">
+                  {{ court.name }}
                 </mat-option>
-              </mat-select>
+              </mat-select> -->
+              <input matInput placeholder="Enter Court Name" formControlName="courtName" />
               <mat-error *ngIf="createCaseDiaryForm.controls['courtName'].errors?.['required']">Court Name is Required
                 !!</mat-error>
             </mat-form-field>
@@ -51,62 +56,41 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Case No.</mat-label>
+        <div class="case-diary-col row">
+
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+            <mat-label class="mat-label">Case Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Type case number" formControlName="caseNo" required />
-              <mat-error *ngIf="createCaseDiaryForm.controls['caseNo'].errors?.['required']">Case No. is Required
+              <input matInput placeholder="Type case name" formControlName="caseName" required />
+              <mat-error *ngIf="createCaseDiaryForm.controls['caseName'].errors?.['required']">Case Name is
+                Required
                 !!</mat-error>
             </mat-form-field>
           </div>
 
           <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Next Hearing Date</mat-label>
-            <mat-form-field appearance="outline">
-              <input matInput placeholder="Type next hearing date" formControlName="hearingDate" required />
-              <mat-error *ngIf="createCaseDiaryForm.controls['hearingDate'].errors?.['required']">Hearing Date is
-                Required !!</mat-error>
-            </mat-form-field>
+            <mat-label class="mat-label">Representing</mat-label>
+            <!-- <mat-form-field appearance="outline"> -->
+            <mat-radio-group aria-label="User Type" class="mb-2" formControlName="representing">
+              <mat-radio-button value="Applicant">Applicant</mat-radio-button>
+              <mat-radio-button value="Respondant" checked>Respondant</mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="createCaseDiaryForm.controls['representing'].errors?.['required']">
+              Representing is Required !!</mat-error>
+            <!-- </mat-form-field> -->
           </div>
         </div>
 
-        <div class="row">
-          <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Case Stage</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select stage" formControlName="stage" required>
-                <mat-option *ngFor="let stage of stages" [value]="stage.value">
-                  {{ stage.viewValue }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']">
-                Case Stage is Required !!</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Application Type</mat-label>
-            <mat-form-field appearance="outline">
-              <mat-select placeholder="Select application type" formControlName="applicantType" required>
-                <mat-option *ngFor="let type of applicationType" [value]="type.value">
-                  {{ type.viewValue }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="createCaseDiaryForm.controls['applicantType'].errors?.['required']">Application Type is
-                Required !!</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="d-flex mat-input-white" style="flex-direction: column">
+        <div class="case-diary-col row">
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">City</mat-label>
             <mat-form-field appearance="outline">
               <mat-select placeholder="Select city" formControlName="city" required>
-                <mat-option *ngFor="let city of cities" [value]="city.value">
-                  {{ city.viewValue }}
+                @for (city of cityList; track city) {
+                <mat-option [value]="city.name">
+                  {{ city.name }}
                 </mat-option>
+                }
               </mat-select>
               <mat-error *ngIf="createCaseDiaryForm.controls['city'].errors?.['required']">City is Required
                 !!</mat-error>
@@ -114,26 +98,49 @@
           </div>
 
           <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Application Section</mat-label>
+            <mat-label class="mat-label">Section</mat-label>
             <mat-form-field appearance="outline">
-              <mat-select placeholder="Select application section" formControlName="applicationSection" required>
-                <mat-option *ngFor="let section of applicationSection" [value]="section.value">
-                  {{ section.viewValue }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="createCaseDiaryForm.controls['applicationSection'].errors?.['required']">Application
-                Section is Required !!</mat-error>
+              <input matInput placeholder="Type IPC Section" formControlName="sectionIPC" />
             </mat-form-field>
           </div>
         </div>
 
-        <div class="row">
-          <div class="d-flex mat-input-white" style="flex-direction: column">
-            <mat-label class="mat-label">Reason for Absent</mat-label>
+        <div class="case-diary-col row">
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+            <mat-label class="mat-label">FIR No.</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Type reason for absent" formControlName="reason" required />
-              <mat-error *ngIf="createCaseDiaryForm.controls['reason'].errors?.['required']">Reason for Absent is
-                Required !!</mat-error>
+              <input matInput placeholder="Type FIR number" formControlName="FIRNumber" />
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+            <mat-label class="mat-label">FIR Date</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="picker2" formControlName="FIRDate" placeholder="Select FIR Date"
+                [max]="today" [readonly]="true">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="case-diary-col row">
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+            <mat-label class="mat-label">Client Email</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Client Email" formControlName="clientEmail" />
+              <mat-error *ngIf="createCaseDiaryForm.controls['clientEmail'].errors?.['required']">
+                Client Email is Required !!</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+            <mat-label class="mat-label">Client Contact No.</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Client Contact" formControlName="clientContact" />
+              <mat-error *ngIf="createCaseDiaryForm.controls['clientContact'].errors?.['required']">
+                Client Contact is Required !!</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -141,14 +148,14 @@
     </div>
 
     <div class="lower-div">
-        <button mat-raised-button color="primary" type="button" 
-          style="font-size: 14px !important; width: 124px !important">
-          <img src="../../../../assets/images/icons/create-case-diary.svg" />Create
-        </button>
+      <button mat-raised-button color="primary" type="button"
+        style="font-size: 14px !important; width: 124px !important" (click)="createCaseDiary()">
+        <img src="../../../../assets/images/icons/create-case-diary.svg" />Create
+      </button>
 
-        <button mat-stroked-button color="primary" style="margin-left: 20px">
-          <img src="../../../../assets/images/icons/reset.svg" />Reset
-        </button>
+      <button mat-stroked-button color="primary" style="margin-left: 20px" (click)="resetForm()">
+        <img src="../../../../assets/images/icons/reset.svg" />Reset
+      </button>
     </div>
   </div>
   <!-- root-section ends -->

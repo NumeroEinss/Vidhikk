@@ -1,0 +1,224 @@
+[
+    {
+        "id": 1,
+        "court": "LEARNED JUDICIAL MAGISTRATE FIRST CLASS",
+        "city": "(NAME OF THE CITY (STATE))",
+        "case_number": "_____/____ (auto from sys data)",
+        "hearing_date": "DD/MM/YY",
+        "complainant": {
+            "name": "_____",
+            "role": "Complainant"
+        },
+        "accused": {
+            "name": "_____",
+            "role": "Accused/Applicant"
+        },
+        "application_type": "Grant time to File Surety",
+        "content": {
+            "paragraphs": [
+                "1. That, in this matter in regard to the order of this learned court the accused ought to furnish his surety of Rs. ________.",
+                "2. That, presently, the accused does not have an appropriate bailer and because of this reason he is not able to provide his surety today.",
+                "3. That, the accused will give surety by the way of bail bond within prescribed time, if ordered."
+            ],
+            "prayer": "Therefore, the above named accused most respectfully prayed that this learned court may provide some time to furnish surety by allowing this application and may also be kind enough to release him on personal bond."
+        },
+        "place": "(Name of the Place)",
+        "date": "(automatic from system)",
+        "counsel": "Counsel for the Accused"
+    },
+    {
+        "id": 2,
+        "court": "LEARNED JUDICIAL MAGISTRATE FIRST CLASS",
+        "city": "(NAME OF THE CITY (STATE))",
+        "case_number": "_____/____ (auto from sys data)",
+        "hearing_date": "DD/MM/YY",
+        "complainant": {
+            "name": "_____",
+            "role": "Complainant/Applicant"
+        },
+        "accused": {
+            "name": "_____",
+            "role": "Accused/Non Applicant"
+        },
+        "application_type": "Application U/s. 87 of Cr.P.C.",
+        "content": {
+            "paragraphs": [
+                "1. That, in this matter, this learned court has issued a bailable warrant for ensuring the presence of the accused person but, unfortunately, the same has not served upon the accused person.",
+                "2. That, this reflects that, the accused has full knowledge about this matter/case and for his own benefits he is deliberately deploying a bitter tactics to delay the proceedings of this matter by holding the service of the bailable warrant upon him.",
+                "3. That, the act of the accused reflect that he is now required to call upon in this matter by the way of his arrest and for this purpose it is necessary to issue his arrest warrant."
+            ],
+            "prayer": "Therefore, the above named Complainant/Applicant most respectfully prayed that this learned court by allowing this application may issue a arrest warrant of the accused person to ensure his/their presence before this learned court in this matter."
+        },
+        "place": "(Name of the Place)",
+        "date": "(automatic from system)",
+        "counsel": "Counsel for the Complainant/Applicant"
+    },
+    {
+        "id": 3,
+        "court": "LEARNED JUDICIAL MAGISTRATE FIRST CLASS",
+        "city": "(NAME OF THE CITY (STATE))",
+        "case_number": "_____/____ (auto from sys data)",
+        "hearing_date": "DD/MM/YY",
+        "complainant": {
+            "name": "_____",
+            "role": "Complainant"
+        },
+        "accused": {
+            "name": "_____",
+            "role": "Accused/Applicant"
+        },
+        "application_type": "Application U/s. 44 (2) of Cr.P.C.",
+        "content": {
+            "paragraphTitle": "The Accused/Applicant above named most respectfully submits that:-",
+            "paragraphs": [
+                "1. That he came to know that he has implicated as an accused and his presence is required in the trial of this matter.",
+                "2. That the accused wilfully wants to surrender before this learned trial court in this matter.",
+                "3. That the accused is present in person before this learned court."
+            ],
+            "prayer": "Therefore the above named Complainant/Applicant most respectfully prayed that this learned court by allowing this may pass an appropriate order for the wilful surrender of him before this learned court in this matter."
+        },
+        "place": "(Name of the Place)",
+        "date": "(automatic from system)",
+        "counsel": "Counsel for the Complainant/Applicant"
+    },
+    {
+        "id": 4,
+        "court": "LEARNED JUDICIAL MAGISTRATE FIRST CLASS",
+        "city": "(NAME OF THE CITY (STATE))",
+        "case_number": "_____/____ (auto from sys data)",
+        "hearing_date": "DD/MM/YY",
+        "complainant": {
+            "name": "_____",
+            "role": "Complainant"
+        },
+        "accused": {
+            "name": "_____",
+            "role": "Accused"
+        },
+        "application_type": "Application: for granting time for submission of court fees",
+        "content": {
+            "paragraphs": [
+                "1. That the complainant has filed this complaint before this learned court against the Accused person.",
+                "2. That, complainant ought to be submit a court a court fees of Rs. ______/-. At present, the stamp of court fees are not available with any of the stamp vendor in this court.",
+                "3. That, the complaint is assuring that he will submit the above stated court fees without any delay once they will be available with the stamp vendor."
+            ],
+            "prayer": "Therefore, the above named Complainant most respectfully prayed that this learned court by allowing this application may grant some time to him to submit the appropriate court fees."
+        },
+        "place": "(Name of the Place)",
+        "date": "(automatic from system)",
+        "counsel": "Counsel for the Complainant"
+    },
+    {
+        "id": 5,
+        "court": "LEARNED, ___ C IVIL JUDGE, CLASS - ___",
+        "city": "(NAME OF THE CITY (STATE))",
+        "case_number": "_____/____ (auto from sys data)",
+        "hearing_date": "DD/MM/YY",
+        "plaintiff": {
+            "name": "_____",
+            "role": "Plaintiff"
+        },
+        "defendant": {
+            "name": "_____",
+            "role": "Defendant"
+        },
+        "application_type": "Application: for granting time for submission of court fee",
+        "content": {
+            "paragraphs": [
+                "1. That the Plaintiff has filed this Plaint before this learned court against the Defendant/’s.",
+                "2. That, Plaintiff ought to have submit a court a court fees of Rs. ______/-. At present, the Plaintiff do not have this money with him but he is sure that he will manage the same within 90 days of time from the date of filing of this plaint.",
+                "3. That, this application of the plaintiff is bonafide."
+            ],
+            "prayer": "Therefore, the above named Complainant most respectfully prayed that this learned court by allowing this application may grant some time to him to submit the appropriate court fees."
+        },
+        "place": "(Name of the Place)",
+        "date": "(automatic from system)",
+        "counsel": "Counsel for the Complainant"
+    },
+    {
+        "id": 6,
+        "court": "LEARNED JUDICIAL MAGISTRATE FIRST CLASS",
+        "city": "(NAME OF THE CITY (STATE))",
+        "case_number": "_____/____ (auto from sys data)",
+        "hearing_date": "DD/MM/YY",
+        "complainant": {
+            "name": "_____",
+            "role": "Complainant"
+        },
+        "accused": {
+            "name": "_____",
+            "role": "Accused"
+        },
+        "application_type": "Application U/s. 437 of Cr.P.C.",
+        "content": {
+            "paragraphs": [
+                "1. That, the complainant has registered an F.I.R. against the accused vide F.I.R. No. _____/ 202_ U/s. ______________ of IPC and Section ______ of ____________.",
+                "2. That, the accused is an innocent and was falsely implicated by the complainant police in the above stated offences as his/her name was taken by the applicant in the alleged offence. The accused is a permanent resident of ________ where he resides in his pacca home and there no likelihood of getting him absconded.",
+                "3. That, the accused will always makes him present before the court in each and every hearing of the present matter during the trial and will also abide himself with every order of the learned court. He will also co-operate the complainant Police and will not temper any evidence of witness during investigation.",
+                "4. That, the accused is bonafide to follow the all orders of this learned court and ready to furnish the appropriate surety for granting him bail."
+            ],
+            "prayer": "It is therefore, the above named Accused/Applicant most respectfully prayed that this learned court by allowing this application may enlarge him on bail by passing appropriate bail orders."
+        },
+        "place": "(Name of the Place)",
+        "date": "(automatic from system)",
+        "counsel": "Counsel for the Accused"
+    },
+    {
+        "id": 7,
+        "court": "LEARNED ADDITIONAL DISTICT AND SESSION JUDGE",
+        "city": "(NAME OF THE CITY (STATE))",
+        "case_number": "_____/____ (auto from sys data)",
+        "hearing_date": "DD/MM/YY",
+        "complainant": {
+            "name": "_____",
+            "role": "Complainant"
+        },
+        "accused": {
+            "name": "_____",
+            "role": "Applicant"
+        },
+        "application_type": "Application U/s. 438 of Cr.P.C.",
+        "content": {
+            "paragraphs": [
+                "1. That, the complainant has registered an F.I.R. vide No. _____/ 202_ U/s. ______________ of IPC and Section ______ of ____________.",
+                "2. That, the applicant has an apprehension that the complainant police has already implicated him as an accused in the said F.I.R.  On the other hand, he is an innocent and was falsely implicated by the complainant police.",
+                "3. That, the applicant is also apprehending that he will be unnecessary will get arrested by the police and will get tortured. The applicant is a reputed person and law abide citizen. And, a permanent resident and resides in his own pacca house and will not get absconded.",
+                "4. That, the applicant is ready to cooperate the complainant police during the course of investigation.",
+                "5. That, the applicant is a permanent resident and resides in his own pacca house. The applicant abide himself with all the orders of this learned court.",
+                "6. That, the accused is bonafide to follow the all orders of this learned court and ready to furnish the appropriate surety for granting him anticipatory bail."
+            ],
+            "prayer": "It is therefore, the above named Accused/Applicant most respectfully prayed that this learned court by allowing this application may enlarge him on bail by passing appropriate bail orders."
+        },
+        "place": "(Name of the Place)",
+        "date": "(automatic from system)",
+        "counsel": "Counsel for the Accused"
+    },
+    {
+        "id": 8,
+        "court": "LEARNED ADDITIONAL DISTICT AND SESSION JUDGE",
+        "city": "(NAME OF THE CITY (STATE))",
+        "case_number": "_____/____ (auto from sys data)",
+        "hearing_date": "DD/MM/YY",
+        "complainant": {
+            "name": "_____",
+            "role": "Complainant"
+        },
+        "accused": {
+            "name": "_____",
+            "role": "Accused"
+        },
+        "application_type": "Application U/s. 439 of Cr.P.C.",
+        "content": {
+            "paragraphs": [
+                "1. That, the complainant has registered an F.I.R. against the accused vide F.I.R. No. _____/ 202_ U/s. ______________ of IPC and Section ______ of ____________.",
+                "2. That, the accused is an innocent and was falsely implicated by the complainant police in the above stated offences as his/her name was taken by the applicant in the alleged offence. The accused is a permanent resident of ________ where he resides in his pacca home and there no likelihood of getting him absconded.",
+                "3. That, the accused will always makes him present before the court in each and every hearing of the present matter during the trial and will also abide himself with every order of the learned court. He will also co-operate the complainant Police and will not temper any evidence of witness during investigation.",
+                "4. That, the accused is bonafide to follow the all orders of this learned court and ready to furnish the appropriate surety for granting him bail."
+            ],
+            "prayer": "It is therefore, the above named Accused/Applicant most respectfully prayed that this learned court by allowing this application may enlarge him on bail by passing appropriate bail orders."
+        },
+        "place": "(Name of the Place)",
+        "date": "(automatic from system)",
+        "counsel": "Counsel for the Accused"
+    }
+]

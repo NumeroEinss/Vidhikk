@@ -1,69 +1,76 @@
 .root {
-  height: calc(100vh - 90px);
+  height: calc(100vh - 170px);
+  margin: 30px 0 0px 30px;
 
-  .card {
-    margin: 23px 36px;
+  .cards {
     border: none;
-    font-family: Poppins !important;
+    font-family: Poppins;
 
     .calendar-header-menu {
       display: flex;
 
       .filter-section {
         margin-right: 24px;
+        width: 180px;
 
         .mat-mdc-form-field {
-          width: 180px !important;
+          width: 180px;
         }
       }
 
+      .create-event1{
+        display: none;
+      }
+
       .search-bar {
-        width: 100% !important;
+        width: 100%;
         margin-right: 24px;
 
         .mat-mdc-form-field {
           max-width: unset;
-          width: 100% !important;
+          width: 100%;
+
+          .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+            background-color: transparent;
+          }
         }
       }
 
       .create-event {
-        width: unset !important;
+        width: 215px;
 
         button {
-          width: 215px !important;
+          width: 215px;
           background-color: #053bff0d;
-          border-color: #7d818e0d !important;
+          border-color: #7d818e0d;
         }
       }
 
       .mat-mdc-outlined-button:not(:disabled) {
-        width: unset !important;
+        width: unset;
       }
     }
 
     .availability {
-      position: relative;
+      // position: relative;
       margin-top: 56px;
 
       .availability-label {
-        height: 40px;
         font-size: 18px;
       }
 
       .create-availability {
-        position: absolute;
-        right: 0;
-        width: unset !important;
+        // width: unset;
 
         button {
           width: 215px !important;
           background-color: #053bff0d;
-          border-color: #7d818e0d !important;
+          border-color: #7d818e0d;
         }
       }
 
       .add-availability-list {
+        margin-right: 15px;
         .availability-list-header {
           display: grid;
           // grid-template-columns: 250px 200px 250px 200px 120px 40px;
@@ -71,7 +78,7 @@
           margin-bottom: 5px;
           align-items: center;
           padding: 0px 15px 0px 15px;
-          color: #8798ad !important;
+          color: #8798ad;
           font-size: 12px;
           margin-top: 30px;
           width: 100%;
@@ -102,6 +109,11 @@
             .icon {
               width: 16px;
               height: 16px;
+            }
+
+            .action-icon {
+              font-size: 20px;
+              color: #000;
             }
 
             mat-menu {
@@ -137,7 +149,144 @@
 }
 
 .mat-mdc-icon-button.mat-mdc-button-base {
-  width: 24px !important;
-  height: 24px !important;
-  padding: 0px !important;
+  width: 24px;
+  height: 24px;
+  padding: 0px;
+}
+
+.calendar-form {
+  .color-picker {
+    display: flex;
+    gap: 10px;
+  }
+
+  .color-picker label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .color-picker input[type="radio"] {
+    display: none;
+  }
+
+  .color-picker .color-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    display: inline-block;
+  }
+
+  .color-picker input[type="radio"]:checked+.color-swatch {
+    content: url(../../assets/images/icons/checked.svg);
+  }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    margin: 15px;
+    margin-right: 0;
+
+    .cards {
+      .calendar-header-menu {
+
+        .filter-section {
+          margin-right: 15px;
+        }
+
+        .search-bar {
+          width: 100% !important;
+          margin-right: 15px;
+        }
+
+        button {
+          width: 140px !important;
+        }
+      }
+
+      .cal-container {
+        width: calc(100vw - 210px);
+      }
+
+      .add-availability-list {
+        overflow-x: scroll;
+        width: calc(100vw - 210px);
+
+        .availability-list-header {
+          min-width: 1000px;
+        }
+
+        .availability-list-data {
+          min-width: 1000px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .root {
+    margin: 15px;
+    margin-right: 0;
+
+    .cards {
+      .calendar-header-menu {
+        flex-wrap: wrap;
+
+        .filter-section {
+          margin-right: 15px;
+        }
+
+        .search-bar {
+          width: 100% !important;
+          margin-right: 15px;
+        }
+
+        button {
+          width: 140px !important;
+        }
+
+        .create-event1{
+          display: block;
+        }
+
+        .create-event{
+          display: none;
+        }
+      }
+
+      .cal-container {
+        font-size: 12px;
+        width: calc(100vw - 25px);
+      }
+
+      // .availability {
+      //   position: unset;
+      // }
+
+      .add-availability-list {
+        overflow-x: scroll;
+        width: calc(100vw - 35px);
+        // margin-right: 25px !important;
+
+        .availability-list-header {
+          min-width: 800px;
+        }
+
+        .availability-list-data {
+          min-width: 800px;
+        }
+      }
+    }
+  }
+
+  .add-event{
+    width:96% !important;
+
+    .modal-body{
+    padding: 20px 15px;
+    }
+  }
 }

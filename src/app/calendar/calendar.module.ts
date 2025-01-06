@@ -11,6 +11,7 @@ import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 
 @NgModule({
   declarations: [CalendarComponent, CalendarHeaderComponent],
@@ -23,10 +24,11 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     SharedModule,
     MatDatepickerModule,
     MatButtonToggleModule,
+    NgxMatTimepickerModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
-    }),
+    })
   ],
 })
-export class CalendarsModule {}
+export class CalendarsModule { }

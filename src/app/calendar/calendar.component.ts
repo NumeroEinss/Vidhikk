@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { Component, ViewChild } from '@angular/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
   MAT_DATE_LOCALE,
@@ -6,7 +7,12 @@ import {
   DateAdapter,
 } from '@angular/material/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
-import { addDays } from 'date-fns';
+import { ToastMessageService } from '../shared/services/snack-alert.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AvailabilityModel, EventModel } from '../common/calendarModel';
+import { ApolloService } from '../shared/services/apollo.service';
+import { GQLConfig } from '../graphql.operations';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 export const colors: any = {
   red: {
@@ -49,175 +55,104 @@ const MY_DATE_FORMAT = {
   ],
 })
 export class CalendarComponent {
+
+  @ViewChild('calendarScroll') calendarScroll!: NgScrollbar;
+
   view: CalendarView = CalendarView.Month;
 
   viewDate: Date = new Date();
 
-  eventToBeDeleted: CalendarEvent | undefined;
+  eventToBeDeleted: any;
+  eventToBeEdited: any;
 
   deleteSlotIndex: number = 0;
 
-  events: CalendarEvent[] = [
-    {
-      title: 'Editable event',
-      color: colors.yellow,
-      start: new Date(),
-      actions: [
-        {
-          label: 'Edit',
-          onClick: ({ event }: { event: CalendarEvent }) => { this.editEvent(event); console.log('test'); },
-        },
-      ],
-    },
-    {
-      title: 'Deletable eventssss',
-      color: colors.blue,
-      start: new Date(),
-      actions: [
-        {
-          label: 'Delete Event ',
-          onClick: ({ event }: { event: CalendarEvent }): void => { this.handleDelete(), this.eventToBeDeleted = event },
-        },
-      ],
-    },
-    {
-      title: 'Non editable and deletable event',
-      color: colors.red,
-      start: new Date(),
-    },
-  ];
+  selectedTimes: any = { A: '', B: '' };
+
+  events: CalendarEvent[] = [];
 
   eventTypeList = [
     { name: 'All Events', value: 'allEvent' },
     { name: 'Meetings', value: 'meetings' },
   ];
 
+  repeatList = [
+    { name: 'Once', value: 'once' },
+    { name: 'Daily', value: 'daily' },
+    { name: 'Mon to Friday', value: 'monToFriday' }
+  ]
+
+  reminderList = [
+    { name: '1 hours before', value: '1hour' },
+    { name: '2 hours before', value: '2hour' },
+    { name: '3 hours before', value: '3hour' },
+    { name: '4 hours before', value: '4hour' },
+  ]
+
   eventType: string = 'allEvent';
 
-  availabilityList: any = [
-    {
-      id: 'fasdljasdfa',
-      date: new Date().toLocaleDateString(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'fasdasdfljasdfa',
-      date: new Date().toLocaleDateString(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-    {
-      id: 'ewrewrewrx',
-      date: new Date().toLocaleDateString(),
-      timeSlot: [
-        {
-          slot: '5pm-6pm',
-          status: 'booked',
-        },
-        {
-          slot: '6pm-7pm',
-          status: 'available',
-        },
-        {
-          slot: '7pm-8pm',
-          status: 'booked',
-        },
-        {
-          slot: '8pm-9pm',
-          status: 'booked',
-        },
-        {
-          slot: '9pm-10pm',
-          status: 'available',
-        },
-      ],
-    },
-  ];
+  availabilityList: any = [];
 
   today: Date = new Date();
 
-  caseList = [
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
-    {
-      caseTitle: 'Nabha Power Limited VS Punjab Corporation on 9 October, 2023',
-      caseDesc:
-        'Electricity Act 2003 - Section 86(1)(a) read with section 62 - Recovery of deduction of monthly tarrif - Discrepancy in term of yield loss of quality of washed cool usually happens when good quality of cool was diverted under grab of reject in washing process..',
-      court: 'Supreme Court',
-      bench: 'FB',
-      cited: 0,
-      acts: 'Acts:  ELECTRICITY ACT: S62S.86(1)(a),',
-    },
+  repeat: any = "";
+
+  reminder: any = "";
+
+  caseList: any = [];
+
+  displaySlot: any = [];
+
+  slots: any = [
+    { value: { timeSlot: '11am - 12pm', status: "available" }, viewValue: '11am - 12pm' },
+    { value: { timeSlot: '12:30pm - 01:30pm', status: "available" }, viewValue: '12:30pm - 01:30pm' },
+    { value: { timeSlot: '2pm - 3pm', status: "available" }, viewValue: '2pm - 3pm' },
+    { value: { timeSlot: '5pm-6pm', status: "available" }, viewValue: '5pm-6pm' },
+    { value: { timeSlot: '6pm-7pm', status: "available" }, viewValue: '6pm-7pm' },
+    { value: { timeSlot: '7pm-8pm', status: "available" }, viewValue: '7pm-8pm' },
+    { value: { timeSlot: '8pm-9pm', status: "available" }, viewValue: '8pm-9pm' },
   ];
 
-  editEvent(event: CalendarEvent) {
+  separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  minDate: Date = new Date();
+
+  slotDate: any = { _d: new Date() };
+
+  slot: any = [];
+
+  slotId: string = "";
+
+  deleteAvailabilitySlotId: string = "";
+
+  eventForm!: FormGroup;
+
+  editEventForm!: FormGroup;
+
+  isEditMode: boolean = false;
+
+  availabilityForm!: FormGroup;
+
+  colors: any[] = [{ value: 'blue', color: '#2E5BFF' }, { value: 'green', color: '#00D34F' }, { value: 'orange', color: '#EF7E15' }, { value: 'yellow', color: '#FFDE68' }, { value: 'red', color: '#FF2E2E' }];
+
+  timepickerEnabled: boolean = false;
+
+  constructor(private _toastMessage: ToastMessageService, private _fb: FormBuilder, private _apolloService: ApolloService) {
+    this.getLawyerEvents();
+    this.getCaseDiaryList();
+    this.getAvailabilityList();
+  }
+
+  ngOnInit() {
+    this.eventForm = this._fb.group(new EventModel());
+    this.editEventForm = this._fb.group(new EventModel());
+    this.availabilityForm = this._fb.group(new AvailabilityModel());
+  }
+
+  editEvent(event: CalendarEvent, selectedEvent: any) {
+    let elemement = document.getElementById('addEventButton') as HTMLElement;
+    elemement.click();
+    this.eventForm.patchValue(selectedEvent);
   }
 
   handleDelete() {
@@ -226,15 +161,256 @@ export class CalendarComponent {
   }
 
   deleteEvent() {
-    this.events = this.events.filter((iEvent) => iEvent !== this.eventToBeDeleted);
+    this._apolloService.mutate(GQLConfig.deleteEvent, { eventId: this.eventToBeDeleted.eventId }).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.deleteEvent.status == 200) {
+          this._toastMessage.success(objRes.data.deleteEvent.message);
+          this.getLawyerEvents();
+        }
+        else {
+          this._toastMessage.error(objRes.data.deleteEvent.message);
+        }
+      }
+    })
   }
 
-  handleDeleteAvailability() {
+  onTimeSet(e: any) {
+
+  }
+
+  addHours(date: Date, hours: number) {
+    const hoursToAdd = hours * 60 * 60 * 1000;
+    date.setTime(date.getTime() + hoursToAdd);
+    return date;
+  }
+
+  addEvents() {
+    let userData = sessionStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this.eventForm.controls.lawyerId.patchValue(parsedData._id);
+    if (this.eventForm.valid) {
+      this._apolloService.mutate(GQLConfig.addEvents, this.eventForm.value).subscribe(objRes => {
+        if (objRes.data != null) {
+          if (objRes.data.createEvents.status == 200) {
+            this._toastMessage.success(objRes.data.createEvents.message);
+            let closeEventButton = document.getElementById('closeEventModal') as HTMLElement;
+            closeEventButton.click();
+            this.getLawyerEvents();
+          }
+          else {
+            this._toastMessage.error(objRes.data.createEvents.message);
+          }
+        }
+      })
+    }
+    else {
+      this._toastMessage.error("All Fields are Required !!");
+    }
+  }
+
+  getCaseDiaryList() {
+    let userData = sessionStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this._apolloService.mutate(GQLConfig.getCaseDiaryList, { lawyerId: parsedData._id }).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.getCaseDiaryList.status == 200) {
+          this.caseList = data.data.getCaseDiaryList.data.caseDiaryList.result;
+          this.caseList.unshift({ caseName: "Select", _id: " " });
+        }
+        else {
+          this._toastMessage.error(data.data.getCaseDiaryList.message);
+        }
+      }
+    });
+  }
+
+  getLawyerEvents() {
+    let userData = sessionStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this._apolloService.mutate(GQLConfig.getLawyerEvents, { lawyerId: parsedData._id }).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.getLawyerEvent.status == 200) {
+          let res = data.data.getLawyerEvent.data.resultList;
+          res.map((event: any) => {
+            event.title = event.eventName;
+            event.start = new Date(event.eventStartDate);
+            event.end = new Date(event.eventEndDate);
+            event.color = {
+              primary: event.colors
+            };
+            event.meta = {
+              description: event.eventDescription,
+              repeat: event.repeat,
+              reminder: event.reminder,
+            };
+            event.allDay = event.allDayCheck;
+            if (event._id != "") {
+              event.actions = [
+                {
+                  label: '<i class="fas fa-fw fa-pencil-alt"></i>Delete',
+                  onClick: (event: any): void => { this.handleDelete(), this.eventToBeDeleted = event.event },
+                },
+                {
+                  label: '<i class="fas fa-fw fa-trash-alt"></i>&nbsp;Edit',
+                  onClick: (event: any): void => { this.handleEdit(event.event), this.eventToBeEdited = event.event },
+                }
+              ];
+            }
+          })
+          this.events = res;
+        }
+        else {
+          this._toastMessage.error(data.data.getLawyerEvent.message);
+        }
+      }
+    });
+  }
+
+  handleEventClick(e: CalendarEvent) {
+  }
+
+  handleEdit(event: any) {
+    this.editEventForm.patchValue(event);
+    this.timepickerEnabled = event.allDayCheck ? true : false;
+    this.editEventForm.controls.color.patchValue(this.editEventForm.controls.color.value.primary);
+    // this.editEventForm.controls.eventId.patchValue(event._id);
+    let editEventButton = document.getElementById('editEventButton') as HTMLElement;
+    editEventButton.click();
+  }
+
+  updateEvent() {
+    if (this.editEventForm.valid) {
+      this._apolloService.mutate(GQLConfig.editEvents, this.editEventForm.value).subscribe(objRes => {
+        if (objRes.data != null) {
+          if (objRes.data.editEvent.status == 200) {
+            this._toastMessage.success(objRes.data.editEvent.message);
+            let closeEditEventButton = document.getElementById('closeEditEventModal') as HTMLElement;
+            closeEditEventButton.click();
+            this.getLawyerEvents();
+          }
+          else {
+            this._toastMessage.error(objRes.data.editEvent.message);
+          }
+        }
+      })
+    }
+    else {
+      this._toastMessage.error("All Fields are Required !!");
+    }
+  }
+
+  allDayEventChange() {
+    if (this.eventForm.controls.allDayCheck.value == false) {
+      this.eventForm.controls.eventStartTime.setValidators([Validators.required]);
+      this.eventForm.controls.eventEndTime.setValidators([Validators.required]);
+      this.timepickerEnabled = !this.timepickerEnabled;
+    }
+    if (this.eventForm.controls.allDayCheck.value == true) {
+      this.eventForm.controls.eventStartTime.removeValidators([Validators.required]);
+      this.eventForm.controls.eventEndTime.removeValidators([Validators.required]);
+      this.timepickerEnabled = !this.timepickerEnabled;
+    }
+  }
+
+  allDayEventEditChange() {
+    if (this.editEventForm.controls.allDayCheck.value == false) {
+      this.editEventForm.controls.eventStartTime.setValidators([Validators.required]);
+      this.editEventForm.controls.eventEndTime.setValidators([Validators.required]);
+      this.timepickerEnabled = !this.timepickerEnabled;
+    }
+    if (this.editEventForm.controls.allDayCheck.value == true) {
+      this.editEventForm.controls.eventStartTime.removeValidators([Validators.required]);
+      this.editEventForm.controls.eventEndTime.removeValidators([Validators.required]);
+      this.timepickerEnabled = !this.timepickerEnabled;
+    }
+  }
+
+  addAvaliability() {
+    let userData = sessionStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this.availabilityForm.controls.lawyerId.patchValue(parsedData._id);
+    if (this.availabilityForm.valid) {
+      this._apolloService.mutate(GQLConfig.addAvailability, this.availabilityForm.value).subscribe(objRes => {
+        if (objRes.data != null) {
+          if (objRes.data.addAvailability.status == 200) {
+            this._toastMessage.success(objRes.data.addAvailability.message);
+            let closeEventButton = document.getElementById('closeAvailabilityButton') as HTMLElement;
+            closeEventButton.click();
+            this.getAvailabilityList();
+            this.calendarScroll.scrollTo({ bottom: 0});
+          }
+          else {
+            this._toastMessage.error(objRes.data.addAvailability.message);
+          }
+        }
+      })
+    }
+    else {
+      this._toastMessage.error("All Fields are Required !!");
+    }
+  }
+
+  getAvailabilityList() {
+    let userData = sessionStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {};
+    this._apolloService.mutate(GQLConfig.getAvailabilityList, { lawyerId: parsedData._id }).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.getAvailabilityList.status == 200) {
+          this.availabilityList = data.data.getAvailabilityList.data.availabilities;
+        }
+        else {
+          this._toastMessage.error(data.data.getAvailabilityList.message);
+        }
+      }
+    });
+  }
+
+  editAvailability(slot: any) {
+    this.isEditMode = true;
+    this.availabilityForm.reset();
+    this.availabilityForm.patchValue(new AvailabilityModel);
+    this.availabilityForm.patchValue(slot);
+    let element = document.getElementById('addAvailabilityButton') as HTMLElement;
+    element.click();
+  }
+
+  updateAvailability() {
+    this._apolloService.mutate(GQLConfig.editAvailability, this.availabilityForm.value).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.editAvailability.status == 200) {
+          this._toastMessage.success(data.data.editAvailability.message);
+          this.getAvailabilityList();
+        }
+        else {
+          this._toastMessage.error(data.data.editAvailability.message);
+        }
+      }
+    });
+  }
+
+  handleDeleteAvailability(slot: any) {
+    this.deleteAvailabilitySlotId = slot._id
     let deleteAvailabilityHandler = document.getElementById('deleteAvailabilityButton') as HTMLElement;
     deleteAvailabilityHandler.click();
   }
 
   deleteAvailability() {
-    this.availabilityList.splice(this.deleteSlotIndex, 1);
+    this._apolloService.mutate(GQLConfig.deleteAvailability, { id: this.deleteAvailabilitySlotId }).subscribe((data) => {
+      if (data.data != null) {
+        if (data.data.deleteAvailability.status == 200) {
+          this._toastMessage.success(data.data.deleteAvailability.message);
+          this.getAvailabilityList();
+        }
+        else {
+          this._toastMessage.error(data.data.deleteAvailability.message);
+        }
+      }
+    });
+  }
+
+  resetEventForm() {
+    this.timepickerEnabled = false;
+    this.eventForm.reset();
+    this.eventForm.patchValue(new EventModel);
   }
 }

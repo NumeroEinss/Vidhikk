@@ -13,48 +13,54 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateNewPasswordComponent } from './auth/create-new-password/create-new-password.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpIntterceptor } from './core/interceptors/http.interceptor';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { AuthGuard } from './core/guard/auth.guard';
 import { AuthService } from './shared/services/auth.service';
-import { HttpService } from './shared/services/http.service';
-import { SnackAlertService } from './shared/services/snack-alert.service';
+import { ApolloService } from './shared/services/apollo.service';
+import { ToastMessageService } from './shared/services/snack-alert.service';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-
+import { GraphQLModule } from './graphql.module';
+import { NgxLoadingModule } from 'ngx-loading';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { environment } from '../enviroments/enviroment';
+import { SubscriptionService } from './shared/services/subscription.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignupComponent,
-    ForgotPasswordComponent,
-    CreateNewPasswordComponent,
-    ResetPasswordComponent,
-    ContactUsComponent,
-  ],
-  
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserModule,
-    AppRoutingModule,
-    SharedModule,
-    MaterialModule,
-    BrowserAnimationsModule,
-    NgOtpInputModule,
-  ],
-  providers: [
-    AuthGuard,
-    AuthService,
-    HttpService,
-    SnackAlertService,
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
-    { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpIntterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        SignupComponent,
+        ForgotPasswordComponent,
+        CreateNewPasswordComponent,
+        ResetPasswordComponent,
+        ContactUsComponent,
+    ],
+    bootstrap: [AppComponent],
+    imports: [FormsModule,
+        ReactiveFormsModule,
+        BrowserModule,
+        AppRoutingModule,
+        SharedModule,
+        MaterialModule,
+        BrowserAnimationsModule,
+        NgOtpInputModule,
+        GraphQLModule,
+        NgxLoadingModule.forRoot({}),
+        AngularFireMessagingModule,
+        AngularFireModule.initializeApp(environment.firebase)],
+    providers: [
+        AuthGuard,
+        AuthService,
+        ApolloService,
+        ToastMessageService,
+        SubscriptionService,
+        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { float: 'never' } },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi()),
+    ]
 })
-export class AppModule {}
+export class AppModule { }

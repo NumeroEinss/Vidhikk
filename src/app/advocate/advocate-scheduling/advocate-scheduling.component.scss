@@ -1,0 +1,192 @@
+.root {
+    margin: 30px;
+    margin-right: 0;
+    // height: calc(100vh - 290px);
+
+    .availability-list-header {
+        display: grid;
+        grid-template-columns: 20% 70% 10%;
+        color: #8798ad;
+        font-size: 12px;
+        letter-spacing: normal;
+        margin-bottom: 5px;
+
+        .grid-item {
+            padding-left: 20px;
+
+        }
+    }
+
+    .availability-list-data {
+        display: grid;
+        // grid-template-columns: 250px 200px 250px 200px 120px 40px;
+        grid-template-columns: 20% 70% 10%;
+        height: 80px;
+        border: 1px solid #f5f5f5;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        align-items: center;
+        padding: 0px 15px;
+        font-size: 14px;
+        width: 100%;
+
+        .grid-item2 {
+            font-size: 12px;
+
+            img {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+            }
+
+            .icon {
+                width: 16px;
+                height: 16px;
+            }
+
+            mat-menu {
+                mat-menu-item {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            .available {
+                background-color: #2580170d;
+                border-radius: 40px;
+
+                button {
+                    color: #258017;
+                    width: 100%;
+                    padding: 8px 16px;
+                    border-radius: 40px;
+                    font-size: 12px;
+                }
+            }
+
+            .booked {
+                background-color: #ff2e2e0d;
+                border-radius: 40px;
+
+                button {
+                    color: #ff2e2e;
+                    padding: 8px 16px;
+                    width: 100%;
+                    border-radius: 40px;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .slots {
+            gap: 10px;
+        }
+    }
+}
+
+// schedule meeting qr modal styling
+.schedule-meeting-qr-Modal {
+    width: 429px;
+
+    .modal-body {  
+        p{
+            padding: 0 18px;
+        }
+        .payment {
+            background-color: #053bff0d;
+            border-color: #7d818e0d !important;
+            border-radius: 24px;
+            padding: 5px 20px 10px 0px;
+            margin-top: 10px;
+
+            .duration {
+                font-size: 12px;
+                padding-left: 40px;
+                color: #000000cc;
+                margin-top: -10px;
+            }
+        }
+
+        .scan-btn {
+            background-color: #2E5BFF0D;
+            max-width: 360px;
+            padding: 10px 122px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+    }
+}
+
+
+// payment successful modal styling
+.payment-successful {
+    width: 429px;
+
+    .modal-body {
+        .payment-detail {
+            font-weight: 500;
+            text-align: left;
+            font-size: 16px;
+        }
+        
+        .transaction-detail {
+            .label {
+                text-align: left;
+                color: #00000099;
+            }
+        
+            .detail {
+                text-align: right;
+                color: #000000;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .root {
+        margin: 15px;
+        margin-right: 0;
+
+        .availability-list {
+            overflow-x: scroll;
+            width: calc(100vw - 209px);
+
+            .availability-list-header {
+                min-width: 1000px;
+            }
+
+            .availability-list-data {
+                min-width: 1000px;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .root {
+        margin: 15px;
+        margin-right: 0;
+
+        .availability-list {
+            overflow-x: scroll;
+            width: calc(100vw - 35px);
+
+            .availability-list-header {
+                min-width: 1000px;
+            }
+
+            .availability-list-data {
+                min-width: 1000px;
+            }
+        }
+    }
+
+    .schedule-meeting-qr-Modal, .payment-successful{
+        width: 96% !important;
+    }
+}

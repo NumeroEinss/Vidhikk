@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConferenceComponent } from './conference.component';
 import { ConferenceListComponent } from './conference-list/conference-list.component';
 import { CountdownComponent } from 'ngx-countdown';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [ConferenceComponent, ConferenceListComponent],
@@ -17,7 +18,8 @@ import { CountdownComponent } from 'ngx-countdown';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    CountdownComponent
+    CountdownComponent,
+    QRCodeModule
   ],
 })
 export class ConferenceModule {}

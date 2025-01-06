@@ -17,6 +17,10 @@
     }
 
     .create-sub-diary-fields {
+      .sub-diary-col{
+        display: flex;
+        flex-wrap: wrap;
+      }
       .mat-label {
         margin-bottom: 4px;
         height: 21px;
@@ -57,6 +61,15 @@
       .mat-mdc-outlined-button:not(:disabled) {
         width: unset !important;
       }
+    }
+  }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    .create-sub-diary {
+      margin: 15px;
     }
   }
 }

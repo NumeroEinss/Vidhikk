@@ -1,0 +1,77 @@
+<app-header [menuName]="'Contact Us'"></app-header>
+
+<div class="root">
+    <div style="height: calc(100vh - 160px);">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+            <div><img src="../../../assets/images/icons/black_left_arrow.svg" (click)="routeBack()" class="me-2"
+                    style="cursor: pointer;" />Back
+            </div>
+
+            <div class="ticket-detail">
+                <div class="d-flex align-items-center">
+                    <div class="status me-2"></div>
+                    <div style="font-weight: 500;">{{ticketDetail?.ticketNo}}</div>
+                </div>
+                <div class="created-date">Posted at {{getDay(ticketDetail?.createdAt)}},
+                    {{getDate(ticketDetail?.createdAt)}},
+                    {{getTime(ticketDetail?.createdAt)}}
+                </div>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <div class="ticket-title">{{ticketDetail?.ticketTitle}}</div>
+                <div class="detail">{{ticketDetail?.ticketDescription}}</div>
+            </div>
+
+            <div class="mt-3 mb-3 screenshots-container" *ngIf="ticketDetail?.ticketAttachment">
+                <div class="screenshots"><img [src]="this.getImageToDisplay(ticketDetail?.ticketAttachment)"
+                        onerror="this.onerror='',this.src='../../../assets/images/image/no-image.png'" (click)="openImage(ticketDetail?.ticketAttachment)" /></div>
+            </div>
+
+            <hr>
+            <div id="scroll-to-comment" class="comment-section" *ngFor="let feed of ticketDetail?.ticketReply">
+                <div>
+                    <div class="notification" *ngIf="feed.replyType=='NOTIFICATION'">
+                        <div>{{feed.replyText}}</div>
+                        <div style="font-size: 12px;">{{getDay(feed.replyAt)}}, {{getDate(feed.replyAt)}},
+                            {{getTime(feed.replyAt)}}</div>
+                    </div>
+                    <div class="admin-comment-box" *ngIf="feed.replyType=='ADMIN'">
+                        <div class="content">
+                            <div class="name">Vidhik Support</div>
+                            <div class="post-date">Posed at {{getDay(feed.replyAt)}}, {{getDate(feed.replyAt)}},
+                                {{getTime(feed.replyAt)}}</div>
+                        </div>
+                        <div class="comment">{{feed.replyText }}</div>
+                    </div>
+                    <div class="user-comment-box" *ngIf="feed.replyType=='USER'">
+                        <div class="content">
+                            <div class="name">{{feed.replyFrom }}</div>
+                            <div class="post-date">Posed at {{getDay(feed.replyAt)}}, {{getDate(feed.replyAt)}},
+                                {{getTime(feed.replyAt)}}</div>
+                        </div>
+                        <div class="comment">{{feed.replyText }}</div>
+                    </div>
+                    <div class="user-comment-box" *ngIf="feed.replyType=='LAWYER'">
+                        <div class="content">
+                            <div class="name">{{feed.replyFrom }}</div>
+                            <div class="post-date">Posed at {{getDay(feed.replyAt)}}, {{getDate(feed.replyAt)}},
+                                {{getTime(feed.replyAt)}}</div>
+                        </div>
+                        <div class="comment">{{feed.replyText }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reply-to-ticket">
+                <div>Reply to ticket</div>
+                <div class="comment-box-textarea">
+                    <textarea matInput placeholder="Type ticket issue here..." [(ngModel)]="comment"></textarea>
+                </div>
+                <div class="submit-btn"><button mat-raised-button color="primary" style="width: fit-content !important"
+                        (click)="addComment()" [disabled]="!comment">Submit
+                        Reply</button></div>
+            </div>
+        </ng-scrollbar>
+    </div>
+</div>

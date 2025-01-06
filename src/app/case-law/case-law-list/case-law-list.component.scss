@@ -1,4 +1,16 @@
 .root {
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100px;
+  }
+
+  .highlighted-text {
+    background: yellow;
+  }
+
   .mat-label {
     flex-grow: 0;
     font-family: Poppins;
@@ -93,6 +105,9 @@
         font-size: 14px;
         font-weight: 700;
         color: black;
+        border-left: 1px solid #96A5B7;
+        padding-left: 4px;
+        padding-right: 4px;
       }
 
       .cited {
@@ -192,33 +207,6 @@
     width: 357px;
   }
 
-  .bare-acts {
-    .acts {
-      height: 59px;
-      width: -webkit-fill-available;
-      width: -moz-available;
-      flex-grow: 0;
-      padding: 20px 30px;
-      font-family: Poppins;
-      font-size: 14px;
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: left;
-      color: var(--solid-black);
-      border-bottom: 0.5px solid #2e5bff0d;
-    }
-
-    .acts:hover {
-      color: #2e5bff;
-      cursor: pointer;
-      transition: color 0.3s ease-in-out;
-      -webkit-transition: color 0.3s ease-in-out;
-    }
-  }
-
   .act-section {
     font-family: Poppins;
     padding: 20px 30px;
@@ -277,6 +265,12 @@
   .advance-search {
     font-family: Poppins;
     padding: 20px 30px;
+    // overflow-y: auto;
+
+    .advance-search-col {
+      display: flex;
+      flex-wrap: wrap;
+    }
 
     .title {
       flex-grow: 0;
@@ -301,4 +295,126 @@
 .list-container {
   height: 250px;
   font-size: 14px;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    .filter-bar {
+      .pretext {
+        padding-left: 15px;
+      }
+
+      img {
+        margin-right: 15px;
+      }
+    }
+
+    .case-container {
+      padding: 20px 15px;
+    }
+
+    .app-resp-container {
+      padding: 20px 15px;
+    }
+
+    .judge-wise {
+      padding: 20px 15px;
+    }
+
+    .citation-wise {
+      padding: 20px 15px;
+    }
+
+    .act-section {
+      padding: 20px 15px;
+    }
+
+    .overruledby {
+      padding: unset;
+
+      .acts {
+        padding: 15px;
+      }
+    }
+
+    .advance-search {
+      padding: 20px 15px 60px 15px;
+    }
+
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1439px) {
+  .root {
+    .advance-search {
+      padding: 20px 15px 80px 15px;
+    }
+
+  }
+}
+
+.text-left {
+  text-align: left;
+}
+
+@media (max-width:600px) {
+  .root {
+    .mat-mdc-form-field {
+      width: 330px !important;
+    }
+    .filter-bar {
+      .pretext {
+        padding-left: 15px;
+      }
+
+      img {
+        margin-right: 15px;
+      }
+    }
+
+    .case-container {
+      padding: 20px 15px;
+
+      .sub-desc {
+        display: flex;
+        line-height: normal;
+        margin-bottom: 9px;
+  
+        .court {
+          font-size: 12px;
+        }
+  
+        .bench {
+          font-size: 12px;
+          white-space: nowrap;
+        }
+  
+        .cited {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .app-resp-container {
+      padding: 20px 15px;
+    }
+
+    .judge-wise {
+      padding: 20px 15px;
+
+      .title{
+        margin-right: unset;
+      }
+    }
+
+    .advance-search{
+      padding: 20px 15px 60px 15px;
+
+      .title{
+        margin-right: unset;
+      }
+    }
+
+  }
 }

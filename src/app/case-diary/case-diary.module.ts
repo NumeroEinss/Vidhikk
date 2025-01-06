@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CaseDiaryRoutingModule } from './case-diary-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
@@ -12,7 +12,24 @@ import { CaseDiaryListComponent } from './case-diary-list/case-diary-list.compon
 import { CreateCaseDiaryComponent } from './create-case-diary/create-case-diary.component';
 import { CreateSubDiaryComponent } from './create-sub-diary/create-sub-diary.component';
 import { ViewApplicationComponent } from './view-application/view-application.component';
+import { caseDiaryGuard } from '../core/guard/case-diary.guard';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
+import { EditCaseDiaryComponent } from './edit-case-diary/edit-case-diary.component';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
+const MY_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY', // this is how your date will be parsed from Input
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY', // this is how your date will get displayed on the Input
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -23,15 +40,25 @@ import { ViewApplicationComponent } from './view-application/view-application.co
     CaseDiaryListComponent,
     CreateCaseDiaryComponent,
     CreateSubDiaryComponent,
-    ViewApplicationComponent],
-
+    ViewApplicationComponent,
+    EditCaseDiaryComponent],
   imports: [
     CommonModule,
     CaseDiaryRoutingModule,
     SharedModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatTooltipModule
+  ],
+  providers: [caseDiaryGuard,
+    provideNativeDateAdapter(),
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT }, DatePipe]
 })
 export class CaseDiaryModule { }

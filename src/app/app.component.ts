@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
+import { ToastMessageService } from './shared/services/snack-alert.service';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { SubscriptionService } from './shared/services/subscription.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  constructor() {
-  }
-
   title = 'Vidhik';
+  loaderType = ngxLoadingAnimationTypes;
+
+  constructor(public toastMessage: ToastMessageService, private _subscriptionService: SubscriptionService) { }
 }

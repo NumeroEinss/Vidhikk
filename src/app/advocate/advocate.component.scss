@@ -1,0 +1,187 @@
+.root {
+    margin: 30px;
+
+    .lawyer-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .display-profile {
+            width: 126px;
+            height: 126px;
+            border-radius: 50%;
+            margin-right: 40px;
+        }
+
+        .lawyer-details {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+
+            .name {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+
+            .type {
+                font-size: 16px;
+                color: #8798AD;
+                margin-bottom: 5px;
+            }
+
+            .rating {
+                cursor: pointer;
+                display: flex;
+            }
+        }
+
+        .payment-schedule-button {
+            button {
+                background-color: #053bff0d;
+                border-color: #7d818e0d !important;
+            }
+        }
+
+        .mat-mdc-outlined-button:not(:disabled) {
+            width: unset !important;
+        }
+    }
+
+    .personal-information {
+        font-size: 14px;
+        color: #1e2a3a;
+        font-weight: 500;
+        margin-top: 35px;
+    }
+
+    .general-information,
+    .contact-information,
+    .other-information {
+        font-size: 14px;
+        color: #1e2a3a;
+        font-weight: 500;
+        margin-top: 47px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 14px;
+        color: #8798ad;
+    }
+
+    .information {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .general-info {
+        display: flex;
+        width: 250px;
+
+        .image-container {
+            height: 40px;
+            width: 40px;
+            background-color: #2E5BFF0D;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            margin-right: 10px;
+        }
+
+        .info-header {
+            font-size: 14px;
+            color: black;
+        }
+
+        .info-detail {
+            font-size: 14px;
+            color: #8798AD;
+        }
+    }
+
+}
+
+.payment-detail {
+    font-weight: 500;
+    text-align: left;
+    font-size: 16px;
+}
+
+.transaction-detail {
+    .label {
+        text-align: left;
+        color: #00000099;
+    }
+
+    .detail {
+        text-align: right;
+        color: #000000;
+    }
+}
+
+.schedule-meeting-modal{
+    width: 430px !important;
+    .modal-body{
+        padding: 20px;
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .root {
+        margin: 15px;
+
+        .general-information,
+        .contact-information,
+        .other-information {
+            margin-top: 40px;
+        }
+
+        .general-info {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+@media only screen and (min-width: 1023px) and (max-width: 1279px) {
+    .root {
+        .general-information,
+        .contact-information,
+        .other-information {
+            margin-top: 40px;
+        }
+
+        .general-info {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .root {
+        margin: 15px 15px 40px 15px;
+
+        .lawyer-info{
+            flex-wrap: wrap;
+
+            .payment-schedule-button {
+                margin-top: 20px;
+            }
+        }
+
+        .general-information,
+        .contact-information,
+        .other-information {
+            margin-top: 40px;
+        }
+
+        .general-info {
+            margin-bottom: 15px;
+        }
+    }
+
+    .schedule-meeting-modal{
+        width: 96% !important;
+    }
+}

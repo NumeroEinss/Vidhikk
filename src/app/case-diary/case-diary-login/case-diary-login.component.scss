@@ -38,6 +38,7 @@
       letter-spacing: normal;
       text-align: left;
       color: #8798ad;
+      width: 360px;
     }
 
     .diary-container {
@@ -46,6 +47,23 @@
 
     .mat-mdc-form-field {
       display: grid;
+    }
+  }
+}
+
+
+@media (max-width:600px) {
+  .root {
+    .case-diary {
+      .diary-container {
+        width: 350px;
+        padding: 20px;
+
+        .sub-text {
+          width: 320px;
+        }
+
+      }
     }
   }
 }

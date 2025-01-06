@@ -6,6 +6,7 @@
     .header-menu {
       display: flex;
       margin-top: 30px;
+      margin-right: 30px;
 
       .filter-section {
         margin-right: 24px;
@@ -15,6 +16,10 @@
         }
       }
 
+      .add-ticket1{
+        display: none;
+      }
+
       .search-bar {
         width: 100% !important;
         margin-right: 24px;
@@ -22,6 +27,7 @@
         .mat-mdc-form-field {
           max-width: unset;
           width: 100% !important;
+          max-width: unset;
 
 
           .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
@@ -32,6 +38,7 @@
 
       .add-ticket {
         width: 215px !important;
+        // margin-right: 15px;
 
         button {
           width: 215px !important;
@@ -45,12 +52,14 @@
       }
     }
 
-    .add-member-list {
+    .ticket-list {
       margin-bottom: 20px;
+      overflow-x: auto;
+      width: 100%;
 
-      .member-list-header {
+      .ticket-header {
         display: grid;
-        grid-template-columns: 10% 25% 20% 20% 15% 10%;
+        grid-template-columns: 20% 20% 20% 20% 20%;
         margin-bottom: 5px;
         align-items: center;
         padding: 0px 15px 0px 15px;
@@ -60,9 +69,9 @@
         width: 100%;
       }
 
-      .member-list-data {
+      .ticket-data {
         display: grid;
-        grid-template-columns: 10% 25% 20% 20% 15% 10%;
+        grid-template-columns: 20% 20% 20% 20% 20%;
         height: 80px;
         border: 1px solid #f5f5f5;
         border-radius: 12px;
@@ -71,18 +80,17 @@
         padding: 0px 15px;
         font-size: 14px;
         width: 100%;
-
-        .id {
-          padding-left: 15px;
-        }
+        cursor: pointer;
 
         .grid-item2 {
-          // padding-left: 10px;
+          display: flex;
+          align-items: center;
 
           .oval-div {
-            width: fit-content;
+            width: 100px;
             display: flex;
             align-items: center;
+            justify-content: center;
             white-space: nowrap;
             padding: 8px 12px;
             border-radius: 40px;
@@ -161,7 +169,208 @@
       font-style: normal;
       color: #000000;
     }
+
+    .file-container {
+      background-color: #FBFBFB;
+      border: 2px dashed #E1E1E1;
+      border-radius: 4px;
+      padding: 20px;
+
+      .or-option {
+        color: #C4C4C4;
+        margin-top: 5px;
+      }
+
+      .choose-file-btn {
+        width: fit-content !important;
+        margin-top: 5px;
+        padding: 10px 25px;
+        border: 1px solid black;
+        border-radius: 50px;
+        color: black;
+        background-color: transparent;
+      }
+
+      :hover {
+        background-color: unset;
+      }
+
+      .selected-files {
+        font-family: Poppins;
+
+        span {
+          font-weight: 500;
+        }
+      }
+    }
   }
 }
 
 // add ticket popup styling ends
+
+// delete-popup
+.delete-modal {
+  width: 429px;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .root {
+    margin: 15px;
+    margin-right: 0;
+
+    .contact-us-container {
+      .header-menu {
+        margin-right: 15px;
+
+        .filter-section {
+          margin-right: 15px;
+
+          .mat-mdc-form-field {
+            width: 180px !important;
+          }
+        }
+
+        .search-bar {
+          margin-right: 15px;
+        }
+
+        .add-ticket {
+          width: 180px !important;
+          margin-right: 0;
+
+          button {
+            width: 180px !important;
+          }
+        }
+      }
+
+      .ticket-list {
+        overflow-x: scroll;
+        width: calc(100vw - 210px);
+        white-space: nowrap;
+        margin-right: 15px;
+
+        .ticket-header {
+          min-width: 1000px;
+        }
+
+        .ticket-data {
+          min-width: 1000px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1399px) {
+  .root {
+    margin: 30px;
+    margin-right: 0;
+
+    .contact-us-container {
+      .header {
+        margin-right: 30px;
+      }
+
+      .header-menu {
+        margin-right: 30px;
+
+        .filter-section {
+          margin-right: 15px;
+
+          .mat-mdc-form-field {
+            width: 180px !important;
+          }
+        }
+
+        .search-bar {
+          margin-right: 15px;
+        }
+
+        .add-ticket {
+          width: 180px !important;
+          margin-right: 0;
+
+          button {
+            width: 180px !important;
+          }
+        }
+      }
+
+      .ticket-list {
+        overflow-x: scroll;
+        width: calc(100vw - 280px);
+        margin-right: 0;
+
+        .ticket-header {
+          min-width: 1000px;
+        }
+
+        .ticket-data {
+          min-width: 1000px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .root {
+    margin: 15px;
+    margin-right: 0;
+
+    .contact-us-container {
+      .header-menu {
+        flex-wrap: wrap;
+        margin-right: 15px;
+
+        .filter-section {
+          margin-right: 20px;
+
+          .mat-mdc-form-field {
+            width: 180px !important;
+          }
+        }
+
+        .add-ticket1{
+          display: block;
+          button {
+            width: 100% !important;
+          }
+        }
+
+        .search-bar {
+          margin-right: 15px;
+        }
+
+        .add-ticket {
+          display: none;
+        }
+      }
+
+      .ticket-list {
+        overflow-x: scroll;
+        width: calc(100vw - 35px);
+        white-space: nowrap;
+        margin-right: 15px;
+
+        .ticket-header {
+          min-width: 1000px;
+        }
+
+        .ticket-data {
+          min-width: 1000px;
+        }
+      }
+    }
+  }
+
+  .add-ticket-popup {
+    width: 96% !important;
+  }
+
+  .delete-modal {
+    width: unset !important;
+  }
+}

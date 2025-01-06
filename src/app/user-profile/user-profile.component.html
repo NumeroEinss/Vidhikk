@@ -1,10 +1,11 @@
 <!-- Header Part -->
 <app-header [menuName]="'Profile'"></app-header>
 
+<!-- lawyer/user-profile start -->
 <div class="root">
   <!-- SideNav of  User Profile -->
-  <div class="profile-container">
-    <div class="profile-sidenav col-lg-3 col-md-3">
+  <div class="profile-container" *ngIf="userType == 'lawyer'">
+    <div class="profile-sidenav col-lg-3 col-md-12">
       <li id="basic-nav" (click)="addStyling('basic-nav'); addShadow('basic-info')">
         <a>Basic Info</a>
       </li>
@@ -17,54 +18,73 @@
       <li id="password-nav" (click)="addStyling('password-nav'); addShadow('password&security')">
         <a>Password & Security</a>
       </li>
-      <li class="logout" routerLink="/auth/login">
+      <li class="logout" (click)="logout()">
         <a>Logout</a>
       </li>
     </div>
 
 
     <!-- Main Content of  User Profile -->
-    <div class="main-content col-lg-9 col-md-9">
+    <div class="main-content col-lg-9 col-md-12">
       <!-- Basic-Info -->
       <div class="section-info" id="basic-info">
         <div class="section-info-head">
           <h4>Basic Info</h4>
-          <button mat-stroked-button color="primary" data-bs-target="#editProfileModal" data-bs-toggle="modal">
+          <button mat-stroked-button color="primary" data-bs-target="#lawyerEditProfileModal" data-bs-toggle="modal"
+            (click)="patchUserDetail()">
             <span style="color: #2e5bff">Edit</span>
           </button>
         </div>
         <div class="description">
-          Core competency lies in law and politics, with extensive experience in
-          constitutional matters, litigation, and strategic policymaking,
-          contributing significantly to legal and political discourse.
+         {{userData.coreCompetency}}
         </div>
         <div class="user-details">
-          <div class="col-lg-1 col-md-1">
-            <img src="../../../../assets/images/image/anurag_goyal.jpg" class="user-profile" />
-          </div>
+          <div class="row">
+            <div class="col-lg-2 col-md-2">
+              <!-- <img [src]="getImageUrl(userData.profileImage)"
+                onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'"
+                class="user-profile" /> -->
+              <div class="profile-image">
+                <img class="profile" [src]="displayImage" />
+                <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
+                <div class="profile-input" for="file" (click)="file.click()">
+                  <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
+                </div>
+              </div>
+            </div>
 
-          <div class="col-lg-4 col-md-6">
-            <div class="user-details-heading">Name</div>
-            <div class="user-details-detail">Anurag Goyal</div>
+            <div class="col-lg-10 col-md-10">
+              <div class="row">
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading">Name</div>
+                  <div class="user-details-detail">{{userData.name}}</div>
+                </div>
 
-            <div class="user-details-heading">Address</div>
-            <div class="user-details-detail">Numeroeins Softwares, 516, Appollo Premier , Vijay Nagar , Indore 452010,
-              Madhya Pradesh </div>
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading">father's Name</div>
+                  <div class="user-details-detail">{{userData.fatherName}}</div>
+                </div>
 
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading">Mobile number</div>
+                  <div class="user-details-detail">{{userData.primaryPhoneNumber}}</div>
+                </div>
+              </div>
 
-          </div>
+              <div class="row">
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading">Email</div>
+                  <div class="user-details-detail">{{userData.email}}</div>
+                </div>
 
-          <div class="col-lg-4 col-md-4">
-            <div class="user-details-heading">father's Name</div>
-            <div class="user-details-detail">father's Name Here</div>
+                <div class="col-lg-8 col-md-8">
+                  <div class="user-details-heading">Address</div>
+                  <div class="user-details-detail">{{userData.city}},{{userData.state}}
+                  </div>
+                </div>
+              </div>
 
-            <div class="user-details-heading">Email</div>
-            <div class="user-details-detail">Anuraggoyal&#64;gmail.com</div>
-          </div>
-
-          <div class="col-lg-3 col-md-3">
-            <div class="user-details-heading">Mobile number</div>
-            <div class="user-details-detail">213-456-7980</div>
+            </div>
           </div>
         </div>
       </div>
@@ -76,70 +96,251 @@
         </div>
 
         <div class="user-details">
-          <div class="col-lg-1 col-md-1">
-            <img src="../../../../assets/images/icons/organization.svg" class="user-profile" />
-          </div>
+          <div class="row">
+            <div class="col-lg-2 col-md-2">
+              <img src="../../../../assets/images/icons/organization.svg" class="user-profile" />
+            </div>
 
-          <div class="col-lg-4 col-md-4">
-            <div>
-              <div class="user-details-heading">Organization Name</div>
-              <div class="user-details-detail">Anurag Law Firm</div>
-            </div>
-            <div>
-              <div class="user-details-heading">Name of State Bar</div>
-              <div class="user-details-detail">Name Here</div>
-            </div>
-            <div>
-              <div class="user-details-heading">Name of Practicing Area</div>
-              <div class="user-details-detail">Name Here</div>
-            </div>
-          </div>
+            <div class="col-lg-10 col-md-10">
+              <div class="row">
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading column">Organization Name</div>
+                  <div class="user-details-detail">{{userData.orgainization}}</div>
+                </div>
 
-          <div class="col-lg-4 col-md-4">
-            <div>
-              <div class="user-details-heading">Branch Name/Address</div>
-              <div class="user-details-detail">Indore, Mp</div>
-            </div>
-            <div>
-              <div class="user-details-heading">Licence Number</div>
-              <div class="user-details-detail">213-456-7980</div>
-            </div>
-          </div>
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading">Branch Name/Address</div>
+                  <div class="user-details-detail">{{userData.city}},{{userData.state}}</div>
+                </div>
 
-          <div class="col-lg-3 col-md-3">
-            <div>
-              <div class="user-details-heading">Year of Practise</div>
-              <div class="user-details-detail">12</div>
-            </div>
-            <div>
-              <div class="user-details-heading">Name of Practicing Court</div>
-              <div class="user-details-detail">Name Here</div>
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading">Year of Practise</div>
+                  <div class="user-details-detail">{{userData.practiceYear}}</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading">Name of State Bar</div>
+                  <div class="user-details-detail">{{userData.stateBar}}</div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading">Licence Number</div>
+                  <div class="user-details-detail">{{userData.barLiscenceNo}}</div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                  <div class="user-details-heading">Name of Practicing Court</div>
+                  <div class="user-details-detail">{{userData.practicingCourt}}</div>
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div>
+                  <div class="user-details-heading">Name of Practicing Area</div>
+                  <div class="user-details-detail">Finance, Criminal</div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
 
-        <!-- Subscription-Info -->
-        <div class="section-info" id="subscription">
-          <div class="section-info-head">
-            <h4>Subscription</h4>
-            <button mat-stroked-button color="primary" data-bs-target="#subscriptionModal" data-bs-toggle="modal">
-              <span>Edit</span>
-            </button>
+      <!-- Subscription-Info -->
+      <div class="section-info" id="subscription">
+        <div class="section-info-head">
+          <h4>Subscription</h4>
+          <button mat-stroked-button color="primary" data-bs-target="#subscriptionModal" data-bs-toggle="modal">
+            <span>Edit</span>
+          </button>
+        </div>
+
+        <div class="description">
+          You are a <span style="color:#2e5bff">{{currentPlan.planHeading}}</span> Member
+        </div>
+        <!-- <div class="description">
+          To change your password, you'll need to verify the current one first.
+          Then create a password you're not using elsewhere, and be sure to
+          change it regularly as well as anytime you suspect it's been
+          compromised.
+        </div> -->
+        <div class="user-details">
+          <div class="row">
+            <div class="col-lg-2 col-md-2">
+              <img src="../../../../assets/images/icons/organization.svg" class="user-profile" />
+            </div>
+
+            <div class="col-lg-10 col-md-10">
+              <div class="row">
+                <div class="col-lg-4 col-md-4" *ngFor="let plan of currentPlan.features">
+                  <div class="user-details-heading">{{plan.featureHeading }}</div>
+                  <div class="user-details-detail">{{plan.isAvailable?'Available':'Not Available'}}</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="description">
-            To change your password, you'll need to verify the current one first.
-            Then create a password you're not using elsewhere, and be sure to
-            change it regularly as well as anytime you suspect it's been
-            compromised.
+        </div>
+      </div>
+
+      <!-- Password & Security -->
+      <div class="section-info" id="password&security" style="margin-bottom: 20px">
+        <div class="section-info-head">
+          <h4>Password & Security</h4>
+        </div>
+        <div class="description">
+          To change your password, you'll need to verify the current one first.
+          Then create a password you're not using elsewhere, and be sure to
+          change it regularly as well as anytime you suspect it's been
+          compromised.
+        </div>
+        <div class="user-details">
+          <div class="user-details-1a">
+            <a routerLink="/lawyer/resetPassword">Change Password </a>
+            <a data-bs-toggle="modal" data-bs-target="#accountDeleteModal">Delete Your Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- user/user-profile start -->
+  <div class="user-profile-root" *ngIf="userType == 'user'">
+    <div class="d-flex justify-content-between">
+      <div class="display-profile"><img [src]="displayImage"
+          onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" /></div>
+      <div><button mat-stroked-button color="primary" data-bs-target="#userEditProfileModal" data-bs-toggle="modal">
+          <span style="color: #2e5bff">Edit</span>
+        </button></div>
+    </div>
+
+    <div class="basic-information">
+      <h4>Basic Information</h4>
+      <div class="d-flex  mr-bi">
+        <div class="details-container">
+          <div class="heading">Name</div>
+          <div class="detail">{{userData.name}}</div>
+        </div>
+
+        <div class="details-container">
+          <div class="heading">Location</div>
+          <div class="detail">{{userData.city}}, {{userData.state}}</div>
+        </div>
+      </div>
+
+      <div class="d-flex  mr-bi">
+        <div class="details-container">
+          <div class="heading">Mobile</div>
+          <div class="detail">{{userData.primaryPhoneNumber }}, {{ userData.secondaryPhoneNumber}}</div>
+        </div>
+
+        <div class="details-container">
+          <div class="heading">Email</div>
+          <div class="detail">{{userData.email}}</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="password-security">
+      <h4>Password & Security</h4>
+      <div class="description">
+        To change your password, you'll need to verify the current one first.
+        Then create a password you're not using elsewhere, and be sure to
+        change it regularly as well as anytime you suspect it's been
+        compromised.
+      </div>
+      <div class="user-details">
+        <a routerLink="/user/resetPassword">Change Password </a>
+        <a (click)="logout()">Logout</a>
+        <a data-bs-toggle="modal" data-bs-target="#userAccountDeleteModal">Delete Your Account</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- judge/user-profile start -->
+  <div style="height: calc(100vh - 130px);" *ngIf="userType == 'judge'">
+    <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+      <div class="user-profile-root">
+        <div class="d-flex justify-content-between">
+          <div class="display-profile"><img [src]="displayImage"
+              onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" /></div>
+          <div><button mat-stroked-button color="primary" data-bs-target="#judgeEditProfileModal"
+              data-bs-toggle="modal">
+              <span style="color: #2e5bff">Edit</span>
+            </button></div>
+        </div>
+
+
+        <div class="basic-information">
+          <h4>Basic Information</h4>
+          <div class="d-flex mr-bi">
+            <div class="details-container">
+              <div class="heading">Name</div>
+              <div class="detail">Anurag Goyal</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Location</div>
+              <div class="detail">Indore, MP</div>
+            </div>
+          </div>
+
+          <div class="d-flex mr-bi">
+            <div class="details-container">
+              <div class="heading">Mobile</div>
+              <div class="detail">213-456-7980</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Email</div>
+              <div class="detail">Anuraggoyal117&#64;gmail.com</div>
+            </div>
+          </div>
+
+
+          <div class="d-flex  mr-bi">
+            <div class="details-container">
+              <div class="heading">Registration No</div>
+              <div class="detail">534534534</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Address</div>
+              <div class="detail">Vijay Nager, Indore</div>
+            </div>
+          </div>
+
+          <div class="d-flex  mr-bi">
+            <div class="details-container">
+              <div class="heading">Current State</div>
+              <div class="detail">Madhya Pradesh</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Current District</div>
+              <div class="detail">Indore</div>
+            </div>
+          </div>
+
+
+          <div class="d-flex  mr-bi">
+            <div class="details-container">
+              <div class="heading">Court Type</div>
+              <div class="detail">High Court</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Court Name</div>
+              <div class="detail">District & Session Court Indore</div>
+            </div>
           </div>
         </div>
 
-        <!-- Password & Security -->
-        <div class="section-info" id="password&security" >
-          <div class="section-info-head">
-            <h4>Password & Security</h4>
-          </div>
+
+        <div class="password-security">
+          <h4>Password & Security</h4>
           <div class="description">
             To change your password, you'll need to verify the current one first.
             Then create a password you're not using elsewhere, and be sure to
@@ -147,48 +348,387 @@
             compromised.
           </div>
           <div class="user-details">
-            <div class="user-details-1a">
-              <a routerLink="/auth/resetPassword">Change Password </a>
-              <a data-bs-toggle="modal" data-bs-target="#accountDeleteModal">Delete Your Account</a>
-            </div>
+            <a routerLink="/judge/resetPassword">Change Password </a>
+            <a data-bs-toggle="modal" data-bs-target="#userAccountDeleteModal">Delete Your Account</a>
           </div>
         </div>
       </div>
-    </div>
+    </ng-scrollbar>
   </div>
 
-<!-- Edit Profile Popup Start -->
-<div class="modal fade" id="editProfileModal" aria-hidden="true" aria-labelledby="editProfileModalLabel" tabindex="-1"
-  data-bs-backdrop="static" data-bs-keyboard="false">
+  <!-- seller/user-profile start -->
+  <div style="height: calc(100vh - 130px);" *ngIf="userType == 'seller'">
+    <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+      <div class="user-profile-root" *ngIf="userType == 'seller'">
+        <div class="d-flex justify-content-between">
+          <div class="display-profile"><img [src]="displayImage"
+              onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" /></div>
+          <div><button mat-stroked-button color="primary" data-bs-target="#sellerEditProfileModal"
+              data-bs-toggle="modal">
+              <span style="color: #2e5bff" (click)="patchUserDetail()">Edit</span>
+            </button></div>
+        </div>
+
+        <div class="basic-information">
+          <h4>Basic Information</h4>
+          <div class="d-flex mr-bi">
+            <div class="details-container">
+              <div class="heading">Name</div>
+              <div class="detail">{{userData.name}}</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">Location</div>
+              <div class="detail">{{userData.address}}</div>
+            </div>
+          </div>
+
+          <div class="d-flex mr-bi">
+            <div class="details-container">
+              <div class="heading">Mobile</div>
+              <div class="detail">{{userData.primaryPhoneNumber }}<span *ngIf="userData.secondaryPhoneNumber">,</span> {{ userData.secondaryPhoneNumber}}
+                <span *ngIf="mobileOtpVerified"  [ngClass]="mobileOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span>
+              </div>
+            </div>
+           
+            <div class="details-container">
+              <div class="heading">Email</div>
+              <div class="detail">{{userData.email}} <span *ngIf="emailOtpVerified"  [ngClass]="emailOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span></div> 
+            </div>
+          </div>
+
+          <div class="d-flex mr-bi">
+            <div class="details-container">
+              <div class="heading">PAN No.</div>
+              <div class="detail">{{userData.panNo}}</div>
+            </div>
+
+            <div class="details-container">
+              <div class="heading">GSTIN No.</div>
+              <div class="detail">{{userData.gstinNo}}</div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="password-security">
+          <h4>Password & Security</h4>
+          <div class="description">
+            To change your password, you'll need to verify the current one first.
+            Then create a password you're not using elsewhere, and be sure to
+            change it regularly as well as anytime you suspect it's been
+            compromised.
+          </div>
+          <div class="user-details">
+            <a routerLink="/seller/resetPassword">Change Password </a>
+            <a (click)="logout()">Logout</a>
+            <a data-bs-toggle="modal" data-bs-target="#userAccountDeleteModal">Delete Your Account</a>
+          </div>
+        </div>
+      </div>
+    </ng-scrollbar>
+  </div>
+</div>
+
+<!-- lawyer/user-profile- Edit Profile Popup Start -->
+<div class="modal fade" id="lawyerEditProfileModal" aria-hidden="true" aria-labelledby="lawyerEditProfileModalLabel"
+  tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered edit-profile-popup">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editProfileModalLabel">
+        <h1 class="modal-title fs-5" id="lawyerEditProfileModalLabel">
           Edit Profile
         </h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
-        <form [formGroup]="signupForm2">
+        <form [formGroup]="lawyerEditProfileForm">
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label mt-2 mb-1">Core Competency</mat-label>
             <mat-form-field appearance="outline" class="textArea">
               <textarea id="text-area" type="text" matInput placeholder="Enter Your Core Competency"
                 formControlName="coreCompetency" required rows="3" maxlength="200"></textarea>
               <mat-error *ngIf="
-                  signupForm2.controls['coreCompetency'].hasError('required')
+                  lawyerEditProfileForm.controls['coreCompetency'].hasError('required')
                 ">Core Competency is Required</mat-error>
-              <!-- <mat-error *ngIf="!signupForm2.controls['coreCompetency'].hasError('required') &&
-                                                  signupForm2.controls['coreCompetency'].hasError('minlength')">Minimum 150 Characters
+              <!-- <mat-error *ngIf="!lawyerEditProfileForm.controls['coreCompetency'].hasError('required') &&
+                                                  lawyerEditProfileForm.controls['coreCompetency'].hasError('minlength')">Minimum 150 Characters
                                                  Required</mat-error> -->
 
               <mat-error *ngIf="
-                  !signupForm2.controls['coreCompetency'].hasError(
+                  !lawyerEditProfileForm.controls['coreCompetency'].hasError(
                     'required'
                   ) &&
-                  signupForm2.controls['coreCompetency'].hasError('maxlength')
+                  lawyerEditProfileForm.controls['coreCompetency'].hasError('maxlength')
                 ">Max Charaters Limit Reached</mat-error>
+            </mat-form-field>
+
+            <div class="row-field mt-3 mb-1">
+              <div><mat-label class="mat-label mt-2">Mobile No</mat-label></div>
+              <div>
+                <a mat-button [disabled]="mobileOtpVerified" class="resend-otp f-12" data-bs-toggle="modal"
+                  data-bs-target="#mobileOtpModal" (click)="generateOtp()">Send OTP</a>
+              </div>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Mobile No" formControlName="phoneNumber" maxlength="10"
+                (keypress)="isNumber($event)" (change)="mobileNumberChanged()" required />
+              <mat-error *ngIf="lawyerEditProfileForm.controls['phoneNumber'].hasError('required')">Mobile No. is
+                Required</mat-error>
+              <mat-error *ngIf="
+                  !lawyerEditProfileForm.controls['phoneNumber'].hasError('required') &&
+                  lawyerEditProfileForm.controls['phoneNumber'].invalid
+                ">Mobile No. invalid</mat-error>
+            </mat-form-field>
+
+            <div class="row-field mt-3 mb-1">
+              <div><mat-label class="mat-label mt-2">Email</mat-label></div>
+              <div>
+                <a mat-button class="resend-otp f-12"
+                  [disabled]="emailOtpVerified && lawyerEditProfileForm.controls['email'].valid" data-bs-toggle="modal"
+                  data-bs-target="#emailOtpModal" (click)="sendOtpForEmail()">Send OTP</a>
+              </div>
+            </div>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Email" formControlName="email" (change)="emailChanged()" required />
+              <mat-error *ngIf="lawyerEditProfileForm.controls['email'].hasError('required')">Email is
+                Required</mat-error>
+              <mat-error *ngIf="
+                  !lawyerEditProfileForm.controls['email'].hasError('required') &&
+                  lawyerEditProfileForm.controls['email'].invalid
+                ">Email is invalid</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="mt-3 mb-3 filter-btn">
+            <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px"
+              data-bs-dismiss="modal" [disabled]="!emailOtpVerified || !mobileOtpVerified" (click)="updateLawyerProfile()">
+              Save
+            </button>
+            <button mat-stroked-button color="primary" style="
+                width: fit-content !important;
+                margin-left: 20px;
+                padding: 12px 36px;
+              " data-bs-dismiss="modal">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--lawyer/user-profile- Edit Profile Popup ends -->
+
+<!--lawyer/user-profile Mobile Otp Verification Popup Start-->
+<div class="modal fade" id="mobileOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered mobile-verification-popup">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="otpModalLabel">Mobile Verification</h1>
+        <button type="button" id="closeMobile" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="head-text">Enter Verification Code</div>
+        <div class="sub-text mt-2 mb-4">
+          We sent a 6-digit code to<br /><span class="mobile mt-2">{{ userData.userType ==='LAWYER' ?
+            lawyerEditProfileForm.controls.phoneNumber.value : userData.userType ==='SELLER' ?
+            sellerEditProfileForm.controls.phoneNumber.value : userEditProfileForm.controls.mobile.value }}</span>
+        </div>
+
+        <ng-otp-input #mobileOtpInput (onInputChange)="onMobileOtpChange($event)" [config]="{ length: 6 }" class="mt-2"
+          [(ngModel)]="mobileOtp"></ng-otp-input>
+        <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
+          <button mat-button color="primary" class="request-btn" (click)="resendOtp(getPhoneNumber())">
+            Request a new Code
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--lawyer/user-profile Mobile Otp Verification Popup Ends -->
+
+<!--lawyer/user-profile Email Otp Verification Popup Start-->
+<div class="modal fade" id="emailOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered email-verification-popup">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="otpModalLabel">Email Verification</h1>
+        <button type="button" id="closeEmail" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="head-text">Enter Verification Code</div>
+        <div class="sub-text mt-2 mb-4">
+          We sent a 6-digit code to<br /><span class="email mt-2">{{ userData.userType ==='LAWYER' ?
+            lawyerEditProfileForm.controls.email.value : userData.userType ==='SELLER' ?
+            sellerEditProfileForm.controls.email.value : userEditProfileForm.controls.email.value }}</span>
+        </div>
+        <ng-otp-input #emailOtpInput (onInputChange)="onEmailOtpChange($event)" [config]="{ length: 6 }"
+          class="mt-2"></ng-otp-input>
+        <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
+          <button mat-button color="primary" class="request-btn" (click)="sendOtpForEmail()">
+            Request a new Code
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--lawyer/user-profile Email Otp Verification Popup Ends -->
+
+<!--lawyer/user-profile Subscription Popup Start  -->
+<div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-xl modal-dialog-centered subscription-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="accountDeleteModalLabel">Plans</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-subscription-plan [toggleId]="'#scannerModal'" [transactionId]="transactionId"
+          [closeModalId]="'closeQrModal'"></app-subscription-plan>
+      </div>
+    </div>
+  </div>
+</div>
+<!--lawyer/user-profile Subscription Popup Ends  -->
+
+
+<!--lawyer/user-profile Account delete popup start -->
+<div class="modal fade" id="accountDeleteModal" tabindex="-1" aria-labelledby="accountDeleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered delete-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="accountDeleteModalLabel">Delete Your Account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-3" style="color: #8798ad;">You want to delete your account. It will not retrieve at any cost.
+        </div>
+        <div class="text-center mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important"
+            data-bs-target="#confirmDeleteModal" data-bs-toggle="modal">
+            Continue
+          </button>
+          <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
+            data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--lawyer/user-profile Account delete popup ends -->
+
+
+<!--lawyer/user-profile Account confirmation delete popup start -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered delete-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="confirmDeleteModalLabel">Delete Your Account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-5"><img src="../../../../assets/images/image/warning.jpg" alt="noImage" /></div>
+        <div class="mt-3 mb-3" style="color: #8798ad;">Are you sure you want to permanently delete your account?
+        </div>
+        <div class="text-center mt-3 mb-5">
+          <button mat-raised-button color="primary" style="width: fit-content !important"
+            data-bs-target="#confirmDeleteModal" data-bs-toggle="modal">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--lawyer/user-profile Account confirmation delete popup ends -->
+
+
+
+<!--User/user-profile account delete popup start -->
+<div class="modal fade" id="userAccountDeleteModal" tabindex="-1" aria-labelledby="userAccountDeleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered delete-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="userAccountDeleteModalLabel">Delete Your Account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-3" style="color: #8798ad;">Are you sure you want to permanently delete your account? It will
+          not
+          retrieve at any cost.
+        </div>
+        <div class="text-center mb-3">
+          <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal">
+            Delete
+          </button>
+          <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
+            data-bs-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--User/user-profile account delete popup ends -->
+
+
+<!-- User/user-profile edit profile popup start -->
+<div class="modal fade" id="userEditProfileModal" aria-hidden="true" aria-labelledby="userEditProfileModalLabel"
+  tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered user-edit-profile-popup">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="userEditProfileModalLabel">
+          Edit Profile
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="userEditProfileForm">
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <div class="d-flex" style="justify-content:flex-start;
+            align-items: center;">
+              <div class="picture"><img src="../../assets/images/image/person.jpg" alt="" /></div>
+              <div class="change-picture">Change</div>
+            </div>
+
+            <mat-label class="mat-label mt-3">Name</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Name" formControlName="name" required />
+              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Name is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !userEditProfileForm.controls['name'].hasError('required') &&
+                    userEditProfileForm.controls['name'].invalid
+                  ">Name is invalid</mat-error>
+            </mat-form-field>
+
+            <mat-label class="mat-label mt-2">Select Location</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select City" formControlName="city" required>
+                <mat-option *ngFor="let city of cities" [value]="city.value">
+                  {{ city.viewValue }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="userEditProfileForm.controls['city'].hasError('required')">City is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !userEditProfileForm.controls['city'].hasError('required') &&
+                    userEditProfileForm.controls['city'].invalid
+                  ">City is invalid</mat-error>
             </mat-form-field>
 
             <div class="row-field mt-3 mb-1">
@@ -201,11 +741,11 @@
             <mat-form-field appearance="outline">
               <input matInput placeholder="Enter Mobile No" formControlName="mobile" maxlength="10"
                 (keypress)="isNumber($event)" required />
-              <mat-error *ngIf="signupForm2.controls['mobile'].hasError('required')">Mobile No. is
+              <mat-error *ngIf="userEditProfileForm.controls['mobile'].hasError('required')">Mobile No. is
                 Required</mat-error>
               <mat-error *ngIf="
-                  !signupForm2.controls['mobile'].hasError('required') &&
-                  signupForm2.controls['mobile'].invalid
+                  !userEditProfileForm.controls['mobile'].hasError('required') &&
+                  userEditProfileForm.controls['mobile'].invalid
                 ">Mobile No. invalid</mat-error>
             </mat-form-field>
 
@@ -217,10 +757,11 @@
             </div>
             <mat-form-field appearance="outline">
               <input matInput placeholder="Enter Email" formControlName="email" required />
-              <mat-error *ngIf="signupForm2.controls['email'].hasError('required')">Email is Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Email is
+                Required</mat-error>
               <mat-error *ngIf="
-                  !signupForm2.controls['email'].hasError('required') &&
-                  signupForm2.controls['email'].invalid
+                  !userEditProfileForm.controls['email'].hasError('required') &&
+                  userEditProfileForm.controls['email'].invalid
                 ">Email is invalid</mat-error>
             </mat-form-field>
           </div>
@@ -242,195 +783,276 @@
     </div>
   </div>
 </div>
-<!-- Edit Profile Popup ends -->
 
-<!-- Mobile Otp Verification Popup Start-->
-<div class="modal fade" id="mobileOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered mobile-verification-popup">
+
+<!-- Judge/user-profile edit profile popup start -->
+<div class="modal fade" id="judgeEditProfileModal" aria-hidden="true" aria-labelledby="judgeEditProfileModalLabel"
+  tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered user-edit-profile-popup">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="otpModalLabel">Mobile Verification</h1>
+        <h1 class="modal-title fs-5" id="judgeEditProfileModalLabel">
+          Edit Profile
+        </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <div class="head-text">Enter Verification Code</div>
-        <div class="sub-text mt-2 mb-4">
-          We sent a 6-digit code to<br /><span class="mobile mt-2">9896754227</span>
-        </div>
-        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }" class="mt-2"></ng-otp-input>
-        <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
-          <button mat-button color="primary" class="request-btn">
-            Request a new Code
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Mobile Otp Verification Popup Ends -->
 
-<!-- Email Otp Verification Popup Start-->
-<div class="modal fade" id="emailOtpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered email-verification-popup">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="otpModalLabel">Email Verification</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
       <div class="modal-body">
-        <div class="head-text">Enter Verification Code</div>
-        <div class="sub-text mt-2 mb-4">
-          We sent a 6-digit code to<br /><span class="email mt-2">test&#64;gmail.com</span>
-        </div>
-        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }" class="mt-2"></ng-otp-input>
-        <div class="d-flex align-items-center justify-content-center" style="flex-direction: column">
-          <button mat-button color="primary" class="request-btn">
-            Request a new Code
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Email Otp Verification Popup Ends -->
+        <form [formGroup]="userEditProfileForm">
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <div class="d-flex" style="justify-content:flex-start;
+            align-items: center;">
+              <div class="picture"><img src="../../assets/images/image/person.jpg" alt="" /></div>
+              <div class="change-picture">Change</div>
+            </div>
 
-<!-- Subscription Popup Start  -->
-<div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel" aria-hidden="true"
-  data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog modal-xl modal-dialog-centered subscription-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="accountDeleteModalLabel">Plans</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="basic-plan">
-          <div class="active-plan">
-            <div class="tringle"></div>
-            Currently Active
-          </div>
-          <div class="plan-name">BASIC PLAN</div>
-          <div class="beginners">For Beginners</div>
-          <div class="free">FREE</div>
-          <div class="limit">Users : Unlimited</div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 1
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 2
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Feature 3
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 4
+            <mat-label class="mat-label mt-3">Name</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Name" formControlName="name" required />
+              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Name is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !userEditProfileForm.controls['name'].hasError('required') &&
+                    userEditProfileForm.controls['name'].invalid
+                  ">Name is invalid</mat-error>
+            </mat-form-field>
+
+            <mat-label class="mat-label mt-2">Select State</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select state" formControlName="state" required>
+                <mat-option *ngFor="let state of states" [value]="state.value">
+                  {{ state.viewValue }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="userEditProfileForm.controls['state'].hasError('required')">State is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !userEditProfileForm.controls['state'].hasError('required') &&
+                    userEditProfileForm.controls['state'].invalid
+                  ">City is invalid</mat-error>
+            </mat-form-field>
+
+            <mat-label class="mat-label mt-2">Select District</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select district" formControlName="district" required>
+                <mat-option *ngFor="let district of districts" [value]="district.value">
+                  {{ district.viewValue }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="userEditProfileForm.controls['district'].hasError('required')">District is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !userEditProfileForm.controls['district'].hasError('required') &&
+                    userEditProfileForm.controls['district'].invalid
+                  ">City is invalid</mat-error>
+            </mat-form-field>
+
+            <mat-label class="mat-label mt-2">Select Court Type</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select court type" formControlName="courtType" required>
+                <mat-option *ngFor="let court of courtType" [value]="court.value">
+                  {{ court.viewValue }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="userEditProfileForm.controls['courtType'].hasError('required')">Court Type is
+                Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['courtType'].hasError('required')">Court Type is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !userEditProfileForm.controls['courtType'].hasError('required') &&
+                    userEditProfileForm.controls['courtType'].invalid
+                  ">City is invalid</mat-error>
+            </mat-form-field>
+
+            <mat-label class="mat-label mt-2">Select Court Name</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select court name" formControlName="courtName" required>
+                <mat-option *ngFor="let name of courtName" [value]="name.value">
+                  {{ name.viewValue }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="userEditProfileForm.controls['courtName'].hasError('required')">Court Name is
+                Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['courtName'].hasError('required')">Court Name is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !userEditProfileForm.controls['courtName'].hasError('required') &&
+                    userEditProfileForm.controls['courtName'].invalid
+                  ">City is invalid</mat-error>
+            </mat-form-field>
+
+
+            <div class="row-field mt-3 mb-1">
+              <div><mat-label class="mat-label mt-2">Mobile No</mat-label></div>
+              <div>
+                <a class="resend-otp f-12" data-bs-toggle="modal" data-bs-target="#mobileOtpModal">Send OTP</a>
+              </div>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Mobile No" formControlName="mobile" maxlength="10"
+                (keypress)="isNumber($event)" required />
+              <mat-error *ngIf="userEditProfileForm.controls['mobile'].hasError('required')">Mobile No. is
+                Required</mat-error>
+              <mat-error *ngIf="
+                  !userEditProfileForm.controls['mobile'].hasError('required') &&
+                  userEditProfileForm.controls['mobile'].invalid
+                ">Mobile No. invalid</mat-error>
+            </mat-form-field>
+
+            <div class="row-field mt-3 mb-1">
+              <div><mat-label class="mat-label mt-2">Email</mat-label></div>
+              <div>
+                <a class="resend-otp f-12" data-bs-toggle="modal" data-bs-target="#emailOtpModal">Send OTP</a>
+              </div>
+            </div>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Email" formControlName="email" required />
+              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Email is
+                Required</mat-error>
+              <mat-error *ngIf="
+                  !userEditProfileForm.controls['email'].hasError('required') &&
+                  userEditProfileForm.controls['email'].invalid
+                ">Email is invalid</mat-error>
+            </mat-form-field>
           </div>
 
-          <div class="cancel-button">
-            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-              Cancel Plan
+          <div class="mt-3 mb-3 filter-btn">
+            <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px">
+              Save
+            </button>
+            <button mat-stroked-button color="primary" style="
+                width: fit-content !important;
+                margin-left: 20px;
+                padding: 12px 36px;
+              " data-bs-dismiss="modal">
+              Cancel
             </button>
           </div>
-        </div>
-
-        <div class="personal-plan">
-          <div class="plan-name">PERSONAL PLAN</div>
-          <div class="individuals">For Individuals</div>
-          <div class="free">
-            <div class="rupee">
-              <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-            </div>
-            <div class="cost">99</div>
-            <div class="month">
-              / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
-            </div>
-          </div>
-          <div class="limit">Users : 0</div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 1
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 2
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 3
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Feature 3
-          </div>
-          <div class="cancel-button">
-            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-              Choose Plan
-            </button>
-          </div>
-        </div>
-        <div class="agency-plan">
-          <div class="plan-name">AGENCY PLAN</div>
-          <div class="team">For Your Team</div>
-          <div class="free">
-            <div class="rupee">
-              <img src="../../assets/images/icons/repey.svg" alt="noImage" />
-            </div>
-            <div class="cost">499</div>
-            <div class="month">
-              / 1x month<span><img src="../../assets/images/icons/arrow_down_blue.svg" alt="noImage" /></span>
-            </div>
-          </div>
-          <div class="limit">
-            Users :
-            <div class="minus-btn">-</div>
-            <div class="number">5</div>
-            <div class="plus-btn">+</div>
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 1
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 2
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/available_subscription.svg" alt="noImage" />Feature 3
-          </div>
-          <div class="feature">
-            <img src="../../assets/images/icons/not_available_subscription.svg" alt="noImage" />Feature 3
-          </div>
-          <div class="cancel-button">
-            <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn">
-              Choose Plan
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
-<!-- Subscription Popup Ends  -->
 
 
-
-<!-- Account delete popup start -->
-<div class="modal fade" id="accountDeleteModal" tabindex="-1" aria-labelledby="accountDeleteModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog  modal-dialog-centered delete-modal">
+<!-- seller/user-profile- Edit Profile Popup Start -->
+<div class="modal fade" id="sellerEditProfileModal" aria-hidden="true" aria-labelledby="sellerEditProfileModalLabel"
+  tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered user-edit-profile-popup">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="accountDeleteModalLabel">Delete Account</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="sellerEditProfileModallLabel">
+          Edit Profile
+        </h1>
       </div>
+
       <div class="modal-body">
-        <div class="mt-3">Are you sure you want to permanently delete your account? It will not retrieve at any cost.
-        </div>
-        <div class="text-center mt-3 mb-3">
-          <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal">
-            Confirm
-          </button>
-          <button mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
-            data-bs-dismiss="modal">
-            Cancel
-          </button>
-        </div>
+        <form [formGroup]="sellerEditProfileForm">
+          <div class="d-flex mat-input-white" style="flex-direction: column">
+            <div class="d-flex" style="justify-content:flex-start;
+            align-items: center;">
+              <div class="picture"><img [src]="displayImage || sellerEditProfileForm.controls.fileDisplay.value "
+                  alt="" /></div>
+              <div class="change-picture"> <input type="file" (change)="userImageChange($event)" #fileInput
+                  style="display: none" accept="image/*" multiple><span (click)="fileInput.click()">Change</span>
+              </div>
+            </div>
+            <mat-label class="mat-label mt-3 mb-1">Name</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Name" formControlName="name" readonly="true" required />
+              <mat-error *ngIf="sellerEditProfileForm.controls['name'].hasError('required')">Name is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !sellerEditProfileForm.controls['name'].hasError('required') &&
+                    sellerEditProfileForm.controls['name'].invalid
+                  ">Name is invalid</mat-error>
+            </mat-form-field>
+
+            <mat-label class="mat-label mt-2 mb-1">Select Location</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Select City" formControlName="city" required>
+                <mat-option *ngFor="let city of cities" [value]="city.name">
+                  {{ city.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="sellerEditProfileForm.controls['city'].hasError('required')">City is
+                Required</mat-error>
+              <mat-error *ngIf="
+                    !sellerEditProfileForm.controls['city'].hasError('required') &&
+                    sellerEditProfileForm.controls['city'].invalid
+                  ">City is invalid</mat-error>
+            </mat-form-field>
+
+            <div class="row-field mt-2">
+              <div><mat-label class="mat-label">Mobile No</mat-label></div>
+              <div>
+                <a mat-button [disabled]="mobileOtpVerified" class="resend-otp f-12" data-bs-toggle="modal"
+                  data-bs-target="#mobileOtpModal" (click)="generateOtp()">Send OTP</a>
+              </div>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Mobile No" formControlName="phoneNumber" maxlength="10"
+                (keypress)="isNumber($event)" (change)="mobileNumberChanged()" required />
+              <mat-error *ngIf="sellerEditProfileForm.controls['phoneNumber'].hasError('required')">Mobile No. is
+                Required</mat-error>
+              <mat-error *ngIf="
+                  !sellerEditProfileForm.controls['phoneNumber'].hasError('required') &&
+                  sellerEditProfileForm.controls['phoneNumber'].invalid
+                ">Mobile No. invalid</mat-error>
+            </mat-form-field>
+
+            <div class="row-field mt-2">
+              <div><mat-label class="mat-label mt-2">Email</mat-label></div>
+              <div>
+                <a mat-button class="resend-otp f-12"
+                  [disabled]="emailOtpVerified && sellerEditProfileForm.controls['email'].valid" data-bs-toggle="modal"
+                  data-bs-target="#emailOtpModal" (click)="sendOtpForEmail()">Send OTP</a>
+              </div>
+            </div>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Enter Email" formControlName="email" (change)="emailChanged()" required />
+              <mat-error *ngIf="sellerEditProfileForm.controls['email'].hasError('required')">Email is
+                Required</mat-error>
+              <mat-error *ngIf="
+                  !sellerEditProfileForm.controls['email'].hasError('required') &&
+                  sellerEditProfileForm.controls['email'].invalid
+                ">Email is invalid</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="mt-3 mb-3 filter-btn">
+            <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px"
+              data-bs-dismiss="modal" [disabled]="!emailOtpVerified || !mobileOtpVerified"
+              (click)="updateSellerProfile()">
+              Save
+            </button>
+            <button mat-stroked-button color="primary" style="
+                width: fit-content !important;
+                margin-left: 20px;
+                padding: 12px 36px;
+              " data-bs-dismiss="modal">
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
-<!--Account delete popup ends -->
+<!--seller/user-profile- Edit Profile Popup ends -->
+
+
+<button mat-stroked-button id="openLawyerEditModal" color="primary" class="d-none"
+  data-bs-target="#lawyerEditProfileModal" data-bs-toggle="modal">
+</button>
+<button mat-stroked-button id="openUserEditModal" color="primary" class="d-none" data-bs-target="#userEditProfileModal"
+  data-bs-toggle="modal">
+</button>
+
+<button mat-stroked-button id="openSellerEditModal" color="primary" class="d-none"
+  data-bs-target="#sellerEditProfileModal" data-bs-toggle="modal">
+</button>
+
+<app-qr-modal [qrData]="qrData"></app-qr-modal>

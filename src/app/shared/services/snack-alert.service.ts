@@ -4,8 +4,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root',
 })
-export class SnackAlertService {
-  constructor(private MatSnackBar: MatSnackBar) {}
+export class ToastMessageService {
+
+  public showLoader: boolean = false;
+
+  constructor(private MatSnackBar: MatSnackBar) { }
 
   success(message: string, duration = 3500) {
     this.MatSnackBar.open(message, '', {
@@ -31,6 +34,12 @@ export class SnackAlertService {
       panelClass: 'success',
       horizontalPosition: 'center',
       verticalPosition: 'top',
+    });
+  }
+
+  showMessage(title: string, message: string) {
+    this.MatSnackBar.open(`${title}: ${message}`, 'Close', {
+      duration: 10000,
     });
   }
 }

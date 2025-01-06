@@ -1,0 +1,146 @@
+<div class="main-container" style="position: relative">
+  <div mode="side" opened class="sidenav">
+    <div class="logo">
+      <img src="../../assets/images/icons/vidhiklogo.svg" alt="Vidhik" routerLink="/lawyer/activity-feed"
+        style="cursor: pointer" (click)="logoutCaseDiary()" />
+    </div>
+    <div class="scrollbar">
+      <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+        <li [routerLinkActive]="'active-link'">
+          <a routerLink="/lawyer/activity-feed" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>query_stats</mat-icon> -->
+            <img src="../../assets/images/icons/activity_feed.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_feed.svg" class="active" />
+            Activity Feed</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a routerLink="/lawyer/news" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>query_stats</mat-icon> -->
+            <img src="../../assets/images/icons/inactive_news.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_news.svg" class="active" />
+            News</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a routerLink="/lawyer/case-law/cases" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>gavel</mat-icon> -->
+            <img src="../../assets/images/icons/case_law.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_law.svg" class="active" />
+            Case Law</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a *ngIf="menuConfig.bareActsEnabled" [routerLink]="'/lawyer/bare-acts'" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>gavel</mat-icon> -->
+            <img src="../../assets/images/icons/bare_act.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_bare_act.svg" class="active" />
+            Bare Acts</a>
+          <a *ngIf="!menuConfig.bareActsEnabled" data-bs-target="#upgradeModal" data-bs-toggle="modal"
+            (click)="logoutCaseDiary()">
+            <!-- <mat-icon>gavel</mat-icon> -->
+            <img src="../../assets/images/icons/bare_act.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_bare_act.svg" class="active" />
+            Bare Acts</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a *ngIf="menuConfig.caseDiaryEnabled" [routerLink]="'/lawyer/case-diary'" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>pie_chart_outline</mat-icon> -->
+            <img src="../../assets/images/icons/case_diary (2).svg" class="in-active" />
+            <img src="../../assets/images/icons/active_diary.svg" class="active" />
+            My Case Diary</a>
+          <a *ngIf="!menuConfig.caseDiaryEnabled" data-bs-target="#upgradeModal" data-bs-toggle="modal">
+            <!-- <mat-icon>pie_chart_outline</mat-icon> -->
+            <img src="../../assets/images/icons/case_diary (2).svg" class="in-active" />
+            <img src="../../assets/images/icons/active_diary.svg" class="active" />
+            My Case Diary</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a *ngIf="menuConfig.caseDiaryEnabled" [routerLink]="'/lawyer/calendar'" (click)="logoutCaseDiary()">
+            <img src="../../assets/images/icons/calendar.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_calendar.svg" class="active" />
+            Important Events</a>
+          <a *ngIf="!menuConfig.caseDiaryEnabled" data-bs-target="#upgradeModal" data-bs-toggle="modal"
+            (click)="logoutCaseDiary()">
+            <img src="../../assets/images/icons/calendar.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_calendar.svg" class="active" />
+            Important Events</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a *ngIf="menuConfig.caseDiaryEnabled" [routerLink]="'/lawyer/members'" (click)="logoutCaseDiary()">
+            <img src="../../assets/images/icons/members.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_members.svg" class="active" />
+            Members</a>
+          <a *ngIf="!menuConfig.caseDiaryEnabled" data-bs-target="#upgradeModal" data-bs-toggle="modal"
+            (click)="logoutCaseDiary()">
+            <img src="../../assets/images/icons/members.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_members.svg" class="active" />
+            Members</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a *ngIf="menuConfig.chatBoxEnabled" [routerLink]="'/lawyer/chat-room'" (click)="logoutCaseDiary()">
+            <img src="../../assets/images/icons/chat_room.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_room.svg" class="active" />
+            <!-- <mat-icon>chat</mat-icon> -->
+            Chat Room</a>
+          <a *ngIf="!menuConfig.chatBoxEnabled" data-bs-target="#upgradeModal" data-bs-toggle="modal"
+            (click)="logoutCaseDiary()">
+            <img src="../../assets/images/icons/chat_room.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_room.svg" class="active" />
+            <!-- <mat-icon>chat</mat-icon> -->
+            Chat Room</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a routerLink="/lawyer/conference" (click)="logoutCaseDiary()">
+            <img src="../../assets/images/icons/inactive_conference.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_conference.svg" class="active" />
+            <!-- <mat-icon>chat</mat-icon> -->
+            Conference</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a routerLink="/lawyer/transaction" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>storefront</mat-icon> -->
+            <img src="../../assets/images/icons/inactive_transaction.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_transaction.svg" class="active" />
+            Transactions</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a routerLink="/lawyer/marketplace" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>storefront</mat-icon> -->
+            <img src="../../assets/images/icons/marketplace.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_marketplace.svg" class="active" />
+            Marketplace</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a routerLink="/lawyer/wallet" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>storefront</mat-icon> -->
+            <img src="../../assets/images/icons/wallet.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_wallet.svg" class="active" />
+            Wallet</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a routerLink="/lawyer/time-pass" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>storefront</mat-icon> -->
+            <img src="../../assets/images/icons/time_pass.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_time_pass.svg" class="active" />
+            Time Pass</a>
+        </li>
+        <li [routerLinkActive]="'active-link'">
+          <a routerLink="/lawyer/contact-us" (click)="logoutCaseDiary()">
+            <!-- <mat-icon>storefront</mat-icon> -->
+            <img src="../../assets/images/icons/inactive_contact_us.svg" class="in-active" />
+            <img src="../../assets/images/icons/active_contact_us.svg" class="active" />
+            Contact Us</a>
+        </li>
+        <li>
+          <a (click)="logout()">
+            <img src="../../assets/images/icons/power.svg" class="in-active" style="width:24px" />
+            <img src="../../assets/images/icons/power_active.svg" class="active" style="width:24px" />
+            Logout</a>
+        </li>
+      </ng-scrollbar>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </div>
+</div>

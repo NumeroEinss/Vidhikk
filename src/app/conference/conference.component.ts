@@ -1,16 +1,20 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { CountdownComponent } from 'ngx-countdown';
 import { Subscription, interval, takeUntil } from 'rxjs';
+import { ApolloService } from '../shared/services/apollo.service';
 
 @Component({
   selector: 'app-conference',
   templateUrl: './conference.component.html',
   styleUrl: './conference.component.scss',
 })
-export class ConferenceComponent {
+export class ConferenceComponent implements AfterViewInit {
   @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
   message: string = '';
-  isMuted: boolean = false
+  isMuted: boolean = false;
+  userType: string = "";
+  qrData: string = "Payment For Conference Extension"
 
   chatList = [
     {
@@ -25,14 +29,14 @@ export class ConferenceComponent {
       name: 'Anurag Goyal',
       time: '05:32 pm',
       message: 'I am fine...',
-      receiverImage: '../../assets/images/image/anurag_goyal.jpg',
+      receiverImage: '../../assets/images/image/person.jpg',
     },
     {
       type: 'receiver',
       name: 'Anurag Goyal',
       time: '05:33 pm',
       message: 'What about you..?',
-      receiverImage: '../../assets/images/image/anurag_goyal.jpg',
+      receiverImage: '../../assets/images/image/person.jpg',
     },
     {
       type: 'sender',
@@ -52,19 +56,24 @@ export class ConferenceComponent {
     },
   ];
 
-  timer: number = 61;
-  timeInSecond: number = this.timer * 60;
+  timer: number = 1;
+  timeInSecond: number = 10;
   // pause: boolean = true;
   // source = interval(60000);
   // subscription: Subscription;
 
-  constructor() {
+  isExtended: boolean = false;
+  transactionId: any = "";
+
+  constructor(private _router: Router, private _apolloService: ApolloService) {
     // this.subscription = this.source.subscribe(() => this.decreaseTimer());
+    this.userType = this._router.url.split('/')[1];
   }
 
   ngAfterViewInit() {
     let el = document.getElementById('conference') as HTMLElement;
     el.click();
+    this.getQrData();
     // if (this.timer > 60) {
     //   this.countdown.config.format = 'HH:mm:ss';
     // }
@@ -95,6 +104,17 @@ export class ConferenceComponent {
   //   // let elem = document.getElementById('timer') as HTMLElement;
   //   // elem.style.background = `conic-gradient(${color} ${degree}deg,${color2} 0deg)`;
   // }
+
+  getQrData() {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+      if (objRes != null) {
+        if (objRes.status == 'success') {
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
+        }
+      }
+    })
+  }
 
   isChatOpen() {
     let element = document.getElementById('myForm') as HTMLElement;
@@ -135,5 +155,35 @@ export class ConferenceComponent {
     let element = document.getElementById("mute") as HTMLElement;
     element.classList.add('muted')
     this.isMuted = !this.isMuted
+  }
+
+  notify(e: any) {
+    if (e.action === 'done' && this.isExtended == false && this.userType == 'lawyer') {
+      let element = document.getElementById('extendConfrenceButton') as HTMLElement;
+      element.click();
+      this.isExtended = true;
+    }
+    else if (e.action === 'done' && this.isExtended == true && this.userType == 'lawyer') {
+      let element = document.getElementById('completeConfrenceButton') as HTMLElement;
+      element.click();
+    }
+    else if (e.action === 'done' && this.isExtended == false && this.userType == 'user') {
+      let element = document.getElementById('extendUserConfrenceButton') as HTMLElement;
+      element.click();
+      this.isExtended = true;
+    }
+    else if (e.action === 'done' && this.isExtended == true && this.userType == 'user') {
+      let element = document.getElementById('completeConfrenceButton') as HTMLElement;
+      element.click();
+    }
+  }
+
+  exitConfrence() {
+    if (this.userType == 'user') {
+      this._router.navigate(['/user/conference']);
+    }
+    else if (this.userType == 'lawyer') {
+      this._router.navigate(['/lawyer/conference']);
+    }
   }
 }

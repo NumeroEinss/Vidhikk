@@ -1,0 +1,66 @@
+.paginator {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 0px 30px;
+    margin: 10px 0px;
+
+    button {
+        height: 30px;
+        width: fit-content !important;
+        .mobile-responsive-btn{
+            display: none;
+        }
+    }
+
+    .paginator-input {
+        max-width: 80px;
+        margin-bottom: unset;
+        margin-left: 10px;
+
+        input {
+            height: 30px;
+        }
+    }
+
+    .go-to-text {
+        margin-left: 10px;
+    }
+
+    .goto-button {
+        margin-left: 10px;
+    }
+}
+
+
+@media (max-width:600px) {
+    .paginator {
+        padding:0 3px 0 3px;
+        margin: 8px 0 20px 0;
+        font-size: 10px;
+        white-space: nowrap;
+
+        button {
+            font-size: 12px;
+            padding: 0 !important;
+            span{
+                display: none;
+            }
+           
+            .mobile-responsive-btn{
+                display: block;
+                width: 10px;
+                height: 10px;
+            }
+        }
+        .paginator-input {
+            max-width: 60px;
+            margin-left: 5px;
+
+            input {
+                height: 20px;
+            }
+        }
+    }
+
+}

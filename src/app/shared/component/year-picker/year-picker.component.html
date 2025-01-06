@@ -1,0 +1,7 @@
+<mat-label class="mat-label">{{label}}</mat-label>
+<mat-form-field appearance="outline">
+    <input matInput [matDatepicker]="picker" [(ngModel)]="year" [readonly]="true" [max]="today">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker startView="multi-year" (yearSelected)="chooseYear($event, picker)"
+        panelClass="year-only-picker"></mat-datepicker>
+</mat-form-field>

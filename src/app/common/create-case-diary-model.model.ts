@@ -1,15 +1,21 @@
 export class CreateCaseDiaryModel {
-
+    _id: string = "";
     registrationDate: string = "";
     applicantName: string = "";
     courtName: string = "";
     respondentName: string = "";
-    caseNo: string = "";
-    hearingDate: string = "";
-    stage: string = "";
-    applicantType: string = "";
+    caseNumber: string = " ";
+    caseName: String = "";
+    nextHearingDate: string = "";
+    caseStage: string = "";
+    applicationType: string = "";
     city: string = "";
     applicationSection: string = "";
-    reason: string = "";   
-
+    lawyreasonForAbsent: string = "";
+    representing: string = "";
+    FIRNumber: string = "";
+    FIRDate: string = "";
+    sectionIPC: string = "";
+    clientEmail: string = "";
+    clientContact: string = "";
 }

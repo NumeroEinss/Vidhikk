@@ -1,12 +1,17 @@
 import { Component, ElementRef, Inject, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators, FormControl } from '@angular/forms';
-import { SignUpModel, SignUpModel2 } from '../../common/signup.model';
+import { SignUpModel, LawyerSignupModel, UserSignupModel, JudgeSignupModel, SellerSignupModel } from '../../common/signup.model';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { SnackAlertService } from '../../shared/services/snack-alert.service';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { map, startWith } from 'rxjs';
+import { GQLConfig } from '../../graphql.operations';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { Router } from '@angular/router';
+import { NgOtpInputComponent } from 'ng-otp-input';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -14,11 +19,12 @@ import { map, startWith } from 'rxjs';
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
-
   @ViewChild('otpDialog', { static: false }) otpDialog!: TemplateRef<any>;
-  // @ViewChild('fieldInput') fieldInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('ngOtpInput', { static: false }) ngOtpInput!: NgOtpInputComponent;
+
   signupForm: FormGroup;
-  signupForm2: FormGroup;
+  lawyerForm: FormGroup;
+  sellerForm: FormGroup;
   otpVerified: boolean = false;
   mobileNoEntered: boolean = false;
   hidePassword: boolean = true;
@@ -28,23 +34,43 @@ export class SignupComponent {
   filteredField: any = [];
   displayField: any = [];
 
-  states: any[] = [
-    { value: 'Madhya Pradesh', viewValue: 'Madhya Pradesh' },
-    { value: 'Uttar Pradesh', viewValue: 'Uttar Pradesh' },
-    { value: 'Gujrat', viewValue: 'Gujrat' },
+  userType: string = "LAWYER";
+  userForm: FormGroup;
+  judgeForm: FormGroup;
+  userImage: any;
+  emailOtpVerified: boolean = false;
+  otp: string = "";
+
+  private otpChangeTimeout: any;
+
+  cityList: any[] = [];
+
+  allDistricts: any[] = [
+    { state: 'mp', value: 'indore', viewValue: 'Indore' },
+    { state: 'mp', value: 'bhopal', viewValue: 'Bhopal' },
+    { state: 'up', value: 'aligarh', viewValue: 'Aligarh' },
+    { state: 'up', value: 'bareli', viewValue: 'Bareli' },
+    { state: 'gujrat', value: 'surat', viewValue: 'Surat' },
+    { state: 'gujrat', value: 'ahmedabad', viewValue: 'Ahmedabad' },
   ];
 
-  cities: any[] = [
-    { value: 'Madhya Pradesh', viewValue: 'Indore' },
-    { value: 'Uttar Pradesh', viewValue: 'Bhopal' },
-    { value: 'Gujrat', viewValue: 'Surat' },
+  allCourtType: any[] = [
+    { district: 'indore', value: 'district Court', viewValue: 'District Court' },
+    { district: 'bhopal', value: 'civil Court', viewValue: 'Civil Court' },
+    { district: 'aligarh', value: 'subordinate Court', viewValue: 'Subordinate Court' },
+    { district: 'bareli', value: 'supreme Court', viewValue: 'Supreme Court' },
+    { district: 'surat', value: 'district Court', viewValue: 'District Court Surat' },
+    { district: 'ahmedabad', value: 'supreme Court', viewValue: 'Supreme Court' },
   ];
 
-  fields: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
+  allCourtName: any[] = [
+    { type: 'district Court', value: 'District & Session Court', viewValue: 'District & Session Court', },
+    { type: 'civil Court', value: 'District & Session Court BHOPAL', viewValue: 'District & Session Court BHOPAL', },
+    { type: 'subordinate Court', value: 'Civil Court Uttar Pradesh', viewValue: 'Civil Court Uttar Pradesh' },
+    { type: 'supreme Court', value: 'Subordinate Court Ahmedabad', viewValue: 'Subordinate Court Ahmedabad' },
   ];
+
+  fields: any = [];
 
   queries: any[] = [
     { value: 'What is your favorite color', viewValue: 'What is your favorite color' },
@@ -52,109 +78,47 @@ export class SignupComponent {
     { value: 'which is your first school', viewValue: 'which is your first school' },
   ];
 
-  termsCondition = [
-    {
-      section: '1',
-    },
-    {
-      subHeading: '1. Use of the Website',
-      details: [
-        '1.1. You must be at least 18 years old to use the Website. By using the Website, you represent and warrant that you are at least 18 years old.',
-        '1.2. You agree to use the Website only for lawful purposes and in accordance with these Terms and all applicable laws and regulations.',
-        '1.3. You may not use the Website in any manner that could disable, overburden, damage, or impair the Website or interfere with any other partys use of the Website.'
-      ],
-    },
-    {
-      subHeading: '2. Intellectual Property Rights',
-      details: [
-        '2.1. All content on the Website, including text, graphics, logos, images, audio clips, and software, is the property of Vidhik or its licensors and is protected by copyright and other intellectual property laws.',
-        '2.2. You may not reproduce, distribute, modify, or create derivative works of any content from the Website without the prior written consent of Vidhik.',
-      ],
-    },
-    {
-      subHeading: '3. User Contributions',
-      details: [
-        '3.1. The Website may allow you to submit comments, feedback, or other content ("User Contributions").',
-        '3.2. By submitting User Contributions, you grant Vidhik a non-exclusive, royalty-free, perpetual, irrevocable, and fully sublicensable right to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such User Contributions throughout the world in any media.',
-        '3.3. You represent and warrant that your User Contributions do not infringe any third party&quotes rights, including intellectual property rights, and are not unlawful, defamatory, obscene, or otherwise objectionable.',
-      ],
-    },
-    {
-      subHeading: '4. Limitation of Liability',
-      details: [
-        '4.1. In no event shall Vidhik, its officers, directors, employees, or agents be liable to you or any third party for any indirect, consequential, incidental, special, or punitive damages arising out of or relating to your use of the Website.',
-        '4.2. Vidhik shall not be liable for any loss or damage arising out of or relating to any User Contributions or third-party content posted on the Website.'
-      ],
-    },
-    {
-      subHeading: '5. Governing Law',
-      details: [
-        '5.1. Vidhik reserves the right to change these Terms at any time. Any changes will be effective immediately upon posting on the Website. Your continued use of the Website after the posting of revised Terms constitutes your acceptance of such changes.'
-      ],
-    },
-    {
-      subHeading: '6. Changes to Terms',
-      details: [
-        '6.1. You must be at least 18 years old to use the Website. By using the Website, you represent and warrant that you are at least 18 years old.',
-        '6.2. You agree to use the Website only for lawful purposes and in accordance with these Terms and all applicable laws and regulations.',
-        '6.3. You may not use the Website in any manner that could disable, overburden, damage, or impair the Website or interfere with any other partys use of the Website.'
-      ],
-    },
-    {
-      subHeading: '7. Contact Information',
-      details: [
-        '7.1. If you have any questions about these Terms, please contact us at [Contact Email]. By using the Website, you acknowledge that you have read, understood, and agree to be bound by these Terms and all applicable laws and regulations.'
-      ],
-    },
-  ];
+  filteredDistricts: any[] = [];
+  filteredCourtNames: any[] = [];
+  filteredCourtTypes: any[] = [];
 
-  privacyPolicy = [
-    {
-      subHeading: '1. Information We Collect',
-      details: [
-        '1.1. Personal Identification Information: We may collect personal identification information from users in various ways, including but not limited to when users visit our Website, register on the Website, subscribe to newsletters, respond to surveys, fill out forms, and in connection with other activities, services, features, or resources we make available on our Website. Users may be asked for, as appropriate, name, email address, phone number, and other relevant information.',
-        '1.2. Non-personal Identification Information: We may collect non-personal identification information about users whenever they interact with our Website. Non-personal identification information may include the browser name, the type of computer or device, and technical information about users means of connection to our Website, such as the operating system and the Internet service providers utilized.'
-      ],
-    },
-    {
-      subHeading: '2. How We Use Collected Information',
-      details: [
-        '2.1. We may collect and use userspersonal information for the following purposes: To personalize user experience: We may use information in the aggregate to understand how our users as a group use the services and resources provided on our Website.To improve our Website: We continually strive to improve our Website offerings based on the information and feedback we receive from users.To send periodic emails: We may use the email address to respond to inquiries, questions, and/or other requests.'
-      ],
-    },
-    {
-      subHeading: '3. How We Protect Your Information',
-      details: [
-        '3.1. We adopt appropriate data collection, storage, and processing practices and security measures to protect against unauthorized access, alteration, disclosure, or destruction of your personal information, username, password, transaction information, and data stored on our Website.'
-      ],
-    },
-    {
-      subHeading: '4. Sharing Your Personal Information',
-      details: [
-        '4.1. We do not sell, trade, or rent users personal identification information to others. We may share generic aggregated demographic information not linked to any personal identification information regarding visitors and users with our business partners, trusted affiliates, and advertisers for the purposes outlined above.'
-      ],
-    },
-    {
-      subHeading: '5. Third-Party Websites',
-      details: [
-        '5.1. Users may find advertising or other content on our Website that links to the sites and services of our partners, suppliers, advertisers,'
-      ],
-    },
-  ];
+  docUploadEnabled: boolean = false;
 
-
-  constructor(private _fb: FormBuilder, private _matDialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: SnackAlertService) {
+  constructor(private _fb: FormBuilder, private _matDialog: MatDialog, private _router: Router, private _http: HttpClient,
+    @Inject(MAT_DIALOG_DATA) public data: any, private _toastMessage: ToastMessageService, private _apolloService: ApolloService) {
     this.signupForm = this._fb.group(new SignUpModel());
     this.SignupFrmCtrl.mobile.setValidators([Validators.required, Validators.minLength(10)]);
     this.SignupFrmCtrl.otp.setValidators([Validators.required, Validators.minLength(6)]);
 
-    this.signupForm2 = this._fb.group(new SignUpModel2);
+    this.lawyerForm = this._fb.group(new LawyerSignupModel);
     // this.signupForm2.controls.email.setValidators([Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]);
-    this.signupForm2.controls.email.setValidators([Validators.email]);
-    this.signupForm2.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
-    this.signupForm2.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
-    this.signupForm2.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword])
+    this.lawyerForm.controls.email.setValidators([Validators.email]);
+    this.lawyerForm.controls.coreCompetency.setValidators([Validators.maxLength(200)]);
+    this.lawyerForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
+    this.lawyerForm.controls.confirmPassword.setValidators([Validators.required, this.validateConfirmPassword()]);
+
+    this.userForm = this._fb.group(new UserSignupModel);
+    this.userForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
+    this.userForm.controls.confirmPassword.setValidators([Validators.required, this.validateUserConfirmPassword()]);
+
+    this.judgeForm = this._fb.group(new JudgeSignupModel);
+
+    this.sellerForm = this._fb.group(new SellerSignupModel);
+    this.sellerForm.controls.organisationInfo.setValidators([Validators.maxLength(200)]);
+    this.sellerForm.controls.password.setValidators([Validators.required, Validators.minLength(10)]);
+    this.sellerForm.controls.confirmPassword.setValidators([Validators.required, this.validateSellerConfirmPassword()]);
+    this.sellerForm.controls.panNo.setValidators([Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')]);
+    this.sellerForm.controls.gstinNo.setValidators([Validators.pattern(/^([0-9]{2})([A-Z]{5})([0-9]{4})([A-Z]{1})([1-9A-Z]{1})(Z)([0-9A-Z]{1})$/)]);
+
+    this.getCitiesList();
+    this.getPractiscingField();
+  }
+
+  opacityStyling = { opacity: 0.1 };
+
+  ngAfterViewInit() {
+    let element = document.getElementById('modalButton') as HTMLElement;
+    element.click();
   }
 
   get SignupFrmCtrl() {
@@ -166,32 +130,41 @@ export class SignupComponent {
   }
 
   onSubmitOtp() {
-    this.signupForm2.controls.mobile.patchValue(this.signupForm.controls.mobile.value);
-  }
-
-  resendOtp() {
-    this._toastMessage.success('Otp Sent Successfully !!');
+    this.lawyerForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
+    this.userForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
+    this.judgeForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
+    this.sellerForm.controls.phoneNumber.patchValue(this.signupForm.controls.mobile.value);
   }
 
   validateConfirmPassword(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-
-      const value = control.value;
-
-      if (!value) {
+      if (!control.value) {
         return null;
       }
-
-      const passwordValid = control.value == this.signupForm2.controls.password.value;
-
+      const passwordValid = (control.value == this.lawyerForm.controls.password.value);
       return !passwordValid ? { passwordMatch: true } : null;
     }
   }
 
-  onOtpChange(e: any) {
-    console.log(e);
+  validateUserConfirmPassword(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const passwordValid = (control.value == this.userForm.controls.password.value);
+      return !passwordValid ? { passwordMatch: true } : null;
+    }
   }
 
+  validateSellerConfirmPassword(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const passwordValid = (control.value == this.sellerForm.controls.password.value);
+      return !passwordValid ? { passwordMatch: true } : null;
+    }
+  }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -223,6 +196,505 @@ export class SignupComponent {
 
   private _filter(value: any): string[] {
     const filterValue = value.value.toLowerCase();
-    return this.fields.filter(feilds => feilds.value.toLowerCase().includes(filterValue));
+    return this.fields.filter((feilds: { value: string; }) => feilds.value.toLowerCase().includes(filterValue));
+  }
+
+  userImageChange(event: any) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (this.userType == "LAWYER") {
+        this.lawyerForm.controls.file.patchValue(event.target.files[0]);
+        this.lawyerForm.controls.fileDisplay.patchValue(e.target?.result);
+      }
+      else if (this.userType == "USER") {
+        this.userForm.controls.file.patchValue(event.target.files[0]);
+        this.userForm.controls.fileDisplay.patchValue(e.target?.result);
+      }
+      else if (this.userType == "JUDGE") {
+        this.judgeForm.controls.file.patchValue(event.target.files[0]);
+        this.judgeForm.controls.fileDisplay.patchValue(e.target?.result);
+      }
+      else if (this.userType == "SELLER") {
+        this.sellerForm.controls.file.patchValue(event.target.files[0]);
+        this.sellerForm.controls.fileDisplay.patchValue(e.target?.result);
+      }
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  docChange(event: any) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      this.lawyerForm.controls.docFile.patchValue(event.target.files[0]);
+      this.lawyerForm.controls.docDisplay.patchValue(e.target?.result);
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  onStateChange(selectedState: string) {
+    this.filteredDistricts = this.allDistricts.filter(district => district.state === selectedState);
+    this.judgeFrmCtrl.currentDistrict.setValue('');
+    this.judgeFrmCtrl.courtType.setValue('');
+    this.judgeFrmCtrl.courtName.setValue('');
+  }
+
+  onDistrictChange(selectedDistrict: string) {
+    this.filteredCourtTypes = this.allCourtType.filter(court => court.district === selectedDistrict);
+    this.judgeFrmCtrl.courtType.setValue('');
+    this.judgeFrmCtrl.courtName.setValue('');
+  }
+
+  onCourtTypeChange(selectedCourtType: string) {
+    this.filteredCourtNames = this.allCourtName.filter(name => name.type === selectedCourtType);
+    this.judgeFrmCtrl.courtName.setValue('');
+  }
+
+  get judgeFrmCtrl() {
+    return this.judgeForm.controls;
+  }
+
+  toUppercase(event: Event) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.toUpperCase();
+    this.sellerForm.controls['panNo'].setValue(input.value, { emitEvent: false });
+  }
+
+
+  //generateMobileOtpForSignup
+  generateOtp() {
+    let reqObj = {
+      mobile: this.signupForm.controls.mobile.value
+    }
+    this._apolloService.mutate(GQLConfig.sendOtp, reqObj).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.sendOtp.status == 200) {
+          this._toastMessage.message(data.data.sendOtp.message);
+          this.mobileNoEntered = !this.mobileNoEntered;
+        }
+        else {
+          this._toastMessage.error(data.data.sendOtp.message);
+        }
+      }
+    });
+  }
+
+  //verifyMobileOtpForSignup
+  verifyOtp() {
+    let reqObj: any = {
+      mobile: this.signupForm.controls.mobile.value,
+      otp: this.signupForm.controls.otp.value
+    };
+    this._apolloService.query(GQLConfig.verifyOtp, reqObj).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.verifyOtp.status == 200) {
+          this._toastMessage.message(data.data.verifyOtp.message);
+          this.otpVerified = !this.otpVerified;
+          this.lawyerForm.controls.phoneNumber.patchValue(this.SignupFrmCtrl.mobile.value);
+          this.userForm.controls.phoneNumber.patchValue(this.SignupFrmCtrl.mobile.value);
+        }
+        else {
+          this._toastMessage.error(data.data.verifyOtp.message);
+        }
+      }
+    })
+  }
+
+  //resendOtpForSignup
+  resendOtp() {
+    let reqObj = {
+      mobile: this.signupForm.controls.mobile.value
+    }
+    this._apolloService.mutate(GQLConfig.sendOtp, reqObj).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.sendOtp.status == 200) {
+          this._toastMessage.message(data.data.sendOtp.message);
+        }
+        else {
+          this._toastMessage.error(data.data.sendOtp.message);
+        }
+      }
+    });
+  }
+
+
+  //sendOtpEmail
+  sendOtpForEmail() {
+    let data = {}
+    if (this.userType == "USER") {
+      data = {
+        email: this.userForm.controls.email.value,
+        phoneNumber: this.userForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "LAWYER") {
+      data = {
+        email: this.lawyerForm.controls.email.value,
+        phoneNumber: this.lawyerForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "SELLER") {
+      data = {
+        email: this.sellerForm.controls.email.value,
+        phoneNumber: this.sellerForm.controls.phoneNumber.value
+      };
+    }
+    this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
+      if (objEmailOtp.data != null) {
+        if (objEmailOtp.data.sendOtp.status == 200) {
+          let el = document.getElementById('otpModalButton') as HTMLElement;
+          el.click();
+          this._toastMessage.message(objEmailOtp.data.sendOtp.message);
+          this.ngOtpInput.setValue('');
+        }
+        else {
+          this._toastMessage.error(objEmailOtp.data.sendOtp.message);
+        }
+      }
+    })
+  }
+
+  onOtpChange(e: any) {
+    clearTimeout(this.otpChangeTimeout);
+    this.otpChangeTimeout = setTimeout(() => {
+      if (e.length == 6 && !this.emailOtpVerified) {
+        let data = {};
+        if (this.userType == "USER") {
+          data = {
+            email: this.userForm.controls.email.value,
+            mobile: this.userForm.controls.phoneNumber.value,
+            otp: e
+          };
+        }
+        else if (this.userType == "LAWYER") {
+          data = {
+            email: this.lawyerForm.controls.email.value,
+            mobile: this.lawyerForm.controls.phoneNumber.value,
+            otp: e
+          };
+        }
+        else if (this.userType == "SELLER") {
+          data = {
+            email: this.sellerForm.controls.email.value,
+            mobile: this.sellerForm.controls.phoneNumber.value,
+            otp: e
+          };
+        }
+        else if (this.userType == "JUDGE") {
+          data = {
+            email: this.judgeForm.controls.email.value,
+            mobile: this.judgeForm.controls.phoneNumber.value,
+            otp: e
+          };
+        }
+        this._apolloService.mutate(GQLConfig.verifyOtpEmail, data).subscribe(objEmailOtp => {
+          if (objEmailOtp.data != null) {
+            if (objEmailOtp.data.verifyOtp.status == 200) {
+              this.emailOtpVerified = true;
+              let el = document.getElementById('closeOtpModalButton') as HTMLElement;
+              el.click();
+              this._toastMessage.success(objEmailOtp.data.verifyOtp.message);
+              this.ngOtpInput.setValue('');
+            } else {
+              this._toastMessage.error(objEmailOtp.data.verifyOtp.message);
+            }
+          }
+        });
+      }
+    }, 300); // 300ms delay
+  }
+
+  resendEmailOtp() {
+    let data = {}
+    if (this.userType == "USER") {
+      data = {
+        email: this.userForm.controls.email.value,
+        phoneNumber: this.userForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "LAWYER") {
+      data = {
+        email: this.lawyerForm.controls.email.value,
+        phoneNumber: this.lawyerForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "SELLER") {
+      data = {
+        email: this.sellerForm.controls.email.value,
+        phoneNumber: this.sellerForm.controls.phoneNumber.value
+      };
+    }
+    else if (this.userType == "JUDGE") {
+      data = {
+        email: this.judgeForm.controls.email.value,
+        phoneNumber: this.judgeForm.controls.phoneNumber.value
+      };
+    }
+    this._apolloService.mutate(GQLConfig.sendOtpEmail, data).subscribe(objEmailOtp => {
+      if (objEmailOtp.data != null) {
+        if (objEmailOtp.data.sendOtp.status == 200) {
+          this._toastMessage.message(objEmailOtp.data.sendOtp.message);
+          this.ngOtpInput.setValue('');
+        }
+        else {
+          this._toastMessage.error(objEmailOtp.data.sendOtp.message);
+        }
+      }
+    })
+  }
+
+  userSignUp() {
+    if (!this.userForm.valid) {
+      this._toastMessage.error("Please fill all the fields !!");
+    }
+    else if (!this.emailOtpVerified) {
+      this._toastMessage.error("Please verify your email !!");
+    }
+    else {
+      let reqObj = {
+        userType: this.userType,
+        name: this.userForm.controls.name.value,
+        mobile: this.userForm.controls.phoneNumber.value,
+        isPrimaryContactWhatsapp: this.userForm.controls.isPrimaryContactWhatsapp.value,
+        secondaryContact: this.userForm.controls.secondaryContact.value,
+        isSecondaryContactWhatsapp: this.userForm.controls.isSecondaryContactWhatsapp.value,
+        address: this.userForm.controls.address.value,
+        city: this.userForm.controls.city.value,
+        state: this.userForm.controls.state.value,
+        email: this.userForm.controls.email.value,
+        password: this.userForm.controls.password.value,
+        confirmPassword: this.userForm.controls.confirmPassword.value,
+      }
+      this._apolloService.mutate(GQLConfig.createUser, reqObj).subscribe(data => {
+        if (data.data != null) {
+          if (data.data.createUser.status == 200) {
+            this._toastMessage.success(data.data.createUser.message + '. Login to proceed further');
+            setTimeout(() => { this._router.navigateByUrl('/auth/login'); }, 2000);
+          }
+          else {
+            this._toastMessage.error(data.data.createUser.message);
+          }
+        }
+      })
+    }
+  }
+
+  async lawyerSignup() {
+    // accountVerificationButton
+    if (this.lawyerForm.value.file == "") {
+      this._toastMessage.error("Please add profile image !!");
+    }
+    else if (this.docUploadEnabled == true && this.lawyerForm.controls.docFile.value == "") {
+      this._toastMessage.error("Please upload your Identification Proof !!")
+    }
+    else if (!this.lawyerForm.valid) {
+      this._toastMessage.error("Please Fill all the fields !!");
+    }
+    else if (!this.emailOtpVerified) {
+      this._toastMessage.error("Please verify your email !!");
+    }
+    else {
+      let status: string = "";
+
+      let isLawyerVerified: Boolean = await this.isLawyerVerified(this.lawyerForm.controls.licenseNo.value.trim());
+
+      isLawyerVerified === true ? status = "Approved" : status = "";
+
+      const mutation = {
+        "query": "mutation ($input: AdvocateProfile!, $profileFile: Upload, $docFile:Upload) { createLawyers(input: $input, profileFile: $profileFile, docFile:$docFile) { status message data } }",
+        "variables": {
+          "input": {
+            "userType": this.userType,
+            "lawyerName": this.lawyerForm.controls.name.value,
+            "fatherName": this.lawyerForm.controls.fatherName.value,
+            "orgainization": this.lawyerForm.controls.orgainization.value,
+            "primaryContact": this.lawyerForm.controls.phoneNumber.value,
+            "isPrimaryContactWhatsapp": this.lawyerForm.controls.isPrimaryContactWhatsapp.value,
+            "isPrimaryMobileDisplay": this.lawyerForm.controls.isPrimaryContactVisible.value,
+            "secondaryContact": this.lawyerForm.controls.secondaryContact.value,
+            "isSecondaryContactWhatsapp": this.lawyerForm.controls.isSecondaryContactWhatsapp.value,
+            "isSecondaryMobileDisplay": this.lawyerForm.controls.isSecondaryContactVisible.value,
+            "city": this.lawyerForm.controls.city.value,
+            "state": this.lawyerForm.controls.state.value,
+            "email": this.lawyerForm.controls.email.value,
+            "password": this.lawyerForm.controls.password.value,
+            "confirmPassword": this.lawyerForm.controls.confirmPassword.value,
+            "barLicenseNumber": this.lawyerForm.controls.licenseNo.value,
+            "stateBar": this.lawyerForm.controls.stateBar.value,
+            "practiceYear": parseInt(this.lawyerForm.controls.practiceYear.value),
+            "coreCompetency": this.lawyerForm.controls.coreCompetency.value,
+            "practicingCourt": this.lawyerForm.controls.courtName.value,
+            "practicingField": this.lawyerForm.controls.practiceField.value,
+            "isEmailDisplay": false,
+            "barAddress": this.lawyerForm.controls.barAddress.value,
+            "isBarAddressDisplay": this.lawyerForm.controls.isAddressVisible.value,
+            "status": status
+          },
+          "profileFile": null,
+          "docFile": null
+        }
+      }
+
+      this._apolloService.uploadLawyer(mutation, this.lawyerForm.controls.file.value, this.lawyerForm.controls.docFile.value).subscribe(objRes => {
+        if (objRes.data != null) {
+
+          if (isLawyerVerified == false) {
+            if (objRes.data.createLawyers.status == 200) {
+              let btn = document.getElementById('accountVerificationButton') as HTMLElement;
+              btn.click();
+            }
+            else {
+              this._toastMessage.error(objRes.data.createLawyers.message);
+            }
+          }
+          if (isLawyerVerified == true) {
+            this._toastMessage.success(objRes.data.createLawyers.message);
+            this._router.navigate(['/auth/login']);
+          }
+        }
+        else {
+          this._toastMessage.error(objRes.data.createLawyers.message);
+        }
+      })
+    }
+  }
+
+  async isLawyerVerified(barLiscenceNo: string): Promise<Boolean> {
+    let isVerified: any = false;
+    let reqObj = {
+      enrollmentNo: barLiscenceNo
+    }
+    let respObj = await lastValueFrom(this._apolloService.post('/lawyer/verify', reqObj));
+    if (respObj.status == "success") {
+      isVerified = true;
+    }
+    return isVerified;
+  }
+
+  hasGstInNo() {
+    if (this.sellerForm.controls.hasGstin.value == true) {
+      this.sellerForm.controls.hasGstin.addValidators(Validators.required)
+    }
+    else {
+      this.sellerForm.controls.hasGstin.removeValidators(Validators.required)
+    }
+  }
+
+  sellerSignup() {
+    if (this.sellerForm.value.file == "") {
+      this._toastMessage.error("Please add profile image !!");
+    }
+    else if (!this.sellerForm.valid) {
+      this._toastMessage.error("Please Fill all the fields !!");
+    }
+    else if (!this.emailOtpVerified) {
+      this._toastMessage.error("Please verify your email !!");
+    }
+    else {
+      const mutation = {
+        "query": "mutation ($input: SellerProfile!, $file: Upload) { CreateSeller(input: $input, file: $file) { status message data }}",
+        "variables": {
+          "input": {
+            "name": this.sellerForm.controls.name.value,
+            "primaryContact": this.sellerForm.controls.phoneNumber.value,
+            "isPrimaryMobileDisplay": this.sellerForm.controls.isPrimaryContactVisible.value,
+            "isPrimaryContactWhatsapp": this.sellerForm.controls.isPrimaryContactWhatsapp.value,
+            "state": this.sellerForm.controls.state.value,
+            "secondaryContact": this.sellerForm.controls.secondaryContact.value,
+            "isSecondaryContactWhatsapp": this.sellerForm.controls.isSecondaryContactWhatsapp.value,
+            "isSecondaryMobileDisplay": this.sellerForm.controls.isSecondaryContactVisible.value,
+            "userType": this.userType,
+            "orgainization": this.sellerForm.controls.orgainization.value,
+            "city": this.sellerForm.controls.city.value,
+            "password": this.sellerForm.controls.password.value,
+            "confirmPassword": this.sellerForm.controls.confirmPassword.value,
+            "email": this.sellerForm.controls.email.value,
+            "isEmailVisible": this.sellerForm.controls.isEmailVisible.value,
+            "organisationInfo": this.sellerForm.controls.organisationInfo.value,
+            "address": this.sellerForm.controls.address.value,
+            "isAddressVisible": this.sellerForm.controls.isAddressVisible.value,
+            "haveGSTIN": this.sellerForm.controls.hasGstin.value,
+            "gstinNo": this.sellerForm.controls.gstinNo.value,
+            "panNo": this.sellerForm.controls.panNo.value,
+          },
+          "file": null
+        }
+      }
+      // console.log("file", this.sellerForm.controls.file.value)
+
+      this._apolloService.upload(mutation, this.sellerForm.controls.file.value, "0").subscribe(objRes => {
+        if (objRes.data != null) {
+          // console.log("objRes", objRes.data)
+          this._toastMessage.success(objRes.data.CreateSeller.message);
+          this._router.navigate(['/auth/login']);
+        }
+        else {
+          this._toastMessage.error(objRes.data.CreateSeller.message);
+        }
+      })
+    }
+  }
+
+  citySelectionChange(e: any, formName: string) {
+    let stateObj = this.cityList.find(x => x.name == e.value);
+    switch (formName) {
+      case 'userForm':
+        this.userForm.controls.state.patchValue(stateObj.state);
+        break;
+      case 'lawyerForm':
+        this.lawyerForm.controls.state.patchValue(stateObj.state);
+        if (stateObj.state == 'Madhya Pradesh') {
+          this.docUploadEnabled = false;
+        }
+        else if (stateObj.state == 'Maharashtra') {
+          this.docUploadEnabled = false;
+        }
+        else {
+          this.docUploadEnabled = true;
+        }
+        break;
+      case 'judgeForm':
+        this.judgeForm.controls.state.patchValue(stateObj.state);
+        break;
+      case 'sellerForm':
+        this.sellerForm.controls.state.patchValue(stateObj.state);
+        break;
+      default:
+        break;
+    }
+  }
+
+  getCitiesList() {
+    this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
+      this.cityList = data;
+    })
+  }
+
+  userTypeChange() {
+    this.lawyerForm.reset();
+    this.lawyerForm = this._fb.group(new LawyerSignupModel());
+    this.userForm.reset();
+    this.userForm = this._fb.group(new UserSignupModel());
+    this.judgeForm.reset();
+    this.judgeForm = this._fb.group(new JudgeSignupModel());
+    this.emailOtpVerified = false;
+    this.onSubmitOtp();
+  }
+
+  getPractiscingField() {
+    this._http.get('assets/JSON/practiscing_field.json').subscribe({
+      next: (data) => {
+        this.fields = data;
+      },
+      error: (error) => { this._toastMessage.error(error) }
+    })
+  }
+
+  getImage(image: any) {
+    return window.location.host + image;
+  }
+
+  ngOnDestroy() {
+    let element = document.getElementById('dismissModal') as HTMLElement;
+    element.click();
   }
 }

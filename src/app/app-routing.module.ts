@@ -3,17 +3,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { PageNotFoundComponent } from './shared/component/page-not-found/page-not-found.component';
-import { LayoutComponent } from './layout/layout.component';
+import { LawyerLayoutComponent } from './lawyer-layout/lawyer-layout.component';
 import { CreateNewPasswordComponent } from './auth/create-new-password/create-new-password.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { AuthGuard } from './core/guard/auth.guard';
+import { UserLayoutComponent } from './user-layout/user-layout.component';
+import { JudgeLayoutComponent } from './judge-layout/judge-layout.component';
+import { LandingPageComponent } from './shared/component/landing-page/landing-page.component';
+import { SellerLayoutComponent } from './seller-layout/seller-layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth/login',
+    redirectTo: 'vidhik',
     pathMatch: 'full'
+  },
+  {
+    path: 'vidhik',
+    component: LandingPageComponent
   },
   {
     path: 'auth/login',
@@ -32,14 +39,28 @@ const routes: Routes = [
     component: CreateNewPasswordComponent,
   },
   {
-    path: 'auth/resetPassword',
-    component: ResetPasswordComponent
+    path: 'lawyer',
+    component: LawyerLayoutComponent,
+    loadChildren: () => import('./lawyer-layout/lawyer-layout.module').then(m => m.LawyerLayoutModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'lawyer',
-    component: LayoutComponent,
-    loadChildren: () => import('./layout/layout.module').then(m => m.LayoutModule),
+    path: 'user',
+    component: UserLayoutComponent,
+    loadChildren: () => import('./user-layout/user-layout.module').then(m => m.UserLayoutModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'seller',
+    component: SellerLayoutComponent,
+    loadChildren: () => import('./seller-layout/seller-layout.module').then(m => m.SellerLayoutModule),
     // canActivate: [AuthGuard]
+  },
+  {
+    path: 'judge',
+    component: JudgeLayoutComponent,
+    loadChildren: () => import('./judge-layout/judge-layout.module').then(m => m.JudgeLayoutModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

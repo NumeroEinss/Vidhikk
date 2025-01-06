@@ -2,10 +2,15 @@ import { Component } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
-  FormControl,
   Validators,
 } from '@angular/forms';
 import { CreateCaseDiaryModel } from '../../common/create-case-diary-model.model';
+import { ToastMessageService } from '../../shared/services/snack-alert.service';
+import { ApolloService } from '../../shared/services/apollo.service';
+import { GQLConfig } from '../../graphql.operations';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { TemplateService } from '../../shared/services/template.service';
 
 @Component({
   selector: 'app-create-case-diary',
@@ -13,51 +18,33 @@ import { CreateCaseDiaryModel } from '../../common/create-case-diary-model.model
   styleUrl: './create-case-diary.component.scss',
 })
 export class CreateCaseDiaryComponent {
+
   createCaseDiaryForm: FormGroup;
+  routerState: any;
 
-  courtNameList: any[] = [
-    {
-      value: 'District & Session Court INDORE',
-      viewValue: 'District & Session Court INDORE',
-    },
-    { value: 'Civil Court GOHAD', viewValue: 'Civil Court GOHAD' },
-    {
-      value: 'District & Session Court BHOPAL',
-      viewValue: 'District & Session Court BHOPAL',
-    },
+  courtNameList: any[] = [];
+
+  stages: any[] = [];
+
+  cityList: any[] = [];
+
+  representingList = [
+    { value: 'Applicant', viewValue: 'Applicant' },
+    { value: 'Respondent ', viewValue: 'Respondent ' },
   ];
 
-  stages: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
-  ];
+  today: Date = new Date();
 
-  cities: any[] = [
-    { value: 'Indore', viewValue: 'Indore' },
-    { value: 'Bhopal', viewValue: 'Bhopal' },
-    { value: 'Mumbai', viewValue: 'Mumbai' },
-  ];
-
-  applicationType: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
-  ];
-
-  applicationSection: any[] = [
-    { value: 'Civil', viewValue: 'Civil' },
-    { value: 'Finance', viewValue: 'Finance' },
-    { value: 'Taxation', viewValue: 'Taxation' },
-  ];
-
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
+    private _router: Router, private _http: HttpClient, private _templateService: TemplateService) {
+    this.getCourtList();
     this.createCaseDiaryForm = this._formBuilder.group(
       new CreateCaseDiaryModel()
     );
     this.createCaseDiaryFrmCtrl['registrationDate'].setValidators([
       Validators.required,
     ]);
+    this.createCaseDiaryFrmCtrl['registrationDate'].disabled;
     this.createCaseDiaryFrmCtrl['applicantName'].setValidators([
       Validators.required,
     ]);
@@ -67,21 +54,81 @@ export class CreateCaseDiaryComponent {
     this.createCaseDiaryFrmCtrl['respondentName'].setValidators([
       Validators.required,
     ]);
-    this.createCaseDiaryFrmCtrl['hearingDate'].setValidators([
-      Validators.required,
-    ]);
-    this.createCaseDiaryFrmCtrl['stage'].setValidators([Validators.required]);
-    this.createCaseDiaryFrmCtrl['applicantType'].setValidators([
-      Validators.required,
-    ]);
+    // this.createCaseDiaryFrmCtrl['nextHearingDate'].setValidators([
+    //   Validators.required,
+    // ]);
+    this.createCaseDiaryFrmCtrl['caseName'].setValidators([Validators.required]);
     this.createCaseDiaryFrmCtrl['city'].setValidators([Validators.required]);
-    this.createCaseDiaryFrmCtrl['applicationSection'].setValidators([
-      Validators.required,
-    ]);
-    this.createCaseDiaryFrmCtrl['reason'].setValidators([Validators.required]);
+    this.createCaseDiaryFrmCtrl['clientEmail'].setValidators([Validators.required]);
+    this.createCaseDiaryFrmCtrl['clientContact'].setValidators([Validators.required]);
+    this.getCitiesList();
+
   }
 
   get createCaseDiaryFrmCtrl() {
     return this.createCaseDiaryForm.controls;
+  }
+
+  getCitiesList() {
+    this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
+      this.cityList = data;
+    })
+  }
+
+  createCaseDiary() {
+    if (this.createCaseDiaryForm.valid) {
+      const userData = sessionStorage.getItem('userData');
+      let parsedData = userData ? JSON.parse(userData) : {};
+      let data = {
+        lawyerId: parsedData._id,
+        registrationDate: this.createCaseDiaryForm.controls.registrationDate.value,
+        courtName: this.createCaseDiaryForm.controls.courtName.value,
+        caseNumber: this.createCaseDiaryForm.controls.caseNumber.value,
+        caseName: this.createCaseDiaryForm.controls.caseName.value,
+        caseStage: this.createCaseDiaryForm.controls.caseStage.value,
+        city: this.createCaseDiaryForm.controls.city.value,
+        applicantName: this.createCaseDiaryForm.controls.applicantName.value,
+        respondentName: this.createCaseDiaryForm.controls.respondentName.value,
+        applicationType: this.createCaseDiaryForm.controls.applicationType.value,
+        applicationSection: this.createCaseDiaryForm.controls.applicationSection.value,
+        nextHearingDate: this.createCaseDiaryForm.controls.nextHearingDate.value,
+        lawyreasonForAbsent: this.createCaseDiaryForm.controls.lawyreasonForAbsent.value,
+        representing: this.createCaseDiaryForm.controls.representing.value,
+        FIRNumber: this.createCaseDiaryForm.controls.FIRNumber.value,
+        FIRDate: this.createCaseDiaryForm.controls.FIRDate.value,
+        sectionIPC: this.createCaseDiaryForm.controls.sectionIPC.value,
+        clientEmail: this.createCaseDiaryForm.controls.clientEmail.value,
+        clientContact: this.createCaseDiaryForm.controls.clientContact.value
+      }
+      this._apolloService.mutate(GQLConfig.createCaseDiary, data).subscribe((objRes) => {
+        if (objRes.data != null) {
+          if (objRes.data.createCaseDiary.status == 200) {
+            this._toastMessage.success(objRes.data.createCaseDiary.message);
+            this._router.navigate(['/lawyer/case-diary/cases'], { state: { diaryType: 'caseDiary' } });
+          }
+          else {
+            this._toastMessage.error(objRes.data.createCaseDiary.message);
+          }
+        }
+      })
+    }
+    else {
+      this._toastMessage.error("All fields are required !!");
+    }
+  }
+
+  resetForm() {
+    this.createCaseDiaryForm.reset();
+    this.createCaseDiaryForm = this._formBuilder.group(
+      new CreateCaseDiaryModel()
+    );
+  }
+
+  getCourtList() {
+    this._apolloService.get('/court').subscribe(resObj => {
+      if (resObj.status == "success") {
+        this.courtNameList = resObj.data.courts;
+      }
+    })
   }
 }

@@ -1,0 +1,187 @@
+<!-- Header -->
+<app-header [menuName]="'Advocates'"></app-header>
+
+<!-- root section start-->
+<div class="root">
+    <!-- main section start -->
+    <div class="main-div">
+        <!-- advocate-header-menu start -->
+        <div class="advocate-header-menu" id="header-menu">
+            <!-- filter section start -->
+            <div class="filter-section">
+                <mat-form-field appearance="outline" class="mat-input-white">
+                    <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
+                    <mat-select placeholder="Select advocate type" required [(value)]="selectedAdvocateType">
+                        @for (advocate of advocateTypeList; track advocate) {
+                        <mat-option [value]="advocate.value" class="mat-options">
+                            {{ advocate.viewValue }}
+                        </mat-option>
+                        }
+                        <mat-option class="mat-options" data-bs-target="#advocateFilterModal" data-bs-toggle="modal"
+                            value="Apply Filter">
+                            Apply Filter
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <!-- filter section ends -->
+
+            <!-- search-bar start -->
+            <div class="search-bar">
+                <mat-form-field appearance="outline" class="mat-input-white">
+                    <input matInput placeholder="Search Advocates" (keyup)="filterLawyers($event)" required />
+                    <div matSuffix>
+                        <img src="../../../assets/images/icons/search-blue.svg"
+                            style="margin-right: 20px; cursor: pointer" />
+                    </div>
+                </mat-form-field>
+            </div>
+            <!-- search-bar ends -->
+        </div>
+
+        <div style="height: calc(100vh - 196px)">
+            <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+                <div class="popular-lawyer">
+                    <div class="heading">Popular Lawyers</div>
+                    <div class="list">
+                        @for (lawyer of popularLawyerList; track lawyer) {
+                        <div class="node" (click)="viewLawyerDetails(lawyer._id)">
+                            <div class="subnode d-flex justify-content-center">
+                                <img class="display-profile" [src]="lawyer.image" alt="">
+                                <div class="lawyer-details">
+                                    <div class="location">{{lawyer.location}}</div>
+                                    <div class="type">{{lawyer.type}}</div>
+                                    <div class="d-flex">
+                                        <div class="experience">{{lawyer.experience}}</div>
+                                        <div class="rating" (click)="viewRating(lawyer._id)">
+                                            <img src="../../../assets/images/icons/star.svg" alt="">
+                                            <div>({{lawyer.rating}})</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <hr style="border: 1.5px solid #2E5BFF0D;">
+
+                <div class="all-lawyer">
+                    <div class="heading">All Lawyers</div>
+                    <div class="list">
+                        @for (lawyer of filteredLawyerList; track lawyer) {
+                        <div class="node" (click)="viewLawyerDetails(lawyer._id)">
+                            <div class="subnode d-flex justify-content-center">
+                                <img class="display-profile" [src]="getImageUrl(lawyer.profileImage)" width="200"
+                                    height="150"
+                                    onerror="this.onerror=null;this.src='../../../assets/images/image/no-image.png';">
+                                <div class="lawyer-details">
+                                    <div class="location">{{lawyer.city}}</div>
+                                    <div class="type">{{getShortInfo(lawyer?.practicingField[0])}}</div>
+                                    <div class="d-flex">
+                                        <div class="experience">{{lawyer.practiceYear}} Years</div>
+                                        <div class="rating" (click)="viewRating(lawyer._id)">
+                                            <img src="../../../assets/images/icons/star.svg" alt="">
+                                            <div>({{lawyer.rating}})</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </ng-scrollbar>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="modal fade filterPopup" id="advocateFilterModal" aria-hidden="true"
+        aria-labelledby="advocateFilterModalLabel" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered advocate-filter-popup">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="advocateFilterModalLabel">
+                        Filter
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="selectedAdvocateType = 'all'"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="d-flex mat-input-white" style="flex-direction: column">
+                        <mat-label class="mat-label">Show Results</mat-label>
+                        <mat-radio-group aria-label="Select an option">
+                            <div class="row mb-3">
+                                <div class="col-lg-6" style="padding-left: unset">
+                                    <mat-radio-button value="popularity" checked>Popularity</mat-radio-button>
+                                    <!-- <mat-radio-button value="allLawyers">All Lawyers</mat-radio-button> -->
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <!-- <mat-radio-button value="bestReview">Best Review</mat-radio-button> -->
+                                    <mat-radio-button value="allLawyers">All Lawyers</mat-radio-button>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+
+                        <mat-label class="mat-label">Work Experience</mat-label>
+                        <mat-radio-group aria-label="Select an option">
+                            <div class="row mb-3">
+                                <div class="col-lg-6" style="padding-left: unset">
+                                    <mat-radio-button value="any" checked>Any Experience</mat-radio-button>
+                                    <mat-radio-button value="intermediate">5-10 Years</mat-radio-button>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <mat-radio-button value="beginner">2-5 Years</mat-radio-button>
+                                    <mat-radio-button value="expert">10+ Experience</mat-radio-button>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+
+                        <mat-label class="mat-label">Select Place</mat-label>
+                        <mat-form-field appearance="outline" class="mt-1">
+                            <mat-select placeholder="Select place" required>
+                                @for (place of places; track place) {
+                                <mat-option [value]="place.state">
+                                    {{ place.state }}
+                                </mat-option>
+                                }
+                            </mat-select>
+                            <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
+                     Required !!</mat-error> -->
+                        </mat-form-field>
+
+                        <mat-label class="mat-label">Select Practising Field</mat-label>
+                        <mat-form-field appearance="outline" class="mt-1">
+                            <mat-select placeholder="Select place" required>
+                                @for (field of practiseField; track field) {
+                                <mat-option [value]="field.value">
+                                    {{ field.value }}
+                                </mat-option>
+                                }
+                            </mat-select>
+                            <!-- <mat-error *ngIf="createCaseDiaryForm.controls['stage'].errors?.['required']"> Case Stage is
+                     Required !!</mat-error> -->
+                        </mat-form-field>
+
+
+                        <div class="mt-3 mb-3 filter-btn">
+                            <button mat-raised-button color="primary" style="width: fit-content !important"
+                                data-bs-dismiss="modal">
+                                Show Results
+                            </button>
+                            <button mat-stroked-button color="primary"
+                                style="width: fit-content !important; margin-left: 20px" data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

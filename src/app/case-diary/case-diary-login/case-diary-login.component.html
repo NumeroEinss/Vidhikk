@@ -1,22 +1,30 @@
 <app-header [menuName]="'Case Diary'"></app-header>
-<div class="root">
+<div class="root" appPreventKeyboardEvents>
   <div class="case-diary">
     <div class="diary-container">
       <div>
         <div class="login-text">Login</div>
-        <div class="sub-text mt-3 mb-1">
-          Sign in using your username & password
-        </div>
+        <p class="sub-text mt-3 mb-1">
+          Vidhik is dedicated to ensuring the security of your personal data. Your information will be inaccessible to
+          unauthorized parties and protected with end-to-end encryption.<br><br>
+
+          Declaration: I hereby declare that, as a user of this case diary, I understand that all data and information I
+          enter is end-to-end encrypted and protected from third-party access. I acknowledge that if any loss of data
+          occurs in the future, it will be entirely my responsibility. I will not hold Vidhik or its proprietary company
+          liable for such losses.
+        </p>
+        <div class="terms-service-checkbox" style="padding-left: unset;margin-top:unset;color:#8798ad"><mat-checkbox
+            [color]="'primary'" [(ngModel)]="agreement">I Agree</mat-checkbox></div>
       </div>
 
       <form class="col mt-3" [formGroup]="caseDiaryForm">
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/people-icon.svg" alt="" /></mat-icon></span>
-          <input type="text" matInput placeholder="Enter username" formControlName="username" required />
-          <mat-error *ngIf="caseDiaryForm.controls['username'].hasError('required')">Username is Required</mat-error>
+          <input type="text" matInput placeholder="Enter username" formControlName="userName" required />
+          <mat-error *ngIf="caseDiaryForm.controls['userName'].hasError('required')">Username is Required</mat-error>
           <mat-error *ngIf="
-              !caseDiaryForm.controls['username'].hasError('required') &&
-              caseDiaryForm.controls['username'].invalid
+              !caseDiaryForm.controls['userName'].hasError('required') &&
+              caseDiaryForm.controls['userName'].invalid
             ">Username Invalid</mat-error>
         </mat-form-field>
 
@@ -39,13 +47,17 @@
             Password?</a>
         </div>
         <div class="text-center mt-3">
-          <button mat-raised-button color="primary w-100" routerLink="/lawyer/case-diary/cases">
+          <button mat-raised-button color="primary w-100" (click)="login()">
             Sign In</button><br />
 
           <button routerLink="/lawyer/case-diary/signup" mat-stroked-button class="w-100" color="primary"
             style="margin-top: 12px;">
             <span class="gray-font">Don't have an account?&nbsp;</span><span style="color: #2e5bff">Sign up</span>
           </button>
+
+          <div class="sub-text mt-2 text-center">
+            Subject to company policy
+          </div>
         </div>
       </form>
     </div>

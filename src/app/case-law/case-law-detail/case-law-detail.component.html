@@ -1,97 +1,84 @@
 <app-header [menuName]="'Case Law'"></app-header>
-<div class="root">
+<div class="root" appPreventKeyboardEvents>
   <div class="filter-bar">
     <div class="pretext col-lg-6 col-md-6">
-      <img
-        src="../../../assets/images/icons/arrow-left.svg"
-        (click)="routeBack()"
-      />
+      <img src="../../../assets/images/icons/arrow-left.svg" style="cursor: pointer;" (click)="routeBack()" />
       <div class="records">Case Law</div>
     </div>
-    <div class="posttext col-lg-6 col-md-6">
-      <img src="../../../assets/images/icons/bookmark.svg" />
-      <img src="../../../assets/images/icons/person.svg" />
-      <img src="../../../assets/images/icons/pdf.svg" />
-      <img src="../../../assets/images/icons/mailTo.svg" />
-      <img src="../../../assets/images/icons/print.svg" />
-      <img src="../../../assets/images/icons/search-blue.svg" />
+    <div *ngIf="!isLimitReached" class="posttext col-lg-6 col-md-6">
+      <div class="search" (click)="searchStyle = { width: '100%', display: 'flex' };
+      searchIcon = { width: '0px', display: 'none' };" [ngStyle]="searchIcon">
+        <img src="../../../assets/images/icons/search-blue.svg" />
+      </div>
+
+      <div class="searchBox" [ngStyle]="searchStyle">
+        <input type="search" [(ngModel)]="searchTerm" placeholder="Search Here..." (keyup.enter)="higlightOnSearch()" />
+        <img class="cancel" (click)="{ width: '100%', display: 'flex' };
+      searchIcon = { width: '0px', display: 'none' };clearSelection();"
+          src="../../../../assets/images/icons/cancel.svg" />
+        <img class="search" src="../../../../assets/images/icons/search_grey.svg" (click)="higlightOnSearch()" />
+      </div>
+
+      <div class="cursor-pointer" matTooltip="Highlighter" (click)="highlightText()"><img
+          src="../../../assets/images/icons/highlighter.svg" />
+      </div>
+      <div class="cursor-pointer" (click)="saveCaseLaw()" matTooltip="Save Case"><img
+          src="../../../assets/images/icons/bookmark.svg" /></div>
+      <!-- <div class="cursor-pointer" matTooltip="Share with member" data-bs-target="#shareMemberPopup"
+        data-bs-toggle="modal"><img src="../../../assets/images/icons/person.svg" /></div> -->
+      <!-- <div class="cursor-pointer" matTooltip="Share via email" [matMenuTriggerFor]="emailMenu"
+        #emailMenuTrigger="matMenuTrigger"><img src="../../../assets/images/icons/mailTo.svg" /></div> -->
+      <div class="cursor-pointer" matTooltip="Print" (click)="print()"><img
+          src="../../../assets/images/icons/print.svg" /></div>
+
+      <!-- <share-buttons theme="circles-dark" [include]="['copy','whatsapp']" [showIcon]="true" [showText]="false"
+        [description]="getSharingContent(removeDocidAndLicense(caseLawDetail.document))" class="ms-1">
+      </share-buttons> -->
+
+      <!-- <mat-menu #emailMenu="matMenu" yPosition="below" [hasBackdrop]="true" class="mat-menu ">
+        <a (click)="$event.stopPropagation()" style="text-decoration: none">
+          <mat-form-field class="p-2 w-100" appearance="outline">
+            <input #search matInput placeholder="Enter Recievers Email" [(ngModel)]="recieversEmail" />
+          </mat-form-field>
+          <div class="d-flex">
+            <button mat-raised-button color="primary" class="m-2" (click)="sendmail()">
+              Send</button><br />
+            <button mat-stroked-button color="primary" class="m-2" (click)="emailMenuTrigger.closeMenu();">
+              Cancel
+            </button>
+          </div>
+        </a>
+      </mat-menu> -->
     </div>
+    <!-- <a id="mail" [href]="this.mailToLink"></a> -->
   </div>
-  <div style="height: calc(100vh - 175px)">
-    <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-      <div id="section-to-print" class="case-law-detail">
+  <div *ngIf="!isLimitReached" style="height: calc(100vh - 175px)">
+    <ng-scrollbar #scrollbar autoHeightDisabled="false" appearance="standard">
+      <div #printableContent class="case-law-detail">
         <div class="logo">
           <img src="../../../assets/images/icons/vidhiklogo.svg" alt="" />
         </div>
         <p class="header mt-4">
-          This Product is licenced to ANURAG C GOYAL, ADVOCATE,
-          advocate&#64;anuraggoyal.co.in, Indore
+          This Product is licenced to {{userName.name}},
+          {{userName.email}}, {{userName.city}}
         </p>
-        <p class="highlighted-text">[2023] 0 supreme (Kar) 250</p>
-        <div class="title mt-4">
-          Jairam Ramesh C/O C.K. Ramesh VS State of karnatak Through
-          yeshwanthpura P.S., Represented By S.P.P. Office, High court of
-          karnatak<br />
+        <!-- <div class="title mt-4" [innerHTML]="caseLawDetail.title|highlighter:keyWord|safeHTML">
+        </div> -->
+        <br />
+        <!-- <div class="description mt-4">
+          <div class="desc-body mt-4" [innerHTML]="caseLawDetail.document"></div>
+        </div> -->
+        <div id="judgement" *ngIf="keyWord" class="mt-4" [innerHTML]="document|highlighter:keyWord|safeHTML">
         </div>
-        <div class="description mt-4">
-          <div class="desc-head">
-            <div class="hearing-loc">
-              IN THE HIGH COURT OFKARNATAK AT BANGALURU<br />
-              M. NAGAPRASANNA J.<br />
-              Shri Jairam Ramesh, S/o, C.K. Ramesh and Ors. Pretitioners<br />
-              Versus<br />
-              State of karnatak Through yeshwanthpura P.S., Represented By
-              S.P.P. Office, High court of karnatak and Ans. - Respondents With
-              petition No. 25123 of 2022(GM - RES) Decided on : 28-06-2023<br />
-            </div>
-          </div>
-          <div class="desc-body mt-4">
-            <p>
-              <span class="bold">Background</span>: In this case, the accused,
-              Madhkar Narayan Mardikar, was a doctor who performed a medical
-              termination of pregnancy (abortion) on a woman without her
-              consent. The prosecution argued that the doctor violated Section
-              312 of the Indian Penal Code (IPC), which deals with causing a
-              miscarriage without the woman's consent.
-            </p>
-
-            <p>
-              <span class="bold mt-4">Legal Issue</span>: The key legal issue in
-              this case was whether the accused could be held liable under
-              Section 312 of the IPC for performing an abortion without the
-              woman's consent.
-            </p>
-
-            <p>
-              <span class="bold mt-4">Decision</span>: The Bombay High Court
-              held that the doctor was indeed guilty under Section 312. The
-              court emphasized that the term "consent" under Section 312
-              includes informed consent, and in this case, the doctor failed to
-              obtain the woman's informed consent before performing the
-              abortion. The court highlighted the importance of a woman's
-              autonomy over her body and the necessity of obtaining clear and
-              voluntary consent before medical procedures like abortions.
-            </p>
-
-            <p>
-              <span class="bold mt-4">Significance</span>: This case is
-              significant as it establishes the importance of informed consent
-              in medical procedures, particularly in the context of abortions.
-              It reinforces the legal principle that medical practitioners must
-              respect the autonomy and rights of patients, ensuring that they
-              are fully informed and provide consent willingly before undergoing
-              any medical procedure.
-            </p>
-
-            <p>
-              Please note that while I strive to provide accurate and relevant
-              information, it's essential to consult official legal databases or
-              professionals for the most up-to-date and precise details on any
-              case law.
-            </p>
-          </div>
+        <div id="judgement" *ngIf="!keyWord" class="mt-4" [innerHTML]="document|safeHTML">
         </div>
       </div>
     </ng-scrollbar>
   </div>
+  <div *ngIf="isLimitReached" class="upgrade-modal">
+    <div class="text-center p-2">You have reached your Daily Limit !!</div>
+    <app-subscription-plan [transactionId]="transactionId" [closeModalId]="'closeQrModal'"></app-subscription-plan>
+  </div>
 </div>
+
+<app-qr-modal [qrData]="qrData"></app-qr-modal>
