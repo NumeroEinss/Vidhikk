@@ -37,6 +37,8 @@ export class LawyerSignupModel {
     file = new FormControl("");
     notificationToken = new FormControl("");
     fileDisplay = new FormControl("");
+    docFile = new FormControl("");
+    docDisplay = new FormControl("");
 }
 
 export class UserSignupModel {

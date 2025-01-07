@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastMessageService } from '../../services/snack-alert.service';
 import { ApolloService } from '../../services/apollo.service';
 import { GQLConfig } from '../../../graphql.operations';
@@ -15,6 +15,8 @@ import { PaaymentService } from '../../services/paayment.service';
 export class SubscriptionPlanComponent {
   @Input() toggleId: string = "";
   @Input() transactionId: string = "";
+  @Input() closeModalId: string = "";
+  @Output() clicked: EventEmitter<number> = new EventEmitter();
   planList: any = [];
   userType: string;
   activePlan: string = "";
@@ -115,7 +117,7 @@ export class SubscriptionPlanComponent {
   ];
   loading: boolean = false;
 
-  constructor(private _apolloService: ApolloService, private _toastMessage: ToastMessageService, private _authService: AuthService, private _subscriptionService: SubscriptionService,
+  constructor(private _apolloService: ApolloService, private _toastMessage: ToastMessageService, public _authService: AuthService, private _subscriptionService: SubscriptionService,
     private _router: Router, private paymentService: PaaymentService) {
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
     this.userType = userData.userType
@@ -146,6 +148,7 @@ export class SubscriptionPlanComponent {
 
   choosePlan(plan: any) {
     // console.log("Choose Plan Triggered !!");
+    console.log(plan, 'Selected Plan')
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
     if (userData.userType === 'LAWYER') {
       let reqObj = {
@@ -196,25 +199,39 @@ export class SubscriptionPlanComponent {
   }
 
   getPayentStatus(plan: any) {
-    this.paymentService.pollTransactionStatus(this.transactionId).subscribe({
-      next: (success) => {
-        console.log(success, 'Success')
-        if (success == true) {
-          this.transactionCompleted = true;
+    this.clicked.emit(plan.planPrice);
+    setTimeout(() => {
+      this.paymentService.pollTransactionStatus(this.transactionId).subscribe({
+        next: (success) => {
+          console.log(success, 'Success from Comp')
+          if (success == true) {
+            this.transactionCompleted = true;
+            this.loading = false;
+            this.choosePlan(plan);
+            let el = document.getElementById(this.closeModalId) as HTMLElement;
+            el.click();
+          }
+          else if (success == false) {
+            this._toastMessage.error("Transaction Session Expired !!");
+            let el = document.getElementById(this.closeModalId) as HTMLElement;
+            el.click();
+          }
+        },
+        error: (error) => {
+          console.log(error, 'Error')
           this.loading = false;
-          this.choosePlan(plan);
-          alert('Transaction completed successfully!');
+          console.error('Error during payment process', error);
+          alert('Something went wrong. Please try again.');
         }
-        else if (success == false){
-          this._toastMessage.error("Transaction Session Expired !!");
-        }
-      },
-      error: (error) => {
-        console.log(error, 'Error')
-        this.loading = false;
-        console.error('Error during payment process', error);
-        alert('Something went wrong. Please try again.');
-      }
-    });
+      });
+    }, 500)
+  }
+
+  setFreePlan(plan: any) {
+    this.transactionCompleted = true;
+    this.loading = false;
+    this.choosePlan(plan);
+    let el = document.getElementById(this.closeModalId) as HTMLElement;
+    el.click();
   }
 }

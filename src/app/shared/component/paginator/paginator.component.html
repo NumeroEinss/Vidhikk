@@ -1,6 +1,6 @@
 <div class="paginator">
-    <button mat-raised-button color="primary" (click)="previousPage()"
-        [disabled]="currentPage === 1" style="margin-right: 8px;"><span>Previous</span>
+    <button mat-raised-button color="primary" (click)="previousPage()" [disabled]="currentPage === 1"
+        style="margin-right: 8px;"><span>Previous</span>
         <img src="../../../../assets/images/image/white_left_arrow.png" class="mobile-responsive-btn"></button>
 
     <span style="margin-right: 8px;">Page {{ currentPage }}{{' of '+getPageCount(recordCount/pageSize)}}</span>
@@ -13,7 +13,7 @@
     <span class="go-to-text">Go to Page</span>
     <mat-form-field class="paginator-input" appearance="outline">
         <input matInput [(ngModel)]="pageInput" [max]="getPageCount(recordCount/pageSize)" type="number"
-            (keypress)="isNumber($event)">
+            (keypress)="isNumber($event)" (keyup.enter)="goToPage()">
     </mat-form-field>
     <button mat-raised-button class="goto-button" color="primary" (click)="goToPage()"
         style="width: max-content !important;">Go</button>

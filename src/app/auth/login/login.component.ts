@@ -79,11 +79,11 @@ export class LoginComponent {
 
   getErrorMessage() {
     if (this.loginForm.controls['email'].hasError('required')) {
-      return 'You must enter a value';
+      return 'Please enter email address';
     }
 
     return this.loginForm.controls['email'].hasError('email')
-      ? 'Not a valid email'
+      ? 'please enter valid email address'
       : '';
   }
 

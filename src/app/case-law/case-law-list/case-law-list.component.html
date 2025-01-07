@@ -1,3 +1,11 @@
+<ngx-loading [show]="showLoader" [config]="{
+  animationType: loaderType.circleSwish,
+  primaryColour: '#2E5BFF',
+  secondaryColour: '#D1A417',
+  backdropBorderRadius: '0px',
+  fullScreenBackdrop:true,  
+}" [template]="emptyLoadingTemplate"></ngx-loading>
+<ng-template #emptyLoadingTemplate></ng-template>
 <app-header [menuName]="'Case Law'"></app-header>
 <div class="root" appPreventKeyboardEvents>
   <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="left" [(selectedIndex)]="selectedIndex"
@@ -224,7 +232,7 @@
           <mat-label class="mat-label">Select by Name List</mat-label>
           <mat-form-field appearance="outline">
             <input type="text" placeholder="Select a judge" matInput [formControl]="judgeControl"
-              [matAutocomplete]="auto">
+              [matAutocomplete]="auto" (keyup.enter)="getCaseLawByJudges(judgeControl.value)">
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let judge of filteredJudgeList" [value]="judge.name">
                 {{ judge.name }}
@@ -346,15 +354,16 @@
       <div class="judge-wise" [hidden]="!showWordsSearch">
         <div class="title">Words & Phrases</div>
         <div class="d-flex" style="flex-direction: column;">
+          <mat-label class="mat-label">Search In</mat-label>
           <mat-radio-group [(ngModel)]="wordsPhraseRadioModel">
             <mat-radio-button class="example-margin" [value]="1" checked>Exact</mat-radio-button>
-            <mat-radio-button class="example-margin" [value]="0">Near About</mat-radio-button>
+            <mat-radio-button class="example-margin ms-3" [value]="0">Near About</mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="d-flex mat-input-white" style="flex-direction: column">
-          <mat-label class="mat-label">Words & Phrases</mat-label>
+          <mat-label class="mat-label mt-2">Words & Phrases</mat-label>
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Enter any Word or Phrase" [(ngModel)]="searchedWord" />
+            <input matInput placeholder="Enter any word or phrases" [(ngModel)]="searchedWord" />
           </mat-form-field>
         </div>
         <div class="d-flex mt-4">
@@ -413,9 +422,32 @@
 
           <div class="advance-search-col">
             <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-              <mat-label class="mat-label">Enter Text</mat-label>
+              <mat-label class="mat-label">Free Text</mat-label>
               <mat-form-field appearance="outline">
-                <input matInput placeholder="All these words in quotes dying" formControlName="text" />
+                <input matInput placeholder="Enter Free Text" formControlName="text" />
+              </mat-form-field>
+            </div>
+
+            <div class="d-flex mat-input-white" style="flex-direction: column">
+              <mat-label class="mat-label">Bench</mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Select bench" formControlName="bench">
+                  <mat-option>Select</mat-option>
+                  @for (field of benchList; track field) {
+                  <mat-option [value]="field.value">
+                    {{ field.label }}
+                  </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="advance-search-col">
+            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+              <mat-label class="mat-label">Applicant Name</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Enter Applicant Name" formControlName="applicant" />
               </mat-form-field>
             </div>
 
@@ -459,7 +491,21 @@
               </mat-form-field>
             </div>
 
-            <div class="d-flex mat-input-white" style="flex-direction: column">
+            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+              <div class="d-flex mat-input-white me-4" style="flex-direction: column">
+                <mat-label class="mat-label">Date Range</mat-label>
+                <mat-form-field appearance="outline">
+                  <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRangeFormGroup">
+                    <input matStartDate placeholder="Start date" formControlName="start" />
+                    <input matEndDate placeholder="End date" formControlName="end" />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker startView="year" #picker></mat-date-range-picker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- <div class="d-flex mat-input-white" style="flex-direction: column">
               <mat-label class="mat-label">Act Title</mat-label>
               <mat-form-field appearance="outline">
                 <mat-select placeholder="Select Act Title" required>
@@ -481,23 +527,11 @@
                   </div>
                 </mat-select>
               </mat-form-field>
-            </div>
+            </div> -->
           </div>
 
-          <div class="advance-search-col">
-            <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-              <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-                <mat-label class="mat-label">Date Range</mat-label>
-                <mat-form-field appearance="outline">
-                  <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRangeFormGroup">
-                    <input matStartDate placeholder="Start date" formControlName="start" />
-                    <input matEndDate placeholder="End date" formControlName="end" />
-                  </mat-date-range-input>
-                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-date-range-picker startView="year" #picker></mat-date-range-picker>
-                </mat-form-field>
-              </div>
-            </div>
+          <!-- <div class="advance-search-col">
+
 
             <div class="d-flex mat-input-white" style="flex-direction: column">
               <mat-label class="mat-label">Act Type</mat-label>
@@ -522,7 +556,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
           <div class="advance-search-col">
             <div class="d-flex mat-input-white me-4" style="flex-direction: column">

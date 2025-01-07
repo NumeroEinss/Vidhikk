@@ -26,6 +26,9 @@ export class SavedCaseLawDetailComponent {
   isLimitReached: boolean = false;
   isHighlighted: boolean = false;
 
+  qrData: string = "Payment for Case Laws";
+  transactionId: string = "";
+
   constructor(private _location: Location, private _router: Router, private _highlighterPipe: HighlighterPipe,
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService, private _emailService: EmailService,
     private _http: HttpClient, private elementRef: ElementRef) {
@@ -35,6 +38,7 @@ export class SavedCaseLawDetailComponent {
       this.savedCaseId = this.routerState.savedCaseId || "";
       this.caseId = this.routerState.caseId || "";
       this.getSavedCaseLaw();
+      this.getQrData();
     }
     else {
       this._router.navigate(['lawyer/case-law/cases']);
@@ -190,5 +194,17 @@ export class SavedCaseLawDetailComponent {
     // Access the div container using ElementRef
     const contentContainer = this.elementRef.nativeElement.querySelector('#judgement');
     return contentContainer.outerHTML;
+  }
+
+  getQrData() {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+      if (objRes != null) {
+        // console.log(objRes, "ObjRessssss")
+        if (objRes.status == 'success') {
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
+        }
+      }
+    })
   }
 }

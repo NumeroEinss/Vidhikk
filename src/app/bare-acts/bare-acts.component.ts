@@ -1,6 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ApolloService } from '../shared/services/apollo.service';
 import { Router } from '@angular/router';
+import { SearchService } from '../shared/services/search.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime, switchMap } from 'rxjs';
+import { DataService } from '../shared/services/data.service';
 
 @Component({
   selector: 'app-bare-acts',
@@ -10,15 +14,32 @@ import { Router } from '@angular/router';
 export class BareActsComponent {
   @Input() searchStyle = { width: '0px', display: 'none' };
   @Input() searchIcon = { width: 'auto', display: 'block' };
+  @ViewChild('searchInput') searchInput!: ElementRef;
   bareActsList: any = [];
   filteredBareActsList: any = [];
   recordCount: number = 0;
   currentPage: number = 1;
   pageSize: number = 50;
-  searchInput: string = "";
+  bareActsControl = new FormControl();
 
-  constructor(private _apolloService: ApolloService, private _router: Router) {
-    this.getBareActs(this.currentPage);
+  constructor(private _apolloService: ApolloService, private _router: Router, private _searchService: SearchService, private _dataService: DataService) {
+    this.bareActsControl.valueChanges.pipe(
+      debounceTime(300), // Add a debounce to limit the number of API calls
+      switchMap(value => this._searchService.searchBareActs(value))
+    ).subscribe(data => {
+      this.filteredBareActsList = data.acts;
+      this.recordCount = data.totalCount;
+      this.currentPage = 1;
+    });
+    // console.log(this._dataService.getData()?.bareActsControl, 'constructor')
+    if (this._dataService.getData()?.bareActsControl != undefined) {
+      this.bareActsControl.patchValue(this._dataService.getData()?.bareActsControl);
+      this.searchStyle = { width: '100%', display: 'flex' };
+      this.searchIcon = { width: '0px', display: 'none' };
+    }
+    else {
+      this.getBareActs(this.currentPage)
+    }
   }
 
   getBareActs(page: number) {
@@ -27,11 +48,20 @@ export class BareActsComponent {
         this.bareActsList = objRes.data.acts;
         this.filteredBareActsList = this.bareActsList;
         this.recordCount = objRes.data.totalCount;
+        this.bareActsControl.patchValue('');
       }
     })
   }
 
   viewBareActs(caseId: any) {
+    // console.log(this.bareActsControl.value, 'BareActsValue')
+    if (this.bareActsControl.value != '') {
+      this._dataService.setData({ currentPage: this.currentPage, bareActsControl: this.bareActsControl.value });
+    }
+    else {
+      // console.log(this.bareActsControl.value, 'Qwerty')
+      this._dataService.setData({ currentPage: this.currentPage, bareActsControl: '' });
+    }
     this._router.navigate([`/lawyer/bare-acts/view/${caseId}`]);
   }
 
@@ -52,16 +82,20 @@ export class BareActsComponent {
     this.getBareActs(this.currentPage);
   }
 
-  filterBareActs(e: any) {
-    let filter = e.target.value.toLowerCase();
-    if (filter == "") {
-      this.currentPage = 1;
-      this.getBareActs(this.currentPage);
-    }
-    else {
-      this.filteredBareActsList = this.bareActsList.filter((key: any) =>
-        key.title.toLowerCase().startsWith(filter)
-      );
-    }
+  openSearch() {
+    setTimeout(() => this.searchInput.nativeElement.focus(), 0);
   }
+
+  // filterBareActs(e: any) {
+  //   let filter = e.target.value.toLowerCase();
+  //   if (filter == "") {
+  //     this.currentPage = 1;
+  //     this.getBareActs(this.currentPage);
+  //   }
+  //   else {
+  //     this.filteredBareActsList = this.bareActsList.filter((key: any) =>
+  //       key.title.toLowerCase().startsWith(filter)
+  //     );
+  //   }
+  // }
 }

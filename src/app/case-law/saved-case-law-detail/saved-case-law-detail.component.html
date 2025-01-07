@@ -6,10 +6,10 @@
             <div class="records">Saved Case Law</div>
         </div>
         <div *ngIf="!isLimitReached" class="posttext col-lg-6 col-md-6">
-            <div class="cursor-pointer" matTooltip="Highlighter" *ngIf="!isHighlighted" (click)="highlightText()"><img
+            <div class="cursor-pointer" matTooltip="Highlighter" (click)="highlightText()"><img
                     src="../../../assets/images/icons/highlighter.svg" />
             </div>
-            <div class="cursor-pointer" (click)="saveCaseLaw()" *ngIf="isHighlighted" matTooltip="Save Case"><img
+            <div class="cursor-pointer" (click)="saveCaseLaw()" matTooltip="Save Case"><img
                     src="../../../assets/images/icons/bookmark.svg" /></div>
             <div class="cursor-pointer" matTooltip="Print" (click)="print()"><img
                     src="../../../assets/images/icons/print.svg" /></div>
@@ -35,8 +35,8 @@
     </div>
     <div *ngIf="isLimitReached" class="upgrade-modal">
         <div class="text-center p-2">You have reached your Daily Limit !!</div>
-        <app-subscription-plan></app-subscription-plan>
+        <app-subscription-plan [transactionId]="transactionId" [closeModalId]="'closeQrModal'"></app-subscription-plan>
     </div>
 </div>
 
-<app-qr-modal></app-qr-modal>
+<app-qr-modal [qrData]="qrData"></app-qr-modal>

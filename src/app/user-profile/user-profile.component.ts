@@ -85,12 +85,17 @@ export class UserProfileComponent {
       .subscribe(data => {
         this.displayImage = imageUrl() + data;
       });
+      this._authService.currentUserSubject.asObservable()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((data: any) => {
+       this.userData = data
+      });
     this.getCitiesList();
     // this.getSellerProfile()
     this.getQrData();
     this.getPlanList();
   }
-  
+
   ngAfterViewInit() {
     if (this.userType == 'lawyer') {
       const element = document.getElementById("basic-info") as HTMLElement
@@ -689,8 +694,8 @@ export class UserProfileComponent {
       this.sellerEditProfileForm.controls.city.patchValue(userData.city);
       this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber || userData.primaryContact);
       this.sellerEditProfileForm.controls.email.patchValue(userData.email);
-      this.mobileOtpVerified = true;
-      this.emailOtpVerified = true;
+      // this.mobileOtpVerified = true;
+      // this.emailOtpVerified = true;
     }
   }
 
@@ -705,6 +710,7 @@ export class UserProfileComponent {
       if (objRes.data != null) {
         if (objRes.data.updateProfile.status == 200) {
           this._toastMessage.message(objRes.data.updateProfile.message);
+          console.log("data",data)
           this._authService.updateProfile(objRes.data.updateProfile.data);
         }
         else {
@@ -721,12 +727,12 @@ export class UserProfileComponent {
       primaryContact: this.sellerEditProfileForm.controls.phoneNumber.value,
       address: this.sellerEditProfileForm.controls.city.value
     }
-    console.log('data', data)
     this._apolloService.mutate(GQLConfig.updateSellerProfile, data).subscribe(objRes => {
       if (objRes.data != null) {
         if (objRes.data.updateSellerProfile.status == 200) {
           this._toastMessage.message(objRes.data.updateSellerProfile.message);
           this.mobileOtpVerified = true;
+          this.emailOtpVerified = true;
         }
         else {
           this._toastMessage.error(objRes.data.updateSellerProfile.message);

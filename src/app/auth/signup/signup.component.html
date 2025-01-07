@@ -7,7 +7,7 @@
     <div class="header-text">
       <img src="../../../assets/images/icons/vidhiklogo.svg" alt="vidhik" class="vidhik-logo" />
 
-      <div class="welcome-text mt-4 mb-4">Create an account</div>
+      <div class="welcome-text mt-4 mb-4">Sign Up</div>
 
       <div class="sub-text mt-3 mb-3" *ngIf="!otpVerified">
         Please enter your mobile no. and we will send you 6 digit code via text
@@ -18,17 +18,17 @@
     <form [formGroup]="signupForm" class="col mt-3" *ngIf="!otpVerified" class="otp-form">
       <mat-form-field appearance="outline">
         <span matPrefix><mat-icon><img src="../../../assets/images/icons/phone-icon.svg" /></mat-icon></span>
-        <input type="text" matInput placeholder="9875642535" formControlName="mobile" required maxlength="10"
+        <input type="text" matInput placeholder="Enter phone number" formControlName="mobile" required maxlength="10"
           (keypress)="isNumber($event)" />
-        <mat-error *ngIf="signupForm.controls.mobile.hasError('required')">Mobile No. is Required</mat-error>
+        <mat-error *ngIf="signupForm.controls.mobile.hasError('required')">Please enter phone number</mat-error>
         <mat-error *ngIf="
             !signupForm.controls.mobile.hasError('required') &&
             signupForm.controls.mobile.invalid
-          ">Mobile No. invalid</mat-error>
+          ">Please enter valid phone number</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" *ngIf="mobileNoEntered" class="resend-otp-col">
-        <input type="text" matInput placeholder="" formControlName="otp" required maxlength="6"
+        <input type="text" matInput placeholder="Enter OTP" formControlName="otp" required maxlength="6"
           (keypress)="isNumber($event)" />
         <span matSuffix style="cursor: pointer"><a (click)=" resendOtp()" class="resend-otp f-12">Resend
             OTP</a></span>
@@ -36,7 +36,7 @@
         <mat-error *ngIf="
             !signupForm.controls.otp.hasError('required') &&
             signupForm.controls.otp.invalid
-          ">OTP is invalid</mat-error>
+          ">Please enter valid OTP</mat-error>
       </mat-form-field>
 
       <div class="row" style="font-size: 12px">
@@ -50,8 +50,12 @@
           Next</button><br />
 
         <button type="button" *ngIf="mobileNoEntered" [disabled]="!signupForm.valid" mat-raised-button
-          color="primary w-100" (click)="verifyOtp()">
+          color="primary w-100" (click)="verifyOtp()" class="mb-3">
           Continue</button><br />
+
+          <button routerLink="/auth/login" mat-stroked-button class="w-100" color="primary">
+              <span class="gray-font">Already registered?&nbsp;</span><span style="color: #2e5bff"> Sign In</span>
+            </button>
       </div>
     </form>
 
@@ -838,7 +842,7 @@
         </div>
 
         <mat-form-field appearance="outline" *ngIf="sellerForm.controls.hasGstin.value === true">
-          <input matInput placeholder="Enter GSTIN No." formControlName="gstinNo" maxlength="15"/>
+          <input matInput placeholder="Enter GSTIN No." formControlName="gstinNo" maxlength="15" />
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/gstIn_icon.svg" alt="" /></mat-icon></span>
           <mat-error *ngIf="sellerForm.controls.gstinNo.hasError('required')">GSTIN No. is Required</mat-error>
           <mat-error *ngIf="
@@ -978,7 +982,6 @@
           <h1 class="modal-title fs-5" id="disclaimerModalLabel">Disclaimer</h1>
         </div>
         <div class="modal-body mb-3" style="text-align: justify;">
-
           <div style="height: calc(100vh - 300px); margin-bottom: 10px; margin-left: 15px;">
             <ng-scrollbar>
               <div class="list-description">
@@ -1059,13 +1062,13 @@
               Policies mentioned herein this Disclaimer</mat-checkbox></div>
 
           <div class="text-center mt-3">
-            <button id="dismissModal" mat-stroked-button color="primary" style="width: fit-content !important"
-              routerLink="/auth/login" data-bs-dismiss="modal">Reject
-            </button>
-
-            <button mat-raised-button color="primary" style="width: fit-content !important; margin-left: 20px"
+            <button mat-raised-button color="primary" style="width: fit-content !important"
               data-bs-dismiss="modal" (click)="opacityStyling = { opacity: 1 }" [disabled]="!confirmed.checked">
               Accept
+            </button>
+
+            <button id="dismissModal" mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
+              routerLink="/auth/login" data-bs-dismiss="modal">Reject
             </button>
           </div>
         </div>
@@ -1073,3 +1076,92 @@
     </div>
   </div>
   <!-- modal ends -->
+
+  <!-- Terms And Services Modal Start -->
+<div class=" modal fade" id="termsConditionsModal" tabindex="-1" aria-labelledby="termsConditionsModalLabel"
+aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="termsConditionsModalLabel">Terms of Usage</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div style="height: calc(100vh - 153px); margin-bottom: 10px;text-align: justify;">
+                <ng-scrollbar>
+                    <div class="policy-container">
+                        <p>
+                            Peraturb Decimo LLP builds technologies and services that enable people to connect with
+                            each other, build communities and grow businesses. These Terms govern your use of Vidhik
+                            and its products, features, apps, services, technologies and software that we offer
+                            except where we expressly state that separate terms (and not these) apply. These
+                            Products are provided to you by Peraturb Decimo LLP a limited liability partnership
+                            company registered with ROC Gwalior, MP, India.
+
+                            We don't charge you to use Vidhik products and its modules like activity feed, news,
+                            case laws, bare acts, market place and time pass covered by these Terms, unless we state
+                            otherwise. The other services are except to the above is chargeable. Instead,
+                            businesses, organisations and other persons pay us to show you ads for their products
+                            and services. By using our Products, you agree that we can show you ads that we think
+                            may be relevant to you and your interests. We use your personal data to help determine
+                            which personalised ads to show you.
+
+                            We don't sell your personal data to advertisers, and we don't share information that
+                            directly identifies you (such as your name, email address or other contact information)
+                            with advertisers unless you give us specific permission. Instead, advertisers can tell
+                            us things such as the kind of audience that they want to see their ads, and we show
+                            those ads to people who may be interested. We provide advertisers with reports about the
+                            performance of their ads that help them understand how people are interacting with their
+                            content.
+
+                            Our Privacy Policy explains how we collect and use your personal data to determine some
+                            of the ads that you see and provide all of the other services described below.
+                        </p>
+                        <div *ngFor="let terms of termsCondition">
+                            <div class="sub-heading">{{terms.subHeading}}</div>
+                            <div class="details" *ngFor="let detail of terms.details">
+                                <!-- <p>{{detail.heading?'':detail}}</p> -->
+                                <p><b>{{detail.heading}}</b></p>
+                                <p>{{detail.subHeading}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-scrollbar>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Privacy Policy Modal Start -->
+<div class="modal fade" id="privacyPolicyModal" tabindex="-1" aria-labelledby="privacyPolicyModalLabel"
+aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="privacyPolicyModalLabel">Privacy Policy</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div style="height: calc(100vh - 153px); margin-bottom: 10px;">
+                <ng-scrollbar>
+                    <div class="policy-container">
+                        <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects,
+                            uses,
+                            maintains information collected from users ("you" or "your") of the
+                            Vidhik
+                            website.</div>
+                        <div *ngFor="let policy of privacyPolicy">
+                            <div class="sub-heading">{{policy.subHeading}}</div>
+                            <div class="details" *ngFor="let detail of policy.details">
+                                <p><b>{{detail.heading}}</b></p>
+                                <p>{{detail.subHeading}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-scrollbar>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -20,6 +20,7 @@ export class AdvocateComponent {
   activeRoute: string = "";
   qrData: string = "Payment For Hiring Advocate";
   transactionId: any = "";
+  qrAmount: number = 500;
 
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
     private location: Location) {
@@ -35,7 +36,7 @@ export class AdvocateComponent {
   }
 
   getQrData() {
-    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: this.qrAmount.toString() + '.00' }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
           this.qrData = objRes.data.url;

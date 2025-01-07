@@ -85,7 +85,12 @@
         <!-- <div class="grid-item2">{{ item.respondentName }}</div> -->
         <!-- <div class="grid-item2">{{ item.city }}</div> -->
         <div class="grid-item2">{{ item.registrationDate | date:'dd/MM/yyyy'}}</div>
-        <div class="grid-item2">{{ item.caseName }}</div>
+        <div class="grid-item2" *ngIf="item.representing == 'Applicant'">
+          <b>{{getFormattedCaseName(item)[0]}} </b>{{getFormattedCaseName(item)[1]+' '+getFormattedCaseName(item)[2] }}
+        </div>
+        <div class="grid-item2" *ngIf="item.representing == 'Respondant'">
+          {{getFormattedCaseName(item)[0]+' '+getFormattedCaseName(item)[1] }} <b>{{getFormattedCaseName(item)[2]}}</b>
+        </div>
         <div class="grid-item2">{{ item.courtName }}</div>
         <div class="grid-item2">
           <mat-form-field appearance="outline" class="stage-input list-input">

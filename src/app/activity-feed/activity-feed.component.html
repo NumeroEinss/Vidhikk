@@ -24,7 +24,7 @@
             <div class="d-flex w-100" *ngIf="userType === 'lawyer'">
               <div class="profile-container">
                 <img [src]="getImageUrl(this.userImage)"
-                  onerror="this.onerror=null,this.src='../../../../assets/images/image/person.jpg'" />
+                  onerror="this.onerror=null,this.src='../../../../assets/images/image/placeholder.png'" />
               </div>
               <div class="section-2">
                 <input type="text" placeholder="Tittle" [(ngModel)]="post.title" />
@@ -55,7 +55,7 @@
               <div class="d-flex">
                 <div class="profile-container1">
                   <img [src]="getImageUrl(item.lawyerProfile)"
-                    onerror="this.onerrror=null,this.src='../../../../assets/images/image/person.jpg'" />
+                    onerror="this.onerrror=null,this.src='../../../../assets/images/image/placeholder.png'" />
                 </div>
                 <div class="down-section-2">
                   <div class="name">{{ item.lawyerName }}</div>
@@ -73,11 +73,11 @@
               <div class="activity-feed-comment">{{ item.description }}</div>
               <div class="d-flex mt-1 like-comment">
                 <div class="like-icon">
-                  <img src="../../../../assets/images/icons/like.svg" alt="" />{{ item.likeCount }}
+                  <img src="../../../../assets/images/icons/like.svg" alt="" />{{ item.likeCount > 1? item.likeCount + ' ' +  'Likes': item.likeCount + ' ' + 'Like' }}
                 </div>
                 <div class="mx-3 like-icon">
                   <img src="../../../../assets/images/icons/comment.svg" alt="" />
-                  {{ item.comments.length }}
+                  {{ item.comments.length > 1? item.comments.length + ' ' +  'Comments': item.comments.length + ' ' + 'Comment' }}
                 </div>
               </div>
             </div>
@@ -90,7 +90,7 @@
                   <div class="down-section-1a">
                     <div class="d-flex">
                       <div class="profile-container1">
-                        <img src="../../../../assets/images/image/person.jpg" />
+                        <img src="../../../../assets/images/image/placeholder.png" />
                       </div>
                       <div class="down-section-2 d-flex">
                         <div class="name">{{ comment.lawyerName }}</div>
@@ -124,7 +124,7 @@
 
             <div class="comment-box" *ngIf="item.isCommentExpanded">
               <div class="profile-container2">
-                <img src="../../../../assets/images/image/person.jpg" />
+                <img src="../../../../assets/images/image/placeholder.png" />
               </div>
               <div class="comment-box-textarea">
                 <textarea matInput placeholder="Enter Text Here..." [(ngModel)]="item.comment"></textarea>
@@ -137,10 +137,10 @@
             </div>
             <div class="activity-feed-bottom">
               <div class="like-comment-share-buttons">
-                <button class="activity-feed-bottom-btn">
+                <button class="activity-feed-bottom-btn" (click)="likePost(item)">
                   <img
                     [src]="item.isLiked?'../../assets/images/icons/like.svg':'../../assets/images/icons/like_icon.svg'"
-                    style="width: 18px;height: 18px;" class="me-1" (click)="likePost(item)" />Like
+                    style="width: 18px;height: 18px;" class="me-1" />Like
                 </button>
                 <button class="activity-feed-bottom-btn" (click)="openCommentBox(item)" *ngIf="userType === 'lawyer'">
                   <img src="../../../../assets/images/icons/comment_icon.svg" class="me-1" />Comment

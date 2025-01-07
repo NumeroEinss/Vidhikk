@@ -1,19 +1,20 @@
 <div class="plan-container" *ngIf="planList.length > 0 && userType == 'LAWYER'">
   <div class="text-center" style="color: #91a1b4">
-    We’ve designed our subscription plans to meet everyone’s needs—choose the
+    <!-- We’ve designed our subscription plans to meet everyone’s needs—choose the
+    one that’s perfect for you! -->
+    We’re working on exciting new subscription plans to meet everyone’s needs—stay tuned and be the first to choose the
     one that’s perfect for you!
+    <div class="justify-content-center align-items-center d-flex">
+      <img src="../../../../assets/images/image/coming-soon.jpg"
+        onerror="this.onerror = null;this.src ='../../../../assets/images/image/no-image.png'">
+    </div>
   </div>
-  <ng-scrollbar
-    autoHeightDisabled="false"
-    appearance="standard"
-    orientation="horizontal"
-    style="margin: 30px 0px; height: 466px"
-    [ngStyle]="{ 'min-width': planList.length * 300 + 'px' }"
-  >
+  <!-- <ng-scrollbar autoHeightDisabled="false" appearance="standard" orientation="horizontal"
+    style="margin: 30px 0px; height: 466px" [ngStyle]="{ 'min-width': planList.length * 300 + 'px' }">
     <div class="d-flex" style="gap: 30px; flex-wrap: nowrap">
       @for (item of planList; track $index) {
       <div class="plan">
-        <div class="active-plan" *ngIf="item.planHeading === activePlan">
+        <div class="active-plan" *ngIf="item.planHeading === (_authService.currentUserSubject|async)?.activePlan">
           <img src="../../assets/images/icons/active_plan_label.svg" alt="" />
         </div>
         <div class="plan-name">{{ item.planHeading }}</div>
@@ -26,51 +27,48 @@
         </div>
         @for (element of item.features; track $index) {
         <div class="feature">
-          <img
-            [src]="
+          <img [src]="
               element.isAvailable
                 ? '../../assets/images/icons/available_subscription.svg'
                 : '../../assets/images/icons/not_available_subscription.svg'
-            "
-            alt="noImage"
-          />{{ element.featureHeading }}
+            " alt="noImage" />{{ element.featureHeading }}
         </div>
         }
-        <div class="cancel-button" *ngIf="item.planHeading !== activePlan">
-          <button
-            mat-raised-button
-            color="primary"
-            style="width: fit-content !important"
-            class="cancel-btn"
-            data-bs-toggle="modal"
-            [attr.data-bs-target]="toggleId ? toggleId : '#qrModal'"
-            (click)="getPayentStatus(item)"
-          >
+        <div class="cancel-button" *ngIf="item.planHeading !== (_authService.currentUserSubject|async)?.activePlan">
+          <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
+            data-bs-toggle="modal" [attr.data-bs-target]="toggleId ? toggleId : '#qrModal'"
+            (click)="getPayentStatus(item)" *ngIf="item.planHeading != 'FREE PLAN'">
             Choose Plan
           </button>
+          <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
+            (click)="setFreePlan(item);btn.click()" *ngIf="item.planHeading == 'FREE PLAN'">
+            Choose Plan
+          </button>
+          <button #btn class="d-none" data-bs-dismiss="modal"></button>
         </div>
       </div>
       }
     </div>
-  </ng-scrollbar>
+  </ng-scrollbar> -->
 </div>
 
 <div class="plan-container" *ngIf="planList.length > 0 && userType == 'SELLER'">
   <div class="text-center" style="color: #91a1b4">
-    We’ve designed our subscription plans to meet everyone’s needs—choose the
+    <!-- We’ve designed our subscription plans to meet everyone’s needs—choose the
+    one that’s perfect for you! -->
+    We’re working on exciting new subscription plans to meet everyone’s needs—stay tuned and be the first to choose the
     one that’s perfect for you!
+    <div class="justify-content-center align-items-center d-flex">
+      <img src="../../../../assets/images/image/coming_soon.jpg"
+        onerror="this.onerror = null;this.src ='../../../../assets/images/image/no-image.png'">
+    </div>
   </div>
-  <ng-scrollbar
-    autoHeightDisabled="false"
-    appearance="standard"
-    orientation="horizontal"
-    style="margin: 30px 0px; height: 466px"
-    [ngStyle]="{ 'min-width': planList.length * 200 + 'px' }"
-  >
+  <!-- <ng-scrollbar autoHeightDisabled="false" appearance="standard" orientation="horizontal"
+    style="margin: 30px 0px; height: 466px" [ngStyle]="{ 'min-width': planList.length * 200 + 'px' }">
     <div class="d-flex" style="gap: 30px; flex-wrap: nowrap">
       @for (item of sellerPlans; track $index) {
       <div class="plan">
-        <div class="active-plan" *ngIf="item.planHeading === this.activePlan">
+        <div class="active-plan" *ngIf="item.planHeading === (_authService.currentUserSubject|async)?.activePlan">
           <img src="../../assets/images/icons/active_plan_label.svg" alt="" />
         </div>
         <div class="plan-name">{{ item.planHeading }}</div>
@@ -84,30 +82,16 @@
             <div>/ Year</div>
           </div>
         </div>
-        <!-- @for (element of item.features; track $index) {
-                <div class="feature" style="display: flex; justify-content: center; align-items: center;">
-                    <img [src]="element.isAvailable?'../../assets/images/icons/available_subscription.svg':
-                    '../../assets/images/icons/not_available_subscription.svg'"
-                        alt="noImage" />{{element.featureHeading}}
-                </div>
-                } -->
-        <div class="cancel-button" *ngIf="item.planHeading !== activePlan">
-          <button
-            mat-raised-button
-            color="primary"
-            style="width: fit-content !important"
-            class="cancel-btn"
-            data-bs-toggle="modal"
-            [attr.data-bs-target]="toggleId ? toggleId : '#qrModal'"
-            (click)="choosePlan(item)"
-          >
+        <div class="cancel-button" *ngIf="item.planHeading !== (_authService.currentUserSubject|async)?.activePlan">
+          <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
+            data-bs-toggle="modal" [attr.data-bs-target]="toggleId ? toggleId : '#qrModal'" (click)="choosePlan(item)">
             Choose Plan
           </button>
         </div>
       </div>
       }
     </div>
-  </ng-scrollbar>
+  </ng-scrollbar> -->
 </div>
 
 <div class="no-data" *ngIf="planList.length == 0">

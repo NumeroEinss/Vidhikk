@@ -12,8 +12,6 @@ firebase.initializeApp({
     // messagingSenderId: "735661313546",
     // appId: "1:735661313546:web:aba7a9ed39771b349599f3",
     // measurementId: "G-FYWM2J8GPM"
-
-
     apiKey: "AIzaSyA2RrwTH0YLpNwDAsn5GwLNOYEsDdRKHPc",
     authDomain: "my-vidhik.firebaseapp.com",
     projectId: "my-vidhik",

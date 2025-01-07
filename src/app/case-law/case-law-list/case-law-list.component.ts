@@ -14,6 +14,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AdvanceSearchModel } from '../../common/advanceSearch.model';
 import { DataService } from '../../shared/services/data.service';
 import { DatePipe } from '@angular/common';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 const MY_DATE_FORMAT = {
   parse: {
@@ -48,6 +49,9 @@ export class CaseLawListComponent implements AfterViewInit {
 
   selectedIndex: number = 0;
   recordCount: number = 0;
+
+  loaderType = ngxLoadingAnimationTypes;
+  showLoader: boolean = false;
 
   caseLawCurrentPage: number = 1;
 
@@ -237,6 +241,9 @@ export class CaseLawListComponent implements AfterViewInit {
   // sharedList: any = [];
   // sharedCurrentPage: number = 1;
 
+  benchList: any = [{ value: "SINGLE BENCH", label: "SINGLE BENCH" },
+  { value: "FULL BENCH", label: "FULL BENCH" }, { value: "DIVISION BENCH", label: "DIVISION BENCH" }];
+
   constructor(private _router: Router, private _toastMessage: ToastMessageService, private _apolloService: ApolloService,
     private _searchService: SearchService, private _dateAdapter: DateAdapter<Date>, private _formBuilder: FormBuilder,
     private _dataService: DataService, private _datePipe: DatePipe) {
@@ -253,6 +260,7 @@ export class CaseLawListComponent implements AfterViewInit {
 
   async ngOnInit() {
     if (this._dataService.getData()?.activeTabIndex !== undefined) {
+      this.showLoader = true;
       this.selectedIndex = this._dataService.getData().activeTabIndex;
       if (this.selectedIndex === 1) {
         this.showJudgeSearch = false;
@@ -302,7 +310,7 @@ export class CaseLawListComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-
+    this.showLoader = false;
   }
 
   get dateRangeFormGroup(): FormGroup {

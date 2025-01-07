@@ -13,6 +13,8 @@ export class AdvocateSchedulingComponent {
   isNameVisible: boolean = false;
   qrData: string = "Payment For Advocate Scheduling";
   availabilityList: any;
+  qrAmount: number = 200;
+
   transactionId: any = "";
   lawyerId: any = "";
 
@@ -27,7 +29,6 @@ export class AdvocateSchedulingComponent {
       if (data.data != null) {
         if (data.data.getAvailabilityList.status == 200) {
           this.availabilityList = data.data.getAvailabilityList.data.availabilities;
-          console.log(this.availabilityList)
         }
         else {
           this._toastMessage.error(data.data.getAvailabilityList.message);
@@ -38,7 +39,7 @@ export class AdvocateSchedulingComponent {
 
 
   getQrData() {
-    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: this.qrAmount.toString() + '.00' }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
           this.qrData = objRes.data.url;

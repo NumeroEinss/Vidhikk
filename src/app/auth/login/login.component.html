@@ -27,18 +27,18 @@
               <mat-option value="USER">User</mat-option>
               <mat-option value="SELLER">Seller</mat-option>
             </mat-select>
-            <mat-error *ngIf="loginForm2.controls['userType'].hasError('required')">User Type is Required</mat-error>
+            <mat-error *ngIf="loginForm2.controls['userType'].hasError('required')">Please enter user type</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <span matPrefix><img src="../../../assets/images/icons/phone-icon.svg" /></span>
             <input type="text" matInput placeholder="Enter phone number" formControlName="mobile" required
               maxlength="10" (keypress)="isNumber($event)" />
-            <mat-error *ngIf="loginForm2.controls['mobile'].hasError('required')">Mobile No. is Required</mat-error>
+            <mat-error *ngIf="loginForm2.controls['mobile'].hasError('required')">Please enter phone number</mat-error>
             <mat-error *ngIf="
                 !loginForm2.controls['mobile'].hasError('required') &&
                 loginForm2.controls['mobile'].invalid
-              ">Mobile No. is invalid</mat-error>
+              ">Please enter valid phone number</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="password">
@@ -50,10 +50,9 @@
               [attr.aria-pressed]="hide">
               <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
-            <mat-error *ngIf="loginForm2.controls['password'].errors?.['required']">Password is Required !!</mat-error>
+            <mat-error *ngIf="loginForm2.controls['password'].errors?.['required']">Please enter password</mat-error>
             <mat-error
-              *ngIf="!loginForm2.controls['password'].errors?.['required'] && loginForm2.controls['password'].invalid">Enter
-              atleast 10 characters !!</mat-error>
+              *ngIf="!loginForm2.controls['password'].errors?.['required'] && loginForm2.controls['password'].invalid">Please enter valid password</mat-error>
           </mat-form-field>
 
           <div class="row">
@@ -80,10 +79,10 @@
             <mat-select placeholder=" I am what ?" formControlName="userType">
               <mat-option value="JUDGE">Judge</mat-option>
               <mat-option value="LAWYER" selected>Lawyer</mat-option>
-              <mat-option value="USER">User</mat-option>
               <mat-option value="SELLER">Seller</mat-option>
+              <mat-option value="USER">User</mat-option>
             </mat-select>
-            <mat-error *ngIf="loginForm.controls['userType'].hasError('required')">User Type is Required</mat-error>
+            <mat-error *ngIf="loginForm.controls['userType'].hasError('required')">Please enter user type</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -102,9 +101,9 @@
               [attr.aria-pressed]="hide">
               <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
-            <mat-error *ngIf="loginForm.controls['password'].errors?.['required']">Password is Required !!</mat-error>
+            <mat-error *ngIf="loginForm.controls['password'].errors?.['required']">Please enter password</mat-error>
             <mat-error *ngIf="!loginForm.controls['password'].errors?.['required'] && 
-                            loginForm.controls['password'].invalid">Enter atleast 10 characters !!</mat-error>
+                            loginForm.controls['password'].invalid">Please enter valid password</mat-error>
           </mat-form-field>
 
           <div class="row">

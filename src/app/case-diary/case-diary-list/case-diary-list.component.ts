@@ -213,6 +213,10 @@ export class CaseDiaryListComponent {
     }
   }
 
+  getFormattedCaseName(cases: any) {
+    return cases.caseName.split(' ')
+  }
+
   ngOnDestroy() {
     this.applicationSubscription.unsubscribe();
   }

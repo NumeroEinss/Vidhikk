@@ -40,6 +40,8 @@ export class CaseLawDetailComponent {
   activeIndex: number = 0;
   page: number = 0;
   pageSize: number = 0;
+  qrData: string = "Payment for Case Laws";
+  transactionId: string = "";
 
   constructor(private _location: Location, private _router: Router, private _highlighterPipe: HighlighterPipe,
     private _toastMessage: ToastMessageService, private _apolloService: ApolloService, private _emailService: EmailService,
@@ -53,6 +55,7 @@ export class CaseLawDetailComponent {
       this.page = this.routerState.page || 0;
       this.pageSize = this.routerState.pageSize || 0;
       this.getCaseLawDetail();
+      this.getQrData();
     }
     else {
       this._router.navigate(['lawyer/case-law/cases']);
@@ -376,6 +379,18 @@ export class CaseLawDetailComponent {
     this.searchTerm = "";
     this.higlightOnSearch();
     this.scrollbar.scrollTo({ top: 0 });
+  }
+
+  getQrData() {
+    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+      if (objRes != null) {
+        // console.log(objRes, "ObjRessssss")
+        if (objRes.status == 'success') {
+          this.qrData = objRes.data.url;
+          this.transactionId = objRes.data.transactionId;
+        }
+      }
+    })
   }
 }
 

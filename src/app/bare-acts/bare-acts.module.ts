@@ -6,7 +6,8 @@ import { BareActsComponent } from './bare-acts.component';
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { BareActsDetailComponent } from './bare-acts-detail/bare-acts-detail.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HighlightOnSearchPipe } from '../shared/pipe/highlight-on-search.pipe';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     BareActsRoutingModule,
     SharedModule,
     MaterialModule,
-    FormsModule
-  ]
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [HighlightOnSearchPipe]
 })
 export class BareActsModule { }

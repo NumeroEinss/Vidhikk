@@ -37,4 +37,18 @@ export class SearchService {
       );
     }
   }
+
+  searchBareActs(query: string): Observable<any> {
+    let searchQuery = query.trim();
+    if (searchQuery == "") {
+      return this._apolloService.get(`/act?page=1&pageSize=50`).pipe(
+        map(response => response.data) // Adjust based on API response structure
+      );
+    }
+    else {
+      return this._apolloService.get(`/act/search/${searchQuery.trim()}?page=1&pageSize=50`).pipe(
+        map(response => response.data) // Adjust based on API response structure
+      );
+    }
+  }
 }
