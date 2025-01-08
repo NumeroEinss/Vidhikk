@@ -121,12 +121,6 @@ export class SellerDashboardComponent {
     this.previewImages = [];
   }
 
-  adjustHeight(event: Event): void {
-    const textarea = event.target as HTMLTextAreaElement;
-    // textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
-  }
-
   getSellerDetail() {
     let data = {
       sellerId: this.userData._id

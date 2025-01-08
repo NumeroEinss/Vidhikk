@@ -59,14 +59,14 @@
       </div>
     </form>
 
-    <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false">
+    <!-- <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false"> -->
       <div class="d-flex" style="flex-direction: column;" *ngIf="otpVerified">
         <mat-label style="color:#8798AD">User Type</mat-label>
         <mat-radio-group aria-label="User Type" class="mb-2" [(ngModel)]="userType" (change)="userTypeChange()">
           <mat-radio-button value="JUDGE">Judge</mat-radio-button>
           <mat-radio-button value="LAWYER" checked>Lawyer</mat-radio-button>
-          <mat-radio-button value="USER">User</mat-radio-button>
           <mat-radio-button value="SELLER">Seller</mat-radio-button>
+          <mat-radio-button value="USER">User</mat-radio-button>
         </mat-radio-group>
       </div>
       <form [formGroup]="lawyerForm" class="col mt-3" *ngIf="otpVerified && userType =='LAWYER'" class="register-form">
@@ -900,7 +900,7 @@
         </div>
       </form>
 
-    </ng-scrollbar>
+    <!-- </ng-scrollbar> -->
   </div>
   <div class="col-lg-7 col-md-7 mobile-responsive-img1">
     <!-- image-container d-flex align-item-center justify-content-center -->
@@ -1083,7 +1083,7 @@ aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 <div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
     <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="termsConditionsModalLabel">Terms of Usage</h1>
+            <h1 class="modal-title fs-5" id="termsConditionsModalLabel">Terms of Services</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

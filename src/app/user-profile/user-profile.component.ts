@@ -34,6 +34,7 @@ export class UserProfileComponent {
   mobileOtp: string = "";
   emailOtpVerified: boolean = false;
   sellerProfileList: any = '';
+  lawyerProfileList: any = '';
 
   files: any;
   qrData: string = "Payment for Subscription";
@@ -85,13 +86,20 @@ export class UserProfileComponent {
       .subscribe(data => {
         this.displayImage = imageUrl() + data;
       });
-      this._authService.currentUserSubject.asObservable()
+    this._authService.currentUserSubject.asObservable()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((data: any) => {
-       this.userData = data
+        this.userData = data
       });
     this.getCitiesList();
-    // this.getSellerProfile()
+    // this.getSellerProfile();
+
+    if (this.userData.userType == 'LAWYER') {
+      this.getLawyerProfile();
+    }
+    else if (this.userData.userType == 'SELLER') {
+      this.getSellerProfile();
+    }
     this.getQrData();
     this.getPlanList();
   }
@@ -420,25 +428,6 @@ export class UserProfileComponent {
     }
   }
 
-
-  // getSellerProfile() {
-  //   let data = {
-  //     sellerId: this.userData._id
-  //   }
-  //   this._apolloService.mutate(GQLConfig.sellerProfile, data).subscribe((data: any) => {
-  //     if (data.data != null) {
-  //       if (data.data.sellerProfile.status == 200) {
-  //         this.sellerProfileList = data.data.sellerProfile.data;
-  //         console.log('list', this.sellerProfileList )
-  //         this._toastMessage.message(data.data.sellerProfile.message);
-  //       }
-  //       else {
-  //         this._toastMessage.error(data.data.sellerProfile.message);
-  //       }
-  //     }
-  //   })
-  // }
-
   mobileNumberChanged() {
     this.mobileOtpVerified = false;
   }
@@ -684,18 +673,18 @@ export class UserProfileComponent {
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
 
     if (this.userType === 'lawyer') {
-      this.lawyerEditProfileForm.controls.email.patchValue(userData.email);
-      this.lawyerEditProfileForm.controls.coreCompetency.patchValue(userData.coreCompetency);
-      this.lawyerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
+      this.lawyerEditProfileForm.controls.email.patchValue(this.lawyerProfileList.email);
+      this.lawyerEditProfileForm.controls.coreCompetency.patchValue(this.lawyerProfileList.coreCompetency);
+      this.lawyerEditProfileForm.controls.phoneNumber.patchValue(this.lawyerProfileList.primaryContact);
       this.mobileOtpVerified = true;
       this.emailOtpVerified = true;
     } else if (this.userType === 'seller') {
-      this.sellerEditProfileForm.controls.name.patchValue(userData.name);
-      this.sellerEditProfileForm.controls.city.patchValue(userData.city);
-      this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber || userData.primaryContact);
-      this.sellerEditProfileForm.controls.email.patchValue(userData.email);
-      // this.mobileOtpVerified = true;
-      // this.emailOtpVerified = true;
+      this.sellerEditProfileForm.controls.name.patchValue( this.sellerProfileList.name);
+      this.sellerEditProfileForm.controls.city.patchValue( this.sellerProfileList.address);
+      this.sellerEditProfileForm.controls.phoneNumber.patchValue( this.sellerProfileList.primaryContact);
+      this.sellerEditProfileForm.controls.email.patchValue( this.sellerProfileList.email);
+      this.mobileOtpVerified = true;
+      this.emailOtpVerified = true;
     }
   }
 
@@ -710,11 +699,27 @@ export class UserProfileComponent {
       if (objRes.data != null) {
         if (objRes.data.updateProfile.status == 200) {
           this._toastMessage.message(objRes.data.updateProfile.message);
-          console.log("data",data)
-          this._authService.updateProfile(objRes.data.updateProfile.data);
+          this.getLawyerProfile();
         }
         else {
           this._toastMessage.error(objRes.data.updateProfile.message);
+        }
+      }
+    })
+  }
+
+  getLawyerProfile() {
+    let data = {
+      lawyerId: this.userData._id
+    }
+    this._apolloService.mutate(GQLConfig.getLawyerDetail, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.lawyerProfile.status == 200) {
+          this.lawyerProfileList = data.data.lawyerProfile.data;
+          this._toastMessage.message(data.data.lawyerProfile.message);
+        }
+        else {
+          this._toastMessage.error(data.data.lawyerProfile.message);
         }
       }
     })
@@ -731,11 +736,31 @@ export class UserProfileComponent {
       if (objRes.data != null) {
         if (objRes.data.updateSellerProfile.status == 200) {
           this._toastMessage.message(objRes.data.updateSellerProfile.message);
+          console.log("datasss", objRes.data.updateSellerProfile)
           this.mobileOtpVerified = true;
           this.emailOtpVerified = true;
+          this.getSellerProfile();
         }
         else {
           this._toastMessage.error(objRes.data.updateSellerProfile.message);
+        }
+      }
+    })
+  }
+
+  getSellerProfile() {
+    let data = {
+      sellerId: this.userData._id
+    }
+    this._apolloService.mutate(GQLConfig.sellerProfile, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.sellerProfile.status == 200) {
+          this.sellerProfileList = data.data.sellerProfile.data;
+          console.log('list', this.sellerProfileList)
+          this._toastMessage.message(data.data.sellerProfile.message);
+        }
+        else {
+          this._toastMessage.error(data.data.sellerProfile.message);
         }
       }
     })
