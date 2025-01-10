@@ -387,13 +387,12 @@
             <div class="details-container">
               <div class="heading">Mobile</div>
               <div class="detail">{{sellerProfileList.primaryContact}}<span *ngIf="userData.secondaryPhoneNumber">,</span> {{ userData.secondaryPhoneNumber}}
-                <span *ngIf="mobileOtpVerified"  [ngClass]="mobileOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span>
               </div>
             </div>
            
             <div class="details-container">
               <div class="heading">Email</div>
-              <div class="detail">{{sellerProfileList.email}} <span *ngIf="emailOtpVerified"  [ngClass]="emailOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span></div> 
+              <div class="detail">{{sellerProfileList.email}}</div> 
             </div>
           </div>
 

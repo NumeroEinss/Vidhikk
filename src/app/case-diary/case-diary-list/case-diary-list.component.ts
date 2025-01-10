@@ -31,6 +31,9 @@ export class CaseDiaryListComponent {
   today: Date = new Date();
 
   selectedSubDiary: any;
+  searchQuery: string = '';
+  originalCaseDiaryList: any[] = [];
+  originalSubDiaryList: any[] = [];
 
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
     private _templateService: TemplateService, private _datePipe: DatePipe) {
@@ -54,6 +57,7 @@ export class CaseDiaryListComponent {
       if (data.data != null) {
         if (data.data.getCaseDiaryList.status == 200) {
           this.caseDiaryList = data.data.getCaseDiaryList.data.caseDiaryList.result;
+          this.originalCaseDiaryList = [...this.caseDiaryList];
         }
         else {
           this._toastMessage.error(data.data.getCaseDiaryList.message);
@@ -86,6 +90,7 @@ export class CaseDiaryListComponent {
       if (data.data != null) {
         if (data.data.subDiaryList.status == 200) {
           this.subDiaryList = data.data.subDiaryList.data.resultData;
+          this.originalSubDiaryList = [...this.subDiaryList];
         }
         else {
           this._toastMessage.error(data.data.subDiaryList.message);
@@ -215,6 +220,30 @@ export class CaseDiaryListComponent {
 
   getFormattedCaseName(cases: any) {
     return cases.caseName.split(' ')
+  }
+
+  filterCaseDiary() {
+    if (this.searchQuery.trim() === '') {
+      if (this.selectedDiary === 'caseDiary') {
+        this.caseDiaryList = [...this.originalCaseDiaryList];
+      } else if (this.selectedDiary === 'subDiary') {
+        this.subDiaryList = [...this.originalSubDiaryList];
+      }
+      return;
+    }
+    if (this.selectedDiary === 'caseDiary') {
+      this.caseDiaryList = this.originalCaseDiaryList.filter(caseItem =>
+        Object.values(caseItem).some(value =>
+          value?.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
+        )
+      );
+    } else if (this.selectedDiary === 'subDiary') {
+      this.subDiaryList = this.originalSubDiaryList.filter(caseItem =>
+        Object.values(caseItem).some(value =>
+          value?.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
+        )
+      );
+     }
   }
 
   ngOnDestroy() {

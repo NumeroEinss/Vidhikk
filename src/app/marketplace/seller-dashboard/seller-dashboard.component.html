@@ -6,7 +6,7 @@
         <div class="d-flex">
             <div class="image-container">
                 <img class="display-profile" [src]="getImageUrl(sellerDetail.sellerImage)"
-                    onerror="this.onerror=null,this.src='../../../assets/images/image/person.jpg'">
+                    onerror="this.onerror=null,this.src='../../../assets/images/image/placeholder.png'">
             </div>
 
             <div class="detail">
@@ -207,7 +207,7 @@
                         <mat-label class="mat-label mt-2 mb-1">Product Description</mat-label>
                         <mat-form-field appearance="outline" class="textArea">
                             <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                formControlName="productDescri ption" minlength="10" rows="3" required></textarea>
+                                formControlName="productDescription" minlength="10" rows="3" required></textarea>
                             <mat-error
                                 *ngIf="addProductForm.controls['productDescription'].hasError('required')">Description
                                 is Required</mat-error>

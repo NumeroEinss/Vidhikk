@@ -37,8 +37,8 @@
           </button>
           <mat-error *ngIf="caseDiaryForm.controls['password'].errors?.['required']">Please enter password</mat-error>
           <mat-error
-            *ngIf="!caseDiaryForm.controls['password'].errors?.['required'] && caseDiaryForm.controls['password'].invalid">Enter
-            atleast 10 characters !!</mat-error>
+            *ngIf="!caseDiaryForm.controls['password'].errors?.['required'] && caseDiaryForm.controls['password'].invalid">Please
+            enter valid password</mat-error>
         </mat-form-field>
 
         <div class="d-flex justify-content-between">
@@ -52,7 +52,7 @@
 
           <button routerLink="/lawyer/case-diary/signup" mat-stroked-button class="w-100" color="primary"
             style="margin-top: 12px;">
-            <span class="gray-font">Don't have an case diary?&nbsp;</span><span style="color: #2e5bff">Sign up</span>
+            <span class="gray-font">Don't have case diary?&nbsp;</span><span style="color: #2e5bff">Sign up</span>
           </button>
 
           <div class="sub-text mt-2 text-center">

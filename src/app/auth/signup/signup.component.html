@@ -53,13 +53,13 @@
           color="primary w-100" (click)="verifyOtp()" class="mb-3">
           Continue</button><br />
 
-          <button routerLink="/auth/login" mat-stroked-button class="w-100" color="primary">
-              <span class="gray-font">Already registered?&nbsp;</span><span style="color: #2e5bff"> Sign In</span>
-            </button>
+        <button routerLink="/auth/login" mat-stroked-button class="w-100" color="primary">
+          <span class="gray-font">Already registered?&nbsp;</span><span style="color: #2e5bff"> Sign In</span>
+        </button>
       </div>
     </form>
 
-    <!-- <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false"> -->
+    <ng-scrollbar autoHeightDisabled="false" autoWidthDisabled="false">
       <div class="d-flex" style="flex-direction: column;" *ngIf="otpVerified">
         <mat-label style="color:#8798AD">User Type</mat-label>
         <mat-radio-group aria-label="User Type" class="mb-2" [(ngModel)]="userType" (change)="userTypeChange()">
@@ -71,7 +71,8 @@
       </div>
       <form [formGroup]="lawyerForm" class="col mt-3" *ngIf="otpVerified && userType =='LAWYER'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="lawyerForm.controls.fileDisplay.value" />
+          <img class="profile" [src]="lawyerForm.controls.fileDisplay.value"
+            onerror="this.onerror=null,this.src='../../../../assets/images/image/placeholder.png'" />
           <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
@@ -268,6 +269,15 @@
         </mat-form-field>
         <!-- </mat-grid-tile>
                     <mat-grid-tile> -->
+
+        <div class="doc-container" *ngIf="docUploadEnabled">
+          <img class="doc" [src]="lawyerForm.controls.docDisplay.value" />
+          <input type="file" #file accept="image/png, image/jpeg" (change)="docChange($event)" />
+          <div class="doc-input" for="file" (click)="file.click()">
+            <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
+          </div>
+        </div>
+
         <mat-form-field appearance="outline">
           <input matInput placeholder="Enter Bar Registration Year" (keypress)="isNumber($event)" maxlength="4"
             formControlName="practiceYear" required />
@@ -340,7 +350,8 @@
 
       <form [formGroup]="userForm" class="col mt-3" *ngIf="otpVerified && userType =='USER'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="userForm.controls.fileDisplay.value" />
+          <img class="profile" [src]="userForm.controls.fileDisplay.value"
+            onerror="this.onerror=null,this.src='../../../../assets/images/image/placeholder.png'" />
           <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
@@ -475,7 +486,8 @@
 
       <form [formGroup]="judgeForm" class="col mt-3" *ngIf="otpVerified && userType =='JUDGE'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="judgeForm.controls.fileDisplay.value" />
+          <img class="profile" [src]="judgeForm.controls.fileDisplay.value"
+            onerror="this.onerror=null,this.src='../../../../assets/images/image/placeholder.png'" />
           <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
@@ -695,7 +707,8 @@
 
       <form [formGroup]="sellerForm" class="col mt-3" *ngIf="otpVerified && userType =='SELLER'" class="register-form">
         <div class="profile-container">
-          <img class="profile" [src]="sellerForm.controls.fileDisplay.value" />
+          <img class="profile" [src]="sellerForm.controls.fileDisplay.value"
+            onerror="this.onerror=null,this.src='../../../../assets/images/image/placeholder.png'" />
           <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
           <div class="profile-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
@@ -900,7 +913,7 @@
         </div>
       </form>
 
-    <!-- </ng-scrollbar> -->
+    </ng-scrollbar>
   </div>
   <div class="col-lg-7 col-md-7 mobile-responsive-img1">
     <!-- image-container d-flex align-item-center justify-content-center -->
@@ -1062,13 +1075,14 @@
               Policies mentioned herein this Disclaimer</mat-checkbox></div>
 
           <div class="text-center mt-3">
-            <button mat-raised-button color="primary" style="width: fit-content !important"
-              data-bs-dismiss="modal" (click)="opacityStyling = { opacity: 1 }" [disabled]="!confirmed.checked">
+            <button mat-raised-button color="primary" style="width: fit-content !important" data-bs-dismiss="modal"
+              (click)="opacityStyling = { opacity: 1 }" [disabled]="!confirmed.checked">
               Accept
             </button>
 
-            <button id="dismissModal" mat-stroked-button color="primary" style="width: fit-content !important; margin-left: 20px"
-              routerLink="/auth/login" data-bs-dismiss="modal">Reject
+            <button id="dismissModal" mat-stroked-button color="primary"
+              style="width: fit-content !important; margin-left: 20px" routerLink="/auth/login"
+              data-bs-dismiss="modal">Reject
             </button>
           </div>
         </div>
@@ -1078,90 +1092,90 @@
   <!-- modal ends -->
 
   <!-- Terms And Services Modal Start -->
-<div class=" modal fade" id="termsConditionsModal" tabindex="-1" aria-labelledby="termsConditionsModalLabel"
-aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-<div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
-    <div class="modal-content">
+  <div class=" modal fade" id="termsConditionsModal" tabindex="-1" aria-labelledby="termsConditionsModalLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
+      <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="termsConditionsModalLabel">Terms of Services</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" id="termsConditionsModalLabel">Terms of Services</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div style="height: calc(100vh - 153px); margin-bottom: 10px;text-align: justify;">
-                <ng-scrollbar>
-                    <div class="policy-container">
-                        <p>
-                            Peraturb Decimo LLP builds technologies and services that enable people to connect with
-                            each other, build communities and grow businesses. These Terms govern your use of Vidhik
-                            and its products, features, apps, services, technologies and software that we offer
-                            except where we expressly state that separate terms (and not these) apply. These
-                            Products are provided to you by Peraturb Decimo LLP a limited liability partnership
-                            company registered with ROC Gwalior, MP, India.
+          <div style="height: calc(100vh - 153px); margin-bottom: 10px;text-align: justify;">
+            <ng-scrollbar>
+              <div class="policy-container">
+                <p>
+                  Peraturb Decimo LLP builds technologies and services that enable people to connect with
+                  each other, build communities and grow businesses. These Terms govern your use of Vidhik
+                  and its products, features, apps, services, technologies and software that we offer
+                  except where we expressly state that separate terms (and not these) apply. These
+                  Products are provided to you by Peraturb Decimo LLP a limited liability partnership
+                  company registered with ROC Gwalior, MP, India.
 
-                            We don't charge you to use Vidhik products and its modules like activity feed, news,
-                            case laws, bare acts, market place and time pass covered by these Terms, unless we state
-                            otherwise. The other services are except to the above is chargeable. Instead,
-                            businesses, organisations and other persons pay us to show you ads for their products
-                            and services. By using our Products, you agree that we can show you ads that we think
-                            may be relevant to you and your interests. We use your personal data to help determine
-                            which personalised ads to show you.
+                  We don't charge you to use Vidhik products and its modules like activity feed, news,
+                  case laws, bare acts, market place and time pass covered by these Terms, unless we state
+                  otherwise. The other services are except to the above is chargeable. Instead,
+                  businesses, organisations and other persons pay us to show you ads for their products
+                  and services. By using our Products, you agree that we can show you ads that we think
+                  may be relevant to you and your interests. We use your personal data to help determine
+                  which personalised ads to show you.
 
-                            We don't sell your personal data to advertisers, and we don't share information that
-                            directly identifies you (such as your name, email address or other contact information)
-                            with advertisers unless you give us specific permission. Instead, advertisers can tell
-                            us things such as the kind of audience that they want to see their ads, and we show
-                            those ads to people who may be interested. We provide advertisers with reports about the
-                            performance of their ads that help them understand how people are interacting with their
-                            content.
+                  We don't sell your personal data to advertisers, and we don't share information that
+                  directly identifies you (such as your name, email address or other contact information)
+                  with advertisers unless you give us specific permission. Instead, advertisers can tell
+                  us things such as the kind of audience that they want to see their ads, and we show
+                  those ads to people who may be interested. We provide advertisers with reports about the
+                  performance of their ads that help them understand how people are interacting with their
+                  content.
 
-                            Our Privacy Policy explains how we collect and use your personal data to determine some
-                            of the ads that you see and provide all of the other services described below.
-                        </p>
-                        <div *ngFor="let terms of termsCondition">
-                            <div class="sub-heading">{{terms.subHeading}}</div>
-                            <div class="details" *ngFor="let detail of terms.details">
-                                <!-- <p>{{detail.heading?'':detail}}</p> -->
-                                <p><b>{{detail.heading}}</b></p>
-                                <p>{{detail.subHeading}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </ng-scrollbar>
-            </div>
+                  Our Privacy Policy explains how we collect and use your personal data to determine some
+                  of the ads that you see and provide all of the other services described below.
+                </p>
+                <div *ngFor="let terms of termsCondition">
+                  <div class="sub-heading">{{terms.subHeading}}</div>
+                  <div class="details" *ngFor="let detail of terms.details">
+                    <!-- <p>{{detail.heading?'':detail}}</p> -->
+                    <p><b>{{detail.heading}}</b></p>
+                    <p>{{detail.subHeading}}</p>
+                  </div>
+                </div>
+              </div>
+            </ng-scrollbar>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
+  </div>
 
-<!-- Privacy Policy Modal Start -->
-<div class="modal fade" id="privacyPolicyModal" tabindex="-1" aria-labelledby="privacyPolicyModalLabel"
-aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-<div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
-    <div class="modal-content">
+  <!-- Privacy Policy Modal Start -->
+  <div class="modal fade" id="privacyPolicyModal" tabindex="-1" aria-labelledby="privacyPolicyModalLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered  terms-service">
+      <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="privacyPolicyModalLabel">Privacy Policy</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" id="privacyPolicyModalLabel">Privacy Policy</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div style="height: calc(100vh - 153px); margin-bottom: 10px;">
-                <ng-scrollbar>
-                    <div class="policy-container">
-                        <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects,
-                            uses,
-                            maintains information collected from users ("you" or "your") of the
-                            Vidhik
-                            website.</div>
-                        <div *ngFor="let policy of privacyPolicy">
-                            <div class="sub-heading">{{policy.subHeading}}</div>
-                            <div class="details" *ngFor="let detail of policy.details">
-                                <p><b>{{detail.heading}}</b></p>
-                                <p>{{detail.subHeading}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </ng-scrollbar>
-            </div>
+          <div style="height: calc(100vh - 153px); margin-bottom: 10px;">
+            <ng-scrollbar>
+              <div class="policy-container">
+                <div>This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects,
+                  uses,
+                  maintains information collected from users ("you" or "your") of the
+                  Vidhik
+                  website.</div>
+                <div *ngFor="let policy of privacyPolicy">
+                  <div class="sub-heading">{{policy.subHeading}}</div>
+                  <div class="details" *ngFor="let detail of policy.details">
+                    <p><b>{{detail.heading}}</b></p>
+                    <p>{{detail.subHeading}}</p>
+                  </div>
+                </div>
+              </div>
+            </ng-scrollbar>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
+  </div>

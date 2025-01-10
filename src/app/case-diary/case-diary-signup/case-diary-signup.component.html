@@ -3,7 +3,7 @@
   <div class="case-diary-signup">
     <div class="diary-container">
       <div>
-        <div class="login-text">Sign up</div>
+        <div class="login-text">Sign Up</div>
         <div class="sub-text mt-3 mb-1">
           Create your username & password for case diary
         </div>
@@ -33,8 +33,8 @@
           <mat-error *ngIf="caseDiarySignUpForm.controls['password'].errors?.['required']">Please enter password
             </mat-error>
           <mat-error
-            *ngIf="!caseDiarySignUpForm.controls['password'].errors?.['required'] && caseDiarySignUpForm.controls['password'].invalid">Enter
-            atleast 10 characters !!</mat-error>
+            *ngIf="!caseDiarySignUpForm.controls['password'].errors?.['required'] && caseDiarySignUpForm.controls['password'].invalid">Please enter
+            atleast 10 characters</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -50,8 +50,8 @@
           <mat-error *ngIf="caseDiarySignUpForm.controls['confirmPassword'].errors?.['required']">
             Please enter confirm password</mat-error>
           <mat-error
-            *ngIf="!caseDiarySignUpForm.controls['confirmPassword'].errors?.['required'] && caseDiarySignUpForm.controls['confirmPassword'].invalid">Enter
-            atleast 10 characters !!</mat-error>
+            *ngIf="!caseDiarySignUpForm.controls['confirmPassword'].errors?.['required'] && caseDiarySignUpForm.controls['confirmPassword'].invalid">Please enter
+            valid confirm password</mat-error>
         </mat-form-field>
 
         <div class="text-center mt-3">
