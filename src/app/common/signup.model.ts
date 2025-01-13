@@ -39,6 +39,7 @@ export class LawyerSignupModel {
     fileDisplay = new FormControl("");
     docFile = new FormControl("");
     docDisplay = new FormControl("");
+    subDivision = new FormControl("", [Validators.required]);
 }
 
 export class UserSignupModel {

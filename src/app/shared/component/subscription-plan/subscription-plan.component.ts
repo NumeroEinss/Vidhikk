@@ -55,7 +55,6 @@ export class SubscriptionPlanComponent {
 
   choosePlan(plan: any) {
     // console.log("Choose Plan Triggered !!");
-    console.log(plan, 'Selected Plan')
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
     if (userData.userType === 'LAWYER') {
       let reqObj = {
@@ -110,8 +109,7 @@ export class SubscriptionPlanComponent {
     setTimeout(() => {
       this.paymentService.pollTransactionStatus(this.transactionId).subscribe({
         next: (success:any) => {
-          console.log(success.status, 'Success from Comp')
-          if (success == true) {
+          if (success.status == true) {
             this.transactionCompleted = true;
             this.loading = false;
             this.choosePlan(plan);
@@ -125,13 +123,12 @@ export class SubscriptionPlanComponent {
           }
         },
         error: (error) => {
-          console.log(error, 'Error')
           this.loading = false;
           console.error('Error during payment process', error);
           alert('Something went wrong. Please try again.');
         }
       });
-    }, 500)
+    }, 1000)
   }
 
   setFreePlan(plan: any) {

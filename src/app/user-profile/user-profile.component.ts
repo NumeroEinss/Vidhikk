@@ -87,7 +87,6 @@ export class UserProfileComponent {
       });
     this.getCitiesList();
     // this.getSellerProfile()
-    this.getQrData();
     this.getPlanList();
   }
   
@@ -101,8 +100,8 @@ export class UserProfileComponent {
     }
   }
 
-  getQrData() {
-    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+  getQrData(e:any) {
+    this._apolloService.post('/payment/make-payment', { amount: e }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
           this.qrData = objRes.data.url;

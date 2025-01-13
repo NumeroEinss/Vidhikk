@@ -590,7 +590,7 @@
       </div>
       <div class="modal-body">
         <app-subscription-plan [toggleId]="'#scannerModal'" [transactionId]="transactionId"
-          [closeModalId]="'closeQrModal'"></app-subscription-plan>
+          [closeModalId]="'closeQrModal'" (clicked)="getQrData($event)"></app-subscription-plan>
       </div>
     </div>
   </div>

@@ -19,7 +19,6 @@ export class AdvocateSchedulingComponent implements AfterViewInit {
 
   constructor(private _apolloService: ApolloService, private _toastMessage: ToastMessageService, private _router: Router) {
     this.lawyerId = this._router.getCurrentNavigation()?.extras.state;
-    console.log(this.lawyerId, 'lawyerId')
   }
 
   ngAfterViewInit() {
@@ -32,7 +31,6 @@ export class AdvocateSchedulingComponent implements AfterViewInit {
       if (data.data != null) {
         if (data.data.getAvailabilityList.status == 200) {
           this.availabilityList = data.data.getAvailabilityList.data.availabilities;
-          console.log(this.availabilityList)
         }
         else {
           this._toastMessage.error(data.data.getAvailabilityList.message);

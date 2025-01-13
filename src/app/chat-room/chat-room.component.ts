@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GQLConfig } from '../graphql.operations';
+import { ApolloService } from '../shared/services/apollo.service';
 
 
 @Component({
@@ -19,15 +21,7 @@ export class ChatRoomComponent {
   selectedAddMember: any = [];
   selectedRemoveMember: any = [];
   isChatOpen: boolean = false;
-
-
-  members = [
-    { value: 'anilSoni', viewValue: 'Anil Soni' },
-    { value: 'jayGoana', viewValue: 'Jay Goana' },
-    { value: 'prateekjaiswal', viewValue: 'Prateek Jaiswal' },
-    { value: 'ramSharma', viewValue: 'Ram Sharma' },
-    { value: 'anoopUpadhyay', viewValue: 'Anoop Upadhyay' },
-  ];
+  members = [];
 
   roomList: any = [
     {
@@ -222,15 +216,19 @@ export class ChatRoomComponent {
     },
   ];
 
-  constructor(private _router: Router, private _toastMessage: ToastMessageService, private formBuilder: FormBuilder) {
+  constructor(private _router: Router, private _toastMessage: ToastMessageService, private formBuilder: FormBuilder,
+    private _apolloService: ApolloService
+  ) {
     this.chatRoomForm = new FormGroup({
       participant: new FormControl('', [Validators.required]),
       roomName: new FormControl('', [Validators.required]),
     })
-    this.addMemberList = this.members;
   }
-
-
+  
+  ngAfterViewInit() {
+    this.getMembersList();
+  }
+  
   ngAfterContentInit() {
     this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
     // let element = document.getElementById('modalButton2') as HTMLElement;
@@ -238,12 +236,28 @@ export class ChatRoomComponent {
     this.roomList[0].className = 'colored-border-label';
     this.selectedChatRoom = this.roomList[0];
   }
+  
+  getMembersList() {
+    let userData = sessionStorage.getItem('userData');
+    let parsedData = userData ? JSON.parse(userData) : {}
+    this._apolloService.mutate(GQLConfig.getMemberList, { lawyerId: parsedData._id }).subscribe(resObj => {
+      if (resObj.data != null) {
+        if (resObj.data.getListMember.status == 200) {
+          this.members = resObj.data.getListMember.data.memberList;
+          this.addMemberList = this.members;
+        }
+        else {
+          this._toastMessage.error(resObj.data.getListMember.message);
+        }
+      }
+    })
+  }
 
   addMessage() {
     const newMessage = {
       type: 'sender',
       name: 'Anil Soni',
-      time: new Date().toLocaleTimeString([], {
+      time: new Date().toLocaleTimeString([], { 
         hour: '2-digit',
         minute: '2-digit',
       }),

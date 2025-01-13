@@ -60,12 +60,10 @@ export class ProductDetailComponent {
     let data = {
       productId: this.routerState._id,
     }
-    console.log("data", data)
     this.apolloService.mutate(GQLConfig.getProductDetail, data).subscribe(res => {
       if (res.data != null) {
         if (res.data.getProductDetail.status == 200) {
           this.productDetail = res.data.getProductDetail.data.product;
-          console.log(this.productDetail)
           this.productDetail.productImages.forEach((item: any) => {
             this.productImages.push(item)
           })
@@ -124,7 +122,6 @@ export class ProductDetailComponent {
     this.showReviewForm = true;
   }
   submitReview(reviews: string) {
-    console.log("reviews", reviews)
     this.reviews = '';
   }
 

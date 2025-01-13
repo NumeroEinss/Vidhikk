@@ -206,13 +206,8 @@
 
                         <mat-label class="mat-label mt-2 mb-1">Product Description</mat-label>
                         <mat-form-field appearance="outline" class="textArea">
-                            <div style="height: calc(100vh - 685px); margin-bottom: 10px;">
-                                <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-                                    <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                    (input)="adjustHeight($event)" style="overflow: hidden;"
-                                        formControlName="productDescription" minlength="10" rows="3" required></textarea>
-                                </ng-scrollbar>
-                            </div>
+                            <textarea id="text-area" type="text" matInput placeholder="Enter description"
+                                formControlName="productDescription" minlength="10" rows="3" required></textarea>
                             <mat-error
                                 *ngIf="addProductForm.controls['productDescription'].hasError('required')">Description
                                 is Required</mat-error>
@@ -329,13 +324,8 @@
 
                         <mat-label class="mat-label mt-2 mb-1">Product Description</mat-label>
                         <mat-form-field appearance="outline" class="textArea">
-                            <div style="height: calc(100vh - 685px); margin-bottom: 10px;">
-                                <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-                                    <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                    (input)="adjustHeight($event)" style="overflow: hidden;"
-                                        formControlName="productDescription" minlength="10" required></textarea>
-                                </ng-scrollbar>
-                            </div>
+                            <textarea id="text-area2" type="text" matInput placeholder="Enter description"
+                                formControlName="productDescription" minlength="10" required></textarea>
                             <mat-error
                                 *ngIf="editProductForm.controls['productDescription'].hasError('required')">Description
                                 is Required</mat-error>
@@ -345,7 +335,6 @@
                                   ">Minimum character should be 10</mat-error>
                         </mat-form-field>
 
-                        <mat-label class="mat-label mt-2 mb-1">Product Price</mat-label>
                         <mat-form-field appearance="outline">
                             <input matInput placeholder="Enter product price" formControlName="productPrice"
                                 (keypress)="isNumber($event)" required />
@@ -357,8 +346,8 @@
                         <mat-label class="mat-label mt-2 mb-1">Add Image</mat-label>
                         <div class="file-container">
                             <div class="drop-zone" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
-                                <input type="file" (change)="onFileSelected($event)" #editFileInput style="display: none"
-                                    accept="image/*" multiple>
+                                <input type="file" (change)="onFileSelected($event)" #editFileInput
+                                    style="display: none" accept="image/*" multiple>
                                 <div class="add-picture" (click)="editFileInput.click()">+</div>
                             </div>
                         </div>

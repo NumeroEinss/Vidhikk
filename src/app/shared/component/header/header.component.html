@@ -107,7 +107,8 @@
     <div class="user-details">
       <div class="name">{{ userData.name }}</div>
       <div class="plan">
-        {{ (_authService.currentUserSubject | async)?.activePlan }}
+        <!-- {{ (_authService.currentUserSubject | async)?.activePlan }} -->
+          {{activePlan}}
       </div>
     </div>
     <div class="profile-container" (click)="redirectToProfile()">
@@ -126,7 +127,10 @@
     <div class="text">
       <div class="d-flex">{{ userData.name }}</div>
       <div class="email">{{ userData.email }}</div>
-      <div class="plan">{{ userData.activePlan }}</div>
+      <div class="plan">
+        <!-- {{ (_authService.currentUserSubject | async)?.activePlan }} -->
+          {{activePlan}}
+      </div>
     </div>
   </div>
   <div class="scrollbar" *ngIf="userData.userType === 'LAWYER'">

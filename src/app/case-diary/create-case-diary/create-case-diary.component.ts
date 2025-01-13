@@ -131,4 +131,12 @@ export class CreateCaseDiaryComponent {
       }
     })
   }
+
+  respondantNameChange(e: any) {
+    this.createCaseDiaryFrmCtrl['caseName'].setValue(this.createCaseDiaryFrmCtrl.applicantName.value.split(' ')[0] + ' Vs ' + e.target.value.split(' ')[0]);
+  }
+
+  applicantNameChange(e: any) {
+    this.createCaseDiaryFrmCtrl['caseName'].setValue(e.target.value.split(' ')[0] + ' Vs ' + this.createCaseDiaryFrmCtrl.respondentName.value.split(' ')[0]);
+  }
 }

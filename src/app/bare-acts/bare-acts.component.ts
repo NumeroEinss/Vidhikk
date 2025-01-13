@@ -66,7 +66,6 @@ export class BareActsComponent {
 
   nextPage(): void {
     let val = this.currentPage += 1;
-    console.log(val, 'Index')
     this.getBareActs(val);
   }
 

@@ -80,18 +80,15 @@ export class AdvocateComponent {
   showDetails() {
     this.isNameVisible = true;
   }
-
   navigateToAdvocateSchedule() {
     const extras = this.lawyer._id;
     this._router.navigate([`${this.activeRoute}/hire`], { state: extras });
-    console.log(this.activeRoute + 'hire', '----------', extras)
   }
 
   getPayentStatus() {
     setTimeout(() => {
       this.paymentService.pollTransactionStatus(this.transactionId).subscribe({
         next: (success: any) => {
-          console.log(success, 'Success from Comp')
           if (success.status == true) {
             this.isNameVisible = true;
             this.responseData = {
@@ -99,7 +96,6 @@ export class AdvocateComponent {
               transactionId: this.transactionId,
               date: success.date
             }
-            console.log('Payment Success');
             let el = document.getElementById('paymentConfirm') as HTMLElement;
             el.click();
           }
@@ -111,7 +107,6 @@ export class AdvocateComponent {
           }
         },
         error: (error) => {
-          console.log(error, 'Error')
           console.error('Error during payment process', error);
           alert('Something went wrong. Please try again.');
         }
