@@ -837,4 +837,16 @@ export abstract class GQLConfig {
             data
         }
     }`;
+
+    static getUserProfile = gql`mutation($userId: String!, $userType:String!) {
+        userProfile(input: {
+            userId: $userId,
+            userType: $userType
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
 }

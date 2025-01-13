@@ -35,6 +35,7 @@ export class UserProfileComponent {
   emailOtpVerified: boolean = false;
   sellerProfileList: any = '';
   lawyerProfileList: any = '';
+  userProfileList: any = '';
 
   files: any;
   qrData: string = "Payment for Subscription";
@@ -92,13 +93,15 @@ export class UserProfileComponent {
         this.userData = data
       });
     this.getCitiesList();
-    // this.getSellerProfile();
 
     if (this.userData.userType == 'LAWYER') {
       this.getLawyerProfile();
     }
     else if (this.userData.userType == 'SELLER') {
       this.getSellerProfile();
+    }
+    else if (this.userData.userType == 'USER') {
+      this.getUserProfile();
     }
     this.getQrData();
     this.getPlanList();
@@ -131,7 +134,6 @@ export class UserProfileComponent {
 
   getCitiesList() {
     this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
-      // console.log(data)
       this.cities = data;
     })
   }
@@ -670,8 +672,6 @@ export class UserProfileComponent {
   }
 
   patchUserDetail() {
-    let userData = JSON.parse(sessionStorage.getItem('userData')!);
-
     if (this.userType === 'lawyer') {
       this.lawyerEditProfileForm.controls.email.patchValue(this.lawyerProfileList.email);
       this.lawyerEditProfileForm.controls.coreCompetency.patchValue(this.lawyerProfileList.coreCompetency);
@@ -679,10 +679,17 @@ export class UserProfileComponent {
       this.mobileOtpVerified = true;
       this.emailOtpVerified = true;
     } else if (this.userType === 'seller') {
-      this.sellerEditProfileForm.controls.name.patchValue( this.sellerProfileList.name);
-      this.sellerEditProfileForm.controls.city.patchValue( this.sellerProfileList.address);
-      this.sellerEditProfileForm.controls.phoneNumber.patchValue( this.sellerProfileList.primaryContact);
-      this.sellerEditProfileForm.controls.email.patchValue( this.sellerProfileList.email);
+      this.sellerEditProfileForm.controls.name.patchValue(this.sellerProfileList.name);
+      this.sellerEditProfileForm.controls.city.patchValue(this.sellerProfileList.address);
+      this.sellerEditProfileForm.controls.phoneNumber.patchValue(this.sellerProfileList.primaryContact);
+      this.sellerEditProfileForm.controls.email.patchValue(this.sellerProfileList.email);
+      this.mobileOtpVerified = true;
+      this.emailOtpVerified = true;
+    } else if (this.userType === 'user') {
+      this.userEditProfileForm.controls.name.patchValue(this.userProfileList.name);
+      this.userEditProfileForm.controls.city.patchValue(this.userProfileList.city);
+      this.userEditProfileForm.controls.mobile.patchValue(this.userProfileList.primaryContact);
+      this.userEditProfileForm.controls.email.patchValue(this.userProfileList.email);
       this.mobileOtpVerified = true;
       this.emailOtpVerified = true;
     }
@@ -725,6 +732,24 @@ export class UserProfileComponent {
     })
   }
 
+  getSellerProfile() {
+    let data = {
+      sellerId: this.userData._id
+    }
+    this._apolloService.mutate(GQLConfig.sellerProfile, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.sellerProfile.status == 200) {
+          this.sellerProfileList = data.data.sellerProfile.data;
+          console.log("list", this.sellerProfileList )
+          this._toastMessage.message(data.data.sellerProfile.message);
+        }
+        else {
+          this._toastMessage.error(data.data.sellerProfile.message);
+        }
+      }
+    });
+  }
+
   updateSellerProfile() {
     let data = {
       sellerId: this.userData._id,
@@ -732,11 +757,12 @@ export class UserProfileComponent {
       primaryContact: this.sellerEditProfileForm.controls.phoneNumber.value,
       address: this.sellerEditProfileForm.controls.city.value
     }
+    console.log(data)
     this._apolloService.mutate(GQLConfig.updateSellerProfile, data).subscribe(objRes => {
       if (objRes.data != null) {
         if (objRes.data.updateSellerProfile.status == 200) {
+          console.log(objRes.data.updateSellerProfile)
           this._toastMessage.message(objRes.data.updateSellerProfile.message);
-          console.log("datasss", objRes.data.updateSellerProfile)
           this.mobileOtpVerified = true;
           this.emailOtpVerified = true;
           this.getSellerProfile();
@@ -748,23 +774,6 @@ export class UserProfileComponent {
     })
   }
 
-  getSellerProfile() {
-    let data = {
-      sellerId: this.userData._id
-    }
-    this._apolloService.mutate(GQLConfig.sellerProfile, data).subscribe((data: any) => {
-      if (data.data != null) {
-        if (data.data.sellerProfile.status == 200) {
-          this.sellerProfileList = data.data.sellerProfile.data;
-          console.log('list', this.sellerProfileList)
-          this._toastMessage.message(data.data.sellerProfile.message);
-        }
-        else {
-          this._toastMessage.error(data.data.sellerProfile.message);
-        }
-      }
-    })
-  }
 
   getPlanList() {
     this._apolloService.mutate(GQLConfig.getPlanList, { planType: 'LAWYER' }).subscribe(objRes => {
@@ -785,6 +794,24 @@ export class UserProfileComponent {
         }
       }
     })
+  }
+
+  getUserProfile() {
+    let data = {
+      userId: this.userData._id,
+      userType: this.userData.userType
+    }
+    this._apolloService.mutate(GQLConfig.getUserProfile, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.userProfile.status == 200) {
+          this.userProfileList = data.data.userProfile.data;
+          // this._toastMessage.message(data.data.userProfile.message);
+        }
+        else {
+          this._toastMessage.error(data.data.userProfile.message);
+        }
+      }
+    });
   }
 
   ngOnDestroy() {
