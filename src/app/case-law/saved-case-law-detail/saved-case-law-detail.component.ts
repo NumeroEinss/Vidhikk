@@ -38,7 +38,6 @@ export class SavedCaseLawDetailComponent {
       this.savedCaseId = this.routerState.savedCaseId || "";
       this.caseId = this.routerState.caseId || "";
       this.getSavedCaseLaw();
-      this.getQrData();
     }
     else {
       this._router.navigate(['lawyer/case-law/cases']);
@@ -196,8 +195,8 @@ export class SavedCaseLawDetailComponent {
     return contentContainer.outerHTML;
   }
 
-  getQrData() {
-    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+  getQrData(e:any) {
+    this._apolloService.post('/payment/make-payment', { amount: e }).subscribe(objRes => {
       if (objRes != null) {
         // console.log(objRes, "ObjRessssss")
         if (objRes.status == 'success') {

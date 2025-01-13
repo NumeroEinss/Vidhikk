@@ -129,11 +129,33 @@
 
         <mat-form-field appearance="outline">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
+          <input type="text" matInput placeholder="Enter Your Sub Division" formControlName="subDivision" required />
+          <mat-error *ngIf="lawyerForm.controls.subDivision.hasError('required')">Sub Division is Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
           <mat-select placeholder="Select City" formControlName="city"
             (selectionChange)="citySelectionChange($event,'lawyerForm')" required>
-            <mat-option *ngFor="let city of cityList" [value]="city.name">
+            <!-- <mat-option *ngFor="let city of cityList" [value]="city.name">
               {{ city.name }}
-            </mat-option>
+            </mat-option> -->
+
+            <a (click)="$event.stopPropagation()" style="text-decoration: none">
+              <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                <input #search matInput (keyup)="filterCity($event)" />
+                <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
+              </mat-form-field>
+            </a>
+            <div style="height: 190px">
+              <ng-scrollbar>
+                @for (city of filteredCities; track city) {
+                <mat-option [value]="city.name">
+                  {{ city.name }}
+                </mat-option>
+                }
+              </ng-scrollbar>
+            </div>
           </mat-select>
           <mat-error *ngIf="lawyerForm.controls.city.hasError('required')">City is Required</mat-error>
         </mat-form-field>
@@ -271,8 +293,12 @@
                     <mat-grid-tile> -->
 
         <div class="doc-container" *ngIf="docUploadEnabled">
-          <img class="doc" [src]="lawyerForm.controls.docDisplay.value" />
-          <input type="file" #file accept="image/png, image/jpeg" (change)="docChange($event)" />
+          <img class="doc" [src]="lawyerForm.controls.docDisplay.value"
+            *ngIf="lawyerForm.controls.docDisplay.value!=''" />
+          <img class="doc" src="../../../assets/images/image/upload.png" alt=""
+            *ngIf="lawyerForm.controls.docDisplay.value==''">
+          <input type="file" placeholder="Upload Your Document Proof" #file accept="image/png, image/jpeg"
+            (change)="docChange($event)" />
           <div class="doc-input" for="file" (click)="file.click()">
             <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
           </div>
@@ -375,9 +401,25 @@
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
           <mat-select placeholder="Select City" formControlName="city"
             (selectionChange)="citySelectionChange($event,'userForm')" required>
-            <mat-option *ngFor="let city of cityList" [value]="city.name">
+            <!-- <mat-option *ngFor="let city of cityList" [value]="city.name">
               {{ city.name }}
-            </mat-option>
+            </mat-option> -->
+
+            <a (click)="$event.stopPropagation()" style="text-decoration: none">
+              <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                <input #search matInput (keyup)="filterCity($event)" />
+                <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
+              </mat-form-field>
+            </a>
+            <div style="height: 190px">
+              <ng-scrollbar>
+                @for (city of filteredCities; track city) {
+                <mat-option [value]="city.name">
+                  {{ city.name }}
+                </mat-option>
+                }
+              </ng-scrollbar>
+            </div>
           </mat-select>
           <mat-error *ngIf="userForm.controls.city.hasError('required')">City is Required</mat-error>
         </mat-form-field>
@@ -511,9 +553,25 @@
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
           <mat-select placeholder="Select City" formControlName="city"
             (selectionChange)="citySelectionChange($event,'judgeForm')" required>
-            <mat-option *ngFor="let city of cityList" [value]="city.name">
-              {{ city.name }}
-            </mat-option>
+            <!-- <mat-option *ngFor="let city of cityList" [value]="city.name">
+            {{ city.name }}
+            </mat-option> -->
+
+            <a (click)="$event.stopPropagation()" style="text-decoration: none">
+              <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                <input #search matInput (keyup)="filterCity($event)" />
+                <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
+              </mat-form-field>
+            </a>
+            <div style="height: 190px">
+              <ng-scrollbar>
+                @for (city of filteredCities; track city) {
+                <mat-option [value]="city.name">
+                  {{ city.name }}
+                </mat-option>
+                }
+              </ng-scrollbar>
+            </div>
           </mat-select>
           <mat-error *ngIf="judgeForm.controls.city.hasError('required')">City is Required</mat-error>
         </mat-form-field>
@@ -762,9 +820,25 @@
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/org-icon.svg" alt="" /></mat-icon></span>
           <mat-select placeholder="Select City" formControlName="city"
             (selectionChange)="citySelectionChange($event,'sellerForm')" required>
-            <mat-option *ngFor="let city of cityList" [value]="city.name">
+            <!-- <mat-option *ngFor="let city of cityList" [value]="city.name">
               {{ city.name }}
-            </mat-option>
+            </mat-option> -->
+
+            <a (click)="$event.stopPropagation()" style="text-decoration: none">
+              <mat-form-field class="p-2 w-100 search-input" appearance="outline">
+                <input #search matInput (keyup)="filterCity($event)" />
+                <span matSuffix><img class="me-2" src="../../../assets/images/icons/search-blue.svg" /></span>
+              </mat-form-field>
+            </a>
+            <div style="height: 190px">
+              <ng-scrollbar>
+                @for (city of filteredCities; track city) {
+                <mat-option [value]="city.name">
+                  {{ city.name }}
+                </mat-option>
+                }
+              </ng-scrollbar>
+            </div>
           </mat-select>
           <mat-error *ngIf="sellerForm.controls.city.hasError('required')">City is Required</mat-error>
         </mat-form-field>

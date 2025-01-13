@@ -292,8 +292,8 @@
               </a>
               <div style="height: 190px">
                 <ng-scrollbar autoHeightDisabled="false" appearance="standard">
-                  <mat-option *ngFor="let member of addMemberList" [value]="member.value">
-                    {{ member.viewValue }}
+                  <mat-option *ngFor="let member of addMemberList" [value]="member.memberId">
+                    {{ member.memberName }}
                   </mat-option>
                 </ng-scrollbar>
               </div>

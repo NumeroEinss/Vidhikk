@@ -70,7 +70,6 @@ export class SellerDashboardComponent {
     const fileList = event.target.files;
     this.files = Array.from(fileList);
     this.fileUploaded = true;
-    console.log(this.files)
 
     this.files.forEach((file: any) => {
       const reader = new FileReader();

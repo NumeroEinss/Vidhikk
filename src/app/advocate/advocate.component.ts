@@ -5,6 +5,7 @@ import { ApolloService } from '../shared/services/apollo.service';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { Location } from '@angular/common';
 import { imageUrl } from '../graphql.module';
+import { PaaymentService } from '../shared/services/paayment.service';
 
 @Component({
   selector: 'app-advocate',
@@ -21,14 +22,18 @@ export class AdvocateComponent {
   qrData: string = "Payment For Hiring Advocate";
   transactionId: any = "";
   qrAmount: number = 500;
+  responseData: any = {
+    clientName: '',
+    transactionId: '',
+    date: ''
+  }
 
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
-    private location: Location) {
+    private location: Location, private paymentService: PaaymentService) {
     this.lawyerId = this._router.getCurrentNavigation()?.extras.state;
     if (this.lawyerId != undefined) {
       this.activeRoute = this._router.url;
       this.getLawyerDetail();
-      this.getQrData();
     }
     else {
       this.location.back();
@@ -41,6 +46,9 @@ export class AdvocateComponent {
         if (objRes.status == 'success') {
           this.qrData = objRes.data.url;
           this.transactionId = objRes.data.transactionId;
+          let btn = document.getElementById('qrModalTrigger') as HTMLElement;
+          btn.click();
+          this.getPayentStatus();
         }
       }
     })
@@ -72,9 +80,37 @@ export class AdvocateComponent {
   showDetails() {
     this.isNameVisible = true;
   }
-
   navigateToAdvocateSchedule() {
     const extras = this.lawyer._id;
     this._router.navigate([`${this.activeRoute}/hire`], { state: extras });
+  }
+
+  getPayentStatus() {
+    setTimeout(() => {
+      this.paymentService.pollTransactionStatus(this.transactionId).subscribe({
+        next: (success: any) => {
+          if (success.status == true) {
+            this.isNameVisible = true;
+            this.responseData = {
+              clientName: this.lawyer?.lawyerName,
+              transactionId: this.transactionId,
+              date: success.date
+            }
+            let el = document.getElementById('paymentConfirm') as HTMLElement;
+            el.click();
+          }
+          else if (success.status == false) {
+            this._toastMessage.error("Transaction Session Expired !!");
+            this._toastMessage.error('Session Expired')
+            let el = document.getElementById('closeQrModal') as HTMLElement;
+            el.click();
+          }
+        },
+        error: (error) => {
+          console.error('Error during payment process', error);
+          alert('Something went wrong. Please try again.');
+        }
+      });
+    }, 500)
   }
 }

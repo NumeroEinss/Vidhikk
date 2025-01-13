@@ -44,6 +44,7 @@ export class SignupComponent {
   private otpChangeTimeout: any;
 
   cityList: any[] = [];
+  filteredCities: any[] = [];
 
   allDistricts: any[] = [
     { state: 'mp', value: 'indore', viewValue: 'Indore' },
@@ -792,7 +793,8 @@ export class SignupComponent {
             "isEmailDisplay": false,
             "barAddress": this.lawyerForm.controls.barAddress.value,
             "isBarAddressDisplay": this.lawyerForm.controls.isAddressVisible.value,
-            "status": status
+            "status": status,
+            "subDivision": this.lawyerForm.controls.subDivision.value,
           },
           "profileFile": null,
           "docFile": null
@@ -931,7 +933,15 @@ export class SignupComponent {
   getCitiesList() {
     this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
       this.cityList = data;
+      this.filteredCities = this.cityList;
     })
+  }
+
+  filterCity(e: any) {
+    let filter = e.target.value.toLowerCase();
+    this.filteredCities = this.cityList.filter((key: any) =>
+      key.name.toLowerCase().startsWith(filter)
+    );
   }
 
   userTypeChange() {

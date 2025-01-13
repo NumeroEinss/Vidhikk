@@ -208,6 +208,8 @@
                         <mat-form-field appearance="outline" class="textArea">
                             <textarea id="text-area" type="text" matInput placeholder="Enter description"
                                 formControlName="productDescription" minlength="10" rows="3" required></textarea>
+                            <textarea id="text-area" type="text" matInput placeholder="Enter description"
+                                formControlName="productDescription" minlength="10" rows="3" required></textarea>
                             <mat-error
                                 *ngIf="addProductForm.controls['productDescription'].hasError('required')">Description
                                 is Required</mat-error>
@@ -335,7 +337,6 @@
                                   ">Minimum character should be 10</mat-error>
                         </mat-form-field>
 
-                        <mat-label class="mat-label mt-2 mb-1">Product Price</mat-label>
                         <mat-form-field appearance="outline">
                             <input matInput placeholder="Enter product price" formControlName="productPrice"
                                 (keypress)="isNumber($event)" required />

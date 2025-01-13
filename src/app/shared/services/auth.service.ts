@@ -100,8 +100,7 @@ export class AuthService {
 
   updateProfile(data: any) {
     console.log("data", data)
-    this.currentUserSubject.next(data);
-    this.profileImageSubject.next('');
+    this.currentUserSubject?.next(data);
     this.profileImageSubject.next(data.profileImage);
     sessionStorage.setItem('userData', JSON.stringify(data));
   }

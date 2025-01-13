@@ -88,7 +88,6 @@ export class MarketplaceComponent {
       if (data.data != null) {
         if (data.data.getProductList.status == 200) {
           this.productList = data.data.getProductList.data.data;
-          console.log('List', this.productList)
           this.toastMessage.success(data.data.getProductList.message);
         }
         else {

@@ -142,7 +142,6 @@ export class SellerProductProfileComponent {
         shippingHandling: parseFloat(this.sellerRatingForm.value.shippingHandling.rating),
         review: this.sellerRatingForm.controls.review.value,
       }
-      console.log(data)
       this.apolloService.mutate(GQLConfig.createSellerRating, data).subscribe(data => {
         if (data.data != null) {
           if (data.data.createSellerRating.status == 200) {

@@ -21,100 +21,7 @@ export class SubscriptionPlanComponent {
   userType: string;
   activePlan: string = "";
   transactionCompleted: boolean = false;
-  sellerPlans: any = [
-    // {
-    //   productQuantity: '2',
-    //   planPrice: '0',
-    //   currentlyActive: true,
-    //   features: [
-    //     {
-    //       isAvailable: true,
-    //       featureHeading: 'feature 1',
-    //     },
-    //     {
-    //       isAvailable: false,
-    //       featureHeading: 'feature 2',
-    //     },
-    //     {
-    //       isAvailable: false,
-    //       featureHeading: 'feature 3',
-    //     },
-    //     {
-    //       isAvailable: false,
-    //       featureHeading: 'feature 3',
-    //     },
-    //   ]
-    // },
-    // {
-    //   productQuantity: '10',
-    //   planPrice: '1000',
-    //   currentlyActive: false,
-    //   features: [
-    //     {
-    //       isAvailable: true,
-    //       featureHeading: 'feature 1',
-    //     },
-    //     {
-    //       isAvailable: true,
-    //       featureHeading: 'feature 2',
-    //     },
-    //     {
-    //       isAvailable: false,
-    //       featureHeading: 'feature 3',
-    //     },
-    //     {
-    //       isAvailable: false,
-    //       featureHeading: 'feature 3',
-    //     },
-    //   ]
-    // },
-    // {
-    //   productQuantity: '25',
-    //   planPrice: '2250',
-    //   currentlyActive: false,
-    //   features: [
-    //     {
-    //       isAvailable: true,
-    //       featureHeading: 'feature 1',
-    //     },
-    //     {
-    //       isAvailable: true,
-    //       featureHeading: 'feature 2',
-    //     },
-    //     {
-    //       isAvailable: false,
-    //       featureHeading: 'feature 3',
-    //     },
-    //     {
-    //       isAvailable: false,
-    //       featureHeading: 'feature 3',
-    //     },
-    //   ]
-    // },
-    // {
-    //   productQuantity: '50',
-    //   planPrice: '4000',
-    //   currentlyActive: false,
-    //   features: [
-    //     {
-    //       isAvailable: true,
-    //       featureHeading: 'feature 1',
-    //     },
-    //     {
-    //       isAvailable: true,
-    //       featureHeading: 'feature 2',
-    //     },
-    //     {
-    //       isAvailable: true,
-    //       featureHeading: 'feature 3',
-    //     },
-    //     {
-    //       isAvailable: false,
-    //       featureHeading: 'feature 3',
-    //     },
-    //   ]
-    // }
-  ];
+  sellerPlans: any = [ ];
   loading: boolean = false;
 
   constructor(private _apolloService: ApolloService, private _toastMessage: ToastMessageService, public _authService: AuthService, private _subscriptionService: SubscriptionService,
@@ -148,7 +55,6 @@ export class SubscriptionPlanComponent {
 
   choosePlan(plan: any) {
     // console.log("Choose Plan Triggered !!");
-    console.log(plan, 'Selected Plan')
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
     if (userData.userType === 'LAWYER') {
       let reqObj = {
@@ -202,29 +108,27 @@ export class SubscriptionPlanComponent {
     this.clicked.emit(plan.planPrice);
     setTimeout(() => {
       this.paymentService.pollTransactionStatus(this.transactionId).subscribe({
-        next: (success) => {
-          console.log(success, 'Success from Comp')
-          if (success == true) {
+        next: (success:any) => {
+          if (success.status == true) {
             this.transactionCompleted = true;
             this.loading = false;
             this.choosePlan(plan);
             let el = document.getElementById(this.closeModalId) as HTMLElement;
             el.click();
           }
-          else if (success == false) {
+          else if (success.status == false) {
             this._toastMessage.error("Transaction Session Expired !!");
             let el = document.getElementById(this.closeModalId) as HTMLElement;
             el.click();
           }
         },
         error: (error) => {
-          console.log(error, 'Error')
           this.loading = false;
           console.error('Error during payment process', error);
           alert('Something went wrong. Please try again.');
         }
       });
-    }, 500)
+    }, 1000)
   }
 
   setFreePlan(plan: any) {

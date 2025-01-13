@@ -48,7 +48,6 @@ export class BareActsComponent {
         this.bareActsList = objRes.data.acts;
         this.filteredBareActsList = this.bareActsList;
         this.recordCount = objRes.data.totalCount;
-        this.bareActsControl.patchValue('');
       }
     })
   }

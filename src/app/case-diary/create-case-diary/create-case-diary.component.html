@@ -24,7 +24,7 @@
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label">Applicant Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Type applicant name" formControlName="applicantName" required />
+              <input matInput placeholder="Type applicant name" formControlName="applicantName" (keyup)="applicantNameChange($event)" required />
               <mat-error *ngIf="createCaseDiaryForm.controls['applicantName'].errors?.['required']">Applicant Name is
                 Required !!</mat-error>
             </mat-form-field>
@@ -49,7 +49,7 @@
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label">Respondent Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Type respondent name" formControlName="respondentName" required />
+              <input matInput placeholder="Type respondent name" formControlName="respondentName" (keyup)="respondantNameChange($event)" required />
               <mat-error *ngIf="createCaseDiaryForm.controls['respondentName'].errors?.['required']">Respondent Name is
                 Required !!</mat-error>
             </mat-form-field>
@@ -61,7 +61,7 @@
           <div class="d-flex mat-input-white me-4" style="flex-direction: column">
             <mat-label class="mat-label">Case Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Type case name" formControlName="caseName" required />
+              <input matInput placeholder="Type case name" formControlName="caseName" [disabled]="true" required />
               <mat-error *ngIf="createCaseDiaryForm.controls['caseName'].errors?.['required']">Case Name is
                 Required
                 !!</mat-error>

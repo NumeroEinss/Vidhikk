@@ -14,7 +14,8 @@ export class ConferenceComponent implements AfterViewInit {
   message: string = '';
   isMuted: boolean = false;
   userType: string = "";
-  qrData: string = "Payment For Conference Extension"
+  qrData: string = "Payment For Conference Extension";
+  radioValue:string = '100';
 
   chatList = [
     {
@@ -73,7 +74,6 @@ export class ConferenceComponent implements AfterViewInit {
   ngAfterViewInit() {
     let el = document.getElementById('conference') as HTMLElement;
     el.click();
-    this.getQrData();
     // if (this.timer > 60) {
     //   this.countdown.config.format = 'HH:mm:ss';
     // }
@@ -106,11 +106,13 @@ export class ConferenceComponent implements AfterViewInit {
   // }
 
   getQrData() {
-    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+    this._apolloService.post('/payment/make-payment', { amount: this.radioValue }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
           this.qrData = objRes.data.url;
           this.transactionId = objRes.data.transactionId;
+          let btn = document.getElementById('openQrModal') as HTMLElement;
+          btn.click();
         }
       }
     })

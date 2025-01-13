@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
@@ -13,7 +13,7 @@ import { ApolloService } from '../../services/apollo.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements AfterViewInit {
+export class HeaderComponent implements AfterViewInit, OnDestroy {
   userType: string = "";
   userImage: string = "";
   notifications: any = [];
@@ -22,6 +22,8 @@ export class HeaderComponent implements AfterViewInit {
   userData: any;
   qrData: string = "My Vidhik";
   transactionId: any = "";
+  currentUserSubscription: Subscription;
+  activePlan: string = "Free Plan";
 
   @Input() menuName: string = "";
   @Input() searchStyle = { width: '0px', display: 'none' };
@@ -36,6 +38,13 @@ export class HeaderComponent implements AfterViewInit {
       .subscribe((data: any) => {
         this.userImage = data;
       });
+
+    this.currentUserSubscription = this._authService.currentUserSubject
+      .subscribe(user => {
+        // Handle the updated user data
+        this.activePlan = user.activePlan;
+      }); 
+
     this.getNotificationList();
     this.userType = this._router.url.split('/')[1];
     this.userData = JSON.parse(sessionStorage.getItem('userData')!);
@@ -53,10 +62,9 @@ export class HeaderComponent implements AfterViewInit {
     // this.getQrData();
   }
 
-  getQrData() {
-    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+  getQrData(e: any) {
+    this._apolloService.post('/payment/make-payment', { amount: e }).subscribe(objRes => {
       if (objRes != null) {
-        // console.log(objRes, "ObjRessssss")
         if (objRes.status == 'success') {
           this.qrData = objRes.data.url;
           this.transactionId = objRes.data.transactionId;
@@ -113,7 +121,6 @@ export class HeaderComponent implements AfterViewInit {
       if (data != null) {
         if (data.status == 200) {
           this.notifications = data.data;
-          console.log(this.notifications)
           if (this.notifications.length == 0) {
             this.notifications = [{
               title: "No Notifications",
@@ -132,7 +139,7 @@ export class HeaderComponent implements AfterViewInit {
     return daysAgo > 0 ? daysAgo : daysAgo * (-1);
   }
 
-  openNoification() {
+  openNotification() {
     let el = document.getElementById('openNotifications') as HTMLElement;
     el.click();
   }
@@ -147,10 +154,6 @@ export class HeaderComponent implements AfterViewInit {
 
   logout() {
     this._authService.logout();
-  }
-
-  closeQrEvent() {
-    this._router.navigate(['/auth/login']);
   }
 
   ngOnDestroy() {

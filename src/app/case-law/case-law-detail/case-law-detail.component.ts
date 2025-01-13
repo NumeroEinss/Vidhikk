@@ -55,7 +55,6 @@ export class CaseLawDetailComponent {
       this.page = this.routerState.page || 0;
       this.pageSize = this.routerState.pageSize || 0;
       this.getCaseLawDetail();
-      this.getQrData();
     }
     else {
       this._router.navigate(['lawyer/case-law/cases']);
@@ -381,8 +380,8 @@ export class CaseLawDetailComponent {
     this.scrollbar.scrollTo({ top: 0 });
   }
 
-  getQrData() {
-    this._apolloService.post('/payment/make-payment', { amount: "10.00" }).subscribe(objRes => {
+  getQrData(e:any) {
+    this._apolloService.post('/payment/make-payment', { amount: e }).subscribe(objRes => {
       if (objRes != null) {
         // console.log(objRes, "ObjRessssss")
         if (objRes.status == 'success') {
