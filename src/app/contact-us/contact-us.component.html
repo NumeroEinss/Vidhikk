@@ -119,20 +119,17 @@
                             <mat-label class="mat-label mt-2 mb-1">Title</mat-label>
                             <mat-form-field appearance="outline">
                                 <input matInput placeholder="Enter your title" formControlName="ticketTitle" required />
-                                <mat-error *ngIf="ticketForm.controls['ticketTitle'].hasError('required')">Title is
-                                    Required</mat-error>
+                                <mat-error *ngIf="ticketForm.controls['ticketTitle'].hasError('required')">Please enter title</mat-error>
                             </mat-form-field>
 
                             <mat-label class="mat-label mt-2 mb-1">Type of Support</mat-label>
                             <mat-form-field appearance="outline">
-                                <mat-select placeholder="Select your problem" formControlName="ticketType" required>
+                                <mat-select placeholder="Select support" formControlName="ticketType" required>
                                     <mat-option *ngFor="let support of supportList" [value]="support.value">
                                         {{ support.viewValue }}
                                     </mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="ticketForm.controls['ticketType'].hasError('required')">Type
-                                    of support is
-                                    Required</mat-error>
+                                <mat-error *ngIf="ticketForm.controls['ticketType'].hasError('required')">please select type of support</mat-error>
                             </mat-form-field>
 
                             <mat-label class="mat-label mt-2 mb-1">Description</mat-label>
@@ -140,9 +137,7 @@
                                 <textarea id="text-area" type="text" matInput placeholder="Enter description"
                                     formControlName="ticketDescription" required rows="3" minlength="10"></textarea>
                                 <mat-error
-                                    *ngIf="ticketForm.controls['ticketDescription'].hasError('required')">Description
-                                    is
-                                    Required</mat-error>
+                                    *ngIf="ticketForm.controls['ticketDescription'].hasError('required')">Please enter description</mat-error>
                                 <mat-error *ngIf="
                                     !ticketForm.controls.ticketDescription.hasError('required') &&
                                     ticketForm.controls.ticketDescription.hasError('minlength')
@@ -205,20 +200,17 @@
                             <mat-form-field appearance="outline">
                                 <input matInput placeholder="Enter ticket title" formControlName="ticketTitle"
                                     required />
-                                <mat-error *ngIf="ticketForm.controls['ticketTitle'].hasError('required')">Title is
-                                    Required</mat-error>
+                                <mat-error *ngIf="ticketForm.controls['ticketTitle'].hasError('required')">Please enter title</mat-error>
                             </mat-form-field>
 
                             <mat-label class="mat-label mt-2 mb-1">Ticket Type</mat-label>
                             <mat-form-field appearance="outline">
-                                <mat-select placeholder="Select your problem" formControlName="ticketType" required>
+                                <mat-select placeholder="Select ticket type" formControlName="ticketType" required>
                                     <mat-option *ngFor="let support of supportList" [value]="support.value">
                                         {{ support.viewValue }}
                                     </mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="ticketForm.controls['ticketType'].hasError('required')">Type
-                                    of support is
-                                    Required</mat-error>
+                                <mat-error *ngIf="ticketForm.controls['ticketType'].hasError('required')">Please select type of ticket</mat-error>
                             </mat-form-field>
 
                             <mat-label class="mat-label mt-2 mb-1">Description</mat-label>
@@ -226,9 +218,7 @@
                                 <textarea id="text-area" type="text" matInput placeholder="Enter description"
                                     formControlName="ticketDescription" required rows="3" maxlength="100"></textarea>
                                 <mat-error
-                                    *ngIf="ticketForm.controls['ticketDescription'].hasError('required')">Description
-                                    is
-                                    Required</mat-error>
+                                    *ngIf="ticketForm.controls['ticketDescription'].hasError('required')">Please enter description</mat-error>
                             </mat-form-field>
 
                             <div class="mt-4 mb-3 filter-btn">

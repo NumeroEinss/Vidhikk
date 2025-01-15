@@ -18,8 +18,7 @@
                   {{ case.caseName }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="createSubDiaryForm.controls['caseDiaryId'].errors?.['required']">Case name
-                is Required !!</mat-error>
+              <mat-error *ngIf="createSubDiaryForm.controls['caseDiaryId'].errors?.['required']">Please select case</mat-error>
             </mat-form-field>
           </div>
 
@@ -31,8 +30,7 @@
                   {{ member.memberName }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="createSubDiaryForm.controls['memberId'].errors?.['required']">Member name is
-                Required !!</mat-error>
+              <mat-error *ngIf="createSubDiaryForm.controls['memberId'].errors?.['required']">please select member</mat-error>
             </mat-form-field>
           </div>
         </div>

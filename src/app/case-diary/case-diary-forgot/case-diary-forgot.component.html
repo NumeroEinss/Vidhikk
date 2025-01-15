@@ -13,22 +13,22 @@
         <mat-form-field appearance="outline" *ngIf="!isClicked">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/mail-icon.svg" alt="" /></mat-icon></span>
           <input type="text" matInput placeholder="Enter email id" formControlName="email" required />
-          <mat-error *ngIf="caseDiaryForgotForm.controls['email'].hasError('required')">Email is Required</mat-error>
+          <mat-error *ngIf="caseDiaryForgotForm.controls['email'].hasError('required')">Please enter email</mat-error>
           <mat-error *ngIf="
               !caseDiaryForgotForm.controls['email'].hasError('required') &&
               caseDiaryForgotForm.controls['email'].invalid
-            ">Email invalid</mat-error>
+            ">Please enter valid email</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" *ngIf="otpFieldVisible && !isClicked">
           <span matPrefix><mat-icon><img src="../../../assets/images/icons/lock-icon.svg" alt="" /></mat-icon></span>
-          <input type="text" matInput placeholder="Enter email id" formControlName="otp" maxlength="6"
+          <input type="text" matInput placeholder="Enter OTP" formControlName="otp" maxlength="6"
             (keypress)="isNumber($event)" required />
-          <mat-error *ngIf="caseDiaryForgotForm.controls['otp'].hasError('required')">Otp is Required</mat-error>
+          <mat-error *ngIf="caseDiaryForgotForm.controls['otp'].hasError('required')">Please enter OTP</mat-error>
           <mat-error *ngIf="
               !caseDiaryForgotForm.controls['otp'].hasError('required') &&
               caseDiaryForgotForm.controls['otp'].invalid
-            ">Otp invalid</mat-error>
+            ">Please enter valid OTP</mat-error>
         </mat-form-field>
 
         <div class="text-center mt-3" *ngIf="!isClicked && !otpFieldVisible" type="button">
@@ -51,7 +51,7 @@
             [attr.aria-pressed]="hide">
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
-          <mat-error *ngIf="caseDiaryForgotForm2.controls['password'].errors?.['required']">Password is Required
+          <mat-error *ngIf="caseDiaryForgotForm2.controls['password'].errors?.['required']">Please enter password
             !!</mat-error>
           <mat-error
             *ngIf="!caseDiaryForgotForm2.controls['password'].errors?.['required'] && caseDiaryForgotForm2.controls['password'].invalid">Enter
@@ -69,7 +69,7 @@
               }}</mat-icon>
           </button>
           <mat-error *ngIf="caseDiaryForgotForm2.controls['confirmPassword'].errors?.['required']">
-            Confirm Password is Required !!</mat-error>
+           Please confirm your password</mat-error>
           <mat-error *ngIf="
             caseDiaryForgotForm2.controls.confirmPassword.errors?.passwordMatch
           ">Password does not match</mat-error>

@@ -32,13 +32,13 @@
 
           <mat-form-field appearance="outline">
             <span matPrefix><img src="../../../assets/images/icons/phone-icon.svg" /></span>
-            <input type="text" matInput placeholder="Enter phone number" formControlName="mobile" required
+            <input type="text" matInput placeholder="Enter mobile number" formControlName="mobile" required
               maxlength="10" (keypress)="isNumber($event)" />
-            <mat-error *ngIf="loginForm2.controls['mobile'].hasError('required')">Please enter phone number</mat-error>
+            <mat-error *ngIf="loginForm2.controls['mobile'].hasError('required')">Please enter mobile number</mat-error>
             <mat-error *ngIf="
                 !loginForm2.controls['mobile'].hasError('required') &&
                 loginForm2.controls['mobile'].invalid
-              ">Please enter valid phone number</mat-error>
+              ">Please enter valid mobile number</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="password">

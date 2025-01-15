@@ -839,7 +839,7 @@ export class SignupComponent {
 
   hasGstInNo() {
     if (this.sellerForm.controls.hasGstin.value == true) {
-      this.sellerForm.controls.hasGstin.addValidators(Validators.required)
+      this.sellerForm.controls.gstinNo.addValidators(Validators.required)
     }
     else {
       this.sellerForm.controls.hasGstin.removeValidators(Validators.required)

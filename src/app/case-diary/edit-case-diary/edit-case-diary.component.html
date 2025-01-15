@@ -12,14 +12,12 @@
                         <mat-label class="mat-label">Registration Date</mat-label>
                         <mat-form-field appearance="outline">
                             <input matInput [matDatepicker]="picker" formControlName="registrationDate"
-                                placeholder="Select Registration Date" [readonly]="true" required>
+                                placeholder="Select registration date" [readonly]="true" required>
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error
-                                *ngIf="editCaseDiaryForm.controls['registrationDate'].errors?.['required']">Registration
-                                Date
-                                is Required !!</mat-error>
+                                *ngIf="editCaseDiaryForm.controls['registrationDate'].errors?.['required']">please enter registration date</mat-error>
                         </mat-form-field>
                     </div>
 
@@ -29,9 +27,7 @@
                             <input matInput placeholder="Type applicant name" formControlName="applicantName"
                                 required />
                             <mat-error
-                                *ngIf="editCaseDiaryForm.controls['applicantName'].errors?.['required']">Applicant
-                                Name is
-                                Required !!</mat-error>
+                                *ngIf="editCaseDiaryForm.controls['applicantName'].errors?.['required']">please enter applicant name</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -45,11 +41,9 @@
                                     {{ court.name }}
                                 </mat-option>
                             </mat-select> -->
-                            <input matInput placeholder="Enter Court Name" formControlName="courtName" />
-                            <mat-error *ngIf="editCaseDiaryForm.controls['courtName'].errors?.['required']">Court Name
-                                is
-                                Required
-                                !!</mat-error>
+                            <input matInput placeholder="Enter court name" formControlName="courtName" />
+                            <mat-error *ngIf="editCaseDiaryForm.controls['courtName'].errors?.['required']">Please enter court name
+                                </mat-error>
                         </mat-form-field>
                     </div>
 
@@ -59,10 +53,7 @@
                             <input matInput placeholder="Type respondent name" formControlName="respondentName"
                                 required />
                             <mat-error
-                                *ngIf="editCaseDiaryForm.controls['respondentName'].errors?.['required']">Respondent
-                                Name
-                                is
-                                Required !!</mat-error>
+                                *ngIf="editCaseDiaryForm.controls['respondentName'].errors?.['required']">Please enter respondent name</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -73,9 +64,7 @@
                         <mat-label class="mat-label">Case Name</mat-label>
                         <mat-form-field appearance="outline">
                             <input matInput placeholder="Type case name" formControlName="caseName" required />
-                            <mat-error *ngIf="editCaseDiaryForm.controls['caseName'].errors?.['required']">Case Name is
-                                Required
-                                !!</mat-error>
+                            <mat-error *ngIf="editCaseDiaryForm.controls['caseName'].errors?.['required']">Please enter case name</mat-error>
                         </mat-form-field>
                     </div>
 
@@ -97,7 +86,7 @@
                             <mat-radio-button value="Respondant" checked>Respondant</mat-radio-button>
                         </mat-radio-group>
                         <mat-error *ngIf="editCaseDiaryForm.controls['representing'].errors?.['required']">
-                            Representing is Required !!</mat-error>
+                           Please select representing</mat-error>
                         <!-- </mat-form-field> -->
                     </div>
                 </div>
@@ -113,16 +102,14 @@
                                 </mat-option>
                                 }
                             </mat-select>
-                            <mat-error *ngIf="editCaseDiaryForm.controls['city'].errors?.['required']">City is
-                                Required
-                                !!</mat-error>
+                            <mat-error *ngIf="editCaseDiaryForm.controls['city'].errors?.['required']">Please select city</mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="d-flex mat-input-white" style="flex-direction: column">
                         <mat-label class="mat-label">Section</mat-label>
                         <mat-form-field appearance="outline">
-                            <input matInput placeholder="Type IPC Section" formControlName="sectionIPC" />
+                            <input matInput placeholder="Type IPC section" formControlName="sectionIPC" />
                         </mat-form-field>
                     </div>
                 </div>
@@ -149,20 +136,20 @@
 
                 <div class="case-diary-col row">
                     <div class="d-flex mat-input-white me-4" style="flex-direction: column">
-                        <mat-label class="mat-label">Client Email</mat-label>
+                        <mat-label class="mat-label">Client email</mat-label>
                         <mat-form-field appearance="outline">
-                            <input matInput placeholder="Enter Client Email" formControlName="clientEmail" />
+                            <input matInput placeholder="Enter client email" formControlName="clientEmail" />
                             <mat-error *ngIf="editCaseDiaryForm.controls['clientEmail'].errors?.['required']">
-                                Client Email is Required !!</mat-error>
+                               Please enter client email</mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="d-flex mat-input-white me-4" style="flex-direction: column">
                         <mat-label class="mat-label">Client Contact No.</mat-label>
                         <mat-form-field appearance="outline">
-                            <input matInput placeholder="Enter Client Contact" formControlName="clientContact" />
+                            <input matInput placeholder="Enter client contact" formControlName="clientContact" />
                             <mat-error *ngIf="editCaseDiaryForm.controls['clientContact'].errors?.['required']">
-                                Client Contact is Required !!</mat-error>
+                                Please enter client contact</mat-error>
                         </mat-form-field>
                     </div>
                 </div>

@@ -45,7 +45,7 @@
                 onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'"
                 class="user-profile" /> -->
               <div class="profile-image">
-                <img class="profile" [src]="displayImage" />
+                <img class="profile" [src]="displayImage"  onerror="this.onerror=null;this.src='../../../../assets/images/image/placeholder.png'"/>
                 <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
                 <div class="profile-input" for="file" (click)="file.click()">
                   <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
@@ -446,11 +446,11 @@
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label mt-2 mb-1">Core Competency</mat-label>
             <mat-form-field appearance="outline" class="textArea">
-              <textarea id="text-area" type="text" matInput placeholder="Enter Your Core Competency"
+              <textarea id="text-area" type="text" matInput placeholder="Enter your core competency"
                 formControlName="coreCompetency" required rows="3" maxlength="200"></textarea>
               <mat-error *ngIf="
                   lawyerEditProfileForm.controls['coreCompetency'].hasError('required')
-                ">Core Competency is Required</mat-error>
+                ">Please enter core competency</mat-error>
               <!-- <mat-error *ngIf="!lawyerEditProfileForm.controls['coreCompetency'].hasError('required') &&
                                                   lawyerEditProfileForm.controls['coreCompetency'].hasError('minlength')">Minimum 150 Characters
                                                  Required</mat-error> -->
@@ -472,14 +472,13 @@
             </div>
 
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Mobile No" formControlName="phoneNumber" maxlength="10"
+              <input matInput placeholder="Enter mobile number" formControlName="phoneNumber" maxlength="10"
                 (keypress)="isNumber($event)" (change)="mobileNumberChanged()" required />
-              <mat-error *ngIf="lawyerEditProfileForm.controls['phoneNumber'].hasError('required')">Mobile No. is
-                Required</mat-error>
+              <mat-error *ngIf="lawyerEditProfileForm.controls['phoneNumber'].hasError('required')">Please enter mobile number</mat-error>
               <mat-error *ngIf="
                   !lawyerEditProfileForm.controls['phoneNumber'].hasError('required') &&
                   lawyerEditProfileForm.controls['phoneNumber'].invalid
-                ">Mobile No. invalid</mat-error>
+                ">please enter valid mobile number</mat-error>
             </mat-form-field>
 
             <div class="row-field mt-3 mb-1">
@@ -491,13 +490,12 @@
               </div>
             </div>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Email" formControlName="email" (change)="emailChanged()" required />
-              <mat-error *ngIf="lawyerEditProfileForm.controls['email'].hasError('required')">Email is
-                Required</mat-error>
+              <input matInput placeholder="Enter email" formControlName="email" (change)="emailChanged()" required />
+              <mat-error *ngIf="lawyerEditProfileForm.controls['email'].hasError('required')">Please enter email</mat-error>
               <mat-error *ngIf="
                   !lawyerEditProfileForm.controls['email'].hasError('required') &&
                   lawyerEditProfileForm.controls['email'].invalid
-                ">Email is invalid</mat-error>
+                ">Please enter valid email</mat-error>
             </mat-form-field>
           </div>
 
@@ -706,24 +704,19 @@
 
             <mat-label class="mat-label mt-3 mb-2">Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Name" formControlName="name" required />
-              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Name is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['name'].hasError('required') &&
-                    userEditProfileForm.controls['name'].invalid
-                  ">Name is invalid</mat-error>
+              <input matInput placeholder="Enter name" formControlName="name" required />
+              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Please enter name</mat-error>
+
             </mat-form-field>
 
             <mat-label class="mat-label mt-2 mb-2">Select Location</mat-label>
             <mat-form-field appearance="outline">
-              <mat-select placeholder="Select City" formControlName="city" required>
+              <mat-select placeholder="Select city" formControlName="city" required>
                 <mat-option *ngFor="let city of cities" [value]="city.name">
                   {{ city.name }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['city'].hasError('required')">City is
-                Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['city'].hasError('required')">Please select city</mat-error>
               <mat-error *ngIf="
                     !userEditProfileForm.controls['city'].hasError('required') &&
                     userEditProfileForm.controls['city'].invalid
@@ -739,14 +732,13 @@
             </div>
 
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Mobile No" formControlName="mobile" maxlength="10"
+              <input matInput placeholder="Enter mobile number" formControlName="mobile" maxlength="10"
               (keypress)="isNumber($event)" (change)="mobileNumberChanged()" required />
-              <mat-error *ngIf="userEditProfileForm.controls['mobile'].hasError('required')">Mobile No. is
-                Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['mobile'].hasError('required')">Please enter mobile number</mat-error>
               <mat-error *ngIf="
                   !userEditProfileForm.controls['mobile'].hasError('required') &&
                   userEditProfileForm.controls['mobile'].invalid
-                ">Mobile No. invalid</mat-error>
+                ">Please enter valid mobile number</mat-error>
             </mat-form-field>
 
             <div class="row-field mt-2">
@@ -758,13 +750,12 @@
               </div>
             </div>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Email" formControlName="email" (change)="emailChanged()" required />
-              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Email is
-                Required</mat-error>
+              <input matInput placeholder="Enter email" formControlName="email" (change)="emailChanged()" required />
+              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Please enter email</mat-error>
               <mat-error *ngIf="
                   !userEditProfileForm.controls['email'].hasError('required') &&
                   userEditProfileForm.controls['email'].invalid
-                ">Email is invalid</mat-error>
+                ">Please enter valid email</mat-error>
             </mat-form-field>
           </div>
 
@@ -810,13 +801,8 @@
 
             <mat-label class="mat-label mt-3">Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Name" formControlName="name" required />
-              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Name is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['name'].hasError('required') &&
-                    userEditProfileForm.controls['name'].invalid
-                  ">Name is invalid</mat-error>
+              <input matInput placeholder="Enter name" formControlName="name" required />
+              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Please enter name</mat-error>
             </mat-form-field>
 
             <mat-label class="mat-label mt-2">Select State</mat-label>
@@ -826,12 +812,7 @@
                   {{ state.viewValue }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['state'].hasError('required')">State is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['state'].hasError('required') &&
-                    userEditProfileForm.controls['state'].invalid
-                  ">City is invalid</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['state'].hasError('required')">Please select state</mat-error>
             </mat-form-field>
 
             <mat-label class="mat-label mt-2">Select District</mat-label>
@@ -841,12 +822,7 @@
                   {{ district.viewValue }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['district'].hasError('required')">District is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['district'].hasError('required') &&
-                    userEditProfileForm.controls['district'].invalid
-                  ">City is invalid</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['district'].hasError('required')">Please select district</mat-error>
             </mat-form-field>
 
             <mat-label class="mat-label mt-2">Select Court Type</mat-label>
@@ -856,14 +832,8 @@
                   {{ court.viewValue }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['courtType'].hasError('required')">Court Type is
-                Required</mat-error>
-              <mat-error *ngIf="userEditProfileForm.controls['courtType'].hasError('required')">Court Type is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['courtType'].hasError('required') &&
-                    userEditProfileForm.controls['courtType'].invalid
-                  ">City is invalid</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['courtType'].hasError('required')">Please enter type of court</mat-error>
+  
             </mat-form-field>
 
             <mat-label class="mat-label mt-2">Select Court Name</mat-label>
@@ -873,14 +843,7 @@
                   {{ name.viewValue }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['courtName'].hasError('required')">Court Name is
-                Required</mat-error>
-              <mat-error *ngIf="userEditProfileForm.controls['courtName'].hasError('required')">Court Name is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['courtName'].hasError('required') &&
-                    userEditProfileForm.controls['courtName'].invalid
-                  ">City is invalid</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['courtName'].hasError('required')">Please enter court name</mat-error>
             </mat-form-field>
 
 
@@ -894,12 +857,11 @@
             <mat-form-field appearance="outline">
               <input matInput placeholder="Enter Mobile No" formControlName="mobile" maxlength="10"
                 (keypress)="isNumber($event)" required />
-              <mat-error *ngIf="userEditProfileForm.controls['mobile'].hasError('required')">Mobile No. is
-                Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['mobile'].hasError('required')"></mat-error>
               <mat-error *ngIf="
                   !userEditProfileForm.controls['mobile'].hasError('required') &&
                   userEditProfileForm.controls['mobile'].invalid
-                ">Mobile No. invalid</mat-error>
+                ">Please enter valid mobile number</mat-error>
             </mat-form-field>
 
             <div class="row-field mt-3 mb-1">
@@ -909,13 +871,12 @@
               </div>
             </div>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Email" formControlName="email" required />
-              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Email is
-                Required</mat-error>
+              <input matInput placeholder="Enter email" formControlName="email" required />
+              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Please enter email</mat-error>
               <mat-error *ngIf="
                   !userEditProfileForm.controls['email'].hasError('required') &&
                   userEditProfileForm.controls['email'].invalid
-                ">Email is invalid</mat-error>
+                ">Please enter valid email</mat-error>
             </mat-form-field>
           </div>
 

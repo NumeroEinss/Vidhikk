@@ -103,7 +103,7 @@ export class UserProfileComponent {
     else if (this.userData.userType == 'USER') {
       this.getUserProfile();
     }
-    this.getQrData();
+    // this.getQrData();
     this.getPlanList();
   }
 
