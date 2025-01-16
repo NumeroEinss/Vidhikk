@@ -29,7 +29,8 @@
             <!-- search-bar start -->
             <div class="search-bar">
                 <mat-form-field appearance="outline" class="mat-input-white">
-                    <input matInput placeholder="Search Advocates" (keyup)="filterLawyers($event)" required />
+                    <input matInput placeholder="Search Advocates" [(ngModel)]="searchQuery"
+                    (ngModelChange)="filterLawyers()" required />
                     <div matSuffix>
                         <img src="../../../assets/images/icons/search-blue.svg"
                             style="margin-right: 20px; cursor: pointer" />

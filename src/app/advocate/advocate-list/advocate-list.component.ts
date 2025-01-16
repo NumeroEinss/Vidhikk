@@ -19,18 +19,19 @@ export class AdvocateListComponent {
     { value: 'taxation', viewValue: "Taxation Advocate" }
   ];
   selectedAdvocateType: string = "all";
+  searchQuery: string = '';
 
   popularLawyerList: any = [
     {
       image: '../../../assets/images/image/lawyer_3.jpg',
-      location: 'Bhopal ,M.P.',
+      location: 'Bhopal, M.P.',
       type: 'Criminal Lawyer',
       experience: '9+ Experience',
       rating: 4
     },
     {
       image: '../../../assets/images/image/advocate_3.jpg',
-      location: 'Bhopal ,M.P.',
+      location: 'Bhopal, M.P.',
       type: 'Criminal Lawyer',
       experience: '9+ Experience',
       rating: 4
@@ -44,14 +45,14 @@ export class AdvocateListComponent {
     },
     {
       image: '../../../assets/images/image/advocate_4.jpg',
-      location: 'Bhopal ,M.P.',
+      location: 'Bhopal, M.P.',
       type: 'Criminal Lawyer',
       experience: '9+ Experience',
       rating: 4
     },
     {
       image: '../../../assets/images/image/lawyer_3.jpg',
-      location: 'Bhopal ,M.P.',
+      location: 'Bhopal, M.P.',
       type: 'Criminal Lawyer',
       experience: '9+ Experience',
       rating: 4
@@ -129,10 +130,18 @@ export class AdvocateListComponent {
     return info?.slice(0, 15);
   }
 
-  filterLawyers(e: any) {
-    let filter = e.target.value.toLowerCase();
-    this.filteredLawyerList = this.lawyerList.filter((key: any) =>
-      key.city.toLowerCase().startsWith(filter)
-    );
+  // filterLawyers(e: any) {
+  //   let filter = e.target.value.toLowerCase();
+  //   this.filteredLawyerList = this.lawyerList.filter((key: any) =>
+  //     key.city.toLowerCase().startsWith(filter)
+  //   );
+  // }
+
+  filterLawyers(){
+      this.filteredLawyerList = this.lawyerList.filter((lawyer:any) =>
+        Object.values(lawyer).some(value =>
+          value?.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
+        )
+      );
   }
 }
