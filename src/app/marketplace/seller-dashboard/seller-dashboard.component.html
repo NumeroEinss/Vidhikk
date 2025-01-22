@@ -208,8 +208,6 @@
                         <mat-form-field appearance="outline" class="textArea">
                             <textarea id="text-area" type="text" matInput placeholder="Enter description"
                                 formControlName="productDescription" minlength="10" rows="3" required></textarea>
-                            <textarea id="text-area" type="text" matInput placeholder="Enter description"
-                                formControlName="productDescription" minlength="10" rows="3" required></textarea>
                             <mat-error
                                 *ngIf="addProductForm.controls['productDescription'].hasError('required')">Description
                                 is Required</mat-error>

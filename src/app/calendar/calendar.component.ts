@@ -334,6 +334,7 @@ export class CalendarComponent {
         if (objRes.data != null) {
           if (objRes.data.addAvailability.status == 200) {
             this._toastMessage.success(objRes.data.addAvailability.message);
+            console.log("dghatfda",objRes.data.addAvailability)
             let closeEventButton = document.getElementById('closeAvailabilityButton') as HTMLElement;
             closeEventButton.click();
             this.getAvailabilityList();

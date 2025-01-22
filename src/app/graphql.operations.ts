@@ -866,4 +866,20 @@ export abstract class GQLConfig {
         }
     }`;
 
+    static updateUserProfile = gql`mutation($userId: String, $name:String, $email:String, $primaryContact:String, $address:String, $city:String, $state:String) {
+        updateUserProfile(input: {
+            userId: $userId,
+            name: $name,
+            email:$email,
+            primaryContact:$primaryContact,
+            address:$address,
+            city:$city,
+            state:$state,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
 }

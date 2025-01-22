@@ -79,9 +79,9 @@
 
 
             <div class="add-rating" *ngIf="isRatingAdd">
-                <div>Add Overall Rating</div>
-                <div class="disabled-star mt-2"><star-rating [starType]="'svg'" [rating]="2.63"
-                        [readOnly]="true"></star-rating></div>
+                <div>Add Star Rating</div>
+                <!-- <div class="disabled-star mt-2"><star-rating [starType]="'svg'" [rating]="2.63"
+                        [readOnly]="true"></star-rating></div> -->
                 <form [formGroup]="lawyerRatingForm">
                     <div class="add-overall-rating">
                         <div class="d-flex">
@@ -131,7 +131,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="days">{{rating.createdAt}}</div>
+                    <div class="days">{{getDaysAgo(rating.createdAt)>0?getDaysAgo(rating.createdAt) + ' days ago':'Today'}}</div>
                 </div>
                 <hr>
             </div>

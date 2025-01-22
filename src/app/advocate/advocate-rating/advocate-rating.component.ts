@@ -35,6 +35,25 @@ export class AdvocateRatingComponent {
     this.lawyerRatingForm.get(parameter)?.setValue(e);
   }
 
+  getDaysAgo(dateString: string): number {
+    const [datePart] = dateString.split(',');
+ 
+    const [day, month, year] = datePart.trim().split('/').map(Number);
+    const inputDate = new Date(year, month - 1, day);
+  
+    const today = new Date();
+    
+    inputDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    const diffInMs = today.getTime() - inputDate.getTime();
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  
+    return diffInDays;
+  }
+  
+  
+
   getLawyerRating() {
     this._apolloService.mutate(GQLConfig.getLawyerRating, { lawyerId: this.lawyerId }).subscribe(data => {
       if (data.data != null) {
@@ -42,6 +61,7 @@ export class AdvocateRatingComponent {
           this._toastMessage.success(data.data.getLawyerRatingList.message);
           this.lawyer = data.data.getLawyerRatingList.data;
           this.ratingList = data.data.getLawyerRatingList.data.lawyerRatingList;
+          console.log("this.ratingList", this.ratingList)
         }
         else {
           this._toastMessage.success(data.data.getLawyerRatingList.message);
