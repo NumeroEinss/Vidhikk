@@ -882,4 +882,16 @@ export abstract class GQLConfig {
         }
     }`;
 
+
+    static deletelawyerAccount = gql`mutation($lawyerId: String) {
+        deletelawyerAccount(input: {
+            lawyerId: $lawyerId,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+
 }

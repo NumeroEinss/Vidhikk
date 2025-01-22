@@ -32,7 +32,8 @@
             <!-- search-bar start -->
             <div class="search-bar">
                 <mat-form-field appearance="outline">
-                    <input matInput placeholder="Search Ticket" required />
+                    <input matInput placeholder="Search Ticket"  [(ngModel)]="searchTicket"
+                    (ngModelChange)="filterTickets()" />
                     <div matSuffix>
                         <img src="../../../assets/images/icons/search-blue.svg"
                             style="margin-right: 15px; cursor: pointer" />

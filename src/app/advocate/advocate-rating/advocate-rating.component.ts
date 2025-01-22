@@ -61,7 +61,6 @@ export class AdvocateRatingComponent {
           this._toastMessage.success(data.data.getLawyerRatingList.message);
           this.lawyer = data.data.getLawyerRatingList.data;
           this.ratingList = data.data.getLawyerRatingList.data.lawyerRatingList;
-          console.log("this.ratingList", this.ratingList)
         }
         else {
           this._toastMessage.success(data.data.getLawyerRatingList.message);

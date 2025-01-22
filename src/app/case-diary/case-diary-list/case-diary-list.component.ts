@@ -31,7 +31,7 @@ export class CaseDiaryListComponent {
   today: Date = new Date();
 
   selectedSubDiary: any;
-  searchQuery: string = '';
+  searchCases: string = '';
   originalCaseDiaryList: any[] = [];
   originalSubDiaryList: any[] = [];
 
@@ -223,7 +223,7 @@ export class CaseDiaryListComponent {
   }
 
   filterCaseDiary() {
-    if (this.searchQuery.trim() === '') {
+    if (this.searchCases.trim() === '') {
       if (this.selectedDiary === 'caseDiary') {
         this.caseDiaryList = [...this.originalCaseDiaryList];
       } else if (this.selectedDiary === 'subDiary') {
@@ -234,13 +234,13 @@ export class CaseDiaryListComponent {
     if (this.selectedDiary === 'caseDiary') {
       this.caseDiaryList = this.originalCaseDiaryList.filter(caseItem =>
         Object.values(caseItem).some(value =>
-          value?.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
+          value?.toString().toLowerCase().includes(this.searchCases.toLowerCase())
         )
       );
     } else if (this.selectedDiary === 'subDiary') {
       this.subDiaryList = this.originalSubDiaryList.filter(caseItem =>
         Object.values(caseItem).some(value =>
-          value?.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
+          value?.toString().toLowerCase().includes(this.searchCases.toLowerCase())
         )
       );
      }

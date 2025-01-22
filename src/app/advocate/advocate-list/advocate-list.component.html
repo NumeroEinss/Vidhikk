@@ -9,9 +9,10 @@
         <div class="advocate-header-menu" id="header-menu">
             <!-- filter section start -->
             <div class="filter-section">
-                <mat-form-field appearance="outline" class="mat-input-white">
+                <img src="../../../assets/images/icons/filter.svg" alt="" data-bs-target="#advocateFilterModal" data-bs-toggle="modal">
+                <!-- <mat-form-field appearance="outline" class="mat-input-white">
                     <span matPrefix><img src="../../../assets/images/icons/funnel.svg" class="ms-3" /></span>
-                    <mat-select placeholder="Select advocate type" required [(value)]="selectedAdvocateType">
+                    <mat-select placeholder="Select advocate type" [(value)]="selectedAdvocateType">
                         @for (advocate of advocateTypeList; track advocate) {
                         <mat-option [value]="advocate.value" class="mat-options">
                             {{ advocate.viewValue }}
@@ -22,7 +23,7 @@
                             Apply Filter
                         </mat-option>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
             <!-- filter section ends -->
 
@@ -30,7 +31,7 @@
             <div class="search-bar">
                 <mat-form-field appearance="outline" class="mat-input-white">
                     <input matInput placeholder="Search Advocates" [(ngModel)]="searchQuery"
-                    (ngModelChange)="filterLawyers()" required />
+                    (ngModelChange)="filterLawyers()" />
                     <div matSuffix>
                         <img src="../../../assets/images/icons/search-blue.svg"
                             style="margin-right: 20px; cursor: pointer" />

@@ -87,7 +87,7 @@ export class UserProfileComponent {
     this._authService.profileImageSubject.asObservable()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(data => {
-        this.displayImage = imageUrl() + data;  
+        this.displayImage = imageUrl() + data;
       });
     this._authService.currentUserSubject.asObservable()
       .pipe(takeUntil(this.onDestroy$))
@@ -323,7 +323,7 @@ export class UserProfileComponent {
     try {
       const objRes: any = await lastValueFrom(this._apolloService.upload({ query: mutation, variables }, this.userImage, "0"));
       const resultKey = this.getResultKeyForUserType();
-      console.log(objRes.data,'-------------data')
+      console.log(objRes.data, '-------------data')
       if (objRes.data && objRes.data[resultKey]) {
         this._toastMessage.success(objRes.data[resultKey].message);
         this._authService.updateProfile(objRes.data[resultKey].data);
@@ -751,6 +751,23 @@ export class UserProfileComponent {
         }
         else {
           this._toastMessage.error(data.data.updateUserProfile.message);
+        }
+      }
+    });
+  }
+
+
+  deleteLawyerAccount() {
+    let data = {
+      lawyerId: this.userData._id,
+    }
+    this._apolloService.mutate(GQLConfig.deletelawyerAccount, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.deletelawyerAccount.status == 200) {
+          this._toastMessage.message(data.data.deletelawyerAccount.message);
+        }
+        else {
+          this._toastMessage.error(data.data.userProfile.message);
         }
       }
     });

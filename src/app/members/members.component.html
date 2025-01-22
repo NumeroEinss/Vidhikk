@@ -160,6 +160,9 @@
             </div>
 
             <ng-scrollbar style="height: 485px">
+              <div class="no-data mt-5" *ngIf="filteredLawyerList.length == 0">
+                <img src="../../../assets/images/image/No_Data.png" alt="">
+              </div>
               <div class="add-member-details" *ngFor="let lawyer of filteredLawyerList">
                 <div class="d-flex align-items-center">
                   <div>
