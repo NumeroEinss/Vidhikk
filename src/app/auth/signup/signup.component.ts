@@ -764,8 +764,7 @@ export class SignupComponent {
       let isLawyerVerified: Boolean = await this.isLawyerVerified(this.lawyerForm.controls.licenseNo.value.trim());
 
       isLawyerVerified === true ? status = "Approved" : status = "";
-
-      const mutation = {
+      const mutation = this.docUploadEnabled == true ? {
         "query": "mutation ($input: AdvocateProfile!, $profileFile: Upload, $docFile:Upload) { createLawyers(input: $input, profileFile: $profileFile, docFile:$docFile) { status message data } }",
         "variables": {
           "input": {
@@ -799,11 +798,44 @@ export class SignupComponent {
           "profileFile": null,
           "docFile": null
         }
-      }
-
+      } :
+        {
+          "query": "mutation ($input: AdvocateProfile!, $profileFile: Upload, $docFile:Upload) { createLawyers(input: $input, profileFile: $profileFile, docFile:$docFile) { status message data } }",
+          "variables": {
+            "input": {
+              "userType": this.userType,
+              "lawyerName": this.lawyerForm.controls.name.value,
+              "fatherName": this.lawyerForm.controls.fatherName.value,
+              "orgainization": this.lawyerForm.controls.orgainization.value,
+              "primaryContact": this.lawyerForm.controls.phoneNumber.value,
+              "isPrimaryContactWhatsapp": this.lawyerForm.controls.isPrimaryContactWhatsapp.value,
+              "isPrimaryMobileDisplay": this.lawyerForm.controls.isPrimaryContactVisible.value,
+              "secondaryContact": this.lawyerForm.controls.secondaryContact.value,
+              "isSecondaryContactWhatsapp": this.lawyerForm.controls.isSecondaryContactWhatsapp.value,
+              "isSecondaryMobileDisplay": this.lawyerForm.controls.isSecondaryContactVisible.value,
+              "city": this.lawyerForm.controls.city.value,
+              "state": this.lawyerForm.controls.state.value,
+              "email": this.lawyerForm.controls.email.value,
+              "password": this.lawyerForm.controls.password.value,
+              "confirmPassword": this.lawyerForm.controls.confirmPassword.value,
+              "barLicenseNumber": this.lawyerForm.controls.licenseNo.value,
+              "stateBar": this.lawyerForm.controls.stateBar.value,
+              "practiceYear": parseInt(this.lawyerForm.controls.practiceYear.value),
+              "coreCompetency": this.lawyerForm.controls.coreCompetency.value,
+              "practicingCourt": this.lawyerForm.controls.courtName.value,
+              "practicingField": this.lawyerForm.controls.practiceField.value,
+              "isEmailDisplay": false,
+              "barAddress": this.lawyerForm.controls.barAddress.value,
+              "isBarAddressDisplay": this.lawyerForm.controls.isAddressVisible.value,
+              "status": status,
+              "subDivision": this.lawyerForm.controls.subDivision.value,
+            },
+            "profileFile": null
+          }
+        }
+      console.log("file", this.lawyerForm.controls.file.value, this.lawyerForm.controls.docFile.value)
       this._apolloService.uploadLawyer(mutation, this.lawyerForm.controls.file.value, this.lawyerForm.controls.docFile.value).subscribe(objRes => {
         if (objRes.data != null) {
-
           if (isLawyerVerified == false) {
             if (objRes.data.createLawyers.status == 200) {
               let btn = document.getElementById('accountVerificationButton') as HTMLElement;
@@ -814,8 +846,13 @@ export class SignupComponent {
             }
           }
           if (isLawyerVerified == true) {
-            this._toastMessage.success(objRes.data.createLawyers.message);
-            this._router.navigate(['/auth/login']);
+            if (objRes.data.createLawyers.status == 200) {
+              this._toastMessage.success(objRes.data.createLawyers.message);
+              this._router.navigate(['/auth/login']);
+            }
+            else {
+              this._toastMessage.error(objRes.data.createLawyers.message);
+            }
           }
         }
         else {
