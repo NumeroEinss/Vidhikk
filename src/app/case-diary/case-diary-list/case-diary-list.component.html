@@ -33,7 +33,8 @@
       <!-- search-bar start -->
       <div class="search-bar">
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Search Case Diary" />
+          <input matInput placeholder="Search Case Diary" [(ngModel)]="searchQuery"
+            (ngModelChange)="filterCaseDiary()" />
           <div matSuffix>
             <img src="../../../assets/images/icons/search-blue.svg" style="margin-right: 20px; cursor: pointer" />
           </div>
@@ -61,72 +62,76 @@
     </div>
     <!-- case-diary-header-menu ends -->
 
-    <!-- case-diary table start -->
-    <div *ngIf="selectedDiary == 'caseDiary'" class="case-diary-list">
-      <div class="case-diary-header">
-        <!-- <div class="grid-item1">CASE NO.</div> -->
-        <!-- <div class="grid-item1">PLAINTIFF/ACCUSER</div> -->
-        <!-- <div class="grid-item1">DEFENDANT/SUSPECT</div> -->
-        <!-- <div class="grid-item1">CITY</div> -->
-        <div class="grid-item1">FILING DATE</div>
-        <div class="grid-item1">CASE TITLE</div>
-        <div class="grid-item1">COURT NAME</div>
-        <div class="grid-item1">CASE STAGE</div>
-        <div class="grid-item1">NEXT HEARING</div>
-        <div class="grid-item1">APPLICATION</div>
-        <div class="grid-item1">OWNER</div>
-        <div class="grid-item1">ACTIONS</div>
-      </div>
+    <div style="height: calc(100vh - 200px)">
+      <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+        <!-- case-diary table start -->
+        <div *ngIf="selectedDiary == 'caseDiary'" class="case-diary-list">
+          <div class="case-diary-header">
+            <!-- <div class="grid-item1">CASE NO.</div> -->
+            <!-- <div class="grid-item1">PLAINTIFF/ACCUSER</div> -->
+            <!-- <div class="grid-item1">DEFENDANT/SUSPECT</div> -->
+            <!-- <div class="grid-item1">CITY</div> -->
+            <div class="grid-item1">FILING DATE</div>
+            <div class="grid-item1">CASE TITLE</div>
+            <div class="grid-item1">COURT NAME</div>
+            <div class="grid-item1">CASE STAGE</div>
+            <div class="grid-item1">NEXT HEARING</div>
+            <div class="grid-item1">APPLICATION</div>
+            <div class="grid-item1">OWNER</div>
+            <div class="grid-item1">ACTIONS</div>
+          </div>
 
-      @for (item of caseDiaryList; track item) {
-      <div class="case-diary-data" *ngIf="caseDiaryList.length>0">
-        <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
-        <!-- <div class="grid-item2">{{ item.applicantName }}</div> -->
-        <!-- <div class="grid-item2">{{ item.respondentName }}</div> -->
-        <!-- <div class="grid-item2">{{ item.city }}</div> -->
-        <div class="grid-item2">{{ item.registrationDate | date:'dd/MM/yyyy'}}</div>
-        <div class="grid-item2" *ngIf="item.representing == 'Applicant'">
-          <b>{{getFormattedCaseName(item)[0]}} </b>{{getFormattedCaseName(item)[1]+' '+getFormattedCaseName(item)[2] }}
-        </div>
-        <div class="grid-item2" *ngIf="item.representing == 'Respondant'">
-          {{getFormattedCaseName(item)[0]+' '+getFormattedCaseName(item)[1] }} <b>{{getFormattedCaseName(item)[2]}}</b>
-        </div>
-        <div class="grid-item2">{{ item.courtName }}</div>
-        <div class="grid-item2">
-          <mat-form-field appearance="outline" class="stage-input list-input">
-            <input matInput placeholder="Enter Case Stage" [(ngModel)]="item.caseStage" />
-          </mat-form-field>
-        </div>
-        <div class="grid-item2">
-          <mat-form-field appearance="outline" class="date-input list-input">
-            <input matInput [matDatepicker]="picker2" [(ngModel)]="item.nextHearingDate"
-              placeholder="Select Next Hearing Date" [min]="today" [readonly]="true">
-            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div class="grid-item2">
-          <mat-form-field appearance="outline" class="application-input list-input">
-            <mat-select placeholder="Select application type" [(ngModel)]="item.applicationType"
-              (selectionChange)="applicationTypeChange($event,item._id,item,'caseDiary')">
-              <mat-option *ngFor="let type of applicationTypeList" [value]="type.value">
-                {{ type.viewValue }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="grid-item2">{{ item?.ownerName }}</div>
-        <div class="grid-item2 d-flex">
-          <share-buttons theme="circles-dark" [include]="['email','whatsapp']" [showIcon]="true" [showText]="false"
-            [description]="getSharingContent(item)" url="https://84.247.151.137" class="ms-1">
-          </share-buttons>
-          <!-- </div>
+          @for (item of caseDiaryList; track item) {
+          <div class="case-diary-data" *ngIf="caseDiaryList.length>0">
+            <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
+            <!-- <div class="grid-item2">{{ item.applicantName }}</div> -->
+            <!-- <div class="grid-item2">{{ item.respondentName }}</div> -->
+            <!-- <div class="grid-item2">{{ item.city }}</div> -->
+            <div class="grid-item2">{{ item.registrationDate | date:'dd/MM/yyyy'}}</div>
+            <div class="grid-item2" *ngIf="item.representing == 'Applicant'">
+              <b>{{getFormattedCaseName(item)[0]}} </b>{{getFormattedCaseName(item)[1]+' '+getFormattedCaseName(item)[2]
+              }}
+            </div>
+            <div class="grid-item2" *ngIf="item.representing == 'Respondant'">
+              {{getFormattedCaseName(item)[0]+' '+getFormattedCaseName(item)[1] }}
+              <b>{{getFormattedCaseName(item)[2]}}</b>
+            </div>
+            <div class="grid-item2">{{ item.courtName }}</div>
+            <div class="grid-item2">
+              <mat-form-field appearance="outline" class="stage-input list-input">
+                <input matInput placeholder="Enter Case Stage" [(ngModel)]="item.caseStage" />
+              </mat-form-field>
+            </div>
+            <div class="grid-item2">
+              <mat-form-field appearance="outline" class="date-input list-input">
+                <input matInput [matDatepicker]="picker2" [(ngModel)]="item.nextHearingDate"
+                  placeholder="Select Next Hearing Date" [min]="today" [readonly]="true">
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="grid-item2">
+              <mat-form-field appearance="outline" class="application-input list-input">
+                <mat-select placeholder="Select application type" [(ngModel)]="item.applicationType"
+                  (selectionChange)="applicationTypeChange($event,item._id,item,'caseDiary')">
+                  <mat-option *ngFor="let type of applicationTypeList" [value]="type.value">
+                    {{ type.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="grid-item2">{{ item?.ownerName }}</div>
+            <div class="grid-item2 d-flex">
+              <share-buttons theme="circles-dark" [include]="['email','whatsapp']" [showIcon]="true" [showText]="false"
+                [description]="getSharingContent(item)" url="https://84.247.151.137" class="ms-1">
+              </share-buttons>
+              <!-- </div>
         <div class="grid-item2"> -->
-          <button mat-icon-button (click)="editCaseDiary(item._id)" matTooltip="Edit" class="p-1 pb-2">
-            <mat-icon class="action-icon">edit</mat-icon>
-          </button>
-        </div>
-        <!-- <mat-menu #caseDiaryMenu="matMenu">
+              <button mat-icon-button (click)="editCaseDiary(item._id)" matTooltip="Edit" class="p-1 pb-2">
+                <mat-icon class="action-icon">edit</mat-icon>
+              </button>
+            </div>
+            <!-- <mat-menu #caseDiaryMenu="matMenu">
           <button mat-menu-item (click)="editCaseDiary(item._id)">
             <img src="../../../assets/images/icons/black_edit.svg" alt="" class="me-2"
               style="width: 22px; height: 22px" />
@@ -139,67 +144,69 @@
             <span class="mat-menu-list">View Application</span>
           </button>
         </mat-menu> -->
-      </div>
-      }
-      <div class="no-data" *ngIf="caseDiaryList.length == 0">
-        <img src="../../../assets/images/image/No_Data.png" alt="">
-      </div>
-      <!-- case-diary list ends-->
-    </div>
-    <!-- case-diary table ends -->
+          </div>
+          }
+          <div class="no-data" *ngIf="caseDiaryList.length == 0">
+            <img src="../../../assets/images/image/No_Data.png" alt="">
+          </div>
+          <!-- case-diary list ends-->
+        </div>
+        <!-- case-diary table ends -->
 
-    <!-- sub-diary list start -->
-    <div *ngIf="selectedDiary == 'subDiary'" class="sub-diary-list">
-      <div class="sub-diary-header">
-        <div class="grid-item1">FILING DATE</div>
-        <div class="grid-item1">CASE TITLE</div>
-        <div class="grid-item1">COURT NAME</div>
-        <!-- <div class="grid-item1">CASE NO.</div> -->
-        <!-- <div class="grid-item1">APPLICANT</div>
+        <!-- sub-diary list start -->
+        <div *ngIf="selectedDiary == 'subDiary'" class="sub-diary-list">
+          <div class="sub-diary-header">
+            <div class="grid-item1">FILING DATE</div>
+            <div class="grid-item1">CASE TITLE</div>
+            <div class="grid-item1">COURT NAME</div>
+            <!-- <div class="grid-item1">CASE NO.</div> -->
+            <!-- <div class="grid-item1">APPLICANT</div>
         <div class="grid-item1">RESPONDENT</div>-->
-        <div class="grid-item1">CASE STAGE</div>
-        <div class="grid-item1">NEXT HEARING</div>
-        <div class="grid-item1">APPLICATION</div>
-        <!-- <div class="grid-item1">CITY</div> -->
-        <div class="grid-item1">ASSIGNED TO</div>
-        <div class="grid-item1">ACTIONS</div>
-      </div>
+            <div class="grid-item1">CASE STAGE</div>
+            <div class="grid-item1">NEXT HEARING</div>
+            <div class="grid-item1">APPLICATION</div>
+            <!-- <div class="grid-item1">CITY</div> -->
+            <div class="grid-item1">ASSIGNED TO</div>
+            <div class="grid-item1">ACTIONS</div>
+          </div>
 
-      @for (item of subDiaryList; track item) {
-      <div class="sub-diary-data" *ngIf="subDiaryList.length > 0">
-        <div class="grid-item2">{{ item.registrationDate| date:'shortDate' }}</div>
-        <div class="grid-item2">{{ item.caseName }}</div>
-        <div class="grid-item2">{{ item.courtName }}</div>
-        <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
-        <!-- <div class="grid-item2">{{ item.applicantName }}</div>
+          @for (item of subDiaryList; track item) {
+          <div class="sub-diary-data" *ngIf="subDiaryList.length > 0">
+            <div class="grid-item2">{{ item.registrationDate| date:'shortDate' }}</div>
+            <div class="grid-item2">{{ item.caseName }}</div>
+            <div class="grid-item2">{{ item.courtName }}</div>
+            <!-- <div class="grid-item2">{{ item.caseNumber }}</div> -->
+            <!-- <div class="grid-item2">{{ item.applicantName }}</div>
         <div class="grid-item2">{{ item.respondentName }}</div> -->
-        <div class="grid-item2">
-          {{item.caseStage}}
-        </div>
-        <div class="grid-item2">
+            <div class="grid-item2">
+              {{item.caseStage}}
+            </div>
+            <div class="grid-item2">
 
-          {{item.nextHearingDate | date:'shortDate'}}
-        </div>
-        <div class="grid-item2">
+              {{item.nextHearingDate | date:'shortDate'}}
+            </div>
+            <div class="grid-item2">
 
-          {{item.applicationType}}
+              {{item.applicationType}}
+            </div>
+            <!-- <div class="grid-item2">{{ item.city }}</div> -->
+            <div class="grid-item2">{{ item.assignedTo }}</div>
+            <div class="grid-item2">
+              <button mat-icon-button matTooltip="Delete" data-bs-toggle="modal" data-bs-target="#deleteSubDiary"
+                (click)="selectedSubDiary=item">
+                <mat-icon class="action-icon">delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          }
+          <!-- case-diary list ends-->
+          <div class="no-data" *ngIf="subDiaryList.length == 0">
+            <img src="../../../assets/images/image/No_Data.png" alt="">
+          </div>
         </div>
-        <!-- <div class="grid-item2">{{ item.city }}</div> -->
-        <div class="grid-item2">{{ item.assignedTo }}</div>
-        <div class="grid-item2">
-          <button mat-icon-button matTooltip="Delete" data-bs-toggle="modal" data-bs-target="#deleteSubDiary"
-            (click)="selectedSubDiary=item">
-            <mat-icon class="action-icon">delete</mat-icon>
-          </button>
-        </div>
-      </div>
-      }
-      <!-- case-diary list ends-->
-      <div class="no-data" *ngIf="subDiaryList.length == 0">
-        <img src="../../../assets/images/image/No_Data.png" alt="">
-      </div>
+        <!-- sub-diary list ends -->
+      </ng-scrollbar>
     </div>
-    <!-- sub-diary list ends -->
   </div>
   <!-- main section ends -->
 </div>

@@ -42,7 +42,7 @@
     }
 
     .header-text {
-      width: 357px;
+       width: 357px;
     }
 
     .otp-form {
@@ -86,7 +86,7 @@
     .profile-container {
       width: 80px;
       height: 80px;
-      border: 1px solid black;
+      // border: 1px solid black;
       border-radius: 50%;
       position: relative;
       margin-bottom: 15px;
@@ -281,6 +281,53 @@
     }
   }
 }
+
+// Terms And Services styling Start
+.terms-service {
+
+  .modal-content {
+    .modal-header {
+      display: flex;
+      justify-content: flex-start;
+
+      h1 {
+        padding-left: 16px;
+      }
+    }
+  }
+
+  .modal-body {
+    text-align: left;
+
+    .policy-container {
+      margin-left: 16px;
+      margin-bottom: 30px;
+      font-family: Poppins;
+      padding-right: 20px;
+
+      .heading {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+
+      .sub-heading {
+        // font-weight: 500;
+        font-size: 18px;
+        margin-top: 20px;
+        margin-bottom: 8px;
+        color: #2e5bff;
+      }
+
+      .details {
+        font-size: 14px;
+        // width: 200px;
+      }
+    }
+  }
+}
+
+// Terms And Services styling ends
 
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

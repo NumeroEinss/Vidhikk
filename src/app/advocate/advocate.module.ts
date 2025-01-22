@@ -10,6 +10,8 @@ import { AdvocateRatingComponent } from './advocate-rating/advocate-rating.compo
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { StarRatingModule } from 'angular-star-rating';
 import { QRCodeModule } from 'angularx-qrcode';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { QRCodeModule } from 'angularx-qrcode';
     MaterialModule,
     MatProgressBarModule,
     StarRatingModule.forRoot(),
-    QRCodeModule
+    QRCodeModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdvocateModule { }

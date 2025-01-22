@@ -680,6 +680,23 @@ export abstract class GQLConfig {
         }
     }`;
 
+    static createLawyerRating = gql`mutation($lawyerId: String, $userId: String, $legalKnowledge: Float, $legalAnalysis: Float,
+    $communicationSkills: Float, $enP: Float) {
+        createLawyerRating(input: {
+            lawyerId: $lawyerId,
+            userId: $userId,
+            legalKnowledge: $legalKnowledge,
+            legalAnalysis: $legalAnalysis,
+            communicationSkills: $communicationSkills,
+            enP: $enP,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+
     static getLawyerRating = gql`mutation($lawyerId: String) {
         getLawyerRatingList(input: {
             lawyerId: $lawyerId,
@@ -837,4 +854,32 @@ export abstract class GQLConfig {
             data
         }
     }`;
+
+    static getUserProfile = gql`mutation($userId: String!, $userType:String!) {
+        userProfile(input: {
+            userId: $userId,
+            userType: $userType
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
+    static updateUserProfile = gql`mutation($userId: String, $name:String, $email:String, $primaryContact:String, $address:String, $city:String, $state:String) {
+        updateUserProfile(input: {
+            userId: $userId,
+            name: $name,
+            email:$email,
+            primaryContact:$primaryContact,
+            address:$address,
+            city:$city,
+            state:$state,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
 }

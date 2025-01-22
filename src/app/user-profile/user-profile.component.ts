@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { LawyerSignupModel, SellerSignupModel } from '../../app/common/signup.model';
+import { JudgeSignupModel, LawyerSignupModel, SellerSignupModel } from '../../app/common/signup.model';
 import { userProfileModel } from '../common/user-profile.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
@@ -26,6 +26,7 @@ export class UserProfileComponent {
   lawyerEditProfileForm: FormGroup;
   userEditProfileForm: FormGroup;
   sellerEditProfileForm: FormGroup;
+  judgeEditProfileForm: FormGroup;
   userType: string = "";
   userData: any;
   displayImage: any = "";
@@ -34,6 +35,8 @@ export class UserProfileComponent {
   mobileOtp: string = "";
   emailOtpVerified: boolean = false;
   sellerProfileList: any = '';
+  lawyerProfileList: any = '';
+  userProfileList: any = '';
 
   files: any;
   qrData: string = "Payment for Subscription";
@@ -77,19 +80,35 @@ export class UserProfileComponent {
     this.userEditFrmCtrl.courtType.setValidators([Validators.required]);
     this.userEditFrmCtrl.courtName.setValidators([Validators.required]);
 
-    this.sellerEditProfileForm = this._fb.group(new SellerSignupModel)
+    this.sellerEditProfileForm = this._fb.group(new SellerSignupModel);
+    this.judgeEditProfileForm = this._fb.group(new JudgeSignupModel)
 
     this.userData = JSON.parse(sessionStorage.getItem('userData')!);
     this._authService.profileImageSubject.asObservable()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(data => {
-        this.displayImage = imageUrl() + data;
+        this.displayImage = imageUrl() + data;  
+      });
+    this._authService.currentUserSubject.asObservable()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((data: any) => {
+        this.userData = data
       });
     this.getCitiesList();
-    // this.getSellerProfile()
+
+    if (this.userData.userType == 'LAWYER') {
+      this.getLawyerProfile();
+    }
+    else if (this.userData.userType == 'SELLER') {
+      this.getSellerProfile();
+    }
+    else if (this.userData.userType == 'USER') {
+      this.getUserProfile();
+    }
+    // this.getQrData();
     this.getPlanList();
   }
-  
+
   ngAfterViewInit() {
     if (this.userType == 'lawyer') {
       const element = document.getElementById("basic-info") as HTMLElement
@@ -100,7 +119,7 @@ export class UserProfileComponent {
     }
   }
 
-  getQrData(e:any) {
+  getQrData(e: any) {
     this._apolloService.post('/payment/make-payment', { amount: e }).subscribe(objRes => {
       if (objRes != null) {
         if (objRes.status == 'success') {
@@ -117,7 +136,6 @@ export class UserProfileComponent {
 
   getCitiesList() {
     this._http.get('assets/JSON/cities.json').subscribe((data: any) => {
-      // console.log(data)
       this.cities = data;
     })
   }
@@ -200,85 +218,6 @@ export class UserProfileComponent {
   logout() {
     this._authService.logout();
   }
-
-  // userImageChange(event: any) {
-  //   const reader = new FileReader();
-  //   reader.onload = async (e) => {
-  //     if (this.userType == "lawyer") {
-  //       this.userImage = event.target.files[0];
-  //       let uploaded = await this.uploadImage();
-  //       if (uploaded == true) {
-  //         this.displayImage = e.target?.result;
-  //       }
-  //     }
-  //     else if (this.userType == "user") {
-  //       this.userImage = event.target.files[0];
-  //       let uploaded = await this.uploadImage();
-  //       if (uploaded == true) {
-  //         this.displayImage = e.target?.result;
-  //       }
-  //     }
-  //     else if (this.userType == "judge") {
-  //       this.userImage = event.target.files[0];
-  //       let uploaded = await this.uploadImage();
-  //       if (uploaded == true) {
-  //         this.displayImage = e.target?.result;
-  //       }
-  //     }
-  //     else if (this.userType == "seller") {
-  //       this.userImage = event.target.files[0];
-  //       let uploaded = await this.uploadImage();
-  //       if (uploaded == true) {
-  //         this.displayImage = e.target?.result;
-  //       }
-  //     }
-  //   }
-  //   reader.readAsDataURL(event.target.files[0]);
-  // }
-
-  // async uploadImage(): Promise<Boolean> {
-  //   let mutation = {}
-  //   if(this.userType === 'lawyer'){
-  //     mutation = {
-  //       "query": "mutation ($input: AdvocateProfile!, $file: Upload) { updateProfilePicture(input: $input, file: $file) { status message data } }",
-  //       "variables": {
-  //         "input": {
-  //           "userType": this.userData.userType,
-  //           "lawyerId": this.userData._id
-  //         },
-  //         "file": null
-  //       }
-  //     }
-  //   }else if(this.userType === 'seller'){
-  //     mutation = {
-  //       "query": "mutation ($input: SellerProfile!, $file: Upload) { updateSellerProfilePic(input: $input, file: $file) { status message data } }",
-  //       "variables": {
-  //         "input": {
-  //           "userType": this.userData.userType,
-  //           "sellerId": this.userData._id
-  //         },
-  //         "file": null
-  //       }
-  //   }
-  // }
-  // try {
-  //   let objRes: any = await lastValueFrom(this._apolloService.upload(mutation, this.userImage, "0"));
-  //   if (objRes.data) {
-  //     if(this.userType === 'seller'){
-
-  //     }
-  //     this._toastMessage.success(objRes.data.updateSellerProfilePic.message);
-  //     this._authService.updateProfile(objRes.data.updateSellerProfilePic.data)
-  //     return true;
-  //   } else {
-  //     this._toastMessage.error(objRes.data.updateSellerProfilePic.message);
-  //     return false;
-  //   }
-  // } catch (error: any) {
-  //   this._toastMessage.error('Error uploading image');
-  //   return false;
-  // }
-  // }
 
   async userImageChange(event: any) {
     const reader = new FileReader();
@@ -382,10 +321,9 @@ export class UserProfileComponent {
     }
 
     try {
-      console.log('UserImage', this.userImage)
       const objRes: any = await lastValueFrom(this._apolloService.upload({ query: mutation, variables }, this.userImage, "0"));
       const resultKey = this.getResultKeyForUserType();
-
+      console.log(objRes.data,'-------------data')
       if (objRes.data && objRes.data[resultKey]) {
         this._toastMessage.success(objRes.data[resultKey].message);
         this._authService.updateProfile(objRes.data[resultKey].data);
@@ -415,25 +353,6 @@ export class UserProfileComponent {
     }
   }
 
-
-  // getSellerProfile() {
-  //   let data = {
-  //     sellerId: this.userData._id
-  //   }
-  //   this._apolloService.mutate(GQLConfig.sellerProfile, data).subscribe((data: any) => {
-  //     if (data.data != null) {
-  //       if (data.data.sellerProfile.status == 200) {
-  //         this.sellerProfileList = data.data.sellerProfile.data;
-  //         console.log('list', this.sellerProfileList )
-  //         this._toastMessage.message(data.data.sellerProfile.message);
-  //       }
-  //       else {
-  //         this._toastMessage.error(data.data.sellerProfile.message);
-  //       }
-  //     }
-  //   })
-  // }
-
   mobileNumberChanged() {
     this.mobileOtpVerified = false;
   }
@@ -443,7 +362,7 @@ export class UserProfileComponent {
     let data = {};
     if (this.userType == "user") {
       data = {
-        mobile: this.userEditProfileForm.controls.phoneNumber.value,
+        mobile: this.userEditProfileForm.controls.mobile.value,
       };
     } else if (this.userType == "lawyer") {
       data = {
@@ -475,7 +394,7 @@ export class UserProfileComponent {
         if (this.userType == "user") {
           data = {
             email: this.userEditProfileForm.controls.email.value,
-            mobile: this.userEditProfileForm.controls.phoneNumber.value,
+            mobile: this.userEditProfileForm.controls.mobile.value,
             otp: e
           };
         } else if (this.userType == "lawyer") {
@@ -566,7 +485,7 @@ export class UserProfileComponent {
     if (this.userType == "user") {
       data = {
         email: this.userEditProfileForm.controls.email.value,
-        phoneNumber: this.userEditProfileForm.controls.phoneNumber.value
+        phoneNumber: this.userEditProfileForm.controls.mobile.value
       };
     }
     else if (this.userType == "lawyer") {
@@ -603,7 +522,7 @@ export class UserProfileComponent {
         if (this.userType == "user") {
           data = {
             email: this.userEditProfileForm.controls.email.value,
-            mobile: this.userEditProfileForm.controls.phoneNumber.value,
+            mobile: this.userEditProfileForm.controls.mobile.value,
             otp: e
           };
         } else if (this.userType == "lawyer") {
@@ -653,7 +572,7 @@ export class UserProfileComponent {
     if (this.userType == "user") {
       data = {
         email: this.userEditProfileForm.controls.email.value,
-        phoneNumber: this.userEditProfileForm.controls.phoneNumber.value
+        phoneNumber: this.userEditProfileForm.controls.mobile.value
       };
     }
     else if (this.userType == "lawyer") {
@@ -676,19 +595,24 @@ export class UserProfileComponent {
   }
 
   patchUserDetail() {
-    let userData = JSON.parse(sessionStorage.getItem('userData')!);
-
     if (this.userType === 'lawyer') {
-      this.lawyerEditProfileForm.controls.email.patchValue(userData.email);
-      this.lawyerEditProfileForm.controls.coreCompetency.patchValue(userData.coreCompetency);
-      this.lawyerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber);
+      this.lawyerEditProfileForm.controls.email.patchValue(this.lawyerProfileList.email);
+      this.lawyerEditProfileForm.controls.coreCompetency.patchValue(this.lawyerProfileList.coreCompetency);
+      this.lawyerEditProfileForm.controls.phoneNumber.patchValue(this.lawyerProfileList.primaryContact);
       this.mobileOtpVerified = true;
       this.emailOtpVerified = true;
     } else if (this.userType === 'seller') {
-      this.sellerEditProfileForm.controls.name.patchValue(userData.name);
-      this.sellerEditProfileForm.controls.city.patchValue(userData.city);
-      this.sellerEditProfileForm.controls.phoneNumber.patchValue(userData.primaryPhoneNumber || userData.primaryContact);
-      this.sellerEditProfileForm.controls.email.patchValue(userData.email);
+      this.sellerEditProfileForm.controls.name.patchValue(this.sellerProfileList.name);
+      this.sellerEditProfileForm.controls.address.patchValue(this.sellerProfileList.address);
+      this.sellerEditProfileForm.controls.phoneNumber.patchValue(this.sellerProfileList.primaryContact);
+      this.sellerEditProfileForm.controls.email.patchValue(this.sellerProfileList.email);
+      this.mobileOtpVerified = true;
+      this.emailOtpVerified = true;
+    } else if (this.userType === 'user') {
+      this.userEditProfileForm.controls.name.patchValue(this.userProfileList.name);
+      this.userEditProfileForm.controls.address.patchValue(this.userProfileList.address);
+      this.userEditProfileForm.controls.mobile.patchValue(this.userProfileList.primaryContact);
+      this.userEditProfileForm.controls.email.patchValue(this.userProfileList.email);
       this.mobileOtpVerified = true;
       this.emailOtpVerified = true;
     }
@@ -705,7 +629,7 @@ export class UserProfileComponent {
       if (objRes.data != null) {
         if (objRes.data.updateProfile.status == 200) {
           this._toastMessage.message(objRes.data.updateProfile.message);
-          this._authService.updateProfile(objRes.data.updateProfile.data);
+          this.getLawyerProfile();
         }
         else {
           this._toastMessage.error(objRes.data.updateProfile.message);
@@ -714,19 +638,55 @@ export class UserProfileComponent {
     })
   }
 
+  getLawyerProfile() {
+    let data = {
+      lawyerId: this.userData._id
+    }
+    this._apolloService.mutate(GQLConfig.getLawyerDetail, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.lawyerProfile.status == 200) {
+          this.lawyerProfileList = data.data.lawyerProfile.data;
+          this._toastMessage.message(data.data.lawyerProfile.message);
+        }
+        else {
+          this._toastMessage.error(data.data.lawyerProfile.message);
+        }
+      }
+    })
+  }
+
+  getSellerProfile() {
+    let data = {
+      sellerId: this.userData._id
+    }
+    this._apolloService.mutate(GQLConfig.sellerProfile, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.sellerProfile.status == 200) {
+          this.sellerProfileList = data.data.sellerProfile.data;
+          this._toastMessage.message(data.data.sellerProfile.message);
+        }
+        else {
+          this._toastMessage.error(data.data.sellerProfile.message);
+        }
+      }
+    });
+  }
+
   updateSellerProfile() {
     let data = {
       sellerId: this.userData._id,
       email: this.sellerEditProfileForm.controls.email.value,
       primaryContact: this.sellerEditProfileForm.controls.phoneNumber.value,
-      address: this.sellerEditProfileForm.controls.city.value
+      address: this.sellerEditProfileForm.controls.address.value
     }
-    console.log('data', data)
     this._apolloService.mutate(GQLConfig.updateSellerProfile, data).subscribe(objRes => {
       if (objRes.data != null) {
         if (objRes.data.updateSellerProfile.status == 200) {
+          console.log(objRes.data.updateSellerProfile)
           this._toastMessage.message(objRes.data.updateSellerProfile.message);
           this.mobileOtpVerified = true;
+          this.emailOtpVerified = true;
+          this.getSellerProfile();
         }
         else {
           this._toastMessage.error(objRes.data.updateSellerProfile.message);
@@ -734,6 +694,7 @@ export class UserProfileComponent {
       }
     })
   }
+
 
   getPlanList() {
     this._apolloService.mutate(GQLConfig.getPlanList, { planType: 'LAWYER' }).subscribe(objRes => {
@@ -754,6 +715,45 @@ export class UserProfileComponent {
         }
       }
     })
+  }
+
+  getUserProfile() {
+    let data = {
+      userId: this.userData._id,
+      userType: this.userData.userType
+    }
+    this._apolloService.mutate(GQLConfig.getUserProfile, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.userProfile.status == 200) {
+          this.userProfileList = data.data.userProfile.data;
+          // this._toastMessage.message(data.data.userProfile.message); //Message is empty
+        }
+        else {
+          this._toastMessage.error(data.data.userProfile.message);
+        }
+      }
+    });
+  }
+
+  updateUserProfile() {
+    let data = {
+      userId: this.userData._id,
+      name: this.userEditProfileForm.controls.name.value,
+      email: this.userEditProfileForm.controls.email.value,
+      primaryContact: this.userEditProfileForm.controls.mobile.value,
+      address: this.userEditProfileForm.controls.address.value,
+    }
+    this._apolloService.mutate(GQLConfig.updateUserProfile, data).subscribe((data: any) => {
+      if (data.data != null) {
+        if (data.data.updateUserProfile.status == 200) {
+          this._toastMessage.message(data.data.updateUserProfile.message);
+          this.getUserProfile();
+        }
+        else {
+          this._toastMessage.error(data.data.updateUserProfile.message);
+        }
+      }
+    });
   }
 
   ngOnDestroy() {

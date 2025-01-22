@@ -79,49 +79,59 @@
 
 
             <div class="add-rating" *ngIf="isRatingAdd">
-                <div>Add Overall Rating</div>
-                <div class="disabled-star mt-2"><star-rating [starType]="'svg'" [rating]="2.63"
-                        [readOnly]="true"></star-rating></div>
-                <div class="add-overall-rating">
-                    <div class="d-flex">
-                        <div class="rating-criteria">Legal Knowledge</div>
-                        <div class="star-content"><star-rating [starType]="'svg'" [rating]="1"></star-rating></div>
-                    </div>
+                <div>Add Star Rating</div>
+                <!-- <div class="disabled-star mt-2"><star-rating [starType]="'svg'" [rating]="2.63"
+                        [readOnly]="true"></star-rating></div> -->
+                <form [formGroup]="lawyerRatingForm">
+                    <div class="add-overall-rating">
+                        <div class="d-flex">
+                            <div class="rating-criteria">Legal Knowledge</div>
+                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5"
+                                [showHalfStars]="true"
+                                (starClickChange)="onClick('legalKnowledge', $event)"></star-rating></div>
+                        </div>
 
-                    <div class="d-flex mt-1">
-                        <div class="rating-criteria">Legal Analysis</div>
-                        <div class="star-content"><star-rating [starType]="'svg'" [rating]="2.63"></star-rating></div>
-                    </div>
+                        <div class="d-flex mt-1">
+                            <div class="rating-criteria">Legal Analysis</div>
+                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5"
+                                [showHalfStars]="true"
+                                (starClickChange)="onClick('legalAnalysis', $event)"></star-rating></div>
+                        </div>
 
-                    <div class="d-flex mt-1">
-                        <div class="rating-criteria">Communication Skills</div>
-                        <div class="star-content"><star-rating [starType]="'svg'" [rating]="2.63"></star-rating></div>
-                    </div>
+                        <div class="d-flex mt-1">
+                            <div class="rating-criteria">Communication Skills</div>
+                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5"
+                                [showHalfStars]="true"
+                                (starClickChange)="onClick('communicationSkills', $event)"></star-rating></div>
+                        </div>
 
-                    <div class="d-flex mt-1">
-                        <div class="rating-criteria">Ethics and Professionalism</div>
-                        <div class="star-content"><star-rating [starType]="'svg'" [rating]="2.63"></star-rating></div>
+                        <div class="d-flex mt-1">
+                            <div class="rating-criteria">Ethics and Professionalism</div>
+                            <div class="star-content"><star-rating [starType]="'svg'" [step]="0.5"
+                                [showHalfStars]="true"
+                                (starClickChange)="onClick('enP', $event)"></star-rating></div>
+                        </div>
                     </div>
-                </div>
-                <div class="submit-btn"><button mat-raised-button color="primary" type="submit"
-                        (click)="addReviews()">Submit</button></div>
+                    <div class="submit-btn"><button mat-raised-button color="primary" type="submit"
+                            (click)="addReviews()">Submit</button></div>
+                </form>
             </div>
 
             <div class="rating-list" *ngFor="let rating of ratingList">
                 <div class="rating-list-content">
                     <div class="d-flex">
-                        <div class="image"><img [src]="rating.image"
-                                onerror="this.onerror=null,this.src='../../../assets/images/image/no-image.png'" />
+                        <div class="image"><img [src]="rating.profileImage"
+                                onerror="this.onerror=null,this.src='../../../assets/images/image/placeholder.png'" />
                         </div>
                         <div class="ms-3">
-                            <div class="name">{{rating.name}}</div>
+                            <div class="name">{{rating.userName}}</div>
                             <div class="group-star"><star-rating [starType]="'svg'" [rating]="rating.overallRating"
                                     [readOnly]="true"></star-rating>
                                 <span class="ms-1" style="font-weight: 500;">{{rating.overallRating}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="days">{{rating.createdAt}}</div>
+                    <div class="days">{{getDaysAgo(rating.createdAt)>0?getDaysAgo(rating.createdAt) + ' days ago':'Today'}}</div>
                 </div>
                 <hr>
             </div>

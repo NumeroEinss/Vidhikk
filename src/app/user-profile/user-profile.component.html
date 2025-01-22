@@ -36,16 +36,17 @@
           </button>
         </div>
         <div class="description">
-         {{userData.coreCompetency}}
+          {{lawyerProfileList.coreCompetency}}
         </div>
         <div class="user-details">
           <div class="row">
             <div class="col-lg-2 col-md-2">
-              <!-- <img [src]="getImageUrl(userData.profileImage)"
+              <!-- <img [src]="getImageUrl(userData?.profileImage)"
                 onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'"
                 class="user-profile" /> -->
               <div class="profile-image">
-                <img class="profile" [src]="displayImage" />
+                <img class="profile" [src]="displayImage"
+                  onerror="this.onerror=null;this.src='../../../../assets/images/image/placeholder.png'" />
                 <input type="file" #file accept="image/png, image/jpeg" (change)="userImageChange($event)" />
                 <div class="profile-input" for="file" (click)="file.click()">
                   <img class="camera" src="../../../assets/images/icons/camera.svg" alt="" />
@@ -57,29 +58,29 @@
               <div class="row">
                 <div class="col-lg-4 col-md-4">
                   <div class="user-details-heading">Name</div>
-                  <div class="user-details-detail">{{userData.name}}</div>
+                  <div class="user-details-detail">{{ lawyerProfileList.lawyerName}}</div>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
-                  <div class="user-details-heading">father's Name</div>
-                  <div class="user-details-detail">{{userData.fatherName}}</div>
+                  <div class="user-details-heading">Father's Name</div>
+                  <div class="user-details-detail">{{ lawyerProfileList.fatherName}}</div>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
                   <div class="user-details-heading">Mobile number</div>
-                  <div class="user-details-detail">{{userData.primaryPhoneNumber}}</div>
+                  <div class="user-details-detail">{{lawyerProfileList.primaryContact}}</div>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-lg-4 col-md-4">
                   <div class="user-details-heading">Email</div>
-                  <div class="user-details-detail">{{userData.email}}</div>
+                  <div class="user-details-detail">{{ lawyerProfileList.email}}</div>
                 </div>
 
                 <div class="col-lg-8 col-md-8">
                   <div class="user-details-heading">Address</div>
-                  <div class="user-details-detail">{{userData.city}},{{userData.state}}
+                  <div class="user-details-detail">{{ lawyerProfileList.city}},{{ lawyerProfileList.state}}
                   </div>
                 </div>
               </div>
@@ -105,41 +106,41 @@
               <div class="row">
                 <div class="col-lg-4 col-md-4">
                   <div class="user-details-heading column">Organization Name</div>
-                  <div class="user-details-detail">{{userData.orgainization}}</div>
+                  <div class="user-details-detail">{{ lawyerProfileList.orgainization }}</div>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
                   <div class="user-details-heading">Branch Name/Address</div>
-                  <div class="user-details-detail">{{userData.city}},{{userData.state}}</div>
+                  <div class="user-details-detail">{{ lawyerProfileList.city}},{{ lawyerProfileList.state}}</div>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
-                  <div class="user-details-heading">Year of Practise</div>
-                  <div class="user-details-detail">{{userData.practiceYear}}</div>
+                  <div class="user-details-heading">Year of Practice</div>
+                  <div class="user-details-detail">{{lawyerProfileList.practiceYear}}</div>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-lg-4 col-md-4">
                   <div class="user-details-heading">Name of State Bar</div>
-                  <div class="user-details-detail">{{userData.stateBar}}</div>
+                  <div class="user-details-detail">{{ lawyerProfileList.stateBar}}</div>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
                   <div class="user-details-heading">Licence Number</div>
-                  <div class="user-details-detail">{{userData.barLiscenceNo}}</div>
+                  <div class="user-details-detail">{{lawyerProfileList.barLicenseNumber}}</div>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
                   <div class="user-details-heading">Name of Practicing Court</div>
-                  <div class="user-details-detail">{{userData.practicingCourt}}</div>
+                  <div class="user-details-detail">{{ lawyerProfileList.practicingCourt}}</div>
                 </div>
               </div>
 
               <div class="d-flex">
                 <div>
                   <div class="user-details-heading">Name of Practicing Area</div>
-                  <div class="user-details-detail">Finance, Criminal</div>
+                  <div class="user-details-detail">{{lawyerProfileList.practicingField}}</div>
                 </div>
               </div>
 
@@ -209,8 +210,9 @@
   <div class="user-profile-root" *ngIf="userType == 'user'">
     <div class="d-flex justify-content-between">
       <div class="display-profile"><img [src]="displayImage"
-          onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" /></div>
-      <div><button mat-stroked-button color="primary" data-bs-target="#userEditProfileModal" data-bs-toggle="modal">
+          onerror="this.onerror=null;this.src='../../../../assets/images/image/placeholder.png'" /></div>
+      <div><button mat-stroked-button color="primary" data-bs-target="#userEditProfileModal" data-bs-toggle="modal"
+          (click)="patchUserDetail()">
           <span style="color: #2e5bff">Edit</span>
         </button></div>
     </div>
@@ -220,24 +222,25 @@
       <div class="d-flex  mr-bi">
         <div class="details-container">
           <div class="heading">Name</div>
-          <div class="detail">{{userData.name}}</div>
+          <div class="detail">{{userProfileList.name}}</div>
         </div>
 
         <div class="details-container">
           <div class="heading">Location</div>
-          <div class="detail">{{userData.city}}, {{userData.state}}</div>
+          <div class="detail">{{userProfileList.address}}</div>
         </div>
       </div>
 
       <div class="d-flex  mr-bi">
         <div class="details-container">
           <div class="heading">Mobile</div>
-          <div class="detail">{{userData.primaryPhoneNumber }}, {{ userData.secondaryPhoneNumber}}</div>
+          <div class="detail">{{userProfileList.primaryContact}}<span *ngIf="userProfileList.secondaryContact">,</span>
+            {{ userProfileList.secondaryContact}}</div>
         </div>
 
         <div class="details-container">
           <div class="heading">Email</div>
-          <div class="detail">{{userData.email}}</div>
+          <div class="detail">{{userProfileList.email}}</div>
         </div>
       </div>
     </div>
@@ -362,7 +365,7 @@
       <div class="user-profile-root" *ngIf="userType == 'seller'">
         <div class="d-flex justify-content-between">
           <div class="display-profile"><img [src]="displayImage"
-              onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" /></div>
+              onerror="this.onerror=null;this.src='../../../../assets/images/image/placeholder.png'" /></div>
           <div><button mat-stroked-button color="primary" data-bs-target="#sellerEditProfileModal"
               data-bs-toggle="modal">
               <span style="color: #2e5bff" (click)="patchUserDetail()">Edit</span>
@@ -374,38 +377,38 @@
           <div class="d-flex mr-bi">
             <div class="details-container">
               <div class="heading">Name</div>
-              <div class="detail">{{userData.name}}</div>
+              <div class="detail">{{sellerProfileList.name }}</div>
             </div>
 
             <div class="details-container">
               <div class="heading">Location</div>
-              <div class="detail">{{userData.address}}</div>
+              <div class="detail">{{sellerProfileList.address}}</div>
             </div>
           </div>
 
           <div class="d-flex mr-bi">
             <div class="details-container">
               <div class="heading">Mobile</div>
-              <div class="detail">{{userData.primaryPhoneNumber }}<span *ngIf="userData.secondaryPhoneNumber">,</span> {{ userData.secondaryPhoneNumber}}
-                <span *ngIf="mobileOtpVerified"  [ngClass]="mobileOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span>
+              <div class="detail">{{sellerProfileList.primaryContact}}<span
+                  *ngIf="sellerProfileList.secondaryContact">,</span> {{ sellerProfileList.secondaryContact}}
               </div>
             </div>
-           
+
             <div class="details-container">
               <div class="heading">Email</div>
-              <div class="detail">{{userData.email}} <span *ngIf="emailOtpVerified"  [ngClass]="emailOtpVerified?'green-font':'red-font'" style="font-size: 12px; margin-left: 5px;">(Verified)</span></div> 
+              <div class="detail">{{sellerProfileList.email}}</div>
             </div>
           </div>
 
           <div class="d-flex mr-bi">
             <div class="details-container">
               <div class="heading">PAN No.</div>
-              <div class="detail">{{userData.panNo}}</div>
+              <div class="detail">{{sellerProfileList.panNo}}</div>
             </div>
 
             <div class="details-container">
               <div class="heading">GSTIN No.</div>
-              <div class="detail">{{userData.gstinNo}}</div>
+              <div class="detail">{{sellerProfileList.gstinNo}}</div>
             </div>
           </div>
 
@@ -447,11 +450,11 @@
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <mat-label class="mat-label mt-2 mb-1">Core Competency</mat-label>
             <mat-form-field appearance="outline" class="textArea">
-              <textarea id="text-area" type="text" matInput placeholder="Enter Your Core Competency"
+              <textarea id="text-area" type="text" matInput placeholder="Enter your core competency"
                 formControlName="coreCompetency" required rows="3" maxlength="200"></textarea>
               <mat-error *ngIf="
                   lawyerEditProfileForm.controls['coreCompetency'].hasError('required')
-                ">Core Competency is Required</mat-error>
+                ">Please enter core competency</mat-error>
               <!-- <mat-error *ngIf="!lawyerEditProfileForm.controls['coreCompetency'].hasError('required') &&
                                                   lawyerEditProfileForm.controls['coreCompetency'].hasError('minlength')">Minimum 150 Characters
                                                  Required</mat-error> -->
@@ -473,14 +476,14 @@
             </div>
 
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Mobile No" formControlName="phoneNumber" maxlength="10"
+              <input matInput placeholder="Enter mobile number" formControlName="phoneNumber" maxlength="10"
                 (keypress)="isNumber($event)" (change)="mobileNumberChanged()" required />
-              <mat-error *ngIf="lawyerEditProfileForm.controls['phoneNumber'].hasError('required')">Mobile No. is
-                Required</mat-error>
+              <mat-error *ngIf="lawyerEditProfileForm.controls['phoneNumber'].hasError('required')">Please enter mobile
+                number</mat-error>
               <mat-error *ngIf="
                   !lawyerEditProfileForm.controls['phoneNumber'].hasError('required') &&
                   lawyerEditProfileForm.controls['phoneNumber'].invalid
-                ">Mobile No. invalid</mat-error>
+                ">please enter valid mobile number</mat-error>
             </mat-form-field>
 
             <div class="row-field mt-3 mb-1">
@@ -492,19 +495,20 @@
               </div>
             </div>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Email" formControlName="email" (change)="emailChanged()" required />
-              <mat-error *ngIf="lawyerEditProfileForm.controls['email'].hasError('required')">Email is
-                Required</mat-error>
+              <input matInput placeholder="Enter email" formControlName="email" (change)="emailChanged()" required />
+              <mat-error *ngIf="lawyerEditProfileForm.controls['email'].hasError('required')">Please enter
+                email</mat-error>
               <mat-error *ngIf="
                   !lawyerEditProfileForm.controls['email'].hasError('required') &&
                   lawyerEditProfileForm.controls['email'].invalid
-                ">Email is invalid</mat-error>
+                ">Please enter valid email</mat-error>
             </mat-form-field>
           </div>
 
           <div class="mt-3 mb-3 filter-btn">
             <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px"
-              data-bs-dismiss="modal" [disabled]="!emailOtpVerified || !mobileOtpVerified" (click)="updateLawyerProfile()">
+              data-bs-dismiss="modal" [disabled]="!emailOtpVerified || !mobileOtpVerified"
+              (click)="updateLawyerProfile()">
               Save
             </button>
             <button mat-stroked-button color="primary" style="
@@ -533,9 +537,10 @@
       <div class="modal-body">
         <div class="head-text">Enter Verification Code</div>
         <div class="sub-text mt-2 mb-4">
-          We sent a 6-digit code to<br /><span class="mobile mt-2">{{ userData.userType ==='LAWYER' ?
-            lawyerEditProfileForm.controls.phoneNumber.value : userData.userType ==='SELLER' ?
-            sellerEditProfileForm.controls.phoneNumber.value : userEditProfileForm.controls.mobile.value }}</span>
+          We sent a 6-digit code to<br /><span class="mobile mt-2">{{ userData?.userType === 'LAWYER' ?
+            lawyerEditProfileForm.controls.phoneNumber.value : userData?.userType === 'SELLER' ?
+            sellerEditProfileForm.controls.phoneNumber.value : userData?.userType === 'USER' ?
+            userEditProfileForm.controls.mobile.value :  judgeEditProfileForm.controls.phoneNumber.value}}</span>
         </div>
 
         <ng-otp-input #mobileOtpInput (onInputChange)="onMobileOtpChange($event)" [config]="{ length: 6 }" class="mt-2"
@@ -562,9 +567,9 @@
       <div class="modal-body">
         <div class="head-text">Enter Verification Code</div>
         <div class="sub-text mt-2 mb-4">
-          We sent a 6-digit code to<br /><span class="email mt-2">{{ userData.userType ==='LAWYER' ?
-            lawyerEditProfileForm.controls.email.value : userData.userType ==='SELLER' ?
-            sellerEditProfileForm.controls.email.value : userEditProfileForm.controls.email.value }}</span>
+          We sent a 6-digit code to<br /><span class="email mt-2">{{ userData?.userType === 'LAWYER' ?
+            lawyerEditProfileForm.controls.email.value : userData?.userType === 'SELLER' ?
+            sellerEditProfileForm.controls.email.value :  userData?.userType === 'USER' ? userEditProfileForm.controls.email.value : judgeEditProfileForm.controls.email.value}}</span>
         </div>
         <ng-otp-input #emailOtpInput (onInputChange)="onEmailOtpChange($event)" [config]="{ length: 6 }"
           class="mt-2"></ng-otp-input>
@@ -699,75 +704,83 @@
       <div class="modal-body">
         <form [formGroup]="userEditProfileForm">
           <div class="d-flex mat-input-white" style="flex-direction: column">
-            <div class="d-flex" style="justify-content:flex-start;
-            align-items: center;">
-              <div class="picture"><img src="../../assets/images/image/person.jpg"   onerror="this.onerror=null,this.src='../../../assets/images/image/person.jpg'" /></div>
+            <!-- <div class="d-flex" style="justify-content:flex-start; align-items: center;">
+              <div class="picture"><img src="../../assets/images/image/placeholder.png"   onerror="this.onerror=null,this.src='../../../assets/images/image/placeholder.png'" /></div>
               <div class="change-picture">Change</div>
+            </div> -->
+
+            <div class="d-flex" style="justify-content:flex-start; align-items: center;">
+              <div class="picture"><img [src]="displayImage || userEditProfileForm.controls.fileDisplay.value "
+                  alt="" /></div>
+              <div class="change-picture"> <input type="file" (change)="userImageChange($event)" #fileInput
+                  style="display: none" accept="image/*" multiple><span (click)="fileInput.click()">Change</span>
+              </div>
             </div>
 
-            <mat-label class="mat-label mt-3">Name</mat-label>
+            <mat-label class="mat-label mt-3 mb-2">Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Name" formControlName="name" required />
-              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Name is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['name'].hasError('required') &&
-                    userEditProfileForm.controls['name'].invalid
-                  ">Name is invalid</mat-error>
+              <input matInput placeholder="Enter name" formControlName="name" readonly="true" required />
+              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Please enter name</mat-error>
+
             </mat-form-field>
 
-            <mat-label class="mat-label mt-2">Select Location</mat-label>
+            <mat-label class="mat-label mt-2 mb-2">Select Location</mat-label>
             <mat-form-field appearance="outline">
-              <mat-select placeholder="Select City" formControlName="city" required>
-                <mat-option *ngFor="let city of cities" [value]="city.value">
-                  {{ city.viewValue }}
+              <mat-select placeholder="Select address" formControlName="address" required>
+                <mat-option *ngFor="let city of cities" [value]="city.name">
+                  {{ city.name }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['city'].hasError('required')">City is
-                Required</mat-error>
+              <mat-error *ngIf="userEditProfileForm.controls['address'].hasError('required')">Please select
+                address</mat-error>
               <mat-error *ngIf="
-                    !userEditProfileForm.controls['city'].hasError('required') &&
-                    userEditProfileForm.controls['city'].invalid
-                  ">City is invalid</mat-error>
+                    !userEditProfileForm.controls['address'].hasError('required') &&
+                    userEditProfileForm.controls['address'].invalid
+                  ">Address is invalid</mat-error>
             </mat-form-field>
 
-            <div class="row-field mt-3 mb-1">
+            <div class="row-field mt-2">
               <div><mat-label class="mat-label mt-2">Mobile No</mat-label></div>
               <div>
-                <a class="resend-otp f-12" data-bs-toggle="modal" data-bs-target="#mobileOtpModal">Send OTP</a>
+                <a mat-button [disabled]="mobileOtpVerified" class="resend-otp f-12" data-bs-toggle="modal"
+                  data-bs-target="#mobileOtpModal" (click)="generateOtp()">Send OTP</a>
               </div>
             </div>
 
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Mobile No" formControlName="mobile" maxlength="10"
-                (keypress)="isNumber($event)" required />
-              <mat-error *ngIf="userEditProfileForm.controls['mobile'].hasError('required')">Mobile No. is
-                Required</mat-error>
+              <input matInput placeholder="Enter mobile number" formControlName="mobile" maxlength="10"
+                (keypress)="isNumber($event)" (change)="mobileNumberChanged()" required />
+              <mat-error *ngIf="userEditProfileForm.controls['mobile'].hasError('required')">Please enter mobile
+                number</mat-error>
               <mat-error *ngIf="
                   !userEditProfileForm.controls['mobile'].hasError('required') &&
                   userEditProfileForm.controls['mobile'].invalid
-                ">Mobile No. invalid</mat-error>
+                ">Please enter valid mobile number</mat-error>
             </mat-form-field>
 
-            <div class="row-field mt-3 mb-1">
+            <div class="row-field mt-2">
               <div><mat-label class="mat-label mt-2">Email</mat-label></div>
               <div>
-                <a class="resend-otp f-12" data-bs-toggle="modal" data-bs-target="#emailOtpModal">Send OTP</a>
+                <a mat-button class="resend-otp f-12"
+                  [disabled]="emailOtpVerified && userEditProfileForm.controls['email'].valid" data-bs-toggle="modal"
+                  data-bs-target="#emailOtpModal" (click)="sendOtpForEmail()">Send OTP</a>
               </div>
             </div>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Email" formControlName="email" required />
-              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Email is
-                Required</mat-error>
+              <input matInput placeholder="Enter email" formControlName="email" (change)="emailChanged()" required />
+              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Please enter
+                email</mat-error>
               <mat-error *ngIf="
                   !userEditProfileForm.controls['email'].hasError('required') &&
                   userEditProfileForm.controls['email'].invalid
-                ">Email is invalid</mat-error>
+                ">Please enter valid email</mat-error>
             </mat-form-field>
           </div>
 
           <div class="mt-3 mb-3 filter-btn">
-            <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px">
+            <button mat-raised-button color="primary" style="width: fit-content !important; padding: 12px 36px"
+            data-bs-dismiss="modal" [disabled]="!emailOtpVerified || !mobileOtpVerified"
+              (click)="updateUserProfile()">
               Save
             </button>
             <button mat-stroked-button color="primary" style="
@@ -798,7 +811,7 @@
       </div>
 
       <div class="modal-body">
-        <form [formGroup]="userEditProfileForm">
+        <form [formGroup]="judgeEditProfileForm">
           <div class="d-flex mat-input-white" style="flex-direction: column">
             <div class="d-flex" style="justify-content:flex-start;
             align-items: center;">
@@ -808,13 +821,8 @@
 
             <mat-label class="mat-label mt-3">Name</mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Name" formControlName="name" required />
-              <mat-error *ngIf="userEditProfileForm.controls['name'].hasError('required')">Name is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['name'].hasError('required') &&
-                    userEditProfileForm.controls['name'].invalid
-                  ">Name is invalid</mat-error>
+              <input matInput placeholder="Enter name" formControlName="fullName" required />
+              <mat-error *ngIf="judgeEditProfileForm.controls['fullName'].hasError('required')">Please enter name</mat-error>
             </mat-form-field>
 
             <mat-label class="mat-label mt-2">Select State</mat-label>
@@ -824,12 +832,8 @@
                   {{ state.viewValue }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['state'].hasError('required')">State is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['state'].hasError('required') &&
-                    userEditProfileForm.controls['state'].invalid
-                  ">City is invalid</mat-error>
+              <mat-error *ngIf="judgeEditProfileForm.controls['state'].hasError('required')">Please select
+                state</mat-error>
             </mat-form-field>
 
             <mat-label class="mat-label mt-2">Select District</mat-label>
@@ -839,12 +843,8 @@
                   {{ district.viewValue }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['district'].hasError('required')">District is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['district'].hasError('required') &&
-                    userEditProfileForm.controls['district'].invalid
-                  ">City is invalid</mat-error>
+              <mat-error *ngIf="judgeEditProfileForm.controls['district'].hasError('required')">Please select
+                district</mat-error>
             </mat-form-field>
 
             <mat-label class="mat-label mt-2">Select Court Type</mat-label>
@@ -854,14 +854,9 @@
                   {{ court.viewValue }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['courtType'].hasError('required')">Court Type is
-                Required</mat-error>
-              <mat-error *ngIf="userEditProfileForm.controls['courtType'].hasError('required')">Court Type is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['courtType'].hasError('required') &&
-                    userEditProfileForm.controls['courtType'].invalid
-                  ">City is invalid</mat-error>
+              <mat-error *ngIf="judgeEditProfileForm.controls['courtType'].hasError('required')">Please enter type of
+                court</mat-error>
+
             </mat-form-field>
 
             <mat-label class="mat-label mt-2">Select Court Name</mat-label>
@@ -871,14 +866,8 @@
                   {{ name.viewValue }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="userEditProfileForm.controls['courtName'].hasError('required')">Court Name is
-                Required</mat-error>
-              <mat-error *ngIf="userEditProfileForm.controls['courtName'].hasError('required')">Court Name is
-                Required</mat-error>
-              <mat-error *ngIf="
-                    !userEditProfileForm.controls['courtName'].hasError('required') &&
-                    userEditProfileForm.controls['courtName'].invalid
-                  ">City is invalid</mat-error>
+              <mat-error *ngIf="judgeEditProfileForm.controls['courtName'].hasError('required')">Please enter court
+                name</mat-error>
             </mat-form-field>
 
 
@@ -890,14 +879,13 @@
             </div>
 
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Mobile No" formControlName="mobile" maxlength="10"
+              <input matInput placeholder="Enter Mobile No" formControlName="phoneNumber" maxlength="10"
                 (keypress)="isNumber($event)" required />
-              <mat-error *ngIf="userEditProfileForm.controls['mobile'].hasError('required')">Mobile No. is
-                Required</mat-error>
+              <mat-error *ngIf="judgeEditProfileForm.controls['phoneNumber'].hasError('required')"></mat-error>
               <mat-error *ngIf="
-                  !userEditProfileForm.controls['mobile'].hasError('required') &&
-                  userEditProfileForm.controls['mobile'].invalid
-                ">Mobile No. invalid</mat-error>
+                  !judgeEditProfileForm.controls['phoneNumber'].hasError('required') &&
+                  judgeEditProfileForm.controls['phoneNumber'].invalid
+                ">Please enter valid mobile number</mat-error>
             </mat-form-field>
 
             <div class="row-field mt-3 mb-1">
@@ -907,13 +895,13 @@
               </div>
             </div>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Enter Email" formControlName="email" required />
-              <mat-error *ngIf="userEditProfileForm.controls['email'].hasError('required')">Email is
-                Required</mat-error>
+              <input matInput placeholder="Enter email" formControlName="email" required />
+              <mat-error *ngIf="judgeEditProfileForm.controls['email'].hasError('required')">Please enter
+                email</mat-error>
               <mat-error *ngIf="
-                  !userEditProfileForm.controls['email'].hasError('required') &&
-                  userEditProfileForm.controls['email'].invalid
-                ">Email is invalid</mat-error>
+                  !judgeEditProfileForm.controls['email'].hasError('required') &&
+                  judgeEditProfileForm.controls['email'].invalid
+                ">Please enter valid email</mat-error>
             </mat-form-field>
           </div>
 
@@ -971,17 +959,17 @@
 
             <mat-label class="mat-label mt-2 mb-1">Select Location</mat-label>
             <mat-form-field appearance="outline">
-              <mat-select placeholder="Select City" formControlName="city" required>
+              <mat-select placeholder="Select address" formControlName="address" required>
                 <mat-option *ngFor="let city of cities" [value]="city.name">
                   {{ city.name }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="sellerEditProfileForm.controls['city'].hasError('required')">City is
+              <mat-error *ngIf="sellerEditProfileForm.controls['address'].hasError('required')">City is
                 Required</mat-error>
               <mat-error *ngIf="
-                    !sellerEditProfileForm.controls['city'].hasError('required') &&
-                    sellerEditProfileForm.controls['city'].invalid
-                  ">City is invalid</mat-error>
+                    !sellerEditProfileForm.controls['address'].hasError('required') &&
+                    sellerEditProfileForm.controls['address'].invalid
+                  ">Address is invalid</mat-error>
             </mat-form-field>
 
             <div class="row-field mt-2">

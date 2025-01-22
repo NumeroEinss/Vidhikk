@@ -4,6 +4,8 @@ import { ApolloService } from '../../shared/services/apollo.service';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { Location } from '@angular/common';
 import { GQLConfig } from '../../graphql.operations';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { lawyerRatingModel } from '../../common/advocate.model';
 
 @Component({
   selector: 'app-advocate-rating',
@@ -13,20 +15,12 @@ import { GQLConfig } from '../../graphql.operations';
 export class AdvocateRatingComponent {
   lawyerId: any;
   isRatingAdd: boolean = false;
-  lawyer: any;
-
-
-  ratingList: any = [
-    // {
-    //   image: '../../../assets/images/image/add_member.png',
-    //   name: 'Anil Soni',
-    //   ratingCount: 3.0,
-    //   days: '2 days ago'
-    // }
-  ];
+  lawyer: any = '';
+  ratingList: any = [];
+  lawyerRatingForm: FormGroup
 
   constructor(private _router: Router, private _apolloService: ApolloService, private _toastMessage: ToastMessageService,
-    private location: Location) {
+    private location: Location, private fb: FormBuilder) {
     this.lawyerId = this._router.getCurrentNavigation()?.extras.state;
     if (this.lawyerId != undefined) {
       this.getLawyerRating();
@@ -34,18 +28,31 @@ export class AdvocateRatingComponent {
     else {
       this.location.back();
     }
+    this.lawyerRatingForm = this.fb.group(new lawyerRatingModel)
   }
 
-  addReviews() {
-    const userData = JSON.parse(sessionStorage.getItem('userData')!)
-    const rating = {
-      image: '../../../assets/images/image/add_member.png',
-      name: userData.name,
-      ratingCount: 3.0,
-      days: 'Today'
-    }
-    this.ratingList.unshift(rating)
+  onClick(parameter: string, e: any): void {
+    this.lawyerRatingForm.get(parameter)?.setValue(e);
   }
+
+  getDaysAgo(dateString: string): number {
+    const [datePart] = dateString.split(',');
+ 
+    const [day, month, year] = datePart.trim().split('/').map(Number);
+    const inputDate = new Date(year, month - 1, day);
+  
+    const today = new Date();
+    
+    inputDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    const diffInMs = today.getTime() - inputDate.getTime();
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  
+    return diffInDays;
+  }
+  
+  
 
   getLawyerRating() {
     this._apolloService.mutate(GQLConfig.getLawyerRating, { lawyerId: this.lawyerId }).subscribe(data => {
@@ -54,11 +61,35 @@ export class AdvocateRatingComponent {
           this._toastMessage.success(data.data.getLawyerRatingList.message);
           this.lawyer = data.data.getLawyerRatingList.data;
           this.ratingList = data.data.getLawyerRatingList.data.lawyerRatingList;
+          console.log("this.ratingList", this.ratingList)
         }
         else {
           this._toastMessage.success(data.data.getLawyerRatingList.message);
         }
       }
     })
+  }
+
+  addReviews() {
+    const userData = JSON.parse(sessionStorage.getItem('userData')!)
+    const data = {
+      lawyerId: this.lawyerId,
+      userId: userData._id,
+      legalKnowledge: parseFloat(this.lawyerRatingForm.value.legalKnowledge.rating),
+      legalAnalysis: parseFloat(this.lawyerRatingForm.value.legalAnalysis.rating),
+      communicationSkills: parseFloat(this.lawyerRatingForm.value.communicationSkills.rating),
+      enP: parseFloat(this.lawyerRatingForm.value.enP.rating),
+    }
+    this._apolloService.mutate(GQLConfig.createLawyerRating, data).subscribe(res => {
+      if (res.data != null) {
+        if (res.data.createLawyerRating.status == 200) {
+          this._toastMessage.success(res.data.createLawyerRating.message);
+          this.getLawyerRating();
+        }
+        else {
+          this._toastMessage.success(res.data.createLawyerRating.message);
+        }
+      }
+    });
   }
 }

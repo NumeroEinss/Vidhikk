@@ -105,15 +105,12 @@
       <img src="../../../../assets/images/icons/add_button.svg" />
     </div> -->
     <div class="user-details">
-      <div class="name">{{ userData.name }}</div>
-      <div class="plan">
-        <!-- {{ (_authService.currentUserSubject | async)?.activePlan }} -->
-          {{activePlan}}
-      </div>
+      <div class="name">{{userData.name || userData.lawyerName}}</div>
+      <div class="plan">{{userData.activePlan}}</div>
     </div>
     <div class="profile-container" (click)="redirectToProfile()">
       <img [src]="getImageUrl(this.userImage)"
-        onerror="this.onerror=null;this.src='../../../../assets/images/image/person.jpg'" />
+        onerror="this.onerror=null;this.src='../../../../assets/images/image/placeholder.png'" />
     </div>
   </div>
 </div>
@@ -406,8 +403,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <app-subscription-plan [toggleId]="'#scannerModal'" [transactionId]="transactionId"
-          [closeModalId]="'closeQrModal'" (clicked)="getQrData($event)"></app-subscription-plan>
+        <app-subscription-plan [toggleId]="'#scannerModal'" [transactionId]="transactionId"></app-subscription-plan>
         <!-- <app-subscription-plan [toggleId]="'d'"></app-subscription-plan> -->
       </div>
     </div>

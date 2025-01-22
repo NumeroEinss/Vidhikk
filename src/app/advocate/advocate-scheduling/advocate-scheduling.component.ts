@@ -12,8 +12,9 @@ import { Router } from '@angular/router';
 export class AdvocateSchedulingComponent implements AfterViewInit {
   isNameVisible: boolean = false;
   qrData: string = "Payment For Advocate Scheduling";
-  qrAmount: number = 200;
   availabilityList: any;
+  qrAmount: number = 200;
+
   transactionId: any = "";
   lawyerId: any = "";
 

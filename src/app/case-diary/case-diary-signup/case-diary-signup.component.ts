@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { ApolloService } from '../../shared/services/apollo.service';
@@ -39,6 +42,16 @@ export class CaseDiarySignupComponent {
     let element = document.getElementById('companyPolicyButton') as HTMLElement;
     element.click();
   }
+
+   validateConfirmPassword(): ValidatorFn {
+      return (control: AbstractControl): ValidationErrors | null => {
+        if (!control.value) {
+          return null;
+        }
+        const passwordValid = (control.value == this.caseDiarySignUpForm.controls.password.value);
+        return !passwordValid ? { passwordMatch: true } : null;
+      }
+    }
 
   register() {
     if (this.caseDiarySignUpForm.valid) {

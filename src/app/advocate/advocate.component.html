@@ -3,7 +3,7 @@
   <div class="lawyer-info">
     <div class="d-flex">
       <img class="display-profile" [src]="getImage(lawyer.profileImage)"
-        onerror="this.onerror=null,this.src='../../../../assets/images/image/person.jpg'" />
+        onerror="this.onerror=null,this.src='../../../../assets/images/image/placeholder.png'" />
       <div class="lawyer-details" style="flex-direction: column">
         <div class="name" *ngIf="isNameVisible">{{ lawyer?.lawyerName }}</div>
         <div class="type">{{ lawyer?.practicingField }}</div>

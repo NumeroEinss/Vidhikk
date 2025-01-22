@@ -1,10 +1,10 @@
 export class userProfileModel  {
-    name:string = "Anurag Goyal";
+    name:string = "";
     address: string = "";
-    mobile: string = "9867523422";
-    email: string = "anurag12@gmail.com";
-    city: string = "indore";
-    state: string = "Madhya Pradesh";
+    mobile: string = "";
+    email: string = "";
+    city: string = "";
+    state: string = "";
     district: string = "Indore";
     courtType: string = "District Court";
     courtName: string = "District & Session Court BHOPAL";

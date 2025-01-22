@@ -69,11 +69,11 @@ export class ForgotPasswordComponent {
 
   getErrorMessage() {
     if (this.forgotPasswordForm1.controls['email'].hasError('required')) {
-      return 'You must enter a value';
+      return 'Please enter email';
     }
 
     return this.forgotPasswordForm1.controls['email'].hasError('email')
-      ? 'Not a valid email'
+      ? 'Please enter valid email'
       : '';
   }
 

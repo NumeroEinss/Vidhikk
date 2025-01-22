@@ -105,9 +105,7 @@ export class ContactUsComponent {
     this.ticketForm.patchValue(ticket);
   }
 
-  saveChanges() {
-
-  }
+  saveChanges() {}
 
   deleteTicket() {
     this._apolloService.mutate(GQLConfig.deleteTicket, { ticketId: this.selectedMemberTicket.ticket_id }).subscribe(data => {
