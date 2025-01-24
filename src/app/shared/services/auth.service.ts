@@ -75,6 +75,7 @@ export class AuthService {
           else {
             this._router.navigate(['/user/activity-feed']);
           }
+          
         }
         else if (userType == "LAWYER") {
           if (this._router.url.includes('?')) {

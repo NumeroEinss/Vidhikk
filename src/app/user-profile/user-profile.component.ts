@@ -765,6 +765,8 @@ export class UserProfileComponent {
       if (data.data != null) {
         if (data.data.deletelawyerAccount.status == 200) {
           this._toastMessage.message(data.data.deletelawyerAccount.message);
+          this._authService.logout();
+          this._router.navigate(['/auth/login']);
         }
         else {
           this._toastMessage.error(data.data.userProfile.message);

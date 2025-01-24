@@ -882,6 +882,19 @@ export abstract class GQLConfig {
         }
     }`;
 
+    static getLawyerFilteredList = gql`mutation($userId: String!, $experience: String!, $place: String!, $practicingField: String!){
+        filterLawyerList(input: {
+            userId: $userId
+            experience: $experience
+            place: $place
+            practicingField: $practicingField
+        }){
+            status
+            message
+            data
+        }
+    }`;
+
 
     static deletelawyerAccount = gql`mutation($lawyerId: String) {
         deletelawyerAccount(input: {

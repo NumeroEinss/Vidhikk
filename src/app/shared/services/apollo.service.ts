@@ -147,7 +147,7 @@ export class ApolloService {
   uploadLawyer(mutation: any, file: any, docFile: any): Observable<any> {
     const operations = JSON.stringify(mutation);
     const formData = new FormData();
-    
+
     if (docFile == "") {
       const map = JSON.stringify({
         ["0"]: ["variables.profileFile"]
@@ -157,7 +157,7 @@ export class ApolloService {
       formData.append('map', map);
       formData.append("0", file);
     }
-    else{
+    else {
       const map = JSON.stringify({
         ["0"]: ["variables.profileFile"],
         ["1"]: ["variables.docFile"]
