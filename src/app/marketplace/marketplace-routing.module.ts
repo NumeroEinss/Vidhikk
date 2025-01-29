@@ -4,6 +4,7 @@ import { MarketplaceComponent } from './marketplace.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { SellerProductProfileComponent } from './seller-product-profile/seller-product-profile.component';
 import { SellerDashboardComponent } from './seller-dashboard/seller-dashboard.component';
+import { AdvertisementComponent } from './advertisement/advertisement.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
     path: 'dashboard',
     component: SellerDashboardComponent,
   },
+  {
+    path:'advertisement',
+    component: AdvertisementComponent
+  }
 ];
 
 @NgModule({

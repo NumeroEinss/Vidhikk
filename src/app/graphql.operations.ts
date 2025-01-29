@@ -907,4 +907,15 @@ export abstract class GQLConfig {
     }`;
 
 
+    static getMarketPlaceBanner = gql`mutation($inputType: String, $addedBy: String) {
+        getMarketPlaceBanner(input: {
+            inputType: $inputType,
+            addedBy: $addedBy
+        }) {
+            status
+            message
+            data
+        }
+    }`;
+
 }

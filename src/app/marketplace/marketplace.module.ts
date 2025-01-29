@@ -10,6 +10,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SellerProductProfileComponent } from './seller-product-profile/seller-product-profile.component';
 import { SellerDashboardComponent } from './seller-dashboard/seller-dashboard.component';
+import { AdvertisementComponent } from './advertisement/advertisement.component';
 
 
 
@@ -18,7 +19,8 @@ import { SellerDashboardComponent } from './seller-dashboard/seller-dashboard.co
     MarketplaceComponent,
     ProductDetailComponent,
     SellerProductProfileComponent,
-    SellerDashboardComponent
+    SellerDashboardComponent,
+    AdvertisementComponent
   ],
   imports: [
     CommonModule,

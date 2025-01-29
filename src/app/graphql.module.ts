@@ -7,7 +7,7 @@ import { setContext } from '@apollo/client/link/context'
 // const uri = 'http://localhost:4500/graphql'; // <-- add the URL of the GraphQL server here
 // const uri = 'http://localhost:4500/graphql'; // <-- add the URL of the GraphQL server here
 // const uri = 'http://192.168.29.74:4500/graphql'; //Desktop
-  const uri = 'http://192.168.29.221:8005/graphql';
+ const uri = 'http://192.168.29.221:8005/graphql';
 // const uri = 'http://192.168.29.39:4500/graphql'; //Nirdosh
 // const uri = 'http://84.247.151.137:8005/graphql' // server url
 // const uri = 'https://api.myvidhik.com'; //ssl server 

@@ -323,7 +323,6 @@ export class UserProfileComponent {
     try {
       const objRes: any = await lastValueFrom(this._apolloService.upload({ query: mutation, variables }, this.userImage, "0"));
       const resultKey = this.getResultKeyForUserType();
-      console.log(objRes.data, '-------------data')
       if (objRes.data && objRes.data[resultKey]) {
         this._toastMessage.success(objRes.data[resultKey].message);
         this._authService.updateProfile(objRes.data[resultKey].data);

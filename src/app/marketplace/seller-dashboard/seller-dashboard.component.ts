@@ -152,7 +152,7 @@ export class SellerDashboardComponent {
           this.toastMessage.success(data.data.getProductBySellerId.message);
         }
         else {
-          this.toastMessage.success(data.data.getProductBySellerId.message);
+          this.toastMessage.error(data.data.getProductBySellerId.message);
         }
       }
     });
@@ -180,7 +180,6 @@ export class SellerDashboardComponent {
           "files": []
         }
       }
-
       this.apolloService.uploadMultiple(mutation, this.files).subscribe(objRes => {
         if (objRes.data != null) {
           this.toastMessage.success(objRes.data.addProducts.message);
@@ -222,7 +221,7 @@ export class SellerDashboardComponent {
             this.getSellerProductList();
           }
           else {
-            this.toastMessage.success(data.data.deleteProduct.message);
+            this.toastMessage.error(data.data.deleteProduct.message);
           }
         }
       })
@@ -241,7 +240,7 @@ export class SellerDashboardComponent {
     })
   }
 
-  
+
   removeImage(index: number) {
     this.previewImages.splice(index, 1)
   }
