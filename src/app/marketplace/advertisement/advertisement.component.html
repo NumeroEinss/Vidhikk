@@ -63,7 +63,10 @@
             </div>
 
             <div *ngIf="isBannerShow">
-                <div class="banner-list">
+                <div *ngIf="bannerList == null" class="d-flex justify-content-center mt-5">
+                    <img src="../../../assets/images/image/No_Data.png" alt="">
+                </div>
+                <div class="banner-list"  *ngIf="bannerList != null">
                     <div class="banner-list-header">
                         <div class="grid-item1">Image</div>
                         <div class="grid-item1">Status</div>
@@ -78,10 +81,10 @@
                             </a>
                         </div>
                         <div class="grid-item2">
-                            <div class="oval-div close-status" *ngIf="bannerList.status == 'rejected'">
+                            <div class="oval-div close-status" *ngIf="bannerList.status == 'Rejected'">
                                 Rejected
                             </div>
-                            <div class="oval-div process-status" *ngIf="bannerList.status == 'approved'">
+                            <div class="oval-div process-status" *ngIf="bannerList.status == 'Approved'">
                                 Approved
                             </div>
                             <div class="oval-div pending-status" *ngIf="bannerList.status == 'Pending'">
@@ -89,8 +92,8 @@
                             </div>
                         </div>
                         <div class="grid-item2 d-flex align-items-center">
-                            <button class="edit-btn" [disabled]="bannerList.status === 'approved'"
-                                [ngClass]="{ 'disabled-btn': bannerList.status === 'approved'}" data-bs-toggle="modal"
+                            <button class="edit-btn" [disabled]="bannerList.status === 'Approved'"
+                                [ngClass]="{ 'disabled-btn': bannerList.status === 'Approved'}" data-bs-toggle="modal"
                                 data-bs-target="#editAdModal">
                                 <img src="../../../assets/images/icons/edit_blue.svg" alt="">
                             </button>
@@ -104,7 +107,10 @@
             </div>
 
             <div *ngIf="isAdShow">
-                <div class="banner-list">
+                <div *ngIf="bannerList == null" class="d-flex justify-content-center mt-5">
+                    <img src="../../../assets/images/image/No_Data.png" alt="">
+                </div>
+                <div class="banner-list"  *ngIf="bannerList != null">
                     <div class="banner-list-header">
                         <div class="grid-item1">Image</div>
                         <div class="grid-item1">Status</div>
@@ -119,10 +125,10 @@
                             </a>
                         </div>
                         <div class="grid-item2">
-                            <div class="oval-div close-status" *ngIf="bannerList.status == 'rejected'">
+                            <div class="oval-div close-status" *ngIf="bannerList.status == 'Rejected'">
                                 Rejected
                             </div>
-                            <div class="oval-div process-status" *ngIf="bannerList.status == 'approved'">
+                            <div class="oval-div process-status" *ngIf="bannerList.status == 'Approved'">
                                 Approved
                             </div>
                             <div class="oval-div pending-status" *ngIf="bannerList.status == 'Pending'">
@@ -130,8 +136,8 @@
                             </div>
                         </div>
                         <div class="grid-item2 d-flex align-items-center">
-                            <button class="edit-btn" [disabled]="bannerList.status === 'approved'"
-                                [ngClass]="{ 'disabled-btn': bannerList.status === 'approved'}" data-bs-toggle="modal"
+                            <button class="edit-btn" [disabled]="bannerList.status === 'Approved'"
+                                [ngClass]="{ 'disabled-btn': bannerList.status === 'Approved'}" data-bs-toggle="modal"
                                 data-bs-target="#editAdModal">
                                 <img src="../../../assets/images/icons/edit_blue.svg" alt="">
                             </button>
