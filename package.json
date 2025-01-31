@@ -48,6 +48,7 @@
     "ngx-scrollbar": "^13.0.3",
     "ngx-sharebuttons": "^15.0.2",
     "rxjs": "~7.8.0",
+    "socket.io-client": "^4.8.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },

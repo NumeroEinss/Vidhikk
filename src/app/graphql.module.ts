@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ApolloClientOptions, ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context'
 
-// const uri = 'http://localhost:4500/graphql'; // <-- add the URL of the GraphQL server here
+// const uri = 'http://localhost:8005/graphql'; // <-- add the URL of the GraphQL server here
 // const uri = 'http://localhost:4500/graphql'; // <-- add the URL of the GraphQL server here
 //  const uri = 'http://192.168.29.39:4500/graphql'; //Desktop
 //  const uri = 'http://192.168.29.221:8005/graphql'; //Aditya Server
@@ -15,7 +15,7 @@ export function imageUrl(): string {
   return uri.replace('/graphql', '');
 }
 
-export function getBaseUrl(): string {
+export function getBaseUrl(): string {  
   return uri;
 }
 

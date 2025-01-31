@@ -1,0 +1,49 @@
+<div class="privacy-policy">
+    <h1>Privacy Policy</h1>
+    <div class="main-desc">This Privacy Policy governs the manner in which Vidhik ("we", "us", or "our") collects,
+        uses,
+        maintains information collected from users ("you" or "your") of the
+        Vidhik
+        website.</div>
+    <div *ngFor="let section of privacyPolicy">
+        <h2>{{ section.subHeading }}</h2>
+        <div *ngFor="let detail of section.details">
+            <h3>{{ detail.heading }}</h3>
+            <p>{{ detail.subHeading }}</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .privacy-policy {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    .privacy-policy h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .privacy-policy h2 {
+        color: #2c3e50;
+        margin-top: 20px;
+    }
+
+    .privacy-policy h3 {
+        color: #34495e;
+        margin-top: 10px;
+    }
+
+    .privacy-policy p {
+        color: #7f8c8d;
+        margin-top: 5px;
+    }
+
+    .main-desc {
+        font-size: 16px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+</style>
