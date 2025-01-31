@@ -8,17 +8,19 @@
     }
 
     .file-upload-section {
-        // display: flex;
-        // gap: 30px;
         margin-top: 20px;
         border: 1px solid #f0f0f0;
         border-radius: 10px;
         padding: 10px;
 
-        .upload-type{
-            input{
+        .upload-type {
+            input {
                 cursor: pointer;
-            } 
+            }
+
+            .ad-label {
+                margin: 0 80px;
+            }
         }
 
         .file-container {
@@ -82,6 +84,14 @@
                         padding: 8px;
                         width: 260px;
                         height: 240px;
+                    }
+
+                    .slider-img {
+                        width: 400px;
+                    }
+
+                    .side-ad {
+                        width: 300px;
                     }
 
                     .image-wrapper img {
@@ -332,9 +342,64 @@
     }
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .root {
+        margin: 20px 0 20px 20px;
+
+        .file-upload-section {
+            margin-right: 20px;
+
+            .radio-btns {
+                flex-wrap: wrap;
+
+                .ad-label {
+                    margin: 0 30px;
+                }
+            }
+
+            .image-preview {
+                display: none;
+            }
+
+            .file-container {
+                width: 40%;
+
+                .drop-zone {
+                    .add-picture {
+                        .choose-file {
+                            padding: 10px 8px;
+
+                        }
+                    }
+                }
+            }
+
+            .ng-scroll {
+                width: 100%;
+                height: unset;
+
+                .selected-image {
+                    .image-preview {
+                        .slider-img {
+                            width: 340px;
+                        }
+
+                        .side-ad {
+                            width: 300px;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media only screen and (min-width: 1024px) and (max-width: 4400px) {
     .root {
         .file-upload-section {
+            margin-right: 30px;
+
             .ng-scroll {
                 width: 100%;
                 height: unset;

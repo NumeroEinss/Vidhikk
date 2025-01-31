@@ -918,4 +918,13 @@ export abstract class GQLConfig {
         }
     }`;
 
+    static getApprovedBannersAndAdds = gql`mutation($inputType: String) {
+        getApprovedBannersAndAdds(input: {
+            inputType: $inputType,
+        }) {
+            status
+            message
+            data
+        }
+    }`;
 }

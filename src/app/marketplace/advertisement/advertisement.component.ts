@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { GQLConfig } from '../../graphql.operations';
+import { imageUrl } from '../../graphql.module';
 
 @Component({
   selector: 'app-advertisement',
@@ -57,6 +58,10 @@ export class AdvertisementComponent {
     this.isBannerShow = false;
     this.getMarketPlaceBanner(inputType);
   }
+
+    getImageUrl(image: any) {
+      return imageUrl() + image;
+    }
 
   getMarketPlaceBanner(inputType: string) {
     let data = {
@@ -119,7 +124,6 @@ export class AdvertisementComponent {
     }
   }
 
-
   onUpdatedFileSelected(event: any) {
     const fileList = event.target.files;
     this.files = Array.from(fileList);
@@ -155,6 +159,7 @@ export class AdvertisementComponent {
           this.previewBanners = [];
           this.fileUploaded = false;
           this.hasBanner = false;
+          this.getMarketPlaceBanner(this.uploadType);
         }
         else {
           this.toastMessage.error(objRes.data.marketPlaceBanner.message);

@@ -5,19 +5,19 @@
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
             <div class="heading">Add Banners</div>
             <div class="file-upload-section">
-                <div class="d-flex mb-3 mt-1">
+                <div class="d-flex mb-3 mt-1 radio-btns">
                     <div class="upload-type">
                         <label>
                             <input type="radio" name="uploadType" value="slider" (change)="onUploadTypeChange('slider')"
                                 checked />
                             Front Banner (1210x308 px)
                         </label>
-                        <label class="ms-5">
+                        <label class="ad-label">
                             <input type="radio" name="uploadType" value="ads" (change)="onUploadTypeChange('ads')" />
                             Right Side Ad (300x600 px)
                         </label>
                     </div>
-                    <div class="ms-5">Image Preview</div>
+                    <div class="image-preview">Image Preview</div>
                 </div>
                 <div style="display: flex; gap: 30px;">
                     <div class="file-container" [ngClass]="{ 'has-images': hasBanner }">
@@ -39,8 +39,8 @@
                             <div class="selected-image">
                                 <div class="image-preview" *ngIf="previewBanners.length > 0">
                                     <div *ngFor="let image of previewBanners; index as i" class="image-wrapper"
-                                        [ngStyle]="uploadType == 'slider'? {'width':'400px'}:{'width':'300'}">
-                                        <img [src]="image" alt="Selected-Image">
+                                        [ngClass]="uploadType == 'slider'? 'slider-img':'side-ad'">
+                                        <img [src]="image" alt="Selected-Image" >
                                         <div class="close-btn" (click)="removeBanner(i)"><img
                                                 src="../../../assets/images/icons/close_button.svg" alt="">
                                         </div>
@@ -59,7 +59,7 @@
                     [ngClass]="{'colored-heading': isBannerShow, 'default-heading': !isBannerShow}">
                     Front Banners</div>
                 <div (click)="toggleAds('ads')" [ngClass]="{'colored-heading': isAdShow, 'default-heading': !isAdShow}">
-                    Side Ads</div>
+                   Right Side Ads</div>
             </div>
 
             <div *ngIf="isBannerShow">
@@ -72,16 +72,16 @@
                     <div class="banner-list-data">
                         <div class="grid-item2" *ngFor="let img of bannerList.adSliderImages">
                             <a [href]="img" target="_blank">
-                                <img [src]="img"
+                                <img [src]="getImageUrl(img)"
                                     onerror="this.onerror=null;this.src='../../../../assets/images/image/no-image.png'"
                                     class="banner-img">
                             </a>
                         </div>
                         <div class="grid-item2">
-                            <div class="oval-div close-status" *ngIf="bannerList.status == 'Rejected'">
+                            <div class="oval-div close-status" *ngIf="bannerList.status == 'rejected'">
                                 Rejected
                             </div>
-                            <div class="oval-div process-status" *ngIf="bannerList.status == 'Approved'">
+                            <div class="oval-div process-status" *ngIf="bannerList.status == 'approved'">
                                 Approved
                             </div>
                             <div class="oval-div pending-status" *ngIf="bannerList.status == 'Pending'">
@@ -113,7 +113,7 @@
                     <div class="banner-list-data">
                         <div class="grid-item2" *ngFor="let img of bannerList.adMarketSideImage">
                             <a [href]="img" target="_blank">
-                                <img [src]="img"
+                                <img [src]="getImageUrl(img)"
                                     onerror="this.onerror=null;this.src='../../../../assets/images/image/no-image.png'"
                                     class="banner-img">
                             </a>
