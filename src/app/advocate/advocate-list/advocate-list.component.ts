@@ -20,6 +20,11 @@ export class AdvocateListComponent {
   ];
   selectedAdvocateType: string = "all";
   searchQuery: string = '';
+  place: string = "";
+  practisingField: string = "";
+  popularity: string = "allLawyers";
+  experience: string = "any experience";
+
 
   popularLawyerList: any = [
     {
@@ -143,5 +148,31 @@ export class AdvocateListComponent {
           value?.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
         )
       );
+  }
+
+  
+  getFilteredLawyerList(){
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
+    let data = {
+      userId: userData._id,
+      experience: this.experience,
+      place: this.place,
+      practicingField: this.practisingField
+    }
+    console.log("data", data)
+    this._apollo.mutate(GQLConfig.getLawyerFilteredList, data).subscribe(resObj => {
+      if (resObj.data != null) {
+        if (resObj.data.filterLawyerList.status == 200) {
+          this.filteredLawyerList = resObj.data.filterLawyerList.data.lawyerList;
+          this.experience = "any exprience";
+          this.place = "";
+          this.practisingField = "";
+          this.popularity = "allLawyers";
+        }
+        else {
+          this._toastMessage.error(resObj.data.filterLawyerList.message)
+        }
+      }
+    })
   }
 }

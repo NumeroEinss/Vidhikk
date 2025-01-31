@@ -19,6 +19,8 @@ export class ContactUsComponent {
   ticketForm: FormGroup;
   selectedMemberTicket: any = {};
   selectedEditTicket: any;
+  searchTicket: string = '';
+  filteredTicketList: any;
 
   files: any = { name: "No Files Selected" };
   fileUploaded: boolean = false;
@@ -105,7 +107,7 @@ export class ContactUsComponent {
     this.ticketForm.patchValue(ticket);
   }
 
-  saveChanges() {}
+  saveChanges() { }
 
   deleteTicket() {
     this._apolloService.mutate(GQLConfig.deleteTicket, { ticketId: this.selectedMemberTicket.ticket_id }).subscribe(data => {
@@ -128,7 +130,6 @@ export class ContactUsComponent {
   }
 
   redirectToContactDetail(ticket: any) {
-    // console.log(ticket, 'ticket')
     let userData = sessionStorage.getItem('userData');
     let parsedData = JSON.parse(userData!)
     if (parsedData.userType == "LAWYER") {
@@ -147,6 +148,8 @@ export class ContactUsComponent {
         if (data.data.getTicketList.status = 200) {
           this._toastMessage.success(data.data.getTicketList.message);
           this.ticketList = data.data.getTicketList.data.ticketList;
+          console.log(this.ticketList)
+          this.filteredTicketList = [...this.ticketList]
         }
         else {
           this._toastMessage.error(data.data.getTicketList.message);
@@ -154,4 +157,13 @@ export class ContactUsComponent {
       }
     })
   }
+
+  filterTickets() {
+    this.ticketList = this.filteredTicketList.filter((ticket: any) => {
+      return Object.values(ticket).some(value =>
+        value?.toString().toLowerCase().includes(this.searchTicket.toLowerCase())
+      );
+    });
+  }
+  
 }

@@ -80,7 +80,7 @@
 
                 <div class="col-lg-8 col-md-8">
                   <div class="user-details-heading">Address</div>
-                  <div class="user-details-detail">{{ lawyerProfileList.city}},{{ lawyerProfileList.state}}
+                  <div class="user-details-detail">{{ lawyerProfileList.city}}, {{ lawyerProfileList.state}}
                   </div>
                 </div>
               </div>
@@ -647,7 +647,7 @@
         </div>
         <div class="text-center mt-3 mb-5">
           <button mat-raised-button color="primary" style="width: fit-content !important"
-            data-bs-target="#confirmDeleteModal" data-bs-toggle="modal">
+            data-bs-target="#confirmDeleteModal" data-bs-toggle="modal" (click)="deleteLawyerAccount()">
             Delete
           </button>
         </div>

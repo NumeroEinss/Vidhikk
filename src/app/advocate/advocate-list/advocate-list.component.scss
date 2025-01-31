@@ -59,6 +59,8 @@
     .main-div {
         .advocate-header-menu {
             display: flex;
+            justify-content: center;
+            align-items: center;
 
             .filter-section {
                 margin-right: 24px;
@@ -69,6 +71,11 @@
 
                 .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
                     padding-top: 3px !important;
+                }
+
+                img{
+                    padding-bottom: 12px;
+                    cursor: pointer;
                 }
             }
 

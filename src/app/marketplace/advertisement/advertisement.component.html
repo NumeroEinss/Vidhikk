@@ -1,0 +1,196 @@
+<app-header [menuName]="'Advertisement'"></app-header>
+
+<div class="root">
+    <div style="height: calc(100vh - 162px);">
+        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+            <div class="heading">Add Banners</div>
+            <div class="file-upload-section">
+                <div class="d-flex mb-3 mt-1">
+                    <div class="upload-type">
+                        <label>
+                            <input type="radio" name="uploadType" value="slider" (change)="onUploadTypeChange('slider')"
+                                checked />
+                            Front Banner (1210x308 px)
+                        </label>
+                        <label class="ms-5">
+                            <input type="radio" name="uploadType" value="ads" (change)="onUploadTypeChange('ads')" />
+                            Right Side Ad (300x600 px)
+                        </label>
+                    </div>
+                    <div class="ms-5">Image Preview</div>
+                </div>
+                <div style="display: flex; gap: 30px;">
+                    <div class="file-container" [ngClass]="{ 'has-images': hasBanner }">
+                        <div class="drop-zone">
+                            <input type="file" (change)="onBannerSelected($event)" #BannerFileInput
+                                style="display: none" accept="image/*" multiple>
+                            <div class="add-picture" (click)="BannerFileInput.click()">
+                                <div class="choose-file">Choose Files</div>
+                            </div>
+                            <div class="upload-btn" *ngIf="hasBanner"><button mat-raised-button color="primary"
+                                    style="width: fit-content !important" (click)="uploadBanners()">
+                                    Upload
+                                </button></div>
+                        </div>
+                    </div>
+                    <div class="ng-scroll">
+                        <ng-scrollbar autoHeightDisabled="false" appearance="standard">
+                            <!-- <div *ngIf="previewBanners.length == 0" style="text-align: center; margin-top: 100px;">No File Selected</div> -->
+                            <div class="selected-image">
+                                <div class="image-preview" *ngIf="previewBanners.length > 0">
+                                    <div *ngFor="let image of previewBanners; index as i" class="image-wrapper"
+                                        [ngStyle]="uploadType == 'slider'? {'width':'400px'}:{'width':'300'}">
+                                        <img [src]="image" alt="Selected-Image">
+                                        <div class="close-btn" (click)="removeBanner(i)"><img
+                                                src="../../../assets/images/icons/close_button.svg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-scrollbar>
+                    </div>
+                </div>
+            </div>
+
+            <div class="heading mt-5">Advertisement</div>
+
+            <div class="tabs">
+                <div (click)="toggleBanners('slider')"
+                    [ngClass]="{'colored-heading': isBannerShow, 'default-heading': !isBannerShow}">
+                    Front Banners</div>
+                <div (click)="toggleAds('ads')" [ngClass]="{'colored-heading': isAdShow, 'default-heading': !isAdShow}">
+                    Side Ads</div>
+            </div>
+
+            <div *ngIf="isBannerShow">
+                <div class="banner-list">
+                    <div class="banner-list-header">
+                        <div class="grid-item1">Image</div>
+                        <div class="grid-item1">Status</div>
+                        <div class="grid-item1">ACTIONS</div>
+                    </div>
+                    <div class="banner-list-data">
+                        <div class="grid-item2" *ngFor="let img of bannerList.adSliderImages">
+                            <a [href]="img" target="_blank">
+                                <img [src]="img"
+                                    onerror="this.onerror=null;this.src='../../../../assets/images/image/no-image.png'"
+                                    class="banner-img">
+                            </a>
+                        </div>
+                        <div class="grid-item2">
+                            <div class="oval-div close-status" *ngIf="bannerList.status == 'Rejected'">
+                                Rejected
+                            </div>
+                            <div class="oval-div process-status" *ngIf="bannerList.status == 'Approved'">
+                                Approved
+                            </div>
+                            <div class="oval-div pending-status" *ngIf="bannerList.status == 'Pending'">
+                                Pending
+                            </div>
+                        </div>
+                        <div class="grid-item2 d-flex align-items-center">
+                            <button class="edit-btn" [disabled]="bannerList.status === 'approved'"
+                                [ngClass]="{ 'disabled-btn': bannerList.status === 'approved'}" data-bs-toggle="modal"
+                                data-bs-target="#editAdModal">
+                                <img src="../../../assets/images/icons/edit_blue.svg" alt="">
+                            </button>
+
+                            <button mat-icon-button>
+                                <mat-icon style="color: #2e5bff">delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="isAdShow">
+                <div class="banner-list">
+                    <div class="banner-list-header">
+                        <div class="grid-item1">Image</div>
+                        <div class="grid-item1">Status</div>
+                        <div class="grid-item1">ACTIONS</div>
+                    </div>
+                    <div class="banner-list-data">
+                        <div class="grid-item2" *ngFor="let img of bannerList.adMarketSideImage">
+                            <a [href]="img" target="_blank">
+                                <img [src]="img"
+                                    onerror="this.onerror=null;this.src='../../../../assets/images/image/no-image.png'"
+                                    class="banner-img">
+                            </a>
+                        </div>
+                        <div class="grid-item2">
+                            <div class="oval-div close-status" *ngIf="bannerList.status == 'rejected'">
+                                Rejected
+                            </div>
+                            <div class="oval-div process-status" *ngIf="bannerList.status == 'approved'">
+                                Approved
+                            </div>
+                            <div class="oval-div pending-status" *ngIf="bannerList.status == 'Pending'">
+                                Pending
+                            </div>
+                        </div>
+                        <div class="grid-item2 d-flex align-items-center">
+                            <button class="edit-btn" [disabled]="bannerList.status === 'approved'"
+                                [ngClass]="{ 'disabled-btn': bannerList.status === 'approved'}" data-bs-toggle="modal"
+                                data-bs-target="#editAdModal">
+                                <img src="../../../assets/images/icons/edit_blue.svg" alt="">
+                            </button>
+
+                            <button mat-icon-button>
+                                <mat-icon style="color: #2e5bff">delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </ng-scrollbar>
+
+    </div>
+</div>
+
+<div class="modal fade" id="editAdModal" aria-hidden="true" aria-labelledby="editAdModalLabel" tabindex="-1"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered edit-ad-popup">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editAdModalLabel">
+                    Edit Advertisement
+                </h1>
+                <button type="button" class="btn-close" id="closeEditAdModal" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex mat-input-white" style="flex-direction: column">
+                    <mat-label class="mat-label mt-2 mb-1">Add Advertisement</mat-label>
+                    <div class="file-container">
+                        <div class="drop-zone">
+                            <input type="file" (change)="onUpdatedFileSelected($event)" #editAdInput
+                                style="display: none" accept="image/*" multiple>
+                            <div class="add-picture" (click)="editAdInput.click()">+</div>
+                        </div>
+                    </div>
+                    <div class="selected-image">
+                        <div class="image-preview">
+                            <div *ngFor="let file of updatedBanners; index as i" class="image-wrapper">
+                                <img [src]="file" alt="Selected-Image">
+                                <div class="close-btn" (click)="removeLatestBanner(i)"><img
+                                        src="../../../assets/images/icons/close_button.svg" alt=""></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-3 filter-btn">
+                        <button mat-raised-button color="primary"
+                            style="width: fit-content !important; padding: 12px 36px">
+                            Update
+                        </button>
+                        <button mat-stroked-button color="primary" style="width: fit-content !important;
+                                  margin-left: 20px; padding: 12px 36px;" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
