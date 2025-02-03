@@ -54,7 +54,7 @@ export class SubscriptionPlanComponent {
   }
 
   choosePlan(plan: any) {
-    // console.log("Choose Plan Triggered !!");
+    console.log("plan!", plan );
     let userData = JSON.parse(sessionStorage.getItem('userData')!);
     if (userData.userType === 'LAWYER') {
       let reqObj = {

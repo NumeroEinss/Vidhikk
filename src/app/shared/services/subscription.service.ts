@@ -41,18 +41,19 @@ export class SubscriptionService {
         }
       }
       else if (JSON.parse(sessionStorage.getItem('userData')!).userType === 'SELLER') {
+        console.log("gfgh", JSON.parse(sessionStorage.getItem('userData')!))
         switch (JSON.parse(sessionStorage.getItem('userData')!).activePlan) {
-          case '2':
-            this.subscriptionplanSubject.next({ productCount: 0 });
+          case 'FREE PLAN':
+            this.subscriptionplanSubject.next({ productCount: 2 });
             break;
           case 'SILVER PLAN':
-            this.subscriptionplanSubject.next({ productCount: 0 });
+            this.subscriptionplanSubject.next({ productCount: 5 });
             break;
           case 'GOLD PLAN':
-            this.subscriptionplanSubject.next({ productCount: 0 });
+            this.subscriptionplanSubject.next({ productCount: 10});
             break;
           case 'DIAMOND PLAN':
-            this.subscriptionplanSubject.next({ productCount: 0 });
+            this.subscriptionplanSubject.next({ productCount: 25 });
             break;
           default:
             break;
