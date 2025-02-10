@@ -16,7 +16,6 @@ export class SocketService {
   onMessage(): Observable<any> {
     return new Observable(observer => {
       this.socket.on('receive-message', (message) => {
-        console.log('Received message via socket:', message);
         observer.next(message);
       });
 
@@ -28,5 +27,19 @@ export class SocketService {
   // Send a message (if needed)
   sendMessage(message: any) {
     this.socket.emit('send-message', message);
+  }
+
+  createRoom(room:any) {
+    this.socket.emit('create-room', room);
+  }
+
+  roomCreated(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('room-created', (room) => {
+        observer.next(room);
+      });
+
+      return () => this.socket.off('room-created');
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastMessageService } from '../shared/services/snack-alert.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { GQLConfig } from '../graphql.operations';
 import { ApolloService } from '../shared/services/apollo.service';
 import { Subscription } from 'rxjs';
 import { SocketService } from '../shared/services/socket.service';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 
 @Component({
@@ -13,7 +14,8 @@ import { SocketService } from '../shared/services/socket.service';
   templateUrl: './chat-room.component.html',
   styleUrl: './chat-room.component.scss',
 })
-export class ChatRoomComponent {
+export class ChatRoomComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
+  @ViewChild('scrollBar') scrollbar!: NgScrollbar;
   chatRoomForm: FormGroup;
   selectedChat: string = 'allChat';
   message: string = "";
@@ -26,6 +28,7 @@ export class ChatRoomComponent {
   members: any = [];
   messageSubscription!: Subscription;
   chatList: any = [];
+  roomSubscription!: Subscription;
 
   roomList: any = [
     // {
@@ -231,10 +234,25 @@ export class ChatRoomComponent {
     this.userId = JSON.parse(sessionStorage.getItem('userData')!)._id;
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
   ngOnInit() {
     this.messageSubscription = this._socketService.onMessage().subscribe(data => {
       console.log('New message received:', data);
       // this.message = data;
+      if (this.selectedChatRoom._id === data.roomId) {
+        if (data.sender === this.userId) {
+
+        } else {
+          this.chatList.push(data);
+        }
+      }
+    });
+    this.roomSubscription = this._socketService.roomCreated().subscribe(data => {
+      console.log('New room created:', data);
+      this.getRoomList();
     });
   }
 
@@ -298,13 +316,13 @@ export class ChatRoomComponent {
     // this.message = '';
     const userData = JSON.parse(sessionStorage.getItem('userData')!);
     const reqObj = {
-      sender: userData._id, roomId: this.selectedChatRoom._id, content: this.message
+      sender: userData._id, roomId: this.selectedChatRoom._id, contents: this.message
     }
     if (this.message == "") {
       this._toastMessage.error("Please Enter Message !!");
     }
     else {
-      console.log('reqObj', reqObj); 
+      console.log('reqObj', reqObj);
       this.chatList.push(reqObj);
       this._socketService.sendMessage(reqObj);
       this.message = '';
@@ -319,7 +337,7 @@ export class ChatRoomComponent {
     });
     this.roomList[index].className = className;
     this.selectedChatRoom = selectedChatRoom;
-    
+
     await this.getChatList(selectedChatRoom);
 
     this.members.forEach((member: any) => {
@@ -402,24 +420,25 @@ export class ChatRoomComponent {
     // this.selectedChatRoom = this.roomList[0];
     // this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
     // this.roomList[0].className = 'colored-border-label';
-
-    console.log(this.chatRoomForm.value, 'this.chatRoomForm.value');
     const reqObj = {
       name: this.chatRoomForm.controls.roomName.value,
       members: this.chatRoomForm.controls.participant.value,
-      description: ""
+      description: "",
+      userId: this.userId
     }
+    console.log(reqObj, 'this.chatRoomForm.value');
 
-    this._apolloService.post('/room', reqObj, { userId: userData._id }).subscribe(objRes => {
-      if (objRes.status == 'success') {
-        this._toastMessage.success("Chat Room Created Successfully !!");
-        this.getRoomList();
-        this.chatRoomForm.patchValue({ participant: '', roomName: '' });
-      }
-      else {
-        this._toastMessage.error(objRes.message);
-      }
-    })
+    // this._apolloService.post('/room', reqObj, { userId: userData._id }).subscribe(objRes => {
+    //   if (objRes.status == 'success') {
+    //     this._toastMessage.success("Chat Room Created Successfully !!");
+    // this.getRoomList();
+    // this.chatRoomForm.patchValue({ participant: '', roomName: '' });
+    this._socketService.createRoom(reqObj)
+    // }
+    // else {
+    //   this._toastMessage.error(objRes.message);
+    // }
+    // })
   }
 
   filterMember(e: any) {
@@ -460,17 +479,29 @@ export class ChatRoomComponent {
   }
 
   deleteChatRoom() {
-    // this.roomList.forEach((x: any, index: number) => {
-    //   if (x.roomName == this.selectedChatRoom.roomName) {
-    //     this.roomList.splice(index, 1)
-    //     this.selectedChatRoom = this.roomList[0];
-    //     this.roomList.forEach((room: any) => { room.className = "colorless-border-label" })
-    //     this.roomList[0].className = 'colored-border-label';
-    //   }
-    // })
+    let userData = JSON.parse(sessionStorage.getItem('userData')!);
+    console.log(this.selectedChatRoom, 'this.selectedChatRoom', this.selectedChatRoom._id, userData._id);
+    this._apolloService.delete(`/room/${this.selectedChatRoom._id}`, { userId: userData._id }).subscribe(objRes => {
+      if (objRes.status == 'success') {
+        this._toastMessage.success("Chat Room Deleted Successfully !!");
+        this.getRoomList();
+      }
+      else {
+        this._toastMessage.error("You are not the owner of this Room !!");
+      }
+    })
+  }
+
+  // Scroll to the bottom of the chat area
+  scrollToBottom() {
+    if (this.scrollbar) {
+      // Use the NgScrollbar API's scrollTo method
+      this.scrollbar.scrollTo({ top: this.scrollbar.nativeElement.scrollHeight, duration: 150 });
+    }
   }
 
   ngOnDestroy() {
     this.messageSubscription.unsubscribe();
+    this.roomSubscription.unsubscribe();
   }
 }

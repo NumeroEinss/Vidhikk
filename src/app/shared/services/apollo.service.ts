@@ -60,7 +60,7 @@ export class ApolloService {
       headers = new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
-        userId: reqBody.userId,
+        user: reqBody.userId,
       });
     }
     else {
@@ -80,7 +80,7 @@ export class ApolloService {
       headers = new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
-        userId: reqBody.userId,
+        user: reqBody.userId,
       });
     }
     else {
@@ -93,11 +93,21 @@ export class ApolloService {
       .post(this.baseUrl + url, data, { headers });
   }
 
-  delete(url: string,): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-    });
+  delete(url: string,reqBody?:any): Observable<any> {
+    let headers = {};
+    if (reqBody != null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        user: reqBody.userId,
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+      });
+    }
     return this._http
       .delete(this.baseUrl + url, { headers });
   }
@@ -109,7 +119,7 @@ export class ApolloService {
       headers = new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: '*/*',
-        userId: reqBody.userId,
+        user: reqBody.userId,
       });
     }
     else {

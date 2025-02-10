@@ -89,25 +89,25 @@
             <mat-menu #notificationMenu="matMenu">
               <button mat-menu-item data-bs-target="#addMemberModal" data-bs-toggle="modal">Add Member</button>
               <button mat-menu-item data-bs-target="#removeMemberModal" data-bs-toggle="modal">Remove Member</button>
-              <button mat-menu-item data-bs-target="#deleteChatModal" data-bs-toggle="modal">Delete Chat Room</button>
+              <button mat-menu-item data-bs-target="#deleteChatModal" data-bs-toggle="modal" *ngIf="selectedChatRoom?.user == this.userId">Delete Chat Room</button>
             </mat-menu>
           </div>
         </div>
 
-        <ng-scrollbar #scrollbar appearance="standard">
+        <ng-scrollbar #scrollBar appearance="standard">
           <div class="chat-area" *ngFor="let chat of chatList">
             <!-- <div *ngIf="chat.type == 'schedule'" style="display: flex">
               <hr class="col-lg-5 col-sm-5" />
               <div class="schedule col-lg-2">
-                {{ chat.content }}
+                {{ chat.contents }}
               </div>
               <hr class="col-lg-5 col-sm-5" />
             </div> -->
 
             <div class="sender-container" *ngIf="chat.sender == userId">
               <div class="sender-chat">
-                <div class="sender-msg">{{ chat.content }}</div>
-                <div class="send-time">{{ chat.time }}</div>
+                <div class="sender-msg">{{ chat.contents }}</div>
+                <div class="send-time">{{ chat.createdAt | date: 'shortTime'}}</div>
               </div>
               <div class="sender-image">
                 <img [src]="chat.senderImage"
@@ -122,8 +122,8 @@
               </div>
               <div class="receiver-chat">
                 <div class="receiver-name">{{ chat.name }}</div>
-                <div class="receiver-msg">{{ chat.content }}</div>
-                <div class="receive-time">{{ chat.time }}</div>
+                <div class="receiver-msg">{{ chat.contents }}</div>
+                <div class="receive-time">{{ chat.createdAt | date: 'shortTime'}}</div>
               </div>
             </div>
           </div>
@@ -132,7 +132,7 @@
         <div class="chat-textarea" id="chat-textarea">
           <textarea matInput placeholder="Enter Your text here" [(ngModel)]="message"></textarea>
           <img src="../../../../assets/images/icons/chat_room_send.svg" alt="noImage"
-            (click)="addMessage(); scrollbar.scrollTo({ bottom: 0 })" />
+            (click)="addMessage();" />
         </div>
       </div>
       <div class="d-flex justify-content-center align-items-center" style="height: 100%;flex-direction:column"
@@ -147,6 +147,7 @@
   <!-- chat-room chat-UI ends -->
   <!-- root ends -->
 
+  <!-- Mobile View -->
   <div class="mobile-root">
     <div class="group-list" id="groupList">
       <div class="search-n-create-chat-room">
@@ -205,39 +206,41 @@
           <mat-menu #notificationMenu="matMenu">
             <button mat-menu-item data-bs-target="#addMemberModal" data-bs-toggle="modal">Add Member</button>
             <button mat-menu-item data-bs-target="#removeMemberModal" data-bs-toggle="modal">Remove Member</button>
-            <button mat-menu-item data-bs-target="#deleteChatModal" data-bs-toggle="modal">Delete Chat Room</button>
+            <button mat-menu-item data-bs-target="#deleteChatModal" data-bs-toggle="modal" *ngIf="selectedChatRoom?.user == this.userId">Delete Chat Room</button>
           </mat-menu>
         </div>
       </div>
 
       <ng-scrollbar #scrollBar appearance="standard">
         <div class="chat-area" *ngFor="let chat of chatList">
-          <div *ngIf="chat.type == 'schedule'" style="display: flex; justify-content: center;">
+          <!-- <div *ngIf="chat.type == 'schedule'" style="display: flex; justify-content: center;">
             <hr class="col-sm-5" />
             <div class="schedule col-sm-2">
-              {{ chat.message }}
+              {{ chat.contents }}
             </div>
             <hr class="col-sm-5" />
-          </div>
+          </div> -->
 
-          <div class="sender-container" *ngIf="chat.type == 'sender'">
+          <div class="sender-container" *ngIf="chat.sender == userId">
             <div class="sender-chat">
-              <div class="sender-msg">{{ chat.message }}</div>
-              <div class="send-time">{{ chat.time }}</div>
+              <div class="sender-msg">{{ chat.contents }}</div>
+              <div class="send-time">{{ chat.time | date:'shortTime' }}</div>
             </div>
             <div class="sender-image">
-              <img [src]="chat.senderImage" alt="" class="user-img" />
+              <img [src]="chat.senderImage"
+                onerror="this.onerror = null,this.src='../../assets/images/image/person.jpg'" class="user-img" />
             </div>
           </div>
 
-          <div class="receiver-container" *ngIf="chat.type == 'receiver'">
+          <div class="receiver-container" *ngIf="chat.sender != userId">
             <div class="receiver-image">
-              <img [src]="chat.receiverImage" alt="" class="user-img" />
+              <img [src]="chat.receiverImage"
+                onerror="this.onerror = null,this.src='../../assets/images/image/person.jpg'" class="user-img" />
             </div>
             <div class="receiver-chat">
               <div class="receiver-name">{{ chat.name }}</div>
-              <div class="receiver-msg">{{ chat.message }}</div>
-              <div class="receive-time">{{ chat.time }}</div>
+              <div class="receiver-msg">{{ chat.contents }}</div>
+              <div class="receive-time">{{ chat.time | date:'shortTime' }}</div>
             </div>
           </div>
         </div>
@@ -246,7 +249,7 @@
       <div class="chat-textarea" id="chat-textarea">
         <textarea matInput placeholder="Enter Your text here" [(ngModel)]="message"></textarea>
         <img src="../../../../assets/images/icons/chat_room_send.svg" alt="noImage"
-          (click)="addMessage(); scrollBar.scrollTo({ bottom: 0 })" />
+          (click)="addMessage();" />
       </div>
     </div>
   </div>
@@ -403,7 +406,7 @@
               <div style="height: 190px">
                 <ng-scrollbar autoHeightDisabled="false" appearance="standard">
                   <mat-option *ngFor="let item of selectedChatRoom?.members" [value]="{item}">
-                    {{ item.name }}
+                    {{ item?.name }}
                   </mat-option>
                 </ng-scrollbar>
               </div>
