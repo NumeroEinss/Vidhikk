@@ -11,6 +11,8 @@ import { UserLayoutComponent } from './user-layout/user-layout.component';
 import { JudgeLayoutComponent } from './judge-layout/judge-layout.component';
 import { LandingPageComponent } from './shared/component/landing-page/landing-page.component';
 import { SellerLayoutComponent } from './seller-layout/seller-layout.component';
+import { DeleteUserComponent } from './shared/component/delete-user/delete-user.component';
+import { PrivacyPolicyComponent } from './shared/component/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path: 'vidhik',
     component: LandingPageComponent
+  },
+  {
+    path: 'delete-user',
+    component: DeleteUserComponent
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent
   },
   {
     path: 'auth/login',

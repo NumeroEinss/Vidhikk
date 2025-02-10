@@ -54,21 +54,41 @@ export class ApolloService {
       );
   }
 
-  get(url: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-    });
+  get(url: string, reqBody?: any): Observable<any> {
+    let headers = {};
+    if (reqBody != null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        userId: reqBody.userId,
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+      });
+    }
     return this._http
       .get(this.baseUrl + url, { headers });
   }
 
-  post(url: string, body?: any): Observable<any> {
+  post(url: string, body?: any, reqBody?: any): Observable<any> {
     const data = body;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-    });
+    let headers = {};
+    if (reqBody != null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        userId: reqBody.userId,
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+      });
+    }
     return this._http
       .post(this.baseUrl + url, data, { headers });
   }
@@ -82,12 +102,26 @@ export class ApolloService {
       .delete(this.baseUrl + url, { headers });
   }
 
-  put(url: string, body: any): Observable<any> {
+  put(url: string, body: any,reqBody?:any): Observable<any> {
     const data = body;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-    });
+    let headers = {};
+    if (reqBody != null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        userId: reqBody.userId,
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+      });
+    }
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   Accept: '*/*',
+    // });
     return this._http
       .put(this.baseUrl + url, data, { headers });
   }

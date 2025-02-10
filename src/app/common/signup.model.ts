@@ -103,7 +103,7 @@ export class SellerSignupModel {
     isPrimaryContactVisible = new FormControl(true);
     secondaryContact = new FormControl("");
     isSecondaryContactWhatsapp = new FormControl(false);
-    isSecondaryContactVisible = new FormControl(true);
+    isSecondaryContactVisible = new FormControl(false);
     isEmailVisible = new FormControl(true);
     isAddressVisible = new FormControl(true);
     orgainization = new FormControl("");

@@ -39,7 +39,6 @@ export class AuthService {
     if (sessionStorage.getItem('userData')) {
       const userData = JSON.parse(sessionStorage.getItem('userData')!);
       this.profileImageSubject?.next(userData.profileImage);
-      console.log("userDataaaa", userData)
       this.currentUserSubject.next(userData)
       if (userData.userType == 'LAWYER') { this._subscriptionService.getSubscriptionDetails(); }
       if (userData.userType == 'SELLER') { this._subscriptionService.getSubscriptionDetails(); }
@@ -76,7 +75,6 @@ export class AuthService {
           else {
             this._router.navigate(['/user/activity-feed']);
           }
-          
         }
         else if (userType == "LAWYER") {
           if (this._router.url.includes('?')) {

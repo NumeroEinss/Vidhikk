@@ -49,8 +49,6 @@ export class CreateSubDiaryComponent {
       caseDiaryId: this.createSubDiaryForm.controls.caseDiaryId.value,
       memberId: this.createSubDiaryForm.controls.memberId.value
     };
-
-    console.log("data",data)
     if (this.createSubDiaryForm.valid) {
       this._apolloService.mutate(GQLConfig.createSubDiary, data).subscribe(objRes => {
         if (objRes.data != null) {

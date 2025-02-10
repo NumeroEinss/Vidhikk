@@ -126,7 +126,7 @@
       <div class="email">{{ userData.email }}</div>
       <div class="plan">
         {{ (_authService.currentUserSubject | async)?.activePlan }}
-          <!-- {{activePlan}} -->
+        <!-- {{activePlan}} -->
       </div>
     </div>
   </div>
@@ -403,7 +403,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <app-subscription-plan [toggleId]="'#scannerModal'" [transactionId]="transactionId"></app-subscription-plan>
+        <app-subscription-plan [toggleId]="'#scannerModal'" [transactionId]="transactionId"
+          (clicked)="getQrData($event)" [closeModalId]="'closeQrModal'"></app-subscription-plan>
         <!-- <app-subscription-plan [toggleId]="'d'"></app-subscription-plan> -->
       </div>
     </div>
@@ -414,8 +415,7 @@
 <!-- QR payment popup start -->
 <!-- <button id="scannerModalButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
   data-bs-target="#scannerModal" class="d-none"></button> -->
-<div class="modal fade" id="scannerModal" tabindex="-1" aria-labelledby="scannerModalLabel"
-  style="width: 100%">
+<div class="modal fade" id="scannerModal" tabindex="-1" aria-labelledby="scannerModalLabel" style="width: 100%">
   <div class="modal-dialog modal-md modal-dialog-centered qr-modal" style="width: 430px">
     <div class="modal-content">
       <div class="modal-header">
@@ -470,7 +470,7 @@ data-bs-target="#paymentSuccessModal" class="d-none"></button> -->
           These details will be shown to you only 48 hours after the payment is
           completed.
         </p>
-        <div class="mt-4 mb-4 px-4 py-3" style="border: 1px solid #0000001a; border-radius: 12px">
+        <div class="mt-4 mb-4" style="border: 1px solid #0000001a; border-radius: 12px">
           <div class="payment-detail">Payment Details</div>
           <div class="transaction-detail">
             <div class="d-flex mt-2 justify-content-between">

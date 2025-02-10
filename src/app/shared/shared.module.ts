@@ -25,6 +25,8 @@ import { RouterModule } from '@angular/router';
 import { YearPickerComponent } from './component/year-picker/year-picker.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { QRCodeModule } from 'angularx-qrcode';
+import { DeleteUserComponent } from './component/delete-user/delete-user.component';
+import { PrivacyPolicyComponent } from './component/privacy-policy/privacy-policy.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { QRCodeModule } from 'angularx-qrcode';
     QrModalComponent,
     HighlightOnSearchPipe,
     LandingPageComponent,
-    YearPickerComponent
+    YearPickerComponent,
+    DeleteUserComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     CommonModule,

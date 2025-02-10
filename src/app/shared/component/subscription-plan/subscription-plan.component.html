@@ -90,11 +90,24 @@
             <div>/ Year</div>
           </div>
         </div>
-        <div class="cancel-button" *ngIf="item.planHeading !== (_authService.currentUserSubject|async)?.activePlan">
+        <!-- <div class="cancel-button" *ngIf="item.planHeading !== (_authService.currentUserSubject|async)?.activePlan">
           <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
             data-bs-toggle="modal" [attr.data-bs-target]="toggleId ? toggleId : '#qrModal'" (click)="choosePlan(item)">
             Choose Plan
           </button>
+        </div> -->
+
+        <div class="cancel-button" *ngIf="item.planHeading !==(_authService.currentUserSubject | async)?.activePlan">
+          <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
+            data-bs-toggle="modal" [attr.data-bs-target]="toggleId ? toggleId : '#qrModal'"
+            (click)="getPayentStatus(item)" *ngIf="item.planHeading != 'FREE PLAN'">
+            Choose Plan
+          </button>
+          <button mat-raised-button color="primary" style="width: fit-content !important" class="cancel-btn"
+            (click)="setFreePlan(item); btn.click()" *ngIf="item.planHeading == 'FREE PLAN'">
+            Choose Plan
+          </button>
+          <button #btn class="d-none" data-bs-dismiss="modal"></button>
         </div>
       </div>
       }
