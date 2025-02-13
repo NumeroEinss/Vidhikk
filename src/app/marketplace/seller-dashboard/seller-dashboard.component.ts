@@ -7,6 +7,7 @@ import { GQLConfig } from '../../graphql.operations';
 import { imageUrl } from '../../graphql.module';
 import { AuthService } from '../../shared/services/auth.service';
 import { addproductModel, editproductModel } from '../../common/marketplace.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-seller-dashboard',
@@ -35,22 +36,51 @@ export class SellerDashboardComponent {
   previewImages: any = [];
   editFiles: any = [];
   editPreviewImages: string[] = [];
+  planLimits: { [key: string]: number } = {};
+  currentUserSubscription: Subscription;
+  activePlan: string = 'FREE PLAN';
 
   categoryList = [
     { value: 'Clothing', viewValue: 'Clothing' },
     { value: 'Appliances', viewValue: 'Appliances' },
     { value: 'Office Supplies', viewValue: 'Office Supplies' },
-  ]
+  ];
 
   constructor(private fb: FormBuilder, private router: Router, private toastMessage: ToastMessageService,
     private apolloService: ApolloService, public _authService: AuthService) {
+    this.currentUserSubscription = this._authService.currentUserSubject
+      .subscribe(user => {
+        this.activePlan = user.activePlan;
+      });
+
     this.addProductForm = this.fb.group(new addproductModel());
     this.editProductForm = this.fb.group(new editproductModel());
 
-    this.userData = JSON.parse(sessionStorage.getItem('userData')!)
+    this.userData = JSON.parse(sessionStorage.getItem('userData')!);
+    this.sellerPlanList();
     this.getSellerDetail();
     this.getSellerProductList();
   }
+
+  sellerPlanList() {
+    this.apolloService.mutate(GQLConfig.getPlanList, { planType: 'SELLER' }).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.planList.status == 200) {
+          this.planLimits = objRes.data.planList.data.plans.reduce((acc: any, plan: any) => {
+            acc[plan.planHeading] = parseInt(plan.planDescription, 10);
+            return acc;
+          }, {});
+        }
+      }
+    })
+  }
+
+  notifySeller() {
+    if (this.planLimits[this.activePlan] !== undefined) {
+      this.toastMessage.error(`You can't add more than ${this.planLimits[this.activePlan]} products`);
+    }
+  }
+
 
   isNumber(event: any) {
     return event.charCode >= 48 && event.charCode <= 57;

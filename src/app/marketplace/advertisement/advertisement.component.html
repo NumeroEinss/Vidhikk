@@ -1,10 +1,11 @@
 <app-header [menuName]="'Advertisement'"></app-header>
+<!-- <app-header [menuName]="'Ads'" class="responsive-header"></app-header> -->
 
 <div class="root">
     <div style="height: calc(100vh - 162px);">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
             <div class="heading">Add Banners</div>
-            <div class="file-upload-section">
+            <div class="file-upload-section" [ngStyle]="activePlan == 'FREE PLAN'? {'margin-right':'20px'}:{'margin-right':'0'}">
                 <div class="d-flex mb-3 mt-1 radio-btns">
                     <div class="upload-type">
                         <label>
@@ -19,7 +20,7 @@
                     </div>
                     <div class="image-preview">Image Preview</div>
                 </div>
-                <div style="display: flex; gap: 30px;">
+                <div style="display: flex; gap: 30px;" class="image-section">
                     <div class="file-container" [ngClass]="{ 'has-images': hasBanner }">
                         <div class="drop-zone">
                             <input type="file" (change)="onBannerSelected($event)" #BannerFileInput
@@ -27,7 +28,7 @@
                             <div class="add-picture" (click)="BannerFileInput.click()">
                                 <div class="choose-file">Choose Files</div>
                             </div>
-                            <div class="upload-btn" *ngIf="hasBanner"><button mat-raised-button color="primary"
+                            <div class="upload-btn" *ngIf="hasBanner"><button mat-raised-button color="primary"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                                     style="width: fit-content !important" (click)="uploadBanners()">
                                     Upload
                                 </button></div>
@@ -52,9 +53,9 @@
                 </div>
             </div>
 
-            <div class="heading mt-5">Advertisement</div>
+            <div class="heading mt-5"  *ngIf="activePlan !== 'FREE PLAN'">Advertisement</div>
 
-            <div class="tabs">
+            <div class="tabs" *ngIf="activePlan !== 'FREE PLAN'">
                 <div (click)="toggleBanners('slider')"
                     [ngClass]="{'colored-heading': isBannerShow, 'default-heading': !isBannerShow}">
                     Front Banners</div>
@@ -62,7 +63,7 @@
                    Right Side Ads</div>
             </div>
 
-            <div *ngIf="isBannerShow">
+            <div *ngIf="isBannerShow && activePlan !== 'FREE PLAN'">
                 <div *ngIf="bannerList == null" class="d-flex justify-content-center mt-5">
                     <img src="../../../assets/images/image/No_Data.png" alt="">
                 </div>
@@ -106,7 +107,7 @@
                 </div>
             </div>
 
-            <div *ngIf="isAdShow">
+            <div *ngIf="isAdShow && activePlan !== 'FREE PLAN'" >
                 <div *ngIf="bannerList == null" class="d-flex justify-content-center mt-5">
                     <img src="../../../assets/images/image/No_Data.png" alt="">
                 </div>

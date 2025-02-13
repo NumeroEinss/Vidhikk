@@ -72,7 +72,7 @@
     </div> -->
   </div>
   <ng-scrollbar autoHeightDisabled="false" appearance="standard" orientation="horizontal"
-    style="margin: 30px 0px; height: 466px" [ngStyle]="{ 'min-width': planList.length * 200 + 'px' }">
+    style="margin: 30px 0px; height: 466px" [ngStyle]="{ 'min-width': planList.length * 250 + 'px' }">
     <div class="d-flex" style="gap: 30px; flex-wrap: nowrap">
       @for (item of sellerPlans; track $index) {
       <div class="plan">
@@ -81,6 +81,7 @@
         </div>
         <div class="plan-name">{{ item.planHeading }}</div>
         <div class="beginners">{{ item.planDescription }} Products</div>
+        <div class="beginners">{{ item.duration > 1? item.duration + ' ' + 'Ads': item.duration + ' ' +  'Ad'}}</div>
         <div class="free">
           <div class="rupee">
             <img src="../../assets/images/icons/repey.svg" alt="noImage" />
