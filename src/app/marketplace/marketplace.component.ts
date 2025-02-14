@@ -18,7 +18,8 @@ export class MarketplaceComponent {
   defaultProductLength = 20;
   serachProduct: string = '';
   filteredProduct: any = [];
-
+  sliderImages: any;
+  ads: any;
   searchSubject = new Subject<string>();
   searchProductValue = '';
 
@@ -30,7 +31,7 @@ export class MarketplaceComponent {
     { value: 'briefCase', viewValue: 'Briefcase' },
   ];
 
-  carouselImagess = [
+  carouselImages = [
     {
       image: '../../assets/images/image/marketplace_img.png'
     },
@@ -39,20 +40,31 @@ export class MarketplaceComponent {
     }
   ];
 
+ adList = [
+    {
+      image: '../../assets/images/image/ad.png'
+    },
+    {
+      image: '../../assets/images/image/marketplace1_img.png'
+    }
+  ];
+
 
   constructor(private router: Router, private apolloService: ApolloService, private toastMessage: ToastMessageService) {
+    this.getApprovedSlider();
+    this.getApprovedAds();
     this.getProductsDataSource();
   }
 
   ngOnInit() {
     this.updateProductNameLength();
-    this.searchSubject.pipe(debounceTime(300)).subscribe((search:any) => this.searchProduct(search));
+    this.searchSubject.pipe(debounceTime(300)).subscribe((search: any) => this.searchProduct(search));
   }
 
   onSearchChange(value: string) {
     this.searchSubject.next(value);
   }
-  
+
 
   onResize() {
     this.updateProductNameLength();
@@ -81,6 +93,44 @@ export class MarketplaceComponent {
 
   getImageUrl(image: any) {
     return imageUrl() + image;
+  }
+
+  getApprovedSlider() {
+    let data = {
+      inputType: 'slider'
+    }
+    this.apolloService.mutate(GQLConfig.getApprovedBannersAndAdds, data).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.getApprovedBannersAndAdds.status == 200) {
+          data.data.getApprovedBannersAndAdds.data.approvedBanners.forEach((data: any) => {
+            this.sliderImages = data.adSliderImages;
+          });
+          this.toastMessage.success(data.data.getApprovedBannersAndAdds.message);
+        }
+        else {
+          this.toastMessage.error(data.data.getApprovedBannersAndAdds.message);
+        }
+      }
+    })
+  }
+
+  getApprovedAds() {
+    let data = {
+      inputType: 'ads'
+    }
+    this.apolloService.mutate(GQLConfig.getApprovedBannersAndAdds, data).subscribe(data => {
+      if (data.data != null) {
+        if (data.data.getApprovedBannersAndAdds.status == 200) {
+          data.data.getApprovedBannersAndAdds.data.approvedBanners.forEach((data: any) => {
+            this.ads = data.adMarketSideImage;
+          });
+          this.toastMessage.success(data.data.getApprovedBannersAndAdds.message);
+        }
+        else {
+          this.toastMessage.error(data.data.getApprovedBannersAndAdds.message);
+        }
+      }
+    })
   }
 
   getProductsDataSource() {

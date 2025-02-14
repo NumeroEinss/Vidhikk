@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ToastMessageService } from '../../shared/services/snack-alert.service';
 import { ApolloService } from '../../shared/services/apollo.service';
 import { GQLConfig } from '../../graphql.operations';
+import { imageUrl } from '../../graphql.module';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-advertisement',
@@ -24,7 +27,13 @@ export class AdvertisementComponent {
   isBannerShow: boolean = true;
   isAdShow: boolean = false;
   bannerList: any = [];
-
+  adLimits: { [key: string]: number } = {};
+  sellerPlan: any;
+  planDescription: any = 0;
+  currentUserSubscription: Subscription;
+  activePlan: string = 'FREE PLAN';
+  bannerCount: number = 0;
+  // rightSideAdCount: number = 0;
 
   sellerList = [
     {
@@ -41,9 +50,31 @@ export class AdvertisementComponent {
     },
   ];
 
-  constructor(private toastMessage: ToastMessageService, private apolloService: ApolloService) {
+  constructor(private toastMessage: ToastMessageService, private apolloService: ApolloService,
+    private _authService: AuthService) {
     this.userData = JSON.parse(sessionStorage.getItem('userData')!);
+
+    this.currentUserSubscription = this._authService.currentUserSubject
+      .subscribe(user => {
+        this.activePlan = user.activePlan;
+      });
+    this.sellerPlanList();
     this.getMarketPlaceBanner(this.uploadType);
+  }
+
+  sellerPlanList() {
+    this.apolloService.mutate(GQLConfig.getPlanList, { planType: 'SELLER' }).subscribe(objRes => {
+      if (objRes.data != null) {
+        if (objRes.data.planList.status == 200) {
+          this.sellerPlan = objRes.data.planList.data.plans;
+          console.log("plans", objRes.data.planList.data.plans);
+          this.adLimits = objRes.data.planList.data.plans.reduce((acc: any, plan: any) => {
+            acc[plan.planHeading] = parseInt(plan.duration, 10);
+            return acc;
+          }, {});
+        }
+      }
+    })
   }
 
   toggleBanners(inputType: string) {
@@ -58,6 +89,10 @@ export class AdvertisementComponent {
     this.getMarketPlaceBanner(inputType);
   }
 
+  getImageUrl(image: any) {
+    return imageUrl() + image;
+  }
+
   getMarketPlaceBanner(inputType: string) {
     let data = {
       inputType: inputType,
@@ -68,7 +103,6 @@ export class AdvertisementComponent {
       if (data.data != null) {
         if (data.data.getMarketPlaceBanner.status == 200) {
           this.bannerList = data.data.getMarketPlaceBanner.data
-          console.log('List',  this.bannerList)
           this.toastMessage.success(data.data.getMarketPlaceBanner.message);
         }
         else {
@@ -104,9 +138,20 @@ export class AdvertisementComponent {
             const isValid = image.width === dimensions.width && image.height === dimensions.height;
 
             if (isValid) {
-              this.previewBanners.push(image.src);
-              this.hasBanner = true;
-              this.fileUploaded = true;
+              this.sellerPlan.forEach((data: any) => {
+                if (data.planHeading == this.activePlan) {
+                  const maxAdAllowed = data.duration;
+                  if (this.bannerCount >= maxAdAllowed) {
+                    this.toastMessage.error(`You can't add more ads for Banners (Max: ${maxAdAllowed})`);
+                    return;
+                  }
+                  else {
+                    this.previewBanners.push(image.src);
+                    this.hasBanner = true;
+                    this.fileUploaded = true;
+                  }
+                }
+              })
             } else {
               this.toastMessage.error(
                 `Invalid image dimensions for ${this.uploadType}. Required dimensions are: ${dimensions.width}x${dimensions.height}.`
@@ -118,7 +163,6 @@ export class AdvertisementComponent {
       });
     }
   }
-
 
   onUpdatedFileSelected(event: any) {
     const fileList = event.target.files;
@@ -155,6 +199,9 @@ export class AdvertisementComponent {
           this.previewBanners = [];
           this.fileUploaded = false;
           this.hasBanner = false;
+          this.bannerCount++
+          console.log("banners", this.bannerCount )
+          this.getMarketPlaceBanner(this.uploadType);
         }
         else {
           this.toastMessage.error(objRes.data.marketPlaceBanner.message);
@@ -165,6 +212,12 @@ export class AdvertisementComponent {
 
   removeBanner(index: number) {
     this.previewBanners.splice(index, 1)
+    // if (this.uploadType === 'slider') {
+      this.bannerCount--
+    // }
+    // else {
+    //   this.rightSideAdCount--
+    // }
   }
 
   removeLatestBanner(index: number) {

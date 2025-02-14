@@ -22,11 +22,11 @@
 
             <div class="search-bar">
                 <mat-form-field appearance="outline">
-                    <input matInput placeholder="Search Products"  [(ngModel)]="searchProductValue" 
-                    (ngModelChange)="onSearchChange($event)" />
+                    <input matInput placeholder="Search Products" [(ngModel)]="searchProductValue"
+                        (ngModelChange)="onSearchChange($event)" />
                     <div matSuffix>
                         <img src="../../../assets/images/icons/search-blue.svg"
-                            style="margin-right: 15px; cursor: pointer"/>
+                            style="margin-right: 15px; cursor: pointer" />
                     </div>
                 </mat-form-field>
             </div>
@@ -37,9 +37,10 @@
                 <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel"
                     data-bs-interval="3000">
                     <div class="carousel-inner">
-                        <div class="carousel-item" *ngFor="let img of carouselImagess; let i = index"
+                        <div class="carousel-item" *ngFor="let img of carouselImages; let i = index"
                             [class.active]="i === 0">
-                            <img [src]="img.image" class="d-block w-100" alt="...">
+                            <img [src]="img.image" class="d-block w-100"
+                                onerror="this.onerror=null,this.src='../../../../assets/images/image/no-image.png'">
                         </div>
                     </div>
                     <div class="prev-btn"><img src="../../assets/images/image/previous (1).png"
@@ -57,8 +58,9 @@
                             <div class="like" *ngIf="detail.like == true"><img src="../../assets/images/icons/like.svg"
                                     class="liked-icon"></div>
                             <div (click)="productDetail(detail)">
-                                <div class="product-image"><img [src]="getImageUrl(detail.productImages[0])" 
-                                    onerror="this.onerror=null,this.src='../../../../assets/images/image/no-image.png'"></div>
+                                <div class="product-image"><img [src]="getImageUrl(detail.productImages[0])"
+                                        onerror="this.onerror=null,this.src='../../../../assets/images/image/no-image.png'">
+                                </div>
                                 <div class="detail">
                                     <div class="name">{{ detail.productName.length > defaultProductLength
                                         ? (detail.productName | slice:0:defaultProductLength) + '...'
@@ -76,8 +78,8 @@
                         </div>
                     </div>
                     <div class="advertisement">
-                        <img class="ad mb-2" src="../../assets/images/image/advertisement_2.png" alt="noImage" />
-                        <img class="ad mb-1" src="../../assets/images/image/ad.png" alt="noImage" />
+                        <img *ngFor="let img of adList" class="ad mb-2" [src]="img.image"
+                            onerror="this.onerror=null,this.src='../../../../assets/images/image/no-image.png'" />
                     </div>
                 </div>
             </ng-scrollbar>

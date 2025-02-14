@@ -106,7 +106,7 @@
     </div> -->
     <div class="user-details">
       <div class="name">{{userData.name || userData.lawyerName}}</div>
-      <div class="plan">{{userData.activePlan}}</div>
+      <div class="plan"> {{ (_authService.currentUserSubject | async)?.activePlan }}</div>
     </div>
     <div class="profile-container" (click)="redirectToProfile()">
       <img [src]="getImageUrl(this.userImage)"
@@ -125,8 +125,8 @@
       <div class="d-flex">{{ userData.name }}</div>
       <div class="email">{{ userData.email }}</div>
       <div class="plan">
-        <!-- {{ (_authService.currentUserSubject | async)?.activePlan }} -->
-          {{activePlan}}
+        {{ (_authService.currentUserSubject | async)?.activePlan }}
+        <!-- {{activePlan}} -->
       </div>
     </div>
   </div>
@@ -255,6 +255,14 @@
           <img src="../../assets/images/icons/marketplace.svg" class="in-active" />
           <img src="../../assets/images/icons/active_marketplace.svg" class="active" />
           Marketplace</a>
+      </li>
+
+      <li [routerLinkActive]="'active-link'">
+        <a routerLink="/seller/marketplace/advertisement">
+          <!-- <mat-icon>storefront</mat-icon> -->
+          <img src="../../assets/images/icons/marketplace.svg" class="in-active" />
+          <img src="../../assets/images/icons/active_marketplace.svg" class="active" />
+          Advertisement</a>
       </li>
 
       <li [routerLinkActive]="'active-link'">
@@ -403,7 +411,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <app-subscription-plan [toggleId]="'#scannerModal'" [transactionId]="transactionId"></app-subscription-plan>
+        <app-subscription-plan [toggleId]="'#scannerModal'" [transactionId]="transactionId"
+          (clicked)="getQrData($event)" [closeModalId]="'closeQrModal'"></app-subscription-plan>
         <!-- <app-subscription-plan [toggleId]="'d'"></app-subscription-plan> -->
       </div>
     </div>
@@ -414,8 +423,7 @@
 <!-- QR payment popup start -->
 <!-- <button id="scannerModalButton" mat-raised-button color="primary w-100" data-bs-toggle="modal"
   data-bs-target="#scannerModal" class="d-none"></button> -->
-<div class="modal fade" id="scannerModal" tabindex="-1" aria-labelledby="scannerModalLabel"
-  style="width: 100%">
+<div class="modal fade" id="scannerModal" tabindex="-1" aria-labelledby="scannerModalLabel" style="width: 100%">
   <div class="modal-dialog modal-md modal-dialog-centered qr-modal" style="width: 430px">
     <div class="modal-content">
       <div class="modal-header">
@@ -470,7 +478,7 @@ data-bs-target="#paymentSuccessModal" class="d-none"></button> -->
           These details will be shown to you only 48 hours after the payment is
           completed.
         </p>
-        <div class="mt-4 mb-4 px-4 py-3" style="border: 1px solid #0000001a; border-radius: 12px">
+        <div class="mt-4 mb-4" style="border: 1px solid #0000001a; border-radius: 12px">
           <div class="payment-detail">Payment Details</div>
           <div class="transaction-detail">
             <div class="d-flex mt-2 justify-content-between">

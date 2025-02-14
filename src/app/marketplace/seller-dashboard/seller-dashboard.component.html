@@ -79,8 +79,17 @@
     </div>
     <div class="action-btns">
         <div class="add-btn">
-            <button mat-stroked-button id="addProductButton" color="primary" data-bs-toggle="modal"
-                data-bs-target="#addProductModal">Add Product</button>
+            <button mat-stroked-button id="addProductButton" color="primary"
+                *ngIf="planLimits[activePlan] && productList.length < planLimits[activePlan]" data-bs-toggle="modal"
+                data-bs-target="#addProductModal">
+                Add Product
+            </button>
+
+            <button mat-stroked-button id="addProductButton" color="primary"
+                *ngIf="planLimits[activePlan] && productList.length >= planLimits[activePlan]" (click)="notifySeller()">
+                Add Product
+            </button>
+
 
         </div>
         <div class="delete-btn" *ngIf="productList.length > 0">
@@ -144,6 +153,9 @@
             </div>
 
             <div *ngIf="isReviewShow">
+                <div class="for-no-record" *ngIf="reviewList.length == 0">
+                    <img src="../../../assets/images/image/No_Data.png" alt="">
+                </div>
                 <div class="reviews-container" *ngFor="let review of reviewList">
                     <div class="reviews-content">
                         <div class="d-flex align-items-center">
@@ -310,13 +322,15 @@
                                     {{ category.viewValue }}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="editProductForm.controls['category'].hasError('required')">Please select category</mat-error>
+                            <mat-error *ngIf="editProductForm.controls['category'].hasError('required')">Please select
+                                category</mat-error>
                         </mat-form-field>
 
                         <mat-label class="mat-label mt-2 mb-1">Product Name</mat-label>
                         <mat-form-field appearance="outline">
                             <input matInput placeholder="Enter product name" formControlName="productName" required />
-                            <mat-error *ngIf="editProductForm.controls['productName'].hasError('required')">Please enter name</mat-error>
+                            <mat-error *ngIf="editProductForm.controls['productName'].hasError('required')">Please enter
+                                name</mat-error>
                         </mat-form-field>
 
                         <mat-label class="mat-label mt-2 mb-1">Product Description</mat-label>
@@ -324,7 +338,8 @@
                             <textarea id="text-area" type="text" matInput placeholder="Enter description"
                                 formControlName="productDescription" minlength="10" required></textarea>
                             <mat-error
-                                *ngIf="editProductForm.controls['productDescription'].hasError('required')">Please enter description</mat-error>
+                                *ngIf="editProductForm.controls['productDescription'].hasError('required')">Please enter
+                                description</mat-error>
                             <mat-error *ngIf="
                                     !editProductForm.controls.productDescription.hasError('required') &&
                                     editProductForm.controls.productDescription.hasError('minlength')
@@ -334,7 +349,8 @@
                         <mat-form-field appearance="outline">
                             <input matInput placeholder="Enter product price" formControlName="productPrice"
                                 (keypress)="isNumber($event)" required />
-                            <mat-error *ngIf="editProductForm.controls['productPrice'].hasError('required')">Please enter product price</mat-error>
+                            <mat-error *ngIf="editProductForm.controls['productPrice'].hasError('required')">Please
+                                enter product price</mat-error>
                         </mat-form-field>
 
                         <mat-label class="mat-label mt-2 mb-1">Add Image</mat-label>

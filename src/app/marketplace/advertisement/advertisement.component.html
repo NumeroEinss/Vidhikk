@@ -1,25 +1,26 @@
 <app-header [menuName]="'Advertisement'"></app-header>
+<!-- <app-header [menuName]="'Ads'" class="responsive-header"></app-header> -->
 
 <div class="root">
     <div style="height: calc(100vh - 162px);">
         <ng-scrollbar autoHeightDisabled="false" appearance="standard">
             <div class="heading">Add Banners</div>
-            <div class="file-upload-section">
-                <div class="d-flex mb-3 mt-1">
+            <div class="file-upload-section" [ngStyle]="activePlan == 'FREE PLAN'? {'margin-right':'20px'}:{'margin-right':'0'}">
+                <div class="d-flex mb-3 mt-1 radio-btns">
                     <div class="upload-type">
                         <label>
                             <input type="radio" name="uploadType" value="slider" (change)="onUploadTypeChange('slider')"
                                 checked />
                             Front Banner (1210x308 px)
                         </label>
-                        <label class="ms-5">
+                        <label class="ad-label">
                             <input type="radio" name="uploadType" value="ads" (change)="onUploadTypeChange('ads')" />
                             Right Side Ad (300x600 px)
                         </label>
                     </div>
-                    <div class="ms-5">Image Preview</div>
+                    <div class="image-preview">Image Preview</div>
                 </div>
-                <div style="display: flex; gap: 30px;">
+                <div style="display: flex; gap: 30px;" class="image-section">
                     <div class="file-container" [ngClass]="{ 'has-images': hasBanner }">
                         <div class="drop-zone">
                             <input type="file" (change)="onBannerSelected($event)" #BannerFileInput
@@ -27,7 +28,7 @@
                             <div class="add-picture" (click)="BannerFileInput.click()">
                                 <div class="choose-file">Choose Files</div>
                             </div>
-                            <div class="upload-btn" *ngIf="hasBanner"><button mat-raised-button color="primary"
+                            <div class="upload-btn" *ngIf="hasBanner"><button mat-raised-button color="primary"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                                     style="width: fit-content !important" (click)="uploadBanners()">
                                     Upload
                                 </button></div>
@@ -39,8 +40,8 @@
                             <div class="selected-image">
                                 <div class="image-preview" *ngIf="previewBanners.length > 0">
                                     <div *ngFor="let image of previewBanners; index as i" class="image-wrapper"
-                                        [ngStyle]="uploadType == 'slider'? {'width':'400px'}:{'width':'300'}">
-                                        <img [src]="image" alt="Selected-Image">
+                                        [ngClass]="uploadType == 'slider'? 'slider-img':'side-ad'">
+                                        <img [src]="image" alt="Selected-Image" >
                                         <div class="close-btn" (click)="removeBanner(i)"><img
                                                 src="../../../assets/images/icons/close_button.svg" alt="">
                                         </div>
@@ -52,18 +53,21 @@
                 </div>
             </div>
 
-            <div class="heading mt-5">Advertisement</div>
+            <div class="heading mt-5"  *ngIf="activePlan !== 'FREE PLAN'">Advertisement</div>
 
-            <div class="tabs">
+            <div class="tabs" *ngIf="activePlan !== 'FREE PLAN'">
                 <div (click)="toggleBanners('slider')"
                     [ngClass]="{'colored-heading': isBannerShow, 'default-heading': !isBannerShow}">
                     Front Banners</div>
                 <div (click)="toggleAds('ads')" [ngClass]="{'colored-heading': isAdShow, 'default-heading': !isAdShow}">
-                    Side Ads</div>
+                   Right Side Ads</div>
             </div>
 
-            <div *ngIf="isBannerShow">
-                <div class="banner-list">
+            <div *ngIf="isBannerShow && activePlan !== 'FREE PLAN'">
+                <div *ngIf="bannerList == null" class="d-flex justify-content-center mt-5">
+                    <img src="../../../assets/images/image/No_Data.png" alt="">
+                </div>
+                <div class="banner-list"  *ngIf="bannerList != null">
                     <div class="banner-list-header">
                         <div class="grid-item1">Image</div>
                         <div class="grid-item1">Status</div>
@@ -72,7 +76,7 @@
                     <div class="banner-list-data">
                         <div class="grid-item2" *ngFor="let img of bannerList.adSliderImages">
                             <a [href]="img" target="_blank">
-                                <img [src]="img"
+                                <img [src]="getImageUrl(img)"
                                     onerror="this.onerror=null;this.src='../../../../assets/images/image/no-image.png'"
                                     class="banner-img">
                             </a>
@@ -89,8 +93,8 @@
                             </div>
                         </div>
                         <div class="grid-item2 d-flex align-items-center">
-                            <button class="edit-btn" [disabled]="bannerList.status === 'approved'"
-                                [ngClass]="{ 'disabled-btn': bannerList.status === 'approved'}" data-bs-toggle="modal"
+                            <button class="edit-btn" [disabled]="bannerList.status === 'Approved'"
+                                [ngClass]="{ 'disabled-btn': bannerList.status === 'Approved'}" data-bs-toggle="modal"
                                 data-bs-target="#editAdModal">
                                 <img src="../../../assets/images/icons/edit_blue.svg" alt="">
                             </button>
@@ -103,8 +107,11 @@
                 </div>
             </div>
 
-            <div *ngIf="isAdShow">
-                <div class="banner-list">
+            <div *ngIf="isAdShow && activePlan !== 'FREE PLAN'" >
+                <div *ngIf="bannerList == null" class="d-flex justify-content-center mt-5">
+                    <img src="../../../assets/images/image/No_Data.png" alt="">
+                </div>
+                <div class="banner-list"  *ngIf="bannerList != null">
                     <div class="banner-list-header">
                         <div class="grid-item1">Image</div>
                         <div class="grid-item1">Status</div>
@@ -113,16 +120,16 @@
                     <div class="banner-list-data">
                         <div class="grid-item2" *ngFor="let img of bannerList.adMarketSideImage">
                             <a [href]="img" target="_blank">
-                                <img [src]="img"
+                                <img [src]="getImageUrl(img)"
                                     onerror="this.onerror=null;this.src='../../../../assets/images/image/no-image.png'"
                                     class="banner-img">
                             </a>
                         </div>
                         <div class="grid-item2">
-                            <div class="oval-div close-status" *ngIf="bannerList.status == 'rejected'">
+                            <div class="oval-div close-status" *ngIf="bannerList.status == 'Rejected'">
                                 Rejected
                             </div>
-                            <div class="oval-div process-status" *ngIf="bannerList.status == 'approved'">
+                            <div class="oval-div process-status" *ngIf="bannerList.status == 'Approved'">
                                 Approved
                             </div>
                             <div class="oval-div pending-status" *ngIf="bannerList.status == 'Pending'">
@@ -130,8 +137,8 @@
                             </div>
                         </div>
                         <div class="grid-item2 d-flex align-items-center">
-                            <button class="edit-btn" [disabled]="bannerList.status === 'approved'"
-                                [ngClass]="{ 'disabled-btn': bannerList.status === 'approved'}" data-bs-toggle="modal"
+                            <button class="edit-btn" [disabled]="bannerList.status === 'Approved'"
+                                [ngClass]="{ 'disabled-btn': bannerList.status === 'Approved'}" data-bs-toggle="modal"
                                 data-bs-target="#editAdModal">
                                 <img src="../../../assets/images/icons/edit_blue.svg" alt="">
                             </button>

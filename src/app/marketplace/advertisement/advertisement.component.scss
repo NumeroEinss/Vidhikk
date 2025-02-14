@@ -1,3 +1,11 @@
+.main-header {
+    display: block;
+}
+
+.responsive-header {
+    display: none;
+}
+
 .root {
     margin: 30px;
     margin-right: 0;
@@ -8,17 +16,19 @@
     }
 
     .file-upload-section {
-        // display: flex;
-        // gap: 30px;
         margin-top: 20px;
         border: 1px solid #f0f0f0;
         border-radius: 10px;
         padding: 10px;
 
-        .upload-type{
-            input{
+        .upload-type {
+            input {
                 cursor: pointer;
-            } 
+            }
+
+            .ad-label {
+                margin: 0 80px;
+            }
         }
 
         .file-container {
@@ -82,6 +92,14 @@
                         padding: 8px;
                         width: 260px;
                         height: 240px;
+                    }
+
+                    .slider-img {
+                        width: 400px;
+                    }
+
+                    .side-ad {
+                        width: 300px;
                     }
 
                     .image-wrapper img {
@@ -332,12 +350,184 @@
     }
 }
 
-@media only screen and (min-width: 1024px) and (max-width: 4400px) {
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+    .root {
+        margin: 20px 0 20px 20px;
+
+        .file-upload-section {
+            margin-right: 20px;
+
+            .radio-btns {
+                flex-wrap: wrap;
+
+                .ad-label {
+                    margin: 0 30px;
+                }
+            }
+
+            .image-preview {
+                display: none;
+            }
+
+            .file-container {
+                width: 40%;
+
+                .drop-zone {
+                    .add-picture {
+                        .choose-file {
+                            padding: 10px 8px;
+
+                        }
+                    }
+                }
+            }
+
+            .ng-scroll {
+                width: 100%;
+                height: calc(100vh - 838px);
+
+                .selected-image {
+                    .image-preview {
+                        .slider-img {
+                            width: 340px;
+                        }
+
+                        .side-ad {
+                            width: 300px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1201px) and (max-width: 1439px) {
     .root {
         .file-upload-section {
+            margin-right: 30px;
+
+            .ng-scroll {
+                width: 100%;
+                height: calc(100vh - 478px);
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1900px) and (max-width:3839px) {
+    .root {
+        .file-upload-section {
+            margin-right: 30px;
+
+            .ng-scroll {
+                width: 100%;
+                height: calc(100vh - 838px);
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 3840px) and (max-width:4400px) {
+    .root {
+        .file-upload-section {
+            margin-right: 30px;
+
             .ng-scroll {
                 width: 100%;
                 height: unset;
+            }
+        }
+    }
+}
+
+
+@media (max-width:600px) {
+    // .main-header{
+    //     display: none;
+    // }
+
+    // .responsive-header{
+    //     display: block;
+    // }
+
+    .root {
+        margin: 20px 0 20px 20px;
+
+        .file-upload-section {
+            margin-right: 20px;
+
+            .radio-btns {
+                flex-wrap: wrap;
+
+                .ad-label {
+                    margin: 10px 0 0 0;
+                }
+            }
+
+            .image-preview {
+                display: none;
+            }
+
+            .image-section {
+                flex-wrap: wrap;
+            }
+
+            .file-container {
+                width: 100%;
+                flex-wrap: wrap;
+
+                .drop-zone {
+                    height: 100px;
+
+                    .add-picture {
+                        .choose-file {
+                            font-size: 12px;
+                            padding: 10px 8px;
+
+                        }
+                    }
+
+                    .upload-btn {
+                        margin-top: 15px;
+
+                        .mat-mdc-raised-button {
+                            font-size: 12px;
+                        }
+
+                    }
+                }
+            }
+
+            .ng-scroll {
+                width: 100%;
+                height: unset;
+
+                .selected-image {
+                    .image-preview {
+                        .slider-img {
+                            width: 290px;
+                        }
+
+                        .side-ad {
+                            width: 300px;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        .banner-list {
+            overflow-x: scroll;
+            width: calc(100vw - 35px);
+
+            .banner-list-header {
+                min-width: 800px;
+            }
+
+            .banner-list-data {
+                min-width: 800px;
             }
         }
     }
